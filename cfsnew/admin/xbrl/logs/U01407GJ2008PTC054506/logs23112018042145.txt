@@ -1,0 +1,26 @@
+23-11-2018 04:21:45 : Started at 23-11-2018 04:21:45
+--------------------------------------------------------------------------------
+23-11-2018 04:21:50 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U01407GJ2008PTC054506/in-gaap/ASTRAL%20BIOCHEM%20PRIVATE%20LIMITED_BS_Standalone_2012.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542973907&Signature=YMPSJQEyiV2gwsUYpgiW923MWgY%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+23-11-2018 04:21:51 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U01407GJ2008PTC054506/in-gaap/ASTRAL%20BIOCHEM%20PRIVATE%20LIMITED_BS_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542973910&Signature=AM44XAOX5ut%2BDLensmZTl%2FxY8wc%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+23-11-2018 04:21:53 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U01407GJ2008PTC054506/in-gaap/ASTRAL%20BIOCHEM%20PRIVATE%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542973911&Signature=f%2BAoM0Db21EEoSy9iT%2Fr3XUnRCk%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+23-11-2018 04:21:55 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U01407GJ2008PTC054506/in-gaap/ASTRAL%20BIOCHEM%20PRIVATE%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542973913&Signature=qQlsNjxehidII0vlPL2DhpRu%2FDI%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+23-11-2018 04:21:56 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U01407GJ2008PTC054506/in-gaap/ASTRAL%20BIOCHEM%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542973915&Signature=wbYh1leBYMm5cYk7tr7e%2F8DkqBk%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+23-11-2018 04:21:56 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+23-11-2018 04:21:56 : End of Script
+--------------------------------------------------------------------------------

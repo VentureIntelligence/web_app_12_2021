@@ -1,0 +1,14 @@
+29-03-2019 12:01:55 : Started at 29-03-2019 12:01:55
+--------------------------------------------------------------------------------
+29-03-2019 12:01:59 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74899MH1994PTC182093/in-gaap/HUNTER%20DOUGLAS%20INDIA%20PVT%20LTD_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1553844717&Signature=nqsqP8LUTF8KPVzNln4v9OAu9VQ%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+29-03-2019 12:02:00 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74899MH1994PTC182093/in-gaap/HUNTER%20DOUGLAS%20INDIA%20PVT%20LTD_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1553844719&Signature=sKllOsATIoP6eyaIXnCGHn7ka1o%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+29-03-2019 12:02:00 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+29-03-2019 12:02:00 : End of Script
+--------------------------------------------------------------------------------

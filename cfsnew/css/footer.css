@@ -1,0 +1,18 @@
+/*footer*/
+#footer { color:#ffffff; font-size:0.75em; background:url(../images/images/bot.gif) top repeat-x ; }
+#footer .indent-footer{ padding:20px 0 0 0;}
+#footer a {color:#ffffff; text-decoration:none}  
+#footer a:hover {  text-decoration:underline}
+.bot-left{ background:url(../images/images/bot_left.gif) top left no-repeat}
+.bot-right{ background:url(../images/images/bot_right.gif) top right no-repeat; height:46px}
+
+#footer ul{margin:0; padding:0; list-style:none;}
+#footer ul li{ margin:0; display:inline; background:url(../images/images/bg_li.gif) center left no-repeat; float:left}
+#footer ul li a{color:#ffffff; text-decoration:none; display:block; float:left; padding:2px 10px 2px 10px} 
+#footer ul li a:hover { text-decoration:underline; }
+#footer ul .first{background:none;}
+#footer ul .first a{ padding-left:0}
+#footer ul li .current{ text-decoration:underline }
+/*======= footer =======*/
+#footer { height:51px; background:url(../images/images/bot1.gif) top left repeat-x  }
+#footer .bg-bot{height:51px;  background:url(../images/images/bot.gif) top center no-repeat}

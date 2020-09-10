@@ -1,0 +1,22 @@
+18-12-2018 03:30:33 : Started at 18-12-2018 03:30:33
+--------------------------------------------------------------------------------
+18-12-2018 03:30:41 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45209MH2010PTC301565/in-gaap/GODHRA%20EXPRESSWAYS%20PRIVATE%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1545130838&Signature=xuRPatgk1wWECJoeRVaR05ZsWOw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+18-12-2018 03:30:44 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45209MH2010PTC301565/in-gaap/GODHRA%20EXPRESSWAYS%20PRIVATE%20LIMITED_PL_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1545130841&Signature=dhjvcoepZxq55B0ge5uIQEUNKJ8%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+18-12-2018 03:30:50 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45209MH2010PTC301565/in-gaap/GODHRA%20EXPRESSWAYS%20PRIVATE%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1545130844&Signature=BnpJYczyWMQCqx3k7J8YmCspHs0%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+18-12-2018 03:30:54 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45209MH2010PTC301565/in-gaap/GODHRA%20EXPRESSWAYS%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1545130850&Signature=Wzlz09Zx7C0CMbYKulSn%2BAp1Sqo%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+18-12-2018 03:30:54 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+18-12-2018 03:30:54 : End of Script
+--------------------------------------------------------------------------------

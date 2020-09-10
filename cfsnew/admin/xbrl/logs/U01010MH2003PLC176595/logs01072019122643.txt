@@ -1,0 +1,962 @@
+01-07-2019 12:26:43 : Started at 01-07-2019 12:26:43
+--------------------------------------------------------------------------------
+01-07-2019 12:26:45 : XBRL2 Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : SHP standalone entered
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding of Promoters Found In The XML
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Added Classname to the Generated HTML
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Generated HTML file has been saved in the folder
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding of Promoters Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:48 : Shareholding Pattern of top ten Shareholders Found
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Requested For Type = N Excel Type = Standalone - XML Found - XBRL/U01010MH2003PLC176595/ind-as/JSW STEEL PROCESSING CENTRES LIMITED_Standalone_2018.xml
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : S3 xml file check success
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Starting xml and requested format check for old or new
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : New format condition staisfied
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : New format & Excel type standalone entered
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add SHP Array Into Excel creation starting
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : SHP Excel Generation process started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : SHP Excel Generation Loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : SHP Excel Created
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding - SHP Code started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding started for company ID 3803
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add SHP - Loop starts
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding of Promoters 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding of Promoters 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding of Promoters 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding of Promoters 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding of Promoters 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding of Promoters 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholding of Promoters 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Top 10 Shareholders 18
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add Shareholders Insert loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Regen Excel for Shareholding Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : SHP Standalone Excel Created and moved to cfs-old folder in shpaddfinancialdata
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Regen Excel for Shareholding Ended
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add financial for type new pl standalone excel create starting
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : PL Standalone Excel Generation process started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : PL Standalone Excel Loop enter
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : PL Standalone Excel Loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : PL Standalone Excel Created
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add financial for type new bs standalone excel create starting
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : BS Standalone Excel Generation process started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : BS Standalone Excel loop enter
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : BS Standalone Excel loops ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : BS Standalone Excel Created
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add financial for type new Cash-Flow standalone excel create starting
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Cash-Flow Standalone Excel Generation process started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Cash-Flow Standalone Excel loop enter
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Cash-Flow Standalone Excel loops ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Cash-Flow Standalone Excel Created
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add financial for pl starting
+--------------------------------------------------------------------------------
+01-07-2019 12:26:51 : Add financial - PL Code started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial started for company ID 3803
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Standalone file detected
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Year count check
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Test data populated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Existing Data Check enter
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Delete FY18 data from DB
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Delete FY17 data from DB
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - PL Insert loop started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - FY18 pl data inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - FY17 pl data inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - PL Insert loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR function call entered
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Previous plstd check count satisfied
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR loop starts
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Growth percentage for FY18 inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR for FY18 inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Growth percentage for FY17 inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR for FY17 inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Growth percentage for FY16 updated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR for FY16 updated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Growth percentage for FY15 updated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR for FY15 updated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - Growth percentage for FY14 updated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR for FY14 updated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial - CAGR function call exit and return
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Add financial ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Regen Excel for PL Standalone Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : PL Standalone Excel Created and moved to cfs-old folder in addcfinancials
+--------------------------------------------------------------------------------
+01-07-2019 12:26:52 : Regen Excel for PL Ended
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add financial for bs starting
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add financial - BS Code started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS started for companyID 3803
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - Test data populated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - Loop starts
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY check Query Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY check Query Ended
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - 18 exist and updating value
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY18 data inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - Loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY check Query Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY check Query Ended
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - 17 exist and updating value
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY17 data inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - Loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY check Query Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY check Query Ended
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - 16 exist and updating value
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - FY16 data inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS - Loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Add BS ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Regen Excel for BS Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Addcfinanicals - BS Standalone Excel loop enter
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Addcfinanicals - BS Standalone Excel loops ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : BS Standalone Excel Created and moved to cfs-old folder in addcfinancials
+--------------------------------------------------------------------------------
+01-07-2019 12:26:53 : Regen Excel for BS Ended
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial for Cash-Flow starting
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial - Cash-Flow Code started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add Cash-Flow financial started for company ID 3803
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial - Standalone file detected
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add Cash-Flow started for companyID 3803
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial - Year count check
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial - Test data populated
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add Cash-Flow - Loop starts
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial - FY18 Cash-Flow data inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial - FY17 Cash-Flow data inserted
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial - Cash-Flow Insert loop ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Add financial ends
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Regen Excel for Cash-Flow Standalone Started
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Cash-Flow Standalone Excel Created and moved to cfs-old folder in cfaddfinancialdata
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Regen Excel for Cash-Flow Ended
+--------------------------------------------------------------------------------
+01-07-2019 12:26:54 : Complete Folder move started for ind-as - U01010MH2003PLC176595
+--------------------------------------------------------------------------------
+01-07-2019 12:26:55 : End of Script
+--------------------------------------------------------------------------------

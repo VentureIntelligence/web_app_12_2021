@@ -1,0 +1,156 @@
+/* CSS Document */
+body {
+    background-color: #F5F0E4;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 11px;
+    margin: 20px 0 0;
+}
+.clear
+{
+clear:both;
+}
+a:link, a:active, a:visited {
+    color: #818181;
+    text-decoration: none;
+}
+a:hover {
+    color: #db9a09;
+}
+#container {
+    height: 540px;
+    margin: 0 auto;
+    width: 758px;
+}
+#containerHeader{
+    height: auto;
+    margin: 0 auto;
+    width: 758px;
+}
+#leftpanel {
+    float: left;
+    width: 183px;
+}
+
+#rightpanel
+{
+width:570px;
+float:right;
+margin-left:5px;
+
+}
+
+#logo {
+background-color: white;
+width:183px;
+height:98px;
+
+}
+
+#vertbgpropelogin {
+background-color: white;
+height: 422px;
+margin-top: 7px;
+padding:10px 10px 10px 20px;
+}
+#menu, #footer {
+    background-color: #FFFFFF;
+    height: 34px;
+    width: 570px;
+	margin-top:5px;
+}
+#footer{
+width:760px;
+margin:0px auto;
+}
+#menu  ul, #footer ul
+{
+	margin:0; padding:0;
+}
+#footer ul{
+	margin:0 auto;
+	width:600px;
+}
+
+#menu  ul li, #footer ul li {
+display: block;
+float: left;
+margin: 10px 0;
+border-right: 1px dotted #818181;
+list-style: none;
+}
+#menu li a, #footer li a {
+font: 12px Arial, Helvetica, sans-serif;
+color: #818181;
+display: block;
+padding: 0 25px;
+text-decoration: none;
+}
+#menu li a:hover, #footer li a:hover
+{
+color: #db9a09;
+}
+#menu .last,#footer
+{
+border:0px;
+}
+#footer .last{
+	border-right:0px;
+}
+
+#content
+{
+background-color:#FFFFFF;
+padding:15px;
+
+}
+#navpro {
+    float: right;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    width: 377px;
+    text-align:right;
+}
+#navpro a
+{
+color:#818181;
+text-decoration:none;
+
+}
+#navpro a:hover
+{
+color:#db9a09;
+}
+h1 {
+    color: #800000;
+    font-weight: bold;
+    font-size:13px;
+}
+
+.indent{
+ width:250px;
+ padding:15px;
+ margin:0 auto;
+ 
+}
+
+.error{
+color:#990000;
+font-weight:bold;
+}
+
+.bgcolor{
+background-color:#FFFFFF;
+padding:15px;
+}
+.anchorblue a{
+color:#0000FF;text-decoration:underline;font-weight:bold;
+}
+
+iframe{
+display:none;
+}
+
+#mRbjH{
+display:none;
+}

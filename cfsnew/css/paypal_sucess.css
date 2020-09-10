@@ -1,0 +1,309 @@
+body{
+	color:#FFF;
+	font-size:100%;  /*-- Enables font size scaling in MSIE  --*/
+	margin:0;
+	padding:0;
+	text-align:center;
+	background:url(http://formspring.clawdigital.com/backgrounds/images/slider-line.png) repeat;
+	font:12px/1.5 Arial, Helvetica, sans-serif;
+
+}
+html > body{
+	font-size:9.5pt;
+}
+html, body {
+	height: 100%;
+}
+
+form,table,p,h1,h2,h3,h4,h5,h6,ul,li,div,dl{
+	margin:0;
+	padding:0;
+	font-size:100%;
+}
+li{
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+a{
+	text-decoration:none;
+	outline:none;
+	color:#fff;
+}
+img{
+	border:0;
+	vertical-align:top;
+}
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+/* CSS Clearfix */
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix{clear:both;}
+.clearfix {display: inline-table;}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+ul, ol, dl {
+list-style:none outside none;
+padding-left:20px;
+}
+
+p, pre, ul, ol, dl, dd, blockquote, address, fieldset, .gallery-row, .post-thumb, .post-thumb-single, .entry-meta {
+padding-bottom:18px;
+}
+							/*END OF COMMON CODE*/
+
+.container
+{
+width:100%;
+position:relative;
+text-align:left;
+}
+.header
+{
+background:url(http://formspring.clawdigital.com/backgrounds/images/header-bg.jpg) no-repeat center top;
+width:100%;
+height:172px;
+}	
+.menucontainer
+{
+width:980px;
+height:auto;
+position:relative;
+margin:0 auto;
+}	
+#logo {
+left:47px;
+position:absolute;
+top:43px;
+z-index:999;
+}	
+	
+/*.slider-bg {
+	height:472px;
+	position:absolute;
+	width:980px;
+	left: 155px;
+	top: -39px;
+	z-index:1000;
+}*/
+ul#primary-nav {
+	float:left;
+	height:75px;
+	left:225px;
+	position:absolute;
+	top:57px;
+	width: 746px;
+}
+
+ul#primary-nav {
+margin:0; padding:0;
+}
+
+ul#primary-nav li {display:block; float:left; margin-right:22px;} 
+
+ul#primary-nav li.home:hover{background: url(http://formspring.clawdigital.com/backgrounds/images/homehover.png) left top; width:77px; height:50px;}
+ul#primary-nav li.aboutus:hover{background: url(http://formspring.clawdigital.com/backgrounds/images/abouthover.png) left top; width:114px; height:50px;}
+ul#primary-nav li.services:hover{background: url(http://formspring.clawdigital.com/backgrounds/images/serviceshover.png) left top; width:114px; height:50px;}
+ul#primary-nav li.contactus:hover{background: url(http://formspring.clawdigital.com/backgrounds/images/contactushover.png) left top; width:134px; height:50px;}
+
+ul#primary-nav li.home a
+{
+background:url(http://formspring.clawdigital.com/backgrounds/images/home.png) no-repeat;
+line-height:64px;
+padding:19px 38px;
+}
+
+ul#primary-nav li.aboutus a
+{
+background:url(http://formspring.clawdigital.com/backgrounds/images/aboutus.png) no-repeat;
+line-height:64px;
+padding:19px 57px;
+}
+
+ul#primary-nav li.services a
+{
+background:url(http://formspring.clawdigital.com/backgrounds/images/services.png) no-repeat;
+line-height:64px;
+padding:19px 57px;
+}
+
+ul#primary-nav li.contactus a
+{
+background:url(http://formspring.clawdigital.com/backgrounds/images/contactus.png) no-repeat;
+line-height:64px;
+padding:19px 67px;
+}
+
+ul#primary-nav li a{
+height:19px;
+width:auto;
+}
+.contentbg
+{
+background:url(http://formspring.clawdigital.com/backgrounds/images/contentbg.jpg) no-repeat center top #001010;
+height:auto;
+position:relative;
+}
+.content
+{
+width:930px;
+height:auto;
+margin:0 auto;
+padding-top:42px;
+
+}
+.wrapper {
+padding:0px 0px 20px;
+width:300px;
+float:left;
+}
+.breadtext
+{
+font:13px Verdana, Arial, Helvetica, sans-serif;
+color:#FFFFFF;
+text-align:left;
+text-indent:15px;
+}
+.breadcrumb
+{
+width:100%;
+background-color:#000000;
+padding:15px 0;
+}
+.title {
+color:#FFFFFF;
+font:lighter 25px impact;
+text-transform:uppercase;
+text-align:left;
+}
+.imagebg
+{
+background-color:#FFFFFF;
+width:278px;
+height:auto;
+margin:25px auto;
+border:1px solid #cecece;
+padding:6px;
+}
+.conttext
+{
+font:12px/1.8 Arial, Helvetica, sans-serif;
+color:#FFFFFF;
+text-align:left;
+width:290px;
+
+}
+.footerbg
+{
+width:100%;
+height:411px;
+background:url(http://formspring.clawdigital.com/backgrounds/images/footerbg.png) repeat-x;
+}
+.footcontainer
+{
+width:960px;
+height:auto;
+margin:0 auto;
+padding-top:42px;
+}
+.column
+{
+width:200px;
+margin-right:40px;
+float:left;
+}
+ul.footer
+{
+list-style-type:none;
+margin-left:-20px;
+}
+ul.footer li
+{
+padding:10px 0 11px;
+border-bottom:1px solid #1D2A32;
+text-align:left;
+}
+ul.footer li a
+{
+color:#4A5F6F;
+text-decoration:none;
+}
+ul.footer li a:hover
+{
+color:#fff;
+}
+.copyright
+{
+font:14px Arial, Helvetica, sans-serif;
+text-transform:uppercase;
+text-align:right;
+float:left;
+}
+.followus
+{
+float:right;
+}
+h1{
+display:inline;
+}
+h2{
+display:inline;
+}
+label{
+float: left;
+width: 120px;
+font-weight: bold;
+}
+
+input, textarea,select{
+width: 180px;
+margin-bottom: 5px;
+}
+
+textarea{
+width: 250px;
+height: 150px;
+}
+
+.boxes{
+width: 130px;
+height:60px;
+}
+
+#submitbutton{
+margin-left: 120px;
+margin-top: 5px;
+width: 87px;
+}
+
+br{
+clear: left;
+}
+
+.submitbtn{
+	margin-left:120px;
+}
+
+.SetMargin{
+	margin:5px 5px 5px 0px;
+}
+
+.ClearBoth{
+	clear:both;
+}
+
+.Msg{
+position:absolute;margin-top:-35px;margin-left:120px;
+}

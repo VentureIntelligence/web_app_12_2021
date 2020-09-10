@@ -1,0 +1,20 @@
+06-06-2019 07:03:05 : Started at 06-06-2019 07:03:05
+--------------------------------------------------------------------------------
+06-06-2019 07:03:07 : XBRL2 Started
+--------------------------------------------------------------------------------
+06-06-2019 07:03:12 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/L45202UP1985PLC099376/in-gaap/ELDECO%20HOUSING%20AND%20INDUSTRIES%20LIMITED_Consolidated_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559831587&Signature=Lcj5gHY4pAAiS3aK4fY2jPyfomI%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+06-06-2019 07:03:17 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/L45202UP1985PLC099376/in-gaap/ELDECO%20HOUSING%20AND%20INDUSTRIES%20LIMITED_Consolidated_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559831592&Signature=vTeotCBhNNChXA%2BQbQJZt97gYC0%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+06-06-2019 07:03:21 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/L45202UP1985PLC099376/in-gaap/ELDECO%20HOUSING%20AND%20INDUSTRIES%20LIMITED_Consolidated_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559831597&Signature=bGx96atHyOSh6dS3O0ZWsqM8NdI%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+06-06-2019 07:03:21 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+06-06-2019 07:03:21 : End of Script
+--------------------------------------------------------------------------------

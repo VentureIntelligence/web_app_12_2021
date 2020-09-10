@@ -1,0 +1,3 @@
+254	Edelweiss Capital	9	Investment Banking	http://www.edelcap.com
+1467	KS Oils 	2	Edible Oil	http://www.ksoils.com
+1703	Fabindia 	12	Garments	http://www.fabindia.com

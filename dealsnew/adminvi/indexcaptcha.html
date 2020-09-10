@@ -1,0 +1,76 @@
+<html>
+    <head>
+<title>Your Page Title</title>
+       </head> 
+            <body>
+            <form id="form_name" name="form_name" method="post" action="action.php">
+            <table border="0" cellspacing="3" cellpadding="3">
+              <tr>
+                <td align="right" valign="middle">Name</td>
+                <td valign="middle"> </td>
+                <td colspan="2" align="left" valign="middle">
+                <label><input name="txt_name" type="text" class="login_reg" id="txt_name" style="width:250px; height:13px; vertical-align:top" />
+</label>
+                </td>
+              </tr>
+              <tr>
+                <td  align="right" valign="middle">Email Address</td>
+                <td valign="middle"></td>
+                <td colspan="2" align="left" valign="middle">
+                <label><input name="txt_mail_ad" type="text" class="login_reg" id="txt_mail_ad"style="width:250px; height:13px; vertical-align:top" />
+</label>
+                </td>
+              </tr>
+              <tr>
+                <td align="right" valign="middle">Phone No</td>
+                <td valign="middle"> </td>
+                <td align="left" valign="middle">
+                <label><input name="txt_area_code" type="text" class="login_reg" id="txt_area_code" style="width:40px; height:13px; vertical-align:top" />
+</label>
+                </td>
+                <td align="left" valign="middle">
+                <label><input name="txt_rest_no" type="text" class="login_reg" id="txt_rest_no" style="width:90px; height:13px; vertical-align:top" />
+</label>
+                </td>
+             </tr>
+              <tr>
+                <td align="right" valign="top" class="main"> </td>
+                <td valign="top"> </td>
+                <td align="left" valign="top" class="normalText">Area code</td>
+                <td align="left" valign="top" class="normalText">Rest no</td>
+              </tr>
+              <tr>
+                <td  align="right" valign="top">Short description <br />about your urgency</td>
+                <td> </td>
+                <td colspan="2" align="left" valign="top">
+                <label>
+     <textarea name="txa_des" cols="25" rows="15"  id="txa_des" style="background-color:#FFF; border:1px solid; border-color:#7ba5ce; width:300px">
+     </textarea></label>
+                </td>
+              </tr>
+              <tr>
+                <td align="right" class="messagedata" >Validation Code</td>
+                <td> </td>
+                <td colspan="2" align="left"><img src="captcha.php" width="125" height="40" alt="Captcha Code" /></td>
+                </tr>
+              <tr>
+                <td align="left"> </td>
+                <td align="left"> </td>
+                <td colspan="2" align="left">
+                  <label>
+                    <input type="text" name="validation_code" id="validation_code" style="width:90px; height:13px; vertical-align:top"  maxlength="6" />
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td align="left"> </td>
+                <td align="left"> </td>
+                <td colspan="2" align="left">
+                <label><input name="btn_submit" type="submit" class="send_button_long" id="btn_submit" value=" Send Message » " />
+</label>
+                </td>
+                </tr>
+            </table>
+        </form>
+     </body>
+</html>

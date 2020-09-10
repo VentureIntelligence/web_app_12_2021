@@ -1,0 +1,239 @@
+.growth_fulldetails
+{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+}
+
+.firstyear_growth
+{
+	width: 440px;
+	height: auto;
+	margin: 12px 5px 17px 0;
+	display: inline-block;
+	
+}
+.thirdyear_growth
+{
+	width: 440px;
+	height: auto;
+	margin: 12px 5px 17px 0;
+	display: inline-block;
+}
+.fifthyear_growth
+{
+	width: 440px;
+	height: auto;
+	margin: 12px 0 17px;
+	display: inline-block;
+}
+.growth_heading
+{
+	background: #414141;
+	color: #eeeeee;
+	font-size: 14px;
+	font-family:  calibri;
+	font-weight: bold;
+	text-align: center;
+	padding:15px 0;
+	text-transform: uppercase;
+}
+.growth_content
+{
+	padding: 12px 10px;
+	background: #dcdcdc;
+	overflow: hidden;
+}
+
+.total_income, .ebitda, .pat
+{
+	width:140px;
+	height: auto;
+	float: left;
+}
+.income_heading, .ebitda_heading, .pat_heading
+{
+	text-align: center;
+	font-family: calibri;
+	font-weight: normal;
+	font-size: 14px;
+	color: #000000;
+}
+
+.growth_details
+{
+	background: #ececec;
+	padding: 16px 6px;
+}
+.income_details, .ebitda_details, .pat_details
+{
+	width: 140px;
+	display: inline-block;
+}
+
+.up_bg
+{
+	background: url(../images/polygon.png) no-repeat center;
+	background-size: 21px 13px;
+	display: block;
+	margin-bottom: 6px;
+}
+
+.down_bg
+{
+	background: url(../images/polygon_down.png) no-repeat center;
+	background-size: 21px 13px;
+	display: block;
+	margin-bottom: 6px;
+}
+
+.up_content, .down_content
+{
+	color: #ffffff;
+	display: block;
+	margin-bottom: 12px;
+}
+.up_content p
+{
+	background: #249724;
+}
+
+.down_content p
+{
+	background: #ff1414;
+}
+.up_content p, .down_content p
+{
+	padding: 0 3px;
+	margin: 0 auto;
+	font-size: 13px;
+	font-family: calibri;
+	width:46px;
+        text-align: center;
+        font-weight: bold;
+}
+.up_amount, .down_amount
+{
+	font-family: calibri;
+	color: #000000;
+	font-size: 13px;
+	display: block;
+	text-align: center;
+}
+.up_amount
+{
+	color: #249724;
+}
+.down_amount
+{
+	color: #ff1414;
+}
+
+
+
+
+	.growth_fulldetails
+	{
+		width:100%;
+		overflow: hidden;
+	}
+	.firstyear_growth, .thirdyear_growth, .fifthyear_growth
+	{
+		width: 33% !important;
+		float: left;
+	}
+	.total_income, .ebitda, .pat
+	{
+		width: 33% !important;
+	}
+	.growth_details
+	{
+		padding:16px 0px !important;
+		overflow: hidden;
+	}
+	.growth_content
+	{
+		padding:12px 0px !important;
+	}
+	.thirdyear_growth .total_income, .thirdyear_growth .pat, .fifthyear_growth .total_income, .fifthyear_growth .ebitda
+	{
+		width:33% !important;
+		
+	}
+	.thirdyear_growth .income_details, .thirdyear_growth .pat_details, .fifthyear_growth .income_details, .fifthyear_growth .ebitda_details
+	{
+		width: 33% !important;
+		float: left;
+	}
+	.income_details, .ebitda_details, .pat_details
+	{
+		width: 33% !important;
+		float:left;
+	}
+
+        .fifthyear_growth{
+            margin-right:2px;
+        }
+        .fifthyear_growth:last-child{
+            margin-right:0px !important;
+        }
+        .cfs_menu{
+            width:100%;
+            font-size: large;
+        }
+        .cfs_menu ul li{
+            float: left;
+            padding: 15px 0;
+            margin-right: 0;
+            background: #413529;    
+            margin-bottom: 10px;
+            width: 11%;
+            cursor: pointer;
+            text-align: center;
+           color:rgba(255,255,255,0.5);
+         //   opacity: 0.5;
+        }
+        .cfs_menu ul .current{
+            box-shadow: none;  
+            margin-right: 0; 
+            margin-top: 0;
+           color:#fff;
+        }
+        .cfs_menu ul li:hover{
+            color: #fff; 
+            curser:pointer;
+        }
+        .container-right .companies-fount-new h1 {
+                float: left;
+        }
+        .companies-fount-new .compare-new {
+            float:right;
+            margin-top: 20px;
+        }
+        .companies-fount-new {
+            overflow: hidden;
+            margin:0 0 30px;
+        }
+    .click-top a{
+        position: fixed;
+        right:20px;
+        bottom: 20px;
+        width:50px;
+        height:50px;       
+    }
+    .click-top{        
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    }
+    .tab_menu{
+        display: none;
+    }
+    #balancesheet{
+        margin-top:10px;
+    }
+    .no_data{
+        padding: 10px;
+        text-align: center;
+    }

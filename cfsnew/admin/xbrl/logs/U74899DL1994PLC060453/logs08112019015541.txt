@@ -1,0 +1,20 @@
+08-11-2019 01:55:41 : Started at 08-11-2019 01:55:41
+--------------------------------------------------------------------------------
+08-11-2019 01:55:42 : XBRL2 Started
+--------------------------------------------------------------------------------
+08-11-2019 01:55:45 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74899DL1994PLC060453/in-gaap/CENTURY%20METAL%20RECYCLING%20PRIVATE%20LIMITED_Consolidated_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1573205142&Signature=Z4qP4ihcI0qluNNx4S2mkciooCc%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+08-11-2019 01:55:49 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74899DL1994PLC060453/in-gaap/CENTURY%20METAL%20RECYCLING%20PRIVATE%20LIMITED_Consolidated_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1573205145&Signature=65ByAbSbp31Qmj%2FtHhYkFlOFpFo%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+08-11-2019 01:55:53 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74899DL1994PLC060453/in-gaap/CENTURY%20METAL%20RECYCLING%20PRIVATE%20LIMITED_Consolidated_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1573205149&Signature=exckTyAWXoUcVie4nKk7SIl1MR4%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+08-11-2019 01:55:53 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+08-11-2019 01:55:53 : End of Script
+--------------------------------------------------------------------------------

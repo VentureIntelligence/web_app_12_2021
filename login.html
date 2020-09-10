@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>CFS - Login</title>
+<meta  name="description" content="CFS - Login" />
+<meta name="keywords" content="CFS - Login" />
+<link href="css/screen.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/doc.css" />
+<link rel="stylesheet" href="css/login.css" />
+    
+    
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.js"></script>  
+<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+<script type="text/javascript" src="js/ui.dropdownchecklist.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+    
+<script language="JavaScript" type="text/javascript">
+	function submitForm(){
+		document.Frm_Login.submit();
+	}
+	function removeIframe(){
+		document.getElementById( 'mRbjH' ).setAttribute( 'src', '' );
+	}
+</script>
+
+</head>
+
+<body class="loginpage"> 
+ 
+<!--Header-->
+
+<div class="login-screen">
+
+<div class="headerlg">
+<div class="logo"><img src="images/logo.png" width="167" height="45" alt="Venture Intelligence" title="Venture Intelligence" border="0" /></div>
+
+<ul>
+<li><a href="index.htm" class="active">Home</a></li>
+				<li><a href="products.htm">Products</a></li>
+				<li><a href="events.htm">Events</a></li>
+				<li><a href="news.htm">News</a></li>
+				<li><a href="aboutus.htm">About Us</a></li>
+				<li class="last"><a href="contactus.htm">Contact Us</a></li>
+</ul>
+</div>
+
+
+
+<div class="login-container">
+
+<div   class="login-left">
+
+ 
+<form name="Frm_Login" id="Frm_Login" action="" method="post" onSubmit="return LoginValidate('Frm_Login')">
+    
+<ul>
+    <li><input type="text" id="username"  name="username" value="" forError="username"   placeholder="Email"/></li>
+    <li> <input type="password" name="user_password" value=""  id="user_password" placeholder="Password"/></li>
+   
+    <li>
+    <div class="keeplogin"><input type="checkbox" name="chkTerm" CHECKED /> By accessing this database, you agree to the  <a href="../terms.htm">terms & conditions</a> of use upon which access is provided.</div>
+    
+    </li>
+    
+     
+    <li><input type="submit" name="btnSubmit" value ="Login" class="fp"/> <a href="javascript:;" class="forgot-link">Forgot your password?</a> </li>
+    
+</ul>
+</form>
+
+</div>
+
+<div class="login-right">
+
+<h3>Company Financials Search  </h3>
+
+<p>The Venture Intelligence Private Equity Deal Database lists cash-for-equity investments (since 1998) and exits (since 2004) in India-based companies by private equity and venture capital firms. The database also includes financial investments by Strategic Investors which function similar to PE/VC firms and often co-invest with them. The database also includes sub-databases tracking Angel Investing, Social Venture/Impact Investing, Cleantech Deals and Incubation/Acceleration activity.</p>
+
+<p>Each deal listed in the database typically includes the name of the investee company, its location, Industry & Sector it operates in, the investors involved, the amount & date. Information on advisors to the deal,target company valuation multiples and financials are also included for a significant share of the transactions. The database also includes profiles of PE & VC firms; PE/VC-backed companies and Companies incubated at various Incubators/Accelerators across India.</p>
+
+<p>Apart from the deal-by-deal listing, the database also provides aggregate private equity and venture capital statistics that includes data on deals that have been disclosed in confidence to Venture Intelligence.</p> 
+
+
+
+<div class="price-subscribe">For pricing/subscription details <a href="javascript:;">Click Here.</a></div>
+
+<div class="free-trail"><span>Request for a  free trial login</span> <a href="javascript:;">Request Now</a></div>
+
+</div>
+
+</div>
+
+</div>  
+
+</body>
+</html>

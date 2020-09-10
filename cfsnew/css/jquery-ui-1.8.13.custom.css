@@ -1,0 +1,33 @@
+   
+.ui-state-disabled { cursor: default !important; } 
+
+/* Component containers
+----------------------------------*/ 
+.ui-widget-content { border: 1px solid #aaaaaa; background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; color: #222222; }
+.ui-widget-content a { color: #222222; }
+.ui-widget-header { border: 1px solid #aaaaaa; background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; color: #222222; }
+.ui-widget-header a { color: #222222; }
+
+  
+
+.ui-dropdownchecklist-selector{
+	border:1px solid #CCCCCC !important;
+    display: block;
+    position: relative;
+    top: 0; 
+    margin-top: 0;
+    padding: 4px 7px;
+	height:30px;
+    width:180px !important;
+	margin-right:5px;
+    background: white;
+    background: -moz-linear-gradient(top, white 0%, #f3f3f3 100%);
+    background: -webkit-linear-gradient(top, white 0%, #f3f3f3 100%);
+    -webkit-box-shadow: none;
+    background: linear-gradient(to bottom, white 0%, #f3f3f3 100%);
+    box-shadow: none; 
+    vertical-align: top;
+	z-index:999999; float:left !important; }
+.ui-dropdownchecklist{ float:left;}
+
+.ui-dropdownchecklist-dropcontainer{ max-height:150px !important; overflow:auto;}

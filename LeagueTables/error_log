@@ -1,0 +1,154 @@
+[16-Mar-2013 06:25:12] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/vcint6bu/public_html/LeagueTables/simplexlsx.class.php on line 198
+[16-Mar-2013 06:25:12] PHP Warning:  Invalid argument supplied for foreach() in /home/vcint6bu/public_html/LeagueTables/simplexlsx.class.php on line 348
+[16-Mar-2013 06:25:12] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/vcint6bu/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/vcint6bu/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/vcint6bu/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/vcint6bu/public_html/LeagueTables/simplexlsx.class.php on line 53
+[19-Mar-2013 14:26:07] PHP Fatal error:  Call to undefined function html_entities() in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 330
+[21-Mar-2013 05:59:50] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[21-Mar-2013 06:06:20] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[21-Mar-2013 06:59:39] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[21-Mar-2013 06:59:49] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[21-Mar-2013 07:00:11] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[21-Mar-2013 11:10:50] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[21-Mar-2013 14:07:58] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[21-Mar-2013 14:20:21] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 254
+[22-Mar-2013 05:02:15] PHP Parse error:  syntax error, unexpected T_STRING, expecting ',' or ';' in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 335
+[27-Mar-2013 05:03:53] PHP Parse error:  syntax error, unexpected $end in /home/vcint6bu/public_html/LeagueTables/league_table.php on line 416
+[15-Sep-2015 23:20:41 America/Denver] PHP Warning:  filemtime() [<a href='function.filemtime'>function.filemtime</a>]: stat failed for LeagueTable.xlsx in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 185
+[15-Sep-2015 23:20:41 America/Denver] PHP Warning:  filesize() [<a href='function.filesize'>function.filesize</a>]: stat failed for LeagueTable.xlsx in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 186
+[15-Sep-2015 23:20:41 America/Denver] PHP Warning:  fopen(LeagueTable.xlsx) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: No such file or directory in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 191
+[15-Sep-2015 23:20:41 America/Denver] PHP Warning:  fread() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 192
+[15-Sep-2015 23:20:41 America/Denver] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 193
+[15-Sep-2015 23:20:41 America/Denver] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[15-Sep-2015 23:20:41 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:20:41 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:22:52 America/Denver] PHP Warning:  filemtime() [<a href='function.filemtime'>function.filemtime</a>]: stat failed for LeagueTable_2014.xlsx in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 185
+[15-Sep-2015 23:22:52 America/Denver] PHP Warning:  filesize() [<a href='function.filesize'>function.filesize</a>]: stat failed for LeagueTable_2014.xlsx in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 186
+[15-Sep-2015 23:22:52 America/Denver] PHP Warning:  fopen(LeagueTable_2014.xlsx) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: No such file or directory in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 191
+[15-Sep-2015 23:22:52 America/Denver] PHP Warning:  fread() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 192
+[15-Sep-2015 23:22:52 America/Denver] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 193
+[15-Sep-2015 23:22:52 America/Denver] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[15-Sep-2015 23:22:52 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:22:52 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:23:28 America/Denver] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[15-Sep-2015 23:23:28 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:23:28 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:23:31 America/Denver] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[15-Sep-2015 23:23:31 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:23:31 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:24:22 America/Denver] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[15-Sep-2015 23:24:22 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:24:22 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:28:05 America/Denver] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[15-Sep-2015 23:28:05 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:28:05 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:32:19 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: Entity: line 1: parser error : Start tag expected, '&lt;' not found in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:19 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: çœAÇ0–xáfˆRpaå°∞1&amp;l in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:19 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: ^ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:19 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:32:19 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:32:20 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: Entity: line 1: parser error : Start tag expected, '&lt;' not found in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:20 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: çœAÇ0–xáfˆRpaå°∞1&amp;l in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:20 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: ^ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:20 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:32:20 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[15-Sep-2015 23:32:21 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: Entity: line 1: parser error : Start tag expected, '&lt;' not found in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:21 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: çœAÇ0–xáfˆRpaå°∞1&amp;l in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:21 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: ^ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 347
+[15-Sep-2015 23:32:21 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 348
+[15-Sep-2015 23:32:21 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'Worksheet 1 not found.' in /home/venture/public_html/LeagueTables/simplexlsx.class.php:53
+Stack trace:
+#0 /home/venture/public_html/LeagueTables/simplexlsx.class.php(65): SimpleXLSX->worksheet(1)
+#1 /home/venture/public_html/LeagueTables/load_league_data.php(9): SimpleXLSX->rows()
+#2 {main}
+  thrown in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 53
+[12-Dec-2015 00:50:13 America/Denver] PHP Warning:  unpack() [<a href='function.unpack'>function.unpack</a>]: Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[12-Dec-2015 00:50:13 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: Entity: line 1: parser error : Start tag expected, '&lt;' not found in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[12-Dec-2015 00:50:13 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: îùAìGíùÔ2”†·Æ%ª‡9k&amp;dUV2/k2IwäƒÃ–ñ$FwG˙˜zQ˛ºûøhìtö›èÓ˛UdUæ. in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[12-Dec-2015 00:50:13 America/Denver] PHP Warning:  simplexml_load_string() [<a href='function.simplexml-load-string'>function.simplexml-load-string</a>]: ^ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[12-Dec-2015 00:50:13 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[12-Dec-2015 00:50:13 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[13-Feb-2016 06:21:45 America/Denver] PHP Warning:  unpack(): Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[13-Feb-2016 06:21:46 America/Denver] PHP Warning:  simplexml_load_string(): Entity: line 1: parser error : Start tag expected, '<' not found in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:21:46 America/Denver] PHP Warning:  simplexml_load_string(): ¨ù[ì7éÁﬂ7bøÉ¢'bK'3œ≠ñ'ft.UG/{}÷ÿÂ∂bl´WRwœ|˚ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:21:46 America/Denver] PHP Warning:  simplexml_load_string(): ^ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:21:46 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[13-Feb-2016 06:21:46 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[13-Feb-2016 06:21:55 America/Denver] PHP Warning:  unpack(): Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[13-Feb-2016 06:21:55 America/Denver] PHP Warning:  simplexml_load_string(): Entity: line 1: parser error : Start tag expected, '<' not found in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:21:55 America/Denver] PHP Warning:  simplexml_load_string(): ¨ù[ì7éÁﬂ7bøÉ¢'bK'3œ≠ñ'ft.UG/{}÷ÿÂ∂bl´WRwœ|˚ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:21:55 America/Denver] PHP Warning:  simplexml_load_string(): ^ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:21:55 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[13-Feb-2016 06:21:55 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[13-Feb-2016 06:22:07 America/Denver] PHP Warning:  unpack(): Type x: not enough input, need 1, have 0 in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 198
+[13-Feb-2016 06:22:07 America/Denver] PHP Warning:  simplexml_load_string(): Entity: line 1: parser error : Start tag expected, '<' not found in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:22:07 America/Denver] PHP Warning:  simplexml_load_string(): ¨ù[ì7éÁﬂ7bøÉ¢'bK'3œ≠ñ'ft.UG/{}÷ÿÂ∂bl´WRwœ|˚ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:22:07 America/Denver] PHP Warning:  simplexml_load_string(): ^ in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 372
+[13-Feb-2016 06:22:07 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[13-Feb-2016 06:22:07 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home/venture/public_html/LeagueTables/simplexlsx.class.php on line 70
+[11-Sep-2017 11:13:58 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/venture/public_html/LeagueTables/db.php on line 2
+[11-Sep-2017 11:14:03 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[11-Sep-2017 13:10:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/venture/public_html/LeagueTables/db.php on line 2
+[11-Sep-2017 13:10:24 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[11-Sep-2017 13:40:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/venture/public_html/LeagueTables/db.php on line 2
+[11-Sep-2017 13:40:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/venture/public_html/LeagueTables/db.php on line 2
+[11-Sep-2017 13:40:14 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[11-Sep-2017 13:40:14 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[11-Sep-2017 13:40:19 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[11-Sep-2017 13:40:21 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[11-Sep-2017 13:40:21 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 04:11:30 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/venture/public_html/LeagueTables/db.php on line 2
+[15-Sep-2017 04:11:34 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 04:11:34 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 04:11:38 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 04:11:40 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 04:11:41 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 09:31:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/venture/public_html/LeagueTables/db.php on line 2
+[15-Sep-2017 09:31:26 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 09:31:27 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 09:31:31 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 09:31:33 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31
+[15-Sep-2017 09:31:33 UTC] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/venture/public_html/LeagueTables/load_league_data.php on line 31

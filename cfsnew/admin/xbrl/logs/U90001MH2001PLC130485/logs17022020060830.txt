@@ -1,0 +1,22 @@
+17-02-2020 06:08:31 : Started at 17-02-2020 06:08:31
+--------------------------------------------------------------------------------
+17-02-2020 06:08:32 : XBRL2 Started
+--------------------------------------------------------------------------------
+17-02-2020 06:08:34 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U90001MH2001PLC130485/in-gaap/ANTONY%20WASTE%20HANDLING%20CELL%20PRIVATE%20LIMITED_Consolidated_2015.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1581946712&Signature=SMeUzsQPWN8qpU55ruUd62psUcA%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-02-2020 06:08:37 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U90001MH2001PLC130485/in-gaap/ANTONY%20WASTE%20HANDLING%20CELL%20PRIVATE%20LIMITED_Consolidated_2016.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1581946714&Signature=Xv84H544IVV4vwGN%2Bhkgaq3wwno%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-02-2020 06:08:40 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U90001MH2001PLC130485/in-gaap/ANTONY%20WASTE%20HANDLING%20CELL%20PRIVATE%20LIMITED_Consolidated_2017.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1581946717&Signature=EWXhC4L1E7y0Ls7MkmiHhec6SqY%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-02-2020 06:08:40 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+17-02-2020 06:08:40 : Company name and cin mismatch
+--------------------------------------------------------------------------------
+17-02-2020 06:08:40 : End of Script
+--------------------------------------------------------------------------------

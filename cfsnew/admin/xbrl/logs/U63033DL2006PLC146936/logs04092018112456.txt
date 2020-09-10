@@ -1,0 +1,26 @@
+04-09-2018 11:24:56 : Started at 04-09-2018 11:24:56
+--------------------------------------------------------------------------------
+04-09-2018 11:25:03 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U63033DL2006PLC146936/in-gaap/DELHI%20INTERNATIONAL%20AIRPORT%20LIMITED_BS_Standalone_2012.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536044098&Signature=B9C%2B%2BwBLcBhWdHZKXxQu4eWmul4%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 11:25:10 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U63033DL2006PLC146936/in-gaap/DELHI%20INTERNATIONAL%20AIRPORT%20LIMITED_BS_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536044103&Signature=OJmsVsAJWVkwjRbWXBNFLwJDKMY%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 11:25:21 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U63033DL2006PLC146936/in-gaap/DELHI%20INTERNATIONAL%20AIRPORT%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536044110&Signature=n0LjsJXD5Eaorjjj%2Fv0jlJ1YQUw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 11:25:31 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U63033DL2006PLC146936/in-gaap/DELHI%20INTERNATIONAL%20AIRPORT%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536044121&Signature=Gsct7pFay%2FxnEe%2BQk9%2FwgFpnfi8%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 11:25:39 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U63033DL2006PLC146936/in-gaap/DELHI%20INTERNATIONAL%20AIRPORT%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536044131&Signature=5j6UmLVt0AeV5p7jLraFyfZUpJo%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 11:25:39 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+04-09-2018 11:25:39 : End of Script
+--------------------------------------------------------------------------------

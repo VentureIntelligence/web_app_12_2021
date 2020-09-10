@@ -1,0 +1,26 @@
+
+/*======= index.html =======*/
+#page1 #content .col-1{ width:510px; margin-right:86px}
+#page1 #content .col-2{ width:275px}
+#page1 #content .bg{ background:url(../images/images/tail1.gif) repeat-y 553px top }
+/*======= index-1.html =======*/
+#page2 #content .col-1{ width:520px; margin-right:76px}
+#page2 #content .col-2{ width:275px}
+#page2 #content .bg{ background:url(../images/images/tail1.gif) repeat-y 553px top }
+/*======= index-2.html =======*/
+#page3 #content .col-1{ width:275px; margin-right:76px}
+#page3 #content .col-2{ width:510px}
+#page3 #content .bg{ background:url(../images/images/tail1.gif) repeat-y 312px top }
+#page3 #content .col-3{ width:151px; margin-right:28px; text-align:center}
+#page3 #content .col-4{ width:151px; text-align:center}
+/*======= index-3.html =======*/
+#page4 #content .col-1{ width:520px; margin-right:76px}
+#page4 #content .col-2{ width:275px}
+#page4 #content .bg{ background:url(../images/images/tail1.gif) repeat-y 553px top }
+#page4 #content .col-3{ width:240px; margin-right:32px}
+#page4 #content .col-4{ width:240px}
+/*======= index-4.html =======*/
+#page5 #content .col-1{ width:271px; margin-right:80px}
+#page5 #content .col-2{ width:510px}
+#page5 #content .bg{ background:url(../images/images/tail1.gif) repeat-y 312px top }
+

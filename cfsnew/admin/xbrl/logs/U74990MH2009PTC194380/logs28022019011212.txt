@@ -1,0 +1,52 @@
+28-02-2019 01:12:12 : Started at 28-02-2019 01:12:12
+--------------------------------------------------------------------------------
+28-02-2019 01:12:20 : Requested For Type = O Excel Type = Standalone - XML Found - XBRL/U74990MH2009PTC194380/in-gaap/MOS UTILITY PRIVATE LIMITED_BS_Standalone_2014.xml
+--------------------------------------------------------------------------------
+28-02-2019 01:12:20 : S3 xml file check success
+--------------------------------------------------------------------------------
+28-02-2019 01:12:20 : Starting xml and requested format check for old or new
+--------------------------------------------------------------------------------
+28-02-2019 01:12:20 : Old format condition staisfied
+--------------------------------------------------------------------------------
+28-02-2019 01:12:20 : Old format & Excel type standalone entered
+--------------------------------------------------------------------------------
+28-02-2019 01:12:22 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74990MH2009PTC194380/in-gaap/MOS%20UTILITY%20PRIVATE%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1551343340&Signature=cH7EGggKovnVTPvVNCVTWsGUfmU%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+28-02-2019 01:12:26 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74990MH2009PTC194380/in-gaap/MOS%20UTILITY%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1551343342&Signature=wd3IW9Vodqf2i%2FEqt8DpKbj9Ajc%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+28-02-2019 01:12:29 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74990MH2009PTC194380/in-gaap/MOS%20UTILITY%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1551343346&Signature=ka81GnwW0VwhXtKRFMyWnrAa9F0%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74990MH2009PTC194380/in-gaap/MOS%20UTILITY%20PRIVATE%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1551343349&Signature=bvCAyQ3gCR0nQf1qiPAtd%2BFlr1c%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : Add financial for type old bs standalone excel create starting
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : BS Standalone Excel Generation process started
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : BS Standalone Excel loop enter
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : BS Standalone Excel loops ends
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : BS Standalone Excel Created
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : Add financial for bs starting
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : Add financial - BS Code started
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : Add BS - CIN not found in Database
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+28-02-2019 01:12:32 : Complete Folder move started for in-gaap - U74990MH2009PTC194380
+--------------------------------------------------------------------------------
+28-02-2019 01:12:33 : End of Script
+--------------------------------------------------------------------------------

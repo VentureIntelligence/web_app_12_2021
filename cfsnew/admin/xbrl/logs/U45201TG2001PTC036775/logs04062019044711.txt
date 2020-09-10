@@ -1,0 +1,24 @@
+04-06-2019 04:47:11 : Started at 04-06-2019 04:47:11
+--------------------------------------------------------------------------------
+04-06-2019 04:47:13 : XBRL2 Started
+--------------------------------------------------------------------------------
+04-06-2019 04:47:17 : SHP standalone entered
+--------------------------------------------------------------------------------
+04-06-2019 04:47:17 : Shareholders Not Found
+--------------------------------------------------------------------------------
+04-06-2019 04:47:18 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45201TG2001PTC036775/in-gaap/POOJA%20CRAFTED%20HOMES%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559650637&Signature=O9eCnIHV%2F5KLU2SDg%2FMSjV0eI80%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-06-2019 04:47:19 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45201TG2001PTC036775/in-gaap/POOJA%20CRAFTED%20HOMES%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559650638&Signature=Wy4vCoLxShyvNSWT5wdxdCvxfl4%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-06-2019 04:47:21 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45201TG2001PTC036775/in-gaap/POOJA%20CRAFTED%20HOMES%20PRIVATE%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559650639&Signature=T4YQHagS%2BMgTCMzE3cywSkq%2BQ3U%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-06-2019 04:47:21 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+04-06-2019 04:47:21 : End of Script
+--------------------------------------------------------------------------------

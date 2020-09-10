@@ -1,0 +1,24 @@
+04-06-2019 05:02:26 : Started at 04-06-2019 05:02:26
+--------------------------------------------------------------------------------
+04-06-2019 05:02:28 : XBRL2 Started
+--------------------------------------------------------------------------------
+04-06-2019 05:02:32 : SHP standalone entered
+--------------------------------------------------------------------------------
+04-06-2019 05:02:32 : Shareholders Not Found
+--------------------------------------------------------------------------------
+04-06-2019 05:02:35 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45201TG2001PTC036775/in-gaap/POOJA%20CRAFTED%20HOMES%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559651552&Signature=rtLYiGW04zfzgqpttaRYaN7X420%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-06-2019 05:02:36 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45201TG2001PTC036775/in-gaap/POOJA%20CRAFTED%20HOMES%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559651555&Signature=2OsBfA%2B3AZqO8gc%2BzO6jAk3eRUE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-06-2019 05:02:38 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U45201TG2001PTC036775/in-gaap/POOJA%20CRAFTED%20HOMES%20PRIVATE%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1559651556&Signature=x88WvthwY1pyKIqGEGfAmY5o3Jk%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-06-2019 05:02:38 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+04-06-2019 05:02:38 : End of Script
+--------------------------------------------------------------------------------

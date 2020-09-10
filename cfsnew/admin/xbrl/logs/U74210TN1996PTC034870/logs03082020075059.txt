@@ -1,0 +1,36 @@
+03-08-2020 07:50:59 : Started at 03-08-2020 07:50:59
+--------------------------------------------------------------------------------
+03-08-2020 07:51:00 : XBRL2 Started
+--------------------------------------------------------------------------------
+03-08-2020 07:51:03 : SHP standalone entered
+--------------------------------------------------------------------------------
+03-08-2020 07:51:03 : Shareholding of Promoters Found In The XML
+--------------------------------------------------------------------------------
+03-08-2020 07:51:03 : Shareholding of Promoters Found In The XML
+--------------------------------------------------------------------------------
+03-08-2020 07:51:03 : Added Classname to the Generated HTML
+--------------------------------------------------------------------------------
+03-08-2020 07:51:03 : Generated HTML file has been saved in the folder
+--------------------------------------------------------------------------------
+03-08-2020 07:51:03 : Pattern Mismatch Found in the Shareholding of Promoters
+--------------------------------------------------------------------------------
+03-08-2020 07:51:03 : Pattern Mismatch Found in the Shareholding Pattern of top ten Shareholders
+--------------------------------------------------------------------------------
+03-08-2020 07:51:05 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74210TN1996PTC034870/in-gaap/SANMAR%20ENGINEERING%20TECHNOLOGIES%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1596468063&Signature=y8GBGpqAFpMkRdgs72cR23iWlOg%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+03-08-2020 07:51:07 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74210TN1996PTC034870/in-gaap/SANMAR%20ENGINEERING%20TECHNOLOGIES%20PRIVATE%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1596468065&Signature=yJI4qgLr7ou7u5RmD1DZj%2BaaOvE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+03-08-2020 07:51:08 : S3 browser connection issue https://companyfilings.s3.amazonaws.com/XBRL/U74210TN1996PTC034870/in-gaap/SANMAR%20ENGINEERING%20TECHNOLOGIES%20PRIVATE%20LIMITED_Standalone_2019.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1596468067&Signature=kN9Ic7dFl9RRqkPN0IeOj6ipM0s%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+03-08-2020 07:51:08 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+03-08-2020 07:51:08 : Company name and cin mismatch
+--------------------------------------------------------------------------------
+03-08-2020 07:51:08 : End of Script
+--------------------------------------------------------------------------------

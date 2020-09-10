@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Venture Intelligence</title>
+<link href="css/skin.css" rel="stylesheet" type="text/css" />  
+<link rel="stylesheet" type="text/css" href="css/detect800.css" />
+
+  <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script> 
+  <script src="js/jPages.js"></script>
+
+  <script src="js/jquery.icheck.min.js?v=0.9.1"></script>
+  
+  
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+  <script src="js/comboboxnew.js"></script> 
+
+   
+   
+  <script>
+  
+  
+
+            $(document).ready(function(){
+              $('input').iCheck({
+                checkboxClass: 'icheckbox_flat-red',
+                radioClass: 'iradio_flat-red'
+              });
+            });  
+			
+			$(document).ready(function() {
+
+	if ((screen.width>=1280) && (screen.height>=720))
+	{
+		//alert('Screen size: 1280x720 or larger');
+		$("link[rel=stylesheet]:not(:first)").attr({href : "css/detect1024.css"});
+	}
+	else
+	{
+		//alert('Screen size: less than 1280x720, 1024x768, 800x600 maybe?');
+		$("link[rel=stylesheet]:not(:first)").attr({href : "css/detect800.css"});
+	}
+});
+
+ 
+            </script>
+  
+</head>
+
+<body> 
+ 
+<!--Header-->
+ 
+<div id="header">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="left-box"> <div class="logo-img"> <a href="#"><img src="images/logo.gif" width="167" height="45" alt="Venture Intelligence" title="Venture Intelligence" border="0" /></a></div></td>
+
+
+<td class="right-box">
+<ul>
+<li><a href="javascript:;"><i class="i-dashboard"></i>Dashboard</a></li>
+<li class="active"><a href="javascript:;"><i class="i-data-deals"></i>Data/Deals</a></li>
+<li><a href="javascript:;"><i class="i-directory"></i>Directory</a></li>
+<li class="logout"><a href="javascript:;"><i class="i-logout"></i>Logout</a></li>
+</ul>
+</td>
+</tr>
+</table>
+
+</div>
+
+
+
+
+
+
+<div id="sec-header">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="left-box">
+
+<h3>Welcome <span>John</span></h3>
+<p>last login - 22/06/2013 00.00 hrs</p>
+
+<div class="links"><a href="#" class="fl">Change Password</a>               <a href="#" class="fr">Tutorial</a></div>
+
+</td>
+
+
+ 
+<td class="investment-form">
+<h3>INVESTMENTS</h3>
+
+<label><input name="investments" type="radio" value="" /> PE</label>
+
+<label><input name="investments" type="radio" value="" /> VC</label>
+
+<label><input name="investments" type="radio" value="" />Angel</label>
+
+<label><input name="investments" type="radio" value="" />Incubation</label>
+
+<label><input name="investments" type="radio" value="" />Cleantech</label>
+
+<label><input name="investments" type="radio" value="" />Infrastructure</label>
+
+<label><input name="investments" type="radio" value="" />Social</label>
+
+</td>
+
+
+
+<td class="exit-form">
+<h3>EXITS</h3>
+
+<label><input name="investments" type="radio" value="" /> IPO</label>
+
+<label><input name="investments" type="radio" value="" /> Public Mkt Sale</label>
+
+<label><input name="investments" type="radio" value="" />M&A </label>
+
+<label> <input name="" type="checkbox" value="" />Show Only VC? </label> 
+
+</td>
+
+
+
+
+<td class="vertical-form">
+<h3>VERTICAL</h3>
+
+<label> <select name=""><option>Industry</option><option>Industry 2</option></select></label>
+
+<label> <select name=""><option>Industry sector</option><option>Industry sector 2</option></select></label> 
+
+</td>
+
+
+<td class="search-btn"> <input name="" type="button" value="Search" /></td>
+ 
+ 
+</tr>
+</table>
+</div>
+
+
+
+
+
+<div id="container">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="left-box">
+
+<h3>Refine Search</h3>
+
+ 
+<ul class="refine">
+
+ <li class="ui-widget">
+  <label>Your preferred programming language: </label>
+  <select id="combobox">
+    <option value="">Select one...</option>
+    <option value="ActionScript">ActionScript</option>
+    <option value="AppleScript">AppleScript</option>
+    <option value="Asp">Asp</option>
+    <option value="BASIC">BASIC</option>
+    <option value="C">C</option>
+    <option value="C++">C++</option>
+    <option value="Clojure">Clojure</option>
+    <option value="COBOL">COBOL</option>
+    <option value="ColdFusion">ColdFusion</option>
+    <option value="Erlang">Erlang</option>
+    <option value="Fortran">Fortran</option>
+    <option value="Groovy">Groovy</option>
+    <option value="Haskell">Haskell</option>
+    <option value="Java">Java</option>
+    <option value="JavaScript">JavaScript</option>
+    <option value="Lisp">Lisp</option>
+    <option value="Perl">Perl</option>
+    <option value="PHP">PHP</option>
+    <option value="Python">Python</option>
+    <option value="Ruby">Ruby</option>
+    <option value="Scala">Scala</option>
+    <option value="Scheme">Scheme</option>
+  </select>
+</li>
+<li class="odd"><h4>Stage</h4>
+<select name=""><option>test1</option></select></li>
+
+
+<li class="even"><h4>Company Type</h4>
+ <label><input name="investor" type="checkbox" value="" />  Listed</label> 
+ <label><input name="investor" type="checkbox" value="" /> Un-Listed</label>  
+
+
+<li class="odd"><h4>Deal Type</h4>
+ <label><input name="investor" type="checkbox" value="" /> Equity</label> 
+ <label><input name="investor" type="checkbox" value="" /> Debt</label>  </li>
+
+
+<li class="even"><h4>Region</h4>
+<select name=""><option>test1</option></select></li>
+
+
+<li class="odd"><h4>Investor Type</h4>
+ <label><input name="investor" type="checkbox" value="" /> Foreign</label> 
+ <label><input name="investor" type="checkbox" value="" /> India</label> 
+ <label><input name="investor" type="checkbox" value="" /> Investment</label></li>
+
+
+
+<li class="even range-to"><h4>Deal Range (US $ M)</h4>
+<select name=""><option>test1</option></select><span class="range-text"> to</span> <select name=""><option>test1</option></select></li>
+
+
+<li class="odd period-to"><h4>Period</h4>
+<label>
+<h5>From</h5>
+<select name=""><option>JAN</option></select>   <select name=""><option>2012</option></select></label>
+<label class="pr0">
+<h5>To</h5>
+<select name=""><option>JAN</option></select>   <select name=""><option>2012</option></select></label>
+
+
+</li>
+
+
+<li class="even"><h4>Investor</h4>
+<select name=""><option>test1</option></select></li>
+
+
+<li class="odd"><h4>Legal Advisor</h4>
+<select name=""><option>test1</option></select></li>
+
+
+<li class="even"><h4>Transaction Advisor</h4>
+<select name=""><option>test1</option></select></li>
+
+</ul>
+
+</td>
+
+
+
+<td>
+
+<div class="result-cnt">
+
+<div class="result-title"><h2>794 results for</h2> <ul><li>PE Investments <a href="#"><img src="images/icon-close.png" width="9" height="8" border="0" /></a></li> <li>Industry: All <a href="#"><img src="images/icon-close.png" width="9" height="8" border="0" /></a></li> <li>Sector: All <a href="#"><img src="images/icon-close.png" width="9" height="8" border="0" /></a></li> <li>Last 2 Months <a href="#"><img src="images/icon-close.png" width="9" height="8" border="0" /></a></li> </ul> <h2> No. of Deals - 32     Value (US$ M) - 456</h2>
+
+<div class="alert-note">Note: Target/Company in () indicates tranche rather than a new round. Target/Company in indicates a debt investment. Not included in aggregate data.</div></div>
+
+
+
+ 
+
+<div class="veiw-tab"><ul>
+<li><a href="#"><i class="i-list-view"></i>List View</a></li>
+<li class="active"><a href="#"><i class="i-profile-view"></i>Profile View</a></li>
+<li><a href="#"><i class="i-trend-view"></i>Trend View</a></li>
+</ul>
+
+
+
+<div class="pagination-profile"> <a href="#">< Previous</a>  <a href="#">Next ></a> </div>
+
+</div>
+
+ 
+ <div class="profile-view-title"> 
+<h2>Greenko</h2>
+
+<ul><li><a href="#">ADD TO SHORTLIST</a></li> <li><a href="#">VIEW SHORTLIST</a></li></ul></div>
+
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="profile-view-left">
+
+<table cellpadding="0" cellspacing="0" width="100%" class="profile-view-table">
+<thead><tr><th colspan="2">Deal Info</th></tr></thead>
+<tbody><tr><td>Amount</td><td>USD 27M</td></tr>
+<tr><td>Stage</td><td>Late</td></tr>
+<tr><td>Round</td><td>One</td></tr></tbody>
+
+</table>
+
+</td>
+
+<td class="profile-view-right"><table cellpadding="0" cellspacing="0" width="100%" class="profile-view-table">
+<thead><tr><th colspan="3">Advisors</th></tr></thead>
+<tbody><tr><td>Legal</td><td>AZB & Partners</td>
+  <td> <img src="images/icon-in.png" width="25" height="24" alt="" /></td>
+</tr>
+<tr><td>Transaction</td><td>Yes Bank</td>
+  <td> <img src="images/icon-in.png" width="25" height="24" alt="" /></td>
+</tr>
+<tr><td>Investor's</td><td>Goldman Sachs</td>
+  <td> <img src="images/icon-in.png" width="25" height="24" alt="" /></td>
+</tr>
+</tbody>
+
+</table></td>
+</tr>
+
+
+
+<tr>
+<td colspan="2"> <table cellpadding="0" cellspacing="0" width="100%" class="profile-view-table">
+<thead><tr><th>Advisors</th></tr></thead>
+<tbody><tr><td><h3>Total $27M</h3>
+
+<table cellpadding="0" cellspacing="0" width="100%">
+<thead><tr><th>Stage</th><th>Investor</th><th>Investor Type</th><th>Stake (%)</th><th>Amount</th><th>Date</th></tr></thead>
+<tbody>
+<tr><td>Series A</td><td>Y Combinator</td><td>Foreign</td><td>2.8</td><td>$16M</td><td>Mar 2009</td></tr>
+<tr><td>Series B</td><td>Rackspace</td>
+<td>Inidan</td>
+<td>1.7</td>
+<td>$11M</td>
+<td>Aug 2009</td></tr>
+
+<tr><td>Series A</td><td>Y Combinator</td><td>Foreign</td><td>2.8</td><td>$16M</td><td>Mar 2009</td></tr>
+<tr><td>Series B</td><td>Rackspace</td>
+<td>Inidan</td>
+<td>1.7</td>
+<td>$11M</td>
+<td>Aug 2009</td></tr>
+</tbody>
+</table>
+
+
+
+</td> 
+</tr>
+ 
+ 
+</tbody>
+
+</table></td> 
+</tr>
+
+
+<tr>
+<td class="profile-view-left">
+
+<table cellpadding="0" cellspacing="0" width="100%" class="profile-view-table">
+<thead><tr><th>MORE INFO</th></tr></thead>
+<tbody><tr><td class="more-info"><p>Global Environment fund (GEF), via Global Environment Emerging Markets Fund III, LP (GEEMF) subscribed to 36,728,219 preference shares in Greenko Mauritius, a 100% subsidiary of Greenko Group PLC. </p> </td></tr></tbody>
+
+</table>
+
+</td>
+
+<td class="profile-view-right"><table cellpadding="0" cellspacing="0" width="100%" class="profile-view-table">
+<thead><tr><th>GENERAL</th></tr></thead>
+<tbody><tr><td> 
+<div class="general-img"><img src="images/logo-general.gif" width="132" height="121" alt="" /> </div>
+
+<dl class="general-info">
+<dt>Co Name  : </dt><dd>Greenko</dd>
+<dt>Co Type   : </dt><dd>Listed</dd>
+<dt>Industry       : </dt><dd>Energy</dd>
+<dt>Sector         : </dt><dd>Renewable Power</dd>
+<dt>City  : </dt><dd>Hyderabad</dd>
+<dt>Region  : </dt><dd>Greenko</dd>
+<dt>Website  : </dt><dd>http:/greenkogroup.com</dd>
+</dl>
+
+</td> 
+</tr>
+</tbody>
+
+</table></td>
+</tr>
+</table>
+      
+      
+ 
+       
+    </div>
+    
+    
+  
+
+</td>
+
+</tr>
+</table>
+ 
+</div>
+
+
+
+
+
+
+<div class=""></div>
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+20-11-2018 04:25:27 : Started at 20-11-2018 04:25:27
+--------------------------------------------------------------------------------
+20-11-2018 04:25:34 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_BS_Standalone_2012.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714929&Signature=23utPSc%2Bs2cbF61IhHvUx167Ing%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:25:38 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_BS_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714934&Signature=UfYtDdwhGhWGf0UpRnGtPX8O7bg%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:25:42 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714938&Signature=5s5pE7ORDa%2BoSg4RivE82x9DNls%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:25:47 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_PL_Standalone_2012.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714942&Signature=ol6O1rVA%2B5Kjvktban2KaJ9tk2s%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:25:52 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_PL_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714947&Signature=jEa8NOdKcmEj0Bx3iuw4ivV3XFM%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:25:54 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_PL_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714952&Signature=tx1H2Am9w5WubBCIQWTG6zu14as%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:25:58 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714954&Signature=H7E6HN3d9IdUlA07O%2F2%2BlYMD5q0%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:26:02 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202MH1992PLC296375/in-gaap/VODAFONE%20MOBILE%20SERVICES%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542714958&Signature=SgoiMQq3%2FwUkL4yvB52105unxxA%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+20-11-2018 04:26:02 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+20-11-2018 04:26:02 : End of Script
+--------------------------------------------------------------------------------

@@ -1,0 +1,22 @@
+01-04-2019 10:43:22 : Started at 01-04-2019 10:43:22
+--------------------------------------------------------------------------------
+01-04-2019 10:43:25 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74300MH2005PTC156161/in-gaap/MOMS%20OUTDOOR%20MEDIA%20SOLUTIONS%20PRIVATE%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1554099203&Signature=bybdMpskDuIUKztRLEkYsPYr6mc%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+01-04-2019 10:43:26 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74300MH2005PTC156161/in-gaap/MOMS%20OUTDOOR%20MEDIA%20SOLUTIONS%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1554099205&Signature=h8OLjZ%2Bf89pC2ySLnpOVoSDk2cw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+01-04-2019 10:43:28 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74300MH2005PTC156161/in-gaap/MOMS%20OUTDOOR%20MEDIA%20SOLUTIONS%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1554099206&Signature=uhpgZsVCQnqgQSvqh0aAfY2SBeg%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+01-04-2019 10:43:30 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74300MH2005PTC156161/in-gaap/MOMS%20OUTDOOR%20MEDIA%20SOLUTIONS%20PRIVATE%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1554099208&Signature=Zu3gL3oqeYwLHLjWEsdhU7RgqHo%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+01-04-2019 10:43:30 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+01-04-2019 10:43:30 : End of Script
+--------------------------------------------------------------------------------

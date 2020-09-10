@@ -1,0 +1,291 @@
+<div id="headingtextproboldfontcolor"> <?php echo $pagetitle; ?> <br />  <br /> </div>
+		<input type="hidden" name="txtvcFlagValue" value="<?php echo $VCFlagValue; ?>")
+
+		<input type="hidden" name="hiddenbutton" value ="">
+
+		<div id="headingtextprobold">Industry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="../images/arrow.gif" />
+				<SELECT name="industry" onchange="indchange(this)"  style="font-family: Arial; color: #004646;font-size: 8pt">
+				<OPTION  value="--" selected>ALL  </option>
+
+<?php
+			if ($industryrs = mysql_query($industrysql))
+				{
+				 $ind_cnt = mysql_num_rows($industryrs);
+				}
+				if($ind_cnt>0)
+				{
+					 While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
+					{
+						$id = $myrow[0];
+						$name = $myrow[1];
+						echo "<OPTION id=".$id. " value=".$id.">".$name."</OPTION> \n";
+					}
+				 	mysql_free_result($industryrs);
+				}
+    		?> </SELECT><br /> <br />
+  		</div>
+
+					<div id="headingtextprobold">Sector &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<img src="../images/arrow.gif" />
+						<SELECT name="stage" style="font-family: Arial; color: #004646;font-size: 8pt">
+			  				<OPTION id=1 value="--" selected>ALL  </option>
+						<?php
+
+								if ($stagers = mysql_query($stagesql))
+								{
+								  $stage_cnt = mysql_num_rows($stagers);
+								}
+								if($stage_cnt > 0)
+							  	 {
+									 While($myrow=mysql_fetch_array($stagers, MYSQL_BOTH))
+									{
+										$id = $myrow[0];
+										$name = $myrow[1];
+										echo "<OPTION id=".$id. " value=".$id.">".$name."</OPTION> \n";
+									}
+								 mysql_free_result($stagers);
+			    		}
+				    ?></select><br />  <br /></div>
+
+<div id="headingtextprobold">Region &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<img src="../images/arrow.gif" />
+						<SELECT name="txtregion" style="font-family: Arial; color: #004646;font-size: 8pt">
+							<OPTION  value="--" selected>ALL  </option>
+						<?php
+
+								if ($regionrs = mysql_query($regionsql))
+								{
+								  $region_cnt = mysql_num_rows($regionrs);
+								}
+								if($region_cnt > 0)
+								 {
+									 While($myrow=mysql_fetch_array($regionrs, MYSQL_BOTH))
+									{
+										$id = $myrow[0];
+										$name = $myrow[1];
+										echo "<OPTION id=".$id. " value=".$id.">".$name."</OPTION> \n";
+									}
+								 mysql_free_result($regionrs);
+						}
+				    ?></select><br />  <br /></div>
+
+
+
+
+					<div id="headingtextprobold">Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    	<img src="../images/arrow.gif" />
+						<SELECT name="EntityProjectType" style="font-family: Arial; color: #004646;font-size: 8pt">
+							<OPTION  value="--" selected>ALL  </option>
+							<OPTION  value="1" >Entity  </option>
+							<OPTION  value="2" >Project  </option>
+						</select>
+
+				    <br /></div>
+
+
+		  		<div id="headingtextprobold">Investor Type &nbsp;
+		  		<img src="../images/arrow.gif" />
+								<SELECT NAME="invType" style="font-family: Arial; color: #004646;font-size: 8pt">
+						 <OPTION id=5 value="--" selected> ALL </option>
+						 <?php
+							/* populating the investortype from the investortype table */
+							$invtypesql = "select InvestorType,InvestorTypeName from investortype where Hide=0";
+								if ($invtypers = mysql_query($invtypesql))
+								{
+							   $invtype_cnt = mysql_num_rows($invtypers);
+								}
+							  if($invtype_cnt >0)
+							{
+							 While($myrow=mysql_fetch_array($invtypers, MYSQL_BOTH))
+							{
+								$id = $myrow["InvestorType"];
+								$name = $myrow["InvestorTypeName"];
+								 echo "<OPTION id=".$id. " value=".$id.">".$name."</OPTION> \n";
+							}
+						 mysql_free_result($invtypers);
+						}
+					?>
+						 </SELECT>
+						 &nbsp;&nbsp;
+						 <img id="the_image"
+						border="0" src="tool.jpg" width="20" height="20"
+						target="popup" onclick="ToolWindow=window.open('toolinvestortype.php', 'popup', 'width=500,height=150,status=no');ToolWindow.focus(top);return false">
+
+				 </div>
+				<?php
+				//if ($VCFlagValue==0)
+				//{
+				?>
+				<div id="headingtextprobold">Deal Range<br />	(US $M)
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="../images/arrow.gif" />
+				<SELECT name="invrangestart" style="font-family: Arial; color: #004646;font-size: 8pt"><OPTION id=4 value="--" selected>ALL  </option>
+				<?php
+					$counter=0;
+
+							for ( $counter = 0; $counter <= 1000; $counter += 5)
+							 echo "<OPTION id=".$counter. " value=".$counter.">".$counter."</OPTION> \n";
+
+
+					?> </select>
+					To
+
+						<SELECT name="invrangeend" style="font-family: Arial; color: #004646;font-size: 8pt"><OPTION id=5 value="--" selected>ALL  </option>
+
+					<?php
+
+						$counterTo=0;
+
+							for ( $counterTo = 0; $counterTo <= 2000; $counterTo += 5)
+							 echo "<OPTION id=".$counterTo. " value=".$counterTo.">".$counterTo."</OPTION> \n";
+
+
+			//}
+			?></select></div> <br />
+
+	<div id="headingtextprobold">Period &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				 		&nbsp;&nbsp;<img src="../images/arrow.gif" />
+				 				<SELECT NAME=month1  style="font-family: Arial; color: #004646;font-size: 8pt">
+				 			 <OPTION id=1 value="--" selected> Month </option>
+				 			 <OPTION VALUE=1 selected >Jan</OPTION>
+				 			 <OPTION VALUE=2>Feb</OPTION>
+				 			 <OPTION VALUE=3>Mar</OPTION>
+				 			 <OPTION VALUE=4>Apr</OPTION>
+				 			 <OPTION VALUE=5>May</OPTION>
+				 			 <OPTION VALUE=6>Jun</OPTION>
+				 			 <OPTION VALUE=7>Jul</OPTION>
+				 			 <OPTION VALUE=8>Aug</OPTION>
+				 			 <OPTION VALUE=9>Sep</OPTION>
+				 			 <OPTION VALUE=10>Oct</OPTION>
+				 			 <OPTION VALUE=11>Nov</OPTION>
+				 			<OPTION VALUE=12>Dec</OPTION>
+				 			</SELECT>
+				 				<SELECT NAME=year1  style="font-family: Arial; color: #004646;font-size: 8pt">
+				 				<OPTION id=2 value="--" selected> Year </option>
+				 				<?php
+
+				 				$yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from REinvestments order by dates asc";
+							if($yearSql=mysql_query($yearsql))
+							{
+
+								While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
+								{
+									$id = $myrow["Year"];
+									$name = $myrow["Year"];
+									if ($id==$currentyear)
+									{
+										echo "<OPTION id=". $id. " value=". $id." SELECTED>".$name."</OPTION>\n";
+									}
+									else
+									{
+										echo "<OPTION id=". $id. " value=". $id." >".$name."</OPTION>\n";
+									}
+								}
+							
+							}
+				 				?> </SELECT>
+				 			<SELECT NAME=month2 style="font-family: Arial; color: #004646;font-size: 8pt">
+				 			 <OPTION id=3 value="--" selected> Month </option>
+				 			 <OPTION VALUE=1>Jan</OPTION>
+				 			 <OPTION VALUE=2>Feb</OPTION>
+				 			 <OPTION VALUE=3>Mar</OPTION>
+				 			 <OPTION VALUE=4>Apr</OPTION>
+				 			 <OPTION VALUE=5>May</OPTION>
+				 			 <OPTION VALUE=6>Jun</OPTION>
+				 			 <OPTION VALUE=7>Jul</OPTION>
+				 			 <OPTION VALUE=8>Aug</OPTION>
+				 			 <OPTION VALUE=9>Sep</OPTION>
+				 			 <OPTION VALUE=10>Oct</OPTION>
+				 			 <OPTION VALUE=11>Nov</OPTION>
+				 			 <OPTION VALUE=12 selected>Dec</OPTION>
+				 			</SELECT>
+				 			<SELECT name=year2 style="font-family: Arial; color: #004646;font-size: 8pt">
+				 			<OPTION id=4 value="--" selected> Year </option>
+
+				 			<?php
+							$yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from REinvestments order by dates asc";
+							if($yearSql=mysql_query($yearsql))
+							{
+								While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
+								{
+									$id = $myrow["Year"];
+									$name = $myrow["Year"];
+									if ($id==$currentyear)
+									{
+										echo "<OPTION id=". $id. " value=". $id." SELECTED>".$name."</OPTION>\n";
+									}
+									else
+									{
+										echo "<OPTION id=". $id. " value=". $id." >".$name."</OPTION>\n";
+									}
+								}
+
+							}
+				 			?> </SELECT>
+			</div> <br />
+
+
+
+
+		<span style="float:right" class="one">
+		<input type="submit"  value="Show Deals " name="showdeals">
+		</span> <br />
+
+		<div id="headingtextproboldfontcolor">Show deals by  <br />   </div>
+
+		<div id="headingtextprobold">Investor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="../images/arrow.gif" />
+				<input type=text name="keywordsearch" size=39>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+				<A href="showallreinvestors.php"
+			   target="popup" onclick="MyWindow=window.open('showallreinvestors.php', 'popup', 'scrollbars=1,width=500,height=400,status=no');MyWindow.focus(top);return false">
+			   Show All
+				</A>
+
+				<br /> <br /> </div>
+
+		<div id="headingtextprobold">Advisor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<img src="../images/arrow.gif" />
+				<input type=text name="advisorsearch" size=39>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+				<A href="showallreadvisors.php?value=1"
+			   target="popup" onclick="MyWindow=window.open('showallreadvisors.php?value=1', 'popup', 'scrollbars=1,width=500,height=400,status=no');MyWindow.focus(top);return false">
+			   Show All
+				</A><br /> <br /></div>
+
+		<div id="headingtextprobold">Company/Sector &nbsp;&nbsp;
+								<img src="../images/arrow.gif" />
+				<input type=text name="companysearch" size=39>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;
+
+				<input type="submit"  value="Search" name="search">
+
+			</div>
+
+		 <br />
+
+
+
+                 function indchange(list)
+{
+	//alert(list);
+	//alert("---");
+	//alert(list.options[list.selectedIndex].value);
+	if(list.options[list.selectedIndex].value==15)
+ 	{
+		document.reinvestment.stage.selectedIndex=0;
+		document.reinvestment.stage.disabled=false;
+	}
+	else if(list.options[list.selectedIndex].value=="--" )
+	{
+		document.reinvestment.stage.selectedIndex=0;
+		document.reinvestment.stage.disabled=false;
+	}
+	else if (list.options[list.selectedIndex].value!=15 )
+	{
+		document.reinvestment.stage.selectedIndex=0;
+		document.reinvestment.stage.disabled=true;
+	}
+}

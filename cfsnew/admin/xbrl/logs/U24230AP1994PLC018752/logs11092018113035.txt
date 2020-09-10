@@ -1,0 +1,70 @@
+11-09-2018 11:30:35 : Started at 11-09-2018 11:30:35
+--------------------------------------------------------------------------------
+11-09-2018 11:30:45 : Requested For Type = O Excel Type = Standalone - XML Found - XBRL/U24230AP1994PLC018752/in-gaap/SHIVA ANALYTICALS (INDIA) PRIVATE LIMITED_BS_Standalone_2012.xml
+--------------------------------------------------------------------------------
+11-09-2018 11:30:45 : S3 xml file check success
+--------------------------------------------------------------------------------
+11-09-2018 11:30:45 : Starting xml and requested format check for old or new
+--------------------------------------------------------------------------------
+11-09-2018 11:30:45 : Old format condition staisfied
+--------------------------------------------------------------------------------
+11-09-2018 11:30:45 : Old format & Excel type standalone entered
+--------------------------------------------------------------------------------
+11-09-2018 11:30:51 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U24230AP1994PLC018752/in-gaap/SHIVA%20ANALYTICALS%20%28INDIA%29%20PRIVATE%20LIMITED_BS_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536649245&Signature=E69IY84fmPkTbZ6z8ZcZEAUCYGY%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+11-09-2018 11:30:56 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U24230AP1994PLC018752/in-gaap/SHIVA%20ANALYTICALS%20%28INDIA%29%20PRIVATE%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536649251&Signature=W1fSEiasES%2FYeU%2BhFx7gT7CqX%2Bk%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+11-09-2018 11:30:59 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U24230AP1994PLC018752/in-gaap/SHIVA%20ANALYTICALS%20%28INDIA%29%20PRIVATE%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536649256&Signature=IRb9pADj9ZpubLp%2FKp2fauaK8%2FI%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+11-09-2018 11:31:05 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U24230AP1994PLC018752/in-gaap/SHIVA%20ANALYTICALS%20%28INDIA%29%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536649259&Signature=b1iTvaysdCWttfN7Lx17Nr%2BQSYo%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+11-09-2018 11:31:09 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U24230AP1994PLC018752/in-gaap/SHIVA%20ANALYTICALS%20%28INDIA%29%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536649265&Signature=4wsRXhWxr7lZadOPBAtSpBvZkzY%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U24230AP1994PLC018752/in-gaap/SHIVA%20ANALYTICALS%20%28INDIA%29%20PRIVATE%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536649269&Signature=0kFvulgIgWdWk4z%2B3aFbZ9N8Hkg%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : Add financial for type old bs standalone excel create starting
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : BS Standalone Excel Generation process started
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : BS Standalone Excel loop enter
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : BS Standalone Excel loops ends
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : BS Standalone Excel Created
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : Add financial for bs starting
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : Add financial - BS Code started
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : Add BS started for companyID 22887
+--------------------------------------------------------------------------------
+11-09-2018 11:31:14 : Add BS - Test data populated
+--------------------------------------------------------------------------------
+11-09-2018 11:31:15 : Add BS - Loop starts
+--------------------------------------------------------------------------------
+11-09-2018 11:31:16 : Add BS - FY12 data inserted
+--------------------------------------------------------------------------------
+11-09-2018 11:31:16 : Add BS - Loop ends
+--------------------------------------------------------------------------------
+11-09-2018 11:31:16 : Add BS - FY11 data inserted
+--------------------------------------------------------------------------------
+11-09-2018 11:31:16 : Add BS - Loop ends
+--------------------------------------------------------------------------------
+11-09-2018 11:31:16 : Add BS ends
+--------------------------------------------------------------------------------
+11-09-2018 11:31:16 : End of Script
+--------------------------------------------------------------------------------

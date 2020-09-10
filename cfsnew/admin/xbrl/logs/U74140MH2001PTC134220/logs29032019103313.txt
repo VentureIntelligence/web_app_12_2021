@@ -1,0 +1,14 @@
+29-03-2019 10:33:13 : Started at 29-03-2019 10:33:13
+--------------------------------------------------------------------------------
+29-03-2019 10:33:17 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74140MH2001PTC134220/in-gaap/HSBC%20ASSET%20MANAGEMENT%20%28INDIA%29%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1553839394&Signature=K6oFE1%2F%2B%2FA%2F7Q0UCnsZ%2FKRFJcwc%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+29-03-2019 10:33:20 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74140MH2001PTC134220/in-gaap/HSBC%20ASSET%20MANAGEMENT%20%28INDIA%29%20PRIVATE%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1553839397&Signature=yENPNukwVDUX4G9HfErdx7KQK34%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+29-03-2019 10:33:20 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+29-03-2019 10:33:20 : End of Script
+--------------------------------------------------------------------------------

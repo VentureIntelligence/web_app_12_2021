@@ -1,0 +1,14 @@
+12-04-2019 11:23:33 : Started at 12-04-2019 11:23:33
+--------------------------------------------------------------------------------
+12-04-2019 11:23:42 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U99999MH1990PLC056451/in-gaap/PURANIK%20BUILDERS%20LIMITED_Consolidated_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1555052015&Signature=tPjUyceDeZK1279kou5McSgj8uw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+12-04-2019 11:23:45 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U99999MH1990PLC056451/in-gaap/PURANIK%20BUILDERS%20LIMITED_Consolidated_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1555052022&Signature=lTydNRnGGFJl5Gue5C9CGbH9t2I%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+12-04-2019 11:23:45 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+12-04-2019 11:23:45 : End of Script
+--------------------------------------------------------------------------------

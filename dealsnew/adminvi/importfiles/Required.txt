@@ -1,0 +1,23 @@
+Full company Name	SVS Limited	
+"Parent company (If it has a parent, pls enter the company name)"		
+Industry	BFSI	
+Sector	Banking	
+Region	South	
+State	Tamil Nadu	
+country	India	
+Listing Status	U	
+C/L/I   - core/lakh/inr rs	L	
+Standalone/Consolidated	S	
+Particulars	2010-03-31	2009-03-31
+Operational Income	1238.9753	538.97
+Other Income	5.9716	5.97
+"Operational, Admin & Other Expenses"	110.44	110.44
+Operating Profit	1128.54	428.53
+EBITDA	1134.51	434.50
+Interest	32.9163	32.92
+EBDT	1101.59	401.58
+Depreciation	41.5975	41.6
+EBT	1059.99	359.98
+Tax	9.39	9.39
+PAT	1050.60	350.59
+EPS (Basic in INR)	26.86	26.86

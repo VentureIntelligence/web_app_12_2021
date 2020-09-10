@@ -1,0 +1,52 @@
+/* CSS for IE 7 & IE 6 */
+
+ #slider .slider-controls { position: relative; z-index: 100;float:right;margin-right:50px;margin-top:58px; }
+
+#slider-holder {
+	height: 255px;
+	
+}
+#slider-holder .jcarousel-clip {
+	width: 960px;
+	height: 340px;
+	position: relative;
+	overflow: hidden;
+	
+}
+#slider-holder ul {
+	width: 645px;
+	height: 340px;
+	position: relative;
+	overflow: hidden;
+	/*border:#FF0000 solid 1px;*/
+	margin-left:43px;
+}
+#slider-holder ul li {
+	list-style-type: none;
+	float: left;
+	display: inline;
+	height: 340px;
+	width: 960px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	margin-left:43px;
+}
+#slider-holder .slide-info {
+	float: left;
+	display: inline;
+	width: 960px;
+	padding-top: 0px;
+	margin-left:43px;
+}
+#slider-holder .slide-image {
+	/*float: left;*/
+	display: inline;
+	/*margin-left:80px;*/
+	margin-left:43px;
+		
+}
+
+
+

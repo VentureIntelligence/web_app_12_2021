@@ -1,0 +1,11 @@
+
+.popup-box{position: fixed;z-index: 9000;left: 30%;top: 20%;background-color: #fff;}
+
+.lb { width:400px; border:1px solid #ccc; box-shadow:0 0 2px #eaeaea; overflow:hidden; margin: 0 auto; z-index: 9000;left: 40%;top: 25%;position: fixed;background-color: #fff;display: none;}
+	.title { background:#bfa074; padding:5px 0 8px; color:#fff; text-align:center;}
+	.entry { overflow:hidden; padding:10px; }
+	.entry label { display:block; width:80px; color:#000; font-size:13px; margin-bottom:5px; font-weight:bold;}
+	.entry input[type='text'] { float:left; width:95%; padding:2px 5px; border:1px solid #ccc;}
+	.entry p {color:#6C6C6C; font-size:13px; border: #ccc thin solid;padding: 5px;word-break: break-all;}
+	.entry h5 { margin-bottom:3px; font-size:13px;}
+	.entry input[type='button'] { float:left; margin-right:10px;}

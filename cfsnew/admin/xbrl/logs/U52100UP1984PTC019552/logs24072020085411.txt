@@ -1,0 +1,38 @@
+24-07-2020 08:54:11 : Started at 24-07-2020 08:54:11
+--------------------------------------------------------------------------------
+24-07-2020 08:54:12 : XBRL2 Started
+--------------------------------------------------------------------------------
+24-07-2020 08:54:16 : SHP standalone entered
+--------------------------------------------------------------------------------
+24-07-2020 08:54:16 : Shareholding of Promoters Found In The XML
+--------------------------------------------------------------------------------
+24-07-2020 08:54:16 : Added Classname to the Generated HTML
+--------------------------------------------------------------------------------
+24-07-2020 08:54:16 : Generated HTML file has been saved in the folder
+--------------------------------------------------------------------------------
+24-07-2020 08:54:16 : Pattern Mismatch Found in the Shareholding of Promoters
+--------------------------------------------------------------------------------
+24-07-2020 08:54:16 : Pattern Mismatch Found in the Shareholding Pattern of top ten Shareholders
+--------------------------------------------------------------------------------
+24-07-2020 08:54:19 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U52100UP1984PTC019552/in-gaap/DIPTY%20LAL%20JUDGE%20MAL%20PVT%20LTD_Standalone_2016.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1595607856&Signature=bD16xLlzLU7fEZIfoSA6LmsWoZw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+24-07-2020 08:54:23 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U52100UP1984PTC019552/in-gaap/DIPTY%20LAL%20JUDGE%20MAL%20PVT%20LTD_Standalone_2017.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1595607859&Signature=wc5MrlNMMPTVOGXaa5lskEq119k%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+24-07-2020 08:54:27 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U52100UP1984PTC019552/in-gaap/DIPTY%20LAL%20JUDGE%20MAL%20PVT%20LTD_Standalone_2018.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1595607863&Signature=IS2lsECJMJigPvp7b0HwqcDvSV8%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+24-07-2020 08:54:30 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U52100UP1984PTC019552/in-gaap/DIPTY%20LAL%20JUDGE%20MAL%20PVT%20LTD_Standalone_2019.xml?AWSAccessKeyId=AKIA4UXZGYPC3ZMM5BVL&Expires=1595607867&Signature=YGYMFx367jTZLsJW7u8mGKtPjnE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+24-07-2020 08:54:30 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+24-07-2020 08:54:30 : Company name and cin mismatch
+--------------------------------------------------------------------------------
+24-07-2020 08:54:30 : End of Script
+--------------------------------------------------------------------------------

@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Venture Intelligence</title>
+<SCRIPT LANGUAGE="JavaScript">
+function ltrim(str){
+                return str.replace(/^\s+/, '');
+            }
+            function rtrim(str) {
+                return str.replace(/\s+$/, '');
+            }
+            function alltrim(str) {
+                return str.replace(/^\s+|\s+$/g, '');
+            }
+function checkFields()
+	{
+
+		missinginfo="";
+		if(ltrim(document.peimpact.txtyourname.value)=="")
+		{
+			missinginfo += "\n     -  Name";
+		}
+		if(ltrim(document.peimpact.txtfirmname.value)=="")
+		{
+			missinginfo += "\n     -  Firm Name";
+		}
+		if(ltrim(document.peimpact.txtemailid.value)=="")
+		{
+			missinginfo += "\n     -  Email Id";
+		}
+		if(ltrim(document.peimpact.phone.value)=="")
+		{
+			missinginfo += "\n     -  Phone";
+		}
+		if (missinginfo != "")
+		{
+			missinginfo ="\n" +
+			"Please provide the following details: \n" +
+			missinginfo + "\n" +
+			"\nPlease re-enter and submit again!";
+			alert(missinginfo);
+			return false;
+		}
+		else return true;
+	}
+
+</SCRIPT>
+
+<link href="css/vistyle.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<form name="peimpact" onSubmit="return checkFields();" method="post" action="showcasecomp.php">
+<div id="containerproductshowcase">
+
+<!-- Starting Left Panel -->
+  <div id="leftpanel">
+    <div><a href="index.htm"><img src="images/logo.jpg" width="183" height="98" border="0"></a></div>
+
+    <div id="vertbgproshowcase">
+
+      <div id="vertMenu">
+        <div><img src="images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Products</span></div>
+      </div>
+      <div id="linksnone"><a href="newsletters.htm">Newsletters</a><br />
+          <span id="visitlink"><a href="peroundup.htm">PE Reports</a><br />
+          </span>
+           <a href="vcroundup.htm">VC Reports</a><br />
+		           <a href="directories.htm">Directories</a><br />
+		           <a href="peimpact.htm">PE Impact Report </a> <br />
+          <a href="vcmarket.htm">VC Market</a><br />
+          <a href="sector.htm">Sector Reports</a><br />
+          <a href="db.htm">Databases</a><br />
+          <a target="_blank" href="https://www.ventureintelligence.com/blog">Blog </a> </div>
+      <div id="eventslinkabt">
+        <div><img src="images/dot1.gif" />&nbsp;&nbsp;<a href="events.htm">Events</a></div>
+      </div>
+
+
+ <div id="eventslinkabt1">
+	          <div><img src="images/dot1.gif" />&nbsp;&nbsp;<a href="news.htm">News</a></div>
+      </div>
+
+    </div>
+
+   </div>
+  <!-- Ending Left Panel -->
+<!-- Starting Work Area -->
+
+  <div style="width:570px; float:right; ">
+   <SCRIPT LANGUAGE="JavaScript1.2" SRC="js/top.js"></SCRIPT>
+  <SCRIPT>
+   call()
+   </script>
+
+	<div style="width:565px; float:left; padding-left:2px;">
+	  <div style="width:565px; margin-top:8px;"><img src="images/product-top.jpg" width="566" height="121"></div>
+	  <div style="background-color:#FFF; width:565px; height:307px; margin-top:5px;"><div id="navpro">
+        <div class="links">
+          <ul>
+         <!--   <li><img src="images/arrow.gif" /> <a href="subscribe.htm">Subscribe</a> </li>
+            <li><img src="images/arrow.gif" /> <a href="advertise.htm">Advertise </a> </li>
+            <li><img src="images/arrow.gif" /> <a href="sponsor.htm">Sponsor</a></li>
+          </ul> -->
+        </div>
+	  </div>
+	    <div id="maintextpro">
+
+
+          <div id="headingtextpro">
+        <div id="headingtextprobold"> Company Showcase  <br /></div>
+
+				 <br /><br />
+
+				Please complete the following details to download the company details.
+
+						<!--
+						<span style="float:right" class="one">
+		  <a href="pe-impact-2007.pdf"><img src="images/arrow.gif" border="0" /> Download this report </a></span>
+		  -->
+		  <br /> <br />
+
+		   <div id="headingtextprobold">Your Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="images/arrow.gif" />
+				<input name="txtyourname"  size=39>  <br /><br /> </div>
+
+                                 <div id="headingtextprobold">Firm Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="images/arrow.gif" />
+				<input name="txtfirmname"  size=39>  <br /><br /> </div>
+
+			<div id="headingtextprobold">Email Id
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<img src="images/arrow.gif" /> 	<input name="txtemailid" size=39><br /><br /></div>
+
+
+
+
+			 <div id="headingtextprobold">Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <img src="images/arrow.gif" />
+			<input name="phone" size=39> <br /><br /> </div>
+
+
+
+
+
+			<span style="float:right" class="one">
+							<input type="submit"  value="Submit" name="Submit">
+				</span> <br /> <br />
+
+		 </div>
+
+        </div>
+	  </div>
+	</div>
+  </div>
+  <!-- Ending Work Area -->
+
+</div>
+   <SCRIPT LANGUAGE="JavaScript1.2" SRC="js/bottom.js"></SCRIPT>
+   </form>
+   <script src="//www.google-analytics.com/urchin.js" type="text/javascript">
+     </script>
+     <script type="text/javascript">
+     _uacct = "UA-1492351-1";
+     urchinTracker();
+  </script>
+</body>
+</html>

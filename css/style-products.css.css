@@ -1,0 +1,84 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body{ background:#333; font:13px/16px normal Arial, Helvetica, sans-serif; color:#000; padding:0; margin:0;}
+
+ul, p{ padding:0; margin:0;}
+li{ list-style:none;}
+
+
+input, select, textarea{ font:13px/16px normal Arial, Helvetica, sans-serif;  }
+
+.wrapper{ background:#fff; width:1000px; margin:0 auto;}
+
+
+.header{ background:#413529; display:block; overflow:hidden;}
+.header .logo{ float:left; padding:5px 10px; background:#fff;}
+.header ul{ float:right; padding:20px 0 0;}
+.header li{ float:left; padding:0 30px;}
+.header li a{ font-weight:bold; text-decoration:none; color:#a09a94; font-size:14px;} 
+.header li a:hover{ color:#fff;}
+.header li a.active{ color:#fff;}
+
+.sub-header{ font-size:12px; border-bottom:1px solid #e7dab9; display:block; overflow:hidden; background:#f5f0e3; padding:20px 30px 10px;}
+
+.sub-header h3{ font-size:14px; padding:0 0 10px; margin:0;}
+.sub-header .left-cnt{ float:left;}
+.sub-header .left-cnt li{ background:url(../images/bg-list-circle.gif) no-repeat left center; display:block; overflow:hidden; padding:7px 0 7px 20px;}
+.sub-header .right-cnt{ padding-right:50px; float:right;}
+
+.container{ padding:30px; display:block; overflow:hidden;}
+.container h2{ font-size:18px;}
+.container .note-text{ color:#777; font-style:italic;}
+.container .note-text p{ padding:0 0 10px;}
+.container .note-text a{ color:#777;}
+.container .form-list{ padding:30px 0  40px 40px; display:block; overflow:hidden;}
+.container .form-list li{ line-height:26px; display:block; overflow:hidden; padding:10px 0;}
+.container .form-list li .left-cnt { float:left; width:190px; }
+.container .form-list li .left-cnt .red-star{ color:#F00;}
+.container .form-list li .right-cnt { float:left; width:690px;}
+.container .form-list li .right-cnt input{ float:left; line-height:20px; border:1px solid #d4cfc3; width:196px; height:26px; padding:0 5px;}
+.container .form-list li .right-cnt select{ float:left;line-height:20px; width:210px; height:28px; padding:5px; border:1px solid #d4cfc3;  } 
+.container .form-list li.phone-no .right-cnt input{ width:166px; float:left;  }
+.container .form-list li.phone-no .right-cnt span{ width:30px; float:left;  }
+
+.container .product-list{ display:block; overflow:hidden; margin:0 0 10px;}
+.container .product-list h3{ color:#a2753a;}
+.container .product-list ul{ background:#f6f2e9; display:block; overflow:hidden; padding:7px;}
+.container .product-list li{ float:left; width:290px; padding:7px;}
+.container .product-list li label{ float:left;}
+.container .product-list li input{ border:1px solid #d4cfc3; margin:0 15px 0 0; float:left;}
+
+
+.learn-service{ display:block; overflow:hidden; padding:10px 0;}
+.learn-service span{ float:left; padding:5px 0 0 0;}
+.learn-service input{ width:680px; border:1px solid #cdc8ba; height:26px; line-height:20px; padding:0 5px; float:right;}
+
+
+.btn-trial{ display:block; overflow:hidden; padding:10px 0;}
+.btn-trial input{ color:#fff; font-weight:bold; padding:5px 10px; float:left; background:#a2753a; border:0; text-transform:uppercase; margin:0 5px 0 0; cursor:pointer;}
+ .btn-trial input:hover{ background:#413529;}
+
+
+
+.footer{ background:#cbc3ae; padding:20px; display:block; overflow:hidden;}
+.footer ul{ margin:0 auto; width:390px; }
+.footer li{ font-size:12px; line-height:12px; float:left; border-right:1px solid #333;padding:0 10px;}
+.footer li a { color:#333; text-decoration:none; }
+.footer li:last-child{ border-right:0 !important;}
+
+
+
+
+.hide-select{ display:none;}
+.organization-note{ margin:-10px 0 0 220px; position:absolute; color:#42413e;  float:left; border:1px solid #bca46f; background:#e7dab9; padding:5px; line-height:16px; font-size:12px; width:400px;}
+.organization-note a{ color:#817a6e; text-decoration:underline;}
+
+.email-note:hover p{ display:block;}
+.email-note p{ margin:0 0 0 10px; position:relative; color:#42413e;  float:left; border:1px solid #bca46f; background:#e7dab9; padding:5px; line-height:16px; font-size:12px;  }
+.email-note{ float:left;}
+.i-icon{ margin:0 0 0 10px; font-weight:bold; text-decoration:none; font-family:Georgia, "Times New Roman", Times, serif; color:#6e675a; text-align:center;  border:1px solid #bca46f; background:#e7dab9; float:left; width:25px; height:25px;
+     -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;}

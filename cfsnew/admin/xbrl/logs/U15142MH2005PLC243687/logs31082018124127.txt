@@ -1,0 +1,26 @@
+31-08-2018 12:41:27 : Started at 31-08-2018 12:41:27
+--------------------------------------------------------------------------------
+31-08-2018 12:41:36 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U15142MH2005PLC243687/in-gaap/MANORAMA%20INDUSTRIES%20LIMITED_BS_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1535703090&Signature=roEJP3Ybl8V0qqHfPA71xRRl7EQ%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+31-08-2018 12:41:40 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U15142MH2005PLC243687/in-gaap/MANORAMA%20INDUSTRIES%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1535703096&Signature=eAapWeGkM%2Bi863Uja2qA%2BKOCgxA%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+31-08-2018 12:41:47 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U15142MH2005PLC243687/in-gaap/MANORAMA%20INDUSTRIES%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1535703100&Signature=RyrR4otXsIdgBzja%2BjfOyL4%2BDKE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+31-08-2018 12:41:53 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U15142MH2005PLC243687/in-gaap/MANORAMA%20INDUSTRIES%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1535703107&Signature=qkL6Duxo9p8%2Bo4r86qPU3eciBiE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+31-08-2018 12:41:58 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U15142MH2005PLC243687/in-gaap/MANORAMA%20INDUSTRIES%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1535703113&Signature=6U0BCWRV3bKJy0Q6eeD%2FQ9z5j2o%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+31-08-2018 12:41:58 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+31-08-2018 12:41:58 : End of Script
+--------------------------------------------------------------------------------

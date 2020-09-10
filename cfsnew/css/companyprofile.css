@@ -1,0 +1,30 @@
+th, td
+{
+color: #383838;
+font:12px Arial, Helvetica, sans-serif;
+text-align:left; vertical-align:middle;
+padding:5px 0;
+padding-left:5px;
+}
+th
+{
+font-weight:bold;
+}
+td
+{
+border-top:1px solid #999;
+}
+.bg
+{
+background-color:#f5f0e4;
+}
+.hbg
+{
+background-color:#808000; font-weight:bold; color:#fff;
+}
+.small{ font-size:11px; text-align:left; padding:5px;
+}
+.bgcolor{
+background-color:#FFFFFF;
+padding:5px;
+}

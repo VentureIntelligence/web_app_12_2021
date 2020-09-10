@@ -1,0 +1,30 @@
+04-09-2018 03:13:24 : Started at 04-09-2018 03:13:24
+--------------------------------------------------------------------------------
+04-09-2018 03:13:32 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U28999AP2010FTC108749/in-gaap/SAPA%20EXTRUSION%20INDIA%20PRIVATE%20LIMITED_BS_Standalone_2012.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536057806&Signature=26ppa0uplF9%2B4Zra5UrTVArUuGE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 03:13:37 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U28999AP2010FTC108749/in-gaap/SAPA%20EXTRUSION%20INDIA%20PRIVATE%20LIMITED_BS_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536057812&Signature=PSDrEnnP2vp7BcxrsuWJpAqo0Hw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 03:13:43 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U28999AP2010FTC108749/in-gaap/SAPA%20EXTRUSION%20INDIA%20PRIVATE%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536057817&Signature=akrHdslOMEVuprtRFHdTuEJ4gJo%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 03:13:50 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U28999AP2010FTC108749/in-gaap/SAPA%20EXTRUSION%20INDIA%20PRIVATE%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536057823&Signature=zYO%2F09BYmqAE2B%2B%2FmpmaPm34QdA%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 03:13:55 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U28999AP2010FTC108749/in-gaap/SAPA%20EXTRUSION%20INDIA%20PRIVATE%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536057830&Signature=Rwp0NKu3idxCSVq%2BO1aIozzsKh4%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 03:14:03 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U28999AP2010FTC108749/in-gaap/SAPA%20EXTRUSION%20INDIA%20PRIVATE%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536057835&Signature=p90BDE1hY045xcPToDvx3ITqvqw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+04-09-2018 03:14:03 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+04-09-2018 03:14:03 : End of Script
+--------------------------------------------------------------------------------

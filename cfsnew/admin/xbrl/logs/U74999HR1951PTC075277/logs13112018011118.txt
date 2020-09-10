@@ -1,0 +1,30 @@
+13-11-2018 01:11:18 : Started at 13-11-2018 01:11:18
+--------------------------------------------------------------------------------
+13-11-2018 01:11:24 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74999HR1951PTC075277/in-gaap/RECKITT%20BENCKISER%20%28INDIA%29%20Private%20Limited_Bs_Standalone_2013?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542098479&Signature=Oli9IEhmwlq92AOwbMwTvMLASAI%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+13-11-2018 01:11:27 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74999HR1951PTC075277/in-gaap/RECKITT%20BENCKISER%20%28INDIA%29%20Private%20Limited_Bs_Standalone_2014?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542098484&Signature=nZumeUyr2f4RrTGfpxXD8ViMaks%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+13-11-2018 01:11:29 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74999HR1951PTC075277/in-gaap/RECKITT%20BENCKISER%20%28INDIA%29%20Private%20Limited_Pl_Standalone_2013?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542098487&Signature=homHFNjUWIW3ubHcI%2Fo%2F8WAzA5E%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+13-11-2018 01:11:32 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74999HR1951PTC075277/in-gaap/RECKITT%20BENCKISER%20%28INDIA%29%20Private%20Limited_Pl_Standalone_2014?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542098489&Signature=qGX5hn6tdwPphSSWUPwCm%2BPm63A%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+13-11-2018 01:11:38 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74999HR1951PTC075277/in-gaap/RECKITT%20BENCKISER%20%28INDIA%29%20Private%20Limited_Standalone_2015?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542098492&Signature=4yj3HH0pFmftPU5dQICKDznLFAw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+13-11-2018 01:11:42 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U74999HR1951PTC075277/in-gaap/RECKITT%20BENCKISER%20%28INDIA%29%20Private%20Limited_Standalone_2016?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1542098498&Signature=7GgWDy3fP6YGMSneKKtLB3QKnfs%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+13-11-2018 01:11:42 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+13-11-2018 01:11:42 : End of Script
+--------------------------------------------------------------------------------

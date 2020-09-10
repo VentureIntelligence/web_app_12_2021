@@ -1,0 +1,94 @@
+
+
+
+body{ font:normal 14px/18px calibri; color:#414141; background:#fff; margin:0 auto; padding:0;}
+h1, h2, h3, h4, h5, h6{ border:0; margin:0;}
+input, select, textarea{ font:normal 14px/16px calibri, Helvetica; }
+ul, li{ padding:0; margin:0; list-style:none;}
+td{ vertical-align:top;}
+.fl{ float:left !important;}
+.fr{ float:right;}
+
+h2{ text-transform:uppercase; font-size:24px; padding:10px 0; font-weight:normal;}
+
+select{ border:1px solid #a2753a; background:#fff;}
+input, select, textarea{font-family:calibri;font-size:14px;}
+
+a img{ border:0;}
+li{ list-style:none;}
+li, ul{ padding:0; margin:0;}
+input[type="button"], input[type="submit"]{ cursor:pointer !important;}
+
+
+
+
+body.loginpage{ background:#F2EDE1;  height: 100vh;}
+.loginpage .login-screen .headerlg { overflow:visible !important; border-top:1px solid #ccc; margin-top:15px !important; padding:0 0 10px !important;   border-top:1px solid #d9d5ca; display:block; overflow:hidden; text-align:left; }
+.loginpage .login-left h3{ padding:0 0 10px; font-size:15px;}
+.loginpage .login-left{ margin:10px 0 0 !important;}
+.loginpage .login-left li input[type="text"], .loginpage .login-left li input[type="password"]{ height:auto !important; padding:5px 5px !important; width:220px !important; float:none;}
+.loginpage .login-left li .keeplogin{ font-size:12px; color:#2d241b; padding:10px 0;}
+.loginpage .login-left li .keeplogin, .loginpage .login-left li input[type="submit"]{ margin-left:0 !important;}
+.loginpage .login-left li .fp{ float:left; padding-left:15px;}
+
+
+.login-container{ margin-top:80px; width:980px; display:block; overflow:hidden; padding:25px;}
+.login-left{ float:left; width:232px;  }
+.login-left li{ padding:5px 0; display:block; overflow:hidden;}
+.login-left li label{font-size:14px;  padding:5px 0; float:left; width:100px;}
+.login-left li input[type="text"], .login-left li input[type="password"]{ margin-bottom:0 !important; float:right; border:1px solid #A2753A; width:220px; padding:3px 5px;}
+.login-left li a{  color:#2D241B; text-decoration:underline; }
+.login-left li .keeplogin{ margin-left:100px;  font-size:11px;}
+.login-left li .keeplogin input{ margin:0 5px 0 0; float:left; }
+.login-left li a:hover{ text-decoration:none; color:#000;} 
+.login-left li input[type="submit"]{ margin-left:100px;  float:left; cursor:pointer; font-size:14px; vertical-align:middle; border:0; color:#fff; text-transform:uppercase; background:#a2753a; padding:2px 10px;}
+.login-left li input[type="submit"]:hover{ background: #413529;}
+.login-left li .fp{ float:right; padding:5px 0; font-size:13px;}
+
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea{ font:14px/16px calibri,Helvetica !important;}
+
+
+.login-right h3{ padding:10px 0 25px 0; margin:0; font-size:21px;}
+.login-right h4{ padding:0 0 20px; margin:0; font-size:16px;}
+.login-right p{ padding:0 0 25px 0; margin:0 !important; line-height:18px; color:#000; font-family:14px;}
+.login-right p a{ color:#666; text-decoration:underline;}
+.login-right .price-subscribe{padding:15px 0; font-weight:bold;}
+.login-right .price-subscribe a{ text-decoration:none; color:#1b7ee2;}
+.login-right .price-subscribe a:hover{ text-decoration:underline;}
+.free-trail{-webkit-border-radius: 3px;   -moz-border-radius: 3px; border-radius: 3px;margin:15px 0; color:#504b3f; padding:5px; border:1px solid #d9d1bf; background:#e4ded0; float:left}
+.free-trail span{ padding-right:10px;  float:left;}
+.free-trail a{-webkit-border-radius: 3px;   -moz-border-radius: 3px; border-radius: 3px; font-weight:bold; font-size:13px; color:#fff; text-decoration:none; background:#898270; padding:1px 5px 2px; float:left;}
+.free-trail a:hover{ background:#7e5c32;}
+
+.login-right{ color:#000; float:left; width:650px; padding-left:75px;}
+.headerlg .cnt-left{ padding:0 0 0 25px; border-top:3px solid #f2ede1; width:335px !important; text-align:left !important; float:left; margin-top:-1px;}
+.headerlg .cnt-left .logo{ width:235px !important;  border-bottom:1px solid #d9d5ca; padding-bottom:30px; float:left; text-align:left !important;}
+.headerlg .cnt-left .logo a{ float:left;}
+.headerlg ul{  float:left; font-size:16px;}
+.headerlg li{ float:left; padding:0;}
+.headerlg li a{ border-top:3px solid #f2ede1; padding:20px 20px 0; float:left; color:#000; text-decoration:none;}
+.headerlg li a.active{ border-top:4px solid #9f7823;}
+
+
+
+ .login-screen{ margin:0 auto; display:block; overflow:hidden;} 
+.keeplogin input{ margin-bottom:25px !important;}
+
+.forgot-link{ color:#7b7c83 !important; text-decoration:underline; font-size:12px; padding:0 15px;}
+.forgot-link:hover{ text-decoration:underline !important; color: #333 !important;}
+
+.footer-container {
+	background: #232323;width: 100%;overflow: hidden;position: absolute;bottom: 0px;
+}
+.footer-sec {
+	max-width: 1170px;margin: 0 auto; padding: 20px 0; text-align: center;
+}
+.footer-sec span {
+	color: #8a8f8f;font-size: 13px;
+}
+@media (max-height: 900px) {
+	.footer-container:not(.footer-posnot) {
+		position: relative;
+	}
+}
+

@@ -1,0 +1,44 @@
+17-07-2019 11:57:22 : Started at 17-07-2019 11:57:22
+--------------------------------------------------------------------------------
+17-07-2019 11:57:24 : XBRL2 Started
+--------------------------------------------------------------------------------
+17-07-2019 11:57:27 : SHP standalone entered
+--------------------------------------------------------------------------------
+17-07-2019 11:57:27 : Shareholders Not Found
+--------------------------------------------------------------------------------
+17-07-2019 11:57:30 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_BS_Standalone_2012.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348447&Signature=m5xfecVlQBDW1QiaRgxdJQDgwVM%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:32 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_BS_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348450&Signature=5Fymd1pudLGzvhMgtDl9mNi5Iqk%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:33 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_BS_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348452&Signature=REajKvwCBvBUQEbdedrWr9%2BAAAk%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:36 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_PL_Standalone_2012.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348453&Signature=%2BG%2FMjt0NDRx%2B3qL8wEvFzR3fUfw%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:40 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_PL_Standalone_2013.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348456&Signature=DonX5nZ4PRt8YBo8vU6Z1drzcDE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:43 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_PL_Standalone_2014.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348460&Signature=C2EoY1gMKmRod2KvjsVY4IC5Zzs%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:45 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_Standalone_2015.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348463&Signature=ioexaRQUYWHA87WP9cdsTZZp1%2Fg%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:46 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U72300MH2000PLC125441/in-gaap/INDIAIDEAS%20COM%20LIMITED_Standalone_2016.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1563348465&Signature=WTBQljAN6SBT4R37MQ9FNGSggus%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+17-07-2019 11:57:46 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+17-07-2019 11:57:46 : End of Script
+--------------------------------------------------------------------------------

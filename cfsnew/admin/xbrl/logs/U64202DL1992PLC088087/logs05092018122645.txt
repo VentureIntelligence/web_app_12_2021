@@ -1,0 +1,14 @@
+05-09-2018 12:26:45 : Started at 05-09-2018 12:26:45
+--------------------------------------------------------------------------------
+05-09-2018 12:26:53 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202DL1992PLC088087/ind-as/VODAFONE%20MOBILE%20SERVICES%20LIMITED_Standalone_2017.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536134207&Signature=lkAFiMVRSwEGIrB49%2FioTZsOhHE%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+05-09-2018 12:26:58 : CIN missmatch in file https://companyfilings.s3.amazonaws.com/XBRL/U64202DL1992PLC088087/ind-as/VODAFONE%20MOBILE%20SERVICES%20LIMITED_Standalone_2018.xml?AWSAccessKeyId=AKIAJJNDML5DICMJBUHA&Expires=1536134213&Signature=hn69iDYMyI73qKuFzhdoy4d66CU%3D
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+05-09-2018 12:26:58 : <<<<<<<< End of XML loop from s3 >>>>>>>>
+--------------------------------------------------------------------------------
+05-09-2018 12:26:58 : End of Script
+--------------------------------------------------------------------------------

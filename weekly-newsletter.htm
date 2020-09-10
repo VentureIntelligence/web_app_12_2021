@@ -1,0 +1,473 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Weekly Newsletter | Venture Intelligence</title>
+<link rel="shortcut icon" href="images/fave-icon.png">
+<link rel="stylesheet" href="css/home-page-style.css">
+<link rel="stylesheet" href="css/owl.carousel.css" >
+<link rel="stylesheet" href="css/owl.theme.css" >
+<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
+<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/ios-reorient.js"></script>
+<script type="text/javascript" src="js/ui.js"></script>
+<script type="text/javascript" src="js/owl.carousel.js"></script>
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.tooltipster.js"></script>
+
+<style>
+    #download{
+        clear: both;
+    /* background-color: #E7F3CE; */
+    padding: 5%;
+    margin-top: 100px;
+    float: left;
+    display: none;
+    }
+    #download span{
+            /* color: #475F15; */
+    font-size: 20px;
+    }
+    #download h3{
+          /* font-weight: bold;*/
+    }
+</style>  
+
+</head>
+
+<body>
+<div class="wrapper">
+  <header class="fd-header">
+    <div class="top-nav-strip">
+      <div class="l-page">
+        <nav class="top-site-nav">
+          <ul>
+            <li><a href="pricing.htm">Pricing</a></li>
+            <li><a href="trialrequest.php">Request Trial</a></li>
+            <li><a href="entrepreneurs.htm">For Entrepreneurs</a></li>
+            <li><a href="events.htm">Events</a></li>
+            <!--<li><a href="news.htm">News</a></li>-->
+            <li><a href="db.htm">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="header fd-sticky fc">
+      <div class="sticky-wrapper">
+        <section class="fd-home-sticky">
+          <div class="l-page">
+            <div class="logo-sec"> <a href="index.htm" class="fd-logo"><img class="default" src="img/logo.png" alt="vi"> <img class="fixed-logo" src="img/logo-b.png" alt="vi"> </a> <span>Private Company Financials, Transactions & Valuations.</span> </div>
+            <nav class="site-nav">
+              <ul>
+                <li><a href="index.htm" >Home</a></li>
+                <li><a href="products.htm">Products</a></li>
+                <li><a href="leagues.php" >League Tables</a></li>
+                <li><a href="index.htm#sec-new" >What's New</a></li>
+                <li><a href="aboutus.htm" >About Us</a></li>
+                <li ><a href="contactus.htm" >Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+      </div>
+    </div>
+  </header>
+  
+  <!-- inner page header -->
+  <div class="inner-header league-tables">
+    <div class="container-01">
+      <div class="content">
+        <div class="row">
+          <h2>Weekly Newsletter</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="container-01">
+    <div class="content">
+      <div class="row">
+        <div class="about-us">
+          <div  class="right-section">
+            <div class="event-content newsletter">
+              
+                <h4 class="heading-col-1 contenthide1">Deal Digest Weekly Newsletter </h4>
+                <h4 class="heading-col-1  contenthide2" style="display:none">Deal Digest Weekly Newsletter - Signup</h4>
+                <h4 class="heading-col-1  contenthide3" style="display:none">Thanks for your interest in receiving the Deal Digest Weekly Newsletter. </h4>
+              
+                <!-- Newsletter Content -->
+                <div class="newsletter-sec">
+                    <p class="contenthide1">Delivered by email each Friday, the Deal Digest Weekly newsletter summarizes Private Equity / Venture Capital Transactions, IPO and M&amp;A activity in India. <a target="_blank" href="weekly-sample.htm">View Sample</a>. </p>
+
+                    <p class="contenthide1">Qualified Investors (PE/VC and Strategic), Advisory Firms, Founders of Entrepreneurial Companies can just complete the form below to sign up for the Free newsletter. </p>
+
+                    <div id="newslettercon">
+
+                    <form  method="post" id="weeklynewsletterform" action="">
+                        <div id="form1">
+                        <div class="input-col">
+                            <p>
+                                <label for="your-name">Your Name *</label> <br />
+                                <input type="text" name="name" id="name" /> <span class="err-msg"></span>
+                            </p>
+                            <p>
+                                <label for="organization">Organization *</label> <br />
+                                <input type="text" name="organization" id="organization" /> <span class="err-msg"></span>
+                            </p>
+                            <p>
+                                <label for="email">Email (Offical/ Corporate ONLY) * </label> <br />
+                                <input type="text" name="email" id="email" /> <span class="err-msg"></span>
+                            </p>
+                            <p>
+                                <label for="email">Phone * </label> <br />
+                                <input type="text" name="phone" id="phone" /> <span class="err-msg"></span>
+                            </p>
+                        </div>
+                        <div>
+                           <p>
+                                <label for="ref">How did you learn about our service? * </label> <br />
+                                <textarea name="ref" id="ref" ></textarea><span class="err-msg"></span>
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                <input type="button" name="next" value="Next" class="sub-btn" id="nextbtn" />
+                            </p>
+                        </div>
+                        
+                        </div>    
+                    
+                        <div id="form2" style="display:none"> 
+                             <!-- Newsletter Content -->
+               <section class="news-sign-up">
+              
+               		 <div class="news-radio-group">
+                             <input type="radio" id="public-url" class="css-checkbox valcheckbox" name="firmtype" value="1" checked="">
+                        <label for="public-url" class="remeber-passwoerd css-label" >Just Enter your Linked Public Profile URL here</label>
+                      </div>
+                      <div class="news-form-group">
+                      	<label>Public Profile URL here </label>
+                        <input type="text" name="profile_url" id="profile_url" class="firstsec"> <span class="err-msg"></span>
+                      </div>
+                      
+               </section>
+               <section class="sec-or-cnt">
+               <div class="cnt-or">
+               		 
+               </div>
+               </section>
+               <section class="news-sign-up pull-right">
+               		<div class="news-radio-group">
+                        <input type="radio" id="complete-follow" class="css-checkbox valcheckbox" name="firmtype" value="2">
+                        <label for="complete-follow" class="remeber-passwoerd css-label" >Complete the following</label>
+                     </div>
+                     <div class="news-form-group">
+                     	<label>Designation *</label>
+                        <input type="text" name="designation" id="designation" class="secondsec" disabled="disabled"> <span class="err-msg"></span>
+                     </div>
+                     <!--<div class="news-form-group-col">
+                     	<label>Phone *</label>
+                        <input type="text" name="phone" id="phone" class="secondsec" disabled="disabled"> <span class="err-msg"></span>
+                     </div>-->
+                     <div class="news-form-group-col">
+                     <label>City *</label>
+                        <input  type="text" name="city" id="city" class="secondsec" disabled="disabled"> <span class="err-msg"></span>
+                      </div>
+                       
+               </section>
+                              <div class="new-sign-btn">
+                                <input type="submit" name="submit" value="Submit" class="sub-btn" id="submitbtn" />
+                            </div>
+               </div>    
+                    
+                    
+                    
+                    
+                    </form>
+                    
+                    
+                    
+                    
+                    
+                    </div>
+                    
+                    <div  id="download" >
+                    <h3></h3>
+                    <br><br><br>
+                   
+                    </div>
+                    
+                </div>
+                
+                
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-02">
+      <div class="content">
+        <div class="row">
+          <div class="col-1-2 address-sec" id="add-sec">
+            <address>
+            <a href="javascript:;"> <img src="img/foot_logo.png" width="170" height="46" alt="vi" title="vi"></a> <a href="mailto:bizdev@ventureintelligence.com" class="email-li">bizdev@ventureintelligence.com </a> <a href="javascript:;" class="mob-no">+91-44-4218-5180 / 82 </a>
+            <p>Venture Intelligence (TSJ Media Pvt. Ltd.) <br />
+              83, Ground Floor, III Street, Karpagam Avenue, R.A. Puram Chennai-600 028 India.</p>
+            </address>
+            <a href="https://www.google.co.in/maps/place/Venture+Intelligence/@13.023729,80.268559,16z/data=!4m2!3m1!1s0x3a5267db1bf0511f:0x70e9be78527e4ea3?hl=en" class="directions">Directions</a> </div>
+          <div class="col-1-2">
+            <div class="social-sec">
+              <h4>Follow us on</h4>
+              <nav> <a href="http://ventureintelligence.blogspot.in/" class="icon-block"></a> <a href="https://in.linkedin.com/in/ventureintelligence" class="icon-linkedin"></a> <a href="https://twitter.com/ventureindia" class="icon-twitter"></a> <a href="https://www.facebook.com/ventureintelligence" class="icon-fb"></a> <a href="https://plus.google.com/104062335450225242195" class="icon-gplues"></a> <a href="https://www.youtube.com/VentureIntelligence" class="you-tube"></a> </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <footer>
+      <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
+    </footer>
+  </div>
+</div>
+<script>
+ 
+    $(document).ready(function() {
+        
+      $('#nextbtn').click(function (e) {
+           $(".err-msg").text('');
+             
+             var name = $("#name").val(); 
+             var organization = $("#organization").val();
+             var email = $("#email").val();
+             var phone=$("#phone").val();
+             var nvalue=$.isNumeric(phone); 
+             var ref = $("#ref").val();
+             
+             var val=0;
+             
+            if(name==''){
+                 $("#name").next().text('Name is Required');
+                 var val=1;
+             }
+             
+             if(organization==''){
+                 $("#organization").next().text('Organization is Required');
+                 var val=1;
+             }
+             
+             if(email==''){
+                 $("#email").next().text('Email is Required');
+                 var val=1;
+             }
+             else if( /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?!gmail\.com|hotmail\.com|yahoo\.com|rediffmail\.com)[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test($("#email").val())){
+			 val==0;
+						} else {
+						 $("#email").next().text('Please Enter Only Corporate Email');
+                        var val=1;
+			 
+			 }
+
+	     if((!nvalue) || phone=="")
+             {
+                 $("#phone").next().text('Phone number is Required');
+                 var val=1;
+             }
+             if(ref==''){
+                 $("#ref").next().text('This field is Required');
+                 var val=1;
+             }
+             
+              
+             
+             if(val==1){
+                  $("#submitbtn").val('Submit');
+                 return false;
+             }else{
+                 $("#form1, .contenthide1").toggle('slow');
+                 $("#form2, .contenthide2").show();
+             }
+      });
+	  
+	  
+	  
+	  
+	  
+      
+      
+      
+       $('.valcheckbox').click(function () {
+           if(this.checked){
+               var val =$(this).val();
+               
+               if(val==1){
+                   $('.secondsec').attr('disabled','disabled');
+                   $('.firstsec').removeAttr('disabled');
+               }else if(val==2){
+                   $('.firstsec').attr('disabled','disabled');
+                   $('.secondsec').removeAttr('disabled');
+               }
+               
+               
+           }
+       });
+      
+     $('#weeklynewsletterform').submit(function (e) {
+             
+             $("#submitbtn").val('Processing...');
+            
+               var firmtype = $("input[name=firmtype]:checked").val()
+             if(firmtype==2){
+                 
+                    $(".err-msg").text('');
+             
+                    var designation = $("#designation").val(); 
+                    //var phone = $("#phone").val();
+                    var city = $("#city").val();
+
+                    var val=0;
+
+                   if(designation==''){
+                        $("#designation").next().text('Designation is Required');
+                        var val=1;
+                    }
+
+                    /*if(phone==''){
+                        $("#phone").next().text('Phone Number is Required');
+                        var val=1;
+                    }*/
+
+                    if(city==''){
+                        $("#city").next().text('City is Required');
+                        var val=1;
+                    }
+
+
+
+
+                    if(val==1){
+                         $("#submitbtn").val('Submit');
+                        return false;
+                    }
+                 
+             }
+			 
+			  if(firmtype==1){
+                 
+                    $(".err-msg").text('');
+             
+                    var profile_url = $("#profile_url").val(); 
+                    
+
+                    var val=0;
+
+                   if(profile_url==''){
+                        $("#profile_url").next().text('Profile url is Required');
+                        var val=1;
+                    }
+					
+					
+					else if(/^http:\/\/|(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test($("#profile_url").val())){
+						val==0;
+						} else {
+						 $("#profile_url").next().text('Please Enter Valid url');
+                        var val=1;
+						}
+						
+						/*else if (/./i.test($("#profile_url").val()))
+						{
+						 val==0;
+						}
+
+					 else {
+						 $("#profile_url").next().text('Please Enter Valid url');
+                         var val=1;
+						}*/
+						
+						
+
+                  
+                    if(val==1){
+                         $("#submitbtn").val('Submit');
+                        return false;
+                    }
+                 
+             }
+			 
+			 
+
+            var formData = $('#weeklynewsletterform').serializeArray();
+            
+            
+            
+
+            $.ajax({
+                url: 'mail_function.php?weeklynewsletter',
+                type: 'POST',
+                data: formData,
+                timeout: 30000, // in milliseconds
+                success: function (data) {
+                    status = data;
+                    //1 - success
+                    //2 - access error
+                    //3 - validation error
+                    switch (status)
+                    {
+                        case '1':
+                           //alert("Login Success..");
+                            $( "#newslettercon, .contenthide2" ).slideToggle( "slow" );
+                            $("#download, .contenthide3" ).show();
+                          
+                            
+                            break;
+                        case '0':
+                            alert("Check Network Connectivity and Try Again");
+                            return false;
+                            break;
+                      
+
+                    }
+                },
+                error: function (request, statusCode, err) {
+                    alert("Check Network Connectivity and Try Again");
+                     $("#submitbtn").val('Submit');
+                }
+                
+            });
+           
+            return false;
+        });
+        
+        
+        
+        
+        
+     $(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+               
+                $('.header').addClass("opne-nav-fix");
+                $('img.fixed-logo').show();
+                $('img.default').hide();
+                
+            } else {
+                $('.header').removeClass("opne-nav-fix");
+             $('img.default').show();
+           $('img.fixed-logo').hide();
+             
+            }
+        });
+        
+        
+        
+        
+        
+        
+
+    });
+    
+    </script>
+</body>
+</html>
