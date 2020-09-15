@@ -7,6 +7,12 @@ require_once MODULES_DIR."admin_user.php";
 $adminuser = new adminuser();
 require MODULES_DIR."admin_user_module.php";
 $adminUserModule = new adminusermodule();
+require_once MODULES_DIR."admin_user_external.php";
+$adminuserexternal = new adminuserexternal();
+require_once MODULES_DIR."adminvi_user_external.php";
+$adminviuserexternal = new adminviuserexternal();
+// require_once MODULES_DIR."adminvi_user.php";
+// $adminviuser = new adminviuser();
 
 include('conf_Admin.php');
 

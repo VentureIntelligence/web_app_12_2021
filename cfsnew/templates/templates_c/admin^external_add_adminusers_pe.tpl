@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.5.0, created on 2020-09-10 12:19:11
-         compiled from admin/external_add_adminusers_pe.tpl */ ?>
+<?php /* Smarty version 2.5.0, created on 2019-07-22 10:07:20
+         compiled from admin/add_adminuser.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include("admin/header.tpl", array());
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -18,6 +18,9 @@ validator.js"></script>
 .error{
 color:#990000;
 font-weight:bold;
+}
+body{
+    overflow:auto;
 }
 /*.slider-bg {
 	height:472px;
@@ -184,7 +187,7 @@ label {
 font-family: Arial, Helvetica, sans-serif;
 font-size: 18px;
 float: left;
-width: 150px;
+width: 165px;
 color: #333333;
 text-align: left;
 }
@@ -212,7 +215,20 @@ width:20px;
 				numeric: true
 			});
 		});*/	
-
+function Validation(id){
+    $.ajax({         
+        type: \'POST\',  
+        url : "submission_mail.php",
+        data: $(\'#Frm_EditUser\').serialize(),
+        success: function (response) {          
+            console.log(response);     
+        },
+        error: function(request,  error , status) {
+            console.log(error); 
+        }       
+    });
+    return true;
+}
 
 
 /*function Validation(id){
@@ -242,6 +258,20 @@ function IndexKeyPress(id,e){
 		return true;
 			//	validation(id);
 		}
+}
+
+function myFunction() {
+    var inputString=document.getElementById("answer[Email]").value;
+    if(inputString !=""){
+ 	jQuery.post("ajaxemailpemailcheck.php", {groupnamesuggest: ""+inputString+""}, function(data){
+				if(data!="") {
+                                        alert(data);
+                                        document.getElementById("answer[emailcheck]").value="1";
+				}else{
+                                        document.getElementById("answer[emailcheck]").value="";
+                }
+			});
+    }
 }
 
 
@@ -357,8 +387,9 @@ function IndexKeyPress(id,e){
 	<div class="breadtext">&nbsp;</div>
 	</div>
 </div>
-<form name="Frm_EditUser" id="Frm_EditUser" action="external_add_adminusers_pe.php" method="post" onSubmit="return Validation('Frm_EditUser')" enctype="multipart/form-data">
+<form name="Frm_EditUser" id="Frm_EditUser" action="external_add_adminusers_pe.php" method="post" autocomplete="off" onSubmit="return Validation('Frm_EditUser')" enctype="multipart/form-data">
 <input type="hidden" name="Registration" id="Registration" value="Registration" />
+<input type="hidden" name="location_for_mail" value="FULL API - WEB ACCESS ONLY - PE" />
 <div id="slidecontainer">
 
 
@@ -369,6 +400,7 @@ function IndexKeyPress(id,e){
 			<ul>
                             <li>
                                 <div class="adminbox">
+                                <div align="center"> <a href="external_adminusers_pe.php" style="float: right;">Back to list</a> </div>
                                 <div class="adtitle" align="center">Add External API User</div>    
                                 
                                  <div class="errormsg" style="padding:3px;padding: 3px;font-size: 14px;text-align: center;color: red;"><?php echo $this->_tpl_vars['ExistError']; ?>
@@ -378,7 +410,7 @@ function IndexKeyPress(id,e){
                                                 
                                 <br><br>
                                 <div align="center">
-                                       <label  >User Name</label>	
+                                       <label  >Name</label>	
                                         <input type="text" id="answer[UserName]" size="26" name="answer[UserName]" class="req_value"  forError="UserName" value="<?php echo $this->_tpl_vars['Request']['user_name']; ?>
 " />
                                 </div>                                 <br><br>
@@ -386,13 +418,10 @@ function IndexKeyPress(id,e){
                                         <label >Password</label>		
 					<input type="password" id="answer[Password]" size="26" name="answer[Password]" class="req_password" forError="Password"  value=""  />
                                 </div>                                 <br><br>
+                                                              
                                 <div align="center">
-                                        <label >Retype Password</label>		
-					<input type="password" id="password_again" size="26" name="password_again" class="req_password_again" forError="req_password_again" disabled="disabled" />
-                                </div>                                 <br><br>
-                                <div align="center">
-                                       <label >Email</label>	
-                                        <input type="text" id="answer[Email]" size="26" name="answer[Email]" class="req_email" forError="Email" value="<?php echo $this->_tpl_vars['Request']['email']; ?>
+                                       <label >Email / User Name</label>	
+                                        <input type="text" id="answer[Email]" size="26" name="answer[Email]" class="req_email" forError="Email" onfocusout="myFunction()" value="<?php echo $this->_tpl_vars['Request']['email']; ?>
 " />
                                 </div> <br><br>
                                 <div align="center">
@@ -405,19 +434,25 @@ function IndexKeyPress(id,e){
 				 <input type="text" id="answer[LastName]" size="26" name="answer[LastName]" class="req_value"  forError="LastName"  value="<?php echo $this->_tpl_vars['Request']['last_name']; ?>
 " />
                                 </div><br><br>
-                                  
-                                <input type="hidden" name="answer[external_api_access]" id="answer[external_api_access]" value="1"/>
-                                
-                                
-                                <br><br>
-                               
                                  
+                                <div align="center">
+                                     <label >Enable Permission</label>	
+                                         <input type="checkbox" name="answer[is_enabled]" id="answer[is_enabled]" class="is_enabled" value="1"  style="position: relative;left: -115px; top: 6px;"   />
+                                </div><br><br>
+                                 <div align="center">
+                                     <label >Login as Admin</label>	
+                                         <input type="checkbox" name="answer[admin_api_access]" id="answer[admin_api_access]" class="admin_api_access" value="1"  style="position: relative;left: -115px; top: 6px;"   />
+                                </div> 
+                               
+		<input type="hidden" name="answer[external_api_access]" id="answer[external_api_access]" value="1"/>
+           <input type="hidden" name="answer[emailcheck]" id="answer[emailcheck]" value="1"/>                     
+                             
                 
                 
                 
-               
+                <br><br>
 		<div align="center">
-			<input type="image" name="edit_business"  src="images/submit.png" style="width:87px; height:25px;"/>
+			<input type="image" name="edit_business"  src="images/submit.png" style="width:87px; height:25px;" />
 		</div><br />
 	
                 
