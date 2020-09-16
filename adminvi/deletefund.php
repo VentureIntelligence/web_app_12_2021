@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set( 'display_errors','1');
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
+$username= $_SESSION['name'];
 
 $Id=$_POST['DelFundId'];
 function deletemail($Id)
