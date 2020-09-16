@@ -3,9 +3,11 @@
  /*931 */
  .lft-cn{
                 float:none !important;
+                width:100%;
             }
             .filter-key-result {
                 display:inline-flex !important;
+                width:100%;
             }
             .result-title li{
                 word-break: break-all ;
@@ -1587,7 +1589,7 @@
                         } 
                 ?>
         <div class="result-title">
-        <div style="display: inline-flex">
+        <div style="display: inline-flex;width:100%;">
             <div class="filter-key-result"> 
                 <div style="float: left; margin: 20px 10px 0px 0px;font-size: 20px;">
                     <a  class="help-icon tooltip"><strong>Note</strong>
@@ -1602,6 +1604,20 @@
                                     
                                <ul class="result-select">
                                    <?php
+                                   if($datevalueDisplay1!=""){  
+                                    ?>
+                                   <li> 
+                                     <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                   </li>
+                                    <?php }
+                                    else if($datevalueCheck1 !="")
+                                    {
+                                    ?>
+                                        <li style="padding:1px 10px 1px 10px;"> 
+                                            <?php echo $datevalueCheck1. "-" .$datevalueCheck2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                        </li>
+                                    <?php 
+                                    }
                                 if($stagevaluetext!=""){  ?>
                                           
                                               <li> 
@@ -1637,20 +1653,7 @@
                                 </li>
 
                               <?php } 
-                                   if($datevalueDisplay1!=""){  
-                                         ?>
-                                        <li> 
-                                          <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
-                                        </li>
-                                <?php }
-                                else if($datevalueCheck1 !="")
-                                {
-                                ?>
-                                    <li style="padding:1px 10px 1px 10px;"> 
-                                      <?php echo $datevalueCheck1. "-" .$datevalueCheck2;?>
-                                    </li>
-                                <?php 
-                                }
+                                   
                                  if($drilldownflag ==0)
                                 {
                                 ?>
@@ -1673,6 +1676,28 @@
                                 <li class="result-select-close"><a href="/ma/index.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
                                 }
+                                if($datevalueDisplay1!=""){  ?>
+                                    <li> 
+                                        <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <?php } 
+                                    else if($datevalueCheck1 !="")
+                                    {
+                                     ?>
+                                     <li > 
+                                        <?php echo $datevalueCheck1. "-" .$datevalueCheck2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <?php
+                                    }
+                                    else if(isset($_POST['popup_select']) || trim($_POST['searchKeywordLeft'])!="" || trim($_POST['searchallfield'])!="" || trim($_POST['keywordsearch'])!="" || trim($_POST['companysearch'])!="" || trim($_POST['advisorsearch_legal'])!="" ||  trim($_POST['advisorsearch_trans'])!="" )
+                                     {
+       
+                                     ?>
+                                     <li > 
+                                        <?php echo $sdatevalueDisplay1. "-" .$edatevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <?php
+                                    }
                                  //echo $queryDisplayTitle;
                                 if($industry >0 && $industry!=null){ $drilldownflag=0; ?>
                                 <li>
@@ -1707,28 +1732,6 @@
                                 </li>
 
                               <?php } 
-                                if($datevalueDisplay1!=""){  ?>
-                                <li> 
-                                    <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                else if($datevalueCheck1 !="")
-                                {
-                                 ?>
-                                 <li style="padding:1px 10px 1px 10px;"> 
-                                    <?php echo $datevalueCheck1. "-" .$datevalueCheck2;?>
-                                </li>
-                                <?php
-                                }
-                                else if(isset($_POST['popup_select']) || trim($_POST['searchKeywordLeft'])!="" || trim($_POST['searchallfield'])!="" || trim($_POST['keywordsearch'])!="" || trim($_POST['companysearch'])!="" || trim($_POST['advisorsearch_legal'])!="" ||  trim($_POST['advisorsearch_trans'])!="" )
-                                 {
-   
-                                 ?>
-                                 <li style="padding:1px 10px 1px 10px;"> 
-                                    <?php echo $sdatevalueDisplay1. "-" .$edatevalueDisplay2;?>
-                                </li>
-                                <?php
-                                }
                                 if($targetCountryId !="--" && $targetCountryId !="" && $targetcountryvalue !='') { $drilldownflag=0; ?>
                                 <li class="countryht"> 
                                     <?php echo  $targetcountryvalue;?><a  onclick="resetinput('tcountry');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
