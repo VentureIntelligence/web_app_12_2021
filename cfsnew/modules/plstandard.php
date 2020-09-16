@@ -358,7 +358,7 @@ class plstandard extends database {
                 
                 $return_array = array();
 		 
-                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM fd2_index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
+                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
                 
                 $this->execute($sqlwithcharges);
                  
@@ -411,7 +411,7 @@ class plstandard extends database {
 		}
                 $return_array = array();
               
-                $sqlwithcharges = 'SELECT count(*) as count FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM fd2_index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  ';
+                $sqlwithcharges = 'SELECT count(*) as count FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  ';
                 //print "<br><br>".$sqlwithcharges;
                 $this->execute($sqlwithcharges);
                  
@@ -445,7 +445,7 @@ class plstandard extends database {
 			$this->setFetchMode('ASSOC');
 		}
                 
-                $sqlwithcharges = 'SELECT count(*) as count FROM (SELECT `CIN` FROM fd2_index_of_charges WHERE '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  ';
+                $sqlwithcharges = 'SELECT count(*) as count FROM (SELECT `CIN` FROM index_of_charges WHERE '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  ';
                 //print "<br><br>".$sqlwithcharges;        
                 $this->execute($sqlwithcharges);
 
@@ -494,7 +494,7 @@ class plstandard extends database {
                 $return_array = array();
               /*  $return_array['exportsql']=$sql;*/
                 
-                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM fd2_index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
+                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
                                
 		return $sqlwithcharges;
           
@@ -1051,25 +1051,181 @@ class plstandard extends database {
             return "false";
         }
 
-        function getchargeholderSuggest($where,$order){
-		$sql = "select CIN as cin, `Charge Holder` as chargeholder from fd2_index_of_charges ";
+    //     function getchargeholderSuggest($where,$order){
+	// 	$sql = "select CIN as cin, `Charge Holder` as chargeholder from fd2_index_of_charges ";
+	// 	if(strlen($where)) $sql.= " WHERE ".$where;
+                
+    //             $sql.=" GROUP BY `Charge Holder`  ";
+                
+	// 	if(strlen($order)) $sql.= " ORDER BY ".$order;
+	// 	//$sql.= " LIMIT 0,10";
+    //             //print_r($sql); exit;
+	// 	$this->execute($sql);
+               
+	// 	$return_array = array();
+	// 	while ($rs = $this->fetch()) {
+	// 		$return_array[$rs[0]]=$rs[1];
+	// 		$cont++;
+	// 	}
+                
+	// 	return $return_array;
+	// }
+	function getchargeholderSuggest($where,$order){	
+		$sql = "select ID as id,  `Charge Holder` as chargeholder from index_of_charges ";
 		if(strlen($where)) $sql.= " WHERE ".$where;
-                
-                $sql.=" GROUP BY `Charge Holder`  ";
-                
+				
+				$sql.=" GROUP BY `Charge Holder`  ";
+				
 		if(strlen($order)) $sql.= " ORDER BY ".$order;
 		//$sql.= " LIMIT 0,10";
-                //print_r($sql); exit;
+				//print_r($sql); exit;
 		$this->execute($sql);
-               
+
 		$return_array = array();
 		while ($rs = $this->fetch()) {
 			$return_array[$rs[0]]=$rs[1];
 			$cont++;
 		}
-                
+					
 		return $return_array;
 	}
+
+	function getcompanySuggest($where,$order){	
+		// $sql = "select Company_Id, SCompanyName as companyname, Company_Id as id from cprofile";
+		$sql = "select `CIN` as id, `companyName` as companyname  from index_of_charges";
+		if(strlen($where)) $sql.= " WHERE ".$where;
+				
+				$sql.=" GROUP BY `companyName`  ";
+				
+		if(strlen($order)) $sql.= " ORDER BY ".$order;
+		//$sql.= " LIMIT 0,10";
+				//print_r($sql); exit;
+		$this->execute($sql);
+
+		$return_array = array();
+		while ($rs = $this->fetch()) {
+			$return_array[$rs[0]]=$rs[1];
+			$cont++;
+		}
+					
+		return $return_array;
+	}
+
+	function getchargesholderList($field){	
+	$sql = "SELECT a1.companyName as company_name, a1.CIN as cin, a1.`Charge Holder` as chargeholder, a1.SRN, a1.`Charge ID` as chargeid, a1.Created_Date, a1.Modified_Date, a1.Address, a1.`Charge amount secured` as amount, a1.`Date_Of_Satisfaction` as dateofcharge FROM index_of_charges as a1 where
+		a1.CIN ='".$field."' group by chargeid";
+	
+			$this->setFetchMode('ASSOC');
+			$this->execute($sql);
+			$return_array = array();
+		//echo $sql;
+		//exit();
+		$cont=0;
+	if($field=="*")
+		$return_array=$this->fetch();
+	else{
+		while ($rs = $this->fetch()) {
+			$return_array[$cont]=$rs;
+			$cont++;
+		}
+	}
+
+	// print_r($return_array);
+	// exit();
+	 return $return_array;
+		
+	}
+	function getchargesholderListcompany($field){	
+		$sql = "SELECT a1.`companyName` FROM index_of_charges as a1 where
+			  
+			   a1.CIN ='".$field."' group by a1.`companyName`";
+		
+				$this->setFetchMode('ASSOC');
+				$this->execute($sql);
+				$return_array = array();
+			//echo $sql;
+			$cont=0;
+		if($field=="*")
+			$return_array=$this->fetch();
+		else{
+			while ($rs = $this->fetch()) {
+				// $return_array[$cont]=$rs;
+				// $cont++;
+				$return_array=$rs;
+			}
+		}
+
+		//  print_r($return_array);
+		//  exit();
+		 return $return_array;
+			
+		}
+		
+
+	function getcompanyList($chargewhere,$rows,$pageID,$order){	
+//echo $pageID;
+		// $sql = "SELECT  a2.Company_Id as id,
+		// a2.SCompanyName as company_name FROM index_of_charges as a1,cprofile as a2 where
+		// a1.CIN = a2.CIN ".$chargewhere." group by a2.SCompanyName";
+
+		// $sql = "SELECT * FROM (SELECT `CIN` as cin FROM index_of_charges as a1
+		// 				WHERE ".$chargewhere." GROUP BY `CIN` ) fcin , 
+		// 				(SELECT b.Company_Id as id, b.FCompanyName as company_name,b.CIN FROM plstandard a 
+		// 				INNER JOIN cprofile b ON b.Company_Id = a.CId_FK 
+		// 				LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id 
+		// 				WHERE a.CId_FK = b.Company_Id 
+		// 				GROUP BY b.Company_Id ) cp WHERE fcin.`CIN`=cp.`CIN`";
+		if($order != ''){
+			$order=$order;
+		}else{
+			$order="order by company_name asc";
+		}
+		$sql = "SELECT `CIN` as cin,companyName as company_name FROM index_of_charges as a1 WHERE ".$chargewhere." GROUP BY `CIN` ".$order;
+					//	echo $sql; 
+		 if($rows>0){
+			if((strlen($pageID)>0 || strlen($rows)>0) && $rows!="all" )
+	$sql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
+			}
+			$this->setFetchMode('ASSOC');
+			$this->execute($sql);
+			$return_array = array();
+			$cont=0;
+			while ($rs = $this->fetch()) {
+				$return_array[$cont]=$rs;
+				$cont++;
+			}
+		 return $return_array;
+			
+		}
+		function getcompanyList_cnt($chargewhere,$rows,$pageID){	
+			//echo $pageID;
+						// $sql = "SELECT  a2.Company_Id as id,
+						// a2.SCompanyName as company_name FROM index_of_charges as a1,cprofile as a2 where
+						// a1.CIN = a2.CIN ".$chargewhere." group by a2.SCompanyName";
+
+						// $sql = "SELECT * FROM (SELECT `CIN` FROM index_of_charges as a1
+						// WHERE ".$chargewhere." GROUP BY `CIN` ) fcin , 
+						// (SELECT b.Company_Id as id, b.SCompanyName as company_name,b.CIN FROM plstandard a 
+						// INNER JOIN cprofile b ON b.Company_Id = a.CId_FK 
+						// LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id 
+						// WHERE a.CId_FK = b.Company_Id 
+						// GROUP BY b.Company_Id ) cp WHERE fcin.`CIN`=cp.`CIN`";
+						$sql = "SELECT `CIN` as cin,companyName as company_name FROM index_of_charges as a1 WHERE ".$chargewhere." GROUP BY `CIN` ";
+						
+							$this->setFetchMode('ASSOC');
+							$this->execute($sql);
+							//echo $sql;
+							$return_array = array();
+							$cont=0;
+							while ($rs = $this->fetch()) {
+								$return_array[$cont]=$rs;
+								$cont++;
+							}
+						
+						 return $return_array;
+							
+						}
+		
 
 	function getauditornameSuggest($where,$order){
 		$sql = "select `auditor_name` as auditor_name from cprofile ";
@@ -1291,7 +1447,7 @@ class plstandard extends database {
                 $return_array = array();
                 /*  $return_array['exportsql']=$sql;*/
 		 
-                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM fd2_index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
+                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
                 //print "<br><br>".$sqlwithcharges; 
                 //print "<br><br>".$sqlwithcharges; 
                 // $this->execute('SET SQL_BIG_SELECTS=1');
