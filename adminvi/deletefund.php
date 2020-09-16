@@ -48,9 +48,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         {
 
             $query = "DELETE FROM fundRaisingDetails WHERE id='$repId'";
-            mysql_query($query) or die(mysql_error());
+            mysql_query($query);
         }
-        header('Location:'. BASE_URL .'fundlist.php');
+        header('Location:fundlist.php');
         exit();
     }
 }
