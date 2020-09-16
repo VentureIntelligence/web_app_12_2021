@@ -229,31 +229,32 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
         if ((chk > 0) || (chk1 > 0) || (chk2 > 0))
         {      
-            var formData= new Array();
-            formData.push({ name: 'DelEmailId', value: DelEmailId },{ name: 'MADelEmailId', value: MADelEmailId },{ name: 'REDelEmailId', value: REDelEmailId });
-            $.ajax({
+            if(confirm("Are you sure you want to delete selected members ? ")){
+                var formData= new Array();
+                formData.push({ name: 'DelEmailId', value: DelEmailId },{ name: 'MADelEmailId', value: MADelEmailId },{ name: 'REDelEmailId', value: REDelEmailId });
+                $.ajax({
 
-                url: 'deletemembers.php',
-                type: "POST",
-                data: formData,
-                dataType:"json",
-                success: function(data) {
+                    url: 'deletemembers.php',
+                    type: "POST",
+                    data: formData,
+                    dataType:"json",
+                    success: function(data) {
 
-                   // window.location = 'https://www.ventureintelligence.com/adminvi/companyedit.php?value=1015268522';
-                     window.location = '<?php echo BASE_URL; ?>adminvi/companyedit.php?value='+companyId;
-                    //console.log(data.length);   
-                    if(data.length > 0){
+                    // window.location = 'https://www.ventureintelligence.com/adminvi/companyedit.php?value=1015268522';
+                        window.location = '<?php echo BASE_URL; ?>adminvi/companyedit.php?value='+companyId;
+                        //console.log(data.length);   
+                        if(data.length > 0){
 
-                        alert("Users Deleted Successfully");
-                    }else{
-                        alert("User Deleted Successfully");
+                            alert("Users Deleted Successfully");
+                        }else{
+                            alert("User Deleted Successfully");
+                        }
+        //                 $.each(data ,function(field,error){
+        //                    console.log(error);
+        //                });
                     }
-    //                 $.each(data ,function(field,error){
-    //                    console.log(error);
-    //                });
-                }
-            });
-            
+                });
+            }
         }
         else{
 
