@@ -3,13 +3,11 @@ error_reporting(E_ALL);
 ini_set( 'display_errors','1');
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
-session_save_path("/tmp");
-session_start();
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd")){
     $sesID=session_id();
     $Id=$_POST['DelFundId'];
-    $username= $_SESSION['name'];
-    function deletemail($Id)
+    $userinfo= $_SESSION['name'];
+    function deletemail($Id,$userinfo)
     {   $ids= implode(",",$Id);
         $currentTime = date("Y-m-d h:i:s");
         $selectCompanyName = "SELECT fundNames.fundName ,fundNames.dbtype ,fundNames.fundId from fundRaisingDetails JOIN fundNames ON fundRaisingDetails.fundName = fundNames.fundId WHERE fundRaisingDetails.id IN ($ids)";
@@ -28,7 +26,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             {
                 While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
                 {
-                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$username."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundId']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundName']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['dbtype']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
+                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$userinfo."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundId']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundName']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['dbtype']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
                     // $message 	.= "<p>&nbsp;</p>";
                 }
             }
@@ -45,14 +43,14 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             }
     }
     if($Id > 0)
-    {   deletemail($Id);
+    {   deletemail($Id,$userinfo);
         foreach ($Id as $repId)
         {
 
             $query = "DELETE FROM fundRaisingDetails WHERE id='$repId'";
             mysql_query($query) or die(mysql_error());
         }
-        header('Location: fundlist.php');
+        header('Location:'. BASE_URL .'fundlist.php');
         exit();
     }
 }
