@@ -87,7 +87,7 @@ $username= $_SESSION['name'];
     {  
         $ids=implode("','",$delPEIdtoDelete);
         $ids="'".str_replace(" ","",$ids)."'";
-        $currentTime = date("Y-m-d h:i:s");
+        $currentTime = date("d-m-Y H:i:s");
         if($dbtype == "PE"){
             $dbname = "dealmembers";
         }else if($dbtype == "MA"){
