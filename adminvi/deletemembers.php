@@ -87,6 +87,7 @@ $username= $_SESSION['name'];
     {  
         $ids=implode("','",$delPEIdtoDelete);
         $ids="'".str_replace(" ","",$ids)."'";
+        date_default_timezone_set ( "Asia/Kolkata" );
         $currentTime = date("d-m-Y H:i:s");
         if($dbtype == "PE"){
             $dbname = "dealmembers";
