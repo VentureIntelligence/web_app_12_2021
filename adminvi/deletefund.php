@@ -9,7 +9,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $userinfo= $_SESSION['name'];
     function deletemail($Id,$userinfo)
     {   $ids= implode(",",$Id);
-        $currentTime = date("Y-m-d h:i:s");
+        $currentTime = date("d-m-Y H:i:s");
         $selectCompanyName = "SELECT fundNames.fundName ,fundNames.dbtype ,fundNames.fundId from fundRaisingDetails JOIN fundNames ON fundRaisingDetails.fundName = fundNames.fundId WHERE fundRaisingDetails.id IN ($ids)";
 
         $companyid = "";
