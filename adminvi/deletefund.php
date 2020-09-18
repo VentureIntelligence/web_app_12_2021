@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL); 
-ini_set( 'display_errors','1');
+// error_reporting(E_ALL); 
+// ini_set( 'display_errors','1');
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd")){
