@@ -11,7 +11,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     {   $ids= implode(",",$Id);
         $currentTime = date("d-m-Y H:i:s");
         date_default_timezone_set ( "Asia/Kolkata" );
-        $selectCompanyName = "SELECT fundNames.fundName,fundRaisingDetails.dbType ,fundRaisingDetails.id  from fundRaisingDetails LEFT JOIN fundNames ON fundRaisingDetails.fundName = fundNames.fundId WHERE fundRaisingDetails.id IN ($ids)";
+        $selectCompanyName = "SELECT peinvestors.Investor,fundRaisingDetails.dbType ,fundRaisingDetails.id  from fundRaisingDetails LEFT JOIN peinvestors ON fundRaisingDetails.investorId = peinvestors.InvestorId WHERE fundRaisingDetails.id IN ($ids)";
         
         $companyid = "";
             $to    = 'arun@ventureintelligence.in';
@@ -22,12 +22,12 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
             $message 	.= "<p></p>";
 
-            $message 	.="<table style='border-spacing: 0px;'><tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Admin User name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Funding ID</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Funding Name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Database Type</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Deleted Time</th></tr>";
+            $message 	.="<table style='border-spacing: 0px;'><tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Admin User name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Funding ID</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Investor Name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Database Type</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Deleted Time</th></tr>";
             if ($companyrs = mysql_query($selectCompanyName))
             {
                while($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
                 {
-                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$userinfo."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['id']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundName']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['dbType']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
+                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$userinfo."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['id']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['Investor']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['dbType']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
                      
                 }
                
