@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.5.0, created on 2020-07-15 18:22:31
+<?php /* Smarty version 2.5.0, created on 2020-09-22 17:49:53
          compiled from header.tpl */ ?>
 <?php $this->_load_plugins(array(
-array('function', 'html_options', 'header.tpl', 1320, false),)); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+array('function', 'html_options', 'header.tpl', 1334, false),)); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -210,6 +210,17 @@ ul.def-list {
     border-radius: 5px;
     font: normal 14px/16px "Trebuchet MS", Arial, Helvetica, sans-serif, calibri, Helvetica;
     font-weight: bold;
+}
+/*css for IOC additional*/
+ .betaversion {
+    font-style: italic;
+    font-size: 13px;
+    margin: -8px 0 0 3px !important;
+    float: right;
+    padding: 0 3px;
+    background: #a2753a;
+    font-weight: normal;
+    border-radius: 3px;
 }
   </style>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -1258,7 +1269,8 @@ filter: alpha(opacity=75);
 <div class="header-right">
 
 <ul class="nav">
-<li <?php if ($this->_tpl_vars['pageName'] == 'home.php' || $this->_tpl_vars['pageName'] == 'details.php'): ?> class="active" <?php endif; ?>><a href="home.php"><i class="companies"></i> COMPANIES</a></li>
+<li <?php if ($this->_tpl_vars['pageName'] == 'home.php' || $this->_tpl_vars['pageName'] == 'details.php'): ?> class="active" <?php endif; ?>><a href="home.php"><i class="companies"></i> FINANCIALS</a></li>
+<li <?php if ($this->_tpl_vars['pageName'] == 'indexofcharges.php' || $this->_tpl_vars['pageName'] == 'companylist_suggest.php' || $this->_tpl_vars['pageName'] == 'chargesholderlist_suggest.php'): ?> class="active" <?php endif; ?>><a href="indexofcharges.php"> INDEX OF CHARGES<span class="betaversion">Beta</span></a></li>
 <!-- <li <?php if ($this->_tpl_vars['pageName'] == 'comparers.php'): ?> class="active" <?php endif; ?>><a href="comparers.php"><i class="compare"></i> COMPARE</a></li> -->
 <!--<li <?php if ($this->_tpl_vars['pageName'] == 'other_report.php' || $this->_tpl_vars['pageName'] == 'other_report_details.php'): ?> class="active" <?php endif; ?>><a href="other_report.php"><i class="other_report"></i> OTHER REPORTS</a></li>--></ul>
 
@@ -1266,6 +1278,7 @@ filter: alpha(opacity=75);
 <?php if ($this->_tpl_vars['searchlimit'] >= $this->_tpl_vars['searchDone']): ?> 
 <li class="classic-btn tour-lock"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
 <li class="search-company" style="position:relative; border:none;">
+<?php if ($this->_tpl_vars['pageName'] != 'indexofcharges.php' && $this->_tpl_vars['pageName'] != 'companylist_suggest.php' && $this->_tpl_vars['pageName'] != 'chargesholderlist_suggest.php'): ?>
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
         <input type="text" value="<?php echo $this->_tpl_vars['searchv']; ?>
 " id="country"  class=""  autocomplete=off placeholder="Company Search" /><img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
@@ -1285,6 +1298,7 @@ filter: alpha(opacity=75);
         </form>
     </li>
 <?php endif; ?>
+<?php endif; ?>
 <!--<li class="avt-user"><a href="javascript:;"><i></i> Welcome <?php echo $this->_tpl_vars['authAdmin']['user']['elements']['username']; ?>
 <?php if ($this->_tpl_vars['authAdmin']['user_id']): ?><?php echo $this->_tpl_vars['authAdmin']['firstname']; ?>
 <?php else: ?>Guest<?php endif; ?></a></li>-->
@@ -1303,10 +1317,10 @@ filter: alpha(opacity=75);
 <?php else: ?>Guest<?php endif; ?></a></li> -->
   <?php if ($this->_tpl_vars['ipuser'] != ''): ?><!--login with loginip.php -->
 
-    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" ><i></i> Welcome <?php echo $this->_tpl_vars['authAdmin1'][$this->_tpl_vars['authAdminListId']]; ?>
+    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" id="accoutlist"><i></i> Welcome <?php echo $this->_tpl_vars['authAdmin1'][$this->_tpl_vars['authAdminListId']]; ?>
 </a></li>          
     <?php else: ?>
-    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" ><i></i> Welcome <?php echo $this->_tpl_vars['authAdmin']['user']['elements']['username']; ?>
+    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" id="accoutlist"><i></i> Welcome <?php echo $this->_tpl_vars['authAdmin']['user']['elements']['username']; ?>
 <?php if ($this->_tpl_vars['authAdmin']['user_id']): ?><?php echo $this->_tpl_vars['authAdmin']['firstname']; ?>
 <?php else: ?>Guest<?php endif; ?></a></li>
      <?php endif; ?>
@@ -1317,7 +1331,7 @@ filter: alpha(opacity=75);
                         <li class="o_link"><a href="../malogin.php" target="_blank">M&A Deals Database</a></li> 
                             <!--<li><a href="javascript:;">Tutorial</a></li>-->
                             <li><a href="changepassword.php">Change Password</a></li>
-                            <li><a href="logout.php">Logout</a></li> 
+                            <li id="logout"><a href="logout.php">Logout</a></li> 
     </ul>            
                 
 </ul></div>
@@ -1473,7 +1487,133 @@ filter: alpha(opacity=75);
  <li style="float:right;">Dont find a Company?<a>Click here to request for financials</a></li>
 </ul-->
 </div>
-<div class="container slide-bg <?php if ($this->_tpl_vars['pageName'] == 'home.php'): ?> container-bg <?php endif; ?>">        
+<div class="overlayshowdow" style="display: none;"></div>
+<div class="overlaydiv" style="display: none;">
+    
+<div class="overlayinner">
+<div id="popup6" style="width:800px;    padding-right: 20px;">
+    <div class="overlayheader">
+    <div class="close" title="Close Popup"></div>
+    <h3 style="text-align: center;    font-size: 18px;">Tag list - limited to PE backed companies</h3>
+    </div>
+    <?php $this->_smarty_include_php("taglist.php", '', true, array()); ?>
+</div>
+</div>
+</div>
+
+<div class="container slide-bg <?php if ($this->_tpl_vars['pageName'] == 'home.php'): ?> container-bg <?php endif; ?>">   
+<?php elseif ($this->_tpl_vars['pageName'] == 'indexofcharges.php'): ?>    
+<form name="Frm_HmeSearch" id="Frm_HmeSearch" action="chargesholderlist_suggest.php?ioc_filter=1" method="post" class="custom"   enctype="multipart/form-data" >
+               <input type="hidden" id="filterData_top" name="filterData_top" value="<?php if ($GLOBALS['HTTP_SESSION_VARS']['totalResults_top']): ?><?php echo $GLOBALS['HTTP_SESSION_VARS']['totalResults_top']; ?>
+<?php endif; ?>"/>
+               <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="<?php echo $this->_tpl_vars['REQUEST']['oldFinacialDataFlag']; ?>
+"/>
+               <input type="hidden" name="search_export_value" id="search_export_value" value="<?php echo $this->_tpl_vars['searchv']; ?>
+" />
+<div class="search-main">
+
+<ul>
+<li><label>INDUSTRY</label> 
+    <select id="answer[Industry]" name="answer[Industry]"  class="" forError="Industry" disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
+            <option value="" >Please Select an Industry</option>
+            <?php echo $this->_plugins['function']['html_options'][0](array('options' => $this->_tpl_vars['industries'],'selected' => $this->_tpl_vars['REQUEST_Answer']['Industry']), $this) ; ?>
+
+    </select></li>
+    
+    <li><label>SECTOR  </label> <span style="float:left;" id="sectordisplay">
+    <select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" <?php if ($this->_tpl_vars['REQUEST_Answer']['Industry'] == null): ?> disabled <?php endif; ?>>
+                <option value="" >Please Select a Sector</option>
+             
+               <?php if ($this->_tpl_vars['REQUEST_Answer']['Industry'] != null): ?>
+               <?php echo $this->_plugins['function']['html_options'][0](array('options' => $this->_tpl_vars['sectors'],'selected' => $this->_tpl_vars['REQUEST_Answer']['Sector']), $this) ; ?>
+
+               <?php endif; ?>
+    </select></span></li>
+    
+<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
+    <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" disabled  checked /> <span>Privately held(Ltd)</span></label>
+    <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" disabled  checked /> <span>Partnership</span></label>
+    <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" disabled   checked /> <span>Proprietorship</span></label></li>
+
+<!--<li> <input name="headerSearch" type="submit" value="SEARCH"  class="refine"/></li>-->
+
+</ul>
+<!--ul>
+ <li style="float:right;">Dont find a Company?<a>Click here to request for financials</a></li>
+</ul-->
+</div>
+
+<div class="overlayshowdow" style="display: none;"></div>
+<div class="overlaydiv" style="display: none;">
+    
+<div class="overlayinner">
+<div id="popup6" style="width:800px;    padding-right: 20px;">
+    <div class="overlayheader">
+    <div class="close" title="Close Popup"></div>
+    <h3 style="text-align: center;    font-size: 18px;">Tag list - limited to PE backed companies</h3>
+    </div>
+    <?php $this->_smarty_include_php("taglist.php", '', true, array()); ?>
+</div>
+</div>
+</div>
+
+<div class="container slide-bg container-bg">
+<?php elseif ($this->_tpl_vars['pageName'] == 'chargesholderlist_suggest.php'): ?>    
+<form name="Frm_HmeSearch" id="Frm_HmeSearch" action="chargesholderlist_suggest.php?ioc_filter=1" method="post" class="custom"   enctype="multipart/form-data" >
+               <input type="hidden" id="filterData_top" name="filterData_top" value="<?php if ($GLOBALS['HTTP_SESSION_VARS']['totalResults_top']): ?><?php echo $GLOBALS['HTTP_SESSION_VARS']['totalResults_top']; ?>
+<?php endif; ?>"/>
+               <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="<?php echo $this->_tpl_vars['REQUEST']['oldFinacialDataFlag']; ?>
+"/>
+               <input type="hidden" name="search_export_value" id="search_export_value" value="<?php echo $this->_tpl_vars['searchv']; ?>
+" />
+<div class="search-main">
+<ul>
+<li><label>INDUSTRY</label> 
+    <select id="answer[Industry]" name="answer[Industry]"  class="" forError="Industry"  disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
+            <option value="" >Please Select an Industry</option>
+            <?php echo $this->_plugins['function']['html_options'][0](array('options' => $this->_tpl_vars['industries'],'selected' => $this->_tpl_vars['REQUEST_Answer']['Industry']), $this) ; ?>
+
+    </select></li>
+    
+    <li><label>SECTOR  </label> <span style="float:left;" id="sectordisplay">
+    <select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" <?php if ($this->_tpl_vars['REQUEST_Answer']['Industry'] == null): ?> disabled <?php endif; ?>>
+                <option value="" >Please Select a Sector</option>
+             
+               <?php if ($this->_tpl_vars['REQUEST_Answer']['Industry'] != null): ?>
+               <?php echo $this->_plugins['function']['html_options'][0](array('options' => $this->_tpl_vars['sectors'],'selected' => $this->_tpl_vars['REQUEST_Answer']['Sector']), $this) ; ?>
+
+               <?php endif; ?>
+    </select></span></li>
+    
+<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
+    <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" disabled checked /> <span>Privately held(Ltd)</span></label>
+    <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" disabled  checked/> <span>Partnership</span></label>
+    <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" disabled checked /> <span>Proprietorship</span></label></li>
+
+<!--<li> <input name="headerSearch" type="submit" value="SEARCH"  class="refine"/></li>-->
+
+</ul>
+<!--ul>
+ <li style="float:right;">Dont find a Company?<a>Click here to request for financials</a></li>
+</ul-->
+</div>
+
+<div class="overlayshowdow" style="display: none;"></div>
+<div class="overlaydiv" style="display: none;">
+    
+<div class="overlayinner">
+<div id="popup6" style="width:800px;    padding-right: 20px;">
+    <div class="overlayheader">
+    <div class="close" title="Close Popup"></div>
+    <h3 style="text-align: center;    font-size: 18px;">Tag list - limited to PE backed companies</h3>
+    </div>
+    <?php $this->_smarty_include_php("taglist.php", '', true, array()); ?>
+</div>
+</div>
+</div>
+
+<div class="container slide-bg container-bg">
+
 <?php else: ?> 
 <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="home.php" method="post" class="custom"   enctype="multipart/form-data" >
                <input type="hidden" id="filterData_top" name="filterData_top" value="<?php if ($GLOBALS['HTTP_SESSION_VARS']['totalResults_top']): ?><?php echo $GLOBALS['HTTP_SESSION_VARS']['totalResults_top']; ?>
@@ -1528,4 +1668,5 @@ filter: alpha(opacity=75);
 
 <div class="container slide-bg <?php if ($this->_tpl_vars['pageName'] == 'home.php'): ?> container-bg <?php endif; ?>">
 <?php endif; ?>
+
 
