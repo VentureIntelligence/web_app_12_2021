@@ -853,6 +853,10 @@
     height:90px;
     overflow-y:scroll;
 }
+.result-title li{
+    float:none !important;
+    display:inline-block ;
+}
 .result-title li.countryht{
                 word-break: break-all ;
             }
@@ -934,7 +938,7 @@ padding: 4px 10px 4px 35px !important;
         height: 155px;
     }
     .moreinfo_1{
-        height: 135px;
+        height: 150px;
     }
     .more-info{
         padding: 5px 10px 20px 3px !important;
@@ -1130,6 +1134,27 @@ padding: 4px 10px 4px 35px !important;
                                     </li>
                                     <?php
                                      } }
+                                     if($target_comptype !="--" && $target_comptype !="") { $drilldownflag=0;?>
+                                        <li > 
+                                            <?php echo $target_comptype_display; ?><a  onclick="resetinput('targetct');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                        </li>
+                                     <?php } 
+                                    if($acquirer_comptype !="--" && $acquirer_comptype !=""){ $drilldownflag=0; ?>
+                                    <li > 
+                                        <?php echo $acquirer_comptype_display; ?><a  onclick="resetinput('acquirerct');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <?php }  
+                                     if($valuationstxt!=""){  ?>
+
+                                        <li > 
+                                          <?php echo $valuationstxt;?><a  onclick="resetinput('valuations');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                        </li>
+                                         <?php } 
+                                         if (($startRangeValue!= "--") && ($endRangeValue != "--") && ($startRangeValue!= "") && ($endRangeValue != "")){ $drilldownflag=0; ?>
+                                            <li > 
+                                                <?php echo "(USM)".$startRangeValue ."-" .$endRangeValueDisplay ?><a  onclick="resetinput('range');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                            </li>
+                                            <?php }   
                                  //echo $queryDisplayTitle;
                                 if($industry >0 && $industry!=null){ $drilldownflag=0; ?>
                                 <li >
@@ -1141,30 +1166,6 @@ padding: 4px 10px 4px 35px !important;
                                     <?php echo $dealtypevalue; ?><a  onclick="resetinput('dealtype');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
                                 <?php } 
-                                if($target_comptype !="--" && $target_comptype !="") { $drilldownflag=0;?>
-                                <li > 
-                                    <?php echo $target_comptype_display; ?><a  onclick="resetinput('targetct');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                if($acquirer_comptype !="--" && $acquirer_comptype !=""){ $drilldownflag=0; ?>
-                                <li > 
-                                    <?php echo $acquirer_comptype_display; ?><a  onclick="resetinput('acquirerct');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php }  
-                                if (($startRangeValue!= "--") && ($endRangeValue != "--") && ($startRangeValue!= "") && ($endRangeValue != "")){ $drilldownflag=0; ?>
-                                <li > 
-                                    <?php echo "(USM)".$startRangeValue ."-" .$endRangeValueDisplay ?><a  onclick="resetinput('range');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php }                                
-                                
-                                if($valuationstxt!=""){  ?>
-
-                                <li > 
-                                  <?php echo $valuationstxt;?><a  onclick="resetinput('valuations');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                 <?php } 
-                                 
-                               
                                 if($targetCountryId !="--" && $targetCountryId !="") { $drilldownflag=0; ?>
                                 <li class="countryht"> 
                                     <?php echo  $targetcountryvalue;?><a  onclick="resetinput('tcountry');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
