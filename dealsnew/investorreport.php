@@ -210,6 +210,9 @@ else if($vcflagValue==2){
                                 <div style="float:right;" >
 <div class="period-date">
 <label>To</label>
+<?php
+        $month1 = ($_POST['month1']=='') ? '1' : $_POST['month1'];
+    ?>  
 <SELECT NAME="month1" id="month1">
      <OPTION id=1 value="--"> Month </option>
      <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
