@@ -11,8 +11,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     {   $ids= implode(",",$Id);
         $currentTime = date("d-m-Y H:i:s");
         date_default_timezone_set ( "Asia/Kolkata" );
-        $selectCompanyName = "SELECT fundNames.fundName ,fundNames.dbtype ,fundNames.fundId from fundRaisingDetails JOIN fundNames ON fundRaisingDetails.fundName = fundNames.fundId WHERE fundRaisingDetails.id IN ($ids)";
-
+        $selectCompanyName = "SELECT fundNames.fundName,fundRaisingDetails.dbType ,fundRaisingDetails.id  from fundRaisingDetails LEFT JOIN fundNames ON fundRaisingDetails.fundName = fundNames.fundId WHERE fundRaisingDetails.id IN ($ids)";
+        
         $companyid = "";
             $to    = 'arun@ventureintelligence.in';
             $from 	= 'info@ventureintelligence.in';
@@ -23,20 +23,21 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             $message 	.= "<p></p>";
 
             $message 	.="<table style='border-spacing: 0px;'><tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Admin User name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Funding ID</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Funding Name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Database Type</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Deleted Time</th></tr>";
-                if ($companyrs = mysql_query($selectCompanyName))
+            if ($companyrs = mysql_query($selectCompanyName))
             {
-                While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
+               while($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
                 {
-                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$userinfo."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundId']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundName']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['dbtype']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
-                    // $message 	.= "<p>&nbsp;</p>";
+                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$userinfo."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['id']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['fundName']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$myrow['dbType']."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
+                     
                 }
+               
             }
             $message .= "</table>";
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
             $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
-            $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
+            $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com, krishna.s@praniontech.com' . "\r\n";
 
             
             if (@mail($to, $subject, $message, $headers)){
