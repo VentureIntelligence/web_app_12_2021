@@ -704,8 +704,8 @@ session_start();
                                             //  Read a row of data into an array
                                                 $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, "", TRUE, TRUE);
                                               
-                                                $MailtoInsert = trim($rowData[0][1]);
-                                                $NametoInsert= trim($rowData[0][0]);
+                                                $MailtoInsert = trim($rowData[0][0]);
+                                                $NametoInsert= trim($rowData[0][1]);
                                                 $PwdtoInsert= md5(trim($rowData[0][2]));
                                                 $deleted=0;
                                                 if((trim($MailtoInsert) !="") && (trim($NametoInsert)!="") && (trim($PwdtoInsert)!=""))
