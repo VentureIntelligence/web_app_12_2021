@@ -1181,7 +1181,7 @@ class plstandard extends database {
 			$order="order by company_name asc";
 		}
 		$sql = "SELECT `CIN` as cin,companyName as company_name FROM index_of_charges as a1 WHERE ".$chargewhere." GROUP BY `CIN` ".$order;
-					//	echo $sql; 
+		echo '<div style="display:none">';print_r( $sql );echo'</div>';	
 		 if($rows>0){
 			if((strlen($pageID)>0 || strlen($rows)>0) && $rows!="all" )
 	$sql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
@@ -1214,7 +1214,8 @@ class plstandard extends database {
 						
 							$this->setFetchMode('ASSOC');
 							$this->execute($sql);
-							//echo $sql;
+							//	echo $sql;
+							
 							$return_array = array();
 							$cont=0;
 							while ($rs = $this->fetch()) {

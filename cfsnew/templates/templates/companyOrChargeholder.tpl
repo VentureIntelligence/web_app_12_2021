@@ -127,6 +127,16 @@
 }
 
 }
+.search{
+    background: #9A7249 !important;
+    border-radius: 5px;
+    font: normal 14px/16px "Trebuchet MS", Arial, Helvetica, sans-serif, calibri, Helvetica;
+    font-weight: bold;
+    color: #fff;
+    padding: 7px 14px !important;
+    outline: 1px solid transparent;
+    border-color: transparent;
+}
 
     </style>
 {/literal}
@@ -149,9 +159,14 @@
                       <label > or </label>
                     </div>
                     <div style="float:left">
-                      <input typr="text" class="form-control company_name" id="chargeholderlist" autocomplete="off" placeholder="Charge Holder Name" style="border:1px solid #ccc;"/> 
+                      <form method="post" action="chargesholderlist_suggest.php">
+                      <input type="hidden" name="holderhidden" class="holderhidden" value="">
+                      <input typr="text"  class="form-control company_name" id="chargeholderlist" autocomplete="off" placeholder="Charge Holder Name" style="border:1px solid #ccc;" required/> 
+                      <input type="submit" class="search" value="GO >">
                       <div id="testholderval" style="  overflow-y: auto;  max-height: 118px;  background: #e6e6e6;display:none; width:225px;">
                       </div>
+                      
+                      </form>
                     </div>
                 </div>
                 
@@ -350,63 +365,48 @@ $('.updateFinancialHome').click(function(){
     next(); 
   });
              });
-        $('#testholderval #result_cc label').live("click", function() {  //on click 
-                      
-                       var sltholder='';
-                       var sltcount=0;
-                                                   
-                              var holder = $(this).text();                             
-                             
-                                 if(sltcount==0) { sltholder+=holder; }
-                                 else { sltholder+=","+holder; }
-                             
-                              $("#testholderval").show();
-                     $("#chargeholderlist").attr('readonly','readonly');  
-                     $("#chargeholderlist").val(sltholder); 
-                      $('#pgLoading').css('display', 'block');
-                       $('#pgLoading')
-  .delay(15000)
-  .queue(function (next) { 
-    $(this).css('display', 'none'); 
-    next(); 
-  });
-             });
+       
+ 
+       $('.ch_holder input').live("click", function() {   
+           
+          $optchk= $(this).val();        
+          $chholderlength = $(".ch_holder input").length;
+          $chholderalllength = $(".ch_holder input:checked").length;
+          $optioncheck=$(".holderhidden").val();
+          $holderhiddenval=$('.holderhidden').val().split(",").length;
+          if($chholderlength == $chholderalllength){
+            $("#selectallval").attr("checked","checked");
+          }else{
+             $("#selectallval").removeAttr("checked");
+          }
+          
+if($optioncheck != ""){
+  $optionchecklist=$optioncheck;
+  $optionchecklist+=', '
+}else{
+          $optionchecklist="";
+  }
+$(".holderhidden").val($optionchecklist+$optchk);
+          //$('.holderhidden').val($optioncheck);
+      });
+      $('#selectallval').live("click", function() {   
+          $value=$("#selectallval").is(':checked');
 
-      // $('.ch_holder').live("click", function() {  //on click 
-                      
-      //                 var sltholder='';
-      //                 var sltcount=0;
-      //                 $('.ch_holder').each(function() { //loop through each checkbox
-                          
-      //                     if(this.checked) {                              
-      //                        var holder = $(this).val();                             
-                             
-      //                           if(sltcount==0) { sltholder+=holder; }
-      //                           else { sltholder+=","+holder; }
-                             
-      //                        sltcount++;
-      //                        $("#testholder").show();
-      //                         //sltuserscout++;
-      //                     }
-                          
-      //                });
-                     
-      //               $("#chargeholderlist").attr('readonly','readonly');  
-      //               $("#chargeholderlist").val(sltholder); 
-                    
-                    
-      //               if(sltcount==0){  $("#charge_clearall").fadeOut(); $("#chargeholderlist").removeAttr('readonly');   }
-      //               else {   $("#charge_clearall").fadeIn();  }
-                        
-      //   if($(".ch_holder").length==$(".ch_holder:checked").length){
+          if($value == true){
+             $(".ch_holder input").attr("checked","checked");
+            var favorite = [];
+            $.each($("input[name='chargeholderoption']:checked"), function(){
+                favorite.push($(this).val());
+            });
+            $(".holderhidden").val(favorite.join(", "));
+          }else{
+             $(".holderhidden").val('');
+             $(".ch_holder input").removeAttr("checked");
             
-      //       $("#selectall").attr("checked","checked");
-      //   }else{
-      //       $("#selectall").removeAttr("checked");
-      //   }
-                     
-                 
-      //        });
+
+          }
+      });
+       
       $('#mailbtn1').click(function(e){
         e.preventDefault(); 
         var to = $('#toaddress').val().trim();
