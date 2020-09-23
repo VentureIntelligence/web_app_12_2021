@@ -177,7 +177,9 @@ background-color: #000;
 </style>
 {/literal}
 <div id="container" style="margin-top: 25px;">
-     
+ <form method="post" id="Frm_HmeSearch1" action="chargesholderlist_suggest.php">
+                      <input type="hidden" name="holderhiddenval" class="holderhiddenval" value="{$ChargesholderName}">
+</form>    
  
 
 <h1 style="padding:0px !important;font-size: 17px;">
@@ -237,7 +239,7 @@ background-color: #000;
     <div class="list-tab"  style="margin-top: 12px;">
 <ul>
 
-<li><a class="postlink" {if $ioc_fstatus eq 1}href="chargesholderlist_suggest.php?ioc_fstatus=1&name={$ChargesholderName}{if $ioc_fchargeaddress neq ''}&chargeaddress={$ioc_fchargeaddress}{/if}{if $ioc_fchargefromdate neq ''}&chargefromdate={$ioc_fchargefromdate}{/if}{if $ioc_fchargetodate neq ''}&chargetodate={$ioc_fchargetodate}{/if}{if $ioc_fchargefromamount neq ''}&chargefromamount={$ioc_fchargefromamount}{/if}{if $ioc_fchargetoamount neq ''}&chargetoamount={$ioc_fchargetoamount}{/if}{/if}{if $pageno}&page={$pageno}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
+<li><a class="postlinkval" {if $ioc_fstatus eq 1}href="chargesholderlist_suggest.php?ioc_fstatus=1{if $ioc_fchargeaddress neq ''}&chargeaddress={$ioc_fchargeaddress}{/if}{if $ioc_fchargefromdate neq ''}&chargefromdate={$ioc_fchargefromdate}{/if}{if $ioc_fchargetodate neq ''}&chargetodate={$ioc_fchargetodate}{/if}{if $ioc_fchargefromamount neq ''}&chargefromamount={$ioc_fchargefromamount}{/if}{if $ioc_fchargetoamount neq ''}&chargetoamount={$ioc_fchargetoamount}{/if}{/if}{if $pageno}&page={$pageno}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
 
 <li><a class="postlink active" href="#"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
 </ul>
@@ -325,6 +327,12 @@ background-color: #000;
 {literal}
 
  <script>
+ $("a.postlinkval").live('click',function(){
+        hrefval= $(this).attr("href");
+        $("#Frm_HmeSearch1").attr("action", hrefval);
+        $("#Frm_HmeSearch1").submit();
+        return false;
+     });
  $('.updateFinancialHome').click(function(){ 
                     jQuery('#maskscreen').fadeIn(1000);
                     jQuery('#popup-box').fadeIn();   

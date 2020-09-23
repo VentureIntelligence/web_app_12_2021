@@ -13,7 +13,7 @@
     require_once('aws.phar');
     require_once MODULES_DIR."plstandard.php";
     $plstandard = new plstandard();
-
+    
 
     use Aws\S3\S3Client;
     $client = S3Client::factory(array(
@@ -170,18 +170,35 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
     // $chargesholdername = mysql_fetch_array($fetch_chargesholder);
     
     // $chargeholders_count = $chargesholdername[0];
+   // $filtered_chargesholdername = $_REQUEST['name'];
+   
+   if($_REQUEST['holderhidden'] !=""){
+    $filtered_chargesholdername = $_REQUEST['holderhidden'];
+    $filtered_chargesholdername = "'".$filtered_chargesholdername."'";
+    $filtered_chargesholdername = str_replace(", ", "', '", $filtered_chargesholdername);
+   }elseif($_REQUEST['holderhiddenval'] !=""){
+    $filtered_chargesholdername = $_REQUEST['holderhiddenval'];
+   }else{
     $filtered_chargesholdername = $_REQUEST['name'];
+   }
+   
+    // $filtered_chargesholdername = $filtered_chargesholdername;
     $companyURL = $_GET['name'];
    // $filtered_chargeholder_name = str_replace(' ', '_', $filtered_chargesholdername);
-   $filtered_chargesholdername = str_replace('_', ' ', $filtered_chargesholdername);
+   //$filtered_chargesholdername = str_replace('_', ' ', $filtered_chargesholdername);
     if($filtered_chargesholdername !=''){
        // $filtered_chargesholdername = str_replace('_', ' ', $filtered_chargesholdername);
+        // if($chargewhere != ''){
+        //     $chargewhere .="    and a1.`Charge Holder` LIKE  "."'%".$filtered_chargesholdername."%'";
+        // }else{
+        //     $chargewhere .="    a1.`Charge Holder` LIKE "."'%".$filtered_chargesholdername."%'";
+        // }
         if($chargewhere != ''){
-            $chargewhere .="    and a1.`Charge Holder` LIKE  "."'%".$filtered_chargesholdername."%'";
+            $chargewhere .="    and a1.`Charge Holder` IN  (".$filtered_chargesholdername.")";
         }else{
-            $chargewhere .="    a1.`Charge Holder` LIKE "."'%".$filtered_chargesholdername."%'";
+            $chargewhere .="    a1.`Charge Holder` IN (".$filtered_chargesholdername.")";
         }
-            
+           
            // $template->assign("chargeaddress" , $_REQUEST['chargeaddress']);
            
     }
@@ -311,6 +328,7 @@ $ioc_filter_status = $_GET['ioc_filter'];
 
 
     //print_r($SearchResults);
+    $template->assign("holderhidden" , $_REQUEST['holderhidden']);
     $template->assign("sortby" , $_REQUEST['sortby']);
     $template->assign("sortorder" , $_REQUEST['sortorder']);
     $template->assign("curPage" , $page);
