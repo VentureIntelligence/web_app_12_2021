@@ -13,13 +13,13 @@
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
             <input type="hidden" id="exportexcel" name="exportexcel" value="{$searchexport}"/>
-            <input type="hidden" name="ioc" value="{$ChargesholderName}">
+            <input type="hidden" name="ioc" value='{$ChargesholderName}'>
             <input type="hidden" name="chargeaddress" value="{$ioc_faddress}">
             <input type="hidden" name="chargefromdate" value="{$ioc_fchargefromdate}">
             <input type="hidden" name="chargetoamount" value="{$ioc_fchargetoamount}">
             <input type="hidden" name="chargefromamount" value="{$ioc_fchargefromamount}">
             <input type="hidden" name="chargetodate" value="{$ioc_fchargetodate}">
-            <input type="hidden" id="ChargesholderName" name="ChargesholderName" value="{$ChargesholderName}"/>
+            <input type="hidden" id="ChargesholderName" name="ChargesholderName" value='{$ChargesholderName}'/>
             <div class="btn-cnt p10" style="float:right;padding: 5px!important;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>
         </div>

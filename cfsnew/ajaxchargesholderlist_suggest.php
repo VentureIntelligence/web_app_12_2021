@@ -122,8 +122,8 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
 
         if($_REQUEST['holderhidden'] !=""){
             $filtered_chargesholdername = $_REQUEST['holderhidden'];
-            $filtered_chargesholdername = "'".$filtered_chargesholdername."'";
-            $filtered_chargesholdername = str_replace(", ", "', '", $filtered_chargesholdername);
+            $filtered_chargesholdername = '"'.$filtered_chargesholdername.'"';
+            $filtered_chargesholdername = str_replace(', ', '", "', $filtered_chargesholdername);
            }elseif($_REQUEST['holderhiddenval'] !=""){
             $filtered_chargesholdername = $_REQUEST['holderhiddenval'];
            }else{
@@ -140,14 +140,15 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
      //     $chargewhere .="    a1.`Charge Holder` LIKE "."'%".$filtered_chargesholdername."%'";
      // }
      if($chargewhere != ''){
-         $chargewhere .="    and a1.`Charge Holder` IN  (".$filtered_chargesholdername.")";
+         $chargewhere .='    and a1.`Charge Holder` IN  ('.$filtered_chargesholdername.')';
      }else{
-         $chargewhere .="    a1.`Charge Holder` IN (".$filtered_chargesholdername.")";
+         $chargewhere .='    a1.`Charge Holder` IN ('.$filtered_chargesholdername.')';
      }
         
         // $template->assign("chargeaddress" , $_REQUEST['chargeaddress']);
         
  }
+ 
     if($_REQUEST['sortorder']=='')
     {
        $sortorder="asc";

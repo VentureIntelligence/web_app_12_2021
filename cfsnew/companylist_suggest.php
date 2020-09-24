@@ -108,15 +108,15 @@
 //  $filtered_chargesholdername = str_replace('_', ' ', $filtered_chargesholdername);
 if($_REQUEST['holderhidden'] !=""){
     $filtered_chargesholdername = $_REQUEST['holderhidden'];
-    $filtered_chargesholdername = "'".$filtered_chargesholdername."'";
-    $filtered_chargesholdername = str_replace(", ", "', '", $filtered_chargesholdername);
+    $filtered_chargesholdername = '"'.$filtered_chargesholdername.'"';
+    $filtered_chargesholdername = str_replace(', ', '", "', $filtered_chargesholdername);
    }elseif($_REQUEST['holderhiddenval'] !=""){
     $filtered_chargesholdername = $_REQUEST['holderhiddenval'];
    }else{
     $filtered_chargesholdername = $_REQUEST['name'];
    }
 
-    
+   
     //print_r($SearchResults);
     $template->assign("searchexport",$SearchExport);
     $template->assign('SearchResults',$SearchResults);

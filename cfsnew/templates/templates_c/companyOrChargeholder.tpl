@@ -1,10 +1,20 @@
-{include file="header.tpl"}
-{include file="leftpanel_ioc.tpl"}
+<?php /* Smarty version 2.5.0, created on 2020-09-24 09:48:37
+         compiled from companyOrChargeholder.tpl */ ?>
+<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include("header.tpl", array());
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
+<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include("leftpanel_ioc.tpl", array());
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
 
 <div class="container-right">
-<!-- {if $searchupperlimit gte $searchlowerlimit}   --> 
+<!-- <?php if ($this->_tpl_vars['searchupperlimit'] >= $this->_tpl_vars['searchlowerlimit']): ?>   --> 
 
-{literal}
+<?php echo '
 <style>
 .search-main li label,form.custom .custom.disabled{
     opacity:0.6
@@ -139,10 +149,15 @@
 }
 
     </style>
-{/literal}
+'; ?>
+
 
 <div id="container " >
-{include file="filters_ioc.tpl"}
+<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include("filters_ioc.tpl", array());
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
     <div class="result-cnt" >
         <div id="container" style="width:100%;margin-top: 10px;    display: inline-flex;">
             <div style="word-break: break-all;">
@@ -173,9 +188,9 @@
             </div>
         </div>
 
-<!-- {else}
+<!-- <?php else: ?>
       <p>Your Subscription limit of companies has been reached. Please contact info@ventureintelligence.com to top up your subscription</p>
-{/if} -->
+<?php endif; ?> -->
 
 <!-- End of container-right -->
 
@@ -192,7 +207,8 @@
         <form name="addDBFinacials" id="addDBFinacials">
             <div class="entry entry-pad" style="padding-top:10px"> 
         	<label> From</label>
-                <input type="text" name="fromaddress" id="fromaddress" value="{$userEmail}"  />
+                <input type="text" name="fromaddress" id="fromaddress" value="<?php echo $this->_tpl_vars['userEmail']; ?>
+"  />
         </div>
         <div class="entry entry-pad">
         	<label> To</label>
@@ -217,11 +233,11 @@
 <div id="maskscreen"></div>
 
 <!-- End of Container -->
-{literal}
+<?php echo '
 
  <script>
  $(document).ready(function () {
-$('#companylist,#chargeholderlist').on('keyup keypress', function(e) {
+$(\'#companylist,#chargeholderlist\').on(\'keyup keypress\', function(e) {
   var keyCode = e.keyCode || e.which;
   if (keyCode === 13) { 
     e.preventDefault();
@@ -230,18 +246,18 @@ $('#companylist,#chargeholderlist').on('keyup keypress', function(e) {
 });
  });
 
-        $(document).on('click','.faq-title',function () {
-$('.faq-answer').hide();
+        $(document).on(\'click\',\'.faq-title\',function () {
+$(\'.faq-answer\').hide();
 
-$(this).next('.faq-answer').fadeIn();
+$(this).next(\'.faq-answer\').fadeIn();
 });
 
-$(document).on('click','.faq-asset',function () {
-var assetUrl = $(this).attr('data-link');
+$(document).on(\'click\',\'.faq-asset\',function () {
+var assetUrl = $(this).attr(\'data-link\');
 
 
 });
-$(document).on('click','.faq-asset',function(){
+$(document).on(\'click\',\'.faq-asset\',function(){
     $(".video-link").attr("src","");
     $(".faqvideo").css("display","block");
     var value=$(this).attr("data-link");
@@ -262,7 +278,7 @@ $( "#chargeholderlist" ).keyup(function() {
       success: function(data) {
         $("#testholderval").fadeIn();
         $("#testholderval").html(data);
-        var drop = $('#testholderval').height();
+        var drop = $(\'#testholderval\').height();
         if(drop >= 150){
         $(".result-cnt").css("padding","2% 0% 0% 0%");
         }else{
@@ -292,7 +308,7 @@ $( "#companylist" ).keyup(function() {
       success: function(data) {
         $("#testcompany").fadeIn();
         $("#testcompany").html(data);
-         var drop = $('#testcompany').height();
+         var drop = $(\'#testcompany\').height();
         if(drop >= 150){
          $(".result-cnt").css("padding","2% 0% 0% 0%");
         }else{
@@ -308,30 +324,30 @@ $( "#companylist" ).keyup(function() {
 }
 
 });
-$('.updateFinancialHome').click(function(){ 
-                    jQuery('#maskscreen').fadeIn(1000);
-                    jQuery('#popup-box').fadeIn();   
+$(\'.updateFinancialHome\').click(function(){ 
+                    jQuery(\'#maskscreen\').fadeIn(1000);
+                    jQuery(\'#popup-box\').fadeIn();   
                     return false;
                 });
-            $('#cancelbtn').click(function(){ 
+            $(\'#cancelbtn\').click(function(){ 
         
-               jQuery('#popup-box').fadeOut();   
-                jQuery('#maskscreen').fadeOut(1000);
+               jQuery(\'#popup-box\').fadeOut();   
+                jQuery(\'#maskscreen\').fadeOut(1000);
                return false;
            });
  function updateFinancials(from, to, subject, link){ 
-        var textMessage = $('#textMessage').val();
-          if(textMessage !='')
+        var textMessage = $(\'#textMessage\').val();
+          if(textMessage !=\'\')
           {
               $.ajax({
-                 url: 'ajaxsendmails.php',
+                 url: \'ajaxsendmails.php\',
                   type: "POST",
                  data: { to : to, subject : subject, message : textMessage , url_link : link, from : from },
                  success: function(data){
                         if(data=="1"){
                             alert("Your request has been sent successfully");
-                           jQuery('#popup-box').fadeOut();   
-                           jQuery('#maskscreen').fadeOut(1000);
+                           jQuery(\'#popup-box\').fadeOut();   
+                           jQuery(\'#maskscreen\').fadeOut(1000);
                     }else{
                         alert("Try Again");
                     }
@@ -344,9 +360,9 @@ $('.updateFinancialHome').click(function(){
            }
        }
     
-        $('#testcompany #result_cc label').live("click", function() {  //on click 
+        $(\'#testcompany #result_cc label\').live("click", function() {  //on click 
                       
-                       var sltholder='';
+                       var sltholder=\'\';
                        var sltcount=0;
                                                    
                               var holder = $(this).text();                             
@@ -355,25 +371,25 @@ $('.updateFinancialHome').click(function(){
                                  else { sltholder+=","+holder; }
                              
                               $("#testcompany").show();
-                     $("#companylist").attr('readonly','readonly');  
+                     $("#companylist").attr(\'readonly\',\'readonly\');  
                      $("#companylist").val(sltholder); 
-                      $('#pgLoading').css('display', 'block');
-                       $('#pgLoading')
+                      $(\'#pgLoading\').css(\'display\', \'block\');
+                       $(\'#pgLoading\')
   .delay(15000)
   .queue(function (next) { 
-    $(this).css('display', 'none'); 
+    $(this).css(\'display\', \'none\'); 
     next(); 
   });
              });
        
  
-       $('.ch_holder input').live("click", function() {   
+       $(\'.ch_holder input\').live("click", function() {   
            
           $optchk= $(this).val();        
           $chholderlength = $(".ch_holder input").length;
           $chholderalllength = $(".ch_holder input:checked").length;
           $optioncheck=$(".holderhidden").val();
-          $holderhiddenval=$('.holderhidden').val().split(",").length;
+          $holderhiddenval=$(\'.holderhidden\').val().split(",").length;
           if($chholderlength == $chholderalllength){
             $("#selectallval").attr("checked","checked");
           }else{
@@ -382,72 +398,72 @@ $('.updateFinancialHome').click(function(){
           
 if($optioncheck != ""){
   $optionchecklist=$optioncheck;
-  $optionchecklist+=', '
+  $optionchecklist+=\', \'
 }else{
           $optionchecklist="";
   }
 $(".holderhidden").val($optionchecklist+$optchk);
-          //$('.holderhidden').val($optioncheck);
+          //$(\'.holderhidden\').val($optioncheck);
       });
-      $('#selectallval').live("click", function() {   
-          $value=$("#selectallval").is(':checked');
+      $(\'#selectallval\').live("click", function() {   
+          $value=$("#selectallval").is(\':checked\');
 
           if($value == true){
              $(".ch_holder input").attr("checked","checked");
             var favorite = [];
-            $.each($("input[name='chargeholderoption']:checked"), function(){
+            $.each($("input[name=\'chargeholderoption\']:checked"), function(){
                 favorite.push($(this).val());
             });
             $(".holderhidden").val(favorite.join(", "));
           }else{
-             $(".holderhidden").val('');
+             $(".holderhidden").val(\'\');
              $(".ch_holder input").removeAttr("checked");
             
 
           }
       });
        
-      $('#mailbtn1').click(function(e){
+      $(\'#mailbtn1\').click(function(e){
         e.preventDefault(); 
-        var to = $('#toaddress').val().trim();
-        var subject = $('#subject').val().trim();
-        var textMessage = $('#textMessage').val().trim();
-        var from = $('#fromaddress').val().trim();
-        var cc = $('#cc').val().trim();
-        if(from ==''){
+        var to = $(\'#toaddress\').val().trim();
+        var subject = $(\'#subject\').val().trim();
+        var textMessage = $(\'#textMessage\').val().trim();
+        var from = $(\'#fromaddress\').val().trim();
+        var cc = $(\'#cc\').val().trim();
+        if(from ==\'\'){
             alert("Please enter the from address");
-            $('#fromaddress').focus();
+            $(\'#fromaddress\').focus();
             return false;
         }
-        else if(!(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/).test(from)){
-            alert('Invalid from address');
-            $('#fromaddress').focus();
+        else if(!(/^([\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4})?$/).test(from)){
+            alert(\'Invalid from address\');
+            $(\'#fromaddress\').focus();
             return false;
         }
-        else if((cc !='') && (!(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/).test(from))){
-            alert('Invalid CC');
-            $('#fromaddress').focus();
+        else if((cc !=\'\') && (!(/^([\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4})?$/).test(from))){
+            alert(\'Invalid CC\');
+            $(\'#fromaddress\').focus();
             return false;
         }
-        else if(textMessage =='')
+        else if(textMessage ==\'\')
         {
           alert("Please enter the message");
-            $('#textMessage').focus();
+            $(\'#textMessage\').focus();
             return false;
         }else{
             $.ajax({
-               url: 'ajaxsendmails.php',
+               url: \'ajaxsendmails.php\',
                 type: "POST",
                data: { to : to, subject : subject, message : textMessage , cc: cc, from : from },
                success: function(data){
                       if(data=="1"){       
                           alert("Your request has been sent successfully"); 
-                         // $('#addDBFinacials')[0].reset();
-                         $('#fromaddress').val('');
-                         $('#textMessage').val('');
-                         $('#cc').val('');
-                         jQuery('#popup-box').fadeOut();   
-                         jQuery('#maskscreen').fadeOut(1000); 
+                         // $(\'#addDBFinacials\')[0].reset();
+                         $(\'#fromaddress\').val(\'\');
+                         $(\'#textMessage\').val(\'\');
+                         $(\'#cc\').val(\'\');
+                         jQuery(\'#popup-box\').fadeOut();   
+                         jQuery(\'#maskscreen\').fadeOut(1000); 
                         return true;
                   }else{
                       alert("Try Again");
@@ -464,7 +480,8 @@ $(".holderhidden").val($optionchecklist+$optchk);
       
  
 </script>
-{/literal}
+'; ?>
+
 
 
 </body>

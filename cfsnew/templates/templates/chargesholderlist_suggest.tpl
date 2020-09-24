@@ -31,10 +31,10 @@ padding:0px 10px;
 </ul>
 <div class="page-no" style="position: initial;"><span></span></div>
 </div>
-
+<input type="hidden" name="holderhiddenval" class="holderhiddenval" value='{$ChargesholderName}'>
 <div class="companies-list">
 <form method="post" id="Frm_HmeSearch1" action="companylist_suggest.php">
-                      <input type="hidden" name="holderhiddenval" class="holderhiddenval" value="{$ChargesholderName}">
+                      <input type="hidden" name="holderhiddenval" class="holderhiddenval" value='{$ChargesholderName}'>
 </form>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <thead> 
