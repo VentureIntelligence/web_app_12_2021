@@ -123,7 +123,8 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
         if($_REQUEST['holderhidden'] !=""){
             $filtered_chargesholdername = $_REQUEST['holderhidden'];
             $filtered_chargesholdername = '"'.$filtered_chargesholdername.'"';
-            $filtered_chargesholdername = str_replace(', ', '", "', $filtered_chargesholdername);
+            $filtered_chargesholdername = str_replace(',','","', $filtered_chargesholdername);
+            $filtered_chargesholdername = str_replace("'","", $filtered_chargesholdername);
            }elseif($_REQUEST['holderhiddenval'] !=""){
             $filtered_chargesholdername = $_REQUEST['holderhiddenval'];
            }else{
