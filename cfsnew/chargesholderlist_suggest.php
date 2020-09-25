@@ -321,7 +321,12 @@ $ioc_filter_status = $_GET['ioc_filter'];
     $ioc_fstatus = '1';
     $ioc_faddress = $_REQUEST['chargeaddress'];
     $chargefromdate = $_REQUEST['chargefromdate'];
-    $chargetodate = $_REQUEST['chargetodate'];
+    if($_REQUEST['chargetodate']!='') {            
+        $chargetodate=$_REQUEST['chargetodate'];    
+     }
+     else{
+          $chargetodate = date('Y-m-d');
+     }
     $chargefromamount = $_REQUEST['chargefromamount'];
     $chargetoamount = $_REQUEST['chargetoamount'];
  
