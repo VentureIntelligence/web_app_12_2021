@@ -398,7 +398,7 @@ $(".holderhidden").val($optionchecklist+$optchk);
             $.each($("input[name='chargeholderoption']:checked"), function(){
                 favorite.push($(this).val());
             });
-            $(".holderhidden").val(favorite.join(", "));
+            $(".holderhidden").val(favorite.join(","));
           }else{
              $(".holderhidden").val('');
              $(".ch_holder input").removeAttr("checked");
