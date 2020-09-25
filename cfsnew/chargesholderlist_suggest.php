@@ -259,13 +259,13 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
            $paginationdiv.='<li class="arrow unavailable"><a href="">&laquo;</a></li>';
         } else {  
 
-            $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="chargesholderlist_suggest.php?name='.$filtered_chargesholdername.'&'.$pagination_search.'page='.$prevpage.'" >&laquo;</a></li>';    
+            $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="chargesholderlist_suggest.php?page='.$prevpage.'" >&laquo;</a></li>';    
         }     
              
         for($i=0;$i<count($pages);$i++){ 
             
             if($pages[$i] > 0 && $pages[$i] <= $totalpages){
-                 $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="chargesholderlist_suggest.php?name='.$filtered_chargesholdername.'&'.$pagination_search.'page='.$pages[$i].'">'.$pages[$i].'</a></li>';
+                 $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="chargesholderlist_suggest.php?page='.$pages[$i].'">'.$pages[$i].'</a></li>';
             }
             if(isset($pages[$i+1])){
                 if($pages[$i+1]-$pages[$i]>1){
@@ -276,7 +276,7 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
                  
         if($page<$totalpages){
 
-            $paginationdiv.='<li class="arrow"><a  class="postlink"  href="chargesholderlist_suggest.php?name='.$filtered_chargesholdername.'&'.$pagination_search.'page='.$nextpage.'">&raquo;</a></li>';
+            $paginationdiv.='<li class="arrow"><a  class="postlink"  href="chargesholderlist_suggest.php?page='.$nextpage.'">&raquo;</a></li>';
         } else {  
             $paginationdiv.='<li class="arrow"><a >&raquo;</a></li>';
         }
