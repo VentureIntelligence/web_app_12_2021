@@ -60,11 +60,12 @@
      $chargetoamount=$_POST['chargetoamount'];
      $chargefromdate=$_POST['chargefromdate'];
      $chargetodate=$_POST['chargetodate'];
-    
-     if($chargewhere != ''){
-        $chargewhere .='    and a1.`Charge Holder` IN  ('.$filtered_chargesholdername.')';
-    }else{
-        $chargewhere .='    a1.`Charge Holder` IN ('.$filtered_chargesholdername.')';
+     if($filtered_chargesholdername !=''){
+        if($chargewhere != ''){
+            $chargewhere .='    and a1.`Charge Holder` IN  ('.$filtered_chargesholdername.')';
+        }else{
+            $chargewhere .='    a1.`Charge Holder` IN ('.$filtered_chargesholdername.')';
+        }
     }
 
     // if($filtered_chargesholdername !=''){
