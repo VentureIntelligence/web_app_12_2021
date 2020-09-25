@@ -60,16 +60,21 @@
      $chargetoamount=$_POST['chargetoamount'];
      $chargefromdate=$_POST['chargefromdate'];
      $chargetodate=$_POST['chargetodate'];
-    
-
-
-    if($filtered_chargesholdername !=''){
+     if($filtered_chargesholdername !=''){
         if($chargewhere != ''){
-            $chargewhere .="    and a1.`Charge Holder` LIKE  "."'%".$filtered_chargesholdername."%'";
+            $chargewhere .='    and a1.`Charge Holder` IN  ('.$filtered_chargesholdername.')';
         }else{
-            $chargewhere .="   a1.`Charge Holder` LIKE "."'%".$filtered_chargesholdername."%'";
+            $chargewhere .='    a1.`Charge Holder` IN ('.$filtered_chargesholdername.')';
         }
-     }
+    }
+
+    // if($filtered_chargesholdername !=''){
+    //     if($chargewhere != ''){
+    //         $chargewhere .="    and a1.`Charge Holder` LIKE  "."'%".$filtered_chargesholdername."%'";
+    //     }else{
+    //         $chargewhere .="   a1.`Charge Holder` LIKE "."'%".$filtered_chargesholdername."%'";
+    //     }
+    //  }
    if($chargefromdate !=""){
      if($chargewhere != ''){
         $chargewhere .="    and  (a1.`Date of Charge` BETWEEN "."'".$chargefromdate."' AND "."'".$chargetodate."' ) ";
@@ -116,7 +121,9 @@
        
 }
 
+        
      $ExportResult = $plstandard->getcompanyList_cnt($chargewhere,$limit,$page);
+     
     updateDownload($ExportResult);
     
     function movetabs($fytabs){

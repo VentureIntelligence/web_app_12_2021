@@ -1,10 +1,20 @@
-{include file="header.tpl"}
+<?php /* Smarty version 2.5.0, created on 2020-09-24 10:02:41
+         compiled from companylist_suggest.tpl */ ?>
+<?php $this->_load_plugins(array(
+array('function', 'assign', 'companylist_suggest.tpl', 269, false),
+array('function', 'math', 'companylist_suggest.tpl', 273, false),
+array('modifier', 'date_format', 'companylist_suggest.tpl', 279, false),
+array('modifier', 'replace', 'companylist_suggest.tpl', 299, false),)); ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include("header.tpl", array());
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
 
 </form>
 <div class="container-right">
-<!-- {if $searchupperlimit gte $searchlowerlimit}   --> 
+<!-- <?php if ($this->_tpl_vars['searchupperlimit'] >= $this->_tpl_vars['searchlowerlimit']): ?>   --> 
 
-{literal}
+<?php echo '
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
  #maskscreen {
@@ -175,36 +185,43 @@ background-color: #000;
 }
 
 </style>
-{/literal}
+'; ?>
+
 <div id="container" style="margin-top: 25px;">
  <form method="post" id="Frm_HmeSearch1" action="chargesholderlist_suggest.php">
-                      <input type="hidden" name="holderhiddenval" class="holderhiddenval" value='{$ChargesholderName}'>
+                      <input type="hidden" name="holderhiddenval" class="holderhiddenval" value='<?php echo $this->_tpl_vars['ChargesholderName']; ?>
+'>
 </form>    
  
 
 <h1 style="padding:0px !important;font-size: 17px;">
-{if $Companyid !=''}
-  <a style="color: #9f7917;font-size: 20px;" target="_blank" href='details.php?vcid={$Companyid}'>{$FCompanyName} 
-  <b style="font-size: 17px;color: #414141;">(Brand Name: <u>{$SCompanyName}</u>)</b></a>
+<?php if ($this->_tpl_vars['Companyid'] != ''): ?>
+  <a style="color: #9f7917;font-size: 20px;" target="_blank" href='details.php?vcid=<?php echo $this->_tpl_vars['Companyid']; ?>
+'><?php echo $this->_tpl_vars['FCompanyName']; ?>
+ 
+  <b style="font-size: 17px;color: #414141;">(Brand Name: <u><?php echo $this->_tpl_vars['SCompanyName']; ?>
+</u>)</b></a>
   <div style="float:right;">
   
     <form name="Frm_Compare" id="exportform_company" action="ioc_companylist.php" method="post" class="custom" enctype="multipart/form-data">
 
     <div class="btn-cnt" style="float:right; padding-top:0px !important;padding-bottom:0px !important">
-      <input name="company_exportid" type="hidden" value="{$CompanyID}">
+      <input name="company_exportid" type="hidden" value="<?php echo $this->_tpl_vars['CompanyID']; ?>
+">
       <input name="exportcompare_company" class="home_export" id="exportcompare_company" type="button" value="EXPORT">
     </div>
     </form>
 
   </div>
   
-  {else}
-  <span style="color: #9f7917;font-size: 20px;">{$Searchcompany}</span>
+  <?php else: ?>
+  <span style="color: #9f7917;font-size: 20px;"><?php echo $this->_tpl_vars['Searchcompany']; ?>
+</span>
   <div style="float:right;">
   
    <a href="javascript:void(0)" class="updateFinancialHome" >Click here to request for financials</a>
   </div>
-  {/if}
+  <?php endif; ?>
   
 </h1>  
 <div class="lb" id="popup-box">
@@ -212,7 +229,8 @@ background-color: #000;
         <form name="addDBFinacials" id="addDBFinacials">
             <div class="entry entry-pad" style="padding-top:10px"> 
         	<label> From</label>
-                <input type="text" name="fromaddress" id="fromaddress" value="{$userEmail}"  />
+                <input type="text" name="fromaddress" id="fromaddress" value="<?php echo $this->_tpl_vars['userEmail']; ?>
+"  />
         </div>
         <div class="entry entry-pad">
         	<label> To</label>
@@ -235,18 +253,24 @@ background-color: #000;
     </form>
 </div>
 <div id="maskscreen"></div>
-{if $ioc_fstatus}
+<?php if ($this->_tpl_vars['ioc_fstatus']): ?>
     <div class="list-tab"  style="margin-top: 12px;">
 <ul>
 
-<li><a class="postlinkval" {if $ioc_fstatus eq 1}href="chargesholderlist_suggest.php?ioc_fstatus=1{if $ioc_fchargeaddress neq ''}&chargeaddress={$ioc_fchargeaddress}{/if}{if $ioc_fchargefromdate neq ''}&chargefromdate={$ioc_fchargefromdate}{/if}{if $ioc_fchargetodate neq ''}&chargetodate={$ioc_fchargetodate}{/if}{if $ioc_fchargefromamount neq ''}&chargefromamount={$ioc_fchargefromamount}{/if}{if $ioc_fchargetoamount neq ''}&chargetoamount={$ioc_fchargetoamount}{/if}{/if}{if $pageno}&page={$pageno}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
+<li><a class="postlinkval" <?php if ($this->_tpl_vars['ioc_fstatus'] == 1): ?>href="chargesholderlist_suggest.php?ioc_fstatus=1<?php if ($this->_tpl_vars['ioc_fchargeaddress'] != ''): ?>&chargeaddress=<?php echo $this->_tpl_vars['ioc_fchargeaddress']; ?>
+<?php endif; ?><?php if ($this->_tpl_vars['ioc_fchargefromdate'] != ''): ?>&chargefromdate=<?php echo $this->_tpl_vars['ioc_fchargefromdate']; ?>
+<?php endif; ?><?php if ($this->_tpl_vars['ioc_fchargetodate'] != ''): ?>&chargetodate=<?php echo $this->_tpl_vars['ioc_fchargetodate']; ?>
+<?php endif; ?><?php if ($this->_tpl_vars['ioc_fchargefromamount'] != ''): ?>&chargefromamount=<?php echo $this->_tpl_vars['ioc_fchargefromamount']; ?>
+<?php endif; ?><?php if ($this->_tpl_vars['ioc_fchargetoamount'] != ''): ?>&chargetoamount=<?php echo $this->_tpl_vars['ioc_fchargetoamount']; ?>
+<?php endif; ?><?php endif; ?><?php if ($this->_tpl_vars['pageno']): ?>&page=<?php echo $this->_tpl_vars['pageno']; ?>
+<?php endif; ?>"><i class="i-grid-view"></i> LIST VIEW</a></li>
 
 <li><a class="postlink active" href="#"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
 </ul>
 
 <div class="page-no" style="position: initial;"><span></span></div>
 </div>
-{/if}
+<?php endif; ?>
 <hr />
 <b style="margin: 0px 16px; font-size: 15px;">Charges Registered</b>
 <br />
@@ -266,44 +290,78 @@ background-color: #000;
       </tr>
     </thead>
     <tbody>
-    {assign var=val value=1}
-    {section name=List loop=$SearchResults} 
+    <?php echo $this->_plugins['function']['assign'][0](array('var' => 'val','value' => 1), $this) ; ?>
+
+    <?php if (isset($this->_sections['List'])) unset($this->_sections['List']);
+$this->_sections['List']['name'] = 'List';
+$this->_sections['List']['loop'] = is_array($this->_tpl_vars['SearchResults']) ? count($this->_tpl_vars['SearchResults']) : max(0, (int)$this->_tpl_vars['SearchResults']);
+$this->_sections['List']['show'] = true;
+$this->_sections['List']['max'] = $this->_sections['List']['loop'];
+$this->_sections['List']['step'] = 1;
+$this->_sections['List']['start'] = $this->_sections['List']['step'] > 0 ? 0 : $this->_sections['List']['loop']-1;
+if ($this->_sections['List']['show']) {
+    $this->_sections['List']['total'] = $this->_sections['List']['loop'];
+    if ($this->_sections['List']['total'] == 0)
+        $this->_sections['List']['show'] = false;
+} else
+    $this->_sections['List']['total'] = 0;
+if ($this->_sections['List']['show']):
+
+            for ($this->_sections['List']['index'] = $this->_sections['List']['start'], $this->_sections['List']['iteration'] = 1;
+                 $this->_sections['List']['iteration'] <= $this->_sections['List']['total'];
+                 $this->_sections['List']['index'] += $this->_sections['List']['step'], $this->_sections['List']['iteration']++):
+$this->_sections['List']['rownum'] = $this->_sections['List']['iteration'];
+$this->_sections['List']['index_prev'] = $this->_sections['List']['index'] - $this->_sections['List']['step'];
+$this->_sections['List']['index_next'] = $this->_sections['List']['index'] + $this->_sections['List']['step'];
+$this->_sections['List']['first']      = ($this->_sections['List']['iteration'] == 1);
+$this->_sections['List']['last']       = ($this->_sections['List']['iteration'] == $this->_sections['List']['total']);
+?> 
     
       <tr>
-        <td>{math equation="($val)"}</td>
-        <td>{$SearchResults[List].SRN}</td>
-        <td>{$SearchResults[List].chargeid}</td>
-        <td>{$SearchResults[List].chargeholder}</td>
+        <td><?php echo $this->_plugins['function']['math'][0](array('equation' => "(".$this->_tpl_vars['val'].")"), $this) ; ?>
+</td>
+        <td><?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['SRN']; ?>
+</td>
+        <td><?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['chargeid']; ?>
+</td>
+        <td><?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['chargeholder']; ?>
+</td>
         <td style="text-align: center;">
-          {if $SearchResults[List].Created_Date != ''}
-            {$SearchResults[List].Created_Date|date_format:"%d/%m/%G"}
-            {else}
+          <?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Created_Date'] != ''): ?>
+            <?php echo $this->_run_mod_handler('date_format', true, $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Created_Date'], "%d/%m/%G"); ?>
+
+            <?php else: ?>
             <center> - </center>
-          {/if}
+          <?php endif; ?>
         </td>
         <td style="text-align: center;">
-          {if $SearchResults[List].Modified_Date != ''}
-            {$SearchResults[List].Modified_Date|date_format:"%d/%m/%G"}
-            {else}
+          <?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Modified_Date'] != ''): ?>
+            <?php echo $this->_run_mod_handler('date_format', true, $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Modified_Date'], "%d/%m/%G"); ?>
+
+            <?php else: ?>
             <center> - </center>
-          {/if}
+          <?php endif; ?>
         </td>
         <td style="text-align: center;">
-         {if $SearchResults[List].dateofcharge != ''}
-            {$SearchResults[List].dateofcharge|date_format:"%d/%m/%G"}
-            {else}
+         <?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['dateofcharge'] != ''): ?>
+            <?php echo $this->_run_mod_handler('date_format', true, $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['dateofcharge'], "%d/%m/%G"); ?>
+
+            <?php else: ?>
             <center> - </center>
-          {/if} 
+          <?php endif; ?> 
         </td>
-        <td>{math equation="x/y" format="%.2f" x=$SearchResults[List].amount y=10000000}</td>
-        <td style="word-break: break-all;" >{$SearchResults[List].Address|replace:',':', '}</td>
+        <td><?php echo $this->_plugins['function']['math'][0](array('equation' => "x/y",'format' => "%.2f",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['amount'],'y' => 10000000), $this) ; ?>
+</td>
+        <td style="word-break: break-all;" ><?php echo $this->_run_mod_handler('replace', true, $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Address'], ',', ', '); ?>
+</td>
  
       </tr>
-      {assign var=val value=$val+1}
-    {/section}
-    {if count($SearchResults) eq 0}
+      <?php echo $this->_plugins['function']['assign'][0](array('var' => 'val','value' => $this->_tpl_vars['val']."+1"), $this) ; ?>
+
+    <?php endfor; endif; ?>
+    <?php if (count ( $this->_tpl_vars['SearchResults'] ) == 0): ?>
     <tr><td colspan="9"><center> No data found </center></td></tr>
-    {/if}
+    <?php endif; ?>
     </tbody>
   </table>
 
@@ -316,47 +374,47 @@ background-color: #000;
 <b><a href="javascript:;" class="agree-export">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> -->
 </div>
 </div>
-<!-- {else}
+<!-- <?php else: ?>
       <p>Your Subscription limit of companies has been reached. Please contact info@ventureintelligence.com to top up your subscription</p>
-{/if} -->
+<?php endif; ?> -->
 
 <!-- End of container-right -->
 
 </div>
 <!-- End of Container -->
-{literal}
+<?php echo '
 
  <script>
- $("a.postlinkval").live('click',function(){
+ $("a.postlinkval").live(\'click\',function(){
         hrefval= $(this).attr("href");
         $("#Frm_HmeSearch1").attr("action", hrefval);
         $("#Frm_HmeSearch1").submit();
         return false;
      });
- $('.updateFinancialHome').click(function(){ 
-                    jQuery('#maskscreen').fadeIn(1000);
-                    jQuery('#popup-box').fadeIn();   
+ $(\'.updateFinancialHome\').click(function(){ 
+                    jQuery(\'#maskscreen\').fadeIn(1000);
+                    jQuery(\'#popup-box\').fadeIn();   
                     return false;
                 });
-            $('#cancelbtn').click(function(){ 
+            $(\'#cancelbtn\').click(function(){ 
         
-               jQuery('#popup-box').fadeOut();   
-                jQuery('#maskscreen').fadeOut(1000);
+               jQuery(\'#popup-box\').fadeOut();   
+                jQuery(\'#maskscreen\').fadeOut(1000);
                return false;
            });
  function updateFinancials(from, to, subject, link){ 
-        var textMessage = $('#textMessage').val();
-          if(textMessage !='')
+        var textMessage = $(\'#textMessage\').val();
+          if(textMessage !=\'\')
           {
               $.ajax({
-                 url: 'ajaxsendmails.php',
+                 url: \'ajaxsendmails.php\',
                   type: "POST",
                  data: { to : to, subject : subject, message : textMessage , url_link : link, from : from },
                  success: function(data){
                         if(data=="1"){
                             alert("Your request has been sent successfully");
-                           jQuery('#popup-box').fadeOut();   
-                           jQuery('#maskscreen').fadeOut(1000);
+                           jQuery(\'#popup-box\').fadeOut();   
+                           jQuery(\'#maskscreen\').fadeOut(1000);
                     }else{
                         alert("Try Again");
                     }
@@ -368,18 +426,18 @@ background-color: #000;
              });
            }
        }
-        $(document).on('click','.faq-title',function () {
-$('.faq-answer').hide();
+        $(document).on(\'click\',\'.faq-title\',function () {
+$(\'.faq-answer\').hide();
 
-$(this).next('.faq-answer').fadeIn();
+$(this).next(\'.faq-answer\').fadeIn();
 });
 
-$(document).on('click','.faq-asset',function () {
-var assetUrl = $(this).attr('data-link');
+$(document).on(\'click\',\'.faq-asset\',function () {
+var assetUrl = $(this).attr(\'data-link\');
 
 
 });
-$(document).on('click','.faq-asset',function(){
+$(document).on(\'click\',\'.faq-asset\',function(){
     $(".video-link").attr("src","");
     $(".faqvideo").css("display","block");
     var value=$(this).attr("data-link");
@@ -425,7 +483,7 @@ $( "#companylist" ).keyup(function() {
     });
   }
   else{
-  $("#testcompany").html('No Data Found');
+  $("#testcompany").html(\'No Data Found\');
 }
 
 });
@@ -453,12 +511,12 @@ function sortTable(n) {
       one from current row and one from the next:*/
       if(n!=7){
       x = rows[i].getElementsByTagName("TD")[n];
-      var dateAr = x.innerHTML.split('/');
-      var newDate = dateAr[3] + '-' + dateAr[2] + '-' + dateAr[1];
+      var dateAr = x.innerHTML.split(\'/\');
+      var newDate = dateAr[3] + \'-\' + dateAr[2] + \'-\' + dateAr[1];
 
       y = rows[i + 1].getElementsByTagName("TD")[n];
-      var dateAr1 = y.innerHTML.split('/');
-      var newDate1 = dateAr1[3] + '-' + dateAr1[2] + '-' + dateAr1[1];
+      var dateAr1 = y.innerHTML.split(\'/\');
+      var newDate1 = dateAr1[3] + \'-\' + dateAr1[2] + \'-\' + dateAr1[1];
 
       
        if (dir == "asc") {
@@ -516,33 +574,33 @@ function sortTable(n) {
       }
     }
   }
-$('table tr').each(function(index) {
-$(this).find('td:nth-child(1)').html(index+0);
+$(\'table tr\').each(function(index) {
+$(this).find(\'td:nth-child(1)\').html(index+0);
 });
 }
 
      // Export ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$('input[name=exportcompare_company]#exportcompare_company').click(function(){
-jQuery('#maskscreen').fadeIn(1000);
-$( '#export-popup' ).show();
+$(\'input[name=exportcompare_company]#exportcompare_company\').click(function(){
+jQuery(\'#maskscreen\').fadeIn(1000);
+$( \'#export-popup\' ).show();
 return false;
 });
-$( '.agree-export' ).on( 'click', function() {
+$( \'.agree-export\' ).on( \'click\', function() {
 initExport();
-jQuery('#maskscreen').fadeOut(1000);
-$( '#export-popup' ).hide();
+jQuery(\'#maskscreen\').fadeOut(1000);
+$( \'#export-popup\' ).hide();
 return false;
 });
-$( '#export-popup' ).on( 'click', '.close-lookup', function() {
-$( '#export-popup' ).hide();
-jQuery('#maskscreen').fadeOut(1000);
+$( \'#export-popup\' ).on( \'click\', \'.close-lookup\', function() {
+$( \'#export-popup\' ).hide();
+jQuery(\'#maskscreen\').fadeOut(1000);
 });
 function initExport(){
 $.ajax({
-url: 'ajxCheckDownload.php',
-dataType: 'json',
+url: \'ajxCheckDownload.php\',
+dataType: \'json\',
 success: function(data){
-var downloaded = data['recDownloaded'];
+var downloaded = data[\'recDownloaded\'];
 var exportLimit = data.exportLimit;
 var currentRec = 123
 //alert(currentRec + downloaded);
@@ -561,47 +619,47 @@ alert("There was some problem exporting...");
 
 });
 }
- $('#mailbtn1').click(function(e){
+ $(\'#mailbtn1\').click(function(e){
         e.preventDefault(); 
-        var to = $('#toaddress').val().trim();
-        var subject = $('#subject').val().trim();
-        var textMessage = $('#textMessage').val().trim();
-        var from = $('#fromaddress').val().trim();
-        var cc = $('#cc').val().trim();
-        if(from ==''){
+        var to = $(\'#toaddress\').val().trim();
+        var subject = $(\'#subject\').val().trim();
+        var textMessage = $(\'#textMessage\').val().trim();
+        var from = $(\'#fromaddress\').val().trim();
+        var cc = $(\'#cc\').val().trim();
+        if(from ==\'\'){
             alert("Please enter the from address");
-            $('#fromaddress').focus();
+            $(\'#fromaddress\').focus();
             return false;
         }
-        else if(!(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/).test(from)){
-            alert('Invalid from address');
-            $('#fromaddress').focus();
+        else if(!(/^([\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4})?$/).test(from)){
+            alert(\'Invalid from address\');
+            $(\'#fromaddress\').focus();
             return false;
         }
-        else if((cc !='') && (!(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/).test(from))){
-            alert('Invalid CC');
-            $('#fromaddress').focus();
+        else if((cc !=\'\') && (!(/^([\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4})?$/).test(from))){
+            alert(\'Invalid CC\');
+            $(\'#fromaddress\').focus();
             return false;
         }
-        else if(textMessage =='')
+        else if(textMessage ==\'\')
         {
           alert("Please enter the message");
-            $('#textMessage').focus();
+            $(\'#textMessage\').focus();
             return false;
         }else{
             $.ajax({
-               url: 'ajaxsendmails.php',
+               url: \'ajaxsendmails.php\',
                 type: "POST",
                data: { to : to, subject : subject, message : textMessage , cc: cc, from : from },
                success: function(data){
                       if(data=="1"){       
                           alert("Your request has been sent successfully"); 
-                         // $('#addDBFinacials')[0].reset();
-                         $('#fromaddress').val('');
-                         $('#textMessage').val('');
-                         $('#cc').val('');
-                         jQuery('#popup-box').fadeOut();   
-                         jQuery('#maskscreen').fadeOut(1000); 
+                         // $(\'#addDBFinacials\')[0].reset();
+                         $(\'#fromaddress\').val(\'\');
+                         $(\'#textMessage\').val(\'\');
+                         $(\'#cc\').val(\'\');
+                         jQuery(\'#popup-box\').fadeOut();   
+                         jQuery(\'#maskscreen\').fadeOut(1000); 
                         return true;
                   }else{
                       alert("Try Again");
@@ -617,7 +675,8 @@ alert("There was some problem exporting...");
        }); 
      
 </script>
-{/literal}
+'; ?>
+
 
 
 </body>

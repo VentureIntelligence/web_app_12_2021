@@ -95,7 +95,7 @@
  $ioc_filter_status = $_GET['ioc_fstatus'];
  if($ioc_filter_status != ''){
     $ioc_fstatus = 1;
-    $ioc_fchargeaddress = $_GET['chargeaddress']; 
+    $ioc_fchargeaddress = $_REQUEST['chargeaddress']; 
     $ioc_fchargefromdate = $_GET['chargefromdate']; 
     $ioc_fchargetodate = $_GET['chargetodate']; 
     $ioc_fchargefromamount = $_GET['chargefromamount']; 
@@ -103,10 +103,21 @@
  }else{
     $ioc_fstatus = 0;
  }
- $filtered_chargesholdername = $_REQUEST['name'];
- $filtered_chargesholdername = str_replace('_', ' ', $filtered_chargesholdername);
+ 
+//  $filtered_chargesholdername = $_REQUEST['name'];
+//  $filtered_chargesholdername = str_replace('_', ' ', $filtered_chargesholdername);
+if($_REQUEST['holderhidden'] !=""){
+    $filtered_chargesholdername = $_REQUEST['holderhidden'];
+    $filtered_chargesholdername = '"'.$filtered_chargesholdername.'"';
+    $filtered_chargesholdername = str_replace(',','","', $filtered_chargesholdername);
+    $filtered_chargesholdername = str_replace("'","", $filtered_chargesholdername);
+   }elseif($_REQUEST['holderhiddenval'] !=""){
+    $filtered_chargesholdername = $_REQUEST['holderhiddenval'];
+   }else{
+    $filtered_chargesholdername = $_REQUEST['name'];
+   }
 
-    
+   
     //print_r($SearchResults);
     $template->assign("searchexport",$SearchExport);
     $template->assign('SearchResults',$SearchResults);

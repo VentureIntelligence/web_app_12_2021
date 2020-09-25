@@ -295,7 +295,7 @@
   
     <!-- -->
 <div>
-<h2><span> [+] </span>Charges based</h2>
+{* <h2><span> [+] </span>Charges based</h2>
 
 {if $chargewhere neq ''}
 <div class="acc_container acc_container_active" > 
@@ -313,7 +313,6 @@
 <tr><td colspan="2">Charge Amount (in Rs. Cr)</td></tr>  
 <tr> <td><input type="text" name="chargefromamount" id="chargefromamount" onkeypress="return isNumber(event)" value="{if $chargefromamount}{$chargefromamount}{/if}" style="width:100% !important"></td>  <td><input type="text" name="chargetoamount" id="chargetoamount"onkeypress="return isNumber(event)" value="{if $chargetoamount}{$chargetoamount}{/if}" style="width:100% !important"></td>  </tr>
 <tr><td colspan="2">Charge Holder</td></tr>  
-{*<tr> <td Colspan="2"><input type="text" name="chargeholdertest" id="chargeholdertest"  value="{if $chargeholder}{$chargeholder}{/if}" style="width:100% !important"> <img  id="autosuggest_loading2"  src="images/autosuggest_loading.gif" style="display:none;"></td>  </tr>*}
 <tr> <td Colspan="2" style="position:relative" id="chholderfilter"><input autocomplete="off" type="text" name="chargeholdertest" id="chargeholdertest"  class="chargeholdertest" value="{if $chargeholdertest}{$chargeholdertest}{/if}" style="width:100% !important"  {if $chargeholdertest}readonly{/if}> 
            <span id="charge_clearall" title="Clear All" onclick="clear_chholder();" style=" {if $chargeholdertest eq ''}display:none;{/if}background: #ccc;  position: absolute;  top: 7px;  right: 8px;  padding: 5px;">(X)</span> 
            <div id="testholder" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none; width:225px;">
@@ -334,7 +333,7 @@
 </ul>
     
 </div>
-</div>
+</div> *}
   <!-- -->
   
 </div>
