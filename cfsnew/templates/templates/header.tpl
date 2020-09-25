@@ -205,6 +205,17 @@ ul.def-list {
     font: normal 14px/16px "Trebuchet MS", Arial, Helvetica, sans-serif, calibri, Helvetica;
     font-weight: bold;
 }
+/*css for IOC additional*/
+ .betaversion {
+    font-style: italic;
+    font-size: 13px;
+    margin: -8px 0 0 3px !important;
+    float: right;
+    padding: 0 3px;
+    background: #a2753a;
+    font-weight: normal;
+    border-radius: 3px;
+}
   </style>
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
@@ -1247,7 +1258,8 @@ filter: alpha(opacity=75);
 <div class="header-right">
 
 <ul class="nav">
-<li {if $pageName eq 'home.php' || $pageName eq 'details.php'} class="active" {/if}><a href="home.php"><i class="companies"></i> COMPANIES</a></li>
+<li {if $pageName eq 'home.php' || $pageName eq 'details.php'} class="active" {/if}><a href="home.php"><i class="companies"></i> FINANCIALS</a></li>
+<li {if $pageName eq 'indexofcharges.php' || $pageName eq 'companylist_suggest.php' || $pageName eq 'chargesholderlist_suggest.php'} class="active" {/if}><a href="indexofcharges.php"> INDEX OF CHARGES<span class="betaversion">Beta</span></a></li>
 <!-- <li {if $pageName eq 'comparers.php'} class="active" {/if}><a href="comparers.php"><i class="compare"></i> COMPARE</a></li> -->
 <!--<li {if $pageName eq 'other_report.php' || $pageName eq 'other_report_details.php'} class="active" {/if}><a href="other_report.php"><i class="other_report"></i> OTHER REPORTS</a></li>--></ul>
 
@@ -1255,6 +1267,7 @@ filter: alpha(opacity=75);
 {if $searchlimit gte $searchDone} 
 <li class="classic-btn tour-lock"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
 <li class="search-company" style="position:relative; border:none;">
+{if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
         <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Company Search" /><img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
     <span id="viewfinance" style="display:none;">&nbsp;</span>
@@ -1272,6 +1285,7 @@ filter: alpha(opacity=75);
         </form>
     </li>
 {/if}
+{/if}
 <!--<li class="avt-user"><a href="javascript:;"><i></i> Welcome {$authAdmin.user.elements.username}{if $authAdmin.user_id}{$authAdmin.firstname}{else}Guest{/if}</a></li>-->
 
 
@@ -1284,9 +1298,9 @@ filter: alpha(opacity=75);
    <!--  <li class="avt-user"  data-dropdown="drop1"><a href="#" ><i></i> Welcome {$authAdmin.user.elements.username}{if $authAdmin.user_id}{$authAdmin.firstname}{else}Guest{/if}</a></li> -->
   {if $ipuser!=''}<!--login with loginip.php -->
 
-    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" ><i></i> Welcome {$authAdmin1.$authAdminListId}</a></li>          
+    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" id="accoutlist"><i></i> Welcome {$authAdmin1.$authAdminListId}</a></li>          
     {else}
-    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" ><i></i> Welcome {$authAdmin.user.elements.username}{if $authAdmin.user_id}{$authAdmin.firstname}{else}Guest{/if}</a></li>
+    <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" id="accoutlist"><i></i> Welcome {$authAdmin.user.elements.username}{if $authAdmin.user_id}{$authAdmin.firstname}{else}Guest{/if}</a></li>
      {/if}
  
     <ul id="drop1" class="f-dropdown" data-dropdown-content>  
@@ -1295,7 +1309,7 @@ filter: alpha(opacity=75);
                         <li class="o_link"><a href="../malogin.php" target="_blank">M&A Deals Database</a></li> 
                             <!--<li><a href="javascript:;">Tutorial</a></li>-->
                             <li><a href="changepassword.php">Change Password</a></li>
-                            <li><a href="logout.php">Logout</a></li> 
+                            <li id="logout"><a href="logout.php">Logout</a></li> 
     </ul>            
                 
 </ul></div>
@@ -1437,7 +1451,123 @@ filter: alpha(opacity=75);
  <li style="float:right;">Dont find a Company?<a>Click here to request for financials</a></li>
 </ul-->
 </div>
-<div class="container slide-bg {if $pageName eq 'home.php'} container-bg {/if}">        
+<div class="overlayshowdow" style="display: none;"></div>
+<div class="overlaydiv" style="display: none;">
+    
+<div class="overlayinner">
+<div id="popup6" style="width:800px;    padding-right: 20px;">
+    <div class="overlayheader">
+    <div class="close" title="Close Popup"></div>
+    <h3 style="text-align: center;    font-size: 18px;">Tag list - limited to PE backed companies</h3>
+    </div>
+    {include_php file="taglist.php"}
+</div>
+</div>
+</div>
+
+<div class="container slide-bg {if $pageName eq 'home.php'} container-bg {/if}">   
+{elseif $pageName eq 'indexofcharges.php'}    
+<form name="Frm_HmeSearch" id="Frm_HmeSearch" action="chargesholderlist_suggest.php?ioc_filter=1" method="post" class="custom"   enctype="multipart/form-data" >
+               <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
+               <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="{$REQUEST.oldFinacialDataFlag}"/>
+               <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
+<div class="search-main">
+
+<ul>
+<li><label>INDUSTRY</label> 
+    <select id="answer[Industry]" name="answer[Industry]"  class="" forError="Industry" disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
+            <option value="" >Please Select an Industry</option>
+            {html_options options=$industries selected=$REQUEST_Answer.Industry}
+    </select></li>
+    
+    <li><label>SECTOR  </label> <span style="float:left;" id="sectordisplay">
+    <select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
+                <option value="" >Please Select a Sector</option>
+             
+               {if $REQUEST_Answer.Industry neq null}
+               {html_options options=$sectors selected=$REQUEST_Answer.Sector}
+               {/if}
+    </select></span></li>
+    
+<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
+    <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" disabled  checked /> <span>Privately held(Ltd)</span></label>
+    <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" disabled  checked /> <span>Partnership</span></label>
+    <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" disabled   checked /> <span>Proprietorship</span></label></li>
+
+<!--<li> <input name="headerSearch" type="submit" value="SEARCH"  class="refine"/></li>-->
+
+</ul>
+<!--ul>
+ <li style="float:right;">Dont find a Company?<a>Click here to request for financials</a></li>
+</ul-->
+</div>
+
+<div class="overlayshowdow" style="display: none;"></div>
+<div class="overlaydiv" style="display: none;">
+    
+<div class="overlayinner">
+<div id="popup6" style="width:800px;    padding-right: 20px;">
+    <div class="overlayheader">
+    <div class="close" title="Close Popup"></div>
+    <h3 style="text-align: center;    font-size: 18px;">Tag list - limited to PE backed companies</h3>
+    </div>
+    {include_php file="taglist.php"}
+</div>
+</div>
+</div>
+
+<div class="container slide-bg container-bg">
+{elseif $pageName eq 'chargesholderlist_suggest.php'}    
+<form name="Frm_HmeSearch" id="Frm_HmeSearch" action="chargesholderlist_suggest.php?ioc_filter=1" method="post" class="custom"   enctype="multipart/form-data" >
+               <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
+               <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="{$REQUEST.oldFinacialDataFlag}"/>
+               <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
+<div class="search-main">
+<ul>
+<li><label>INDUSTRY</label> 
+    <select id="answer[Industry]" name="answer[Industry]"  class="" forError="Industry"  disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
+            <option value="" >Please Select an Industry</option>
+            {html_options options=$industries selected=$REQUEST_Answer.Industry}
+    </select></li>
+    
+    <li><label>SECTOR  </label> <span style="float:left;" id="sectordisplay">
+    <select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
+                <option value="" >Please Select a Sector</option>
+             
+               {if $REQUEST_Answer.Industry neq null}
+               {html_options options=$sectors selected=$REQUEST_Answer.Sector}
+               {/if}
+    </select></span></li>
+    
+<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
+    <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" disabled checked /> <span>Privately held(Ltd)</span></label>
+    <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" disabled  checked/> <span>Partnership</span></label>
+    <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" disabled checked /> <span>Proprietorship</span></label></li>
+
+<!--<li> <input name="headerSearch" type="submit" value="SEARCH"  class="refine"/></li>-->
+
+</ul>
+<!--ul>
+ <li style="float:right;">Dont find a Company?<a>Click here to request for financials</a></li>
+</ul-->
+</div>
+
+<div class="overlayshowdow" style="display: none;"></div>
+<div class="overlaydiv" style="display: none;">
+    
+<div class="overlayinner">
+<div id="popup6" style="width:800px;    padding-right: 20px;">
+    <div class="overlayheader">
+    <div class="close" title="Close Popup"></div>
+    <h3 style="text-align: center;    font-size: 18px;">Tag list - limited to PE backed companies</h3>
+    </div>
+    {include_php file="taglist.php"}
+</div>
+</div>
+</div>
+
+<div class="container slide-bg container-bg">
+
 {else} 
 <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="home.php" method="post" class="custom"   enctype="multipart/form-data" >
                <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
@@ -1487,5 +1617,6 @@ filter: alpha(opacity=75);
 
 <div class="container slide-bg {if $pageName eq 'home.php'} container-bg {/if}">
 {/if}
+
 
 
