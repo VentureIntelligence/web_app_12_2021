@@ -1130,9 +1130,16 @@
                                 if($cl_count >= 4)
                                 {
                                 ?>
-                                <li class="result-select-close"><a href="/re/remaindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                                <li class="result-select-close">
+                                <?php 
+                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
+                                ?>
+                                <a href="remaindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                                <?php }else{ ?>
+                                    <a href="/re/remaindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
                                 }
+                            }
                                 
                                 if(count($industry) > 0 && !empty($industry)){ $drilldownflag=0; ?>
                                 <li>
