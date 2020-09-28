@@ -403,7 +403,7 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
 <div class="acc_container" id="firstrefine">
 		<div class="block">
 			<ul >
-<li class="even"><h4>Industry</h4>
+<li class="even" style="display:none;">><h4>Industry</h4>
                 <div class="selectgroup">
                    <select name="industry[]" multiple="multiple"  id="sltindustry" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
 		<?php
