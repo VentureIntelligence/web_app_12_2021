@@ -1607,7 +1607,7 @@
 
         <div class="result-title">
               <div class="filter-key-result">  
-                  <div style="float: left; margin: 20px 10px 0px 0px;font-size: 20px;">
+              <div style="float: left; margin: 10px 10px 0px 0px;font-size: 20px;">
                 <a  class="help-icon tooltip"><strong>Note</strong>
                     <span>
                         <img class="showtextlarge" src="img/callout.gif">
@@ -1619,7 +1619,7 @@
                     <div class="lft-cn"> 
                                             
                         	<?php if(!$_POST){  ?>
-                               <ul class="result-select">
+                                <ul class="result-select closetagspace" style="max-width:95%">
                                 <li>
                                     <?php echo "Real Estate"; ?><a  onclick="resetinput('industry');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
@@ -1683,7 +1683,7 @@
                               }
                             else 
                             { ?>         
-                            <ul class="result-select">
+                            <ul class="result-select closetagspace" style="max-width:95%">
                                 <?php
                                 $_POST['resetfield']="";
                                 foreach($_POST as $value1 => $link) 
@@ -4302,20 +4302,36 @@ if($_GET['type']!="")
        var alertHeight = $('.alert-note').height();
              
              
+        // if (window.innerWidth > 1700)
+        // {
+        //     var searchTitleHeight = filtersHeight + tabHeight + alertHeight + 10;
+        //     $('.result-select').css({"max-width":1190});
+        // }
+        // else if (window.innerWidth > 1024 )
+        // {
+        //     var searchTitleHeight = filtersHeight + tabHeight + alertHeight-30;
+        //     $('.result-select').css({"max-width":530}); 
+        //  }
+        // else
+        // {
+        //     var searchTitleHeight = filtersHeight + tabHeight + alertHeight;
+        //     $('.result-select').css({"max-width":390});
+
+        // }
         if (window.innerWidth > 1700)
         {
             var searchTitleHeight = filtersHeight + tabHeight + alertHeight + 10;
-            $('.result-select').css({"max-width":1190});
+            $('.result-select').css({"max-width":'100%'});
         }
         else if (window.innerWidth > 1024 )
         {
             var searchTitleHeight = filtersHeight + tabHeight + alertHeight-30;
-            $('.result-select').css({"max-width":530}); 
+            $('.result-select').css({"max-width":'100%'}); 
          }
         else
         {
             var searchTitleHeight = filtersHeight + tabHeight + alertHeight;
-            $('.result-select').css({"max-width":390});
+            $('.result-select').css({"max-width":'100%'});
 
         }
             
@@ -4339,17 +4355,29 @@ if($_GET['type']!="")
 
             $('.result-cnt').width(containerWidth-refineWidth-40)
            // $('.result-select').width(searchTitleWidth-searchkeyWidth-250);
+            // if (window.innerWidth > 1700)
+            // {
+            //     $('.result-select').css({"max-width":1190});
+            // }
+            // else if (window.innerWidth > 1024 )
+            // {
+            //     $('.result-select').css({"max-width":530});
+            //  }
+            // else
+            // {
+            //     $('.result-select').css({"max-width":390});
+            // }
             if (window.innerWidth > 1700)
             {
-                $('.result-select').css({"max-width":1190});
+                $('.result-select').css({"max-width":'100%'});
             }
             else if (window.innerWidth > 1024 )
             {
-                $('.result-select').css({"max-width":530});
+                $('.result-select').css({"max-width":'100%'});
              }
             else
             {
-                $('.result-select').css({"max-width":390});
+                $('.result-select').css({"max-width":'100%'});
             }
 
             if ($('.left-td-bg').width() < 264) {
@@ -4381,17 +4409,34 @@ if($_GET['type']!="")
             $('.expand-table').css({"margin-top":0});
             //$('.result-select').width(searchTitleWidth-searchkeyWidth);
 
-             if (window.innerWidth > 1700)
+            //  if (window.innerWidth > 1700)
+            // {
+            //     $('.result-select').css({"max-width":1190});
+            // }
+            // else if (window.innerWidth > 1024 )
+            // {
+            //     $('.result-select').css({"max-width":530});
+            //  }
+            // else
+            // {
+            //     $('.result-select').css({"max-width":390});
+            // }
+            // if ($('.left-td-bg').width() < 264) {
+            //     $('.result-cnt').width(containerWidth-refineWidth+188);  
+            // } else {
+            //     $('.result-cnt').width(containerWidth-refineWidth-40); 
+            // } 
+            if (window.innerWidth > 1700)
             {
-                $('.result-select').css({"max-width":1190});
+                $('.result-select').css({"max-width":'100%'});
             }
             else if (window.innerWidth > 1024 )
             {
-                $('.result-select').css({"max-width":530});
+                $('.result-select').css({"max-width":'100%'});
              }
             else
             {
-                $('.result-select').css({"max-width":390});
+                $('.result-select').css({"max-width":'100%'});
             }
             if ($('.left-td-bg').width() < 264) {
                 $('.result-cnt').width(containerWidth-refineWidth+188);  

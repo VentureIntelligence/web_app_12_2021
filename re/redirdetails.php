@@ -320,7 +320,7 @@
                                 <span id="exportbtn"></span>
                             <?php } ?>
                         </div>
-                        <ul class="result-select">
+                        <ul class="result-select closetagspace closetagspacedir">
                         <?php
                         if($industry >0 && $industry!=null){ ?>
                             <li title="Industry">

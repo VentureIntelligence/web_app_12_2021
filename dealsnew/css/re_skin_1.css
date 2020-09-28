@@ -2254,7 +2254,7 @@ input.export:hover {
 
 @media only screen and (max-width: 1024px) and (min-width: 920px) {
     #header {
-        //overflow: hidden !important;
+        overflow: hidden !important;
         height: auto !important;
     }
     #header .right-box li a {
@@ -2357,3 +2357,16 @@ tr.details_link.event_stop {
 }
 
 .heading_checkbox .icheckbox_flat-red { margin-left: 5px; }
+/*1002 start*/
+.closetagspace li{
+    margin: 1px 0px 1px 0 !important;
+}
+.closetagspace .result-select-close a
+{
+margin: -8px 0px 5px -6px !important;
+} 
+a.tooltip strong{
+    line-height: 20px !important;
+}
+
+/*1002 end*/

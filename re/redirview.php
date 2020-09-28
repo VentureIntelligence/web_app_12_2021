@@ -2436,7 +2436,7 @@
         }
         ?>
 <div class="result-title result-title-nofix">
-
+<div style="display: inline-flex;float: left;width: 100%;">
 
                         	<?php if(!$_POST){//id=>show-total-deal
                                     if($vcflagValue==0){
@@ -2478,7 +2478,8 @@
                                         <div class="title-links result-title-nofix" id="exportbtn"></div>
                                     <?php }
                                     ?>
-                                        <ul class="result-select">
+                                    </div>
+                                        <ul class="result-select closetagspace closetagspacedir">
                                             <?php
                                            if($industry >0 && $industry!=null){?>
                                             <li title="Industry">
@@ -2601,9 +2602,9 @@
                                         <div class="title-links result-title-nofix" id="exportbtn"></div>
                                     <?php }
                                     ?>
-
+                                    </div>
                                         <div class="title-links result-title-nofix" id="exportbtn"></div>
-                                        <ul class="result-select">
+                                        <ul class="result-select closetagspace closetagspacedir">
                                         <?php
                                        if($industry >0 && $industry!=null){?>
                                         <li title="Industry">
