@@ -5,8 +5,6 @@
         $companyId=632270771;
         $compId=0;
         require_once("../dbconnectvi.php");
-        require_once("../globalconfig.php");
-        $GLOBAL_BASE_URL=GLOBAL_BASE_URL;
         $Db = new dbInvestments();
         $vCFlagValue=1;
         $VCFlagValue=1;
@@ -980,7 +978,7 @@
 
                                     $cityLike .= "pec.city REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
                                     $companyLike .= "pec.companyname REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                                    /*$sectorLike .= "sector_business REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";*/
+                                   /* $sectorLike .= "sector_business REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";*/
                                     $sectorLike .= "pe.sector REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
                                     $moreInfoLike .= "pe.MoreInfor REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
                                     $investorLike .= "REinv.Investor REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
@@ -994,14 +992,14 @@
                                 $moreInfoLike = '('.trim($moreInfoLike,'AND ').')';
                                 $investorLike = '('.trim($investorLike,'AND ').')';
                                 $projectLike = '('.trim($projectLike,'AND ').')';
-                                /*$cianameLike = '('.trim($cianameLike,'AND ');*/
-                                $cianameLike = trim($cianameLike,'AND ');
+                               /* $cianameLike = '('.trim($cianameLike,'AND ');*/
+                               $cianameLike = trim($cianameLike,'AND ');
                                  $cianameLike = "( select count(*) from REadvisorcompanies_advisorinvestors as reacai where reacai.PEId=REinvoinv.PEId and  reacai.dates between '" . $dt1. "' and '" . $dt2 . "' and ".$cianameLike.")";
                                
                                 //$tagsval = "pec.city LIKE '$searchallfield%' or pec.companyname LIKE '%$searchallfield%' OR sector_business LIKE '%$searchallfield%' or MoreInfor LIKE '%$searchallfield%' or invs.investor like '$searchallfield%' or pec.tags REGEXP '[[.colon.]]$searchallfield$' or pec.tags REGEXP '[[.colon.]]$searchallfield,'";
                                 $tagsval = $cityLike . ' OR ' . $companyLike . ' OR ' . $sectorLike . ' OR ' . $moreInfoLike . ' OR ' . $investorLike . ' OR ' . $projectLike . ' OR ' . $cianameLike;                                    
                                
-                                /*$companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,
+                               /* $companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,
 				pe.amount, pe.round, s.REType,  pe.stakepercentage, DATE_FORMAT( pe.dates, '%b-%Y' ) as dealperiod ,
 				pec.website, pec.city, pec.region, 
 				pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.city as dealcity,pe.dates as dates,pe.Exit_Status,
@@ -1013,7 +1011,7 @@
                                 $orderby="dates";
                                 $ordertype="desc";
                                 $popup_search = 1;*/
-                                $companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pe.sector,
+                                 $companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pe.sector,
                 pe.amount, pe.round, s.REType,  pe.stakepercentage, DATE_FORMAT( pe.dates, '%b-%Y' ) as dealperiod ,
                 pec.website, pec.city, pec.region, 
                 pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.city as dealcity,pe.dates as dates,pe.Exit_Status,
@@ -1064,7 +1062,7 @@
                                             foreach($sectorsearchArray as $word){
                                                 $word =trim($word);
 //                                                $sector_sql[] = " sector_business LIKE '$word%' ";
-                                                /*$sector_sql[] = " sector_business = '$word' ";
+                                               /* $sector_sql[] = " sector_business = '$word' ";
                                                 $sector_sql[] = " sector_business LIKE '$word(%' ";
                                                 $sector_sql[] = " sector_business LIKE '$word (%' ";*/
                                                 $sector_sql[] = " sector = '$word' ";
@@ -1647,20 +1645,13 @@
                                 }
                                 //print_r($_POST);
                                 $cl_count = count($_POST);
-                                if($cl_count >= 7)
+                                if($cl_count >= 4)
                                 {
                                 ?>
-                                <li class="result-select-close">
-                                <?php 
-                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
-                                ?>
-                                    <a href="reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
-                                <?php }else{ ?>
-                                    <a href="/re/reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
-
+                                <li class="result-select-close"><a href="/re/reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
-                                    }
                                 }
+                                
                                 if(count($industry) >0 && !empty($industry)){ $drilldownflag=0; ?>
                                 <li>
                                     <?php echo $industryvalue; ?><a  onclick="resetinput('industry');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
@@ -4362,7 +4353,7 @@ if($_GET['type']!="")
         <?php  if(($_SERVER['REQUEST_METHOD']=="GET" )||($_POST))
         { ?>
              // $("#panel").animate({width: 'toggle'}, 200); 
-             // $(".btn-slide").toggleClass("active"); 
+            // $(".btn-slide").toggleClass("active"); 
 
              if ($('.left-td-bg').css("min-width") != '264px') {
              $('.left-td-bg').css("min-width", '36px');
@@ -4466,7 +4457,7 @@ if($_GET['type']!="")
             
                
      <?php } ?>
-   var winwdth = $(window).width();
+    var winwdth = $(window).width();
 var width = $('.left-td-bg').width();
 var test = (winwdth - width)-50 ;
 $(".result-cnt").css("width",test);
