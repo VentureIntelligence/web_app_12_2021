@@ -665,7 +665,7 @@
 ?>
    
 <div id="container" >
-<table cellpadding="0" cellspacing="0" width="100%" style="margin-top:-10px;">
+<table cellpadding="0" cellspacing="0" width="100%">
 <tr>
 <td class="left-td-bg" >
       <div class="acc_main">
@@ -784,7 +784,7 @@
                                          <?php      }
                                      ?>
                                 </div>
-                               <ul class="result-select">
+                                <ul class="result-select closetagspace closetagspacedetail">
                                    <?php
                                 if($stagevaluetext!=""){  ?>
                                           
@@ -863,7 +863,7 @@
                                          <?php      }
                                      ?>
                                 </div>
-                                <ul class="result-select">
+                                <ul class="result-select closetagspace closetagspacedetail">
                                 <?php
                                  //echo $queryDisplayTitle;
                                 if($industry >0 && $industry!=null){ $drilldownflag=0; ?>

@@ -2361,3 +2361,47 @@ input.export_new:hover {
 .dir_header .result-title {
     padding: 0px 0px 20px 0px;
 }
+/*1002 start*/
+.closetagspace li{
+    margin: 4px 0px 4px 0 !important;
+}
+.closetagspace li.result-select-close {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.closetagspace li.result-select-close a,.closetagspace li.result-select-close img  {
+    height: 7px !important;
+   
+}
+.closetagspace li.result-select-close a {
+    padding: 7px !important;
+   
+}
+.closetagspace .result-select-close{
+    top: -2px !important;
+    right: -5px;
+    margin: 0px 0px 2px 0 !important;
+}
+.closetagspacedetail{
+    padding: 0px 6px 0px 5px;
+}
+a.tooltip strong{
+    line-height: 20px;
+}
+.closetagspace li{
+    float:none !important;
+    display: inline-flex;
+}
+.closetagspacedetail .result-select-close {
+    top: -7px !important;
+    right: -6px;
+   
+}
+.closetagspacedir{
+    padding: 0px 5px 0px 5px !important;
+}
+.closetagspacedir .result-select-close {
+    top: -8px !important;
+    right: -5px;
+    margin: 0px 0px 2px 0 !important;
+}
