@@ -1236,9 +1236,9 @@
                                <?php 
                                 if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
                                 ?>
-                               <a href="/re/remandaindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                               <a href="remandaindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                <?php }else{ ?>
-                               <a href="/re/remandaindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                               <a href="/re/remandaindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
                                 }
                             }

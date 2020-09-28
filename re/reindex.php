@@ -1616,10 +1616,10 @@
                     </span>
                 </a> 
             </div>
-                    <div class="lft-cn"> 
+                    <div class="lft-cn" style="max-width:95%"> 
                                             
                         	<?php if(!$_POST){  ?>
-                                <ul class="result-select closetagspace" style="max-width:95%">
+                                <ul class="result-select closetagspace">
                                 <li>
                                     <?php echo "Real Estate"; ?><a  onclick="resetinput('industry');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
@@ -1683,7 +1683,7 @@
                               }
                             else 
                             { ?>         
-                            <ul class="result-select closetagspace" style="max-width:95%">
+                            <ul class="result-select closetagspace" >
                                 <?php
                                 $_POST['resetfield']="";
                                 foreach($_POST as $value1 => $link) 
@@ -1698,9 +1698,16 @@
                                 if($cl_count >= 4)
                                 {
                                 ?>
-                                <li class="result-select-close"><a href="/re/reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                                <li class="result-select-close">
+                                <?php 
+                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
+                                ?>                                
+                                <a href="reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                                <?php }else{ ?>
+                                    <a href="/re/reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
                                 }
+                            }
                                 
                                 if(count($industry) >0 && !empty($industry)){ $drilldownflag=0; ?>
                                 <li>
