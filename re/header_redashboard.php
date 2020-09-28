@@ -729,7 +729,7 @@ jQuery('#maskscreen').fadeOut(3000);
 <li <?php //echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
 </ul> -->
 <ul class="fr">
-     <li class="classic-btn"><a href="http://www.ventureintelligence.com/review/rehome.php" >Classic View</a></li>
+     <!-- <li class="classic-btn"><a href="http://www.ventureintelligence.com/review/rehome.php" >Classic View</a></li> -->
  <?php if($_SESSION['student']!="1") { ?>    
 <li class="user-avt"><span class="example" data-dropdown="#myaccount"> Welcome  <?php echo $_SESSION['REUserNames']; ?></span>
  <?php }else{
@@ -767,8 +767,11 @@ if($passwrd != 'P')
 <div id="sec-header" class="sec-header-fix">
 <table cellpadding="0" cellspacing="0">
 <tr>
-
-<td class="investment-form">
+<?php
+ //print_r($_POST);
+    $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 1;
+    ?>
+<td class="investment-form" style="display:flex;">
 <h3>Types</h3>
 <label><input class="typeoff-nav" name="typeoff" type="radio"  value="1"  <?php if($type==1) { ?> checked="checked" <?php } ?>/> Year On year</label>
 <label><input class="typeoff-nav" name="typeoff" type="radio"  value="2" <?php if($type==2) { ?> checked="checked" <?php } ?> />Industry</label>
