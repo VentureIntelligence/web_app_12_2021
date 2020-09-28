@@ -1,16 +1,6 @@
-<?php include_once("../globalconfig.php"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-   <!-- Global site tag (gtag.js) - Google Analytics -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-168374697-1');
-</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -27,7 +17,6 @@
 <script type="text/javascript" src="<?php echo $refUrl; ?>js/popup.js"></script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="<?php echo $refUrl; ?>/resources/demos/style.css" />
 
@@ -1058,15 +1047,15 @@ jQuery('#maskscreen').fadeOut(1000);
 
 
 <td class="right-box">
-<ul  class="tour-lock">
-<li <?php echo ($topNav=='Dashboard') ? 'class="active"' : '' ; ?>><a href="dashboard.php?type=1"><i class="i-dashboard"></i>Dashboard</a></li>
-<li <?php echo ($topNav=='Deals') ? 'class="active"' : '' ; ?>><a href="javascript:void(0)" class="popup_call" data-url="reindex.php"><i class="i-data-deals"></i>Deals</a></li>
-<li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?>><a href="redirview.php"  id="redirectorytour"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
-</ul>
+<?php include('top_menu.php'); ?>
+<!-- <ul  class="tour-lock">
+<li <?php //echo ($topNav=='Dashboard') ? 'class="active"' : '' ; ?>><a href="dashboard.php?type=1"><i class="i-dashboard"></i>Dashboard</a></li>
+<li <?php //echo ($topNav=='Deals') ? 'class="active"' : '' ; ?>><a href="javascript:void(0)" class="popup_call" data-url="reindex.php"><i class="i-data-deals"></i>Deals</a></li>
+<li <?php //echo ($topNav=='Directory') ? 'class="active"' : '' ; ?>><a href="redirview.php"  id="redirectorytour"><i class="i-directory"></i>Directory</a></li>
+<li <?php //echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+</ul> -->
 <ul class="fr">
-   <!-- <li class="classic-btn tour-lock"><a href="refaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li> -->
-    <!--  <li class="classic-btn   tour-lock"><a href="https://www.ventureintelligence.com/review/rehome.php" >Classic View</a></li>
+    <!--  <li class="classic-btn   tour-lock"><a href="http://www.ventureintelligence.com/review/rehome.php" >Classic View</a></li>
       <li class="classic-btn"><input  type="button" id="startTourBtn" value="Start Tour" /></li> -->
       <li ><div style="float:right;padding: 9px 15px" class="key-search"><b></b> <input  autofocus="autofocus" type="text" name="searchallfield" id="searchallfield" placeholder=" Keyword Search" value='<?php echo (isset($searchallfield) && $searchallfield !='')?$searchallfield:''; ?>' style="padding:5px;"  /> 
         <input type="hidden" value="" name="searchallfieldHide" id="searchallfieldHide" />
@@ -1108,159 +1097,7 @@ if($passwrd != 'P')
 {
 ?>
 <div id="sec-header" class="sec-header-fix reindex">
-<table cellpadding="0" cellspacing="0">
-<tr>
-
-<td class="investment-form">
-    <?php if($topNav=='Funds' || $topNav=='Fund-details' ){ ?>
-     <h3>INVESTOR</h3>
-
-        <div class="investmentlabel">
-        <input type="text" id="investorauto" name="investorauto" value="<?php if(isset($_REQUEST['investorauto'])) echo  $_REQUEST['investorauto'];  ?>" placeholder="" style="width:220px;height:25px;z-index:1111;">
-        <input type="hidden" id="investorsearch" name="investorsearch" value="<?php if(isset($_REQUEST['investorsearch'])) echo  $_REQUEST['investorsearch'];  ?>" placeholder="" style="width:220px;z-index:1111;"> 
-<?php } else { ?>   
-<h3> </h3>
-<label id="definition_step"  ><input class="investment-nav" name="investments" type="radio" value=0 checked="checked" id="definition_step1" /> PE Investments - Real Estate </label>
-
-<label id="rtour2" ><input class="exist-nav" name="investments" type="radio" value="PE-BACKED-IPO" id="definition_step2"/>PE backed IPO</label>
-
-<label  id="rtour3" ><input class="exist-nav" name="investments" type="radio" value="PE-EXIST" id="definition_step3"/>PE Exits via M&A </label>
-
-<label  id="rtour4"  ><input class="exist-nav" name="investments" type="radio" value="VC-EXIST" id="definition_step4"/>Other M&A</label>
-<?php } ?>  
-</td>
-
-
-
-
-<td class="vertical-form">
-    <div style="float:left">
-   
-<h3>PERIOD</h3>
-
-<div class="period-date">
-<label>From</label>
-<SELECT NAME="month1" id="month1">
-     <OPTION id=1 value="--"> Month </option>
-     <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
-     <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
-     <OPTION VALUE='3' <?php echo ($month1 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
-     <OPTION VALUE='4' <?php echo ($month1 == '4') ? 'SELECTED' : ''; ?>>Apr</OPTION>
-     <OPTION VALUE='5' <?php echo ($month1 == '5') ? 'SELECTED' : ''; ?>>May</OPTION>
-     <OPTION VALUE='6' <?php echo ($month1 == '6') ? 'SELECTED' : ''; ?>>Jun</OPTION>
-     <OPTION VALUE='7' <?php echo ($month1 == '7') ? 'SELECTED' : ''; ?>>Jul</OPTION>
-     <OPTION VALUE='8' <?php echo ($month1 == '8') ? 'SELECTED' : ''; ?>>Aug</OPTION>
-     <OPTION VALUE='9' <?php echo ($month1 == '9') ? 'SELECTED' : ''; ?>>Sep</OPTION>
-     <OPTION VALUE='10' <?php echo ($month1 == '10') ? 'SELECTED' : ''; ?>>Oct</OPTION>
-     <OPTION VALUE='11' <?php echo ($month1 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
-    <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
-</SELECT>
-
-<SELECT NAME="year1" id="year1"  id="year1">
-    <OPTION id=2 value=""> Year </option>
-    <?php 
-		$yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from REinvestments order by dates desc";
-		if($yearSql=mysql_query($yearsql))
-		{
-                        if($type == 1)  
-                        {
-                            if($_POST['year1']=='')
-                            {
-                                $year1;
-                            }
-                        }
-                        else
-                        {
-                            if($_POST['year1']=='')
-                            {
-                                $year1;
-                            }
-                        }
-			/*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
-			{
-				$id = $myrow["Year"];
-				$name = $myrow["Year"];
-				$isselected = ($year1==$id) ? 'SELECTED' : '';
-				echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-			}*/
-                        $currentyear = date("Y");
-                        $i=$currentyear;
-                        While($i>= 1998 )
-                        {
-                        $id = $i;
-                        $name = $i;
-                        $isselected = ($year1==$id) ? 'SELECTED' : '';
-                        echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                        $i--;
-                        }
-		}
-	?> 
-</SELECT>
-</div>
-<div class="period-date">
-<label>To</label>
-
-<SELECT NAME="month2" id='month2'>
-      <OPTION id=1 value="--"> Month </option>
-     <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
-     <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
-     <OPTION VALUE='3' <?php echo ($month2 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
-     <OPTION VALUE='4' <?php echo ($month2 == '4') ? 'SELECTED' : ''; ?>>Apr</OPTION>
-     <OPTION VALUE='5' <?php echo ($month2 == '5') ? 'SELECTED' : ''; ?>>May</OPTION>
-     <OPTION VALUE='6' <?php echo ($month2 == '6') ? 'SELECTED' : ''; ?>>Jun</OPTION>
-     <OPTION VALUE='7' <?php echo ($month2 == '7') ? 'SELECTED' : ''; ?>>Jul</OPTION>
-     <OPTION VALUE='8' <?php echo ($month2 == '8') ? 'SELECTED' : ''; ?>>Aug</OPTION>
-     <OPTION VALUE='9' <?php echo ($month2 == '9') ? 'SELECTED' : ''; ?>>Sep</OPTION>
-     <OPTION VALUE='10' <?php echo ($month2 == '10') ? 'SELECTED' : ''; ?>>Oct</OPTION>
-     <OPTION VALUE='11' <?php echo ($month2 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
-    <OPTION VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
-</SELECT>
-
-<SELECT NAME="year2" id="year2" onchange="checkForDate();" id='year2'>
-    <OPTION id=2 value=""> Year </option>
-    <?php 
-		/*$yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from REinvestments order by dates asc";
-                 if($_POST['year2']=='')
-                {
-                    $year2=date("Y");
-                }
-		if($yearSql=mysql_query($yearsql))
-		{
-			While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
-			{
-				$id = $myrow["Year"];
-				$name = $myrow["Year"];
-				$isselcted = ($year2== $id) ? 'SELECTED' : '';
-				echo "<OPTION id=". $id. " value='". $id."' ".$isselcted.">".$name."</OPTION>\n";
-			}		
-		}*/
-                $currentyear = date("Y");
-                $i=$currentyear;
-                While($i>= 1998 )
-                {
-                $id = $i;
-                $name = $i;
-                $isselected = ($year2==$id) ? 'SELECTED' : '';
-                echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                $i--;
-                }
-	?> 
-</SELECT>
-</div>
-
-  <div class="search-btn"   id="datesubmit"> <input name="searchpe" type="submit" value="Search" class="datesubmit"/></div>
-  </div>
-<div style="float:left; margin-left: 15px;font-size: 14px;">
-     <div style="padding-bottom: 10px;">For Data Support</div>
-     <div>
-         <a href="mailto:research@ventureintelligence.com">research@ventureintelligence.com</a>
-         <br/>
-         +91-44-42185180/82
-     </div>
- </div>
-</td>
-</tr>
-</table>
+<?php include('sec-header.php'); ?>
 </div>
 <?php
 }

@@ -5,8 +5,6 @@
         $companyId=632270771;
         $compId=0;
         require_once("../dbconnectvi.php");
-        require_once("../globalconfig.php");
-        $GLOBAL_BASE_URL=GLOBAL_BASE_URL;
         $Db = new dbInvestments();
         $vCFlagValue=1;
         $VCFlagValue=1;
@@ -45,17 +43,18 @@
         $getreg = $_REQUEST['reg'];
         $getrg = $_REQUEST['rg'];
         $resetfield=$_POST['resetfield'];
-        if(trim($_POST['keywordsearch'])!="" || trim($_POST['sectorsearch'])!="" || trim($_POST['companysearch'])!="" || trim($_POST['advisorsearch_legal'])!="" ||  trim($_POST['advisorsearch_trans'])!="" )
-        {
-            $_POST['industry']="";
-            $_POST['stage']="";
-            $_POST['comptype']="";
-            $_POST['txtregion']="";
-            $_POST['invType']="";
-            $_POST['EntityProjectType']="";
-            $_POST['invrangestart']="";
-            $_POST['invrangeend']="";
-        }
+         // T993 
+        // if(trim($_POST['keywordsearch'])!="" || trim($_POST['sectorsearch'])!="" || trim($_POST['companysearch'])!="" || trim($_POST['advisorsearch_legal'])!="" ||  trim($_POST['advisorsearch_trans'])!="" )
+        // {
+        //     $_POST['industry']="";
+        //     $_POST['stage']="";
+        //     $_POST['comptype']="";
+        //     $_POST['txtregion']="";
+        //     $_POST['invType']="";
+        //     $_POST['EntityProjectType']="";
+        //     $_POST['invrangestart']="";
+        //     $_POST['invrangeend']="";
+        // }
        /* elseif(trim($_POST['industry'])!="" || trim($_POST['stage'])!="" || trim($_POST['comptype'])!="" || trim($_POST['txtregion'])!="" || trim($_POST['invType'])!="" || trim($_POST['EntityProjectType'])!="" || trim($_POST['invrangestart'])!="" || trim($_POST['invrangeend'])!="")
         {
             $_POST['searchallfield']="";
@@ -905,27 +904,28 @@
                         FROM REinvestments AS pe, REcompanies AS pec,industry as i where	";
                 }
                     $orderby=""; $ordertype="";
-              if(!$_POST || $companysearch != "" || $sectorsearch !='' || $keyword !="" || $advisorsearchstring_legal !='' || $advisorsearchstring_trans !='') {
+                    //T993
+            //   if(!$_POST || $companysearch != "" || $sectorsearch !='' || $keyword !="" || $advisorsearchstring_legal !='' || $advisorsearchstring_trans !='') {
                     
-                $stagevaluetext = '';
-                $valuationstxt = '';
-                $getrangevalue = '';
-                $getinvestorvalue = '';
-                $getregionevalue = '';
-                $getindusvalue = '';
-                $datevalueCheck1 = '';
-                $round ="--";
-                $companyType = '--';
-                $investorType = '--';
-                $regionId = 0;
-                $city = '';
-                $startRangeValue = '--';
-                $endRangeValue = '--';
-                $exitstatusValue = '';
-                $debt_equity = '--';
-                $syndication ="--";   
-                $stageval = $valuations = array();
-               }
+            //     $stagevaluetext = '';
+            //     $valuationstxt = '';
+            //     $getrangevalue = '';
+            //     $getinvestorvalue = '';
+            //     $getregionevalue = '';
+            //     $getindusvalue = '';
+            //     $datevalueCheck1 = '';
+            //     $round ="--";
+            //     $companyType = '--';
+            //     $investorType = '--';
+            //     $regionId = 0;
+            //     $city = '';
+            //     $startRangeValue = '--';
+            //     $endRangeValue = '--';
+            //     $exitstatusValue = '';
+            //     $debt_equity = '--';
+            //     $syndication ="--";   
+            //     $stageval = $valuations = array();
+            //    }
                     if($getyear !='' || $getindus !='' || $getstage !='' || $getinv !='' || $getreg!='' || $getrg!='')
                         {
                             $companysql = "SELECT pe.PECompanyID AS PECompanyId, pec.companyname, pe.IndustryId, i.industry, pe.sector ,
@@ -980,7 +980,7 @@
 
                                     $cityLike .= "pec.city REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
                                     $companyLike .= "pec.companyname REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                                    /*$sectorLike .= "sector_business REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";*/
+                                   /* $sectorLike .= "sector_business REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";*/
                                     $sectorLike .= "pe.sector REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
                                     $moreInfoLike .= "pe.MoreInfor REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
                                     $investorLike .= "REinv.Investor REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
@@ -994,14 +994,14 @@
                                 $moreInfoLike = '('.trim($moreInfoLike,'AND ').')';
                                 $investorLike = '('.trim($investorLike,'AND ').')';
                                 $projectLike = '('.trim($projectLike,'AND ').')';
-                                /*$cianameLike = '('.trim($cianameLike,'AND ');*/
-                                $cianameLike = trim($cianameLike,'AND ');
+                               /* $cianameLike = '('.trim($cianameLike,'AND ');*/
+                               $cianameLike = trim($cianameLike,'AND ');
                                  $cianameLike = "( select count(*) from REadvisorcompanies_advisorinvestors as reacai where reacai.PEId=REinvoinv.PEId and  reacai.dates between '" . $dt1. "' and '" . $dt2 . "' and ".$cianameLike.")";
                                
                                 //$tagsval = "pec.city LIKE '$searchallfield%' or pec.companyname LIKE '%$searchallfield%' OR sector_business LIKE '%$searchallfield%' or MoreInfor LIKE '%$searchallfield%' or invs.investor like '$searchallfield%' or pec.tags REGEXP '[[.colon.]]$searchallfield$' or pec.tags REGEXP '[[.colon.]]$searchallfield,'";
                                 $tagsval = $cityLike . ' OR ' . $companyLike . ' OR ' . $sectorLike . ' OR ' . $moreInfoLike . ' OR ' . $investorLike . ' OR ' . $projectLike . ' OR ' . $cianameLike;                                    
                                
-                                /*$companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,
+                               /* $companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,
 				pe.amount, pe.round, s.REType,  pe.stakepercentage, DATE_FORMAT( pe.dates, '%b-%Y' ) as dealperiod ,
 				pec.website, pec.city, pec.region, 
 				pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.city as dealcity,pe.dates as dates,pe.Exit_Status,
@@ -1013,7 +1013,7 @@
                                 $orderby="dates";
                                 $ordertype="desc";
                                 $popup_search = 1;*/
-                                $companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pe.sector,
+                                 $companysql="SELECT pe.PEId,pe.PECompanyId, pec.companyname, pec.industry, i.industry, pe.sector,
                 pe.amount, pe.round, s.REType,  pe.stakepercentage, DATE_FORMAT( pe.dates, '%b-%Y' ) as dealperiod ,
                 pec.website, pec.city, pec.region, 
                 pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.city as dealcity,pe.dates as dates,pe.Exit_Status,
@@ -1029,7 +1029,7 @@
                             //                       echo "<br> Company search--" .$companysql;
                             //                       exit();
 			}
-			elseif ($companysearch != "")
+			elseif ($companysearchold != "")//T-993 changed variable name
 			{
                             if(isset($_POST['popup_select']) && $_POST['popup_select']=='company'){
                                 $keyaft=" (".$trend_com_qry.")";                                                
@@ -1055,7 +1055,7 @@
 			//	echo "<br>Query for company search";
 			// echo "<br> Company search--" .$companysql;
 			}
-                        elseif ($sectorsearch != "")
+                        elseif ($sectorsearchold != "")//T-993 changed variable name
 			{
                              $sectorsearchArray = explode(",", str_replace("'","",$sectorsearch)); 
                                             $sector_sql = array(); // Stop errors when $words is empty
@@ -1064,7 +1064,7 @@
                                             foreach($sectorsearchArray as $word){
                                                 $word =trim($word);
 //                                                $sector_sql[] = " sector_business LIKE '$word%' ";
-                                                /*$sector_sql[] = " sector_business = '$word' ";
+                                               /* $sector_sql[] = " sector_business = '$word' ";
                                                 $sector_sql[] = " sector_business LIKE '$word(%' ";
                                                 $sector_sql[] = " sector_business LIKE '$word (%' ";*/
                                                 $sector_sql[] = " sector = '$word' ";
@@ -1095,7 +1095,7 @@
 			//	echo "<br>Query for company search";
 			// echo "<br> Company search--" .$companysql;
 			}
-			elseif($keyword!="")
+			elseif($keywordold!="")//T-993 changed variable name
 			{
                             if(isset($_POST['popup_select']) && $_POST['popup_select']=='investor'){
                                 $keyaft=" (".$inv_qry.")";  
@@ -1177,20 +1177,60 @@
 				//echo "<Br>Trans search--" . $companysql;
 		       }
                       
-			elseif ((count($industry) > 0) || ($invType !="--") || ($companyType!="--") || ($regionId> 0) || ($city != "") ||  ($entityProject!="--") || ($startRangeValue == "--") || ($endRangeValue == "--") || ( ($exitstatusValue!='' && $exitstatusValue!='--')) || (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--")) .$checkForStageValue)
+			elseif ((count($industry) > 0) ||$companysearch != "" ||  $sectorsearch != "" || $keyword !="" || ($invType !="--") || ($companyType!="--") || ($regionId> 0) || ($city != "") ||  ($entityProject!="--") || ($startRangeValue == "--") || ($endRangeValue == "--") || ( ($exitstatusValue!='' && $exitstatusValue!='--')) || (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--")) .$checkForStageValue)
 				{
 				    $yourquery=1;
 
 					$dt1 = $year1."-".$month1."-01";
 					//echo "<BR>DATE1---" .$dt1;
 					$dt2 = $year2."-".$month2."-01";
-					$companysql = "select pe.PECompanyID  as PECompanyId,pec.companyname,pe.IndustryId,i.industry,
-					pe.sector,pe.amount,pe.round,s.REType,pe.stakepercentage,DATE_FORMAT(pe.dates,'%b-%Y') as dealperiod,
-					pec.website,pec.region,pe.PEId,pe.comment,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,AggHide,pe.city as dealcity,pe.dates as dates,pe.Exit_Status,
-                                        (SELECT GROUP_CONCAT( inv.Investor ) FROM REinvestments_investors AS peinv, REinvestors AS inv WHERE peinv.PEId = pe.PEId AND inv.InvestorId = peinv.InvestorId) AS Investor
-					from REinvestments as pe, reindustry as i,REcompanies as pec,realestatetypes as s,region as r
-                                        where";
-				//	echo "<br> individual where clauses have to be merged ";
+					 //T-993
+                     $companysql = "select pe.PECompanyID  as PECompanyId,pec.companyname,pe.IndustryId,i.industry,
+                     pe.sector,pe.amount,pe.round,s.REType,pe.stakepercentage,DATE_FORMAT(pe.dates,'%b-%Y') as dealperiod,
+                     pec.website,pec.region,pe.PEId,pe.comment,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,AggHide,pe.city as dealcity,pe.dates as dates,pe.Exit_Status,
+                                         (SELECT GROUP_CONCAT( inv.Investor ) FROM REinvestments_investors AS peinv, REinvestors AS inv WHERE peinv.PEId = pe.PEId AND inv.InvestorId = peinv.InvestorId) AS Investor
+                     from REinvestments as pe, reindustry as i,REcompanies as pec,realestatetypes as s,region as r,REinvestors AS REinv, REinvestments_investors AS REinvoinv
+                                         where";
+                                         //T-993
+                //	echo "<br> individual where clauses have to be merged ";
+                 //T-993
+                 if($keyword !=""){
+                    if(isset($_POST['popup_select']) && $_POST['popup_select']=='investor'){
+                        $keyaft=" (".$inv_qry.")";  
+                        $keywordsearch = $_POST['popup_keyword'];                                              
+                    }else{
+                        $keywordsearch = $_POST['keywordsearch'];
+                        $keyaft=" and  REinv.InvestorId IN ($keywordsearch)";
+                    }
+                }
+                if($sectorsearch!=""){
+                    $sectorsearchArray = explode(",", str_replace("'","",$sectorsearch)); 
+                    $sector_sql = array(); // Stop errors when $words is empty
+                    $sectors_filter = '';
+
+                    foreach($sectorsearchArray as $word){
+                        $word =trim($word);
+    //                                                $sector_sql[] = " sector_business LIKE '$word%' ";
+                    /* $sector_sql[] = " sector_business = '$word' ";
+                        $sector_sql[] = " sector_business LIKE '$word(%' ";
+                        $sector_sql[] = " sector_business LIKE '$word (%' ";*/
+                        $sector_sql[] = " sector = '$word' ";
+                        $sector_sql[] = " sector LIKE '$word(%' ";
+                        $sector_sql[] = " sector LIKE '$word (%' ";
+                        $sectors_filter.= $word.',';
+                    }
+                    $sectors_filter = trim($sectors_filter,',');
+                    $sector_filter = implode(" OR ", $sector_sql);
+                }
+                if($companysearch !=""){
+                    if(isset($_POST['popup_select']) && $_POST['popup_select']=='company'){
+                        $keyaftcom=" (".$trend_com_qry.")";                                                
+                    }else{
+                        $keyaftcom=" and  pec.PECompanyId IN ($companysearch) ";
+                    }
+                }
+
+                //T-993
 					if (count($industry) > 0 && $industry[0]!='')
                                         {
                                             $indusSql = '';
@@ -1360,24 +1400,32 @@
                                             $bool=true;
                                             
                                         }
-                                        
+                     // T993
+                    if($sector_filter != ''){
+                        $sector_filter_valid = " and (".$sector_filter.")";
+                    }else{
+                        $sector_filter_valid = "";
+                    }                   
 					//the foll if was previously checked for range
 					if($whererange  !="")
 					{
-						$companysql = $companysql . "   i.industryid=pe.IndustryId and
-						pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.RETypeId and r.RegionId=pe.RegionId and
-						pe.Deleted=0 " . $addVCFlagqry . "  GROUP BY pe.PEId  ";
-                                                 $orderby="dates";
-                                                 $ordertype="desc";
+						 //T-993
+                         $companysql = $companysql . "   i.industryid=pe.IndustryId and
+                         pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.RETypeId and r.RegionId=pe.RegionId and
+                         pe.Deleted=0 and REinvoinv.PEId = pe.PEId AND REinv.InvestorId = REinvoinv.InvestorId" . $addVCFlagqry.$keyaft.$keyaftcom.$sector_filter_valid." GROUP BY pe.PEId  ";
+                                                  $orderby="dates";
+                                                  $ordertype="desc";
 					//	echo "<br>----" .$whererange;
 					}
 					elseif($whererange!="--")
 					{
+						//T-993
 						$companysql = $companysql . "  i.industryid=pe.IndustryId and
 						pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.RETypeId and r.RegionId=pe.RegionId and
-						pe.Deleted=0 " .$addVCFlagqry. "  GROUP BY pe.PEId  ";
+						pe.Deleted=0 and REinvoinv.PEId = pe.PEId AND REinv.InvestorId = REinvoinv.InvestorId" .$addVCFlagqry.$keyaft.$keyaftcom.$sector_filter_valid."  GROUP BY pe.PEId  ";
                                                  $orderby="dates";
                                                  $ordertype="desc";
+                         //T-993
 				//		echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
 					}
                                         
@@ -1650,17 +1698,10 @@
                                 if($cl_count >= 4)
                                 {
                                 ?>
-                                <li class="result-select-close">
-                                <?php 
-                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
-                                ?>
-                                    <a href="reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
-                                <?php }else{ ?>
-                                    <a href="/re/reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
-
+                                <li class="result-select-close"><a href="/re/reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
-                                    }
                                 }
+                                
                                 if(count($industry) >0 && !empty($industry)){ $drilldownflag=0; ?>
                                 <li>
                                     <?php echo $industryvalue; ?><a  onclick="resetinput('industry');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
@@ -4407,7 +4448,7 @@ if($_GET['type']!="")
         <?php  if(($_SERVER['REQUEST_METHOD']=="GET" )||($_POST))
         { ?>
              // $("#panel").animate({width: 'toggle'}, 200); 
-             // $(".btn-slide").toggleClass("active"); 
+            // $(".btn-slide").toggleClass("active"); 
 
              if ($('.left-td-bg').css("min-width") != '264px') {
              $('.left-td-bg').css("min-width", '36px');
@@ -4511,7 +4552,7 @@ if($_GET['type']!="")
             
                
      <?php } ?>
-   var winwdth = $(window).width();
+    var winwdth = $(window).width();
 var width = $('.left-td-bg').width();
 var test = (winwdth - width)-50 ;
 $(".result-cnt").css("width",test);

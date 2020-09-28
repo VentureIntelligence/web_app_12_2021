@@ -251,7 +251,7 @@ echo "<Br>Start Range " .$startRangeValue;
 					//echo "<br><br>-ADVISOR search--" .$companysql;
 				}
 
-				elseif ($companysearch != "")
+				elseif ($companysearchold != "")
 				{
 
 				$companysql="SELECT PEId,PEId,PEId,pe.PECompanyId,pe.StageId,pec.countryid,pe.IndustryId,
@@ -269,7 +269,7 @@ echo "<Br>Start Range " .$startRangeValue;
 				//	echo "<br>Query for company search";
 				// echo "<br> Company search--" .$companysql;
 				}
-				elseif ($sectorsearch != "")
+				elseif ($sectorsearchold != "")
 				{
                                     
                                     $sectorsearchArray = explode(",", str_replace("'","",$sectorsearch)); 
@@ -300,7 +300,7 @@ echo "<Br>Start Range " .$startRangeValue;
 				//	echo "<br>Query for company search";
 				// echo "<br> Company search--" .$companysql;
 				}
-				elseif($keyword!="")
+				elseif($keywordold!="")
 				{
 					$companysql="select peinv.PEId,peinv.PECompanyId,peinv.StageId,pec.countryid,peinv.IndustryId,
 					peinv_inv.InvestorId,peinv_inv.PEId,
@@ -318,16 +318,9 @@ echo "<Br>Start Range " .$startRangeValue;
 			//			echo "<br> Investor search- ".$companysql;
 				}
 
-				elseif ((count($industry) > 0) || ($companyType!="--")  || (count($stage) > 0)  || ($regiondId >0 ) || ($ex_city !='' ) || ($invType != "--") || ($SPVCompany !="--") || ($startRangeValue !="--") || ($endRangeValue != "--") || (($hidedateStartValue != "------01") && ($hidedateEndValue!="------01")))
+				elseif ( $companysearch != "" ||  $sectorsearch != "" || $keyword !="" || (count($industry) > 0) || ($companyType!="--")  || (count($stage) > 0)  || ($regiondId >0 ) || ($ex_city !='' ) || ($invType != "--") || ($SPVCompany !="--") || ($startRangeValue !="--") || ($endRangeValue != "--") || (($hidedateStartValue != "------01") && ($hidedateEndValue!="------01")))
 					{
-
-						
-						if($industry == ""){
-							$whereindustry = "and pe.IndustryId IN ( 15 )";
-						} else {
-							$industry = implode(",",$industry);
-							$whereindustry = "and pe.IndustryId IN ( ".$industry." )";
-						} 
+						 
 						
 					 // .$checkForStageValue
 						$companysql = "select pe.PEId,pe.PEId,pe.PEId,pe.PECompanyID,pe.StageId,pec.countryid,pe.IndustryId,
@@ -336,6 +329,50 @@ echo "<Br>Start Range " .$startRangeValue;
 						hideamount,	hidestake,c.country,SPV,SPV,Link,Valuation,FinLink,ProjectName,listing_status,Exit_Status,AggHide
 						from REinvestments as pe, reindustry as i,REcompanies as pec,realestatetypes as s,country as c,investortype as it,region as r
 						where";
+						//T-993
+						if($keyword !=""){
+							if(isset($_POST['popup_select']) && $_POST['popup_select']=='investor'){
+								$keyaft=" (".$inv_qry.")";  
+								$keywordsearch = $_POST['popup_keyword'];                                              
+							}else{
+								$keywordsearch=$_POST['txthideinvestorsearch'];
+								$keyaft=" and  REinv.InvestorId IN ($keywordsearch)";
+							}
+						}
+						if($sectorsearch!=""){
+							$sectorsearchArray = explode(",", str_replace("'","",$sectorsearch)); 
+							$sector_sql = array(); // Stop errors when $words is empty
+
+							foreach($sectorsearchArray as $word){
+
+//                                                $sector_sql[] = " sector_business LIKE '$word%' ";
+								$sector_sql[] = " pe.sector = '$word' ";
+								$sector_sql[] = " pe.sector LIKE '$word(%' ";
+								$sector_sql[] = " pe.sector LIKE '$word (%' ";
+							}
+							$sector_filter = implode(" OR ", $sector_sql);
+						}
+						if($companysearch !=""){
+							if(isset($_POST['popup_select']) && $_POST['popup_select']=='company'){
+								$keyaftcom=" (".$trend_com_qry.")";                                                
+							}else{
+								$keyaftcom=" and  pec.PECompanyId IN ($companysearch) ";
+							}
+						}
+						if($sector_filter != ''){
+							$sector_filter_valid = " and (".$sector_filter.")";
+						}else{
+							$sector_filter_valid = "";
+						}
+						
+						//T-993
+						
+						if($industry == ""){
+							$whereindustry = "and pe.IndustryId IN ( 15 )";
+						} else {
+							$industry = implode(",",$industry);
+							$whereindustry = "and pe.IndustryId IN ( ".$industry." )";
+						} 
                                                 if (count($industry) > 0 && $industry[0]!='')
                                                 {
                                                     $indusSql = '';
@@ -456,14 +493,14 @@ echo "<Br>Start Range " .$startRangeValue;
 							$companysql = $companysql . "  i.industryid=pe.IndustryId and
 							pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.RETypeId and c.countryid=pec.countryid and
 							it.InvestorType=pe.InvestorType and r.RegionId=pe.RegionId and
-							pe.Deleted=0 " . $addVCFlagqry . $whereindustry . " order by companyname ";
+							pe.Deleted=0 and REinvoinv.PEId = pe.PEId   AND REinv.InvestorId = REinvoinv.InvestorId " . $addVCFlagqry . $whereindustry.$keyaft.$keyaftcom.$sector_filter_valid." GROUP BY pe.PEId  order by companyname ";
 						}
 						elseif($whererange="--")
 						{
 							$companysql = $companysql . "  i.industryid=pe.IndustryId and
 							pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.RETypeId and c.countryid=pec.countryid and
 							 it.InvestorType=pe.InvestorType and  r.RegionId=pe.RegionId and
-							pe.Deleted=0 " .$addVCFlagqry.  $whereindustry . " order by companyname ";
+							pe.Deleted=0 and REinvoinv.PEId = pe.PEId   AND REinv.InvestorId = REinvoinv.InvestorId " . $addVCFlagqry . $whereindustry.$keyaft.$keyaftcom.$sector_filter_valid." GROUP BY pe.PEId order by companyname ";
 						//	echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
 						}
 					}

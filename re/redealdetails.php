@@ -5,9 +5,7 @@
         $compId=0;
 	$Db = new dbInvestments();
         $videalPageName="REInv";
-    include ('checklogin.php');
-    require_once("../globalconfig.php");
-    $GLOBAL_BASE_URL=GLOBAL_BASE_URL;
+	include ('checklogin.php');
         $searchString="Undisclosed";
 	$searchString=strtolower($searchString);
 
@@ -665,7 +663,7 @@
 ?>
    
 <div id="container" >
-<table cellpadding="0" cellspacing="0" width="100%">
+<table cellpadding="0" cellspacing="0" width="100%" >
 <tr>
 <td class="left-td-bg" >
       <div class="acc_main">
@@ -691,7 +689,7 @@
         
         $flagvalue=$value;
         $searchstring="";
-
+        echo $sql;
         if ($companyrs = mysql_query($sql)){  
         ?>
             
@@ -968,15 +966,8 @@
                                 if($cl_count >= 7)
                                 {
                                 ?>
-                                <li class="result-select-close">
-                                <?php 
-                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
-                                ?>
-                                    <a href="reindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
-                                    <?php }else{ ?>
-                                    <a href="/re/reindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                                <li class="result-select-close"><a href="/re/reindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
-                                    }
                                 }
                                 ?>
                              </ul>

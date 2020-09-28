@@ -1,4 +1,3 @@
-<?php include_once("../globalconfig.php"); ?>
 <?php
 
         require_once("reconfig.php");
@@ -6,7 +5,6 @@
         $companyId=632270771;
         $compId=0;
         require_once("../dbconnectvi.php");
-        $GLOBAL_BASE_URL=GLOBAL_BASE_URL;
         $Db = new dbInvestments();
         $vCFlagValue=1;
         $VCFlagValue=1;
@@ -1132,16 +1130,9 @@
                                 if($cl_count >= 4)
                                 {
                                 ?>
-                                <li class="result-select-close">
-                                <?php 
-                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
-                                ?>
-                                <a href="remaindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
-                                <?php }else{ ?>
-                                <a href="/re/remaindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                                <li class="result-select-close"><a href="/re/remaindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
                                 }
-                            }
                                 
                                 if(count($industry) > 0 && !empty($industry)){ $drilldownflag=0; ?>
                                 <li>
@@ -1824,7 +1815,7 @@
                 $(document).on('click', 'tr .details_link', function(){ 
 
                     idval=$(this).attr("valueId");
-                    $("#detailpost").attr("href","<?php echo GLOBAL_BASE_URL; ?>re/remadealdetails.php?value="+idval).trigger("click");
+                    $("#detailpost").attr("href","http://www.ventureintelligence.com/re/remadealdetails.php?value="+idval).trigger("click");
                 });	
             </script>
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 632px; display: none;"></div>
