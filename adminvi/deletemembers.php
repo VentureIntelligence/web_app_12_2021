@@ -105,7 +105,7 @@ $username= $_SESSION['name'];
 				$companyid[] = $myrow['DCompId'];
             }
         }
-            $to    = 'arun@ventureintelligence.in';
+            $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
 		    $from 	= 'info@ventureintelligence.in';
 		    $subject 	= "Deleted Company Details"; // Subject of the email
 		    //Message
