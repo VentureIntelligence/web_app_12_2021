@@ -327,7 +327,7 @@ echo "<Br>Start Range " .$startRangeValue;
 						pec.companyname,i.industry,pe.sector as sector_business,amount,round,s.REType,it.InvestorTypeName,
 						stakepercentage,DATE_FORMAT(dates,'%M-%Y') as dealperiod,pec.website,pe.city,r.region,MoreInfor,
 						hideamount,	hidestake,c.country,SPV,SPV,Link,Valuation,FinLink,ProjectName,listing_status,Exit_Status,AggHide
-						from REinvestments as pe, reindustry as i,REcompanies as pec,realestatetypes as s,country as c,investortype as it,region as r
+						from REinvestments as pe, reindustry as i,REcompanies as pec,realestatetypes as s,country as c,investortype as it,region as r,REinvestors AS REinv, REinvestments_investors AS REinvoinv
 						where";
 						//T-993
 						if($keyword !=""){
@@ -604,7 +604,7 @@ echo "<Br>Start Range " .$startRangeValue;
 			}
 
 		$sql=$companysql;
-		 //echo "<br>---" .$sql;exit;
+		//  echo "<br>---" .$sql;exit;
                
 		 //execute query
 		 $result = @mysql_query($sql)
