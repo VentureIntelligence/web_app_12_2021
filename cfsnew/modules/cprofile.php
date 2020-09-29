@@ -608,20 +608,22 @@ class cprofile extends database {
 		$revenue_min_max = $this->fetch();
 		$RFY_MIN = round($revenue_min_max[0]/10000000, 2);
 		$RFY_MAX = round($revenue_min_max[1]/10000000, 2);
-	
-		$sql_xbrl_PEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics where is_xbrl = 'XBRL' and is_PEBacked = 1";
+		$minvalue = 0;
+		$maxvalue=10000000000000000;
+		$RFY = " and cfs_original.RFY  BETWEEN ".$minvalue." and ".$maxvalue;
+		$sql_xbrl_PEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics as cfs_original where cfs_original.FY = (select max(cfs_sub.FY) from cfs_dashboard_analytics as cfs_sub where cfs_sub.company_id = cfs_original.company_id) and cfs_original.is_xbrl = 'XBRL' and cfs_original.is_PEBacked = 1".$RFY;
 		$this->execute($sql_xbrl_PEBacked);
 		$xbrl_PEBacked_count = $this->fetch();
 
-		$sql_xbrl_nonPEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics where is_xbrl = 'XBRL' and is_PEBacked = 0";
+		$sql_xbrl_nonPEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics as cfs_original where cfs_original.FY = (select max(cfs_sub.FY) from cfs_dashboard_analytics as cfs_sub where cfs_sub.company_id = cfs_original.company_id) and cfs_original.is_xbrl = 'XBRL' and cfs_original.is_PEBacked = 0".$RFY;
 		$this->execute($sql_xbrl_nonPEBacked);
 		$xbrl_nonPEBacked_count = $this->fetch();
 		
-		$sql_nonxbrl_PEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics where is_xbrl = 'NON-XBRL' and is_PEBacked = 1";
+		$sql_nonxbrl_PEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics as cfs_original where cfs_original.FY = (select max(cfs_sub.FY) from cfs_dashboard_analytics as cfs_sub where cfs_sub.company_id = cfs_original.company_id) and cfs_original.is_xbrl = 'NON-XBRL' and cfs_original.is_PEBacked = 1".$RFY;
 		$this->execute($sql_nonxbrl_PEBacked);
 		$nonxbrl_PEBacked_count = $this->fetch();
 
-		$sql_nonxbrl_nonPEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics where is_xbrl = 'NON-XBRL' and is_PEBacked = 0";
+		$sql_nonxbrl_nonPEBacked = "select count(DISTINCT company_id) as total from cfs_dashboard_analytics as cfs_original where cfs_original.FY = (select max(cfs_sub.FY) from cfs_dashboard_analytics as cfs_sub where cfs_sub.company_id = cfs_original.company_id) and cfs_original.is_xbrl = 'NON-XBRL' and cfs_original.is_PEBacked = 0".$RFY;
 		$this->execute($sql_nonxbrl_nonPEBacked);
 		$nonxbrl_nonPEBacked_count = $this->fetch();
 
