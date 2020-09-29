@@ -1888,7 +1888,9 @@ function writeSql_for_no_records($sqlqry,$mailid)
             //$('.view-table').css({"margin-top":resultcntHeight});
             $('.expand-table').css({"margin-top":0});
             //$('.view-table').css({"margin-top":window.innerHeight-826});
-			 
+			       
+            var widthval = $('#myTable').width();
+            $(".result-cnt").css("width",widthval);
             
             $('.btn-slide').click(function(){ 
                 
@@ -1929,15 +1931,15 @@ function writeSql_for_no_records($sqlqry,$mailid)
                 }
              
                 if ($('.left-td-bg').width() < 264) {
-                    //$('.result-cnt').width(containerWidth-refineWidth-40); 
+                    $('.result-cnt').width(containerWidth-refineWidth-40); 
 
                      var searchTitleHeight = $('.result-cnt').height(); 
                                  //$('.view-table').css({"margin-top":searchTitleHeight});
                                  $('.expand-table').css({"margin-top":0});
                 } else {
-                    //$('.result-cnt').width(containerWidth-refineWidth+188); 
+                    $('.result-cnt').width(containerWidth-refineWidth+188); 
                                 //$('.result-select').width(searchTitleWidth-searchkeyWidth);
-
+                               
                      var searchTitleHeight = $('.result-cnt').height(); 	
                                  //$('.view-table').css({"margin-top":searchTitleHeight});
                                  $('.expand-table').css({"margin-top":0});
@@ -1982,7 +1984,7 @@ function writeSql_for_no_records($sqlqry,$mailid)
                     $('.result-select').css({"max-width":'100%'});
                 }
                 if ($('.left-td-bg').width() < 264) {
-                    //$('.result-cnt').width(containerWidth-refineWidth+188);  
+                   // $('.result-cnt').width(containerWidth-refineWidth+188);  
                 } else {
                    // $('.result-cnt').width(containerWidth-refineWidth-40); 
                 } 
