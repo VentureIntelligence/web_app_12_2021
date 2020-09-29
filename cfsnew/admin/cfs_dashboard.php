@@ -30,7 +30,8 @@ if($dashboardpage == 'cfs_dashboard.php'){
 }
 // print_r($cfsdashboard_industries);die;
 $induscount = count($cfsdashboard_industries);
-$incount = ($induscount/2);
+$incount = (round($induscount/2));
+
 
 $inductryarr = array_chunk($cfsdashboard_industries,$incount);
 
