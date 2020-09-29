@@ -653,9 +653,14 @@ class cprofile extends database {
 	}
 	// CFS Dashboard Analytics
 	function getcfsdashboardIndustries(){
+		$minvalue = 0;
+		$maxvalue=10000000000000000;
+		$RFY = " cfs_original.RFY  BETWEEN ".$minvalue." and ".$maxvalue;
 		// Industry Details 
-		$sql_industries = "select DISTINCT IndustryName, count(DISTINCT company_id) as comcount from cfs_dashboard_analytics group by IndustryName";
-		$this->execute($sql_industries);
+		$sql_industries = "select DISTINCT IndustryName, count(DISTINCT company_id) as comcount from cfs_dashboard_analytics as cfs_original
+        where".$RFY." and cfs_original.FY = (select max(cfs_sub.FY) from cfs_dashboard_analytics as cfs_sub where cfs_sub.company_id = cfs_original.company_id) 
+		and cfs_original.IndustryName != '' group by IndustryName";
+        $this->execute($sql_industries);
 		$cont=0;
 		while ($sql_industries = $this->fetch()) {
 			$result[] = ['iname'=> $sql_industries[0],'comcount' => $sql_industries[1]];
