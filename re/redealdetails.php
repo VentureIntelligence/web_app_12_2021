@@ -501,6 +501,7 @@
             $startRangeValue=$_POST['invrangestart'];
             $endRangeValue=$_POST['invrangeend'];
         }
+        $endRangeValue=$endRangeValue-0.01;
         //$endRangeValueDisplay =$endRangeValue;
         
         
