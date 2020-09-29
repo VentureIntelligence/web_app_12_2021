@@ -902,13 +902,14 @@ jQuery('#maskscreen').fadeOut(3000);
 
 
 <td class="right-box">
-<ul>
+<?php include('top_menu.php'); ?>
+<!-- <ul>
 <li <?php echo ($topNav=='Dashboard') ? 'class="active"' : '' ; ?>><a href="dashboard.php?type=1"><i class="i-dashboard"></i>Dashboard</a></li>
 <li <?php echo ($topNav=='Deals') ? 'class="active"' : '' ; ?>><a href="reindex.php"><i class="i-data-deals"></i>Deals</a></li>
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?>><a href="redirview.php"><i class="i-directory"></i>Directory</a></li>
-</ul>
+</ul> -->
 <ul class="fr">
-     <li class="classic-btn"><a href="<?php echo GLOBAL_BASE_URL; ?>review/rehome.php" >Classic View</a></li>
+     <!-- <li class="classic-btn"><a href="<?php echo GLOBAL_BASE_URL; ?>review/rehome.php" >Classic View</a></li> -->
 <li ><div style="float:right;padding: 9px 15px" class="key-search"><b></b> <input  autofocus="autofocus" type="text" name="searchallfield" placeholder=" Keyword Search"
                                                                                       <?php if($searchallfield!="") echo "value='".$searchallfield."'" ;?>
                                                                                        style="padding:5px;"  /> 
@@ -950,7 +951,8 @@ if($passwrd != 'P')
 {
 ?>
 <div id="sec-header" class="sec-header-fix">
-<table cellpadding="0" cellspacing="0">
+<?php include('sec-header.php'); ?>
+<!--<table cellpadding="0" cellspacing="0">
 <tr>
 
 <td class="investment-form">
@@ -1095,7 +1097,7 @@ if($passwrd != 'P')
  </div>
 </td>
 </tr>
-</table>
+</table> -->
 </div>
 <?php
 }

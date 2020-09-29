@@ -594,7 +594,7 @@ else if($type==6)
       
       google.setOnLoadCallback(drawVisualization);
     </script>
-    <? 
+    <?php 
      }
    else if($type==3)
     {
@@ -797,7 +797,7 @@ else if($type==6)
     </script>                    
     
        
-    <? 
+    <?php 
      }
     else if($type == 4)
     {
@@ -981,7 +981,7 @@ else if($type==6)
     </script> 
     
        
-    <? 
+    <?php  
      }
     else if($type==5)
     {
@@ -1163,7 +1163,7 @@ else if($type==6)
       }
       google.setOnLoadCallback(drawVisualization);
     </script>       
-    <? 
+    <?php 
      }
     else if($type==6)
     {
@@ -1359,7 +1359,7 @@ else if($type==6)
       google.setOnLoadCallback(drawVisualization);
     </script>  
        
-    <? 
+    <?php 
      }
     ?>
 </td></tr>
