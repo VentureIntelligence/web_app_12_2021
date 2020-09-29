@@ -1079,7 +1079,9 @@ $showdealsbyflag=0;
 <SELECT name="invrangeend" id="invrangeend" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();"><OPTION id=5 value="--" selected>ALL  </option>
 	<?php
         $counter=0;
+        $endRangeValue=$endRangeValue+0.01;
                 for ( $counterto = 5; $counterto <= 2000; $counterto += 5){
+                   
                     
                     if($endRangeValue!='')
                     {
