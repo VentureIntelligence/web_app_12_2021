@@ -528,11 +528,11 @@ $(function () {
 <?php $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 1; ?>
 <h3 style="float:left;">Types</h3>
 <label><input class="typeoff-nav" name="typeoff" type="radio"  value="1"  <?php if($type==1) { ?> checked="checked" <?php } ?>/> Year On year</label>
-<!-- <label><input class="typeoff-nav" name="typeoff" type="radio"  value="2" <?php if($type==2) { ?> checked="checked" <?php } ?> />Industry</label>
+ <label><input class="typeoff-nav" name="typeoff" type="radio"  value="2" <?php if($type==2) { ?> checked="checked" <?php } ?> />Industry</label>
 <label><input class="typeoff-nav" name="typeoff" type="radio"  value="3" <?php if($type==3) { ?> checked="checked" <?php } ?>/>Stage</label>
 <label><input class="typeoff-nav" name="typeoff" type="radio" value="4" <?php if($type==4) { ?> checked="checked" <?php } ?>/>Range</label>
 <label><input class="typeoff-nav" name="typeoff" type="radio" value="5" <?php if($type==5) { ?> checked="checked" <?php } ?>/>Investor Type</label>
-<label><input class="typeoff-nav" name="typeoff" type="radio" value="6" <?php if($type==6) { ?> checked="checked" <?php } ?>/>Region</label> -->
+<label><input class="typeoff-nav" name="typeoff" type="radio" value="6" <?php if($type==6) { ?> checked="checked" <?php } ?>/>Region</label> 
  <!--a style="float: right;font-size: 16px;font-weight: bold;" class="senddeal" href="https://www.ventureintelligence.com/dev/dealsnew/report.php" >Other Reports</a-->
  <a href='<?php echo BASE_URL; ?>dealsnew/otherreport.php'><input style="float: right;margin-right: 9px;" type="button" name="otherreport" value="Trend Reports" id="otherreport" class="senddeal"></a>
 
