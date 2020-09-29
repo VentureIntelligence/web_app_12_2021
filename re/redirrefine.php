@@ -1,11 +1,11 @@
 <?php $dealtypesql = "select DealTypeId,DealType from dealtypes"; ?>
 
-<h2 class="acc_trigger"><a href="#">Refine Search</a></h2>
+<h2 class="acc_trigger" <?php if($vcflagValue==1){ echo "style='display:none;'";}?>><a href="#">Refine Search</a></h2>
     <div class="acc_container">
         <div class="block">
             <ul >
                 
-                <li class="even"><h4>Industry</h4>
+                <li class="even" style="display:none;"><h4>Industry</h4>
                 <SELECT name="industry" onchange="this.form.submit();">
                                 <OPTION id=0 value="" selected> ALL  </option>
                                 <?php
