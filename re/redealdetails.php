@@ -503,7 +503,8 @@
             $startRangeValue=$_POST['invrangestart'];
             $endRangeValue=$_POST['invrangeend'];
         }
-        $endRangeValueDisplay =$endRangeValue;
+        $endRangeValue=$endRangeValue-0.01;
+        //$endRangeValueDisplay =$endRangeValue;
         
         
         if($resetfield=="exitstatus")
@@ -893,7 +894,7 @@
                                 <?php }  
                                 if (($startRangeValue!= "--") && ($endRangeValue != "")){ $drilldownflag=0; ?>
                                 <li> 
-                                    <?php echo "(USM)".$startRangeValue ."-" .$endRangeValueDisplay ?><a  onclick="resetinput('range');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                    <?php echo "(USM)".$startRangeValue ."-" .$endRangeValue ?><a  onclick="resetinput('range');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
                                 <?php } 
                                     if($city!=""){ $drilldownflag=0; ?>

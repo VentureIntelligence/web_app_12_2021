@@ -20,7 +20,7 @@
         if(val.length < 1){
             enableFileds();
         }else{
-            disableFileds();            
+            //disableFileds();            
         }
     });
    /* $( "#popup_keyword" ).keyup(function() {
@@ -159,7 +159,7 @@
 
                             $("#search_load").fadeIn();
                             $("#search_load").html(multiselect);
-                            disableFileds();
+                            //disableFileds();
                         }
                         else{
                             //$("#search_load").fadeOut();
@@ -235,7 +235,7 @@
               $("#popup_keyword").val(sltholder.substr(1));
               //$("#popup_keyword").val(sltsearch_multi); 
               $("#popup_keyword").fadeIn();
-            disableFileds();
+            //disableFileds();
         }
         else{
             enableFileds();
@@ -331,7 +331,7 @@ function indchange(list)
                             
                             $("#investorauto_load").fadeIn();
                             $("#investorauto_load").html(multiselect);
-                    disableFileds();
+                    //disableFileds();
                             }
                             else{
                                 $("#investorauto_load").fadeOut();
@@ -346,15 +346,15 @@ function indchange(list)
         }
         else{
              $("#investorauto_load").fadeOut();
-             enableFileds();
+             //enableFileds();
         }
         
     });    
     
       $("#inv_selectall").live("click", function() {
-      
-            clear_companysearch();
-            clear_sectorsearch();
+            // T993
+            // clear_companysearch();
+            // clear_sectorsearch();
             clear_Legal_Trans();
             clear_searchallfield();
             
@@ -384,7 +384,7 @@ function indchange(list)
                   $("#investorauto_multiple").val(sltholder);
                   $("#keywordsearch_multiple").val(sltinvestor_multi); 
                   $("#inv_clearall").fadeIn();
-                            disableFileds();
+                            //disableFileds();
              }
              else{
                //  sltcount=0;sltholder='';
@@ -399,9 +399,9 @@ function indchange(list)
         });    
     
       $('.investor_slt').live("click", function() {  //on click 
-                      
-                      clear_companysearch();
-                      clear_sectorsearch();
+                      // T993
+                    //   clear_companysearch();
+                    //   clear_sectorsearch();
                       clear_Legal_Trans();
             clear_searchallfield();
                       
@@ -427,7 +427,7 @@ function indchange(list)
                     $("#investorauto_multiple").attr('readonly','readonly');  
                     $("#investorauto_multiple").val(sltholder); 
                     $("#keywordsearch_multiple").val(sltinvestor_multi); 
-                            disableFileds();
+                           // disableFileds();
                     
                     
                     if(sltcount==0){  $("#inv_clearall").fadeOut(); $("#investorauto_multiple").removeAttr('readonly');   }
@@ -483,7 +483,7 @@ function indchange(list)
                             
                             $("#companyauto_load").fadeIn();
                             $("#companyauto_load").html(multiselect);
-                            disableFileds();
+                            //disableFileds();
                             }
                             else{
                                 $("#companyauto_load").fadeOut();
@@ -535,7 +535,7 @@ function indchange(list)
                   $("#companyauto").val(sltholder);
                   $("#companysearch").val(sltcompany_multi); 
                   $("#com_clearall").fadeIn();
-                    disableFileds();
+                   // disableFileds();
              }
              else{
                     enableFileds();
@@ -547,9 +547,9 @@ function indchange(list)
         });
     
      $('.company_slt').live("click", function() {  //on click 
-                      
-                       clear_keywordsearch();
-                       clear_sectorsearch();
+                      // T993
+                    //    clear_keywordsearch();
+                    //    clear_sectorsearch();
                         clear_Legal_Trans();
             clear_searchallfield();
                      
@@ -574,7 +574,7 @@ function indchange(list)
                      });
                      
             
-                    disableFileds();
+                    //disableFileds();
                     $("#companyauto").attr('readonly','readonly');  
                     $("#companyauto").val(sltholder); 
                     $("#companysearch").val(sltcompany_multi); 
@@ -633,7 +633,7 @@ function indchange(list)
                             
                             $("#sectorauto_load").fadeIn();
                             $("#sectorauto_load").html(multiselect);
-                            disableFileds();
+                            //disableFileds();
                             }
                             else{
                                 $("#sectorauto_load").fadeOut();
@@ -686,7 +686,7 @@ function indchange(list)
                   $("#sectorauto").val(sltholder);
                   $("#sectorsearch_multiple").val(sltsector_multi); 
                   $("#sec_clearall").fadeIn();
-                    disableFileds();
+                   // disableFileds();
              }
              else{
                //  sltcount=0;sltholder='';
@@ -734,7 +734,7 @@ function indchange(list)
                     $("#sectorauto").attr('readonly','readonly');  
                     $("#sectorauto").val(sltholder); 
                     $("#sectorsearch_multiple").val(sltsector_multi); 
-                    disableFileds();
+                    //disableFileds();
                     
                     if(sltcount==0){  $("#sec_clearall").fadeOut(); $("#sectorauto").removeAttr('readonly');   }
                     else {   $("#sec_clearall").fadeIn();  }
@@ -811,22 +811,22 @@ $industrysql_search="select industryid,industry from reindustry";
              //   $regionsql="select RegionId,Region from region where Region!='' order by RegionId";
 
 $showdealsbyflag=0;
-if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstring_legal!="" || $advisorsearchstring_trans!="")
-{ 
-    $showdealsbyflag=1;
-    $disable_flag = "1";
-    $background = "#dddddd  !important";       
-}else{
-    $disable_flag = "0";
-    $background = "#ffffff";          
-}  ?>
+// if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstring_legal!="" || $advisorsearchstring_trans!="")
+// { 
+//     $showdealsbyflag=1;
+//     $disable_flag = "1";
+//     $background = "#dddddd  !important";       
+// }else{
+//     $disable_flag = "0";
+//     $background = "#ffffff";          
+// }  ?>
 
 <h2 class="acc_trigger">
     <a href="#">Refine Search</a></h2>
 <div class="acc_container" >
 		<div class="block">
 			<ul >
-<li class="even"><h4>Industry</h4>
+<li class="even" style="display:none;"><h4>Industry</h4>
 
   
 
@@ -1079,7 +1079,9 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
 <SELECT name="invrangeend" id="invrangeend" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();"><OPTION id=5 value="--" selected>ALL  </option>
 	<?php
         $counter=0;
+        $endRangeValue=$endRangeValue+0.01;
                 for ( $counterto = 5; $counterto <= 2000; $counterto += 5){
+                   
                     
                     if($endRangeValue!='')
                     {
@@ -1475,7 +1477,8 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
   function clear_sectorsearch1(){
      $("#sectorauto").removeAttr('readonly');  
      val='';
-     $("#sectorauto,#sectorsearch").val(val); 
+    //  $("#sectorauto,#sectorsearch").val(val); 
+    $("#sectorauto,#sectorsearch,#sectorsearch_multiple").val(val); 
      $("#sectorauto_load").fadeOut();
      $("#sec_clearall").fadeOut(); 
      enableFileds();
