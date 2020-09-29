@@ -2375,6 +2375,21 @@
         $stagedef=1;
 	include_once('redirectory_header.php');
 ?>
+<style>
+.result-cnt {
+    padding: 10px 20px 20px 20px;
+}
+.result-title{
+    padding: 10px 0px 10px 0px;
+} 
+.overview-cnt {
+    
+    margin-bottom: 10px;
+}
+.search-area,.list-view-table {
+    padding: 0 0 0px;
+}
+</style>
 <div id="container" >
 <table cellpadding="0" cellspacing="0" width="100%" >
 <tr>
@@ -2436,7 +2451,7 @@
         }
         ?>
 <div class="result-title result-title-nofix">
-
+<div style="display: inline-flex;float: left;width: 100%;">
 
                         	<?php if(!$_POST){//id=>show-total-deal
                                     if($vcflagValue==0){
@@ -2478,7 +2493,8 @@
                                         <div class="title-links result-title-nofix" id="exportbtn"></div>
                                     <?php }
                                     ?>
-                                        <ul class="result-select">
+                                    </div>
+                                        <ul class="result-select closetagspace closetagspacedir">
                                             <?php
                                            if($industry >0 && $industry!=null){?>
                                             <li title="Industry">
@@ -2601,9 +2617,9 @@
                                         <div class="title-links result-title-nofix" id="exportbtn"></div>
                                     <?php }
                                     ?>
-
+                                    </div>
                                         <div class="title-links result-title-nofix" id="exportbtn"></div>
-                                        <ul class="result-select">
+                                        <ul class="result-select closetagspace closetagspacedir">
                                         <?php
                                        if($industry >0 && $industry!=null){?>
                                         <li title="Industry">

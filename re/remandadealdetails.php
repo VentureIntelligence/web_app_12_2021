@@ -763,7 +763,7 @@
                                          }
                                      ?>
                                 </div>
-                               <ul class="result-select">
+                               <ul class="result-select  closetagspace closetagspacedetail">
                                    <?php
                                   if($datevalueDisplay1!=""){  
                                          ?>
@@ -822,7 +822,7 @@
                                      }
                                  ?>
                             </div>
-                            <ul class="result-select">
+                            <ul class="result-select  closetagspace closetagspacedetail">
                                 <?php
                                  //echo $queryDisplayTitle;
                                 if($industry >0 && $industry!=null){ $drilldownflag=0; ?>
