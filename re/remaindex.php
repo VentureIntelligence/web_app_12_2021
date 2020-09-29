@@ -2885,7 +2885,8 @@ if($_GET['type']!="")
             //$('.view-table').css({"margin-top":resultcntHeight});
             $('.expand-table').css({"margin-top":0});
             //$('.view-table').css({"margin-top":window.innerHeight-826});
-			 
+            var widthval = $('#myTable').width();
+            $(".result-cnt").css("width",widthval);
             $('.btn-slide').click(function(){ 
                 
                 $('.result-select').css('width', 'auto');
@@ -2924,13 +2925,13 @@ if($_GET['type']!="")
                 }
              
                 if ($('.left-td-bg').width() < 264) {
-                    //$('.result-cnt').width(containerWidth-refineWidth-40); 
+                    $('.result-cnt').width(containerWidth-refineWidth-40); 
 
                     var searchTitleHeight = $('.result-cnt').height(); 
                     //$('.view-table').css({"margin-top":searchTitleHeight});
                     $('.expand-table').css({"margin-top":0});
                 } else {
-                    //$('.result-cnt').width(containerWidth-refineWidth+188); 
+                    $('.result-cnt').width(containerWidth-refineWidth+188); 
                     //$('.result-select').width(searchTitleWidth-searchkeyWidth);
 
                      var searchTitleHeight = $('.result-cnt').height(); 	

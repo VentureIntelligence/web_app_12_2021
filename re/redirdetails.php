@@ -268,7 +268,20 @@
 //Header section ends
 ?>
  <input type="hidden" name="resetfield" value="" id="resetfield"/>
-
+<style>
+.closetagspacedir{
+    margin-top: 15px !important;
+}
+.overview-cnt{
+    margin-bottom:0px;
+}
+.result-cnt {
+    padding: 10px 20px 20px 20px;
+}
+.result-title{
+    padding: 10px 0 20px;
+}
+</style>
 <div id="container" >
     <table cellpadding="0" cellspacing="0" width="100%" >
         <tr>

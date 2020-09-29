@@ -661,7 +661,17 @@
         $tour_reinve_page = 'redealdetails';
 	include_once('reheader_search.php');
 ?>
-   
+  <style>
+  .result-title{
+    padding: 10px 0 10px;
+  }
+  .result-title h2{
+  margin-bottom: 10px;
+  }
+  .profiletable li{
+    min-height: auto;
+  }
+  </style> 
 <div id="container" >
 <table cellpadding="0" cellspacing="0" width="100%" >
 <tr>
