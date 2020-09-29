@@ -1,16 +1,6 @@
-<?php include_once("../globalconfig.php"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-   <!-- Global site tag (gtag.js) - Google Analytics -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-168374697-1');
-</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -916,14 +906,15 @@ jQuery('#maskscreen').fadeOut(1000);
 
 
 <td class="right-box">
-<ul  class="tour-lock">
+<?php include('top_menu.php'); ?>
+<!-- <ul  class="tour-lock">
 <li <?php echo ($topNav=='Dashboard') ? 'class="active"' : '' ; ?>><a href="dashboard.php?type=1"><i class="i-dashboard"></i>Dashboard</a></li>
 <li <?php echo ($topNav=='Deals') ? 'class="active"' : '' ; ?>><a href="reindex.php"><i class="i-data-deals"></i>Deals</a></li>
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?>><a href="redirview.php"><i class="i-directory"></i>Directory</a></li>
 <li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
-</ul>
+</ul> -->
 <ul class="fr">
-    <!--  <li class="classic-btn tour-lock"><a href="<?php echo GLOBAL_BASE_URL; ?>review/rehome.php" >Classic View</a></li>
+     <!-- <li class="classic-btn tour-lock"><a href="http://www.ventureintelligence.com/review/rehome.php" >Classic View</a></li>
      <li class="classic-btn"><input  type="button" id="startTourBtn" value="Start Tour" /></li> -->
 <li ><div style="float:right;padding: 9px 15px" class="key-search"><b></b> <input  autofocus="autofocus" type="text" name="searchallfield" placeholder=" Keyword Search"
                                                                                       <?php if($searchallfield!="") echo "value='".$searchallfield."'" ;?>
@@ -966,7 +957,8 @@ if($passwrd != 'P')
 {
 ?>
 <div id="sec-header" class="sec-header-fix">
-<table cellpadding="0" cellspacing="0">
+<?php include('sec-header.php'); ?>
+<!-- <table cellpadding="0" cellspacing="0">
 <tr>
 
 <td class="investment-form">
@@ -1109,7 +1101,7 @@ if($passwrd != 'P')
      </div>
  </div>
 </td></tr>
-</table>
+</table> -->
 </div>
 <?php
 }
