@@ -24,11 +24,25 @@
 	include_once('header_dashboard.php');
 ?>
 
+<?php if($type !=1){?>
+<style>
+@media only screen and (min-width: 1025px) and (max-width: 1300px) {
+    .profile-view-left,.profile-view-rigth {
+        width:100%;
+    }
+    .dashboard-table .chartwidth{
+      display: inline-flex;
+    width: 90%;
+    overflow-x: auto;
+    }
+}
 
+</style>
+<?php } ?>
 <div id="container">
 
 <table cellpadding="0" cellspacing="0" width="100%" class="dashboard-table">
-<tr>
+<tr class="chartwidth">
  <?php
  //print_r($_POST);
     $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 1;
@@ -1500,7 +1514,7 @@ if($type!=1)
 {
  ?>
 
-<tr>   
+<tr class="chartwidth">   
  <td width="50%" class="profile-view-left">
     <A NAME="Pie">     
     <div id="visualization2" style="max-width: 100%; height: 500px;overflow-x: auto;overflow-y: hidden;"></div>   
@@ -1509,7 +1523,7 @@ if($type!=1)
   <div id="visualization3" style="max-width: 100%; height: 500px;overflow-x: auto;overflow-y: hidden;"></div>  
 </td>
 </tr> 
-<tr>
+<tr class="chartwidth">
 <td width="50%" class="profile-view-left" id="chartbar">
     <A NAME="Stack">
     <div id="visualization1" style="max-width: 100%; height: 750px;overflow-x: auto;overflow-y: hidden;"></div>    
