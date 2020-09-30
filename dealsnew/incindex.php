@@ -261,8 +261,14 @@
                 }
                 else 
                 {
-             $companysearch=trim($_POST['companysearch']);
-             $companyauto=$_POST['companyauto'];
+                    if($_POST['companyauto_sug']!=''){
+                        $companysearch = $_POST['companyauto_sug'];
+                          $companyauto = $_POST['companysearch'];
+                        }else{
+                            $companysearch=trim($_POST['companysearch']);
+                            $companyauto=$_POST['companyauto'];
+                          }   
+            
             if(isset($_POST['companyauto_other']) && $_POST['companyauto_other'] !=''){
                 $companyauto=$_POST['companyauto_other'];
                 $companysearch=trim($_POST['companysearch_other']);
@@ -375,11 +381,12 @@
                 }
                
                 //--------------------------------Date start-----------------------------------------------
-                if (isset($_POST[period_flag])) {
+                if (isset($_POST['period_flag'])) {
                     $period_flag = $_POST['period_flag'];
                 } else {
                     $period_flag = 1;
                 }
+                
                 if($resetfield=="period")
                 {
                     $datefilter=''; 
@@ -411,10 +418,15 @@
                     //
                     
                 }
-                elseif(trim($_POST['searchallfield'])!="" || trim($_POST['searchTagsField'])!="" || trim($_POST['keywordsearch'])!="" ||  trim($_POST['companysearch'])!=""  )
+                elseif($_POST['searchallfield_other']!=""||trim($_POST['searchallfield'])!="" || trim($_POST['searchTagsField'])!="" || trim($_POST['keywordsearch'])!="" ||  trim($_POST['companysearch'])!=""  )
                 {
                     
-                 if(!isset($_POST['month1'])|| $period_flag==2){
+                 if($_POST['searchallfield_other']!=""){
+                    $month1=01; 
+                    $year1 = 1998;
+                    $month2=date('m');
+                    $year2=date('Y');
+                 }elseif(!isset($_POST['month1'])|| $period_flag==2){
                      $month1=$_POST['month1'];
                     $year1=$_POST['year1'];
                     $month2=date('m');
@@ -425,7 +437,6 @@
                     $month2=$_POST['month2'];
                     $year2=$_POST['year2'];                     
                  }
-                    
                     $getdt1 =  $year1."-".$month1."-01";
                     $getdt2 =  $year2."-".$month2."-31";                    
                     $datefilter=" date_month_year between '" . $getdt1. "' and '" . $getdt2 . "' AND  ";
@@ -482,6 +493,7 @@
                     $edatevalueDisplay2 = returnMonthname($month2) ."  ".date('y', strtotime($getdt2));
                     
                 }
+                
               //--------------------------------Date start-----------------------------------------------  
                 
                 
@@ -835,6 +847,7 @@
                 }
                 elseif ($companysearch!="")
                 {
+                    $companyval=$companysearch;
                         $iftest=2;
                         $yourquery=1;
                         $companysql="SELECT pe.IncDealId,pe.IncubateeId, pec.companyname, pec.industry, i.industry, pec.sector_business  as sector_business,
@@ -1195,7 +1208,7 @@
                                     </li>
                                     <?php } if($csearch!=""){ $drilldownflag=0; ?>
                                   <li> 
-                                      <?php if($cauto !=""){echo trim($cauto);}else{echo $company_filter;}?><a  onclick="resetinput('companysearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                      <?php echo $company_filter;?><a  onclick="resetinput('companysearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                   </li>
                                   <?php }  if($searchallfield!=""){ ?>
                                     <li>
@@ -2390,13 +2403,15 @@
     
     
     <style>
-        .other_db_search{
-            display: none;            
+         .other_db_search{
+            display: none;
             width: 100%;
             float: left;
-        }                                
+        }
         .other_db_searchresult a{
             margin-left: 5px;
+            display: inline-block;
+            margin-bottom: 10px;
         }
         .other_db_searchresult{
             background: #F2EDE1;
@@ -2404,7 +2419,7 @@
             margin: 0 17px;
             font-weight: bold;
             font-size: 14px;
-                                
+            /*line-height: 24px; */
         }
         .other_loading{
             margin: 0;
@@ -2422,23 +2437,35 @@
             background:#413529;
             color: #fff;
         }
+        .other_db_links{
+            background: #a2753a;
+            padding: 2px 5px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 2px;
+        }
+         .other_db_links:hover{
+            background:#413529;
+            color: #fff;
+        }
     </style>
     
     
     <script>
     <?php 
     
+    $searchStringGmail = "&industry=".implode(",",$industry)."&sector=".implode(",",$sector)."&subsector=".$subsectorString."&keyword=".$keyword."&companysearch=".$companyval."&round=".implode(",",$round)."&regionId=".implode(",",$regionId)."&city=".$city."&companyType=".$companyType."&debt_equity=".$debt_equity."&syndication=".$syndication."&investorType=".$investorType."&exitstatusValue=".implode(",",$exitstatusValue);
    
     
-    if($searchallfield!=''){ ?>
+    //if($searchallfield!=''){ ?>
         $(document).ready(function(){
-            
+           var filed_name = "combinesearch";
             <?php if ($company_cnt==0){ ?>
                               $('.other_db_search').css('margin-top','50px');
             <?php } ?>
                 
             $('.other_db_search').fadeIn();            
-           $.get( "gmail_like_search.php?section=VC-Inv-Incubations&search=<?php echo$searchallfield;?>", function( data ) {          
+           $.get( "gmail_like_search.php?section=VC-Inv-Incubations&search=<?php echo $searchallfield;?><?php echo $searchStringGmail; ?>&filed_name="+filed_name, function( data ) {          
            
             var data = jQuery.parseJSON(data);
             console.log(data);
@@ -2474,7 +2501,7 @@
           
           
         });
-    <?php } ?>
+    <?php //} ?>
 
 
 
