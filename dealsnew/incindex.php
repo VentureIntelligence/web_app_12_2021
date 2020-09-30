@@ -2268,7 +2268,7 @@
     <input type="hidden" name="txthidecity" value=<?php echo $city; ?> >
     <input type="hidden" name="txthideregiontext" value=<?php echo $regionvalue; ?> >
     <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
-    <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
+    <input type="hidden" name="txthidecompany" value=<?php if($companyval){echo $companyval;}else{echo $companysearchhidden;} ?> >
     <input type="hidden" name="txthidesearchallfield" value=<?php echo $searchallfieldhidden; ?> >
     <input type="hidden" name="txthide" value=<?php echo $searchallfieldhidden; ?> >
      <input type="hidden" name="yearafter" value=<?php echo $yearafter; ?> >
