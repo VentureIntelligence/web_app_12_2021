@@ -1210,6 +1210,8 @@
                     $totalallsql=$showallsql;
 		}
                 else{
+                    $dt1 = $year1."-".$month1."-01";
+                    $dt2 = $year2."-".$month2."-01";
                    $getcompanysqlreal="SELECT DISTINCT pe.PECompanyId, pec.* FROM REcompanies AS pec, REipos AS pe, reindustry AS i WHERE";
                         $whereind = " pec.industry=15";
                         if ($industry > 0)
@@ -1897,6 +1899,8 @@
 		//echo "<br> allsearchfield search- ".$InvestorSqlreal;
 		}
                 else{
+                    $dt1 = $year1."-".$month1."-01";
+                    $dt2 = $year2."-".$month2."-01";
                     $companysql= "(SELECT cia.CIAId, cia.Cianame,adac.CIAId AS AcqCIAId FROM REmanda AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REinvestments_advisoracquirer AS adac, REacquirers AS ac, realestatetypes AS s where";
                     $companysql2= "SELECT cia.CIAId, cia.Cianame,adcomp.CIAId AS AcqCIAId FROM REmanda AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REinvestments_advisorcompanies AS adcomp, REacquirers AS ac, realestatetypes AS s where";
 
@@ -2298,6 +2302,8 @@
 		//echo "<br> allsearchfield search- ".$InvestorSqlreal;
 		}
                 else{
+                    $dt1 = $year1."-".$month1."-01";
+                    $dt2 = $year2."-".$month2."-01";
                     $companysql= "(SELECT DISTINCT adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId FROM REmama AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REmama_advisoracquirer AS adac WHERE";
                     $companysql2= "SELECT DISTINCT adcomp.CIAId, cia.cianame, adcomp.CIAId AS CompCIAId FROM REmama AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REmama_advisorcompanies AS adcomp WHERE ";
 
