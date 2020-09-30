@@ -256,11 +256,12 @@
     
     if($resetfield=="period" && !$_GET)
     {
-        $month1="--";
-        $year1 = "--";
-        $month2="--";
-        $year2 = "--";
+        
         $_POST['month1']=$_POST['month2']=$_POST['year1']=$_POST['year2']="";
+        $month1=01;
+        $year1 = 2005;
+        $month2=date('n');
+        $year2 = date('Y');
     }
     else
     {
@@ -404,6 +405,7 @@
             $search=" and  cia.Cianame like '$search%'";
         }
     }
+    
 //----------------------------------------Query starts-----------------------------------------------------------------
     if($vcflagValue==0){
         
@@ -645,9 +647,10 @@
                 and pe.IndustryId=i.IndustryId 
                 and pe.Deleted=0 and inv.Investor !='' " .$addVCFlagqry. " " .$search." ".$dirsearchall." 
                 order by inv.Investor ";
-                //	echo "<br><br>WHERE CLAUSE SQL---" .$getInvestorSqlreal;
+                	
                  $showallsql= $getInvestorSqlreal; 
             }
+            //echo "<br><br>WHERE CLAUSE SQL---" .$getInvestorSqlreal;
         }
         elseif($dealvalue==102){
                    
@@ -755,6 +758,8 @@
                          $totalallsql=$showallsql;
 		}
                 else{
+                    $dt1 = $year1."-".$month1."-01";
+                $dt2 = $year2."-".$month2."-01";
                    $getcompanysqlreal="SELECT pe.PECompanyId  as PECompanyId, pec.* FROM REinvestments AS pe,REcompanies AS pec, reindustry AS i
 				WHERE";
                         $whereind = " pe.IndustryId=15";
@@ -814,6 +819,7 @@
                                             
                         $showallsql= $getcompanysqlreal;
                 }
+                //echo "<br><br>WHERE CLAUSE SQL---" .$getcompanysqlreal;
             }
             elseif($dealvalue==103 || $dealvalue==104){
                    
@@ -977,7 +983,8 @@
 		//echo "<br> allsearchfield search- ".$InvestorSqlreal;
 		}
                 else{
-                   
+                    $dt1 = $year1."-".$month1."-01";
+                    $dt2 = $year2."-".$month2."-01";
                     $companysql= "(SELECT cia.CIAId, cia.Cianame,adac.CIAId AS AcqCIAId FROM REinvestments AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REinvestments_advisorinvestors AS adac WHERE";
                     $companysql2= "SELECT cia.CIAId, cia.Cianame,adac.CIAId AS AcqCIAId FROM REinvestments AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REinvestments_advisorcompanies AS adac WHERE";
 
@@ -1203,6 +1210,8 @@
                     $totalallsql=$showallsql;
 		}
                 else{
+                    $dt1 = $year1."-".$month1."-01";
+                    $dt2 = $year2."-".$month2."-01";
                    $getcompanysqlreal="SELECT DISTINCT pe.PECompanyId, pec.* FROM REcompanies AS pec, REipos AS pe, reindustry AS i WHERE";
                         $whereind = " pec.industry=15";
                         if ($industry > 0)
@@ -1890,6 +1899,8 @@
 		//echo "<br> allsearchfield search- ".$InvestorSqlreal;
 		}
                 else{
+                    $dt1 = $year1."-".$month1."-01";
+                    $dt2 = $year2."-".$month2."-01";
                     $companysql= "(SELECT cia.CIAId, cia.Cianame,adac.CIAId AS AcqCIAId FROM REmanda AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REinvestments_advisoracquirer AS adac, REacquirers AS ac, realestatetypes AS s where";
                     $companysql2= "SELECT cia.CIAId, cia.Cianame,adcomp.CIAId AS AcqCIAId FROM REmanda AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REinvestments_advisorcompanies AS adcomp, REacquirers AS ac, realestatetypes AS s where";
 
@@ -2291,6 +2302,8 @@
 		//echo "<br> allsearchfield search- ".$InvestorSqlreal;
 		}
                 else{
+                    $dt1 = $year1."-".$month1."-01";
+                    $dt2 = $year2."-".$month2."-01";
                     $companysql= "(SELECT DISTINCT adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId FROM REmama AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REmama_advisoracquirer AS adac WHERE";
                     $companysql2= "SELECT DISTINCT adcomp.CIAId, cia.cianame, adcomp.CIAId AS CompCIAId FROM REmama AS peinv, REcompanies AS c, reindustry AS i, REadvisor_cias AS cia, REmama_advisorcompanies AS adcomp WHERE ";
 
@@ -2523,7 +2536,7 @@
                                             <?php }
                                             if($datevalueDisplay1!=""){ ?>
                                             <li>
-                                                <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('year1');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                                <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                                             </li>
                                             <?php }
                                             if($keyword!="") { ?>
@@ -2648,7 +2661,7 @@
                                         <?php }
                                         if($datevalueDisplay1!=""){ ?>
                                         <li>
-                                            <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('year1');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                            <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                                         </li>
                                         <?php }
                                         if($keyword!="") { ?>
@@ -2711,16 +2724,46 @@
                             $count=0;
                              While($myrow=mysql_fetch_array($rsinvestor, MYSQL_BOTH))
                             {
+                               
+                                if($dealvalue==101){
                                     if($count == 0)
                                     {
                                              $comid = $myrow["InvestorId"];
                                             $count++;
                                     }
+                                }
+                                    elseif($dealvalue==102){ 
+                                        if($count == 0)
+                                        {
+                                                 $comid = $myrow["PECompanyId"];
+                                                $count++;
+                                        }
+                                    }
+                                    elseif($dealvalue==103 || $dealvalue==104){ 
+                                        if($count == 0)
+                                        {
+                                                 $comid = $myrow["CIAId"];
+                                                $count++;
+                                        }
+                                    }
+                                    
+                                
                             }
                         
-                        if($count >0){ ?>
+                        if($count >0){ 
+                            if($dealvalue==101){
+                            ?>
                         <li><a id="icon-detailed-view" class="postlink" href="redirdetails.php?value=<?php echo $comid;?>/<?php echo $vcflagValue; ?>/<?php echo $dealvalue; ?>" ><i></i> Detail  View</a></li>
-                        <?php  }       ?>
+                        <?php  } elseif($dealvalue==102){ 
+                            ?>
+                        <li><a id="icon-detailed-view" class="postlink" href="redircomdetails.php?value=<?php echo $comid;?>/<?php echo $vcflagValue; ?>/<?php echo $dealvalue; ?>" ><i></i> Detail  View</a></li>
+                        <?php
+                          }elseif($dealvalue==103 || $dealvalue==104 ){ 
+                            ?>
+                        <li><a id="icon-detailed-view" class="postlink" href="rediradvisor.php?value=<?php echo $comid;?>/<?php echo $vcflagValue; ?>/<?php echo $dealvalue; ?>" ><i></i> Detail  View</a></li>
+                        <?php
+                          }
+                    }   ?>
                         </ul></div>
 				<?php  $rowlimit=25;
                                 $offset=0;
@@ -3393,7 +3436,7 @@ $( "#autocomplete" ).autocomplete({
                                                    $querystrvalue= $myrow["CIAId"];
                                     ?>
                                                    <tr><td>
-                                                   <a style="text-decoration: none" href='rediradvisor.php?value=<?php echo $querystrvalue;?>/<?php echo $vcflagValue;?>/<?php echo $dealvalue;?>' >
+                                                   <a class="postlink" style="text-decoration: none" href='rediradvisor.php?value=<?php echo $querystrvalue;?>/<?php echo $vcflagValue;?>/<?php echo $dealvalue;?>' >
                                                    <?php echo $myrow["Cianame"]; ?></a></td></tr>
                                            <?php
                                                    $totalCount=$totalCount+1;
