@@ -856,34 +856,41 @@ function enableFileds(){
             $i++;
 
         }
+        
         }else if($_POST['companysearch'] !=''){
+          if($_POST['companyauto_sug']!=''){
+          $csearch = $_POST['companyauto_sug'];
+            $cauto = $_POST['companysearch'];
+          }else{
             $csearch = $_POST['companysearch'];
-            $cauto = $_POST['companyauto'];    
+            $cauto = $_POST['companyauto'];
+            }    
             $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($csearch)";
 
-        $sql_company_Exe = mysql_query($sql_company);
-        $company_filter = "";
-        $response = array();
-        $i = 0;
-        while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
+            $sql_company_Exe = mysql_query($sql_company);
+            $company_filter = "";
+            $response = array();
+            $i = 0;
+            while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
 
-            $response[$i]['id'] = $myrow['id'];
-            $response[$i]['name'] = $myrow['name'];
-            if ($i != 0) {
+                $response[$i]['id'] = $myrow['id'];
+                $response[$i]['name'] = $myrow['name'];
+                if ($i != 0) {
 
-                $company_filter .= ",";
-            }
-            $company_filter .= $myrow['name'];
-            $i++;
+                    $company_filter .= ",";
+                }
+                $company_filter .= $myrow['name'];
+                $i++;
 
-        }        
+          }        
+         
         }else{
             $csearch = $companysearch;
             $cauto = $company_filter;
-            
-        } ?>
+           
+        }?>
 <li class="ui-widget" style="position: relative"><h4>Incubatee</h4>
-    <input type="text" id="companyauto" name="companyauto" value="<?php if($cauto !=""){echo trim($cauto);}else{echo $company_filter;}?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($csearch!='') echo "readonly='readonly'";  ?>>
+    <input type="text" id="companyauto" name="companyauto" value="<?php echo $company_filter;?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($csearch!='') echo "readonly='readonly'";  ?>>
      <input type="hidden" id="companysearch" name="companysearch" value="<?php echo $csearch;  ?>" placeholder="" style="width:220px;">
      
     <span id="com_clearall" title="Clear All" onclick="clear_companysearch1();" style="<?php if($csearch=='') echo 'display:none;';  ?>background: #BFA074;  position: absolute;  top: 29px;  right: 30px;  padding: 3px;">(X)</span>
