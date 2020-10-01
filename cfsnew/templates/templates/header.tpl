@@ -423,6 +423,15 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
         dateFormat: "yy-mm-dd"
         });
   });
+   // T975 Ratio Filter
+   $(document).on("keypress keyup blur", ".rfvalid", function (event) {
+    //  console.log('hi');
+            //this.value = this.value.replace(/[^0-9\.]/g,'');
+     $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
   </script>  
     
     <link rel="stylesheet" type="text/css" href="css/token-input.css" />
@@ -497,6 +506,23 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
   }
 }
 });
+// Start T975
+      var ckbr=$(".ratiofilter").dropdownchecklist({emptyText: "Please select ...",
+        onItemClick: function(checkbox, selector){
+          var justChecked = checkbox.prop("checked");
+          var checkCount = (justChecked) ? 1 : -1;
+          for( i = 0; i < selector.options.length; i++ ){
+            if ( selector.options[i].selected ) checkCount += 1;
+          }
+          if ( checkCount > 9 ) {
+            alert( "Limit is 3" );
+            throw "too many";
+          }
+        }
+      });
+      $('#ratiosearchfieds').next().next().find('label').css("font-size","13px");
+      // End T975
+
    $(".multi-select1").dropdownchecklist({emptyText: "Please select ...",
             onItemClick: function(checkbox, selector){
                 var justChecked = checkbox.prop("checked");
@@ -527,6 +553,29 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
                 
                  
              });
+              //T975 Ratio Based
+             $("#addratio").click(function(){
+                var str="";
+                $('#ratitable > tbody').html("");
+                var selectedOptions = $("#ratiosearchfieds option:selected").length;
+                i=0;
+                $("#ratiosearchfieds option:selected").each(function() {
+                  var fieldname = $( this ).text();
+                  if(fieldname == 'EBITDA Margin'){
+                    fieldname = fieldname + ' (%)'; 
+                  }
+                  if(fieldname == 'PAT Margin'){
+                    fieldname = fieldname + ' (%)'; 
+                  }
+                  if(fieldname == 'Contribution Margin'){
+                    fieldname = fieldname + ' (%)'; 
+                  }
+                    str+='<tr ><th>'+fieldname+'<input  type="hidden"  name="answer[RatioSearchFieds][]" id="answer[RatioSearchFieds][]" value="'+this.value+'" /></th><td> <input  type="text" class="rfvalid" name="RGrtr_'+i+'" id="RGrtr_'+i+'" />  </td><td><input  type="text" class="rfvalid" name="RLess_'+i+'" id="RLess_'+i+'" />  </td></tr>';
+                    i++;
+                });
+                $('#ratitable > tbody:last').append(str);
+              });
+              // T975 End Ratio Based
              $("#addgrowth").click(function(){
                   var str="";
                    $('#growth-table > tbody').html("");
