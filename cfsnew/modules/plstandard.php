@@ -445,8 +445,8 @@ class plstandard extends database {
 			$this->setFetchMode('ASSOC');
 		}
                 
-                $sqlwithcharges = 'SELECT count(*) as count FROM (SELECT `CIN` FROM index_of_charges WHERE '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  ';
-                //print "<br><br>".$sqlwithcharges;        
+				$sqlwithcharges = 'SELECT count(*) as count FROM (SELECT `CIN` FROM index_of_charges WHERE '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  ';
+				//print "<br><br>".$sqlwithcharges;        
                 $this->execute($sqlwithcharges);
 
                 
@@ -494,8 +494,8 @@ class plstandard extends database {
                 $return_array = array();
               /*  $return_array['exportsql']=$sql;*/
                 
-                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
-                               
+			  $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
+                                
 		return $sqlwithcharges;
           
 	}
@@ -506,9 +506,9 @@ class plstandard extends database {
 
 		/*$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
-		$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType FROM ".$this->dbName." a";
+		$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType,bsn1.Total_assets FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY ";
+        $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
 		$sql .=  $maxFYQuery;
 
 		if(strlen($where)) $sql.= " WHERE ".$where;
@@ -538,9 +538,9 @@ class plstandard extends database {
 		/*$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom" . $FYcountField . " FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 
-		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType" . $FYcountField . " FROM ".$this->dbName." a";
+		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType ,bsn1.Total_assets" . $FYcountField . " FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY ";
+                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
 		$sql .=  $maxFYQuery;
                 
 		if(strlen($where)) $sql.= " WHERE ".$where;
@@ -1181,7 +1181,7 @@ class plstandard extends database {
 			$order="order by company_name asc";
 		}
 		$sql = "SELECT `CIN` as cin,companyName as company_name FROM index_of_charges as a1 WHERE ".$chargewhere." GROUP BY `CIN` ".$order;
-		echo '<div style="display:none">';print_r( $sql );echo'</div>';	
+					//	echo $sql; 
 		 if($rows>0){
 			if((strlen($pageID)>0 || strlen($rows)>0) && $rows!="all" )
 	$sql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
@@ -1214,8 +1214,7 @@ class plstandard extends database {
 						
 							$this->setFetchMode('ASSOC');
 							$this->execute($sql);
-							//	echo $sql;
-							
+							//echo $sql;
 							$return_array = array();
 							$cont=0;
 							while ($rs = $this->fetch()) {
@@ -1226,7 +1225,7 @@ class plstandard extends database {
 						 return $return_array;
 							
 						}
-		
+						
 
 	function getauditornameSuggest($where,$order){
 		$sql = "select `auditor_name` as auditor_name from cprofile ";
@@ -1334,7 +1333,7 @@ class plstandard extends database {
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		$sql = "SELECT ".$fields." FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY ";
+		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
 		$sql .=  $maxFYQuery;
 
 		if(strlen($where)) $sql.= " WHERE ".$where;
@@ -1352,7 +1351,7 @@ class plstandard extends database {
 		if($type=="name"){
 			$this->setFetchMode('ASSOC');
 		}
-		//print $sql;
+		// print $sql;
                 //$exp="";
                 $return_array = array();
               /*  $return_array['exportsql']=$sql;*/
@@ -1361,7 +1360,7 @@ class plstandard extends database {
 		$this->execute($sql);
 		
 		//print $this->execute($sql);
-		
+		echo '<div style="display:none">';print_r( $sql );echo'</div>';
 		$cont=0;
               
 		if($fields=="*")
@@ -1448,7 +1447,7 @@ class plstandard extends database {
                 $return_array = array();
                 /*  $return_array['exportsql']=$sql;*/
 		 
-                $sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
+				$sqlwithcharges = 'SELECT * FROM (SELECT `CIN`,`Date of Charge` dateofcharge,`Charge amount secured` chargeamt,`Charge Holder` chargeholder FROM index_of_charges WHERE   '.$chargewhere.'    GROUP BY `CIN` ) fcin , ('. $sql .') cp WHERE fcin.`CIN`=cp.`CIN`  '.$limit;
                 //print "<br><br>".$sqlwithcharges; 
                 //print "<br><br>".$sqlwithcharges; 
                 // $this->execute('SET SQL_BIG_SELECTS=1');
