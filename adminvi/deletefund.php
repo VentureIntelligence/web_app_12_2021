@@ -16,7 +16,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $companyid = "";
             $to    = 'arun@ventureintelligence.in';
             $from 	= 'info@ventureintelligence.in';
-            $subject 	= "Deleted Company Details"; // Subject of the email
+            $subject 	= "Deleted Fund details"; // Subject of the email
             //Message
             $message 	= 'Please find the details below:';
 
