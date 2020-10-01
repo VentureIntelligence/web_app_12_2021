@@ -677,16 +677,44 @@
 
                     </li>
                 <?php }
-                if($dealvalue != 102 && $dealvalue  != 110){ ?>
-                    
+                if($dealvalue != 102 && $dealvalue  != 110){
+                    if($_POST['companyauto_sug']!=''){
+          $csearch = $_POST['companyauto_sug'];
+            $cauto = $_POST['companysearch'];
+          }else if($_POST['companysearch'] !=''){
+            $csearch = $_POST['companysearch'];
+            $cauto = $_POST['companyauto'];
+           
+    $companysearchhidden = ereg_replace(" ", "_", $companysearch);
+            } else{
+                $csearch = $companysearch;
+                $cauto = $company_filter;
+               
+            }   
+            $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
+            $sql_company_Exe = mysql_query($sql_company);
+            $company_filter = "";
+            $response = array();
+            $i = 0;
+            while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
+
+                $response[$i]['id'] = $myrow['id'];
+                $response[$i]['name'] = $myrow['name'];
+                if ($i != 0) {
+
+                    $company_filter .= ",";
+                }
+                $company_filter .= $myrow['name'];
+                $i++;
+    }?>
                     <li class="ui-widget" style="position: relative"><h4>Angel-backed Co</h4>   
-                    <!--    <input type="text" value="<?php echo $_POST['companysearch']?$_POST['companysearch']:''?>" name="company" id="company"  class=""  style="width:220px;"/>
+                    <!--    <input type="text" value="<?php echo $csearch?$csearch:''?>" name="company" id="company"  class=""  style="width:220px;"/>
                         <input type="hidden" name="companysearch" id="autocompany" value="" />	-->    
 
-                        <input type="text" id="companyauto" name="companyauto" value="<?php if($_POST['companysearch']!='') echo  $_POST['companyauto'];  ?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($_POST['companysearch']!='') echo "readonly='readonly'";  ?>>
-                         <input type="hidden" id="companysearch" name="companysearch" value="<?php if(isset($_POST['companysearch'])) echo $_POST['companysearch'];?>" placeholder="" style="width:220px;">
+                        <input type="text" id="companyauto" name="companyauto" value="<?php echo $company_filter;  ?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($csearch !='') echo "readonly='readonly'";  ?>>
+                         <input type="hidden" id="companysearch" name="companysearch" value="<?php if(isset($csearch)) echo $csearch;?>" placeholder="" style="width:220px;">
 
-                        <span id="com_clearall" title="Clear All" onclick="clear_companysearch1();" style="<?php if($_POST['companysearch']=='') echo 'display:none;';  ?>background: #BFA074;  position: absolute;  top: 29px;  right: 30px;  padding: 3px;">(X)</span>
+                        <span id="com_clearall" title="Clear All" onclick="clear_companysearch1();" style="<?php if($csearch=='') echo 'display:none;';  ?>background: #BFA074;  position: absolute;  top: 29px;  right: 30px;  padding: 3px;">(X)</span>
 
                         <div id="companyauto_load" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none;  width: 223px;">
 
