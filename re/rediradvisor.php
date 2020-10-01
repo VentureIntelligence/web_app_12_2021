@@ -16,13 +16,24 @@
         
         $value = isset($_GET['value']) ? $_GET['value'] : '';
         $AdvisorString = explode("/", $value);
-                
-
         $SelCompRef=$AdvisorString[0];
         $pe_exit_ma_advisorflag=$AdvisorString[2];
         $vcflagValue=$AdvisorString[1];
         $dealvalue=$AdvisorString[2];
         $exportToExcel=0;
+        if(sizeof($AdvisorString)>1)
+        {   
+            $vcflagValue=$AdvisorString[1];
+            $VCFlagValue=$AdvisorString[1];
+            
+        }
+        else
+        {
+            $vcflagValue=0;
+            $VCFlagValue=0;
+            
+        }
+        $valueflag=$vcflagValue;
         $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin from dealcompanies as dc,RElogin_members as dm
         where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
         //echo "<br>---" .$TrialSql;
@@ -33,7 +44,31 @@
                         $exportToExcel=$trialrow["TrialLogin"];
                 }
         }
-	
+        if($resetfield=="period" && !$_GET)
+        {
+            $month1="--";
+            $year1 = "--";
+            $month2="--";
+            $year2 = "--";
+            $_POST['month1']=$_POST['month2']=$_POST['year1']=$_POST['year2']="";
+        }
+        else
+        {
+            $month1=($_POST['month1']) ?  $_POST['month1'] : 01;
+            $year1 = ($_POST['year1']) ?  $_POST['year1'] : 2005;
+            $month2=($_POST['month2']) ?  $_POST['month2'] : date('n');
+            $year2 = ($_POST['year2']) ?  $_POST['year2'] : date('Y');
+        }
+        $datevalue = returnMonthname($month1) ."-".$year1 ."to". returnMonthname($month2) ."-" .$year2;
+        $splityear1=(substr($year1,2));
+        $splityear2=(substr($year2,2));
+    
+        if(($month1!="") && ($month2!=="") && ($year1!="") &&($year2!=""))
+        {
+            $datevalueDisplay1 = returnMonthname($month1) ." ".$splityear1;
+            $datevalueDisplay2 = returnMonthname($month2) ."  ".$splityear2;
+            $wheredates1= "";
+        }
         $prevNextArr = array();
 	$prevNextArr = $_SESSION['advisorId'];
 	
@@ -199,6 +234,7 @@
                 elseif($vcflagValue==3){?>
                                <span class="result-for">for OTHER-M&A Directory</span>
             <?php } ?>
+            
             <input class="postlink" type="hidden" name="numberofcom" value="<?php echo count($prevNextArr); ?>">
         </h2>
         <div class="title-links">
@@ -208,8 +244,8 @@
     </div>
     <br><br>
 <div class="list-tab"><ul>
-                <li ><a class="postlink"  href="redirview.php"  id="icon-grid-view"><i></i> List  View</a></li>
-                <li class="active"><a id="icon-detailed-view" class="postlink" href="" ><i></i> Detail  View</a></li> 
+                <li ><a class="postlink"  href="redirview.php?value=<?php echo $valueflag; ?>"  id="icon-grid-view"><i></i> List  View</a></li>
+                <li class="active"><a id="icon-detailed-view" class="postlink" href="rediradvisor.php?value=<?php echo $_GET['value'];?>/<?php echo $vcflagValue; ?>/<?php echo $dealvalue; ?>" ><i></i> Detail  View</a></li> 
         </ul></div> 
 <div class="lb" id="popup-box">
     <div class="title">Send this to your Colleague</div>
@@ -764,7 +800,7 @@ if ($getinvadvisorrs = mysql_query($existadvisor_to_investorsql))
         <?php } ?>
         
 </div>
-<input type="hidden" name="value" value="<?php echo $vcflagValue; ?>">
+<input type="hidden" name="value" value="<?php echo $valueflag; ?>">
 </form>
 <form name="readvisorprofile" id="readvisorprofile" method="post" action="exportsingleadvisor.php"> 
     <input type="hidden" name="txthidePEId" value="<?php echo $SelCompRef;?>" >

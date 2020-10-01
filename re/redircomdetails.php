@@ -45,7 +45,31 @@
                 }
         }
         
-        
+        if($resetfield=="period" && !$_GET)
+    {
+        $month1="--";
+        $year1 = "--";
+        $month2="--";
+        $year2 = "--";
+        $_POST['month1']=$_POST['month2']=$_POST['year1']=$_POST['year2']="";
+    }
+    else
+    {
+        $month1=($_POST['month1']) ?  $_POST['month1'] : 01;
+        $year1 = ($_POST['year1']) ?  $_POST['year1'] : 2005;
+        $month2=($_POST['month2']) ?  $_POST['month2'] : date('n');
+        $year2 = ($_POST['year2']) ?  $_POST['year2'] : date('Y');
+    }
+    $datevalue = returnMonthname($month1) ."-".$year1 ."to". returnMonthname($month2) ."-" .$year2;
+    $splityear1=(substr($year1,2));
+    $splityear2=(substr($year2,2));
+
+    if(($month1!="") && ($month2!=="") && ($year1!="") &&($year2!=""))
+    {
+        $datevalueDisplay1 = returnMonthname($month1) ." ".$splityear1;
+        $datevalueDisplay2 = returnMonthname($month2) ."  ".$splityear2;
+        $wheredates1= "";
+    }
         
         $prevNextArr = array();
 	$prevNextArr = $_SESSION['resultCompanyId'];

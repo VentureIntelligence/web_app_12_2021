@@ -94,11 +94,12 @@
 
     if($resetfield=="period" && !$_GET)
     {
-        $month1="--";
-        $year1 = "--";
-        $month2="--";
-        $year2 = "--";
+        
         $_POST['month1']=$_POST['month2']=$_POST['year1']=$_POST['year2']="";
+        $month1=01;
+        $year1 = 2005;
+        $month2=date('n');
+        $year2 = date('Y');
     }
     else
     {
@@ -357,7 +358,7 @@
                         <?php }
                         if($datevalueDisplay1!=""){ ?>
                             <li>
-                                <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('year1');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
                         <?php }
                         if($keyword!="") { ?>
