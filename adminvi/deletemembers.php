@@ -107,7 +107,7 @@ $username= $_SESSION['name'];
         }
             $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
 		    $from 	= 'info@ventureintelligence.in';
-		    $subject 	= "Deleted Company Details"; // Subject of the email
+		    $subject 	= "Deleted Subscriber details"; // Subject of the email
 		    //Message
 		    $message 	= 'Please find the details below:';
 
