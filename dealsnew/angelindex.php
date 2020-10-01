@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $_POST['month2'] = "";
         $_POST['year2'] = "";
         $_POST['searchallfield'] = "";
-    } else if (trim($_POST['searchallfield']) != "" || trim($_POST['searchTagsField']) != "" || trim($_POST['investorauto_sug']) != "" || trim($_POST['companysearch']) != "") {
+    } else if ($_POST['searchallfield_other']!=""|| trim($_POST['searchallfield']) != "" || trim($_POST['searchTagsField']) != "" || trim($_POST['investorauto_sug']) != "" || trim($_POST['companysearch']) != "") {
         if (($_POST['month1'] == date('n')) && $_POST['year1'] == date('Y', strtotime(date('Y') . " -1  Year")) && $_POST['month2'] == date('n') && $_POST['year2'] == date('Y')) {
 
             $findTag = strpos($_POST['searchallfield'], 'tag:');
@@ -373,8 +373,15 @@ if ($resetfield == "companysearch") {
     $companysearch = "";
     $companyauto = '';
 } else {
-    $companysearch = trim($_POST['companysearch']);
-    $companyauto = $_POST['companyauto'];
+    // $companysearch = trim($_POST['companysearch']);
+    // $companyauto = $_POST['companyauto'];
+    if($_POST['companyauto_sug']!=''){
+        $companysearch = $_POST['companyauto_sug'];
+          $companyauto = $_POST['companysearch'];
+        }else{
+            $companysearch=trim($_POST['companysearch']);
+            $companyauto=$_POST['companyauto'];
+          }  
     if (isset($_POST['companyauto_other']) && $_POST['companyauto_other'] != '') {
 
         $companyauto = $_POST['companyauto_other'];
