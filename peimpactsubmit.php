@@ -17,6 +17,15 @@ invoked from -peimpact.htm
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
+ <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+ 
+   gtag('config', 'UA-168374697-1');
+ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Venture Intelligence</title>
 
@@ -191,7 +200,7 @@ invoked from -peimpact.htm
 <div id="headingtextpro">
 			           <div id="headingtextprobold">PE Impact 2011 <br /></div>
 			           This first-of-its-kind report in India includes a quantitative comparison
-			           of PE- and VC-backed companies vis-à-vis their non PE-backed counterparts as well as the relevant market
+			           of PE- and VC-backed companies vis-ï¿½-vis their non PE-backed counterparts as well as the relevant market
 			           indices. <br /><br />
 
 						The report also features case studies of successful PE/VC-backed companies from across sectors showing how these organizations benefited from PE/VC investments
@@ -203,7 +212,7 @@ invoked from -peimpact.htm
            <!--<div id="headingtextpro">
             <div id="headingtextprobold">PE Impact 2008 <br /></div>
            The PE Impact 2008 Report has a special focus on Infrastructure - widely identified as the key
-           constraint for India’s growth.   In addition to taking a look at the current investment climate in Indian infrastructure,
+           constraint for Indiaï¿½s growth.   In addition to taking a look at the current investment climate in Indian infrastructure,
            The Report features eight case studies of successful partnerships with Private Equity in India. <br /> <br />
 
 			<span style="float:right" class="one">
