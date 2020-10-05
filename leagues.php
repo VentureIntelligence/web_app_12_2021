@@ -35,6 +35,33 @@
 <script type="text/javascript" src="js/owl.carousel.js"></script>
 <script src='js/jquery.min.js'></script>
 <style>
+   
+#maskscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #000;
+    z-index: 8000;
+    overflow: hidden;
+}
+.lb {
+    width: 400px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 2px #eaeaea;
+    overflow: hidden;
+    margin: 0 auto;
+    z-index: 9000;
+    left: 25%;
+    top: 40%;
+    position: fixed;
+    background-color: #fff;
+    display: none;
+}
+.copyright-body {
+    padding: 25px 10px 10px 20px;
+    line-height: 22px;
+    font-size: 15px;
+}
 .opne-nav-fix{ position:fixed; top:0;width:100%;background:none repeat scroll 0 0 hsla(0, 0%, 98%, 0.97);border-bottom:1px solid #E0E0E0}
 .opne-nav-fix span{display:none}
 
@@ -58,6 +85,17 @@ img.fixed-logo{display:none}
 <link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
 <script type="text/javascript" src="js/jquery.tooltipster.js"></script>
 <script type="text/javascript">
+// window.onbeforeunload = function (e) {
+//     e = e || window.event;
+//     $('#maskscreen').css('display','block');
+//     $('.lb').css('display','block');
+//     e.returnValue = '';
+// };
+window.onbeforeunload = popup;
+
+function popup() {
+  return 'I see you are leaving the site';
+}
 	$(document).ready(function() {
 		$('.tooltip').tooltipster({
 			animation: 'grow',
@@ -1447,6 +1485,16 @@ img.fixed-logo{display:none}
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
+<!-- <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
+<div class="lb" id="popup-box-copyrights-filter" style="width:750px !important;padding:5px;">
+  <div style="border: 4px solid #000;border-radius: 10px;">
+   <span id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</span>
+    <div class="copyright-body">Did you know, the toppers in the League Table use Venture Intelligence products to find more business opportunities and track competition?
+    <p style="margin: 10px 0px;">To take a trial <a href="trial.htm">Click Here</a></p>
+</div>
+   
+  </div>   
+</div> -->
 <script>
 $(document).ready(function(){
 
@@ -1590,6 +1638,18 @@ $(document).ready(function(){
 <script>
 
     $(document).ready(function() {
+       // var popit = true;
+    //  window.onbeforeunload = function() { 
+    //     //   if(popit == true) {
+    //     //        $('#maskscreen').css('display','block');
+    //     //        $('.lb').css('display','block');
+    //     //        popit = false;
+    //     //        return "Are you sure you want to leave?"; 
+    //     //   }
+    //     e = e || window.event;
+    //     e.returnValue = 'You want to leave ? ';
+
+    //  }
 	 $(window).scroll(function(){
             if ($(this).scrollTop() > 100) {
 
@@ -1636,7 +1696,12 @@ $(document).ready(function(){
 
     });
 
+    $('#expcancelbtn-filter').click(function(){
 
+jQuery('#popup-box-copyrights-filter').fadeOut();
+jQuery('#maskscreen').fadeOut(1000);
+return false;
+});
 
     </script>
 </body>
