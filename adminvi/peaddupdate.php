@@ -352,7 +352,43 @@
 
 														}
 													}*/
+													$checksql="SELECT peinv.PEId,peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyId and pe.PEId!=$PEId group by peinv.InvestorId";
+                
+													if($existinvestorsql = mysql_query($checksql))
+													{
+														While($myrow=mysql_fetch_array($existinvestorsql, MYSQL_BOTH))
+														{
+															$testid[]=$myrow['InvestorId'];
+														}
+													}
+													$checkingsql="SELECT peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyId and pe.PEId=$PEId" ;
+													if($existinvestorsqlval = mysql_query($checkingsql))
+													{
+														$test_cnt=mysql_num_rows($existinvestorsqlval);
+														While($myrowval=mysql_fetch_array($existinvestorsqlval, MYSQL_BOTH))
+														{
+															$testvalid[]=$myrowval['InvestorId'];
+														}
+													}
+													
+													$result=array_diff($testvalid,$testid);
+													//print_r($result);
+													$resultval=implode(",",$result);
+													if($resultval!=""){
+													 $updatequery12="update `peinvestments_investors` set newinvestor=1 where InvestorId IN ($resultval) and PEId=$PEId";
+													 mysql_query($updatequery12);
+													}
 
+													for($i=0;$i<$test_cnt;$i++){
+													foreach($testid as $testid1){
+														if($testvalid[$i] === $testid1)
+															{
+															$updatequery11="update `peinvestments_investors` set existinvestor=1 where InvestorId = $testvalid[$i] and PEId=$PEId";
+															mysql_query($updatequery11);
+														}
+														
+													}
+												}	
 													foreach($advisor_companyString as $advisorcompany)
 														{
 															if(trim($advisorcompany)!="")
