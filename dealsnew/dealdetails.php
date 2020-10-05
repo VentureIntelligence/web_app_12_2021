@@ -431,6 +431,36 @@
                 $searchallfield='';
             }
         }
+        if ($resetfield == "dealsinvolving") {
+            if (count($_POST['dealsinvolving']) > 0) {
+                 
+               foreach ($_POST['dealsinvolving'] as $dealsinvolvingvaltag) {
+                   
+                   if ($dealsinvolvingvaltag == 1) {
+       
+                       $dealsinvolvingfiltertag .= 'New Investor, ';
+       
+                   } else if ($dealsinvolvingvaltag == 2) {
+       
+                       $dealsinvolvingfiltertag .= 'Existing Investor, ';
+       
+                   } else {
+                       $dealsinvolvingfiltertag = '';
+                   }
+               }
+               $dealsinvolvingfiltertag = trim($dealsinvolvingfiltertag, ', ');
+           }
+           $dealsarraytag = explode(",",$dealsinvolvingfiltertag); 
+           $pos = array_search($_POST['resetfieldid'],$dealsarraytag);
+           $dealsinvolvingvalue = $_POST['dealsinvolving'];
+           unset($dealsinvolvingvalue[$pos]);
+           emptyhiddendata();
+        } else {
+           $dealsinvolvingvalue = $_POST['dealsinvolving'];
+           if (count($dealsinvolvingvalue) > 0) {
+               $searchallfield = '';
+           }
+        }
         if ($resetfield == "sector") {
                  $pos = array_search($_POST['resetfieldid'], $_POST['sector']);
                 $sector = $_POST['sector'];
@@ -3515,7 +3545,7 @@ include_once($refineUrl); ?>
 
     /*$investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,hide_amount from peinvestments_investors as peinv,
         peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY Investor='others',InvestorId desc";*/
-        $investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor from peinvestments_investors as peinv,peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY peinv.investorOrder ASC";
+        $investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY peinv.investorOrder ASC";
 
 
     //echo "<Br>Investor".$investorSql;
@@ -3928,6 +3958,12 @@ include_once($refineUrl); ?>
                                 <ul class="result-select" style="    max-width: 54%;">
                                 <?php
                                  //echo $queryDisplayTitle;
+                                 if($datevalueDisplay1!=""){ ?>
+                                    <li> 
+                                        <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <?php } 
+                                 //echo $queryDisplayTitle;
                                 if($industry >0 && $industry!=null){ ?>
                                 <?php $industryarray = explode(",",$industryvalue); 
                                 $industryidarray = explode(",",$industryvalueid); 
@@ -3959,7 +3995,37 @@ include_once($refineUrl); ?>
                                                               </li>
                                                             <?php } ?>
                                   <?php }
-                                    
+                                    if (count($dealsinvolvingvalue) > 0) {
+          
+                                        foreach ($dealsinvolvingvalue as $dealsinvolvingval) {
+                                            
+                                            if ($dealsinvolvingval == 1) {
+                            
+                                                $dealsinvolvingfilter .= 'New Investor, ';
+                            
+                                            } else if ($dealsinvolvingval == 2) {
+                            
+                                                $dealsinvolvingfilter .= 'Existing Investor, ';
+                            
+                                            } else {
+                                                $dealsinvolvingfilter = '';
+                                            }
+                                        }
+                                        $dealsinvolvingfilter = trim($dealsinvolvingfilter, ', ');
+                                    }
+                                      if ($dealsinvolvingfilter != '') {?>
+                                          
+                                          
+                                           <?php $dealsarray = explode(",",$dealsinvolvingfilter); 
+                            
+                                       
+                                            foreach ($dealsarray as $key=>$value){ ?>
+                                              <li>
+                                                  <?php echo $value; ?><a  onclick="resetmultipleinput('dealsinvolving','<?php echo $dealsarray[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                              </li>
+                                            <?php } ?>
+                                         
+                                          <?php }
                                     if ($subsector > 0 && $subsector != null) {$drilldownflag = 0;?>
                                   <!--   <li>
                                         <?php echo $subsectorvalue; ?><a  onclick="resetinput('subsector');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
@@ -4074,11 +4140,11 @@ include_once($refineUrl); ?>
                                     <?php } ?>
                                 <?php } 
                                 
-                                if($datevalueDisplay1!=""){ ?>
-                                <li> 
-                                    <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
+                               // if($datevalueDisplay1!=""){ ?>
+                                <!-- <li> 
+                                    <?php //echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li> -->
+                                <?php //} 
                                 if($debt_equity!="--" && $debt_equity!=null) { ?>
                                 <li> 
                                     <?php echo  $debt_equityDisplay;?><a  onclick="resetinput('dealtype_debtequity');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
@@ -5206,6 +5272,7 @@ include_once($refineUrl); ?>
                                     $no_amount ='';
                                     $leadinvestor = array();
                                     $newinvestor = array();
+                                    $existinvestor = array();
                                     While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
                                     {
                                         
@@ -5213,6 +5280,7 @@ include_once($refineUrl); ?>
                                         if($myInvrow["InvestorId"] != 9 ){
                                             $leadinvestor[] = $myInvrow["leadinvestor"];
                                             $newinvestor[] = $myInvrow["newinvestor"];
+                                            $existinvestor[] = $myInvrow["existinvestor"];
                                         }
                                         /*print_r($leadinvestor);
                                           print_r($newinvestor);*/
@@ -5286,7 +5354,17 @@ include_once($refineUrl); ?>
                                              }else {
                                                 $InvestornameNew = trim($investor_Name[$l]);
                                              } 
+                                             if($existinvestor[$l] == 1) {
 
+                                                //$InvestornameNew = trim($investor_Name[$l]). " (L)";
+                                                echo "<span class='investorlable lead' style='margin-right: 8px;'>E</span>";
+                                                $existinvestorvalue="Existing investor";
+                                                ?>
+                                                <div class="tooltip-box7 leadtip" ><?php echo $existinvestorvalue;?></div>
+                                                <?php
+                                             }else {
+                                                $InvestornameNew = trim($investor_Name[$l]);
+                                             } 
                                              if($newinvestor[$l] == 1) {
                                                 //$InvestornameNew = trim($investor_Name[$l]). " (N)";
                                                 echo "<span class='investorlable new'>N</span>";

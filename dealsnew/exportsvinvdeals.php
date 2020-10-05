@@ -128,7 +128,7 @@
                 $sectorval=$_POST['txthidesectorval'];
                 $subsectorval=$_POST['txthidesubsector'];
                 $syndication=$_POST['txthidesyndication'];
-
+                $dealsinvolvingvalue=$_POST['txthidedealsinvolving'];
                 $stageval=$_POST['txthidestageval'];
                 $round=$_POST['txthideround'];
                 $regionId=$_POST['txthideregionid'];
@@ -690,7 +690,7 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                           //  echo "<Br>---Advisor search".$companysql;
 
                     }
-                    else if (($industry !="--" && $industry !="" && $industry > 0)|| ($sectorval !="--" && $sectorval !="" && $sectorval > 0)|| ($subsectorval !="--" && $subsectorval !="" && $subsectorval > 0) || ($round != "--") || ($city != "") || ($stageval!="") || ($yearafter!="") || ($yearbefore!="") || ($regionId!="--" && $regionId !="")|| ($invType!= "--" && $invType!= "") || ($startRangeValue!= "" && $endRangeValue != "") || $dateValue != "" || ($syndication !="--" && $syndication !="" && $syndication > 0)  || $cityid !="" ||  ( $tagsearch !=''))
+                    else if (($industry !="--" && $industry !="" && $industry > 0)|| ($sectorval !="--" && $sectorval !="" && $sectorval > 0)|| ($subsectorval !="--" && $subsectorval !="" && $subsectorval > 0) || ($round != "--") || ($city != "") || ($stageval!="") || ($yearafter!="") || ($yearbefore!="") || ($regionId!="--" && $regionId !="")|| ($invType!= "--" && $invType!= "") || ($startRangeValue!= "" && $endRangeValue != "") || $dateValue != "" || ($syndication !="--" && $syndication !="" && $syndication > 0)  || $cityid !="" ||  ( $tagsearch !='')|| $dealsinvolvingvalue !="")
                     {
                         /*if( $txthidepe != '' && !empty( $txthidepe ) ) {
                           $hideWhere = " and pe.PEId NOT IN ( " . $txthidepe . " ) ";
@@ -921,6 +921,27 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
 
 
                             }
+                            if ($dealsinvolvingvalue != '' && $dealsinvolvingValue != '--') {
+                                $dealsinvolvingvalue1 = explode(',',$dealsinvolvingvalue);
+                                foreach ($dealsinvolvingvalue1 as $dealsinvolvingValue1) {
+                                    if ($dealsinvolvingValue1 != '--' && $dealsinvolvingValue1 != '') {
+                                        if($dealsinvolvingValue1 == 1)
+                                        {
+                                            $dealsinvolving .= "peinv_inv.newinvestor = '1' or ";
+                                        }
+                                        if($dealsinvolvingValue1 == 2)
+                                        {
+                                            $dealsinvolving .= "peinv_inv.existinvestor = '1' or ";
+                                        }
+                                        //$exitstatusSql .= " Exit_Status  = '" . $exitstatusValues . "' or ";
+                                    }
+                                }
+                                $wheredealsinvolving = trim($dealsinvolving, ' or ');
+                                if ($wheredealsinvolving != '') {
+                                    $wheredealsinvolving = '     (' . $wheredealsinvolving . ')';
+                                }
+                               
+                            } 
                             if ($sectorval != '') {
                                 $sectorvalarray=explode(",", $sectorval);
                                 foreach($sectorvalarray as $key=>$sectorvals)
@@ -1048,6 +1069,10 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                             }
                             if ($whereexitstatus != "") {
                                 $companysql = $companysql . $whereexitstatus . " and ";
+                            }
+                            if ($wheredealsinvolving != "") {
+
+                                $companysql = $companysql . $wheredealsinvolving . " and ";
                             }
                             if($whererange  !="")
                             {

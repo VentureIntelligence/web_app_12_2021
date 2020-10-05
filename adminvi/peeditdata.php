@@ -737,7 +737,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 									?>
 									</table><input type="hidden" name="hideIPOId" size="8" value="">
                                                                         <input type="button" value="Add Investors" name="addInvestor"
-                              					onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>','mywindow','width=700,height=500')">
+                                                                        onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>/<?php echo $mycomprow["PECompanyId"]; ?>','mywindow','width=700,height=500')">
 									</td>
 								</tr>
                                                                         <?php } ?>
