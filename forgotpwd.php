@@ -5,6 +5,15 @@ $passwordForDB = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
+ <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+ 
+   gtag('config', 'UA-168374697-1');
+ </script>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Venture Intelligence</title>
 <SCRIPT LANGUAGE="JavaScript">

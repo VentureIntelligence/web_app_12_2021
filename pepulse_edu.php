@@ -3,6 +3,15 @@
 	  "http://www.w3.org/TR/html4/loose.dtd">
 	  <html>
 	  <head>
+		  <!-- Global site tag (gtag.js) - Google Analytics -->
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
+ <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+ 
+   gtag('config', 'UA-168374697-1');
+ </script>
 	  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	  <title>Venture Intelligence</title>
 	  <SCRIPT LANGUAGE="JavaScript">
@@ -130,7 +139,7 @@
 
 				 <div id="headingtextprobold">Final Step:  <br /><br /><br /></div>
 
-				 <div id="headingtextprobold">Your Co.’s Revenue Range:  &nbsp;&nbsp;&nbsp;&nbsp;
+				 <div id="headingtextprobold">Your Co.ï¿½s Revenue Range:  &nbsp;&nbsp;&nbsp;&nbsp;
 													 <SELECT NAME=revenuerange>
 
 													 <OPTION VALUE=1 selected>0-5 Cr</OPTION>

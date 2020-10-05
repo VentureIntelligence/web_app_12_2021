@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1492351-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-1492351-1');
-	</script>
-
-<!-- Global site tag (gtag.js) - Google Ads: 1017237580 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1017237580"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-1017237580');
-</script>
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
+ <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+ 
+   gtag('config', 'UA-168374697-1');
+ </script>
 
 
 
