@@ -85,17 +85,19 @@ img.fixed-logo{display:none}
 <link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
 <script type="text/javascript" src="js/jquery.tooltipster.js"></script>
 <script type="text/javascript">
-// window.onbeforeunload = function (e) {
-//     e = e || window.event;
-//     $('#maskscreen').css('display','block');
-//     $('.lb').css('display','block');
-//     e.returnValue = '';
-// };
-window.onbeforeunload = popup;
+window.onbeforeunload = function (e) {
+    e = e || window.event;
+    $('#maskscreen').css('display','block');
+    $('.lb').css('display','block');
+    e.preventDefault();
+    e.returnValue = '';
+    //return undefined;
+};
+// window.onbeforeunload = popup;
 
-function popup() {
-  return 'I see you are leaving the site';
-}
+// function popup() {
+//   return 'I see you are leaving the site';
+// }
 	$(document).ready(function() {
 		$('.tooltip').tooltipster({
 			animation: 'grow',
@@ -1485,7 +1487,7 @@ function popup() {
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
-<!-- <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
+ <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
 <div class="lb" id="popup-box-copyrights-filter" style="width:750px !important;padding:5px;">
   <div style="border: 4px solid #000;border-radius: 10px;">
    <span id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</span>
@@ -1494,7 +1496,7 @@ function popup() {
 </div>
    
   </div>   
-</div> -->
+</div>
 <script>
 $(document).ready(function(){
 
@@ -1638,16 +1640,14 @@ $(document).ready(function(){
 <script>
 
     $(document).ready(function() {
-       // var popit = true;
+    //    var popit = true;
     //  window.onbeforeunload = function() { 
-    //     //   if(popit == true) {
-    //     //        $('#maskscreen').css('display','block');
-    //     //        $('.lb').css('display','block');
-    //     //        popit = false;
-    //     //        return "Are you sure you want to leave?"; 
-    //     //   }
-    //     e = e || window.event;
-    //     e.returnValue = 'You want to leave ? ';
+    //       if(popit == true) {
+    //            $('#maskscreen').css('display','block');
+    //            $('.lb').css('display','block');
+    //            return "Are you sure you want to leave?"; 
+    //       }
+    
 
     //  }
 	 $(window).scroll(function(){
