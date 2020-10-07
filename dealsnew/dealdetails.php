@@ -3729,6 +3729,16 @@ include_once($refineUrl); ?>
             $debt_equityDisplay="Both";
      ?>
 <style>
+/*994 start */
+.childaccordions a {
+        font-size: 13px !important;
+        font-weight: 200 !important;
+        margin-left: 25px;
+    }
+    tr.childaccordions td {
+        border-bottom: 1px solid transparent ;
+    }
+/*994 end */
     .mt-list-tab{
         height:34px;
     }
@@ -5256,8 +5266,7 @@ include_once($refineUrl); ?>
                                     <?php } ?>
       </tr>                        
                                 <?php for($l=0;$l<count($investor_ID);$l++){ ?>
-                                    <tr>
-
+                                    <tr class="accordions_dealtitle1 active" rowspan="2">
                                         <td style="text-align: center;" class="tooltip7">
                                             <div style="text-align: center;display: inline-flex;">
                                             <?php 
@@ -5343,6 +5352,41 @@ include_once($refineUrl); ?>
                                         </td>
                                             <?php } ?>
                                     </tr>
+                                    <?php 
+                                    // if ($getcompanyrs = mysql_query($investorSql))
+                                    // {
+                                    //  While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
+                                    //  {
+                                        $_SESSION['investId'][$invcount++] = $investor_ID[$l];
+                                    $getfundSql ='SELECT peinv.PEId,peinv.InvestorId,fn.fundName,peinv.fundId,peinv.Amount_M,peinv.Amount_INR FROM fundNames AS fn,peinvestment_funddetail as peinv,peinvestors as inv where fn.fundId= peinv.fundId and  inv.InvestorId=peinv.InvestorId and peinv.PEId='.$IPO_MandAId.' and peinv.InvestorId='.$investor_ID[$l];  
+                                    //echo $getfundSql;
+                                    
+                                    
+                                      ?>
+                                      
+                                      
+                                      <?php if($rsfund = mysql_query($getfundSql))
+                                    {
+                                       while($myfundrow=mysql_fetch_array($rsfund, MYSQL_BOTH))
+                                       { ?>
+                                       <tr class="childaccordions" style="display: none;">
+                                        <td style="text-align: center;" class="tooltip7">
+                                        </td>
+                                        <td>    
+                                            <a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='fund_details.php?value=<?php echo $investor_ID[$l].'/funds/0/'.$myfundrow['fundId'];?>'  target="_blank"><?php echo $myfundrow['fundName']; ?></a>
+                                        </td>
+                                        <?php if($no_amount =='yes' ){ ?>
+                                        <td class="">
+                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $myfundrow['Amount_INR']; }else{ echo '';} ?></p>
+                                        </td>
+                                        <td class="">
+                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $myfundrow['Amount_M']; }else{ echo '';} ?></p>
+                                        </td>
+                                       
+                                        </tr>
+                                        <?php }
+                                    } 
+                                    }?>
                                 <?php }?> 
                             <?php   } ?>
                                         <?php if($no_amount =='yes'){ ?>
@@ -8429,6 +8473,9 @@ mysql_close();
     
         $(this).toggleClass("active").next().slideToggle();
     });
+    $(".accordions_dealtitle1").on("click", function() {
+        $(this).toggleClass("active").nextUntil('.accordions_dealtitle1').slideToggle();
+    }); 
     (function($){
         $(window).on("load",function(){
 
