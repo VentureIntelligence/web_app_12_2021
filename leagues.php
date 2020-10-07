@@ -1480,7 +1480,7 @@ img.fixed-logo{display:none}
   <div style="border: 4px solid #000;border-radius: 10px;">
    <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
     <div class="copyright-body">Did you know, the toppers in the League Table use Venture Intelligence products to find more business opportunities and track competition?
-    <p style="margin: 10px 0px;">To take a trial <a href="trial.htm">Click Here</a></p>
+    <p style="margin: 10px 0px;">To take a trial <a href="trial.htm" style="text-decoration: underline;">Click Here</a></p>
     </div>
   </div>   
 </div>

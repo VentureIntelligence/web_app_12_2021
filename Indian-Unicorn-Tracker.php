@@ -430,7 +430,7 @@ padding: 0 0px !important;
   <div style="border: 4px solid #000;border-radius: 10px;">
    <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
     <div class="copyright-body">Interested in more information of Unicorns - including investment and valuation details, financials, return multiples, etc?
-    <p style="margin: 10px 0px;"><a href="trial.htm">Click Here</a> to request a trial to our Databases.</p>
+    <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;">Click Here</a> to request a trial to our Databases.</p>
     </div>
   </div>   
 </div>
