@@ -25,11 +25,10 @@ $username= $_SESSION['name'];
     }
 
     if($DeleteEmailArrayLength > 0){
-        
+        deletemail($DeleteEmailId,"PE",$username);
         for ($i=0;$i<$DeleteEmailArrayLength;$i++)
         {
                 $mailid=trim($DeleteEmailId[$i]);
-                deletemail($DeleteEmailId,"PE",$username);
                 $delMemberSql="delete from dealmembers where Emailid='$mailid'";
                 //$delMemberSql= "Update dealmembers set Deleted=1 where 					//Emailid='$mailid' ";
                 //echo "<Br>--" .$delMemberSql;
@@ -105,7 +104,8 @@ $username= $_SESSION['name'];
 				$companyid[] = $myrow['DCompId'];
             }
         }
-            $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
+            //$to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
+            $to    = 'krishna.s@praniontech.com';
 		    $from 	= 'info@ventureintelligence.in';
 		    $subject 	= "Deleted Subscriber details"; // Subject of the email
 		    //Message
@@ -123,8 +123,8 @@ $username= $_SESSION['name'];
 		    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		    $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
 		    $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
-		    $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
-
+		    // $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
+            $headers .= 'Cc:  vijayakumar.k@praniontech.com' . "\r\n";
             
 		    if (@mail($to, $subject, $message, $headers)){
 		    }else{
