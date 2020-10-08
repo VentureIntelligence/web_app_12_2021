@@ -56,6 +56,7 @@
 					$peexitflag=$_POST['hidepeexitflag'];
 					$pevcflag=$_POST['hidevcflagValue'];
 					$submitemail=$_POST['txthideemail'];
+					$advname=$_POST['advname'];
 
 					$tsjtitle="&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 
@@ -65,7 +66,8 @@
                                         if($pevcflag==0)
                                         {
                                                 $addVCFlagqry="";
-                                                $pagetitle="PE-Advisor";
+												// $pagetitle="PE-Advisor";
+												$pagetitle=$advname." - PE-Advisor - VI";
                                                 $advisor_to_companysql="
                                         SELECT  distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,peinv.PECompanyId,c.Companyname,
                                         DATE_FORMAT( dates, '%M-%Y' ) AS dt,peinv.PEId as PEId
@@ -90,7 +92,8 @@
                                         {
                                                 //$addVCFlagqry="";
                                                 $addVCFlagqry = "and s.VCview=1 and peinv.amount<=20 ";
-                                                $pagetitle="VC-Advisor";
+												// $pagetitle="VC-Advisor";
+												$pagetitle=$advname." - VC-Advisor - VI";
                                                 $advisor_to_companysql="
                                         SELECT  distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,peinv.PECompanyId,c.Companyname,
                                         DATE_FORMAT( dates, '%M-%Y' ) AS dt,peinv.PEId as PEId
@@ -116,19 +119,22 @@
                                           if($pevcflag==3)
                                                 {
                                                         $addVCFlagqry="";
-                                                        $pagetitle="SV-Advisors";
+														// $pagetitle="SV-Advisors";
+														$pagetitle=$advname." - SV-Advisors - VI";
                                                         $dbtype="SV";
                                                 }
                                           elseif($pevcflag==4)
                                               {
                                                   $addVCFlagqry="";
-                                                        $pagetitle="CT-Advisors";
+														//$pagetitle="CT-Advisors";
+														$pagetitle=$advname." - CT-Advisors - VI";
                                                         $dbtype="CT";
                                               }
                                               elseif($pevcflag==5)
                                               {
                                                   $addVCFlagqry="";
-                                                        $pagetitle="IF-Advisors";
+														//$pagetitle="IF-Advisors";
+														$pagetitle=$advname." - IF-Advisors - VI";
                                                         $dbtype="IF";
                                               }
                                                 $advisor_to_companysql="SELECT  distinct peinv.PEId as PEId,adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,peinv.PECompanyId,c.Companyname,
@@ -173,18 +179,21 @@
                                                 if($pevcflag==9)
                                                 {
                                                         $addVCFlagqry="";
-                                                        $pagetitle="Public-Market-Sale-Advisors";
+														//$pagetitle="Public-Market-Sale-Advisors";
+														$pagetitle=$advname." - Public-Market-Sale-Advisors - VI";
                                                 }
                                                 if($pevcflag==10)
                                                 {
                                                         $addVCFlagqry="";
-                                                        $pagetitle="PE-Exits-M&A-Advisors";
+														//$pagetitle="PE-Exits-M&A-Advisors";
+														$pagetitle=$advname." - PE-Exits-M&A-Advisors - VI";
                                                 }
                                                 elseif($pevcflag==11)
                                                 {
                                                         //$addVCFlagqry="";
                                                         $addVCFlagqry = " and VCFlag=1 ";
-                                                        $pagetitle="VC-Exits-M&A-Advisors";
+														//$pagetitle="VC-Exits-M&A-Advisors";
+														$pagetitle=$advname." - VC-Exits-M&A-Advisors - VI";
                                                 }
 
                                                 $advisor_to_companysql="
