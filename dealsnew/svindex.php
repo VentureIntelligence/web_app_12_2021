@@ -2663,20 +2663,29 @@
                                             $exitstatusValue_hide = implode($exitstatusValue,',');
                                         }       
                                         if ($dealsinvolvingvalue != '' && $dealsinvolvingValue != '--' && count($dealsinvolvingvalue) > 0) {
-                                            foreach ($dealsinvolvingvalue as $dealsinvolvingValue) {
+                                            if(count($dealsinvolvingvalue)>1){
+                                                if($dealsinvolvingValue == 1 && $dealsinvolvingValue == 2){
+                                                    $dealsinvolving .="peinv_inv.newinvestor = '1' or peinv_inv.existinvestor = '1'";
+                                                }
+                                            }else{
+                                                foreach ($dealsinvolvingvalue as $dealsinvolvingValue) {
                                                 if ($dealsinvolvingValue != '--' && $dealsinvolvingValue != '') {
                                                     if($dealsinvolvingValue == 1)
-                                                    {
-                                                        $dealsinvolving .= "peinv_inv.newinvestor = '1' or ";
-                                                    }
-                                                    if($dealsinvolvingValue == 2)
-                                                    {
-                                                        $dealsinvolving .= "peinv_inv.existinvestor = '1' or ";
-                                                    }
+                                                        {
+                                                            $dealsinvolving .= "peinv_inv.newinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 1)
+                                                            and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 0) ";
+                                                        }
+                                                        if($dealsinvolvingValue == 2)
+                                                        {
+                                                            $dealsinvolving .= "peinv_inv.existinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 1)
+                                                            and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 0) ";
+                                                        }
                                                     //$exitstatusSql .= " Exit_Status  = '" . $exitstatusValues . "' or ";
                                                 }
                                             }
-                                            $wheredealsinvolving = trim($dealsinvolving, ' or ');
+                                        }
+                                            // $wheredealsinvolving = trim($dealsinvolving, ' or ');
+                                            $wheredealsinvolving = trim($dealsinvolving);
                                             if ($wheredealsinvolving != '') {
                                                 $wheredealsinvolving = '     (' . $wheredealsinvolving . ')';
                                             }
