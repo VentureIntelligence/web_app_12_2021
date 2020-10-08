@@ -858,6 +858,7 @@ $invadvisor_to_investorsql="(SELECT distinct peinv.PECompanyId,adac.CIAId AS Acq
 		<input type="hidden" name="hidepeexitflag" value="<?php echo $pe_exit_advisorflag;?>" >
 		<input type="hidden" name="hidevcflagValue" value="<?php echo $vcflagValue;?>" >
 		<input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
+        <input type="hidden" name="advname" value="<?php echo rtrim($advisorname);?>" >
 		
 
 		
@@ -1276,15 +1277,15 @@ if (trim($emailid) != "")
  <!-- LINKED IN START -->
                   
                      <?php 
-                     if($linkedIn!=''){ 
+                    //  if($linkedIn!=''){ 
 
-                     $url = $linkedIn;
-                     $keys = parse_url($url); // parse the url
-                     $path = explode("/", $keys['path']); // splitting the path
-                     $companyid = (int)end($path); // get the value of the last element  
+                    //  $url = $linkedIn;
+                    //  $keys = parse_url($url); // parse the url
+                    //  $path = explode("/", $keys['path']); // splitting the path
+                    //  $companyid = (int)end($path); // get the value of the last element  
 
                     ?>
-                  <div class="com-col linkedindiv" style="display: none">
+                  <!-- <div class="com-col linkedindiv" style="display: none">
                       <div class="linked-com">
                     <div class="linkedin-bg">
 
@@ -1309,9 +1310,9 @@ if (trim($emailid) != "")
                             document.getElementById(id).height= (newheight) + "px";
                             document.getElementById(id).width= (newwidth) + "px";
                         }
-                    </script>
+                    </script> -->
 
-                    <script type="text/javascript" src="//platform.linkedin.com/in.js"> 
+                    <!-- <script type="text/javascript" src="//platform.linkedin.com/in.js"> 
                         api_key:65623uxbgn8l
                         authorize:true
                         onLoad: onLinkedInLoad
@@ -1361,17 +1362,16 @@ if (trim($emailid) != "")
                       </div>
 
 
-                     <?php }
-                     else{
+                     <?php //}
+    //                  else{
 
-      $linkedinSearchDomain=  str_replace("http://www.", "", $website); 
-      $linkedinSearchDomain=  str_replace("http://", "", $linkedinSearchDomain); 
-        if(strrpos($linkedinSearchDomain, "/")!="")
-        {
-           $linkedinSearchDomain= substr($linkedinSearchDomain, 0, strpos($linkedinSearchDomain, "/"));
-        }
-    if($linkedinSearchDomain!=""){ ?>
-<!--     <img src="images/linked-in.gif" alt="Linked in loading..." id="loader" style="margin: 10px;position:absolute;left:50%;top:100px;">-->
+    //   $linkedinSearchDomain=  str_replace("http://www.", "", $website); 
+    //   $linkedinSearchDomain=  str_replace("http://", "", $linkedinSearchDomain); 
+    //     if(strrpos($linkedinSearchDomain, "/")!="")
+    //     {
+    //        $linkedinSearchDomain= substr($linkedinSearchDomain, 0, strpos($linkedinSearchDomain, "/"));
+    //     }
+    // if($linkedinSearchDomain!=""){ ?>
                   <div class="com-col linkedindiv"  style="display: none">
                       <div class="linked-com">
   <div class="linkedin-bg">
@@ -1397,11 +1397,11 @@ function autoResize(id){
     document.getElementById(id).height= (newheight) + "px";
     document.getElementById(id).width= (newwidth) + "px";
 }
- </script>
+ </script> -->
 
 
    
-        <script type="text/javascript" src="//platform.linkedin.com/in.js">
+        <!-- <script type="text/javascript" src="//platform.linkedin.com/in.js">
         api_key:65623uxbgn8l
         authorize:true
         onLoad: LinkedAuth
@@ -1484,8 +1484,8 @@ function autoResize(id){
           }
 
 
-        </script>
-
+        </script> -->
+<!-- 
     <div  id="sample" style="padding:10px 10px 0 0;">
         
         <iframe src="" id="lframe"  scrolling="no" frameborder="no" align="center" width="400" height="0"></iframe>
@@ -1497,10 +1497,10 @@ function autoResize(id){
                    <div class="fl" style="padding:10px 10px 0 0;">
                    <iframe src="" id="lframe1"  scrolling="no" frameborder="no" align="center" width="674" height="0" ></iframe></div> 
                     </div>
-                      </div>
-                 <?php } 
+                      </div> -->
+                 <?php //} 
                    
-  }
+  //}
     ?>
   
                   <!-- LINKED IN END -->
