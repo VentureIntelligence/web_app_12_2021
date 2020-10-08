@@ -103,9 +103,8 @@ $username= $_SESSION['name'];
 				$companyid[] = $myrow['DCompId'];
             }
         }
-            //$to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
-            $to    = 'krishna.s@praniontech.com';
-		    $from 	= 'info@ventureintelligence.in';
+            $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
+            $from 	= 'info@ventureintelligence.in';
 		    $subject 	= "Deleted Subscriber details"; // Subject of the email
 		    //Message
 		    $message 	= 'Please find the details below:';
@@ -122,8 +121,8 @@ $username= $_SESSION['name'];
 		    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		    $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
 		    $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
-		    // $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
-            $headers .= 'Cc:  vijayakumar.k@praniontech.com' . "\r\n";
+		    $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
+            
             
 		    if (@mail($to, $subject, $message, $headers)){
 		    }else{
