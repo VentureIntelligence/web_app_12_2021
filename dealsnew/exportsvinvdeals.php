@@ -923,19 +923,27 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                             }
                             if ($dealsinvolvingvalue != '' && $dealsinvolvingValue != '--') {
                                 $dealsinvolvingvalue1 = explode(',',$dealsinvolvingvalue);
-                                foreach ($dealsinvolvingvalue1 as $dealsinvolvingValue1) {
-                                    if ($dealsinvolvingValue1 != '--' && $dealsinvolvingValue1 != '') {
-                                        if($dealsinvolvingValue1 == 1)
-                                        {
-                                            $dealsinvolving .= "peinv_inv.newinvestor = '1' or ";
-                                        }
-                                        if($dealsinvolvingValue1 == 2)
-                                        {
-                                            $dealsinvolving .= "peinv_inv.existinvestor = '1' or ";
-                                        }
-                                        //$exitstatusSql .= " Exit_Status  = '" . $exitstatusValues . "' or ";
+                                if(count($dealsinvolvingvalue1)>1){
+                                    if($dealsinvolvingValue1 == 1 && $dealsinvolvingValue1 == 2){
+                                        $dealsinvolving .="peinv_inv.newinvestor = '1' or peinv_inv.existinvestor = '1'";
                                     }
-                                }
+                                }else{
+                                    foreach ($dealsinvolvingvalue1 as $dealsinvolvingValue1) {
+                                        if ($dealsinvolvingValue1 != '--' && $dealsinvolvingValue1 != '') {
+                                            if($dealsinvolvingValue1 == 1)
+                                                {
+                                                    $dealsinvolving .= "peinv_inv.newinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 1)
+                                                    and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 0) ";
+                                                }
+                                                if($dealsinvolvingValue1 == 2)
+                                                {
+                                                    $dealsinvolving .= "peinv_inv.existinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 1)
+                                                    and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 0) ";
+                                                }
+                                            //$exitstatusSql .= " Exit_Status  = '" . $exitstatusValues . "' or ";
+                                        }
+                                    }
+                               }
                                 $wheredealsinvolving = trim($dealsinvolving, ' or ');
                                 if ($wheredealsinvolving != '') {
                                     $wheredealsinvolving = '     (' . $wheredealsinvolving . ')';
