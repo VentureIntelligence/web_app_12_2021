@@ -45,11 +45,10 @@ $username= $_SESSION['name'];
     }
 
     if($MDeleteEmailArrayLength >0){
-        
+        deletemail($MADeleteEmailId,"MA",$username);
         for ($j=0;$j<$MDeleteEmailArrayLength;$j++)
         {
                 $MAmailid=trim($MADeleteEmailId[$j]);
-                deletemail($MADeleteEmailId,"MA",$username);
                 $MAdelMemberSql="delete from malogin_members where Emailid='$MAmailid'";
                 //echo "<Br>--" .$MAdelMemberSql;
                 if ($MAcompanyrs=mysql_query($MAdelMemberSql))
@@ -64,12 +63,12 @@ $username= $_SESSION['name'];
     }
      
     if($RDeleteEmailArrayLength >0){
+        deletemail($REDeleteEmailId,"RE",$username);
         // re login
         for ($k=0;$k<$RDeleteEmailArrayLength;$k++)
         {
                 $REmailid=trim($REDeleteEmailId[$k]);
                 //echo $REmailid.'<br>';
-                deletemail($REDeleteEmailId,"RE",$username);
                 $REdelMemberSql="delete from RElogin_members where Emailid='$REmailid'";
                 //echo "<Br>--" .$REdelMemberSql;
                 if ($REcompanyrs=mysql_query($REdelMemberSql))
