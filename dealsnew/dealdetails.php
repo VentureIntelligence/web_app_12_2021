@@ -3515,7 +3515,7 @@ include_once($refineUrl); ?>
 
     /*$investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,hide_amount from peinvestments_investors as peinv,
         peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY Investor='others',InvestorId desc";*/
-        $investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor from peinvestments_investors as peinv,peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY peinv.investorOrder ASC";
+        $investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY peinv.investorOrder ASC";
 
 
     //echo "<Br>Investor".$investorSql;
@@ -5216,6 +5216,7 @@ include_once($refineUrl); ?>
                                     $no_amount ='';
                                     $leadinvestor = array();
                                     $newinvestor = array();
+                                    $existinvestor = array();
                                     While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
                                     {
                                         
@@ -5223,6 +5224,7 @@ include_once($refineUrl); ?>
                                         if($myInvrow["InvestorId"] != 9 ){
                                             $leadinvestor[] = $myInvrow["leadinvestor"];
                                             $newinvestor[] = $myInvrow["newinvestor"];
+                                            $existinvestor[] = $myInvrow["existinvestor"];
                                         }
                                         /*print_r($leadinvestor);
                                           print_r($newinvestor);*/
@@ -5260,10 +5262,8 @@ include_once($refineUrl); ?>
                                 <tr>
                                     <th style="width: 8%;"></th>
                                     <th><h4>Name</h4></th>
-                                    <?php if($no_amount =='yes' && $global_hideamount==0){ ?>
-                                    <th><h4 class="title_ctr" style="text-transform: capitalize;">&#8377; Cr</h4></th>
-                                    <th><h4 class="title_ctr">$ M</h4></th>
-                                    <?php } ?>
+                                    <th><?php if($global_hideamount==0){ ?><h4 class="title_ctr" style="text-transform: capitalize;">&#8377; Cr</h4> <?php } ?></th>
+                                    <th><?php if($global_hideamount==0){ ?><h4 class="title_ctr">$ M</h4> <?php } ?></th>
       </tr>                        
                                 <?php for($l=0;$l<count($investor_ID);$l++){ ?>
                                     <tr class="accordions_dealtitle1 active" rowspan="2">
@@ -5295,7 +5295,17 @@ include_once($refineUrl); ?>
                                              }else {
                                                 $InvestornameNew = trim($investor_Name[$l]);
                                              } 
+                                             if($existinvestor[$l] == 1) {
 
+                                                //$InvestornameNew = trim($investor_Name[$l]). " (L)";
+                                                echo "<span class='investorlable lead' >E</span>";
+                                                $existinvestorvalue="Existing investor";
+                                                ?>
+                                                <div class="tooltip-box7 leadtip" ><?php echo $existinvestorvalue;?></div>
+                                                <?php
+                                             }else {
+                                                $InvestornameNew = trim($investor_Name[$l]);
+                                             } 
                                              if($newinvestor[$l] == 1) {
                                                 //$InvestornameNew = trim($investor_Name[$l]). " (N)";
                                                 echo "<span class='investorlable new'>N</span>";
@@ -5321,7 +5331,9 @@ include_once($refineUrl); ?>
                                                 $InvestornameNew = trim($investor_Name[$l]). " (L)";
                                              } else if($newinvestor[$l] == 1) {
                                                 $InvestornameNew = trim($investor_Name[$l]). " (N)";
-                                             } else {
+                                             } else if($existinvestor[$l] == 1) {
+                                                $InvestornameNew = trim($investor_Name[$l]). " (E)";
+                                             }  else {
                                                 $InvestornameNew = trim($investor_Name[$l]);
                                              }
                                              $Investorname=strtolower($Investorname);
@@ -5343,14 +5355,17 @@ include_once($refineUrl); ?>
                                                       echo $Investorname;
                                                       } ?></h4>
                                         </td>
-                                        <?php if($no_amount =='yes' ){ ?>
-                                        <td class="">
-                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_INR[$l]; }else{ echo '';} ?></p>
-                                        </td>
-                                        <td class="">
-                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_M[$l]; }else{ echo '';} ?></p>
-                                        </td>
-                                            <?php } ?>
+                                        
+                                    <td class="">
+                                    <?php if($no_amount =='yes' ){ ?>
+                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_INR[$l]; }else{ echo '';} ?></p>
+                                        <?php } ?>
+                                    </td>
+                                    <td class="">
+                                    <?php if($no_amount =='yes' ){ ?>
+                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_M[$l]; }else{ echo '';} ?></p>
+                                        <?php } ?>
+                                    </td>
                                     </tr>
                                     <?php 
                                     // if ($getcompanyrs = mysql_query($investorSql))
@@ -5384,11 +5399,55 @@ include_once($refineUrl); ?>
                                         </td>
                                        
                                         </tr>
-                                        <?php }
-                                    } 
+                                        <?php 
+                                   // if ($getcompanyrs = mysql_query($investorSql))
+                                    // {
+                                    //  While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
+                                    //  {
+                                        $_SESSION['investId'][$invcount++] = $investor_ID[$l];
+                                    $getfundSql ='SELECT peinv.PEId,peinv.InvestorId,fn.fundName,peinv.fundId,peinv.Amount_M,peinv.Amount_INR FROM fundNames AS fn,peinvestment_funddetail as peinv,peinvestors as inv where fn.fundId= peinv.fundId and  inv.InvestorId=peinv.InvestorId and peinv.PEId='.$IPO_MandAId.' and peinv.InvestorId='.$investor_ID[$l];  
+                                    //echo $getfundSql;
+                                    
+                                    
+                                      ?>
+                                      
+                                      
+                                      <?php if($rsfund = mysql_query($getfundSql))
+                                    {
+                                       while($myfundrow=mysql_fetch_array($rsfund, MYSQL_BOTH))
+                                       { ?>
+                                       <tr class="childaccordions" style="display: none;">
+                                        <td style="text-align: center;" class="tooltip7">
+                                        </td>
+                                        <td>    
+                                            <a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='fund_details.php?value=<?php echo $investor_ID[$l].'/funds/0/'.$myfundrow['fundId'];?>'  target="_blank"><?php echo $myfundrow['fundName']; ?></a>
+                                        </td>
+                                       <?php if(($myfundrow["Amount_INR"] !='' && $myfundrow["Amount_INR"] != '0.00') || ($myfundrow["Amount_M"] !='' && $myfundrow["Amount_M"] != '0.00')){
+                                       $no_amountfund ='yes';                                                 
                                     }?>
-                                <?php }?> 
-                            <?php   } ?>
+                                        <td class="">
+                                        <?php if($no_amountfund =='yes' ){ ?>
+                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $myfundrow['Amount_INR']; }else{ echo '';} ?></p>
+                                            <?php } ?>
+                                        </td>
+                                        <td class="">
+                                        <?php if($no_amountfund =='yes' ){ ?>
+                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $myfundrow['Amount_M']; }else{ echo '';} ?></p>
+                                            <?php } ?>
+                                        </td>
+                                       
+                                        </tr>
+                                        <?php 
+                                    } 
+                                   }?>
+                                       
+                                        
+                                            
+                                    
+                                       
+
+                                <?php } ?> 
+                             <?php   } ?>
                                         <?php if($no_amount =='yes'){ ?>
                                 <!-- <tr>
                                      <td><h4>Investor Type</h4></td>
@@ -6753,12 +6812,14 @@ include_once($refineUrl); ?>
                                     $no_amount ='';
                                     $leadinvestor = array();
                                     $newinvestor = array();
+                                    $existinvestor = array();
                                     While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
                                     {
                                         
                                         $Investorname=trim($myInvrow["Investor"]);
                                         $leadinvestor[] = $myInvrow["leadinvestor"];
                                         $newinvestor[] = $myInvrow["newinvestor"];
+                                        $existinvestor[] = $myInvrow["existinvestor"];
 
                                         $Investorname=strtolower($Investorname);
 
