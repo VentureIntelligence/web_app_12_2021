@@ -574,8 +574,8 @@ function return_insert_get_Investor($investor)
         }); 
         $( document ).on( "keyup",".txtinvestor", function( event, ui ) {
             var client = event.clientX;
-            var value=$(this).val().length;
-            if(value==1){
+            var inv=$(this).next().length;
+            if(inv == 0){   
             var randomvalue=Math.round(Math.random()*2000000);
             appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
              str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
@@ -588,19 +588,22 @@ function return_insert_get_Investor($investor)
             }
     
         });
-        // $( document ).on( "autocompleteselect",".txtinvestor", function( event, ui ) {
-        //     var client = event.clientX;
-        //     var randomvalue=Math.round(Math.random()*2000000);
-        //     appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
-        //      str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
-        //      str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
-        //      if($(this).next() !== appendata){
-        //         $(this).parent().append(appendata);
-        //         $(this).parent().next().append(str11);
-        //         $(this).parent().next().next().append(str21);
-        //     }
+        $( document ).on( "autocompleteselect",".txtinvestor", function( event, ui ) {
+            var client = event.clientX;
+            var inv=$(this).next().length;
+            if(inv == 0){
+            var randomvalue=Math.round(Math.random()*2000000);
+            appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
+             str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
+             str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
+             if($(this).next() !== appendata){
+                $(this).parent().append(appendata);
+                $(this).parent().next().append(str11);
+                $(this).parent().next().next().append(str21);
+            }
+            }
     
-        // });
+        });
         $(document).delegate('.txtfundname',"focus",function(event){
            //console.log(event.currentTarget,'client');
             var textinvestor = $(this).parent().parent().find('.txtinvestor')[0].value;
