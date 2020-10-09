@@ -9,7 +9,7 @@
 // && session_is_registered("SessLoggedIpAdd"))
 
 							//echo "<br>full string- " .$i;
-
+							$peid=$_POST['peid'];
 							$portfoliocompany = $_POST['txtcompanyname'];
 							$listingstatusvalue = $_POST['listingstatus'];
                                                         $exitstatusvalue = $_POST['exitstatus'];
@@ -326,8 +326,11 @@
 									{
                                                                                 if($_POST['hideIPOId']!='' && $_POST['hideIPOId']>0 ){
                                                                                     $PEId   = $_POST['hideIPOId'];
-                                                                                   }else{
-											$PEId= rand();
+																				   }elseif($peid!=''){
+																					$PEId= $peid;
+																				   }
+																				   else{
+																					$PEId= rand();
                                                                                    }
 											//echo "<br>random MandAId--" .$PEId;
 											$insertcompanysql="";
