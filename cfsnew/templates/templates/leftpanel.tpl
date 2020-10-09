@@ -127,11 +127,13 @@
 </div> 
 
 
-<h2><span> [+] </span> FINANCIAL BASED </h2>
 
-{if $REQUEST.Crores neq '' or $REQUEST.arcossall neq '' or $REQUEST.financesearchfieds neq ''}
+
+{if $REQUEST.arcossall neq '' or $REQUEST.financesearchfieds neq ''}
+<h2><span> [-] </span> FINANCIAL BASED </h2>
 <div class="acc_container acc_container_active" > 
 {else}
+<h2><span> [+] </span> FINANCIAL BASED </h2>
 <div class="acc_container" > 
 {/if} 
 
@@ -141,7 +143,7 @@
 <li>
  
 <div class="growth-yr"> 
-    <label for="Crores"><input type="checkbox" name="Crores" id="Crores" value="10000000" {if $REQUEST.Crores eq "10000000" or count($REQUEST) eq 0} checked {/if}/>  In Cr <span style="margin-left:10px;">Year:</span> </label>
+    <label for="Crores"><input type="checkbox" name="Crores" id="Crores" value="10000000" checked />  In Cr <span style="margin-left:10px;">Year:</span> </label>
 <label for="anyof"><input type="radio" name="arcossall" id="anyof" value="AnyOf" {if $REQUEST.arcossall eq ("AnyOf")} checked {/if}/>  Any Of  </label>
 <label for="acrossall"><input type="radio" name="arcossall" id="acrossall" value="across" {if $REQUEST.arcossall eq ("across")} checked {/if}/> Across All </label>
 </div>
@@ -206,10 +208,81 @@
 </div>
 </li> 
 </ul>
-
-
 </div>
 
+{*T975 RATIOS BASED - Filter label STARTED*}
+<h2>
+{if $REQUEST.arcossallr neq '' or $REQUEST.ratiosearchfieds neq ''}
+<span> [-] </span>RATIOS BASED </h2>
+<div class="acc_container acc_container_active" > 
+{else}
+<span> [+] </span>RATIOS BASED </h2>
+<div class="acc_container" > 
+{/if} 
+  <ul>
+    <li>
+      <div class="growth-yr"> 
+        <label for="Crores"><span style="margin-left:10px;">Year:</span> </label>
+        <label for="anyofr"><input type="radio" name="arcossallr" id="anyofr" value="AnyOf" {if $REQUEST.arcossallr eq ("AnyOf")} checked {/if}/>  Any Of  </label>
+        <label for="acrossallr"><input type="radio" name="arcossallr" id="acrossallr" value="across" {if $REQUEST.arcossallr eq ("across")} checked {/if}/> Across All </label>
+      </div>
+      <div class="selectgroup" style="display: inline-flex;">
+        <select class="ratiofilter" multiple="multiple" id="ratiosearchfieds" name="ratiosearchfieds[]"  >
+          <option value="0" label="Current Ratio" {if in_array("0", $ratio_feilds)} selected {/if}>Current Ratio</option>
+          <option value="1" label="Quick Ratio" {if in_array("1", $ratio_feilds)} selected {/if}>Quick Ratio</option>
+          <option value="2" label="Debt Equity Ratio" {if in_array("2", $ratio_feilds)} selected {/if}>Debt Equity Ratio</option>
+          <option value="3" label="RoE" {if in_array("3", $ratio_feilds)} selected {/if}>RoE</option>
+          <option value="4" label="RoA" {if in_array("4", $ratio_feilds)} selected {/if}>RoA</option>
+          <option value="5" label="Asset Turnover Ratio" {if in_array("5", $ratio_feilds)} selected {/if}>Asset Turnover Ratio</option>
+          <option value="6" label="EBITDA Margin. (%)" {if in_array("6", $ratio_feilds)} selected {/if}>EBITDA Margin</option>
+          <option value="7" label="PAT Margin. (%)" {if in_array("7", $ratio_feilds)} selected {/if}>PAT Margin</option>
+          <option value="8" label="Contribution margin. (%)" {if in_array("8", $ratio_feilds)} selected {/if}>Contribution Margin</option>
+        </select>
+        <input name="refine" type="button" value="ADD" id="addratio" style="vertical-align: top;margin-top: 4px;" />   </div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="growth-table" id="ratitable">
+          <thead>
+            <tr>
+              <th>Fields</th>
+              <th>Greater than </th>
+              <th>Less than </th>
+            </tr>
+          </thead>
+          <tbody>
+            {$ratiofieldshtml}
+          </tbody>
+        </table>
+        <!-- Dynamic Images Add Ends -->	
+        <div class="maindiv" style="display:none;">
+          <div class="descdiv">
+            <select id="answer[RatioSearchFieds][]" name="answer[RatioSearchFieds][]"  class="" forError="Sector">
+              <option value="" >Please Select a Field</option>
+              <option value="0" label="Current Ratio">Current Ratio</option>
+              <option value="1" label="Quick Ratio">Quick Ratio</option>
+              <option value="2" label="Debt Equity Ratio">Debt Equity Ratio</option>
+              <option value="3" label="RoE">RoE</option>
+              <option value="4" label="RoA">RoA</option>
+              <option value="5" label="Asset Turnover Ratio">Asset Turnover Ratio</option>
+              <option value="6" label="EBITDA Margin. (%)" >EBITDA Margin</option>
+              <option value="7" label="PAT Margin. (%)" >PAT Margin</option>
+              <option value="8" label="Contribution margin. (%)" >Contribution margin</option>
+            </select>
+          </div>
+          <div class="gretrdiv">Greater than&nbsp;<input  type="text" name="ROptnlIncomeGrtr" id="ROptnlIncomeGrtr" /></div>
+          <div class="lesrdiv">Less than&nbsp;<input  type="text" name="ROptnlIncomeLess" id="ROptnlIncomeLess" /></div>			
+        </div>
+        <input type="hidden" id="RatioCommonandor" name="RatioCommonandor" value="{if $RCommonandor neq ''}{$RCommonandor}{else}0{/if}" placeholder="" style="width:220px;">
+        <div class="btn-cnt"><div class="switch-and-or" style="margin-bottom:10px;"> 
+          <input type="radio"  name="RCommonandor" id="rand"  value="and"  {if $REQUEST.RCommonandor=="and" }checked="checked"{elseif $REQUEST.RCommonandor==""}checked="checked"{/if}/>
+          <input type="radio"  name="RCommonandor" id="ror" value="or" {if $REQUEST.RCommonandor=="or" }checked="checked"{/if}/>
+          <label for="rand" class="{if $REQUEST.RCommonandor=="and" } cb-enable selected {elseif $REQUEST.RCommonandor==""}cb-enable selected  {else}cb-disable{/if}"><span>AND</span></label>
+          <label for="ror" class="{if $REQUEST.RCommonandor=="or" } cb-enable selected {else}cb-disable{/if}"><span>OR</span></label>
+        </div>
+        <input name="refine" type="submit" value="Refine" class="refine"/>  <input name="cancel" type="button" value="Cancel" />
+      </div>
+    </li> 
+  </ul>
+</div>
+{*T975 RATIOS BASED - Filter label END*}
   <div >
 <h2><span> [+] </span>GROWTH BASED</h2>
 

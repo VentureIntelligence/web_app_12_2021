@@ -78,5 +78,19 @@ $PL_STNDSEARCHFIELDS = array(
 		  );
 $template->assign('PL_STNDSEARCHFIELDS', $PL_STNDSEARCHFIELDS);
 
+// T975 Start
+$PL_STNDRATIOFIELDS = array(
+	"0"  => "Current Ratio",
+	"1"  => "Quick Ratio",
+	"2"  => "Debt Equity Ratio",
+	"3"  => "RoE",
+	"4"  => "RoA",
+	"5"  => "Asset Turnover Ratio",
+	"6"  => "EBITDA Margin. (%)",
+	"7"  => "PAT Margin. (%)",
+	"8"  => "Contribution margin. (%)",
+  );
+$template->assign('PL_STNDRATIOFIELDS', $PL_STNDRATIOFIELDS);
+// T975 End
 		  
 ?>

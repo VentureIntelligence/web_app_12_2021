@@ -94,8 +94,8 @@ for ($j=0;$j<$rowcount;$j++)
                                         $investorId=return_insert_get_Investor_edit_update($exitInvestor[$j],$txtinvestorid[$j]);  
                                         if($investorId !=''){
                                             
-                                                $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$IPO_MandAId,$investorId,$invReturnMultiple[$j],$invReturnMultipleINR[$j],$invHideAmount[$j],$invexp_dp[$j],$invMoreInfo[$j],$investorOrder[$j],$leadinvestor[$j],$newinvestor[$j]);
-                                             
+                                            $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$IPO_MandAId,$investorId,$invReturnMultiple[$j],$invReturnMultipleINR[$j],$invHideAmount[$j],$invexp_dp[$j],$invMoreInfo[$j],$investorOrder[$j],$leadinvestor[$j],$newinvestor[$j],$existinvestor[$j],$companyid);
+
                                         }else{
                                              
                                             $investorId=return_insert_get_Investor($exitInvestor[$j]);
@@ -104,15 +104,17 @@ for ($j=0;$j<$rowcount;$j++)
                                             if($investorId !=''){
                                             
                                                
-                                                $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$IPO_MandAId,$investorId,$invReturnMultiple[$j],$invReturnMultipleINR[$j],$invHideAmount[$j],$invexp_dp[$j],$invMoreInfo[$j],$investorOrder[$j],$leadinvestor[$j],$newinvestor[$j]);
-                                                
+                                                $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$IPO_MandAId,$investorId,$invReturnMultiple[$j],$invReturnMultipleINR[$j],$invHideAmount[$j],$invexp_dp[$j],$invMoreInfo[$j],$investorOrder[$j],$leadinvestor[$j],$newinvestor[$j],$existinvestor[$j],$companyid);
+
                                             }
                                         }
                                     }else{ 
                                         $investorId=return_insert_get_Investor($exitInvestor[$j]);
                                         //echo "<bR>--" .$investorId. "*** " .$ipo_mandaflag ;
                                         if($investorId !=''){
-                                           $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$IPO_MandAId,$investorId,$invReturnMultiple[$j],$invReturnMultipleINR[$j],$invHideAmount[$j],$invexp_dp[$j],$invMoreInfo[$j],$investorOrder[$j],$leadinvestor[$j],$newinvestor[$j]);
+                                           
+                                                 
+                                            $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$IPO_MandAId,$investorId,$invReturnMultiple[$j],$invReturnMultipleINR[$j],$invHideAmount[$j],$invexp_dp[$j],$invMoreInfo[$j],$investorOrder[$j],$leadinvestor[$j],$newinvestor[$j],$existinvestor[$j],$companyid);
                                         }
                                         }
                                     }
@@ -193,6 +195,11 @@ function returnIPOId()
             $(this).prop("checked", true);
   });
   $(".newinvestor:not(:checked)").each(function() {
+            
+            $(this).val(0);
+            $(this).prop("checked", true);
+  });
+  $(".existinvestor:not(:checked)").each(function() {
             
             $(this).val(0);
             $(this).prop("checked", true);
@@ -397,7 +404,7 @@ function addMorefundRow(fundval,event){
 <?php
 
 
-function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,$moreinfo,$investorOrder,$leadinvestor,$newinvestor)
+function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,$moreinfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid)
 {
 	$dbexecmgmt = new dbInvestments();
 	if($exit_flag=="PE")
@@ -408,10 +415,13 @@ function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue
           if($rsgetdealinvestor = mysql_query($getDealInvSql))
 	  {
 		$deal_invcnt=mysql_num_rows($rsgetdealinvestor);
-		if($deal_invcnt==0)
-		{
+		if($newinvestor!=0|| $existinvestor !=0)
+       {
+       
+                if($deal_invcnt==0)
+                {
                     /*$insDealInvSql="insert into peinvestments_investors (PEId,InvestorId,Amount_M,Amount_INR,hide_amount,exclude_dp,InvMoreInfo) values($dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,'$moreinfo')";*/
-                    $insDealInvSql="insert into peinvestments_investors (PEId,InvestorId,Amount_M,Amount_INR,hide_amount,exclude_dp,InvMoreInfo,investorOrder,leadinvestor,newinvestor) values($dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,'$moreinfo','$investorOrder','$leadinvestor','$newinvestor')";
+                    $insDealInvSql="insert into peinvestments_investors (PEId,InvestorId,Amount_M,Amount_INR,hide_amount,exclude_dp,InvMoreInfo,investorOrder,leadinvestor,newinvestor,existinvestor) values($dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,'$moreinfo','$investorOrder','$leadinvestor','$newinvestor','$existinvestor')";
                     if ($rsinsmgmt = mysql_query($insDealInvSql))
                     {
                         echo "<br>PE Investor Inserted" ;
@@ -425,9 +435,51 @@ function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue
                         return true;
                     }
                 }*/
-          }
+        }else{
+           
+           
+            if($companyid!="")
+            {
+                $existsql="SELECT * FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and peinv.`InvestorId`=$investorId and pec.PECompanyId=$companyid";
+                
+                if($existinvestorsql = mysql_query($existsql))
+                {
+                    $exist_invcnt=mysql_num_rows($existinvestorsql);
+                    if($exist_invcnt==0)
+                    {
+                        $insDealInvSql="insert into peinvestments_investors (PEId,InvestorId,Amount_M,Amount_INR,hide_amount,exclude_dp,InvMoreInfo,investorOrder,leadinvestor,newinvestor,existinvestor) values($dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,'$moreinfo','$investorOrder','$leadinvestor','1','$existinvestor')";
+                        if ($rsinsmgmt = mysql_query($insDealInvSql))
+                        {
+                            echo "<br>PE Investor Inserted" ;
+                            return true;
+                        }
+                    }else{
+                        $insDealInvSql="insert into peinvestments_investors (PEId,InvestorId,Amount_M,Amount_INR,hide_amount,exclude_dp,InvMoreInfo,investorOrder,leadinvestor,newinvestor,existinvestor) values($dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,'$moreinfo','$investorOrder','$leadinvestor','$newinvestor','1')";
+                        if ($rsinsmgmt = mysql_query($insDealInvSql))
+                        {
+                            echo "<br>PE Investor Inserted" ;
+                            return true;
+                        }
+                    }
+                }
+            
+            }else{
+                
+               
+            if($deal_invcnt==0)
+                {
+                    $insDealInvSql="insert into peinvestments_investors (PEId,InvestorId,Amount_M,Amount_INR,hide_amount,exclude_dp,InvMoreInfo,investorOrder,leadinvestor,newinvestor,existinvestor) values($dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,'$moreinfo','$investorOrder','$leadinvestor','$newinvestor','$existinvestor')";
+                    if ($rsinsmgmt = mysql_query($insDealInvSql))
+                    {
+                        echo "<br>PE Investor Inserted" ;
+                        return true;
+                    }
+                }
+            }
+        }
+      }
           mysql_free_result($rsinsmgmt);
-         }
+   }
 }
 
 

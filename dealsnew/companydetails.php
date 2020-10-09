@@ -2265,6 +2265,7 @@ else if($vcflagValue=="6"){
 <form name="companyDisplay"  id="companyDisplay" method="post" action="exportcompanyprofile.php">
  <input type="hidden" name="txthideCompanyId" value="<?php echo $SelCompRef;?>" >
 			<input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
+            <input type="hidden" name="comname" value="<?php echo $compname;?>" >
 </form>                        
 <div class=""></div>
 </div>

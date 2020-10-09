@@ -431,6 +431,36 @@
                 $searchallfield='';
             }
         }
+        if ($resetfield == "dealsinvolving") {
+            if (count($_POST['dealsinvolving']) > 0) {
+                 
+               foreach ($_POST['dealsinvolving'] as $dealsinvolvingvaltag) {
+                   
+                   if ($dealsinvolvingvaltag == 1) {
+       
+                       $dealsinvolvingfiltertag .= 'New Investor, ';
+       
+                   } else if ($dealsinvolvingvaltag == 2) {
+       
+                       $dealsinvolvingfiltertag .= 'Existing Investor, ';
+       
+                   } else {
+                       $dealsinvolvingfiltertag = '';
+                   }
+               }
+               $dealsinvolvingfiltertag = trim($dealsinvolvingfiltertag, ', ');
+           }
+           $dealsarraytag = explode(",",$dealsinvolvingfiltertag); 
+           $pos = array_search($_POST['resetfieldid'],$dealsarraytag);
+           $dealsinvolvingvalue = $_POST['dealsinvolving'];
+           unset($dealsinvolvingvalue[$pos]);
+           emptyhiddendata();
+        } else {
+           $dealsinvolvingvalue = $_POST['dealsinvolving'];
+           if (count($dealsinvolvingvalue) > 0) {
+               $searchallfield = '';
+           }
+        }
         if ($resetfield == "sector") {
                  $pos = array_search($_POST['resetfieldid'], $_POST['sector']);
                 $sector = $_POST['sector'];
@@ -3938,6 +3968,12 @@ include_once($refineUrl); ?>
                                 <ul class="result-select" style="    max-width: 54%;">
                                 <?php
                                  //echo $queryDisplayTitle;
+                                 if($datevalueDisplay1!=""){ ?>
+                                    <li> 
+                                        <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <?php } 
+                                 //echo $queryDisplayTitle;
                                 if($industry >0 && $industry!=null){ ?>
                                 <?php $industryarray = explode(",",$industryvalue); 
                                 $industryidarray = explode(",",$industryvalueid); 
@@ -3969,7 +4005,37 @@ include_once($refineUrl); ?>
                                                               </li>
                                                             <?php } ?>
                                   <?php }
-                                    
+                                    if (count($dealsinvolvingvalue) > 0) {
+          
+                                        foreach ($dealsinvolvingvalue as $dealsinvolvingval) {
+                                            
+                                            if ($dealsinvolvingval == 1) {
+                            
+                                                $dealsinvolvingfilter .= 'New Investor, ';
+                            
+                                            } else if ($dealsinvolvingval == 2) {
+                            
+                                                $dealsinvolvingfilter .= 'Existing Investor, ';
+                            
+                                            } else {
+                                                $dealsinvolvingfilter = '';
+                                            }
+                                        }
+                                        $dealsinvolvingfilter = trim($dealsinvolvingfilter, ', ');
+                                    }
+                                      if ($dealsinvolvingfilter != '') {?>
+                                          
+                                          
+                                           <?php $dealsarray = explode(",",$dealsinvolvingfilter); 
+                            
+                                       
+                                            foreach ($dealsarray as $key=>$value){ ?>
+                                              <li>
+                                                  <?php echo $value; ?><a  onclick="resetmultipleinput('dealsinvolving','<?php echo $dealsarray[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                              </li>
+                                            <?php } ?>
+                                         
+                                          <?php }
                                     if ($subsector > 0 && $subsector != null) {$drilldownflag = 0;?>
                                   <!--   <li>
                                         <?php echo $subsectorvalue; ?><a  onclick="resetinput('subsector');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
@@ -4084,11 +4150,11 @@ include_once($refineUrl); ?>
                                     <?php } ?>
                                 <?php } 
                                 
-                                if($datevalueDisplay1!=""){ ?>
-                                <li> 
-                                    <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
+                               // if($datevalueDisplay1!=""){ ?>
+                                <!-- <li> 
+                                    <?php //echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li> -->
+                                <?php //} 
                                 if($debt_equity!="--" && $debt_equity!=null) { ?>
                                 <li> 
                                     <?php echo  $debt_equityDisplay;?><a  onclick="resetinput('dealtype_debtequity');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
