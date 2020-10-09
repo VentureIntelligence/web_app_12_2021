@@ -34,9 +34,6 @@
                 $leadinvestor=$_POST['leadinvestor'];
                 $newinvestor=$_POST['newinvestor'];
                 $existinvestor=$_POST['existinvestor'];
-                $fundname=$_POST['txtfundname'];
-               // print_r($fundname);
-                
                 //remove investor
                 /*$getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo from peinvestments_investors as peinv,
                 peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$IPO_MandAId ORDER BY peinv.InvestorId =9 ASC";*/
@@ -85,12 +82,14 @@
 // if (mysql_query("delete from peinvestments_investors where PEId=$IPO_MandAId ")){
 //                                                 echo "<br>PE Investor deleted" ;
                                                 
-//                                                }
+//                                                 }
 for ($j=0;$j<$rowcount;$j++)
                                             {  
-                if(trim($exitInvestor[$j])!=""){
-                
-                                if($row_db_count > 0 ){                                        
+                if(trim($exitInvestor[$j])!="")
+                {    
+                                              
+                   
+                                    if($row_db_count > 0 ){                                        
                                         $investorId=return_insert_get_Investor_edit_update($exitInvestor[$j],$txtinvestorid[$j]);  
                                         if($investorId !=''){
                                             
@@ -118,12 +117,10 @@ for ($j=0;$j<$rowcount;$j++)
                                         }
                                         }
                                     }
-                                  
-                       }  
-                          
-                       
+                       }         
+                
 
-                $deleted_investor = array();
+$deleted_investor = array();
                 if ($rsinvestors = mysql_query($getInvestorsSql))
                 {
                       While($myInvrow=mysql_fetch_array($rsinvestors, MYSQL_BOTH))
@@ -159,7 +156,6 @@ echo "</script>";*/
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="js/jquery.tokeninput.js"></script>
-
 <link rel="stylesheet" href="styles/token-input.css" type="text/css" />
 <link rel="stylesheet" href="styles/token-input-facebook.css" type="text/css" />
 <style>
@@ -205,7 +201,7 @@ function returnIPOId()
             $(this).prop("checked", true);
   });
       
-    opener.document.adddeal.hideIPOId.value= document.investorsexit.txtPEId.value;
+        opener.document.adddeal.hideIPOId.value= document.investorsexit.txtPEId.value;
 	document.investorsexit.action="addPEInvestors.php?value=<?php echo $fullString1; ?>";
 	document.investorsexit.submit();
 }
@@ -262,27 +258,26 @@ function addMorefundRow(fundval,event){
     margin-left:5px;
 } */
 </style>
-
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0">
 <form name="investorsexit" method="post" >
 <td><input type="text" name="txtPEId" size="50" READONLY value="<?php echo $IPO_MandAId; ?>"> </td>
 <td><input type="text" name="txtpereflag" size="50" READONLY value="<?php echo $IPO_MandA_flag; ?>"> </td>
 <?php
-    $cnt=6;
+	$cnt=6;
 ?>
 
 <td>
 <table width=60% align=left id="mutiple_investor" border=1 cellpadding=1 cellspacing=0>
-
   <tr> <th>Investor </th><th> Amount $M </th><th> Amount INR </th><th> Hide Amount </th><th> Exclude for Dry powder</th><th> Lead Investor</th><th> New Investor</th><th> Existing Investor</th><th style="display:none;"> Investor Order</th><th> Return Multiple </th> <th>More Info </th></tr>
 <?php
-   
+    /*$getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp from peinvestments_investors as peinv,
+    peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$IPO_MandAId ORDER BY Investor='others',InvestorId desc";*/
     $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$IPO_MandAId ORDER BY peinv.investorOrder ASC";
-   //echo "<bR>--" .$getInvestorsSql;
+    //echo "<bR>--" .$getInvestorsSql;
     $flag='';
-   if ($rsinvestors = mysql_query($getInvestorsSql))
-   {
+    if ($rsinvestors = mysql_query($getInvestorsSql))
+    {
         $i=0;
         if($count_rows= mysql_num_rows($rsinvestors)){
             if($count_rows>0){
@@ -295,8 +290,7 @@ function addMorefundRow(fundval,event){
          }
          While($myInvrow=mysql_fetch_array($rsinvestors, MYSQL_BOTH))
          {
-           
-         ?>
+          ?>
            <input name="txtinvestorid[]" type="hidden" value="<?php echo $myInvrow["InvestorId"]; ?>"  >
            <tr>
                <td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" value="<?php echo $myInvrow["Investor"]; ?>" data-investor="<?php echo $myInvrow["Investor"]; ?>"  data-invid="<?php echo $myInvrow["InvestorId"]; ?>" size="30" >
@@ -358,17 +352,16 @@ function addMorefundRow(fundval,event){
                <td><textarea name="txtInvmoreinfor[]" rows="3" cols="40" class="txtInvmoreinfor"><?php echo $myInvrow["InvMoreInfo"]; ?></textarea></td>
                
            </tr>
-          
 
- <?php
-  $i++;
-         }
- }
+  <?php
+   $i++;
+          }
+  }
   ?>
                 <input type="hidden" name="row_db_count" value="<?php echo mysql_num_rows($rsinvestors); ?>">
                 <input type="hidden" name="rowcount" id="rowcount" value="<?php echo $cnt+mysql_num_rows($rsinvestors); ?>">
-                
-<?php
+              
+                <?php
 		for ($k=1;$k<=$cnt;$k++)
 		{
             $rowvalue=mysql_num_rows($rsinvestors)+$k;
@@ -392,7 +385,7 @@ function addMorefundRow(fundval,event){
 </table>
     <table width=60% align=left cellpadding=1 cellspacing=0 style="margin-top: 10px;">
 <tr><td align=right><input type="button" value="Add More" name="addmore" onClick="addMoreRow();" > </td>
-    <td align=left><input type="button" value="Insert Investor(s)" name="insertExitInvestors"  class="insertInvestors" > </td>
+<td align=left><input type="button" value="Insert Investor(s)" name="insertExitInvestors"  class="insertInvestors" > </td>
     <td align=center>&nbsp;</td>
 </tr>
 </table>
@@ -481,12 +474,30 @@ function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue
           mysql_free_result($rsinsmgmt);
    }
 }
-
-
+/*function insert_Investment_Investors_edit($exit_flag,$dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,$moreinfo)
+{
+	$dbexecmgmt = new dbInvestments();
+	if($exit_flag=="PE")
+	{
+        //  echo "<br>-***--- ".$insDealInvSql;
+          $getDealInvSql="Select PEId,InvestorId from peinvestments_investors where PEId=$dealId and InvestorId=$investorId";
+          if($rsgetdealinvestor = mysql_query($getDealInvSql))
+	  {
+		$deal_invcnt=mysql_num_rows($rsgetdealinvestor);
+		if($deal_invcnt >0){
+                    $update_query = "update peinvestments_investors set Amount_M='$returnValue', Amount_INR='$returnValueINR', hide_amount='$returnHideAmount', exclude_dp='$invexp_dp', InvMoreInfo = '$moreinfo' where PEId=$dealId and InvestorId=$investorId";
+                    if (mysql_query($update_query)){
+                        echo "<br>PE Investor updated" ;
+                        return true;
+                    }
+                }
+          }
+          mysql_free_result($rsinsmgmt);
+         }
+}*/
 /* inserts and return the investor id */
 function return_insert_get_Investor($investor)
 	{
-        
 		$dblink= new dbInvestments();
 		$investor=trim($investor);
 		$getInvestorIdSql = "select InvestorId from peinvestors where Investor = '$investor'";
@@ -563,243 +574,242 @@ function return_insert_get_Investor($investor)
         $dblink.close();
     }
 ?>
-
 <script>
 
-    var status = `<?php echo $flag;?>`;
-    // alert(status);
-    var companyid  = `<?php echo $companyid;?>`;
-    var investorIdval = `<?php echo $IPO_MandAId;?>`;
-    var ipo_mandaflag = `<?php echo $IPO_MandA_flag;?>`;
-    
-   
-        var dataflag =0;
-        var dataid ='';
-        var $fund = $(".txtfundname").autocomplete({
-            source: []
-        });
-        let fundArray = [];
-        let dummy = [];
-        let funds = [];
-        $( ".txtinvestor" ).autocomplete({
+var status = `<?php echo $flag;?>`;
+// alert(status);
+var companyid  = `<?php echo $companyid;?>`;
+var investorIdval = `<?php echo $IPO_MandAId;?>`;
+var ipo_mandaflag = `<?php echo $IPO_MandA_flag;?>`;
+
+
+    var dataflag =0;
+    var dataid ='';
+    var $fund = $(".txtfundname").autocomplete({
+        source: []
+    });
+    let fundArray = [];
+    let dummy = [];
+    let funds = [];
+    $( ".txtinvestor" ).autocomplete({
+        source: function( request, response ) {
+            //$('#citysearch').val('');
+            $.ajax({
+            type: "POST",
+            url: "ajax_investors_search.php?dbtype=PE&opt=investor",
+            dataType: "json",
+            data: {
+                search: request.term
+            },
+            success: function( data ) {
+                response( $.map( data, function( item ) {
+                    // var fund = {id:item.fundId,value:item.fundName,label:item.fundName};
+                    // fundArray.push(fund);
+                    return {
+                        label: item.label,
+                        value: item.value,
+                        id: item.id
+                    }
+                }));
+                //console.log(data,"data");
+             }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+        $(this).val(ui.item.value);
+        //    $(this).parents("form").submit();
+        // console.log(ui.item);
+        $(this).attr("data-invid",ui.item.id);
+        $(this).attr("data-investor",ui.item.value);
+        // dummy.push({investor:ui.item.value,fund:funds});
+        // fundArray.push({investor:ui.item.value,fund:""});
+        },
+        open: function() {
+    //        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+            $(this).val()=="";
+            //$( "#companyrauto" ).val('');  
+            //$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        }
+    }); 
+    $( document ).on( "keyup",".txtinvestor", function( event, ui ) {
+        var client = event.clientX;
+        var inv=$(this).next().length;
+        if(inv == 0){   
+        var randomvalue=Math.round(Math.random()*2000000);
+        appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
+         str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
+         str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
+         if($(this).next() !== appendata){
+            $(this).parent().append(appendata);
+            $(this).parent().next().append(str11);
+            $(this).parent().next().next().append(str21);
+        }
+        }
+
+    });
+    $( document ).on( "autocompleteselect",".txtinvestor", function( event, ui ) {
+        var client = event.clientX;
+        var inv=$(this).next().length;
+        if(inv == 0){
+        var randomvalue=Math.round(Math.random()*2000000);
+        appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
+         str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
+         str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
+         if($(this).next() !== appendata){
+            $(this).parent().append(appendata);
+            $(this).parent().next().append(str11);
+            $(this).parent().next().next().append(str21);
+        }
+        }
+
+    });
+    $(document).delegate('.txtfundname',"focus",function(event){
+       //console.log(event.currentTarget,'client');
+        var textinvestor = $(this).parent().parent().find('.txtinvestor')[0].value;
+        // console.log(textinvestor,'textinvestor');
+        $(this).autocomplete({
+            // source: fundArray,
             source: function( request, response ) {
-                //$('#citysearch').val('');
                 $.ajax({
-                type: "POST",
-                url: "ajax_investors_search.php?dbtype=PE&opt=investor",
-                dataType: "json",
-                data: {
-                    search: request.term
-                },
-                success: function( data ) {
-                    response( $.map( data, function( item ) {
-                        // var fund = {id:item.fundId,value:item.fundName,label:item.fundName};
-                        // fundArray.push(fund);
+                    type: "POST",
+                    url: "ajax_investors_search.php?dbtype=PE&opt=investor&investorval="+textinvestor,
+                    dataType: "json",
+                    data: {
+                        search: request.term
+                    },
+                    success: function( data ) {
+                        console.log(data,"second");
+                        response( $.map( data, function( item ) {
                         return {
-                            label: item.label,
-                            value: item.value,
-                            id: item.id
+                            label: item.fundName,
+                            value: item.fundName,
+                            id: item.fundId
                         }
                     }));
-                    //console.log(data,"data");
-                 }
+                    }
                 });
             },
             minLength: 1,
             select: function( event, ui ) {
-            $(this).val(ui.item.value);
-            //    $(this).parents("form").submit();
-            // console.log(ui.item);
-            $(this).attr("data-invid",ui.item.id);
-            $(this).attr("data-investor",ui.item.value);
-            // dummy.push({investor:ui.item.value,fund:funds});
-            // fundArray.push({investor:ui.item.value,fund:""});
+                $(this).val(ui.item.value);
+                $(this).attr("data-fundid",ui.item.id)
+                //    $(this).parents("form").submit();
+                var investor =$(this).parent().parent().find(".txtinvestor")[0].value;
+              
+                fundArray.push({investor:investor,fund:ui.item.value});
+               
+                
             },
             open: function() {
         //        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
             },
             close: function() {
                 $(this).val()=="";
-                //$( "#companyrauto" ).val('');  
-                //$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                    //$( "#companyrauto" ).val('');  
+        //        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
             }
-        }); 
-        $( document ).on( "keyup",".txtinvestor", function( event, ui ) {
-            var client = event.clientX;
-            var inv=$(this).next().length;
-            if(inv == 0){   
-            var randomvalue=Math.round(Math.random()*2000000);
-            appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
-             str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
-             str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
-             if($(this).next() !== appendata){
-                $(this).parent().append(appendata);
-                $(this).parent().next().append(str11);
-                $(this).parent().next().next().append(str21);
-            }
-            }
-    
-        });
-        $( document ).on( "autocompleteselect",".txtinvestor", function( event, ui ) {
-            var client = event.clientX;
-            var inv=$(this).next().length;
-            if(inv == 0){
-            var randomvalue=Math.round(Math.random()*2000000);
-            appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
-             str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
-             str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
-             if($(this).next() !== appendata){
-                $(this).parent().append(appendata);
-                $(this).parent().next().append(str11);
-                $(this).parent().next().next().append(str21);
-            }
-            }
-    
-        });
-        $(document).delegate('.txtfundname',"focus",function(event){
-           //console.log(event.currentTarget,'client');
-            var textinvestor = $(this).parent().parent().find('.txtinvestor')[0].value;
-            // console.log(textinvestor,'textinvestor');
-            $(this).autocomplete({
-                // source: fundArray,
-                source: function( request, response ) {
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax_investors_search.php?dbtype=PE&opt=investor&investorval="+textinvestor,
-                        dataType: "json",
-                        data: {
-                            search: request.term
-                        },
-                        success: function( data ) {
-                            console.log(data,"second");
-                            response( $.map( data, function( item ) {
-                            return {
-                                label: item.fundName,
-                                value: item.fundName,
-                                id: item.fundId
-                            }
-                        }));
-                        }
-                    });
-                },
-                minLength: 1,
-                select: function( event, ui ) {
-                    $(this).val(ui.item.value);
-                    $(this).attr("data-fundid",ui.item.id)
-                    //    $(this).parents("form").submit();
-                    var investor =$(this).parent().parent().find(".txtinvestor")[0].value;
-                  
-                    fundArray.push({investor:investor,fund:ui.item.value});
-                   
-                    
-                },
-                open: function() {
-            //        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-                },
-                close: function() {
-                    $(this).val()=="";
-                        //$( "#companyrauto" ).val('');  
-            //        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                }
-            })
-        });
-        $(document).ready(function(){
-            var textinvestor = $(".txtinvestor");
-            textinvestor.each((index,investor)=>{
-                if(investor.value!=(""|undefined)){
-                    var child = investor.nextSibling.nextSibling.children;
-                    for(var i=0;i<child.length;i++){
-                        if(i%2==0){
-                            var fundname = child[i].value;
-                            if(fundname!=undefined){
-                                fundArray.push({investor:investor.value,fund:fundname});
-                                console.log(fundArray,"fundArray");
-                            }
+        })
+    });
+    $(document).ready(function(){
+        var textinvestor = $(".txtinvestor");
+        textinvestor.each((index,investor)=>{
+            if(investor.value!=(""|undefined)){
+                var child = investor.nextSibling.nextSibling.children;
+                for(var i=0;i<child.length;i++){
+                    if(i%2==0){
+                        var fundname = child[i].value;
+                        if(fundname!=undefined){
+                            fundArray.push({investor:investor.value,fund:fundname});
+                            console.log(fundArray,"fundArray");
                         }
                     }
                 }
-            })
+            }
         })
-
-        $(document).delegate(".insertInvestors","click",function(e){
-           
-            var invsestors = [];
-
-$('#mutiple_investor tr').each(function(a,b){
-    var cele = $(this);
-    var investor_id = cele.find('.txtinvestor').attr('data-invid');
-    var investor_value = cele.find('.txtinvestor').val();
-    var amountm = cele.find(".txtReturnMultiple").val();
-    var amountinr = cele.find('.txtReturnMultipleINR').val();
-    var hideamount = cele.find('.txthideamount').is(":checked") ? 1 : 0 ;
-    var excludry = cele.find('.txtexcludedp').is(":checked") ? 1 : 0 ;
-    var leadinvestor = cele.find('.leadinvestor').is(":checked") ? 1 : 0 ;
-    var newinvestor = cele.find('.newinvestor').is(":checked") ? 1 : 0 ;
-    var existinvestor = cele.find('.existinvestor').is(":checked") ? 1 : 0 ;
-    var returnmultiple = cele.find('.txtInvmoreinfor').val();
-    var investorOrder = cele.find('.investorOrder').val();
-
-    var cur_fund = [];
-
-    $(cele.find('.fundsection input')).each(function(i,e){
-        var fund = {};
-        var fundele = $(this);
-        var fundname = $(this).val();
-        var fundid = $(this).attr('data-fundid');
-        var fundamount = $(this).parent().parent().parent().find("div[class^='fundnamemi'] input").eq(i).val();
-        var fundamountinr = $(this).parent().parent().parent().find("div[class^='fundnameinr'] input").eq(i).val();
-        if(typeof fundname != 'undefined')
-        {
-            fund['fundname'] = fundname;
-            fund['fundid'] = fundid;
-            fund['fundamount'] = fundamount;
-            fund['fundamountinr'] = fundamountinr;
-            cur_fund.push(fund);
-        }
-        
     })
 
-    console.log(cele,amountm,amountm);
-    if( typeof investor_value != 'undefined'){
-        var invset = {};
-            invset['investor_id'] =investor_id;
-            invset['investor_value'] = investor_value;
-            invset['amountm'] = amountm;
-            invset['amountinr'] = amountinr;
-            invset['hideamount'] = hideamount;
-            invset['excludry'] = excludry;
-            invset['leadinvestor'] = leadinvestor;
-            invset['newinvestor'] = newinvestor;
-            invset['existinvestor'] = existinvestor;
-            invset['investorOrder'] = investorOrder;
-            invset['returnmultiple'] = returnmultiple;
-            invset['fund'] = cur_fund;
+    $(document).delegate(".insertInvestors","click",function(e){
+       
+        var invsestors = [];
 
-         invsestors.push(invset);
+$('#mutiple_investor tr').each(function(a,b){
+var cele = $(this);
+var investor_id = cele.find('.txtinvestor').attr('data-invid');
+var investor_value = cele.find('.txtinvestor').val();
+var amountm = cele.find(".txtReturnMultiple").val();
+var amountinr = cele.find('.txtReturnMultipleINR').val();
+var hideamount = cele.find('.txthideamount').is(":checked") ? 1 : 0 ;
+var excludry = cele.find('.txtexcludedp').is(":checked") ? 1 : 0 ;
+var leadinvestor = cele.find('.leadinvestor').is(":checked") ? 1 : 0 ;
+var newinvestor = cele.find('.newinvestor').is(":checked") ? 1 : 0 ;
+var existinvestor = cele.find('.existinvestor').is(":checked") ? 1 : 0 ;
+var returnmultiple = cele.find('.txtInvmoreinfor').val();
+var investorOrder = cele.find('.investorOrder').val();
+
+var cur_fund = [];
+
+$(cele.find('.fundsection input')).each(function(i,e){
+    var fund = {};
+    var fundele = $(this);
+    var fundname = $(this).val();
+    var fundid = $(this).attr('data-fundid');
+    var fundamount = $(this).parent().parent().parent().find("div[class^='fundnamemi'] input").eq(i).val();
+    var fundamountinr = $(this).parent().parent().parent().find("div[class^='fundnameinr'] input").eq(i).val();
+    if(typeof fundname != 'undefined')
+    {
+        fund['fundname'] = fundname;
+        fund['fundid'] = fundid;
+        fund['fundamount'] = fundamount;
+        fund['fundamountinr'] = fundamountinr;
+        cur_fund.push(fund);
     }
+    
 })
-             postData = JSON.stringify(invsestors);
-             console.log(postData,"postData");
-             console.log(invsestors,"postData");
-            $.ajax({
-                type: "POST",
-                url: "ajax_fund_details.php?dbtype=PE&opt=investor",
-                dataType: "json",
-                data: {
-                    data: postData,
-                    peid:investorIdval,
-                    ipo_mandaflag : ipo_mandaflag,
-                    companyid:companyid
-                    
-                },
-                success: function( data ) {
-                    alert(data.responseText);
-                 },
-                 error: function( data ) {
-                    alert(data.responseText);
-                 }
-            });
-        })
-    
-    
+
+console.log(cele,amountm,amountm);
+if( typeof investor_value != 'undefined'){
+    var invset = {};
+        invset['investor_id'] =investor_id;
+        invset['investor_value'] = investor_value;
+        invset['amountm'] = amountm;
+        invset['amountinr'] = amountinr;
+        invset['hideamount'] = hideamount;
+        invset['excludry'] = excludry;
+        invset['leadinvestor'] = leadinvestor;
+        invset['newinvestor'] = newinvestor;
+        invset['existinvestor'] = existinvestor;
+        invset['investorOrder'] = investorOrder;
+        invset['returnmultiple'] = returnmultiple;
+        invset['fund'] = cur_fund;
+
+     invsestors.push(invset);
+}
+})
+         postData = JSON.stringify(invsestors);
+         console.log(postData,"postData");
+         console.log(invsestors,"postData");
+        $.ajax({
+            type: "POST",
+            url: "ajax_fund_details.php?dbtype=PE&opt=investor",
+            dataType: "json",
+            data: {
+                data: postData,
+                peid:investorIdval,
+                ipo_mandaflag : ipo_mandaflag,
+                companyid:companyid
+                
+            },
+            success: function( data ) {
+                alert(data.responseText);
+             },
+             error: function( data ) {
+                alert(data.responseText);
+             }
+        });
+    })
+
+
 </script>
