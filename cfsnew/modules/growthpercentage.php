@@ -664,7 +664,7 @@ class growthpercentage extends database {
                          
 		$esql = "SELECT ".$fields." FROM ".$this->dbName." c ,plstandard a";
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
-                $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY ";
+                $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
 
 		if(strlen($where))   $esql.= " WHERE ".$where;
                 if(strlen($order))   $esql.= " ORDER BY a.FY DESC ";

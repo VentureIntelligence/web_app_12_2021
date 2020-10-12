@@ -44,8 +44,8 @@
 <script type="text/javascript" src="js/owl.carousel.js"></script>
 <script src='js/jquery.min.js'></script>
 <style>
-  
-  #maskscreen {
+   
+#maskscreen {
     position: fixed;
     left: 0;
     top: 0;
@@ -95,7 +95,7 @@ img.fixed-logo{display:none}
 <link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
 <script type="text/javascript" src="js/jquery.tooltipster.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
+  $(document).ready(function() {
 		$('.tooltip').tooltipster({
 			animation: 'grow',
 			trigger: 'hover',
@@ -230,11 +230,11 @@ img.fixed-logo{display:none}
         <nav class="top-site-nav">
           <ul>
             <!--<li><a href="pricing.htm">Pricing</a></li>-->
-            <li><a href="trial.htm">Request Trial</a></li>
-            <li><a href="entrepreneurs.htm">For Entrepreneurs</a></li>
-            <li><a href="events.htm">Events</a></li>
+            <li><a class="redirect" href="#" data-href="trial.htm">Request Trial</a></li>
+            <li><a class="redirect" href="#" data-href="entrepreneurs.htm">For Entrepreneurs</a></li>
+            <li><a class="redirect" href="#" data-href="events.htm">Events</a></li>
            <!-- <li><a href="news.htm">News</a></li>-->
-            <li><a href="db.htm">Login</a></li>
+            <li><a class="redirect" href="#" data-href="db.htm">Login</a></li>
           </ul>
         </nav>
       </div>
@@ -244,19 +244,19 @@ img.fixed-logo{display:none}
         <section class="fd-home-sticky">
           <div class="l-page">
           <div class="logo-sec">
-          <a href="index.htm" class="fd-logo"><img class="default" src="img/logo.png" alt="vi"> <img class="fixed-logo" src="img/logo-b.png" alt="vi">
+          <a class="redirect" href="#" data-href="index.htm" class="fd-logo"><img class="default" src="img/logo.png" alt="vi"> <img class="fixed-logo" src="img/logo-b.png" alt="vi">
 
           </a>
           <span>Private Company Financials, Transactions & Valuations.</span>
           </div>
             <nav class="site-nav">
               <ul>
-                <li><a href="index.htm">Home</a></li>
-                <li><a href="products.htm" >Products</a></li>
+                <li><a class="redirect" href="#" data-href="index.htm">Home</a></li>
+                <li><a class="redirect" href="#" data-href="products.htm" >Products</a></li>
                 <li><a href="leagues.php"  class="active">League Tables</a></li>
-                <li><a href="index.htm#sec-new" >What's New</a></li>
-                <li class="por-hide"><a href="aboutus.htm" >About Us</a></li>
-                <li class="por-hide"><a href="contactus.htm" >Contact</a></li>
+                <li><a class="redirect" href="#" data-href="index.htm#sec-new" >What's New</a></li>
+                <li class="por-hide"><a class="redirect" href="#" data-href="aboutus.htm" >About Us</a></li>
+                <li class="por-hide"><a class="redirect" href="#" data-href="contactus.htm" >Contact</a></li>
               </ul>
             </nav>
           </div>
@@ -1484,7 +1484,7 @@ img.fixed-logo{display:none}
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
-<div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
+ <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
  <div class="lb" id="popup-box-copyrights-filter" style="width:750px !important;padding:5px;">
   <div style="border: 4px solid #000;border-radius: 10px;">
    <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
@@ -1636,6 +1636,7 @@ $(document).ready(function(){
 <script>
 
     $(document).ready(function() {
+    
 	 $(window).scroll(function(){
             if ($(this).scrollTop() > 100) {
 
@@ -1698,8 +1699,6 @@ jQuery('#popup-box-copyrights-filter').fadeOut();
 jQuery('#maskscreen').fadeOut(1000);
 
 });
-
-
-    </script>
+</script>
 </body>
 </html>

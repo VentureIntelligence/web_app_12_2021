@@ -1307,6 +1307,36 @@
                 $searchallfield='';
             }
         }
+        if ($resetfield == "dealsinvolving") {
+            if (count($_POST['dealsinvolving']) > 0) {
+                  
+                foreach ($_POST['dealsinvolving'] as $dealsinvolvingvaltag) {
+                    
+                    if ($dealsinvolvingvaltag == 1) {
+        
+                        $dealsinvolvingfiltertag .= 'New Investor, ';
+        
+                    } else if ($dealsinvolvingvaltag == 2) {
+        
+                        $dealsinvolvingfiltertag .= 'Existing Investor, ';
+        
+                    } else {
+                        $dealsinvolvingfiltertag = '';
+                    }
+                }
+                $dealsinvolvingfiltertag = trim($dealsinvolvingfiltertag, ', ');
+            }
+            $dealsarraytag = explode(",",$dealsinvolvingfiltertag); 
+            $pos = array_search($_POST['resetfieldid'],$dealsarraytag);
+            $dealsinvolvingvalue = $_POST['dealsinvolving'];
+            unset($dealsinvolvingvalue[$pos]);
+            emptyhiddendata();
+         } else {
+            $dealsinvolvingvalue = $_POST['dealsinvolving'];
+            if (count($dealsinvolvingvalue) > 0) {
+                $searchallfield = '';
+            }
+         } 
          
         if($resetfield=="txtregion")
         { 
@@ -2291,8 +2321,8 @@
                                         //      }
 //                          echo "<br>-".$companysql;
             }
-                elseif ((count($industry) > 0) || count($state)>0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || (count($round) > 0) || (count($city) > 0) || ($yearafter != "") || ($yearbefore != "") || ($debt_equity!="--") || ($investorType != "--") || ($syndication!="--") || (count($regionId)>0)  || ($startRangeValue == "--") || ($endRangeValue == "--") || ( ($exitstatusValue!='' && count($exitstatusValue) > 0)) || (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--")) .$checkForStageValue)
-                        {
+            elseif ((count($industry) > 0) || count($state)>0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || (count($round) > 0) || (count($city) > 0) || ($yearafter != "") || ($yearbefore != "") || ($debt_equity!="--") || ($investorType != "--") || ($syndication!="--") || (count($regionId)>0)  || ($startRangeValue == "--") || ($endRangeValue == "--") || ( ($exitstatusValue!='' && count($exitstatusValue) > 0)) || (count($dealsinvolvingvalue) > 0) || (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--")) .$checkForStageValue)
+            {
                                 $yourquery=1;
 
                                 if(($year1<2004) && ($year2>=2004))
@@ -2631,7 +2661,36 @@
                                                 $whereexitstatus = '('.$whereexitstatus.')';
                                             }
                                             $exitstatusValue_hide = implode($exitstatusValue,',');
-                                        }                
+                                        }       
+                                        if ($dealsinvolvingvalue != '' && $dealsinvolvingValue != '--' && count($dealsinvolvingvalue) > 0) {
+                                            if(count($dealsinvolvingvalue)>1){
+                                                if($dealsinvolvingValue == 1 && $dealsinvolvingValue == 2){
+                                                    $dealsinvolving .="peinv_inv.newinvestor = '1' or peinv_inv.existinvestor = '1'";
+                                                }
+                                            }else{
+                                                foreach ($dealsinvolvingvalue as $dealsinvolvingValue) {
+                                                if ($dealsinvolvingValue != '--' && $dealsinvolvingValue != '') {
+                                                    if($dealsinvolvingValue == 1)
+                                                        {
+                                                            $dealsinvolving .= "peinv_inv.newinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 1)
+                                                            and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 0) ";
+                                                        }
+                                                        if($dealsinvolvingValue == 2)
+                                                        {
+                                                            $dealsinvolving .= "peinv_inv.existinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 1)
+                                                            and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 0) ";
+                                                        }
+                                                    //$exitstatusSql .= " Exit_Status  = '" . $exitstatusValues . "' or ";
+                                                }
+                                            }
+                                        }
+                                            // $wheredealsinvolving = trim($dealsinvolving, ' or ');
+                                            $wheredealsinvolving = trim($dealsinvolving);
+                                            if ($wheredealsinvolving != '') {
+                                                $wheredealsinvolving = '     (' . $wheredealsinvolving . ')';
+                                            }
+                                            $dealsinvolvingValue_hide = implode($dealsinvolvingvalue,',');
+                                        }           
                                if(($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--"))
                                {
                                        $qryDateTitle ="Period - ";
@@ -2739,6 +2798,13 @@
                                             $aggsql=$aggsql .$whereexitstatus . " and ";
                                             $bool=true;
                                             
+                                }
+                                if ($wheredealsinvolving != "") {
+
+                                    $companysql = $companysql . $wheredealsinvolving . " and ";
+                                    $aggsql = $aggsql . $wheredealsinvolving . " and ";
+                                    $bool = true;
+                            
                                 }
 
                                 //the foll if was previously checked for range
@@ -3263,6 +3329,37 @@
                                 </li>
                                 <?php
                                 }
+                                if (count($dealsinvolvingvalue) > 0) {
+                                    
+                                    foreach ($dealsinvolvingvalue as $dealsinvolvingval) {
+                                        
+                                        if ($dealsinvolvingval == 1) {
+                          
+                                            $dealsinvolvingfilter .= 'New Investor, ';
+                          
+                                        } else if ($dealsinvolvingval == 2) {
+                          
+                                            $dealsinvolvingfilter .= 'Existing Investor, ';
+                          
+                                        } else {
+                                            $dealsinvolvingfilter = '';
+                                        }
+                                    }
+                                    $dealsinvolvingfilter = trim($dealsinvolvingfilter, ', ');
+                                }
+                                  if ($dealsinvolvingfilter != '') {?>
+                                      
+                                      
+                                       <?php $dealsarray = explode(",",$dealsinvolvingfilter); 
+                          
+                                   
+                                        foreach ($dealsarray as $key=>$value){ ?>
+                                          <li>
+                                              <?php echo $value; ?><a  onclick="resetmultipleinput('dealsinvolving','<?php echo $dealsarray[$key]; ?>');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                          </li>
+                                        <?php } ?>
+                                     
+                                        <?php }
                                 if($keyword!=" " && $keyword!="") { $drilldownflag=0; ?>
                                 <!-- <li> 
                                     <?php //echo $invester_filter;?><a  onclick="resetinput('keywordsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
@@ -4448,7 +4545,7 @@
     <input type="hidden" name="txthidedate" value=<?php echo $datevalue; ?> >
     <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
     <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
-
+    <input type="hidden" name="txthidedealsinvolving" value="<?php echo $dealsinvolvingValue_hide;?>" >
     <input type="hidden" name="txthidesectorval" value=<?php echo $sector_hide; ?> >
     <input type="hidden" name="txthidesubsector" value="<?php echo $subsectorString; ?>" >
     <input type="hidden" name="txthidesyndication" value="<?php echo $syndication;?>" >

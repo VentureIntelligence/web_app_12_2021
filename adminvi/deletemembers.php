@@ -25,11 +25,10 @@ $username= $_SESSION['name'];
     }
 
     if($DeleteEmailArrayLength > 0){
-        
+        deletemail($DeleteEmailId,"PE",$username);
         for ($i=0;$i<$DeleteEmailArrayLength;$i++)
         {
                 $mailid=trim($DeleteEmailId[$i]);
-                deletemail($DeleteEmailId,"PE",$username);
                 $delMemberSql="delete from dealmembers where Emailid='$mailid'";
                 //$delMemberSql= "Update dealmembers set Deleted=1 where 					//Emailid='$mailid' ";
                 //echo "<Br>--" .$delMemberSql;
@@ -46,11 +45,10 @@ $username= $_SESSION['name'];
     }
 
     if($MDeleteEmailArrayLength >0){
-        
+        deletemail($MADeleteEmailId,"MA",$username);
         for ($j=0;$j<$MDeleteEmailArrayLength;$j++)
         {
                 $MAmailid=trim($MADeleteEmailId[$j]);
-                deletemail($MADeleteEmailId,"MA",$username);
                 $MAdelMemberSql="delete from malogin_members where Emailid='$MAmailid'";
                 //echo "<Br>--" .$MAdelMemberSql;
                 if ($MAcompanyrs=mysql_query($MAdelMemberSql))
@@ -65,12 +63,12 @@ $username= $_SESSION['name'];
     }
      
     if($RDeleteEmailArrayLength >0){
+        deletemail($REDeleteEmailId,"RE",$username);
         // re login
         for ($k=0;$k<$RDeleteEmailArrayLength;$k++)
         {
                 $REmailid=trim($REDeleteEmailId[$k]);
                 //echo $REmailid.'<br>';
-                deletemail($REDeleteEmailId,"RE",$username);
                 $REdelMemberSql="delete from RElogin_members where Emailid='$REmailid'";
                 //echo "<Br>--" .$REdelMemberSql;
                 if ($REcompanyrs=mysql_query($REdelMemberSql))
@@ -106,7 +104,7 @@ $username= $_SESSION['name'];
             }
         }
             $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
-		    $from 	= 'info@ventureintelligence.in';
+            $from 	= 'info@ventureintelligence.in';
 		    $subject 	= "Deleted Subscriber details"; // Subject of the email
 		    //Message
 		    $message 	= 'Please find the details below:';
@@ -124,7 +122,7 @@ $username= $_SESSION['name'];
 		    $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
 		    $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
 		    $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
-
+            
             
 		    if (@mail($to, $subject, $message, $headers)){
 		    }else{

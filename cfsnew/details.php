@@ -13,7 +13,7 @@ if(!isset($_SESSION)){
     margin-left:23px;
 }
 </style>
-<?
+<?php
 include "header.php";
 include "sessauth.php";
 require_once MODULES_DIR."industries.php";
