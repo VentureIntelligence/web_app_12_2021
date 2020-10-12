@@ -10,6 +10,15 @@
 
         $value=1;
     }
+    $cookie_name = "unicorn";
+    $cookie_value = "unicornpopupdisplay";
+    if(!isset($_COOKIE[$cookie_name])) {
+        $popupdisplay=1;
+        setcookie($cookie_name, $cookie_value, time() + 86400);
+   } else {
+        $popupdisplay=0;
+        
+   }
 ?>
 <!doctype html>
 <html>
@@ -47,7 +56,7 @@
     z-index: 8000;
     overflow: hidden;
 }
-.lb {
+/* .lb {
     width: 400px;
     border: 1px solid #ccc;
     box-shadow: 0 0 2px #eaeaea;
@@ -59,9 +68,24 @@
     position: fixed;
     background-color: #fff;
     display: none;
+} */
+.lb {
+    width: 100% !important;
+    /* border: 1px solid #ccc;
+    box-shadow: 0 0 2px #eaeaea; */
+    overflow: hidden;
+    margin: 0 auto !important;
+    z-index: 9000;
+    /* left: 23%; */
+    top: 40%;
+    /* margin: 0px auto; */
+    position: fixed;
+    /* background-color: #fff; */
+    display: none;
 }
 .copyright-body {
-    padding: 25px 10px 10px 20px;
+    /* padding: 25px 10px 10px 20px; */
+    padding: 20px 0px 7px 15px;
     line-height: 24px;
     font-size: 16px;
     color: #000;
@@ -286,7 +310,7 @@ padding: 0 0px !important;
 
 </head>
 
-<body>
+<body <?php if($popupdisplay == 1){ echo 'onload="openPopUp()"';}?>>
       
 
 <div class="wrapper">
@@ -426,8 +450,10 @@ padding: 0 0px !important;
   </footer>
 </div>
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
- <div class="lb" id="popup-box-copyrights-filter" style="width:750px !important;padding:5px;">
-  <div style="border: 4px solid #000;border-radius: 10px;">
+ <div class="lb" id="popup-box-copyrights-filter" style="width:100%;padding:5px;">
+  <div style="width: 50%;
+    margin: 0px auto;
+    background-color: #fff;">
    <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
     <div class="copyright-body">Interested in more information of Unicorns - including investment and valuation details, financials, return multiples, etc?
     <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;">Click Here</a> to request a trial to our Databases.</p>
@@ -536,17 +562,26 @@ $(document).ready(function(){
 
     });
 
-    $('#expcancelbtn-filter').click(function(){
-
-jQuery('#popup-box-copyrights-filter').fadeOut();
-jQuery('#maskscreen').fadeOut(1000);
-
-});
-$('a.redirect').on("click",function(){
+  
+// $('a.redirect').on("click",function(){
+//     jQuery('#maskscreen').fadeIn();
+//     $('#popup-box-copyrights-filter').fadeIn();
+//     $hrefval=$(this).attr("data-href");
+//     $('#expcancelbtn-filter').attr('href',$hrefval);
+// });
+function openPopUp() {
+  setTimeout(function(){
+    popup();
+  }, 20000);
+}
+function popup() {
     jQuery('#maskscreen').fadeIn();
     $('#popup-box-copyrights-filter').fadeIn();
-    $hrefval=$(this).attr("data-href");
-    $('#expcancelbtn-filter').attr('href',$hrefval);
+}
+$('#expcancelbtn-filter').click(function(){
+  jQuery('#popup-box-copyrights-filter').fadeOut();
+  jQuery('#maskscreen').fadeOut(1000);
+
 });
 
     </script>
