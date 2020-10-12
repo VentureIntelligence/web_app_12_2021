@@ -450,7 +450,7 @@ padding: 0 0px !important;
   </footer>
 </div>
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
- <div class="lb" id="popup-box-copyrights-filter" style="width:100%;padding:5px;">
+ <div class="lb" id="popup-box-copyrights-filter" style="width:100%;">
   <div style="width: 50%;
     margin: 0px auto;
     background-color: #fff;">
