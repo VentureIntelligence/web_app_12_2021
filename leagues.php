@@ -8,6 +8,15 @@
 
         $value=1;
     }
+    $cookie_name = "league";
+    $cookie_value = "leaguepopupdisplay";
+    if(!isset($_COOKIE[$cookie_name])) {
+        $popupdisplay=1;
+        setcookie($cookie_name, $cookie_value, time() + 86400);
+   } else {
+        $popupdisplay=0;
+        
+   }
 ?>
 <!doctype html>
 <html>
@@ -196,7 +205,7 @@ img.fixed-logo{display:none}
 
 </head>
 
-<body>
+<body <?php if($popupdisplay == 1){ echo 'onload="openPopUp()"';}?>>
         <?php
     $yearVal = mysql_query("SELECT YEAR(date) as year FROM league_table_data GROUP BY YEAR(date)");
     while ($y = mysql_fetch_array($yearVal)) {
@@ -1673,20 +1682,23 @@ $(document).ready(function(){
 
 
     });
-
+    function openPopUp() {
+  setTimeout(function(){
+    popup();
+  }, 20000);
+}
+function popup() {
+    jQuery('#maskscreen').fadeIn();
+    $('#popup-box-copyrights-filter').fadeIn();
+    // $hrefval=$(this).attr("data-href");
+    // $('#expcancelbtn-filter').attr('href',$hrefval);	
+}
     $('#expcancelbtn-filter').click(function(){
 
 jQuery('#popup-box-copyrights-filter').fadeOut();
 jQuery('#maskscreen').fadeOut(1000);
 
 });
-$('a.redirect').on("click",function(){
-    jQuery('#maskscreen').fadeIn();
-    $('#popup-box-copyrights-filter').fadeIn();
-    $hrefval=$(this).attr("data-href");
-    $('#expcancelbtn-filter').attr('href',$hrefval);
-});
-
-    </script>
+</script>
 </body>
 </html>
