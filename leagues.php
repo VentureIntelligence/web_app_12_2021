@@ -1492,7 +1492,7 @@ $(document).ready(function(){
      var others = <?php echo $others; ?>;
 
      if(others > 0){
-         var link = GLOBAL_BASE_URL."leagues.php?value="+$(this).val()+"&others="+others;
+         var link = "<?php echo GLOBAL_BASE_URL; ?>leagues.php?value="+$(this).val()+"&others="+others;
          window.location.replace(link);
      }
      else{
