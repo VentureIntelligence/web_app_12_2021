@@ -8,6 +8,15 @@
 
         $value=1;
     }
+    $cookie_name = "league";
+    $cookie_value = "leaguepopupdisplay";
+    if(!isset($_COOKIE[$cookie_name])) {
+        $popupdisplay=1;
+        setcookie($cookie_name, $cookie_value, time() + 86400);
+   } else {
+        $popupdisplay=0;
+        
+   }
 ?>
 <!doctype html>
 <html>
@@ -35,6 +44,34 @@
 <script type="text/javascript" src="js/owl.carousel.js"></script>
 <script src='js/jquery.min.js'></script>
 <style>
+  
+  #maskscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #000;
+    z-index: 8000;
+    overflow: hidden;
+}
+.lb {
+    width: 400px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 2px #eaeaea;
+    overflow: hidden;
+    margin: 0 auto;
+    z-index: 9000;
+    left: 25%;
+    top: 40%;
+    position: fixed;
+    background-color: #fff;
+    display: none;
+}
+.copyright-body {
+    padding: 25px 10px 10px 20px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #000;
+}
 .opne-nav-fix{ position:fixed; top:0;width:100%;background:none repeat scroll 0 0 hsla(0, 0%, 98%, 0.97);border-bottom:1px solid #E0E0E0}
 .opne-nav-fix span{display:none}
 
@@ -168,7 +205,7 @@ img.fixed-logo{display:none}
 
 </head>
 
-<body>
+<body <?php if($popupdisplay == 1){ echo 'onload="openPopUp()"';}?>>
         <?php
     $yearVal = mysql_query("SELECT YEAR(date) as year FROM league_table_data GROUP BY YEAR(date)");
     while ($y = mysql_fetch_array($yearVal)) {
@@ -1447,6 +1484,15 @@ img.fixed-logo{display:none}
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
+<div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
+ <div class="lb" id="popup-box-copyrights-filter" style="width:750px !important;padding:5px;">
+  <div style="border: 4px solid #000;border-radius: 10px;">
+   <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
+    <div class="copyright-body">Did you know, the toppers in the League Table use Venture Intelligence products to find more business opportunities and track competition?
+    <p style="margin: 10px 0px;">To take a trial <a href="trial.htm" style="text-decoration: underline;">Click Here</a></p>
+    </div>
+  </div>   
+</div>
 <script>
 $(document).ready(function(){
 
@@ -1635,7 +1681,23 @@ $(document).ready(function(){
 
 
     });
+    function openPopUp() {
+  setTimeout(function(){
+    popup();
+  }, 20000);
+}
+function popup() {
+    jQuery('#maskscreen').fadeIn();
+    $('#popup-box-copyrights-filter').fadeIn();
+    // $hrefval=$(this).attr("data-href");
+    // $('#expcancelbtn-filter').attr('href',$hrefval);	
+}
+    $('#expcancelbtn-filter').click(function(){
 
+jQuery('#popup-box-copyrights-filter').fadeOut();
+jQuery('#maskscreen').fadeOut(1000);
+
+});
 
 
     </script>
