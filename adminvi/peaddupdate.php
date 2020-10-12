@@ -358,7 +358,7 @@
 													$checksql="SELECT peinv.PEId,peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyId and pe.PEId!=$PEId group by peinv.InvestorId";
                 
 													if($existinvestorsql = mysql_query($checksql))
-													{
+													{	$ext_cnt=mysql_num_rows($existinvestorsql);
 														While($myrow=mysql_fetch_array($existinvestorsql, MYSQL_BOTH))
 														{
 															$testid[]=$myrow['InvestorId'];
@@ -381,21 +381,28 @@
 													 $updatequery12="update `peinvestments_investors` set newinvestor=1 where InvestorId IN ($resultval) and PEId=$PEId";
 													 mysql_query($updatequery12);
 													}
-
-													for($i=0;$i<$test_cnt;$i++){
-													foreach($testid as $testid1){
-														if($testvalid[$i] === $testid1)
-															{
-															$updatequery11="update `peinvestments_investors` set existinvestor=1 where InvestorId = $testvalid[$i] and PEId=$PEId";
-															mysql_query($updatequery11);
-														}else{
+													if($ext_cnt > 0 ){
+															for($i=0;$i<$test_cnt;$i++){
+															foreach($testid as $testid1){
+																if($testvalid[$i] === $testid1)
+																	{
+																	$updatequery11="update `peinvestments_investors` set existinvestor=1 where InvestorId = $testvalid[$i] and PEId=$PEId";
+																	mysql_query($updatequery11);
+																}
+																
+															}
+														}	
+											        }else{
+														if($ext_cnt==0){
+															for($i=0;$i<$test_cnt;$i++){
+																
 															$updatequery13="update `peinvestments_investors` set newinvestor=1 where InvestorId = $testvalid[$i] and PEId=$PEId";
 															mysql_query($updatequery13);
 															echo "check";
+																
+															}
 														}
-														
 													}
-												}	
 													foreach($advisor_companyString as $advisorcompany)
 														{
 															if(trim($advisorcompany)!="")
