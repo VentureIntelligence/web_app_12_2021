@@ -10,6 +10,15 @@
 
         $value=1;
     }
+    $cookie_name = "unicorn";
+    $cookie_value = "unicornpopupdisplay";
+    if(!isset($_COOKIE[$cookie_name])) {
+        $popupdisplay=1;
+        setcookie($cookie_name, $cookie_value, time() + 86400);
+   } else {
+        $popupdisplay=0;
+        
+   }
 ?>
 <!doctype html>
 <html>
@@ -39,6 +48,48 @@
   gtag('config', 'UA-168374697-1');
 </script>
 <style>
+#maskscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #000;
+    z-index: 8000;
+    overflow: hidden;
+}
+/* .lb {
+    width: 400px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 2px #eaeaea;
+    overflow: hidden;
+    margin: 0 auto;
+    z-index: 9000;
+    left: 25%;
+    top: 40%;
+    position: fixed;
+    background-color: #fff;
+    display: none;
+} */
+.lb {
+    width: 100% !important;
+    /* border: 1px solid #ccc;
+    box-shadow: 0 0 2px #eaeaea; */
+    overflow: hidden;
+    margin: 0 auto !important;
+    z-index: 9000;
+    /* left: 23%; */
+    top: 40%;
+    /* margin: 0px auto; */
+    position: fixed;
+    /* background-color: #fff; */
+    display: none;
+}
+.copyright-body {
+    /* padding: 25px 10px 10px 20px; */
+    padding: 20px 0px 7px 15px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #000;
+}
 .opne-nav-fix{ position:fixed; top:0;width:100%;background:none repeat scroll 0 0 hsla(0, 0%, 98%, 0.97);border-bottom:1px solid #E0E0E0}
 .opne-nav-fix span{display:none}
 
@@ -259,7 +310,7 @@ padding: 0 0px !important;
 
 </head>
 
-<body>
+<body <?php if($popupdisplay == 1){ echo 'onload="openPopUp()"';}?>>
       
 
 <div class="wrapper">
@@ -269,11 +320,11 @@ padding: 0 0px !important;
         <nav class="top-site-nav">
           <ul>
             <!--<li><a href="pricing.htm">Pricing</a></li>-->
-            <li><a href="trial.htm">Request Trial</a></li>
-            <li><a href="entrepreneurs.htm">For Entrepreneurs</a></li>
-            <li><a href="events.htm">Events</a></li>
+            <li><a class="redirect" href="trial.htm">Request Trial</a></li>
+            <li><a class="redirect" href="entrepreneurs.htm">For Entrepreneurs</a></li>
+            <li><a class="redirect" href="events.htm">Events</a></li>
            <!-- <li><a href="news.htm">News</a></li>-->
-            <li><a href="db.htm">Login</a></li>
+            <li><a class="redirect" href="db.htm">Login</a></li>
           </ul>
         </nav>
       </div>
@@ -283,19 +334,19 @@ padding: 0 0px !important;
         <section class="fd-home-sticky">
           <div class="l-page">
           <div class="logo-sec">
-          <a href="index.htm" class="fd-logo"><img class="default" src="img/logo.png" alt="vi"> <img class="fixed-logo" src="img/logo-b.png" alt="vi">
+          <a class="redirect" href="index.htm" class="fd-logo"><img class="default" src="img/logo.png" alt="vi"> <img class="fixed-logo" src="img/logo-b.png" alt="vi">
 
           </a>
           <span>Private Company Financials, Transactions & Valuations.</span>
           </div>
             <nav class="site-nav">
               <ul>
-                <li><a href="index.htm">Home</a></li>
-                <li><a href="products.htm" >Products</a></li>
-                <li><a href="leagues.php"  >League Tables</a></li>
-                <li><a href="index.htm#sec-new" >What's New</a></li>
-                <li class="por-hide"><a href="aboutus.htm" >About Us</a></li>
-                <li class="por-hide"><a href="contactus.htm" >Contact</a></li>
+                <li><a class="redirect" href="index.htm">Home</a></li>
+                <li><a class="redirect" href="products.htm" >Products</a></li>
+                <li><a class="redirect" href="leagues.php"  >League Tables</a></li>
+                <li><a class="redirect" href="index.htm#sec-new" >What's New</a></li>
+                <li class="por-hide"><a class="redirect" href="aboutus.htm" >About Us</a></li>
+                <li class="por-hide"><a class="redirect" href="contactus.htm" >Contact</a></li>
               </ul>
             </nav>
           </div>
@@ -398,7 +449,17 @@ padding: 0 0px !important;
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
-
+<div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
+ <div class="lb" id="popup-box-copyrights-filter" style="width:100%;">
+  <div style="width: 50%;
+    margin: 0px auto;
+    background-color: #fff;">
+   <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
+    <div class="copyright-body">Interested in more information about Unicorns - including investment and valuation details, financials, return multiples, etc?
+    <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;">Click Here</a> to request a trial to our Databases.</p>
+    </div>
+  </div>   
+</div>
 
 
 
@@ -501,7 +562,27 @@ $(document).ready(function(){
 
     });
 
+  
+// $('a.redirect').on("click",function(){
+//     jQuery('#maskscreen').fadeIn();
+//     $('#popup-box-copyrights-filter').fadeIn();
+//     $hrefval=$(this).attr("data-href");
+//     $('#expcancelbtn-filter').attr('href',$hrefval);
+// });
+function openPopUp() {
+  setTimeout(function(){
+    popup();
+  }, 20000);
+}
+function popup() {
+    jQuery('#maskscreen').fadeIn();
+    $('#popup-box-copyrights-filter').fadeIn();
+}
+$('#expcancelbtn-filter').click(function(){
+  jQuery('#popup-box-copyrights-filter').fadeOut();
+  jQuery('#maskscreen').fadeOut(1000);
 
+});
 
     </script>
 </body>
