@@ -245,11 +245,11 @@ img.fixed-logo{display:none}
         <nav class="top-site-nav">
           <ul>
             <!--<li><a href="pricing.htm">Pricing</a></li>-->
-            <li><a class="redirect" href="#" data-href="trial.htm">Request Trial</a></li>
-            <li><a class="redirect" href="#" data-href="entrepreneurs.htm">For Entrepreneurs</a></li>
-            <li><a class="redirect" href="#" data-href="events.htm">Events</a></li>
+            <li><a class="redirect" href="trial.htm">Request Trial</a></li>
+            <li><a class="redirect" href="entrepreneurs.htm">For Entrepreneurs</a></li>
+            <li><a class="redirect" href="events.htm">Events</a></li>
            <!-- <li><a href="news.htm">News</a></li>-->
-            <li><a class="redirect" href="#" data-href="db.htm">Login</a></li>
+            <li><a class="redirect" href="db.htm">Login</a></li>
           </ul>
         </nav>
       </div>
@@ -259,19 +259,19 @@ img.fixed-logo{display:none}
         <section class="fd-home-sticky">
           <div class="l-page">
           <div class="logo-sec">
-          <a class="redirect" href="#" data-href="index.htm" class="fd-logo"><img class="default" src="img/logo.png" alt="vi"> <img class="fixed-logo" src="img/logo-b.png" alt="vi">
+          <a class="redirect" href="index.htm" class="fd-logo"><img class="default" src="img/logo.png" alt="vi"> <img class="fixed-logo" src="img/logo-b.png" alt="vi">
 
           </a>
           <span>Private Company Financials, Transactions & Valuations.</span>
           </div>
             <nav class="site-nav">
               <ul>
-                <li><a class="redirect" href="#" data-href="index.htm">Home</a></li>
-                <li><a class="redirect" href="#" data-href="products.htm" >Products</a></li>
+                <li><a class="redirect" href="index.htm">Home</a></li>
+                <li><a class="redirect" href="products.htm" >Products</a></li>
                 <li><a href="leagues.php"  class="active">League Tables</a></li>
-                <li><a class="redirect" href="#" data-href="index.htm#sec-new" >What's New</a></li>
-                <li class="por-hide"><a class="redirect" href="#" data-href="aboutus.htm" >About Us</a></li>
-                <li class="por-hide"><a class="redirect" href="#" data-href="contactus.htm" >Contact</a></li>
+                <li><a class="redirect" href="index.htm#sec-new" >What's New</a></li>
+                <li class="por-hide"><a class="redirect" href="aboutus.htm" >About Us</a></li>
+                <li class="por-hide"><a class="redirect" href="contactus.htm" >Contact</a></li>
               </ul>
             </nav>
           </div>
