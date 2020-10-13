@@ -455,7 +455,7 @@ padding: 0 0px !important;
     margin: 0px auto;
     background-color: #fff;">
    <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
-    <div class="copyright-body">Interested in more information of Unicorns - including investment and valuation details, financials, return multiples, etc?
+    <div class="copyright-body">Interested in more information about Unicorns - including investment and valuation details, financials, return multiples, etc?
     <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;">Click Here</a> to request a trial to our Databases.</p>
     </div>
   </div>   
