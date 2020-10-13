@@ -45,6 +45,7 @@
                     $investorOrder = $data->{'investorOrder'};
                     $existinvestor = $data->{'existinvestor'};
                    if($investor !=""){
+                       
                     foreach($fundnameval as $index => $rowval) {
                         $fundname1= $rowval->{'fundname'};
                         $fundM= $rowval->{'fundamount'};
@@ -59,6 +60,7 @@
                         if($fundname!=""){
                             $fundId=return_insert_get_fundid($investorIdval,$fundname);
                         }
+                        
                         if($investorIdval !='' && $fundId !=''){
                         $ciaIdToInsert=insert_fund_Investors($peid,$investorIdval,$fundId,$fundM,$fundinr);
                         }
@@ -159,10 +161,9 @@ function insert_fund_Investors($dealId,$investorId,$fundId,$amountDollar,$amount
     }
         //  echo "<br>-***--- ".$insDealInvSql;
           /*$getDealInvSql="Select PEId,InvestorId from peinvestments_investors where PEId=$dealId and InvestorId=$investorId";*/
-           $getfundInvSql="Select PEId,InvestorId,fundId from peinvestment_funddetail where  InvestorId=$investorId and fundId = $fundId";
+           $getfundInvSql="Select PEId,InvestorId,fundId from peinvestment_funddetail where  InvestorId=$investorId and fundId = $fundId and PEId=$dealId";
           if($rsgetfund = mysql_query($getfundInvSql))
 	  {
-          
 		$deal_fundcnt=mysql_num_rows($rsgetfund);
 		if($deal_fundcnt==0)
 		{

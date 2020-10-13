@@ -398,7 +398,7 @@
 																
 															$updatequery13="update `peinvestments_investors` set newinvestor=1 where InvestorId = $testvalid[$i] and PEId=$PEId";
 															mysql_query($updatequery13);
-															echo "check";
+															
 																
 															}
 														}
