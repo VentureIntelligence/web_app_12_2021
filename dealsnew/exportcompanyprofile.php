@@ -10,7 +10,8 @@
         
         //Check Session Id 
         $sesID=session_id();
-        $emailid=$_SESSION['UserEmail'];
+		$emailid=$_SESSION['UserEmail'];
+		$comname=$_POST['comname'];
         $sqlUserLogSel = "SELECT `sessionId` FROM `user_log` WHERE `emailId`='".$emailid."' AND `dbTYpe`='PE'";
         $resUserLogSel = mysql_query($sqlUserLogSel);
         $cntUserLogSel = mysql_num_rows($resUserLogSel);
@@ -59,7 +60,8 @@
 
 					$submitemail=$_POST['txthideemail'];
 					$companyId=$_POST['txthideCompanyId'];
-				$filetitle="Comp-Profile";
+				// $filetitle="Comp-Profile";
+				$filetitle=$comname." - Comp-Profile";
 				$getCompanySql="SELECT pec.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business, website,
   			stockcode, yearfounded,pec.Address1,pec.Address2,pec.AdCity,pec.Zip,pec.OtherLocation,
   			c.country,pec.Telephone,pec.Fax,pec.Email,pec.AdditionalInfor,pec.angelco_compID,pec.CINNo

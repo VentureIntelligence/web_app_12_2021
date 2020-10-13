@@ -47,6 +47,8 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
     $whereHomeCountNew = "";
     $fliterFlag = false;
     $acrossallFlag = false;
+    // T975 RATIO
+    $acrossallRFlag = false;
 
     $search_export_value = $_POST['search_export_value'];
     if($search_export_value == ''){
@@ -370,6 +372,14 @@ if($_REQUEST['resetfield']=="SearchFieds" ){
      $_REQUEST['answer']['SearchFieds'][$_REQUEST['resetfieldindex']]="";
      $_REQUEST['Grtr_'.$_REQUEST['resetfieldindex']]="";
      $_REQUEST['Less_'.$_REQUEST['resetfieldindex']]="";
+}
+else if($_REQUEST['resetfield']=="RatioSearchFieds")
+{
+    // T975 RATIO BASED FILTER
+     $_REQUEST['answer']['RatioSearchFieds'][$_REQUEST['resetfieldindex']]="";
+     $_REQUEST['RGrtr_'.$_REQUEST['resetfieldindex']]="";
+     $_REQUEST['RLess_'.$_REQUEST['resetfieldindex']]="";
+     
 }
 else if($_REQUEST['resetfield']=="GrowthSearchFieds")
 {
@@ -989,6 +999,10 @@ for($i=0;$i<count($_REQUEST['answer']['SearchFieds']);$i++){
     }
 /*Financial Search Ends*/
 
+// T975 RADIO BASED QUERY
+include "ratiobasedfilter.php";
+// T975 QUERY FILTER
+
 /*Advanced Searches Starts*/
         /* if($_GET['searchv']!=''){
 		if($where!=''){
@@ -1339,6 +1353,20 @@ for($i=0;$i<count($_REQUEST['answer']['SearchFieds']);$i++){
         }else{
                 $group = " b.Company_Id $havingClause";
         }
+
+         // T975 Ratio based 
+         if($_REQUEST['arcossallr']=='across'){
+            $acrossallRFlag = true;
+                if($havingClause != ''){
+                    $group = " a.CId_FK $havingClause and count(a.CId_FK) = FYValue ";
+                }else {
+                    $group = " a.CId_FK HAVING count(a.CId_FK) = FYValue ";
+                }
+        }else{
+                $group = " b.Company_Id $havingClause";
+        }
+        // End
+
         //$order12 = " ORDER BY b.SCompanyName ASC";
         //$order = " a.FY DESC,b.SCompanyName ASC";
         $order1 = "b.SCompanyName ASC,a.FY DESC";
@@ -1407,8 +1435,8 @@ for($i=0;$i<count($_REQUEST['answer']['SearchFieds']);$i++){
                 $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery);
             }*/
             if( !$filterFlag ) {
-
-                if( !$acrossallFlag ) {
+                // T975 Ratio based
+                if( !$acrossallFlag || !$acrossallRFlag ) {
 
                          if(($countflag==''||$countflag==0)&& $search_export_value=='' ){
                         $query= "select value from configuration where purpose='initial_count'";
@@ -1426,7 +1454,12 @@ for($i=0;$i<count($_REQUEST['answer']['SearchFieds']);$i++){
                         $total=mysql_fetch_row($count);
                         $total=$total[0];
                         }else{
-                            $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallFlag);
+                             // T975 Ratio based
+                             if(!$acrossallRFlag){
+                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallFlag);
+                            }else{
+                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag);
+                            }
                         }
                 $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery);
             }

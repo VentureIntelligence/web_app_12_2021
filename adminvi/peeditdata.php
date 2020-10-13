@@ -709,7 +709,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 									<?php
 									  /*$getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo from peinvestments_investors as peinv,
 									  peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY Investor='others',InvestorId desc";*/
-                                     $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor from peinvestments_investors as peinv,peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY peinv.investorOrder ASC";
+                                     $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY peinv.investorOrder ASC";
                                                                          //echo "<bR>--" .$getInvestorsSql;
 									  if ($rsinvestors = mysql_query($getInvestorsSql))
 									  {
@@ -724,6 +724,8 @@ $companyIdtoEdit=$stringtoExplode[1];
                                                         echo trim(($myInvrow["Investor"].' (L) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
                                                     } else if($myInvrow["newinvestor"] == 1){
                                                         echo trim(($myInvrow["Investor"].' (N) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
+                                                    }else if($myInvrow["existinvestor"] == 1){
+                                                        echo trim(($myInvrow["Investor"].' (E) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
                                                     }else {
                                                         echo trim(($myInvrow["Investor"].' - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
                                                     }
@@ -737,7 +739,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 									?>
 									</table><input type="hidden" name="hideIPOId" size="8" value="">
                                                                         <input type="button" value="Add Investors" name="addInvestor"
-                              					onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>','mywindow','width=700,height=500')">
+                                                                        onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>/<?php echo $mycomprow["PECompanyId"]; ?>','mywindow','width=700,height=500')">
 									</td>
 								</tr>
                                                                         <?php } ?>

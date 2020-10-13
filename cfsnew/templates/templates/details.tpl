@@ -498,7 +498,24 @@ function resetfoundation()
     }
 }
 });
+// T975 Ratio Based Filter
+    $(".ratiofilter").dropdownchecklist('destroy');
+    $(".ratiofilter").dropdownchecklist({emptyText: "Please select ...",
+    onItemClick: function(checkbox, selector){
+        var justChecked = checkbox.prop("checked");
+        var checkCount = (justChecked) ? 1 : -1;
+        for( i = 0; i < selector.options.length; i++ ){
+            if ( selector.options[i].selected ) checkCount += 1;
+        }
+            if ( checkCount > 9 ) {
+            alert( "Limit is 3" );
+            throw "too many";
+        }
+        }
+    });
+
 }
+
 
 function openpl_ex(elem){
 
