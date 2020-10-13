@@ -379,6 +379,34 @@ $fliterlist[$i++]=array('field'=>'YOYCAGR','key'=>$_REQUEST['YOYCAGR'],'value'=>
 if ($_REQUEST['YOYCAGR']=="CAGR")
 $fliterlist[$i++]=array('field'=>'YOYCAGR','key'=>$_REQUEST['YOYCAGR'],'value'=>"Grw.CAGR");
 
+// T975 RATIO BASED
+$ratiostr="";
+$ratiosearcharray=array('Current Ratio','Quick Ratio','Debt Equity Ratio','RoE','RoA','Asset Turnover Ratio','EBITDA Margin. (%)','PAT Margin. (%)', 'Contribution margin. (%)');
+$ratiofilterarray=array('Rat.Current Ratio','Rat.Quick Ratio','Rat.Debt Equity Ratio','Rat.RoE','Rat.RoA','Rat.Asset Turnover Ratio','Rat.EBITDA Margin','Rat.PAT Margin', 'Rat.Contribution margin');
+
+
+if(count($_REQUEST['answer']['RatioSearchFieds'])>0)
+{
+    $ratio_feilds = array();
+    for($j=0;$j<count($_REQUEST['answer']['RatioSearchFieds']);$j++)
+    {
+        if($_REQUEST['answer']['RatioSearchFieds'][$j]!=""){
+            $gtr=$_REQUEST['RGrtr_'.$j];
+            $les=$_REQUEST['RLess_'.$j];
+            $ratiostr=$ratiostr.'<tr ><th>'.$ratiosearcharray[$_REQUEST['answer']['RatioSearchFieds'][$j]].'<input  type="hidden"  name="answer[RatioSearchFieds][]" id="answer[RatioSearchFieds][]" value="'.$_REQUEST['answer']['RatioSearchFieds'][$j].'" /></th><td> <input  type="text" class="rfvalid" name="RGrtr_'.$j.'" id="RGrtr_'.$j.'" value="'.$gtr.'" />  </td><td><input  type="text" class="rfvalid" name="RLess_'.$j.'" id="RLess_'.$j.'" value="'.$les.'" />  </td></tr>';
+            $fliterlist[$i++]=array('field'=>'RatioSearchFieds','key'=>$j,'value'=>$ratiofilterarray[$_REQUEST['answer']['RatioSearchFieds'][$j]].'('.$gtr.'-'.$les.')');
+        }
+        $ratio_feilds[] = $_REQUEST['answer']['RatioSearchFieds'][$j]; 
+    }
+    // print_r($ratio_feilds);
+    $template->assign("ratiofieldshtml",$ratiostr);
+    $template->assign("ratio_feilds",$ratio_feilds);
+}
+
+if ($_REQUEST['arcossallr']!="")
+$fliterlist[$i++]=array('field'=>'arcossallr','key'=>$_REQUEST['arcossallr'],'value'=>"Rat.".$_REQUEST['arcossallr']);
+// T975 END
+
 $grostr="";
 $growsearcharray=array('Revenue','EBITDA','EBDT','EBT','Net Profit','Across all','In any of');
 $growfilterarray=array('Grw.Revenue','Grw.EBITDA','Grw.EBDT','Grw.EBT','Grw.Net Profit','Grw.Across all','Grw.In any of');
