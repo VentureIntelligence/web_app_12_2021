@@ -207,7 +207,7 @@ function returnIPOId()
 }
 function addMoreRow(){
     var rowcount = $('#rowcount').val() + 1;
-    var str = '<tr><td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor"  size="30" > </td>';
+    var str = '<tr><td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" placeholder="Investor Name" size="30" > </td>';
         str += '<td valign=top> <input type="text" name="txtReturnMultiple[]"  size="5" value=0.00 class="txtReturnMultiple"></td>';
         str += '<td valign=top> <input type="text" name="txtReturnMultipleINR[]"  size="5" value=0.00 class="txtReturnMultipleINR"> </td>';
         str += '<td style="valign:center;text-align: center;"> <input type="checkbox"  class="txthideamount" name="txthideamount[]"  value="1" size="5"> </td>';
@@ -224,7 +224,7 @@ function addMoreRow(){
 var fundval ='';
 function addMorefundRow(fundval,event){
     // var rowcount = $('#rowcount').val() + 1;
-    var str1 = `<div class="fundname fundsection" > <input type="text" name="txtfundname[]" class="txtfundname" size="30" ><span class="addsign`+fundval+`" onClick="addMorefundRow('`+fundval+`');" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
+    var str1 = `<div class="fundname fundsection" > <input type="text" name="txtfundname[]" placeholder="Fund Name" class="txtfundname" size="30" ><span class="addsign`+fundval+`" onClick="addMorefundRow('`+fundval+`');" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
     var str11 = '<div class="fundnamemill  fundnameinput"><input type="text" name="txtfundvalue[]"  size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;" class="txtfundvalue"> </div>';
     var str21 = '<div class="fundnameinr  fundnameinput"><input type="text" name="txtfundvalueINR[]"  size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;" class="txtfundvalueINR"> </div>';
         
@@ -293,7 +293,7 @@ function addMorefundRow(fundval,event){
           ?>
            <input name="txtinvestorid[]" type="hidden" value="<?php echo $myInvrow["InvestorId"]; ?>"  >
            <tr>
-               <td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" value="<?php echo $myInvrow["Investor"]; ?>" data-investor="<?php echo $myInvrow["Investor"]; ?>"  data-invid="<?php echo $myInvrow["InvestorId"]; ?>" size="30" >
+               <td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" placeholder="Investor Name" value="<?php echo $myInvrow["Investor"]; ?>" data-investor="<?php echo $myInvrow["Investor"]; ?>"  data-invid="<?php echo $myInvrow["InvestorId"]; ?>" size="30" >
                <div class="fundname<?php echo $i; ?>  fundsection" > 
                <?php 
                 $getfundSql ='SELECT peinv.PEId,peinv.InvestorId,fn.fundName,peinv.fundId,peinv.Amount_M,peinv.Amount_INR FROM fundNames AS fn,peinvestment_funddetail as peinv,peinvestors as inv where fn.fundId= peinv.fundId and  inv.InvestorId=peinv.InvestorId and peinv.PEId='.$IPO_MandAId.' and peinv.InvestorId='.$myInvrow['InvestorId'];  
@@ -303,10 +303,10 @@ function addMorefundRow(fundval,event){
                while($myfundrow1=mysql_fetch_array($rsfund, MYSQL_BOTH))
                {
                ?>
-                 <input type="text" name="txtfundname[]" id="txtfundname" value="<?php echo $myfundrow1["fundName"]; ?>"  size="30"  class="txtfundname"  data-fundid="<?php echo $myfundrow1["fundId"]; ?>"><span class="addsign<?php echo $i; ?>" onClick="addMorefundRow(<?php echo $i; ?>);" style="cursor:pointer;margin-left: 7px;">+</span>
+                 <input type="text" name="txtfundname[]" id="txtfundname" placeholder="Fund Name" value="<?php echo $myfundrow1["fundName"]; ?>"  size="30"  class="txtfundname"  data-fundid="<?php echo $myfundrow1["fundId"]; ?>"><span class="addsign<?php echo $i; ?>" onClick="addMorefundRow(<?php echo $i; ?>);" style="cursor:pointer;margin-left: 7px;">+</span>
                 <?php }
                }else{?>
-                 <input type="text" name="txtfundname[]" id="txtfundname" value=""  size="30"  class="txtfundname" ><span class="addsign" onClick="addMorefundRow(<?php echo $i; ?>);" style="cursor:pointer;margin-left: 7px;" class="txtfundnameevent">+</span>
+                 <input type="text" name="txtfundname[]" id="txtfundname" placeholder="Fund Name" value=""  size="30"  class="txtfundname" ><span class="addsign" onClick="addMorefundRow(<?php echo $i; ?>);" style="cursor:pointer;margin-left: 7px;" class="txtfundnameevent">+</span>
                <?php }?>
                </div>
                </td>
@@ -366,7 +366,7 @@ function addMorefundRow(fundval,event){
 		{
             $rowvalue=mysql_num_rows($rsinvestors)+$k;
 ?>
-        <tr><td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" size="30" >
+        <tr><td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" placeholder="Investor Name" size="30" >
             <!-- <div class="fundname echo $k.$k.$k; ?>  fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign" onClick="addMorefundRow( echo $k.$k.$k;?>);" style="cursor:pointer">+</span></div> -->
          </td>
                 <td valign=top> <input type="text" name="txtReturnMultiple[]"  size="5" value=0.00 class="txtReturnMultiple">  </td>
@@ -639,7 +639,7 @@ var ipo_mandaflag = `<?php echo $IPO_MandA_flag;?>`;
         var inv=$(this).next().length;
         if(inv == 0){   
         var randomvalue=Math.round(Math.random()*2000000);
-        appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
+        appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]" placeholder="Fund Name" class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
          str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
          str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
          if($(this).next() !== appendata){
@@ -655,7 +655,7 @@ var ipo_mandaflag = `<?php echo $IPO_MandA_flag;?>`;
         var inv=$(this).next().length;
         if(inv == 0){
         var randomvalue=Math.round(Math.random()*2000000);
-        appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
+        appendata=`<div class="fundname`+randomvalue+` fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname" placeholder="Fund Name" size="30" ><span class="addsign`+randomvalue+`" onClick="addMorefundRow(`+randomvalue+`);" style="cursor:pointer;margin-left: 7px;">+</span></div>`;
          str11 = '<div class="fundnamemill'+randomvalue+' fundnameinput"> <input type="text" name="txtfundvalue[]" class="txtfundvalue" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
          str21 = '<div class="fundnameinr'+randomvalue+' fundnameinput"><input type="text" name="txtfundvalueINR[]" class="txtfundvalueINR" size="5" value=0.00 style="margin: 5px 0px 5px 10px;width: 85%;"> </div>';
          if($(this).next() !== appendata){
@@ -758,7 +758,7 @@ $(cele.find('.fundsection input')).each(function(i,e){
     var fundid = $(this).attr('data-fundid');
     var fundamount = $(this).parent().parent().parent().find("div[class^='fundnamemi'] input").eq(i).val();
     var fundamountinr = $(this).parent().parent().parent().find("div[class^='fundnameinr'] input").eq(i).val();
-    if(typeof fundname != 'undefined')
+    if(typeof fundname != 'undefined' && fundname != '')
     {
         fund['fundname'] = fundname;
         fund['fundid'] = fundid;

@@ -3617,7 +3617,7 @@ advisor_cias as cia where advinv.PEId=$SelCompRef and advinv.CIAId=cia.CIAId";
                 {
                     $hideamount="--";
                     $hideamount_INR="--";
-                                            $global_hideamount = 1;
+                    $global_hideamount = 1;
                 }
                 else
                 {
@@ -3759,14 +3759,7 @@ advisor_cias as cia where advinv.PEId=$SelCompRef and advinv.CIAId=cia.CIAId";
         $debt_equityDisplay="Both";
  ?>
 <style>
-.childaccordions a {
-        font-size: 13px !important;
-        font-weight: 200 !important;
-        margin-left: 25px;
-    }
-    tr.childaccordions td {
-        border-bottom: 1px solid transparent ;
-    }
+
 .mt-list-tab{
     height:34px;
 }
@@ -5336,7 +5329,7 @@ try {
                             <?php for($l=0;$l<count($investor_ID);$l++){ ?>
                                 <tr class="accordions_dealtitle1 active" rowspan="2">
 
-                                    <td style="text-align: center;" class="tooltip7">
+                                    <td style="text-align: right;" class="tooltip7">
                                         <div style="text-align: center;display: inline-flex;">
                                         <?php 
                                         $InvestornameNew = '';
@@ -5389,7 +5382,7 @@ try {
                                         ?>
                                     </div>
                                     </td>
-                                    <td <?php if($no_amount !='yes'){ ?>  <?php }?> style="text-transform: capitalize; ">  <h4>    
+                                    <td <?php if($no_amount !='yes'){ ?>  <?php }?> style="text-transform: capitalize; " class="investoricon">  <h4>    
                                         <?php
                                         $deal=0;
                                          //$AddOtherAtLast="";
@@ -5408,10 +5401,13 @@ try {
                                          $invResult=substr_count($Investorname,$searchString);
                                          $invResult1=substr_count($Investorname,$searchString1);
                                          $invResult2=substr_count($Investorname,$searchString2);
+                                         $getfundSql ='SELECT peinv.PEId,peinv.InvestorId,fn.fundName,peinv.fundId,peinv.Amount_M,peinv.Amount_INR FROM fundNames AS fn,peinvestment_funddetail as peinv,peinvestors as inv where fn.fundId= peinv.fundId and  inv.InvestorId=peinv.InvestorId and peinv.PEId='.$IPO_MandAId.' and peinv.InvestorId='.$investor_ID[$l];  
+                                         $abcd=mysql_query($getfundSql);
+                                         $fundname_cnt=mysql_num_rows($abcd);
                                          if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
                                          {
                                              $_SESSION['investId'][$invcount++] = $investor_ID[$l];
-                                             $deal=0; ?><a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='dirdetails.php?value=<?php echo $investor_ID[$l].'/'.$VCFlagValue.'/'.$deal.'/'.$strvalue[3];?>'  target="_blank"><?php echo $investor_Name[$l]; ?></a>
+                                         $deal=0; ?><a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='dirdetails.php?value=<?php echo $investor_ID[$l].'/'.$VCFlagValue.'/'.$deal.'/'.$strvalue[3];?>'  target="_blank"><?php echo $investor_Name[$l]; ?></a><?php if($fundname_cnt>=1){?><i class="fa fa-plus"></i><?php } ?>
                                         <?php
                                          }
                                           elseif(($invResult==1) || ($invResult1==1)){
@@ -5424,12 +5420,12 @@ try {
                                     </td>
                                     <td class="">
                                     <?php if($no_amount =='yes' ){ ?>
-                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_INR[$l]; }else{ echo '';} ?></p>
+                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $Amount_INR[$l]!='0.00') { echo $Amount_INR[$l]; }else{ echo '';} ?></p>
                                         <?php } ?>
                                     </td>
                                     <td class="">
                                     <?php if($no_amount =='yes' ){ ?>
-                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_M[$l]; }else{ echo '';} ?></p>
+                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $Amount_M[$l]!='0.00') { echo $Amount_M[$l]; }else{ echo '';} ?></p>
                                         <?php } ?>
                                     </td>
                                 </tr><?php 
@@ -5438,35 +5434,39 @@ try {
                                     //  While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
                                     //  {
                                         $_SESSION['investId'][$invcount++] = $investor_ID[$l];
-                                    $getfundSql ='SELECT peinv.PEId,peinv.InvestorId,fn.fundName,peinv.fundId,peinv.Amount_M,peinv.Amount_INR FROM fundNames AS fn,peinvestment_funddetail as peinv,peinvestors as inv where fn.fundId= peinv.fundId and  inv.InvestorId=peinv.InvestorId and peinv.PEId='.$IPO_MandAId.' and peinv.InvestorId='.$investor_ID[$l];  
+                                   
                                     //echo $getfundSql;
-                                    
+                                    $no_amountfund='';
                                     
                                       ?>
                                       
                                       
                                       <?php if($rsfund = mysql_query($getfundSql))
                                     {
+                                        
                                        while($myfundrow=mysql_fetch_array($rsfund, MYSQL_BOTH))
-                                       { ?>
+                                       { 
+                                          
+                                           ?>
                                        <tr class="childaccordions" style="display: none;">
                                         <td style="text-align: center;" class="tooltip7">
                                         </td>
                                         <td>    
                                             <a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='fund_details.php?value=<?php echo $investor_ID[$l].'/funds/0/'.$myfundrow['fundId'];?>'  target="_blank"><?php echo $myfundrow['fundName']; ?></a>
                                         </td>
-                                       <?php if(($myfundrow["Amount_INR"] !='' && $myfundrow["Amount_INR"] != '0.00') || ($myfundrow["Amount_M"] !='' && $myfundrow["Amount_M"] != '0.00')){
-                                       $no_amountfund ='yes';                                                 
+                                       <?php if(($myfundrow["Amount_INR"] !='' && $myfundrow["Amount_INR"] != '0.00' && $myfundrow["Amount_INR"] != 0.00) || ($myfundrow["Amount_M"] !='' && $myfundrow["Amount_M"] != '0.00' && $myfundrow["Amount_M"] != 0.00)){
+                                       $no_amountfund ='yes';
+                                                                            
                                     }?>
                                         <td class="">
-                                        <?php if($no_amountfund =='yes' ){ ?>
-                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $myfundrow['Amount_INR']; }else{ echo '';} ?></p>
-                                            <?php } ?>
+                                        <?php if($no_amountfund =="yes" ){ ?>
+                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $myfundrow['Amount_INR'] !='0.00') { echo $myfundrow['Amount_INR']; }else{ echo '';} ?></p>
+                                        <?php } else{?><p></p><?php } ?>
                                         </td>
                                         <td class="">
-                                        <?php if($no_amountfund =='yes' ){ ?>
-                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $myfundrow['Amount_M']; }else{ echo '';} ?></p>
-                                            <?php } ?>
+                                        <?php if($no_amountfund =="yes" ){ ?>
+                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $myfundrow['Amount_M'] !='0.00') { echo $myfundrow['Amount_M']; }else{ echo '';} ?></p>
+                                            <?php } else{?><p></p><?php } ?>
                                         </td>
                                        
                                         </tr>
@@ -6425,6 +6425,43 @@ try {
     </table>
     </div> -->
   <style>
+  span.investorlable {
+    font-size: 10px;
+    padding: 1px 3px;
+    background-color: #c9c4b7;
+    color: #fff;
+}
+  .investoricon i{
+    height: 13px;
+    float: none;
+    background-image: none;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    font-size: 10px;
+    cursor:pointer;
+  }
+  tr.childaccordions td {
+    /* padding: 3px !important; */
+    border-top:1px solid #fff !important;
+    font-weight: 500;
+    color: #000 !important;
+    padding: 3px 10px 3px 3px !important;
+}
+
+.childaccordions a,.childaccordions td p {
+        font-size: 13px !important;
+        font-weight: 200 !important;
+        margin-left: 20px;
+        color: #000 !important;
+    }
+    tr.childaccordions td {
+        border-bottom: 1px solid transparent ;
+    }
+
+/* .accordions_dealtitle1 td{
+    border-bottom: 1px solid #fff !important;
+    border-top: 1px solid #e6e5e5 !important;
+} */
       .display_block{
           display:block !important;
       }
@@ -8565,8 +8602,10 @@ $(".accordions_dealtitle").on("click", function() {
 
     $(this).toggleClass("active").next().slideToggle();
 });
-$(".accordions_dealtitle1").on("click", function() {
-        $(this).toggleClass("active").nextUntil('.accordions_dealtitle1').slideToggle();
+$(".accordions_dealtitle1 i").on("click", function() {
+        $(this).parent().parent().parent().toggleClass("active").nextUntil('.accordions_dealtitle1').slideToggle();
+        $(this).toggleClass('fa-plus fa-minus');
+
  }); 
 (function($){
     $(window).on("load",function(){
