@@ -1,6 +1,13 @@
 <?php 
         // T975 RATIO BASED SEARCH - QUERY With Conditions Start
         $Rend=count($_REQUEST['answer']['RatioSearchFieds'])-1;
+        if($Rend >0){
+        $ratio=" ,bsn1.Total_assets";    
+        $where .= " and bsn1.FY=(a.FY-1)" ;
+        $whereCountNew .= " and bsn1.FY=(a.FY-1)" ;
+        $whereHomeCountNew .= " and bsn1.FY=(a.FY-1)" ;
+        $maxFYQuery .= " JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
+        }
         for($i=0;$i<count($_REQUEST['answer']['RatioSearchFieds']);$i++){
             if($_REQUEST['answer']['RatioSearchFieds'][$i] != ""){
                     $RGtrt = 'RGrtr_'.$i;
@@ -436,6 +443,7 @@
                             }
                         }
                     }
+                               
                     // print_r($value);
             }//Main If Ends
             //pr($where);

@@ -472,21 +472,21 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         {
             $listingin=  implode(',', $listingstatus);
             if($where == ""){
-                $where .=  " bsn1.FY=(a.FY-1) and  b.ListingStatus  IN (".$listingin.")";
+                $where .=  " b.ListingStatus  IN (".$listingin.")";
             }else{
-                $where .=  " and bsn1.FY=(a.FY-1) and   b.ListingStatus  IN (".$listingin.")";	
+                $where .=  "  and   b.ListingStatus  IN (".$listingin.")";	
             }
 
             if($whereCountNew == ""){
-                $whereCountNew .=  "bsn1.FY=(a.FY-1) and  b.ListingStatus  IN (".$listingin.")";
+                $whereCountNew .=  " b.ListingStatus  IN (".$listingin.")";
             }else{
-                $whereCountNew .=  " and bsn1.FY=(a.FY-1) and  b.ListingStatus  IN (".$listingin.")";    
+                $whereCountNew .=  "  and  b.ListingStatus  IN (".$listingin.")";    
             }
 
             if($whereHomeCountNew == ""){
-                $whereHomeCountNew .=  " bsn1.FY=(a.FY-1) and  b.ListingStatus  IN (".$listingin.")";
+                $whereHomeCountNew .=  "   b.ListingStatus  IN (".$listingin.")";
             }else{
-                $whereHomeCountNew .=  " and bsn1.FY=(a.FY-1) and b.ListingStatus  IN (".$listingin.")";    
+                $whereHomeCountNew .=  "  and b.ListingStatus  IN (".$listingin.")";    
             } 
         }
 
@@ -1464,7 +1464,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 	}
 
     if( $filterFlag && $chargewhere == '' ) {
-        $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery);
+        $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$ratio);
         $template->assign("totalrecord",$total);
         $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order,$group,"name",$page,$limit,$client='',$maxFYQuery);
     }
@@ -1488,7 +1488,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $where .=  "  a.FY=(SELECT max(aa.FY) as MFY FROM plstandard aa WHERE aa.CId_FK=a.CId_FK) ";
             }
 
-            $maxFYQuery = "INNER JOIN (
+            $maxFYQuery .= "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
                             ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
@@ -1590,7 +1590,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         $total_top1=mysql_fetch_row($count);
                         $total_top=$total_top1[0];
                         }else{
-                            $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery);
+                            $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery,$ratio);
                         }
                        // $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery);
                     }
@@ -1602,9 +1602,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         }else{
                             // T975 Ratio based
                             if(!$acrossallRFlag){
-                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallFlag);
+                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallFlag,$ratio);
                             }else{
-                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag);
+                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag,$ratio);
                             }
                         }
 
@@ -1734,8 +1734,8 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     $group = " t1.Company_Id $havingClause";
             }
         
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn1.Total_assets,bsn.Total_assets");
-            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn1.Total_assets,bsn.Total_assets");
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn.Total_assets");
+            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn.Total_assets");
            // $fields2= array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY, a.ResultType,b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Industry"," b.Sector");
             $orderc="FIELD(t1.FY,'17') DESC,FIELD(t1.FY,'16') DESC,FIELD(t1.FY,'15') DESC, t1.FY DESC, t1.SCompanyName asc"; 
                 

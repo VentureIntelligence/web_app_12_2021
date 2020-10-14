@@ -500,22 +500,23 @@ class plstandard extends database {
           
 	}
         
-        function allSearchHomecount($where="",$group="",$maxFYQuery=""){
+        function allSearchHomecount($where="",$group="",$maxFYQuery="",$ratio){
 		
 		if(!strlen($where)) $where="";
+		if(!strlen($ratio)) $ratio="";
 
 		/*$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
-		$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType,bsn1.Total_assets FROM ".$this->dbName." a";
+		$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType".$ratio." FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-        $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
+        $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY ";
 		$sql .=  $maxFYQuery;
 
 		if(strlen($where)) $sql.= " WHERE ".$where;
 		if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
                 
 		//print $sql;
- 		//echo '<div style="display:none">';print_r( $sql );echo'</div>';
+ 	   echo '<div style="display:none" class="count">';print_r( $sql );echo'</div>';
 		$this->execute($sql);
 		
 		$return_array=$this->fetch();   
@@ -524,7 +525,7 @@ class plstandard extends database {
           
 	}
         
-        function SearchHomecount($where="",$group="",$maxFYQuery="",$acrossFlag=''){
+        function SearchHomecount($where="",$group="",$maxFYQuery="",$acrossFlag='',$ratio){
     
                
 		//if(!strlen($pageID)) $pageID=1;
@@ -538,9 +539,9 @@ class plstandard extends database {
 		/*$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom" . $FYcountField . " FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 
-		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType ,bsn1.Total_assets" . $FYcountField . " FROM ".$this->dbName." a";
+		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType ".$ratio. $FYcountField . " FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
+                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
 		$sql .=  $maxFYQuery;
                 
 		if(strlen($where)) $sql.= " WHERE ".$where;
@@ -1333,7 +1334,7 @@ class plstandard extends database {
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		$sql = "SELECT ".$fields." FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
+		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
 		$sql .=  $maxFYQuery;
 
 		if(strlen($where)) $sql.= " WHERE ".$where;
@@ -1360,7 +1361,7 @@ class plstandard extends database {
 		$this->execute($sql);
 		
 		//print $this->execute($sql);
-		echo '<div style="display:none">';print_r( $sql );echo'</div>';
+		echo '<div style="display:none">';print_r( $sql ); echo'</div>';
 		$cont=0;
               
 		if($fields=="*")
