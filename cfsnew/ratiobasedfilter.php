@@ -2,7 +2,7 @@
         // T975 RATIO BASED SEARCH - QUERY With Conditions Start
         $Rend=count($_REQUEST['answer']['RatioSearchFieds'])-1;
         if($Rend >0){
-        $ratio=" ,bsn1.Total_assets";    
+        $ratio=" bsn1.Total_assets";    
         $where .= " and bsn1.FY=(a.FY-1)" ;
         $whereCountNew .= " and bsn1.FY=(a.FY-1)" ;
         $whereHomeCountNew .= " and bsn1.FY=(a.FY-1)" ;
