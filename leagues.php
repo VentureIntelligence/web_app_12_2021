@@ -76,18 +76,21 @@ width: 35%;
 }
 .expcancelbtn{
     cursor: pointer;
-    padding: 1px;
+    padding: 0px;
     float: right;
-    font-size: 17px;
+    font-size: 25px;
     font-weight: 700;
     margin-right: 10px;
     margin-top: 10px;
-    color: #000;
-    background-color: #fff;
+    color: #fff;
+    /* background-color: #fff; */
     border-radius: 20px;
     width: 20px;
     height: 20px;
     text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 .popup-advertise-txt {
     margin: 0px auto;
@@ -1565,9 +1568,10 @@ img.fixed-logo{display:none}
     <div class="popup-text">
    
     <div class="overlay">  <div class=" popup-advertise"> 
+    
+    </div>
+    </div>
     <a id="expcancelbtn-filter" class="expcancelbtn" >x</a> 
-    </div>
-    </div>
     <p>Do what the toppers do.</p>
     </div>
     <div class="copyright-body">Did you know, the toppers in the League Table use Venture Intelligence products to <span style="
