@@ -44,6 +44,26 @@
 <script type="text/javascript" src="js/owl.carousel.js"></script>
 <script src='js/jquery.min.js'></script>
 <style>
+@media screen and (max-width: 992px) {
+    .popup-content{width:80% !important;}
+    
+
+}
+
+@media screen and (max-width: 600px) {
+    .popup-content{width:90%  !important;}
+    .popup-text p {font-size: 25px !important;}
+    .copyright-body{font-size: 17px !important;}
+    .lb {top: 15% !important;}
+
+}
+@media screen and (max-width: 321px) {
+    
+    .popup-text p {font-size: 23px !important;}
+    .copyright-body{font-size: 16px !important;}
+    .lb {top: 10% !important;}
+
+}
 .popup-advertise{
     background-position: center;
     background-image: url(Ad_Image.jpg);
