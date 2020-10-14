@@ -1196,7 +1196,7 @@
                  //T-993
                  if($keyword !=""){
                     if(isset($_POST['popup_select']) && $_POST['popup_select']=='investor'){
-                        $keyaft=" (".$inv_qry.")";  
+                        $keyaft=" and (".$inv_qry.")";  
                         $keywordsearch = $_POST['popup_keyword'];                                              
                     }else{
                         $keywordsearch = $_POST['keywordsearch'];
@@ -1224,7 +1224,7 @@
                 }
                 if($companysearch !=""){
                     if(isset($_POST['popup_select']) && $_POST['popup_select']=='company'){
-                        $keyaftcom=" (".$trend_com_qry.")";                                                
+                        $keyaftcom=" and (".$trend_com_qry.")";                                                
                     }else{
                         $keyaftcom=" and  pec.PECompanyId IN ($companysearch) ";
                     }
