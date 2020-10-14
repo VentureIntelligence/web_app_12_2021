@@ -1159,7 +1159,14 @@ if(count($industry) == 0){ ?>
        <OPTION  value="1" <?php echo ($syndication=="1") ? 'SELECTED' : ""; ?>>No</option>
    </SELECT>
 </li>		
-
+<li class="even"><h4>Deals Involving</h4>
+            <div class="selectgroup">
+                <SELECT NAME="dealsinvolving[]" id="dealsinvolving" multiple="multiple" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+                <OPTION value="1" <?php foreach ($dealsinvolvingvalue as $dealsinvolvingValue) { echo ($dealsinvolvingValue=="1") ? 'SELECTED' : "";} ?>>New Investor</option>
+                <OPTION  value="2" <?php foreach ($dealsinvolvingvalue as $dealsinvolvingValue) { echo ($dealsinvolvingValue=="2") ? 'SELECTED' : "";} ?>>Existing Investor</option>
+                </SELECT>
+                </div>
+            </li>
 
 <li class="odd"><h4>Region</h4>
     <div class="selectgroup">
