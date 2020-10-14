@@ -1476,7 +1476,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 	}
 
     if( $filterFlag && $chargewhere == '' ) {
-        $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$ratio,$maxFYQueryratio);
+        $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossFlag,$ratio,$maxFYQueryratio);
         $template->assign("totalrecord",$total);
         $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
     }
