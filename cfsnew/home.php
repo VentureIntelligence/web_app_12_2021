@@ -1158,7 +1158,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     $whereHomeCountNew .=  $tags_where;
                 }
 
-                $maxFYQuery .= "INNER JOIN (
+                $maxFYQuery = "INNER JOIN (
                                     SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                                 ) as aa
                                 ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
@@ -1235,7 +1235,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $whereHomeCountNew .=  $regions_where;
             }
 
-            $maxFYQuery .= "INNER JOIN (
+            $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
                             ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
@@ -1309,7 +1309,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $whereHomeCountNew .=  " $state_where ";
             }
 
-            $maxFYQuery .= "INNER JOIN (
+            $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
                             ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
@@ -1382,7 +1382,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $whereCountNew .=  " $city_where ";
             }
 
-            $maxFYQuery .= "INNER JOIN (
+            $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
                             ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
@@ -1476,9 +1476,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 	}
 
     if( $filterFlag && $chargewhere == '' ) {
-        $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$ratio);
+        $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$ratio,$maxFYQueryratio);
         $template->assign("totalrecord",$total);
-        $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order,$group,"name",$page,$limit,$client='',$maxFYQuery);
+        $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
     }
        
         /*Advanced Searches Ends*/
@@ -1506,7 +1506,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $where .=  "  a.FY=(SELECT max(aa.FY) as MFY FROM plstandard aa WHERE aa.CId_FK=a.CId_FK) ";
             }
 
-            $maxFYQuery .= "INNER JOIN (
+            $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
                             ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
@@ -1581,11 +1581,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $chargewhereTop = trim($chargewhereTop,'and');
                 $chargewhereTop = ' '.$chargewhereTop.' ';
                 if( !$filterFlag ) {
-                    $total_top = $plstandard->SearchHome_WithCharges_totcnt($chargewhereTop,$fields,$whereTop,$order2,$group,$maxFYQuery);
+                    $total_top = $plstandard->SearchHome_WithCharges_totcnt($chargewhereTop,$fields,$whereTop,$order2,$group,$maxFYQuery,$ratio,$maxFYQueryratio);
                 }
-                $total = $plstandard->SearchHome_WithCharges_cnt($chargewhere,$fields,$where,$order2,$group,$maxFYQuery);
+                $total = $plstandard->SearchHome_WithCharges_cnt($chargewhere,$fields,$where,$order2,$group,$maxFYQuery,$ratio,$maxFYQueryratio);
                 $SearchExport = $plstandard->SearchHome_WithChargesExport($chargewhere,$fields,$where,$order2,$group);
-                $SearchResults = $plstandard->SearchHome_WithChargesOpt($chargewhere,$fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery);
+                $SearchResults = $plstandard->SearchHome_WithChargesOpt($chargewhere,$fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
                 /*$total_top = $plstandard->SearchHome_WithCharges_totcnt($chargewhereTop,$fields,$whereTop,$order2,$group);
                 $total = $plstandard->SearchHome_WithCharges_cnt($chargewhere,$fields,$where,$order2,$group);
 
@@ -1608,7 +1608,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         $total_top1=mysql_fetch_row($count);
                         $total_top=$total_top1[0];
                         }else{
-                            $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery,$ratio);
+                            $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery,$ratio,$maxFYQueryratio);
                         }
                        // $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery);
                     }
@@ -1620,15 +1620,15 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         }else{
                             // T975 Ratio based
                             if(!$acrossallRFlag){
-                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallFlag,$ratio);
+                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallFlag,$ratio,$maxFYQueryratio);
                             }else{
-                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag,$ratio);
+                                $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag,$ratio,$maxFYQueryratio);
                             }
                         }
 
-                    $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery);
+                    $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
                 }
-                $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery);
+                $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery,$ratio,$maxFYQueryratio);
                 
                 if($total > 0 && $search_export_value!=''){
                     //echo "dddddddddddddddddddd 3";

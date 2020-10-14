@@ -500,18 +500,18 @@ class plstandard extends database {
           
 	}
         
-        function allSearchHomecount($where="",$group="",$maxFYQuery="",$ratio){
-		
+        function allSearchHomecount($where="",$group="",$maxFYQuery="",$ratio,$maxFYQueryratio){
+		if(!strlen($maxFYQueryratio)) $maxFYQueryratio="";
 		if(!strlen($where)) $where="";
-		if(!strlen($ratio)) $ratio="";
+		if(!strlen($ratio)) {$ratio="";}else{$ratio=",".$ratio;}
 
 		/*$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType".$ratio." FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
         $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY ";
+		$sql .=  $maxFYQueryratio;
 		$sql .=  $maxFYQuery;
-
 		if(strlen($where)) $sql.= " WHERE ".$where;
 		if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
                 
@@ -525,16 +525,22 @@ class plstandard extends database {
           
 	}
         
-        function SearchHomecount($where="",$group="",$maxFYQuery="",$acrossFlag='',$ratio){
+        function SearchHomecount($where="",$group="",$maxFYQuery="",$acrossFlag='',$ratio,$maxFYQueryratio){
     
                
 		//if(!strlen($pageID)) $pageID=1;
 		//if(!strlen($rows)) $rows=7000; //$rows=7000;
 		if(!strlen($where)) $where="";
+		if(!strlen($maxFYQueryratio)) $maxFYQueryratio="";
 		if( $acrossFlag ) {
 			$FYcountField = ', b.FYCount AS FYValue';
 		} else {
 			$FYcountField = '';
+		}
+		if( $ratio !='') {
+			$ratio = ','.$ratio;
+		} else {
+			$ratio = '';
 		}
 		/*$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom" . $FYcountField . " FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
@@ -542,8 +548,8 @@ class plstandard extends database {
 		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType ".$ratio. $FYcountField . " FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
                 $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
-		$sql .=  $maxFYQuery;
-                
+		$sql .=  $maxFYQueryratio;
+        $sql .=  $maxFYQuery;        
 		if(strlen($where)) $sql.= " WHERE ".$where;
 		if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
 		
@@ -1320,7 +1326,7 @@ class plstandard extends database {
 		$resultCIN = rtrim($resultCIN, ',');
 		return $resultCIN;
 	}
-	function SearchHomeOpt($fields="",$where="",$order="b.SCompanyName asc",$group="",$type="name",$pageID=1,$rows=0,$client="",$maxFYQuery){
+	function SearchHomeOpt($fields="",$where="",$order="b.SCompanyName asc",$group="",$type="name",$pageID=1,$rows=0,$client="",$maxFYQuery,$ratio,$maxFYQueryratio){
 		//if(!strlen($pageID)) $pageID=1;
 		//if(!strlen($rows)) $rows=7000; //$rows=7000;
 		if(!strlen($fields[0])) $fields=array("a.PLStandard_Id,a.OptnlIncome");
@@ -1335,6 +1341,7 @@ class plstandard extends database {
 		$sql = "SELECT ".$fields." FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
 		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
+		$sql .=  $maxFYQueryratio;
 		$sql .=  $maxFYQuery;
 
 		if(strlen($where)) $sql.= " WHERE ".$where;
