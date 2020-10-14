@@ -57,7 +57,13 @@
     .lb {top: 15% !important;}
 
 }
+@media screen and (max-width: 321px) {
+    
+    .popup-text p {font-size: 23px !important;}
+    .copyright-body{font-size: 16px !important;}
+    .lb {top: 10% !important;}
 
+}
 .popup-advertise{
     background-position: center;
     background-image: url(Ad_Image.jpg);
