@@ -6426,9 +6426,13 @@ try {
     </div> -->
   <style>
   span.investorlable {
-    font-size: 10px;
+    /* font-size: 10px;
     padding: 1px 3px;
     background-color: #c9c4b7;
+    color: #fff; */
+    font-size: 10px;
+    padding: 2px 3px;
+    background-color: #beb49a;
     color: #fff;
 }
   .investoricon i{
