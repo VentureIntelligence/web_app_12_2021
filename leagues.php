@@ -46,7 +46,7 @@
 <style>
 .popup-advertise{
     background-position: center;
-    background-image: url(Ad_Image.png);
+    background-image: url(Ad_Image.jpg);
     height: 200px;
     color: white;
     opacity:0.5;
@@ -64,17 +64,19 @@ width: 35%;
     background-color: #fff;position:relative;
 }
 .popup-text p{
-position: absolute;
-    top: 45%;
-    font-size: 35px;
+    position: absolute;
+    top: 43%;
+    font-size: 38px;
     font-weight: 800;
-    color: #fff;
+    color: #ffffff;
     text-align: center;
     width: 100%;
     opacity: 1;
+    text-shadow: 2px 5px #101010;
 }
 .expcancelbtn{
     cursor: pointer;
+    padding: 1px;
     float: right;
     font-size: 17px;
     font-weight: 700;
