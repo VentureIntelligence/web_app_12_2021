@@ -44,7 +44,120 @@
 <script type="text/javascript" src="js/owl.carousel.js"></script>
 <script src='js/jquery.min.js'></script>
 <style>
-   
+@media screen and (orientation:landscape)and (min-device-width: 319px) 
+and (max-device-width: 1024px)
+{
+    .copyright-body p{
+    margin: 20px 0px !important;
+}
+.copyright-body {
+    line-height: 25px !important;
+    font-size: 20px !important;
+    
+}.copyright-body .redir {
+    
+    padding: 10px 15px !important;
+}
+.popup-text p {
+    position: absolute;
+    top: 35% !important;
+    font-size: 35px !important;
+    
+    width: 100%;
+    
+}
+.popup-advertise {
+    
+    height: 100px !important;
+    
+}
+.popup-content {
+    width: 85% !important;
+}
+.lb{
+    top:15% !important;
+}
+}
+@media screen and (max-width: 1024px) {
+    .popup-content{width:80% !important;}
+    
+
+}
+
+
+@media screen and (max-width: 600px) {
+    .popup-content{width:90%  !important;}
+    .popup-text p {font-size: 25px !important;}
+    .copyright-body{font-size: 17px !important;}
+    .lb {top: 15% !important;}
+
+}
+@media screen and (max-width: 321px) {
+    
+    .popup-text p {font-size: 23px !important;}
+    .copyright-body{font-size: 16px !important;}
+    .lb {top: 10% !important;}
+
+}
+.popup-advertise{
+    background-position: center;
+    background-image: url(Ad_Image.jpg);
+    height: 200px;
+    color: white;
+    opacity:0.5;
+    
+}   
+.overlay{
+    background: rgba(0,0,0);
+}
+.popup-text{
+    position:relative;
+}
+.popup-content{
+width: 35%;
+    margin: 0px auto;
+    background-color: #fff;position:relative;
+}
+.popup-text p{
+    position: absolute;
+    top: 43%;
+    font-size: 38px;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    opacity: 1;
+    text-shadow: 2px 5px #101010;
+}
+.expcancelbtn{
+    cursor: pointer;
+    padding: 0px;
+    float: right;
+    font-size: 25px;
+    font-weight: 700;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: #fff;
+    /* background-color: #fff; */
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.popup-advertise-txt {
+    margin: 0px auto;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 35px;
+    font-weight: 800;
+    vertical-align: middle;
+    height: auto;
+    top: 25%;
+}
 #maskscreen {
     position: fixed;
     left: 0;
@@ -74,7 +187,7 @@
     margin: 0 auto !important;
     z-index: 9000;
     /* left: 23%; */
-    top: 40%;
+    top: 22%;
     /* margin: 0px auto; */
     position: fixed;
     /* background-color: #fff; */
@@ -82,10 +195,23 @@
 }
 .copyright-body {
     /* padding: 25px 10px 10px 20px; */
-    padding: 20px 0px 7px 15px;
+    /* padding: 20px 0px 7px 15px;
     line-height: 24px;
     font-size: 16px;
+    color: #000; */
+    padding: 20px 25px 7px 25px;
+    line-height: 33px;
+    font-size: 22px;
+    font-weight: 600;
     color: #000;
+}.copyright-body p{
+    margin: 30px 0px;
+}
+.copyright-body .redir{
+background-color: #000;
+    color: #fff;
+    padding: 15px 15px;
+    border-radius: 10px;
 }
 .opne-nav-fix{ position:fixed; top:0;width:100%;background:none repeat scroll 0 0 hsla(0, 0%, 98%, 0.97);border-bottom:1px solid #E0E0E0}
 .opne-nav-fix span{display:none}
@@ -1499,14 +1625,23 @@ img.fixed-logo{display:none}
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
- <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
+<div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
  <div class="lb" id="popup-box-copyrights-filter" style="width:100%;">
-  <div style="width: 50%;
-    margin: 0px auto;
-    background-color: #fff;">
-   <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
-    <div class="copyright-body">Did you know, the toppers in the League Table use Venture Intelligence products to find more business opportunities and track competition?
-    <p style="margin: 10px 0px;">To take a trial <a href="trial.htm" style="text-decoration: underline;">Click Here</a></p>
+  <div class="popup-content">
+    <div class="popup-text">
+   
+    <div class="overlay">  <div class=" popup-advertise"> 
+    
+    </div>
+    </div>
+    <a id="expcancelbtn-filter" class="expcancelbtn" >x</a> 
+    <p>Do what the toppers do.</p>
+    </div>
+    <div class="copyright-body">Did you know, the toppers in the League Table use Venture Intelligence products to <span style="
+    text-decoration: underline;
+    text-decoration-color: #a26f35;
+">find more business opportunities and track competition?</span>
+    <p ><span class="redir"><a href="trial.htm" style="/* text-decoration: underline; */color: #dea462;padding: 15px 15px;">Click Here to talk to us</a></span></p>
     </div>
   </div>   
 </div>
