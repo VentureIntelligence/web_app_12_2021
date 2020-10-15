@@ -44,11 +44,46 @@
 <script type="text/javascript" src="js/owl.carousel.js"></script>
 <script src='js/jquery.min.js'></script>
 <style>
-@media screen and (max-width: 992px) {
+@media screen and (orientation:landscape)and (min-device-width: 319px) 
+and (max-device-width: 1024px)
+{
+    .copyright-body p{
+    margin: 20px 0px !important;
+}
+.copyright-body {
+    line-height: 25px !important;
+    font-size: 20px !important;
+    
+}.copyright-body .redir {
+    
+    padding: 10px 15px !important;
+}
+.popup-text p {
+    position: absolute;
+    top: 35% !important;
+    font-size: 35px !important;
+    
+    width: 100%;
+    
+}
+.popup-advertise {
+    
+    height: 100px !important;
+    
+}
+.popup-content {
+    width: 85% !important;
+}
+.lb{
+    top:15% !important;
+}
+}
+@media screen and (max-width: 1024px) {
     .popup-content{width:80% !important;}
     
 
 }
+
 
 @media screen and (max-width: 600px) {
     .popup-content{width:90%  !important;}
@@ -169,6 +204,14 @@ width: 35%;
     font-size: 22px;
     font-weight: 600;
     color: #000;
+}.copyright-body p{
+    margin: 30px 0px;
+}
+.copyright-body .redir{
+background-color: #000;
+    color: #fff;
+    padding: 15px 15px;
+    border-radius: 10px;
 }
 .opne-nav-fix{ position:fixed; top:0;width:100%;background:none repeat scroll 0 0 hsla(0, 0%, 98%, 0.97);border-bottom:1px solid #E0E0E0}
 .opne-nav-fix span{display:none}
@@ -1598,12 +1641,7 @@ img.fixed-logo{display:none}
     text-decoration: underline;
     text-decoration-color: #a26f35;
 ">find more business opportunities and track competition?</span>
-    <p style="margin: 30px 0px;"><span style="
-    background-color: #000;
-    color: #fff;
-    padding: 15px 15px;
-    border-radius: 10px;
-"><a href="trial.htm" style="/* text-decoration: underline; */color: #dea462;padding: 15px 15px;">Click Here to talk to us</a></span></p>
+    <p ><span class="redir"><a href="trial.htm" style="/* text-decoration: underline; */color: #dea462;padding: 15px 15px;">Click Here to talk to us</a></span></p>
     </div>
   </div>   
 </div>
