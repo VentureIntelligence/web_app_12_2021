@@ -1711,7 +1711,7 @@
                                 ?>
                                 <li class="result-select-close">
                                 <?php 
-                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
+                                if(GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
                                 ?>                                
                                 <a href="reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php }else{ ?>
