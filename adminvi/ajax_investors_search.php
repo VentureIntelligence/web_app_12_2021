@@ -10,6 +10,7 @@
     if ($dbtype=='PE') {
         if ($req=="investor"){
                 $search="'$search%'";
+                $jsonarray=array();
                 if($investorval!=""){
                     $getinvestors="SELECT inv.InvestorId as id, inv.Investor as name , fn.fundId as fundId, fn.fundname as fundName FROM `peinvestors` as inv INNER JOIN fundNames as fn on inv.InvestorId = fn.InvestorId where inv.Investor ='$investorval' and fn.fundname like $search";
                     
@@ -42,6 +43,9 @@
                     
                     }
                 }
+               
+                
+                
                 echo json_encode($jsonarray);        
                 mysql_close();   
         }        
