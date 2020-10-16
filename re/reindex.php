@@ -1197,8 +1197,14 @@
                  //T-993
                  if($keyword !=""){
                     if(isset($_POST['popup_select']) && $_POST['popup_select']=='investor'){
-                        $keyaft=" and (".$inv_qry.")";  
-                        $keywordsearch = $_POST['popup_keyword'];                                              
+                        $keyaft=" and (".$inv_qry.")";
+                       // $keywordsearch = $_POST['popup_keyword'];   
+                        $keywordsql="select REinv.InvestorId from REinvestors as REinv where ".$inv_qry;  
+                        $keyall=mysql_query($keywordsql);
+                        while($myrow=mysql_fetch_array($keyall, MYSQL_BOTH)){
+                            $keywordsearch=$myrow[0];
+                        }
+                                                                  
                     }else{
                         $keywordsearch = $_POST['keywordsearch'];
                         $keyaft=" and  REinv.InvestorId IN ($keywordsearch)";
@@ -1294,16 +1300,14 @@
                                                 $whereSPVCompanies=" pe.SPV=1";
 
 
-                                        
+                                                
                                         
                                           if( ($startRangeValue>0 && $endRangeValue=="--") || ($startRangeValue > $endRangeValue) || ($startRangeValue == $endRangeValue) )
                                                 {
                                                      $endRangeValue=$endRangeValueDisplay=2000;
                                                 }
                                                 
-                                             
-                                        
-
+                                              
                                 //	echo "<br>Where stge---" .$wherestage;
                                         if (($startRangeValue!= "") && ($startRangeValue!= "--") && ($endRangeValue != ""))
                                         {
@@ -1325,7 +1329,13 @@
                                                 $endRangeValue=$endRangeValue-0.01;
                                                 $whererange = " pe.amount between  ".$startRangeValue ." and ". $endRangeValue;
                                             
-                                        }
+                                        }else if ($startRangeValue== "" && $endRangeValue > 0){
+
+                                            $startRangeValue=0;
+                                            $endRangeValue=$endRangeValue-0.01;
+                                            $whererange = " pe.amount between  ".$startRangeValue ." and ". $endRangeValue;
+                                        
+                                    }
 
                                         
                                          if($exitstatusValue!='' && $exitstatusValue !='--'){
