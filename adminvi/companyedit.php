@@ -231,7 +231,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         {      
             if(confirm("Are you sure you want to delete selected members ? ")){
                 var formData= new Array();
-                formData.push({ name: 'DelEmailId', value: DelEmailId },{ name: 'MADelEmailId', value: MADelEmailId },{ name: 'REDelEmailId', value: REDelEmailId });
+                formData.push({ name: 'DelEmailId', value: DelEmailId },{ name: 'MADelEmailId', value: MADelEmailId },{ name: 'REDelEmailId', value: REDelEmailId },{name:'companyId',value:companyId});
                 $.ajax({
 
                     url: 'deletemembers.php',
@@ -244,11 +244,12 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         window.location = '<?php echo BASE_URL; ?>adminvi/companyedit.php?value='+companyId;
                         //console.log(data.length);   
                         if(data.length > 0){
-
+                            
                             alert("Users Deleted Successfully");
                         }else{
                             alert("User Deleted Successfully");
                         }
+                       
         //                 $.each(data ,function(field,error){
         //                    console.log(error);
         //                });
