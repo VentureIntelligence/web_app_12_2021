@@ -13,23 +13,34 @@
                 if($investorval!=""){
                     $getinvestors="SELECT inv.InvestorId as id, inv.Investor as name , fn.fundId as fundId, fn.fundname as fundName FROM `peinvestors` as inv INNER JOIN fundNames as fn on inv.InvestorId = fn.InvestorId where inv.Investor ='$investorval' and fn.fundname like $search";
                     
-                }else{
-                    $getinvestors="SELECT inv.InvestorId as id, inv.Investor as name , fn.fundId as fundId, fn.fundname as fundName FROM `peinvestors` as inv INNER JOIN fundNames as fn on inv.InvestorId = fn.InvestorId where inv.Investor like $search group by inv.Investor";
-                }
-                
-                $jsonarray=array();
-                if ($rssearch = mysql_query($getinvestors))
-                {
-                   
-                    While($myrow=mysql_fetch_array($rssearch, MYSQL_BOTH))
+                    if ($rssearch = mysql_query($getinvestors))
                     {
-                        $investorId=$myrow["id"];
-                        $investorName=trim($myrow["name"]);
-                        $fundName=trim($myrow["fundName"]);
-                        $fundId=trim($myrow["fundId"]);
-                        $jsonarray[]=array('id'=>$investorId,'label'=>$investorName,'value'=>$investorName,'fundId'=>$fundId,'fundName'=>$fundName);
+                    
+                        While($myrow=mysql_fetch_array($rssearch, MYSQL_BOTH))
+                        {
+                            $investorId=$myrow["id"];
+                            $investorName=trim($myrow["name"]);
+                            $fundName=trim($myrow["fundName"]);
+                            $fundId=trim($myrow["fundId"]);
+                            $jsonarray[]=array('id'=>$investorId,'label'=>$investorName,'value'=>$investorName,'fundId'=>$fundId,'fundName'=>$fundName);
+                        }
+                    
                     }
-                
+                }else{
+                    $getinvestors="SELECT inv.InvestorId as id, inv.Investor as name FROM `peinvestors` as inv where inv.Investor like $search group by inv.Investor";
+                    if ($rssearch = mysql_query($getinvestors))
+                    {
+                    
+                        While($myrow=mysql_fetch_array($rssearch, MYSQL_BOTH))
+                        {
+                            $investorId=$myrow["id"];
+                            $investorName=trim($myrow["name"]);
+                            // $fundName=trim($myrow["fundName"]);
+                            // $fundId=trim($myrow["fundId"]);
+                            $jsonarray[]=array('id'=>$investorId,'label'=>$investorName,'value'=>$investorName);
+                        }
+                    
+                    }
                 }
                 echo json_encode($jsonarray);        
                 mysql_close();   
