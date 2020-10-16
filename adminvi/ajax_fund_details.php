@@ -12,6 +12,8 @@
     $peid = $_REQUEST['peid'];
     $ipo_mandaflag = $_REQUEST['ipo_mandaflag'];
     $companyid = $_REQUEST['companyid'];
+    $dateperiod = $_REQUEST['dateperiod'];
+    
   // exit();
     
     if (mysql_query("delete from peinvestments_investors where PEId=$peid ")){
@@ -69,11 +71,11 @@
                     
                     $investorId=return_insert_get_Investor_edit_update($investor,$investorIdval);
                     if($investorId !=''){
-                        $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$peid,$investorId,$invReturnMultiple,$invReturnMultipleINR,$invHideAmount,$invexp_dp,$invMoreInfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid);
+                        $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$peid,$investorId,$invReturnMultiple,$invReturnMultipleINR,$invHideAmount,$invexp_dp,$invMoreInfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid,$dateperiod);
                     }else{
                         $investorId=return_insert_get_Investor($investor);
                         if($investorId !=''){
-                            $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$peid,$investorId,$invReturnMultiple,$invReturnMultipleINR,$invHideAmount,$invexp_dp,$invMoreInfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid);
+                            $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$peid,$investorId,$invReturnMultiple,$invReturnMultipleINR,$invHideAmount,$invexp_dp,$invMoreInfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid,$dateperiod);
                         }
                     }
                 }
@@ -182,9 +184,10 @@ function insert_fund_Investors($dealId,$investorId,$fundId,$amountDollar,$amount
 }
 
 
-function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,$moreinfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid)
+function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,$moreinfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid,$dateperiod)
 {
-	$dbexecmgmt = new dbInvestments();
+    $dbexecmgmt = new dbInvestments();
+    
 	if($exit_flag=="PE")
 	{
         //  echo "<br>-***--- ".$insDealInvSql;
@@ -214,7 +217,7 @@ function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue
                     }
                 }*/
         }else{
-           
+            
            
             if($companyid!="")
             {
@@ -229,18 +232,89 @@ function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue
                         if ($rsinsmgmt = mysql_query($insDealInvSql))
                         {
                           //  echo "<br>PE Investor Inserted" ;
-                            return true;
+                           // return true;
                         }
                     }else{
                         $insDealInvSql="insert into peinvestments_investors (PEId,InvestorId,Amount_M,Amount_INR,hide_amount,exclude_dp,InvMoreInfo,investorOrder,leadinvestor,newinvestor,existinvestor) values($dealId,$investorId,$returnValue,$returnValueINR,$returnHideAmount,$invexp_dp,'$moreinfo','$investorOrder','$leadinvestor','$newinvestor','1')";
                         if ($rsinsmgmt = mysql_query($insDealInvSql))
                         {
                           //  echo "<br>PE Investor Inserted" ;
-                            return true;
+                           // return true;
                         }
                     }
+             }
+             if($dateperiod !="")
+                {   
+                    $checksql="SELECT peinv.PEId,peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyid and pe.PEId!=$dealId and pe.dates < '".$dateperiod."' and pe.Deleted !=1 group by peinv.InvestorId";
+                    //echo $checksql."<br>";
+					if($existinvestorsql = mysql_query($checksql))
+					{	$ext_cnt=mysql_num_rows($existinvestorsql);
+						While($myrow=mysql_fetch_array($existinvestorsql, MYSQL_BOTH))
+						{
+							$testid[]=$myrow['InvestorId'];
+						}
+					}
+                    $checksqlgd="SELECT peinv.PEId,peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyid and pe.PEId!=$dealId and pe.dates > '".$dateperiod."' and pe.Deleted !=1 group by peinv.InvestorId";
+                   if($existinvestorsqlgd = mysql_query($checksqlgd))
+					{	$ext_cntgd=mysql_num_rows($existinvestorsqlgd);
+						While($myrow=mysql_fetch_array($existinvestorsqlgd, MYSQL_BOTH))
+						{
+							$testidgd[]=$myrow['InvestorId'];
+						}
+                    }
+                
+                    $checkingsql="SELECT peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyid and pe.PEId=$dealId and pe.Deleted !=1 " ;
+                    if($existinvestorsqlval = mysql_query($checkingsql))
+					{
+						$test_cnt=mysql_num_rows($existinvestorsqlval);
+						While($myrowval=mysql_fetch_array($existinvestorsqlval, MYSQL_BOTH))
+						{
+							$testvalid[]=$myrowval['InvestorId'];
+						}
+                    }
+                   
+                    
+                    if($ext_cntgd > 0 ){
+                        for($i=0;$i<$test_cnt;$i++){
+                        foreach($testidgd as $testidgd1){
+                          
+                            if($testvalid[$i] === $testidgd1)
+                                    {
+                                    $updatequery15="update `peinvestments_investors` as peinv,peinvestments as pe set peinv.newinvestor=0,peinv.existinvestor=1 where pe.PEId=peinv.PEId and peinv.InvestorId = $testvalid[$i] and peinv.PEId !=$dealId and pe.dates > '".$dateperiod."' ";
+                                    //echo $updatequery15;
+                                    mysql_query($updatequery15);
+                                   
+                                }
+                                
+                            }
+                        }	
+                        for($i=0;$i<$test_cnt;$i++){
+                            foreach($testidgd as $testidgd1){
+                                
+                                if($testvalid[$i] === $testidgd1)
+                                        {
+                                        $updatequery16="update `peinvestments_investors` as peinv,peinvestments as pe set peinv.newinvestor=1,peinv.existinvestor=0 where pe.PEId=peinv.PEId and peinv.InvestorId = $testvalid[$i] and peinv.PEId =$dealId ";
+                                        //echo $updatequery15;
+                                        mysql_query($updatequery16);
+                                       
+                                    }
+                                    
+                                }
+                            }
+                           for($i=0;$i<$test_cnt;$i++){
+                                foreach($testid as $testid1){
+                                    if($testvalid[$i] === $testid1)
+                                        {
+                                        $updatequery11="update `peinvestments_investors` as peinv,peinvestments as pe set peinv.newinvestor=0,peinv.existinvestor=1 where pe.PEId=peinv.PEId and peinv.InvestorId = $testvalid[$i] and peinv.PEId=$dealId ";
+                                        echo $updatequery11;
+                                        mysql_query($updatequery11);
+                                    }
+                                    
+                                }
+                            }	
+                        
+                    }
                 }
-            
             }else{
                 
                

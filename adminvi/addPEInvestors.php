@@ -7,6 +7,8 @@
 	$IPO_MandA_flag=$fullString[0];
     $ipmandid=$fullString[1];
     $companyid=$fullString[2];
+    $dateperiod=$fullString[3];
+    
         if($ipmandid==0)
         {        $IPO_MandAId= rand();       }
         else
@@ -455,6 +457,7 @@ function insert_Investment_Investors($exit_flag,$dealId,$investorId,$returnValue
                         }
                     }
                 }
+                
             
             }else{
                 
@@ -579,6 +582,7 @@ function return_insert_get_Investor($investor)
 var status = `<?php echo $flag;?>`;
 // alert(status);
 var companyid  = `<?php echo $companyid;?>`;
+var dateperiod  = `<?php echo $dateperiod;?>`;
 var investorIdval = `<?php echo $IPO_MandAId;?>`;
 var ipo_mandaflag = `<?php echo $IPO_MandA_flag;?>`;
 
@@ -799,7 +803,8 @@ if( typeof investor_value != 'undefined'){
                 data: postData,
                 peid:investorIdval,
                 ipo_mandaflag : ipo_mandaflag,
-                companyid:companyid
+                companyid:companyid,
+                dateperiod:dateperiod
                 
             },
             success: function( data ) {

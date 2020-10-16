@@ -5452,9 +5452,7 @@ try {
                                         <td style="text-align: center;" class="tooltip7">
                                         </td>
                                         <td>    
-                                            <!-- <a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='fund_details.php?value=<?php echo $investor_ID[$l].'/funds/0/'.$myfundrow['fundId'];?>'  target="_blank"><?php echo $myfundrow['fundName']; ?></a> -->
                                             <p id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" ><?php echo $myfundrow['fundName']; ?></p>
-                                        
                                         </td>
                                        <?php if(($myfundrow["Amount_INR"] !='' && $myfundrow["Amount_INR"] != '0.00' && $myfundrow["Amount_INR"] != 0.00) || ($myfundrow["Amount_M"] !='' && $myfundrow["Amount_M"] != '0.00' && $myfundrow["Amount_M"] != 0.00)){
                                        $no_amountfund ='yes';
