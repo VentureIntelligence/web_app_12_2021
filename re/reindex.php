@@ -1304,7 +1304,7 @@
                                         
                                           if( ($startRangeValue>0 && $endRangeValue=="--") || ($startRangeValue > $endRangeValue) || ($startRangeValue == $endRangeValue) )
                                                 {
-                                                     $endRangeValue=$endRangeValueDisplay=2000;
+                                                     $endRangeValue=$endRangeValueDisplay=5000;
                                                 }
                                                 
                                               
@@ -1648,7 +1648,7 @@
                                 </li>
                                 <?php }else{ ?>
                                     <li> 
-                                        <?php echo "(USM) 0-2000"; ?><a  onclick="resetinput('range');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
+                                        <?php echo "(USM) 0-5000"; ?><a  onclick="resetinput('range');"><img src="<?php echo $refUrl; ?>images/icon-close.png" width="9" height="8" border="0"></a>
                                     </li>
                                 <?php } 
                                  if (($getinvestorvalue!= "")){ ?>
