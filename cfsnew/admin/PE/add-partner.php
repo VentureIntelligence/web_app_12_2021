@@ -28,6 +28,7 @@
                 
                 $partner_search_limit = $_POST['partner_search_limit'];
                 $partner_api_limit = $_POST['partner_api_limit'];
+                $partner_overall_limit = $_POST['partner_overall_limit'];
                 
                 $partner_info = $_POST['partner_info'];
                 $partner_email = $_POST['partner_email'];
@@ -45,8 +46,8 @@
                   if($partner_name != '' && $partner_company != '' && $partner_duration_from != '' && $partner_duration_to != '' && $partner_search_limit != '' && $partner_api_limit != ''){
                      // $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, serachCount, apiCount, user_id, partner_status, createdAt) 
                      // VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '0', '$status', now())";
-                     $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount ,user_id, partner_status, createdAt,updatedAt) 
-                     VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '0', '$status',now(),now())";
+                     $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount,overallCount ,user_id, partner_status, createdAt,updatedAt) 
+                     VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$partner_overall_limit', '0', '$status',now(),now())";
                      
                      $partner_added = mysql_query($sql);
                   }
@@ -74,8 +75,8 @@
 
                         // $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, serachCount, apiCount, user_id, partner_status, createdAt) 
                         //          VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$external_partner_id', '$status', now())";
-                        $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount , user_id , partner_status, createdAt,updatedAt) 
-                        VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$external_partner_id', '$status', now(),now())";
+                        $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount,overallCount , user_id , partner_status, createdAt,updatedAt) 
+                        VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$partner_overall_limit', '$external_partner_id', '$status', now(),now())";
                        
                        $partner_added = mysql_query($sql);
 

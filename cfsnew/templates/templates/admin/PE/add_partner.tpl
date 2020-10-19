@@ -342,6 +342,14 @@ $(document).ready(function(e){
                                 <input type="number" class="form-control" placeholder="Enter API Count Limit" name="partner_api_limit" autocomplete="off"/>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <label for="partner_api_limit">Overall Count</label>
+                            </div>
+                            <div class="col-md-6" style="width: 65%;">
+                                <input type="number" class="form-control" placeholder="Enter overall Count Limit" name="partner_overall_limit" autocomplete="off"/>
+                            </div>
+                        </div>
                         
                         <div id="p_external_control" class="p_external_control">
                         <div class="row"  >
