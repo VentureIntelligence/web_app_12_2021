@@ -65,11 +65,11 @@ class partners_details_list extends database {
 								pe_api_partner.overallCount,
 								pe_api_partner.createdAt,
 								(SELECT COUNT(DISTINCT(apiName)) FROM pe_partner_apitracking
-				 WHERE partnerToken = pe_api_partner.partnerToken and (companyName !='')) AS searchApi,
+				 WHERE token = pe_api_partner.partnerToken and (companyName !='')) AS searchApi,
 				 (SELECT COUNT(DISTINCT(companyName)) FROM pe_partner_apitracking
-				 WHERE partnerToken = pe_api_partner.partnerToken) AS apiTotal,
+				 WHERE token = pe_api_partner.partnerToken) AS apiTotal,
 				 (SELECT COUNT(*) FROM pe_partner_apitracking
-				 WHERE partnerToken = pe_api_partner.partnerToken) AS overallTotal  
+				 WHERE token = pe_api_partner.partnerToken) AS overallTotal  
 				 FROM pe_api_partner";
 
 		if(strlen($where)) $sql.= " WHERE ".$where;
