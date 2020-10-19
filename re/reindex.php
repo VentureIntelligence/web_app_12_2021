@@ -1,3 +1,4 @@
+<?php include_once("../globalconfig.php"); ?>
 <?php
         require_once("reconfig.php");
         $drilldownflag=0;
@@ -1196,8 +1197,14 @@
                  //T-993
                  if($keyword !=""){
                     if(isset($_POST['popup_select']) && $_POST['popup_select']=='investor'){
-                        $keyaft=" (".$inv_qry.")";  
-                        $keywordsearch = $_POST['popup_keyword'];                                              
+                        $keyaft=" and (".$inv_qry.")";
+                       // $keywordsearch = $_POST['popup_keyword'];   
+                        $keywordsql="select REinv.InvestorId from REinvestors as REinv where ".$inv_qry;  
+                        $keyall=mysql_query($keywordsql);
+                        while($myrow=mysql_fetch_array($keyall, MYSQL_BOTH)){
+                            $keywordsearch=$myrow[0];
+                        }
+                                                                  
                     }else{
                         $keywordsearch = $_POST['keywordsearch'];
                         $keyaft=" and  REinv.InvestorId IN ($keywordsearch)";
@@ -1224,7 +1231,7 @@
                 }
                 if($companysearch !=""){
                     if(isset($_POST['popup_select']) && $_POST['popup_select']=='company'){
-                        $keyaftcom=" (".$trend_com_qry.")";                                                
+                        $keyaftcom=" and (".$trend_com_qry.")";                                                
                     }else{
                         $keyaftcom=" and  pec.PECompanyId IN ($companysearch) ";
                     }
@@ -1293,16 +1300,14 @@
                                                 $whereSPVCompanies=" pe.SPV=1";
 
 
-                                        
+                                                
                                         
                                           if( ($startRangeValue>0 && $endRangeValue=="--") || ($startRangeValue > $endRangeValue) || ($startRangeValue == $endRangeValue) )
                                                 {
                                                      $endRangeValue=$endRangeValueDisplay=2000;
                                                 }
                                                 
-                                             
-                                        
-
+                                              
                                 //	echo "<br>Where stge---" .$wherestage;
                                         if (($startRangeValue!= "") && ($startRangeValue!= "--") && ($endRangeValue != ""))
                                         {
@@ -1324,7 +1329,13 @@
                                                 $endRangeValue=$endRangeValue-0.01;
                                                 $whererange = " pe.amount between  ".$startRangeValue ." and ". $endRangeValue;
                                             
-                                        }
+                                        }else if ($startRangeValue== "" && $endRangeValue > 0){
+
+                                            $startRangeValue=0;
+                                            $endRangeValue=$endRangeValue-0.01;
+                                            $whererange = " pe.amount between  ".$startRangeValue ." and ". $endRangeValue;
+                                        
+                                    }
 
                                         
                                          if($exitstatusValue!='' && $exitstatusValue !='--'){
@@ -1700,7 +1711,7 @@
                                 ?>
                                 <li class="result-select-close">
                                 <?php 
-                                if($GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
+                                if(GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
                                 ?>                                
                                 <a href="reindex.php" id="allfilterclear" onmouseover="searchcloseover();" onmouseout="searchcloseout();"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php }else{ ?>
@@ -4794,7 +4805,7 @@ div.token-input-dropdown{
               <option value="transaction_advisor">Transaction Advisor</option>
          </select>
          <div class="popup_searching">
-            <input type="text" name="popup_keyword" id="popup_keyword" value="" placeholder="Enter Keyword" class="popup_text" />
+            <input type="text" name="popup_keyword" id="popup_keyword" value="" placeholder="Enter Keyword" class="popup_text" autocomplete="off"/>
             <input type="hidden" name="advisor_type" id="advisor_type" value="" />
             <div id="search_load" style="  overflow-y: scroll;  max-height: 130px;  background: #fff;display:none;  width: 300px;position: absolute;top: 40px;">
             <span id="com_clearall" title="Clear All" onclick="clear_allsearch();" style="background: rgb(191, 160, 116); position: absolute; top: 29px; right: 30px; padding: 3px; display: block;">(X)</span>
