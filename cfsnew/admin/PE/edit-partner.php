@@ -17,6 +17,7 @@
 
                 $partner_search_count = $_POST['partner_search_count'];
                 $partner_api_count = $_POST['partner_api_count'];
+                $partner_overall_count = $_POST['partner_overall_count'];
                 $partner_email = $_POST['partner_email'];
                 $partner_password = $_POST['partner_password'];
                 $partner_status = $_POST['partner_status'];
@@ -41,6 +42,7 @@
                                 `validityTo` = "'.$partner_validate_to.'", 
                                 `dealCount` = "'.$partner_search_count.'", 
                                 `companyCount` = "'.$partner_api_count.'", 
+                                `overallCount` = "'.$partner_overall_count.'",
                                 `partner_status` = "'.$status.'", 
                                 `updatedAt` = now() 
                                 WHERE `partner_id` = "'.$partner_id.'"';
@@ -99,6 +101,7 @@
                                     `validityTo` = "'.$partner_validate_to.'", 
                                     `dealCount` = "'.$partner_search_count.'", 
                                     `companyCount` = "'.$partner_api_count.'", 
+                                    `overallCount` = "'.$partner_overall_count.'",
                                     `partner_status` = "'.$status.'", 
                                     `updatedAt` = now() 
                                     WHERE `partner_id` = "'.$partner_id.'"';

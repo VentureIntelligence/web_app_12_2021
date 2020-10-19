@@ -414,7 +414,8 @@ $( document ).ready( function() {
                      
                         render: function(data, type, row) {
                             if (data != '')
-                                return row.dealCount;
+                            return row.searchApi + ' / ' + row.dealCount;
+                              //  return row.dealCount;
                             else
                                 return "-";             
                             }
@@ -422,12 +423,22 @@ $( document ).ready( function() {
 					{ "data": "companyCount",
                         render: function(data, type, row) {
                             if (data != '')
-                               return row.companyCount;
+                              return row.apiTotal + ' / ' + row.companyCount;
+                              // return row.companyCount;
                             else
                                 return "-";             
                             }
                      }
                      ,
+                     { "data": "overallCount",
+                        render: function(data, type, row) {
+                            if (data != '')
+                               return row.overallTotal + ' / ' + row.overallCount;
+                              // return row.overallCount;
+                            else
+                                return "-";             
+                            }
+                     },
 					/*{ "data": "partner_status",
 						render: function(data, type, full) {
                             if (data == '1')
@@ -557,6 +568,7 @@ $( document ).ready( function() {
                         <th >Validate To</th>
                         <th >Deal Count</th>
                         <th >Company Count</th>
+                        <th >Overall Count</th>
 						{* <th >Status</th> *}
                          {* <th >Created At </th> *}
                         <th style="width:7%;">Action</th>
