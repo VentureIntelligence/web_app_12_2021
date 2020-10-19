@@ -1,3 +1,4 @@
+<?php include_once("../globalconfig.php"); ?>
 <?php
         require_once("reconfig.php");
 	require_once("../dbconnectvi.php");
@@ -977,8 +978,16 @@
                                 if($cl_count >= 7)
                                 {
                                 ?>
-                                <li class="result-select-close"><a href="/re/reindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
+                                <li class="result-select-close">
+                                <?php 
+                                if(GLOBAL_BASE_URL=='https://www.ventureintelligence.asia/dev/'){
+                                ?>                                
+                                <a href="reindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li></li>
+                                <?php }else{ ?>
+                                    <a href="/re/reindex.php"><img width="7" height="7" border="0" alt="" src="<?php echo $refUrl; ?>images/icon-close-ul.png"> </a></li>
                                 <?php
+                                }
+                                
                                 }
                                 ?>
                              </ul>

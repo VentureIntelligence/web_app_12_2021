@@ -98,7 +98,8 @@
 	$hidedateEndValue=$_POST['txthidedateEndValue'];
 	$dateValue=$_POST['txthidedate'];
 $exitstatusValue = $_POST['txthideexitstatusValue'];
-
+// echo $companyType;
+// echo $invType;
 	//$submitemail=$_POST['txthideemail'];
 
 /* echo "<br>Stage ".$stage;
@@ -387,11 +388,11 @@ echo "<Br>Start Range " .$startRangeValue;
                                                     $qryIndTitle="Industry - ";
                                                     $addVCFlagqry='';
                                                 } 
-						if ($invType!= "--")
+						if ($invType!= "--" && $invType!="" && $invType!=" ")
 							{
 							$whereInvType = " pe.InvestorType = '".$invType."'";
 							}
-						if($companyType!="--")
+						if($companyType!="--"  && $companyType!="")
                                                         {$wherelisting_status=" pe.listing_status='".$companyType."'";}
 						if (!empty($stage) && count($stage) > 0) {
                                                     
@@ -604,7 +605,7 @@ echo "<Br>Start Range " .$startRangeValue;
 			}
 
 		$sql=$companysql;
-		//  echo "<br>---" .$sql;exit;
+		// echo "<br>---" .$sql;exit;
                
 		 //execute query
 		 $result = @mysql_query($sql)
