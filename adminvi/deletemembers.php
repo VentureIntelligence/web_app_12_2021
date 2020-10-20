@@ -24,8 +24,20 @@ $username= $_SESSION['name'];
         $RDeleteEmailArrayLength=count($REDeleteEmailId);
     }
 
+    
+    $DeleteEmailId1['PE']= $DeleteEmailId;
+    $MADeleteEmailId1['MA']=$MADeleteEmailId;
+    $REDeleteEmailId1['RE']=$REDeleteEmailId;
+    $companyId = explode(",", $_POST['companyId']);
+    //print_r($companyId);
+    $companyid=$companyId[0];
+    //$array_count=$DeleteEmailArrayLength+$MDeleteEmailArrayLength+$RDeleteEmailArrayLength;
+    $test_array=array_merge($DeleteEmailId1,$MADeleteEmailId1,$REDeleteEmailId1);
+    
+    deletemail($test_array,$username,$companyid);
+    
     if($DeleteEmailArrayLength > 0){
-        deletemail($DeleteEmailId,"PE",$username);
+        //deletemail($DeleteEmailId,"PE",$username);
         for ($i=0;$i<$DeleteEmailArrayLength;$i++)
         {
                 $mailid=trim($DeleteEmailId[$i]);
@@ -45,7 +57,7 @@ $username= $_SESSION['name'];
     }
 
     if($MDeleteEmailArrayLength >0){
-        deletemail($MADeleteEmailId,"MA",$username);
+        //deletemail($MADeleteEmailId,"MA",$username);
         for ($j=0;$j<$MDeleteEmailArrayLength;$j++)
         {
                 $MAmailid=trim($MADeleteEmailId[$j]);
@@ -63,7 +75,7 @@ $username= $_SESSION['name'];
     }
      
     if($RDeleteEmailArrayLength >0){
-        deletemail($REDeleteEmailId,"RE",$username);
+        //deletemail($REDeleteEmailId,"RE",$username);
         // re login
         for ($k=0;$k<$RDeleteEmailArrayLength;$k++)
         {
@@ -81,28 +93,30 @@ $username= $_SESSION['name'];
                 }
         }
     }
-    function deletemail($delPEIdtoDelete,$dbtype,$username)
+    function deletemail($delPEIdtoDelete,$username,$companyid)
     {  
-        $ids=implode("','",$delPEIdtoDelete);
-        $ids="'".str_replace(" ","",$ids)."'";
+        
+        
+        // $ids=implode("','",$delPEIdtoDelete);
+        // $ids="'".str_replace(" ","",$ids)."'";
         date_default_timezone_set ( "Asia/Kolkata" );
         $currentTime = date("d-m-Y H:i:s");
-        if($dbtype == "PE"){
-            $dbname = "dealmembers";
-        }else if($dbtype == "MA"){
-            $dbname = "malogin_members";
-        }else if($dbtype == "RE"){
-            $dbname = "RElogin_members";
-        }
-        $selectCompanyName = "SELECT DCompId from $dbname where EmailId IN ($ids)";
-        $companyid = array();
-        if ($companyrs = mysql_query($selectCompanyName))
-		{
-			While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
-			{
-				$companyid[] = $myrow['DCompId'];
-            }
-        }
+        // if($dbtype == "PE"){
+        //     $dbname = "dealmembers";
+        // }else if($dbtype == "MA"){
+        //     $dbname = "malogin_members";
+        // }else if($dbtype == "RE"){
+        //     $dbname = "RElogin_members";
+        // }
+        // $selectCompanyName = "SELECT DCompId from $dbname where EmailId IN ($ids)";
+        // $companyid = array();
+        // if ($companyrs = mysql_query($selectCompanyName))
+		// {
+		// 	While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
+		// 	{
+		// 		$companyid[] = $myrow['DCompId'];
+        //     }
+        // }
             $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
             $from 	= 'info@ventureintelligence.in';
 		    $subject 	= "Deleted Subscriber details"; // Subject of the email
@@ -112,9 +126,17 @@ $username= $_SESSION['name'];
 		    $message 	.= "<p></p>";
 
 		    $message 	.="<table style='border-spacing: 0px;'><tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Admin User name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Subscriber ID</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Subscriber Name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Database Type</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Deleted Time</th></tr>";
-            for($i=0;$i<count($companyid);$i++){
-                $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$username."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$companyid[$i]."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$delPEIdtoDelete[$i]."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$dbtype."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
-                // $message .= "<p>&nbsp;</p>";
+            // for($i=0;$i<$array_count;$i++){
+            //     $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$username."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$companyid."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$delPEIdtoDelete[$i]."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$dbtype."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
+            //     // $message .= "<p>&nbsp;</p>";
+            // }
+            foreach($delPEIdtoDelete as $key=>$value)
+            {
+                $dbname=$key;
+                for($j=0;$j<count($delPEIdtoDelete[$key]);$j++){
+                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$username."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$companyid."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$delPEIdtoDelete[$key][$j]."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$key."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$currentTime."</td></tr>";
+                }
+                
             }
             $message .= "</table>";
 		    $headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -122,7 +144,6 @@ $username= $_SESSION['name'];
 		    $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
 		    $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
 		    $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
-            
             
 		    if (@mail($to, $subject, $message, $headers)){
 		    }else{
