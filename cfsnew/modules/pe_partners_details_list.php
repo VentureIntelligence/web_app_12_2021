@@ -65,12 +65,12 @@ class partners_details_list extends database {
 								pe_api_partner.overallCount,
 								pe_api_partner.createdAt,
 								(SELECT COUNT(apiName) FROM pe_partner_apitracking
-				 WHERE token = pe_api_partner.partnerToken and companyName IS NOT NULL and apiName in ('/deals/investments/pe/deallist','/deals/investments/vc/deallist','/deals/investments/social/deallist', '/deals/investments/cleantech/deallist','/deals/investments/infrastructure/deallist', '/deals/exits/pe-manda/deallist','/deals/exits/pe-publicmarket/deallist','/deals/exits/vc-manda/deallist', '/deals/exits/vc-publicmarket/deallist')) AS searchApi,
-				 (SELECT COUNT(companyName) FROM pe_partner_apitracking
 				 WHERE token = pe_api_partner.partnerToken and dealCount IS NOT NULL
 and apiName in ('/deals/investments/pe','/deals/investments/vc','/deals/investments/social',
 '/deals/investments/cleantech','/deals/investments/infrastructure','/deals/exits/pe-manda',
-'/deals/exits/pe-publicmarket','/deals/exits/vc-manda','/deals/exits/vc-publicmarket')) AS apiTotal,
+'/deals/exits/pe-publicmarket','/deals/exits/vc-manda','/deals/exits/vc-publicmarket')) AS searchApi,
+				 (SELECT COUNT(companyName) FROM pe_partner_apitracking
+				 WHERE token = pe_api_partner.partnerToken  and companyName IS NOT NULL and apiName in ('/deals/investments/pe/deallist','/deals/investments/vc/deallist','/deals/investments/social/deallist', '/deals/investments/cleantech/deallist','/deals/investments/infrastructure/deallist', '/deals/exits/pe-manda/deallist','/deals/exits/pe-publicmarket/deallist','/deals/exits/vc-manda/deallist', '/deals/exits/vc-publicmarket/deallist')) AS apiTotal,
 				 (SELECT COUNT(*) FROM pe_partner_apitracking
 				 WHERE token = pe_api_partner.partnerToken) AS overallTotal  
 				 FROM pe_api_partner";
