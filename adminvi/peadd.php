@@ -148,7 +148,7 @@ function checkCompany()
 ?>
 
    		<tr bgcolor="#808000"><td colspan=2 align=center style="color: #FFFFFF" ><b> Add Deal</b></td></tr>
-
+		   						<tr style="display:none;"><td><input type="hidden" name="peid" value="<?php echo $IPO_MandAId;?>"/></td></tr>
 								<tr style="font-family: Verdana; font-size: 8pt">
 								<td >Company</td>
 								<td><input type="text" name="txtcompanyname" size="50" value="<?php echo $mycomprow["companyname"]; ?>"> </td>
