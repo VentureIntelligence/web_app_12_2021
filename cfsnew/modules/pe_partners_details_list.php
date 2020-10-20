@@ -64,8 +64,8 @@ class partners_details_list extends database {
 								pe_api_partner.companyCount,
 								pe_api_partner.overallCount,
 								pe_api_partner.createdAt,
-								(SELECT COUNT(apiName) FROM pe_partner_apitracking
-				 WHERE token = pe_api_partner.partnerToken and dealCount IS NOT NULL
+								(SELECT COUNT(DISTINCT(apiName)) FROM pe_partner_apitracking
+				 WHERE token = pe_api_partner.partnerToken and createdAt > pe_api_partner.updatedAt and dealCount IS NOT NULL
 and apiName in ('/deals/investments/pe','/deals/investments/vc','/deals/investments/social',
 '/deals/investments/cleantech','/deals/investments/infrastructure','/deals/exits/pe-manda',
 '/deals/exits/pe-publicmarket','/deals/exits/vc-manda','/deals/exits/vc-publicmarket')) AS searchApi,
