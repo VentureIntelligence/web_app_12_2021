@@ -9,7 +9,7 @@
 // && session_is_registered("SessLoggedIpAdd"))
 
 							//echo "<br>full string- " .$i;
-
+							$peid=$_POST['peid'];
 							$portfoliocompany = $_POST['txtcompanyname'];
 							$listingstatusvalue = $_POST['listingstatus'];
                                                         $exitstatusvalue = $_POST['exitstatus'];
@@ -326,8 +326,11 @@
 									{
                                                                                 if($_POST['hideIPOId']!='' && $_POST['hideIPOId']>0 ){
                                                                                     $PEId   = $_POST['hideIPOId'];
-                                                                                   }else{
-											$PEId= rand();
+																				   }elseif($peid!=''){
+																					$PEId= $peid;
+																				   }
+																				   else{
+																					$PEId= rand();
                                                                                    }
 											//echo "<br>random MandAId--" .$PEId;
 											$insertcompanysql="";
@@ -352,7 +355,77 @@
 
 														}
 													}*/
-
+													
+													$checksql="SELECT peinv.PEId,peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyId and pe.PEId!=$PEId and pe.dates < '".$fullDateAfter."' and pe.Deleted !=1 group by peinv.InvestorId";
+                
+													if($existinvestorsql = mysql_query($checksql))
+													{	$ext_cnt=mysql_num_rows($existinvestorsql);
+														While($myrow=mysql_fetch_array($existinvestorsql, MYSQL_BOTH))
+														{
+															$testid[]=$myrow['InvestorId'];
+														}
+													}
+													$checksqlgd="SELECT peinv.PEId,peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyId and pe.PEId!=$PEId and pe.dates > '".$fullDateAfter."' and pe.Deleted !=1 group by peinv.InvestorId";
+													
+													if($existinvestorsqlgd = mysql_query($checksqlgd))
+													{	$ext_cntgd=mysql_num_rows($existinvestorsqlgd);
+														While($myrow=mysql_fetch_array($existinvestorsqlgd, MYSQL_BOTH))
+														{
+															$testidgd[]=$myrow['InvestorId'];
+														}
+													}
+													$checkingsql="SELECT peinv.InvestorId FROM `peinvestments_investors` as peinv,pecompanies as pec,peinvestments as pe WHERE pe.PEId=peinv.PEId and pec.PECompanyId=pe.PECompanyId and pec.PECompanyId=$companyId and pe.PEId=$PEId and pe.Deleted !=1 " ;
+													if($existinvestorsqlval = mysql_query($checkingsql))
+													{
+														$test_cnt=mysql_num_rows($existinvestorsqlval);
+														While($myrowval=mysql_fetch_array($existinvestorsqlval, MYSQL_BOTH))
+														{
+															$testvalid[]=$myrowval['InvestorId'];
+														}
+													}
+													
+													$result=array_diff($testvalid,$testid);
+													//print_r($result);
+													$resultval=implode(",",$result);
+													if($resultval!=""){
+													 $updatequery12="update `peinvestments_investors` set newinvestor=1 where InvestorId IN ($resultval) and PEId=$PEId";
+													 mysql_query($updatequery12);
+													}
+													if($ext_cnt > 0 ){
+															for($i=0;$i<$test_cnt;$i++){
+															foreach($testid as $testid1){
+																if($testvalid[$i] === $testid1)
+																	{
+																	$updatequery11="update `peinvestments_investors` set existinvestor=1 where InvestorId = $testvalid[$i] and PEId=$PEId";
+																	mysql_query($updatequery11);
+																}
+																
+															}
+														}	
+											        }else{
+														if($ext_cnt==0){
+															for($i=0;$i<$test_cnt;$i++){
+																
+															$updatequery13="update `peinvestments_investors` set newinvestor=1 where InvestorId = $testvalid[$i] and PEId=$PEId";
+															mysql_query($updatequery13);
+															
+																
+															}
+														}
+													}
+													
+													if($ext_cntgd > 0 ){
+														for($i=0;$i<$test_cnt;$i++){
+														foreach($testidgd as $testidgd1){
+															if($testvalid[$i] === $testidgd1)
+																	{
+																	$updatequery15="update `peinvestments_investors` as peinv,peinvestments as pe set peinv.newinvestor=0,peinv.existinvestor=1 where pe.PEId=peinv.PEId and peinv.InvestorId = $testvalid[$i] and peinv.PEId !=$PEId and pe.dates > '".$fullDateAfter."'";
+																	mysql_query($updatequery15);
+																}
+																
+															}
+														}	
+													}
 													foreach($advisor_companyString as $advisorcompany)
 														{
 															if(trim($advisorcompany)!="")
