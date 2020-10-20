@@ -9,8 +9,8 @@
     $array=array();
        
     $sql = "SELECT DISTINCT pe_api_partner.partner_id,
-				(SELECT COUNT(apiName) FROM pe_partner_apitracking
-				 WHERE token='".$TokenID."'and dealCount IS NOT NULL
+				(SELECT COUNT(DISTINCT(apiName)) FROM pe_partner_apitracking
+				 WHERE token='".$TokenID."'and createdAt > pe_api_partner.updatedAt and dealCount IS NOT NULL
 and apiName in ('/deals/investments/pe','/deals/investments/vc','/deals/investments/social',
 '/deals/investments/cleantech','/deals/investments/infrastructure','/deals/exits/pe-manda',
 '/deals/exits/pe-publicmarket','/deals/exits/vc-manda','/deals/exits/vc-publicmarket')) AS searchApi,(SELECT COUNT(companyName) FROM pe_partner_apitracking
