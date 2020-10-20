@@ -1057,7 +1057,7 @@ $showdealsbyflag=0;
     <SELECT name="invrangestart" id="invrangestart" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>><OPTION id=4 value="--" selected>ALL  </option>
 	<?php
                 $counter=0;
-                for ( $counter = 0; $counter <= 1000; $counter += 5){
+                for ( $counter = 0; $counter <= 1000; $counter += 50){
                     
                     if($startRangeValue!='')
                     {
@@ -1080,7 +1080,7 @@ $showdealsbyflag=0;
 	<?php
         $counter=0;
         $endRangeValue=$endRangeValue+0.01;
-                for ( $counterto = 5; $counterto <= 2000; $counterto += 5){
+                for ( $counterto = 50; $counterto <= 5000; $counterto += 50){
                    
                     
                     if($endRangeValue!='')
