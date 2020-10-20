@@ -257,13 +257,18 @@ width:20px;
                         </div>
                         <br />
 						<div align="center">
-                           <label id="req_answer">Search Count</label>
+                           <label id="req_answer">Deal Count</label>
                            <input type="number" id="partner_search_count" name="partner_search_count" value="{$partner_details.dealCount}" required readonly/>		
                         </div>
                         <br />
 						<div align="center">
-                           <label id="req_answer">API Count</label>
+                           <label id="req_answer">Company Count</label>
                            <input type="number" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" required readonly/>		
+                        </div>
+                        <br />
+                        <div align="center">
+                           <label id="req_answer">Overall Count</label>
+                           <input type="number" id="partner_overall_count" name="partner_overall_count" value="{$partner_details.overallCount}" required readonly/>		
                         </div>
                         <br />
                         {if $partner_details.partnerType == "external_partner"}

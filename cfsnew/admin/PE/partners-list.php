@@ -11,7 +11,7 @@ require_once MODULES_DIR."pe_partners_details_list.php";
 
 $partners_details = new partners_details_list();
 
-$Fields = array("partner_id,partnerName","partner_company","partnerType","partnerToken", "validityFrom", "validityTo", "dealCount", "companyCount", "CONVERT_TZ(DATE_FORMAT( createdAt,  '%Y-%m-%d %T' ),'+00:00','+05:30') as createdAt");
+$Fields = array("partner_id,partnerName","partner_company","partnerType","partnerToken", "validityFrom", "validityTo", "dealCount", "companyCount","overallCount", "CONVERT_TZ(DATE_FORMAT( createdAt,  '%Y-%m-%d %T' ),'+00:00','+05:30') as createdAt");
 
 $partnerlist = $partners_details->getFullList($Page,$Fields,$where,$orderby,"partnerName");
 

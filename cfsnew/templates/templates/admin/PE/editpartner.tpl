@@ -313,8 +313,8 @@ table th, table td {
                                <label id="req_answer">Deal Count</label>
                             </div>
                             <div class="col-md-6" style="width: 53%;">
-                              {* <input type="number" class="used_search_count" id="s_count" readonly/> *}
-                              <input type="number" class="" id="partner_search_count" name="partner_search_count" value="{$partner_details.dealCount}" placeholder="Enter Search Count"/>		
+                              <input type="number" class="used_search_count" id="s_count" readonly/> 
+                              <input type="number" class="total_search_count" id="partner_search_count" name="partner_search_count" value="{$partner_details.dealCount}" placeholder="Enter Search Count"/>		
                             </div>
                         </div>
                         <div class="row">
@@ -322,8 +322,17 @@ table th, table td {
                                <label id="req_answer">Company Count</label>
                             </div>
                             <div class="col-md-6" style="width: 53%;">
-                              {* <input type="number" class="used_search_count" id="a_count" readonly/> *}
-                              <input type="number" class="" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" placeholder="Enter API Count"/>		
+                              <input type="number" class="used_search_count" id="a_count" readonly/>
+                              <input type="number" class="total_search_count" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" placeholder="Enter API Count"/>		
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <label id="req_answer">Overall Count</label>
+                            </div>
+                            <div class="col-md-6" style="width: 53%;">
+                              <input type="number" class="used_search_count" id="o_count" readonly/>
+                              <input type="number" class="total_search_count" id="partner_overall_count" name="partner_overall_count" value="{$partner_details.overallCount}" placeholder="Enter Overall Count"/>		
                             </div>
                         </div>
                         <div class="row r_email">
@@ -406,6 +415,7 @@ $(function() {
       partner_validate_to: "required",
       partner_search_count: "required",
       partner_api_count: "required",
+      partner_overall_count: "required",
       partner_email: "required"
     },
     // Specify validation error messages
@@ -416,6 +426,7 @@ $(function() {
       partner_validate_to: "Please Enter To Date",
       partner_search_count: "Please Enter Search Count",
       partner_api_count: "Please Enter API Count",
+      partner_overall_count:"Please Enter Overall Count",
       partner_email: "Please Enter Email"
     }
   });
@@ -504,6 +515,7 @@ $(function() {
                 var counlist = JSON.parse(response);
                 $("#s_count").val(counlist.s_count);
                 $("#a_count").val(counlist.a_count);
+                $("#o_count").val(counlist.o_count);
                 
             }
         }
