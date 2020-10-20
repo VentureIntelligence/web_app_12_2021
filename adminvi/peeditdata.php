@@ -154,7 +154,7 @@ $companyIdtoEdit=$stringtoExplode[1];
       	 pe.amount, pe.round,pe.StageId, s.stage, pe.stakepercentage, DATE_FORMAT( dates, '%M' )  as dates,
       	 pec.website, pec.city, pec.RegionId,r.Region, PEId,DATE_FORMAT( dates, '%Y' ) as dtyear, comment,MoreInfor,
       	 Validation,InvestorType,hideamount,hidestake,SPV,Link,pec.countryid,pec.uploadfilename,source,Valuation,FinLink,AggHide,
-      	 Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,pe.Revenue,pe.EBITDA,pe.PAT,pe.Amount_INR,pe.Company_Valuation_pre,pe.Company_Valuation_EV,pe.Revenue_Multiple_pre,pe.Revenue_Multiple_EV,pe.EBITDA_Multiple_pre,pe.EBITDA_Multiple_EV,pe.PAT_Multiple_pre,pe.PAT_Multiple_EV,pe.Total_Debt,pe.Cash_Equ,pe.financial_year,pec.stateid
+      	 Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,pe.Revenue,pe.EBITDA,pe.PAT,pe.Amount_INR,pe.Company_Valuation_pre,pe.Company_Valuation_EV,pe.Revenue_Multiple_pre,pe.Revenue_Multiple_EV,pe.EBITDA_Multiple_pre,pe.EBITDA_Multiple_EV,pe.PAT_Multiple_pre,pe.PAT_Multiple_EV,pe.Total_Debt,pe.Cash_Equ,pe.financial_year,pec.stateid,dates as dataperiod
   			FROM peinvestments AS pe, industry AS i, pecompanies AS pec,stage as s,region as r
   			WHERE pe.PEId =" .$SelCompRef.
   			" AND i.industryid = pec.industry   and r.RegionId=pec.RegionId
@@ -173,7 +173,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 			 pe.amount, pe.round,pe.StageId, s.REType, pe.stakepercentage, DATE_FORMAT( dates, '%M' )  as dates,
 			 pec.website, pe.city, pe.RegionId,r.Region, PEId,DATE_FORMAT( dates, '%Y' ) as dtyear,
 			 comment,MoreInfor,Validation,InvestorType,hidestake,hideamount,SPV,Link,pec.countryid,
-			 uploadfilename,source,Valuation,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status
+			 uploadfilename,source,Valuation,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status,dates as dataperiod
 			FROM REinvestments AS pe, reindustry AS i, REcompanies AS pec,realestatetypes as s,region as r
 			WHERE pe.PEId =" .$SelCompRef .
 			" AND i.industryid =  pe.IndustryId and r.RegionId=pe.RegionId
@@ -251,6 +251,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 
                                                                
                                                                 <?php
+                                                                        $datess=$mycomprow["dataperiod"];
                                                                         $period = substr($mycomprow["dates"],0,3);
 
                                                                 ?>
@@ -709,7 +710,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 									<?php
 									  /*$getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo from peinvestments_investors as peinv,
 									  peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY Investor='others',InvestorId desc";*/
-                                     $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor from peinvestments_investors as peinv,peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY peinv.investorOrder ASC";
+                                     $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY peinv.investorOrder ASC";
                                                                          //echo "<bR>--" .$getInvestorsSql;
 									  if ($rsinvestors = mysql_query($getInvestorsSql))
 									  {
@@ -724,6 +725,8 @@ $companyIdtoEdit=$stringtoExplode[1];
                                                         echo trim(($myInvrow["Investor"].' (L) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
                                                     } else if($myInvrow["newinvestor"] == 1){
                                                         echo trim(($myInvrow["Investor"].' (N) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
+                                                    }else if($myInvrow["existinvestor"] == 1){
+                                                        echo trim(($myInvrow["Investor"].' (E) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
                                                     }else {
                                                         echo trim(($myInvrow["Investor"].' - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
                                                     }
@@ -737,7 +740,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 									?>
 									</table><input type="hidden" name="hideIPOId" size="8" value="">
                                                                         <input type="button" value="Add Investors" name="addInvestor"
-                              					onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>','mywindow','width=700,height=500')">
+                                                                        onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>/<?php echo $mycomprow["PECompanyId"]; ?>/<?php echo $datess; ?>','mywindow','width=700,height=500')">
 									</td>
 								</tr>
                                                                         <?php } ?>
