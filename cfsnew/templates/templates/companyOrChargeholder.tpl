@@ -185,7 +185,7 @@
             <label>Dont find a Company ?</label>
             <a href="javascript:void(0)" class="updateFinancialHome" style="color:#000;">Click here to request for Charge details</a>
         </p>
-        <p style="margin-top: 10px; color: #000;"> *This data is updated on a frequent basis. Depending on the update, it can be up to 1 month old.</p>
+        <p style="margin-top: 10px; color: #000;"> * This data is updated on a frequent basis. Depending on the update, it can be up to 1 month old.</p>
        
     </div>
 <div class="lb" id="popup-box">
