@@ -9,7 +9,7 @@
     $array=array();
        
     $sql = "SELECT DISTINCT pe_api_partner.partner_id,
-				(SELECT COUNT(apiName) FROM pe_partner_apitracking
+				(SELECT COUNT(DISTINCT(apiName)) FROM pe_partner_apitracking
 				 WHERE token='".$TokenID."' and dealCount IS NOT NULL
 and apiName in ('/deals/investments/pe','/deals/investments/vc','/deals/investments/social',
 '/deals/investments/cleantech','/deals/investments/infrastructure','/deals/exits/pe-manda',
@@ -19,8 +19,8 @@ and apiName in ('/deals/investments/pe','/deals/investments/vc','/deals/investme
                  
     $sqlrun = mysql_query($sql);
     while($row = mysql_fetch_array($sqlrun )) {
-            $array['a_count']=$row['apiCount'];
             $array['s_count']=$row['searchApi'];
+            $array['a_count']=$row['apiCount'];
             $array['o_count']=$row['overallCount'];
     }
    echo json_encode($array); 
