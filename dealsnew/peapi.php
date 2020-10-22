@@ -721,8 +721,8 @@
 
                         $res6 = array();
                         $uploadname = $myrow["uploadfilename"];
-                        $file = "<?php echo GLOBAL_BASE_URL; ?>/uploadmamafiles/" . $uploadname;
-
+                        $file = GLOBAL_BASE_URL.'uploadmamafiles/'. $uploadname;
+                                
                         if($myrow["uploadfilename"] != "")
                         {
                             $res6['File'] = $file;
@@ -1821,7 +1821,7 @@
                         
                         $res6 = array();
                         $uploadname = $myrow["uploadfilename"];
-                        $file = "<?php echo GLOBAL_BASE_URL; ?>/uploadmamafiles/" . $uploadname;
+                        $file = GLOBAL_BASE_URL.'uploadmamafiles/' . $uploadname;
 
                         if($myrow["uploadfilename"] != "")
                         {
