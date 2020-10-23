@@ -255,6 +255,7 @@ if(count($NewRatioCalculation)==0){
         <li data-row="filings" href="javascript:;" class="subMenu" id="filingsMenu">FILINGS</li>
         <!-- <li data-row="rating-info" href="javascript:;" class="subMenu">RATINGS</li> -->
         <li data-row="funding-ajax" href="javascript:;" class="subMenu" id="funding">FUNDING</li>
+        <li data-row="ma-ajax" href="javascript:;" class="subMenu" id="ma">M&A</li>
         <li data-row="master-data-all" href="javascript:;" class="subMenu">MASTER DATA</li>
        <!--  <li id="mcadirector" data-row="signatories_result" href="javascript:;" class="subMenu">BOARD OF DIRECTORS</li>
         <li data-row="chargesRegistered" href="javascript:;" class="subMenu">INDEX OF CHARGES</li> -->
