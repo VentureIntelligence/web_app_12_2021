@@ -19,7 +19,7 @@ if($_SESSION['username']==''){
         }
  }else{
      if($_REQUEST['pe']==1){
-            echo "<script language='javascript'>document.location.href='<?php echo GLOBAL_BASE_URL; ?>cfsnew/details.php?vcid=".$_REQUEST['vcid']."'</script>";
+            echo "<script language='javascript'>document.location.href='".GLOBAL_BASE_URL."cfsnew/details.php?vcid=".$_REQUEST['vcid']."'</script>";
             exit();
         }
  }
