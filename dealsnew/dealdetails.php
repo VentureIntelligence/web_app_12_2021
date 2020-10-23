@@ -6118,7 +6118,13 @@ try {
                                                         <thead>
 
                                                             <tr>
-                                                                <th>Investor Name</th> 
+                                                                <th style="display: inline-flex;width: 100%;"><p style="color:#000;">Investor Name</p> <a style="margin-top: 0px !important;cursor: pointer;  float: right !important;" class="help-icon tooltip"><img width="15" height="15" border="0" src="images/help.png" alt="" style="vertical-align:middle">
+                                                                <span style="width: 23%;left: 137px;top: 155px;text-transform: capitalize;">
+                                                                <img class="showtextlarge" src="images/callout.gif" style="left: 5px;">
+                                                                L = Lead Investor; N = New Investor
+
+                                                                </span>
+                            </a></th> 
                                                                 <th>Deal Period</th>
                                                                 <th class="table-width1">Deal Amount (&#8377; <span style="text-transform: capitalize;">Cr</span>)</th>
                                                                 <th class="table-width2">Stake</th>
