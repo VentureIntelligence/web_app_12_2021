@@ -12,7 +12,7 @@
         $nanoSql="select `nanobi_EC` from nanotool WHERE `id`='".$id."'";
         $result = mysql_query($nanoSql) or die(mysql_error());
         $row=mysql_fetch_array($result);
-        $rpLink = "<?php echo GLOBAL_BASE_URL; ?>adminvi/nanofolder/".$row['nanobi_EC'];
+        $rpLink = GLOBAL_BASE_URL."adminvi/nanofolder/".$row['nanobi_EC'];
     }
     else
     {
