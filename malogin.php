@@ -369,6 +369,8 @@ $pwd=md5(trim($pwd));
                                     $tempUrl = $_SESSION['madirectURL'];
                                     $_SESSION['madirectURL'] = '';
                                     header("location:$tempUrl");
+                                }elseif($_REQUEST['cfs']==1 || $_REQUEST['pe']==1){
+                                    header( 'Location: ' . BASE_URL . '/ma/madealdetails.php?value='.$_REQUEST['value'] ) ;
                                 }elseif($_REQUEST['search']!=''){
                                         header( 'Location: ' . BASE_URL . 'ma/index.php?search='.$_REQUEST['search'] );
                                 }else
@@ -564,6 +566,7 @@ function checkFields()
 
 <form name="malogin" onSubmit="return checkFields();" method="post" action="malogin.php" >
 <input type="hidden" name="search" value="<?php echo $_REQUEST['search']; ?>" />
+<input type="hidden" name="cfs" value="<?php echo $_REQUEST['cfs']; ?>" />
 <ul>
     <li><input type="text"  name="emailid" value=""  placeholder="Email"/></li>
     <li> <input type="password" name="emailpassword" value=""  placeholder="Password"/></li>
