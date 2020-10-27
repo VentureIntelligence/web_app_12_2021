@@ -101,7 +101,7 @@ if($_POST['cin']!=''){
         }elseif($order_query == "dates" ){
             $order1 ='ORDER  BY dealdate '.$order;
         }else{
-            $order1 ='ORDER  BY dealdate DESC,'.$query_orderby.' '.$order;
+            $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
         }
         $sql = "SELECT peinv.pecompanyid, 
         peinv.mamaid, 
