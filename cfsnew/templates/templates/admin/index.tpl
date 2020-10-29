@@ -103,7 +103,7 @@ a.disable:hover {
   {if $Usr_Type eq 1 or $Usr_Type eq 3}<h2 style="font-size:13px;"><a href="deleteSector.php">Delete Sector</a></h2>{/if}
   
   {if $Usr_Type eq 1 or $Usr_Type eq 3}<h2 style="font-size:13px;"><a href="otherReport.php">Report Management</a></h2>{/if}
-  {if $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/dev/' or $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/'}
+  {if $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/dev/' or $GLOBAL_BASE_URL eq 'https://www.vionweb.com/'}
   {if $Usr_Type eq 1 or $Usr_Type eq 3 or $Usr_Type eq 4 or $Usr_Type eq 6 }  <h2 style="font-size:18px;">XBRL Automation</h2>{/if}
   
       <div>
@@ -164,7 +164,7 @@ a.disable:hover {
 {/if}
 {/if}
 
-{if $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/dev/' or $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/'}
+{if $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/dev/' or $GLOBAL_BASE_URL eq 'https://www.vionweb.com/'}
 {if $Usr_Type eq 1 or $Usr_Type eq 3}
      <div style="margin-top:20px;"> 
       <table>
@@ -205,7 +205,7 @@ a.disable:hover {
       </table>
      </div>{/if}
      {/if}
-     {if $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/dev/' or $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/'}
+     {if $GLOBAL_BASE_URL eq 'https://www.ventureintelligence.asia/dev/' or $GLOBAL_BASE_URL eq 'https://www.vionweb.com/'}
   <div style="margin-top:20px;"> 
       <table>
         <thead>
