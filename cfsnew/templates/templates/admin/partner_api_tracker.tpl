@@ -539,7 +539,7 @@ $( document ).ready( function() {
                   <span style="position: relative;top: 7px; left: 10px;"><a href="{$ADMIN_BASE_URL}partner-api-tracker.php">Clear Search</a></span>
                   <div style="clear: both;"></div>
                </div>
-               <label style=" font: bold 13px &quot;Courier New&quot;, Courier, monospace;  margin: 10px 10px; color: #000;  position: absolute;">API URL https://www.ventureintelligence.asia:3001/</label>
+               <label style=" font: bold 13px &quot;Courier New&quot;, Courier, monospace;  margin: 10px 10px; color: #000;  position: absolute;">API URL https://api.vionweb.com/partner/cfs/</label>
                <table class="maintable" id="partnerApi">
                   <thead>
                      <tr>
