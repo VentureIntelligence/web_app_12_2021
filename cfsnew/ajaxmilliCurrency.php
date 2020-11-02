@@ -271,7 +271,7 @@ if(count($FinanceAnnual_cashflow) == 0){
         $style = '';
     }
 ?>
-<?php if(BASE_URL == "//www.ventureintelligence.asia/dev/"){?>
+<?php if(BASE_URL == "//dev.vionweb.com/"){?>
  <div class="growth_fulldetails" style="<?php echo $style; ?>">
     <?php
     $growth_precentage = array();
