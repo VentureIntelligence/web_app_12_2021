@@ -1,6 +1,14 @@
 {include file="header.tpl"}
 {include file="leftpanel.tpl"}
-
+{* {if ($BASE_URL neq "//www.ventureintelligence.asia/dev/")}
+{literal}
+<style>
+.finance-filter{
+    display: none !important;
+}
+</style>
+{/literal}
+{/if} *}
 {literal}
 <!-- <link href="css/growth.css" rel="stylesheet" type="text/css" /> -->
 <style type="text/css">
@@ -252,9 +260,7 @@ span.result-amount-no {
     border-top: none;
     margin-top: 0px;
 }
-.finance-filter{
-    display: none !important;
-}
+
 form.custom .finance-filter-custom .custom.dropdown {
     height: 27px !important;
     font-size: 14px;

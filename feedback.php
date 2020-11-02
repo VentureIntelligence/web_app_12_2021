@@ -83,7 +83,7 @@ error_reporting(0);
             <ul>
                 <li>
                     <div class="feedalign"><input type="radio" name="referer1" id="referer"  value="1"/>
-                    <p>Using Venture Intelligence for several years now. Very exhaustive Indian #PrivateEquity, #VentureCapital & #M&A related data.<?php echo GLOBAL_BASE_URL;trialrequest.php</p></div> 
+                    <p>Using Venture Intelligence for several years now. Very exhaustive Indian #PrivateEquity, #VentureCapital & #M&A related data.<?php echo GLOBAL_BASE_URL;?>trialrequest.php</p></div> 
                 </li>
                 <li>
                     <div class="feedalign"><input type="radio" name="referer2" id="referer"  value="2"/>

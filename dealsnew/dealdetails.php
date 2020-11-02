@@ -2578,7 +2578,7 @@ padding-right: 0px;
 }
 
 
-  .accordions_dealtitle {
+.accordions_dealtitle,.matrans {
     width: 100%;
     display: grid;
     grid-template-columns: 50px 1fr ;
@@ -2593,7 +2593,7 @@ padding-right: 0px;
 .box_heading.content-box {
     background: #e0d8c3 !important;
 }
-.accordions_dealtitle h2 {
+.accordions_dealtitle h2,.matrans h2 {
   font-size: 24px;
   font-weight: 400 !important;
   color: #1D1D29;
@@ -2603,13 +2603,13 @@ padding-right: 0px;
   font-size: 24px;
   font-weight: 700;
 }
-.accordions_dealtitle span {
+.accordions_dealtitle span,.matrans span {
   align-self: center;
   display: block;
   padding-left: 15px;
 }
 
-.accordions_dealtitle span:after {
+.accordions_dealtitle span:after,.matrans span:after {
     content: " ";
     background: url(images/sprites-icons.png) no-repeat -22px -59px;
     /*width: 28px;
@@ -2624,7 +2624,7 @@ padding-right: 0px;
 
 
 
-.accordions_dealtitle.active span:after {
+.accordions_dealtitle.active span:after,.matrans.active span:after {
     background: url(images/sprites-icons.png) no-repeat -72px -59px;
     /*width: 28px;
     height: 28px;*/
@@ -2680,7 +2680,7 @@ position: relative;
 .accordions_dealcontent ul {
   color: #000;
 }
-.accordions_dealtitle h2{
+.accordions_dealtitle h2,.matrans h2{
     /*padding: 15px 0px !important;*/
     padding: 10px 0px !important;
     margin: 0;
@@ -2695,7 +2695,7 @@ position: relative;
 {
     width: 100% !important;
 }
-.accordions_dealtitle ul.tabs{
+.accordions_dealtitle ul.tabs,.matrans ul.tabs{
     border-bottom:none !important;
 }
 #company_info ,#deal_info{
@@ -3759,7 +3759,10 @@ advisor_cias as cia where advinv.PEId=$SelCompRef and advinv.CIAId=cia.CIAId";
         $debt_equityDisplay="Both";
  ?>
 <style>
-
+/*1034*/
+.details_linkma:hover{
+    cursor:pointer;
+}
 .mt-list-tab{
     height:34px;
 }
@@ -6118,7 +6121,13 @@ try {
                                                         <thead>
 
                                                             <tr>
-                                                                <th>Investor Name</th> 
+                                                                <th style="display: inline-flex;width: 100%;"><p style="color:#000;">Investor Name</p> <a style="margin-top: 0px !important;cursor: pointer;  float: right !important;" class="help-icon tooltip"><img width="15" height="15" border="0" src="images/help.png" alt="" style="vertical-align:middle">
+                                                                <span style="width: 23%;left: 137px;top: 155px;text-transform: capitalize;">
+                                                                <img class="showtextlarge" src="images/callout.gif" style="left: 5px;">
+                                                                L = Lead Investor; N = New Investor
+
+                                                                </span>
+                            </a></th> 
                                                                 <th>Deal Period</th>
                                                                 <th class="table-width1">Deal Amount (&#8377; <span style="text-transform: capitalize;">Cr</span>)</th>
                                                                 <th class="table-width2">Stake</th>
@@ -6301,14 +6310,312 @@ try {
                 
                         <div style="clear: both;"></div>
                          <?php if($addTrancheWordtxt == "; NIA"){ ?>
-                                            <p class="note-nia" >*NIA - Not Included for Aggregate</p>
-                                        <?php }?>
-                                </div>
-                                
+                                           <p class="note-nia" >*NIA - Not Included for Aggregate</p>
+                                       <?php }?>
+                               </div>
+                               
+                              
                        
                                
                                     </div>
                                 </div>
+                                <div class="col-12" >
+    <div class="accordions">
+   
+    <?php 
+    $acquirersql ="SELECT AcquirerId FROM acquirers WHERE Acquirer LIKE '".trim($myrow['companyname'])."%'";
+    $acquirer= mysql_query($acquirersql);
+    while($myacq=mysql_fetch_array($acquirer)){
+    $acqarr[]=$myacq['AcquirerId'];
+    }
+    
+    $acqval=implode(",",$acqarr);
+    $cinno = $cinno;
+    $orderby=$_POST['orderby'];
+
+    // Order by code
+    if($orderby=='companyname')
+    {
+        $order_query = 'companyname';
+        if($_POST['order'] == 'asc'){
+            
+            $order_status = $order_company = 'desc';
+        }else{
+            $order_status = $order_company ='asc';
+        }
+        
+    }else{
+        $order_company = 'asc';
+    }
+    
+    if($orderby=='sector_business'){
+        
+       $order_query = 'sector_business';
+        if($_POST['order']=='asc'){
+            
+            $order_status = $order_sector = 'desc';
+       }else{
+            $order_status = $order_sector = 'asc';
+        }
+    }else{
+        $order_sector = 'asc';
+    }
+    
+    if($orderby=='acquirer'){
+        
+        $order_query = 'acquirer';
+        if($_POST['order']=='asc'){
+            
+            $order_status = $order_acquirer = 'desc';
+        }else{
+            $order_status = $order_acquirer = 'asc';
+        }
+    }else{
+        $order_acquirer = 'asc';
+    }
+    
+    if($orderby=='dates'){
+        
+        $order_query = 'dates';
+        if($_POST['order'] =='desc'){
+            $order_status = $order_dates = 'asc';
+            
+        }else{
+            $order_status = $order_dates = 'desc';
+        }
+    }else{
+        $order_dates = 'desc';
+    }
+    
+   
+    
+    if($orderby=='amount'){
+        
+        $order_query = 'amount';
+        if($_POST['order'] == 'asc'){
+            
+            $order_status = $order_amount = 'desc';
+        }else{
+            $order_status = $order_amount = 'asc';
+        }
+    }else{
+        $order_amount =  'asc';
+    }
+    $order = $order_status ? $order_status:'asc';
+    $query_orderby = $order_query?$order_query : 'companyname';
+            
+    if(count($myrow) > 0 && $myrow['PECompanyId']!=''){
+        if($order_query == "acquirer" || $order_query == "companyname" || $order_query == "sector_business"  || $order_query =="amount" ){
+            $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, '.$query_orderby.' '. $order .',dealdate DESC';
+        }elseif($order_query == "dates" ){
+            $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, dealdate '.$order;
+        }else{
+            $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, dealdate DESC,'.$query_orderby.' '.$order;
+        }
+        $sql = "SELECT peinv.pecompanyid, 
+        peinv.mamaid, 
+        c.companyname, 
+        c.industry, 
+        i.industry, 
+        sector_business                AS sector_business, 
+        peinv.amount, 
+        peinv.acquirerid, 
+        ac.acquirer, 
+        peinv.asset, 
+        peinv.hideamount, 
+        agghide, 
+        Date_format(dealdate, '%b-%Y') AS dates, 
+        dealdate                       AS DealDate 
+ FROM   acquirers AS ac, 
+        mama AS peinv, 
+        pecompanies AS c, 
+        industry AS i 
+ WHERE  dealdate BETWEEN '2004-1-01' AND '2020-10-31' 
+        AND ac.acquirerid = peinv.acquirerid 
+        AND c.industry = i.industryid 
+        AND c.pecompanyid = peinv.pecompanyid 
+        AND peinv.deleted = 0 
+        AND c.industry != 15 
+        AND ( ac.acquirerid IN ( ".$acqval." ) or c.pecompanyid =".$myrow['PECompanyId'].") 
+        AND c.industry IN ( 49, 14, 9, 25, 
+                            24, 7, 4, 16, 
+                            17, 23, 3, 21, 
+                            1, 2, 10, 54, 
+                            18, 11, 66, 106, 
+                            8, 12, 22 ) ".$order1;
+        ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
+        
+        $pers = mysql_query($sql);   
+          // echo $sql;    
+        //$FinanceAnnual = mysql_fetch_array($financialrs);
+        $cont=0;$pedata = array();$totalInv=0;$totalAmount=0;$totalINRAmount=0;$hidecount=0;$hideinrcount=0;
+        While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
+        {
+            
+            $amtTobeDeductedforAggHide=0;
+            $inramtTobeDeductedforAggHide=0;
+            $NoofDealsCntTobeDeducted=0;
+            
+            if($myrow["AggHide"]==1 && $myrow["SPV"]==0)
+            {
+                $NoofDealsCntTobeDeducted=1;
+                $amtTobeDeductedforAggHide=$myrow["amount"];
+                $inramtTobeDeductedforAggHide=$myrow["Amount_INR"];
+                
+            }elseif($myrow["SPV"]==1 && $myrow["AggHide"]==0){
+
+                $NoofDealsCntTobeDeducted=1;
+                $amtTobeDeductedforAggHide=$myrow["amount"];
+                $inramtTobeDeductedforAggHide=$myrow["Amount_INR"];
+            }elseif($myrow["SPV"]==1 && $myrow["AggHide"]==1){
+                $NoofDealsCntTobeDeducted=1;
+                $amtTobeDeductedforAggHide=$myrow["amount"];
+                $inramtTobeDeductedforAggHide=$myrow["Amount_INR"];
+            }
+            if($myrow["hideamount"] == 1){
+                $hidecount=$hidecount+1;
+            }
+            $totalInv=$totalInv+1-$NoofDealsCntTobeDeducted;
+            $totalAmount=$totalAmount+ $myrow["amount"]-$amtTobeDeductedforAggHide;
+            $totalINRAmount=$totalINRAmount+ $myrow["Amount_INR"]-$inramtTobeDeductedforAggHide;
+
+            $pedata[$cont]=$myrow;
+            $cont++;
+            
+        }
+        if($hidecount==1){
+            $totalAmount = "--";
+            $totalINRAmount = "--";
+        }
+
+      
+        $inrvalue = "SELECT value FROM configuration WHERE purpose='USD_INR'";
+                    $inramount = mysql_query($inrvalue);
+                    while($inrAmountRow = mysql_fetch_array($inramount,MYSQL_BOTH))
+                    {
+                        $usdtoinramount = $inrAmountRow['value'];
+                    }
+        if($hideinrcount > 0){
+            $totalINRAmount = $totalAmount * 1000000 * $usdtoinramount / 10000000;
+        } 
+    ?>
+                                    <div class=" active matrans"><span></span>
+                                    <h2 id="companyinfo" class="box_heading content-box ">M&A Transactions</h2>
+                                    </div>
+                                    <div id="ma_popup" style=""></div>
+                                     <div class="accordions_dealcontent ma-ajax " style="display: none;padding-top: 20px;">
+                                    
+                                     <div class="malb" >
+                                    
+                                    <span class="maclose"><a href="javascript: void(0);">X</a></span>
+<p class="matext">For more details regarding the M&A Transactions, login / sign up for the <a href="../malogin.php" target="_blank">M&A Deals database.</a> </p>
+
+</div>      
+                                     <?php 
+                                    
+                                      
+                                         // Table to show the companies with count at the top
+                                         if(count($pedata) > 0){
+                                             $testingvariable=1;
+                                             ?>
+                                                 
+                                     
+                                                 
+                                                 <div class="view-table view-table-list ">
+                                                 <table width="100%" cellspacing="0" cellpadding="0" id="myTable">
+                                                     <thead><tr>
+                                                         <th style="width: 530px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_company; ?>" id="companyname">Company</th>
+                                                         <th style="width: 850px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_sector; ?>" id="sector_business">Sector</th>
+                                                         <th style="width: 260px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_acquirer; ?>" id="acquirer">Acquirer</th>
+                                                         <th style="width: 200px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_dates; ?>" id="dates">Date</th>
+                                                         <th style="width: 200px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_amount; ?>" id="amount">Amount</th>
+                                                     </tr></thead>
+                                                     <tbody id="movies">
+                                                     <?php
+                                                     
+                                                 foreach($pedata as $ped){ 
+                                 
+                                                          if(trim($ped["sector_business"])==""){
+                                 
+                                                             $showindsec=$ped["industry"];
+                                                          }else{
+                                                             $showindsec=$ped["sector_business"];
+                                                          }
+                                 
+                                                         if($ped["Exit_Status"]==1){
+                                                             $exitstatus_name = 'Unexited';
+                                                         }
+                                                         else if($ped["Exit_Status"]==2){
+                                                              $exitstatus_name = 'Partially Exited';
+                                                         }
+                                                         else if($ped["Exit_Status"]==3){
+                                                              $exitstatus_name = 'Fully Exited';
+                                                         }
+                                                         else{
+                                                             $exitstatus_name = '--';
+                                                         }
+                                 
+                                                         if($ped["hideamount"]==1)
+                                                         {
+                                                                 $hideamount="--";
+                                                         }
+                                                         else
+                                                         {
+                                                                 $hideamount=$ped["amount"];
+                                                         }
+                                                          if($ped["AggHide"]==1)
+                                                         {
+                                                                $openBracket="(";
+                                                                $closeBracket=")";
+                                                         }
+                                                         else
+                                                         {
+                                                                $openBracket="";
+                                                                $closeBracket="";
+                                                         }
+                                                          if($ped["SPV"]==1)
+                                                         {
+                                                                $openDebtBracket="[";
+                                                                $closeDebtBracket="]";
+                                                         }
+                                                         else
+                                                         {
+                                                                $openDebtBracket="";
+                                                                $closeDebtBracket="";
+                                                         }
+                                                         ?>
+                                                         <tr class="details_linkma" data-row="<?php echo $ped["mamaid"];?>" >
+                                 
+                                                                 <td style="width: 530px;"><b><?php echo $openBracket.$openDebtBracket.trim($ped["companyname"]).$closeDebtBracket.$closeBracket;?></b></td>
+                                                                 <td style="width: 850px;"><b><?php echo trim($ped["sector_business"]);?></b></td>
+                                                                 <td style="width: 260px;"><b><?php echo $ped["acquirer"];?></b></td>
+                                                                 <td style="width: 200px;"><b><?php echo $ped["dates"];?></b></td>
+                                                                 <td style="width: 200px;"><b><?php echo $hideamount;?></b></td>
+                                 
+                                                         </a></tr>
+                                                         <?php
+                                                     }
+                                 ?>
+                                                     </tbody></table></div>
+                                 <?php
+                                         
+                                         }else{ 
+                                            $pageTitle="Request for more deal data- Investment";
+                                              echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" href="mailto:research@ventureintelligence.com?subject=Request for more deal data&body=<?php echo $mailurl;?> " style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this. </p>';
+                                        
+                                            
+                                         }
+                                     }else{ echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;" href="mailto:research@ventureintelligence.com?subject=Request for more deal data&body=<?php echo $mailurl;?> " >Click Here</a> to double check with Venture Intelligence on this. </p>';
+                                           
+                                     }
+                                 
+                                     ?>
+                                     </div>
+                                     </div>
+                                     </div>
+                
+    </div>
+     </div>
                             </div>
           
             </div>
@@ -6424,7 +6731,48 @@ try {
     </tbody>
     </table>
     </div> -->
-  <style>
+ <style>
+  #myTable th.headertbma {
+    background: url(img/icon-sort-black.png) no-repeat left center;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    padding: 10px 10px 14px 15px;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-right: 0 !important;
+}
+.malb{
+    /* width: 600px; */
+    /* border: 1px solid #ccc; */
+    /* box-shadow: 0 0 2px #eaeaea; */
+    /* overflow: hidden; */
+    /* margin: 0 auto; */
+    /* z-index: 9000;  */
+    left: 23%;
+    top: 30%;
+    position: absolute;
+    background-color: #fff;
+     display: none;
+}
+#ma_popup{
+    background: #fff;
+    /* z-index: 8000; */
+    overflow: hidden;
+    opacity: 0.5;
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 95%;
+
+}
+.matext{
+    padding: 30px;
+    background-color: #e0d8c3;
+    color:#333 !important;
+    border: 1px solid;
+}
   span.investorlable {
     /* font-size: 10px;
     padding: 1px 3px;
@@ -7087,6 +7435,35 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="deal_date" value="<?php echo $myrow["dt"];?>" >
 </form>
 <script type="text/javascript">
+$(document).on( 'click','.headertbma', function() {
+
+var formData = new Array();
+var formData = new Array();
+
+formData.push({ name: 'cin', value: $(this).data('cin') },{ name: 'orderby', value: this.id },{ name: 'order', value: $(this).data('order') });
+
+$.ajax({
+   type: 'POST',
+   url: 'ajax_ma.php',
+   data: formData,
+   success: function(data) {
+       
+       
+           clickflagma = 1;
+           var dataResp = $.parseJSON(data);
+           if( dataResp.count == 0 ) {
+               $('#ma-ajax').addClass( 'empty-container' );   
+           } else {
+               $('#ma-ajax').removeClass( 'empty-container' );
+           }
+            $('.ma-ajax').html(dataResp.html);
+           $('.ma-ajax').show();
+            $('.ma-ajaxhidden').html(dataResp.sql);
+       
+   }
+});
+
+});
   $('.tags_link').click(function(){ 
                 $("#searchTagsField").val('tag:'+$(this).html());
                 $('#tagForm').submit();
@@ -7451,6 +7828,29 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 
 </script>
 <style>
+.maclose a
+{
+color: #fff;
+text-decoration: none;
+cursor: pointer;
+font-size:12px;
+}
+.maclose:hover,.maclose a:hover{
+    color:#fff;
+}
+.maclose
+{
+    color: #fff;
+    right: 0px;
+   font-size: 20px;
+    position: absolute;
+    /* top: 1px; */
+    height: auto;
+    padding: 3px 1px 2px 1px;
+    width: 15px;
+    background: #413529;
+    text-align: center;
+}
 div.token-input-dropdown-facebook{
 z-index: 999;
 }
@@ -8229,6 +8629,9 @@ $(document).ready(function(){
 $(document).on('click','#pop_menu li',function(){
        window.open('<?php echo BASE_URL;?>cfsnew/details.php?vcid='+$(this).attr("data-row")+'&pe=1', '_blank');
 });
+$(document).on('click','.details_linkma',function(){
+       window.open('<?php echo BASE_URL;?>ma/madealdetails.php?value='+$(this).attr("data-row")+'&pe=1', '_blank');
+});
 /* $(document).on('click','#popup_main',function(e) {
 
     var subject = $("#popup_content"); 
@@ -8611,6 +9014,37 @@ $(".accordions_dealtitle1 i").on("click", function() {
         $(this).toggleClass('fa-plus fa-minus');
 
  }); 
+ $(".matrans").on("click", function() {
+    $(this).toggleClass("active").next().next().slideToggle();
+    //alert($(this).hasClass("active"));
+    <?php if($testingvariable==1){?>
+    if($(this).hasClass("active")== true)
+    {
+        jQuery('.malb').fadeOut();
+        jQuery('#ma_popup').fadeOut(500);
+    
+    }else{
+        openPopUp();
+    }
+<?php } ?>
+});
+function openPopUp() {
+  setTimeout(function(){
+    popup();
+  }, 4000);
+}
+function popup() {
+    jQuery('#ma_popup').fadeIn();
+    $('.malb').fadeIn();
+    // $hrefval=$(this).attr("data-href");
+    // $('#expcancelbtn-filter').attr('href',$hrefval);        
+}
+    $('.maclose').click(function(){
+
+jQuery('.malb').fadeOut();
+jQuery('#ma_popup').fadeOut(1000);
+
+});
 (function($){
     $(window).on("load",function(){
 

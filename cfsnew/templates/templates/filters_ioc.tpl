@@ -4,7 +4,8 @@
 <div class="companies-fount-new">
 <!--<h1>{if $smarty.session.totalResults}<span>{$smarty.session.totalResults}</span>{else}0{/if} Companies found</h1>-->
    
-    <h1 style="margin-left:15px;"><span>{if $totalrecord_1}{$totalrecord_1}{else}{$totalrecord}{/if} </span>Companies found
+    <h1 style="margin-left:15px;"><span>{if $totalrecord_1}{$totalrecord_1}{else}{$totalrecord}{/if} </span>Companies found<span style="
+    vertical-align: top;font-size: 15px;font-weight: 400;">*</span>
     <div style="float:right;">
   {if $pageName1  neq 'indexofcharges.php'}
 <div class="page-no" style="position:relative">

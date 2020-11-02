@@ -271,7 +271,8 @@ if(count($FinanceAnnual_cashflow) == 0){
         $style = '';
     }
 ?>
-<!-- <div class="growth_fulldetails" style="<?php echo $style; ?>">
+<?php if(BASE_URL == "//www.ventureintelligence.asia/dev/"){?>
+ <div class="growth_fulldetails" style="<?php echo $style; ?>">
     <?php
     $growth_precentage = array();
      $ResultType1="SELECT MAX( ResultType ) AS ResultType FROM cagr WHERE CId_FK =".$_GET['vcid']." AND FY !=  ''";
@@ -465,8 +466,8 @@ if(count($FinanceAnnual_cashflow) == 0){
         <?php  } $j++; }      ?>
    <div class="">
    </div>
-</div>  -->
-    <?php }
+</div> 
+    <?php }}
     if(count($FinanceAnnual) > 0){
      $Fycount=0;
      for($i=0;$i<count($FinanceAnnual);$i++){
