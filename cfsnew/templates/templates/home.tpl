@@ -409,3 +409,4 @@ padding:0px 10px; }
         }
     </style>
 {/literal}
+{include file="popup.tpl"}
