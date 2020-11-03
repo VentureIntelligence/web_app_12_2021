@@ -27,8 +27,9 @@ if(($username !='') && ($password !='')){
 	//pr($test);
 //	pr($test['username']); //exit;
 }
-
+if(isset($_POST['dauth']) && isset($_POST['user_email']) && isset($_POST['user_password']) &&  isset($_POST['device_details'])){
 $groupId = $authAdmin['GroupList'];
+
 $groupIp = $grouplist->getGroupIP($groupId);
 //  print_r($groupIp);
 $groupPocArray = $grouplist->getGroupEmail($groupId);
@@ -46,6 +47,10 @@ $groupPoc = $groupPocArray['poc'];
 
         header("Location:".BASE_URL."cfsnew/auth.php?device=".$_POST['dauth']."&email=".$_POST['user_email']."&device_detail=".$_POST['device_details']);
         die();
+    } else {
+        header("Location:".BASE_URL."cfsnew/login.php");
+        die(); 
+    }
   //  }
 //}
     
