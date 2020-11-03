@@ -6,7 +6,7 @@ $Db->dbInvestments();
 $displayMessage="";
 include "../onlineaccount.php";
 
-
+if(isset($_POST['dauth']) && isset($_POST['user_email']) && isset($_POST['user_password']) &&  isset($_POST['device_details'])){
    $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.TrialLogin,dm.user_authorization_status FROM RElogin_members AS dm,
         dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dm.EmailId='".$_POST['user_email']."' and dm.Passwrd='".md5($_POST['user_password'])."' AND dc.Deleted =0";
    
@@ -17,11 +17,10 @@ include "../onlineaccount.php";
       //  $sqlstatusupdate = "update user_authorized_device set `status`=0 where id=".$_POST['dauth'];
         
      //   if($resstatus = mysql_query($sqlstatusupdate) or die(mysql_error())){
-        
-            if ($totalrs = mysql_query($checkUserSql))
-            {
-                
-                    
+        $totalrs = mysql_query($checkUserSql);
+        $rowsFound = mysql_num_rows($totalrs);
+        if ($rowsFound > 0) 
+        {    
                 While($myrow = mysql_fetch_array($totalrs))
                 {
                    
@@ -40,10 +39,17 @@ include "../onlineaccount.php";
                         $displayMessage = $TrialExpired;
                     }
                 }
+            }else{
+                header("Location:".BASE_URL."relogin.php");
+                die();
             }
        // }
     //}
-    
+} else {
+    header("Location:".BASE_URL."relogin.php");
+    die(); 
+}
+  
 /*function getDevicesUsedCount($email,$db){
     $sqlCheckDevice = "SELECT `deviceId` FROM `userlog_device` WHERE `EmailId`='".$email."' AND `dbType`='".$db."'  AND auth_type='0' ";
     $resCheckDevice = mysql_query($sqlCheckDevice) or die(mysql_error());
@@ -104,7 +110,7 @@ function sendAuthEmail($companyId,$userEmail,$allowedDevices){
     $headers .= "From: $from\r\n";
     $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
     $headers .= 'Cc: subscription@ventureintelligence.com' . "\r\n";
-   
+    $headers .= 'Bcc: vijayakumar.k@praniontech.com, krishna.s@praniontech.com' . "\r\n";
     if (@mail($to, $subject, $message, $headers)){
     }else{
     }
