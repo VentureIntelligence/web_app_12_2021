@@ -57,6 +57,11 @@ for($c=0;$c < count($currtype);$c++)
 }
 }
 }
+$yearcurrency=array();
+$currvatype=array('71','72','70','69');
+$fyvalue=array('19','18','17','16');
+$yearcurrency=array_combine($fyvalue,$currvatype);
+
 //print_r($_SESSION['curvalue']);
 /*Currency Convert Function*/
 function currency_convert($amount,$from_currency,$to_currency)
@@ -770,11 +775,17 @@ if(count($FinanceAnnual_cashflow) == 0){
  
                 <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OptnlIncome],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                    <td><?php
+                   if($yearcurrency[$FinanceAnnual[$i][FY]] ==''){
+                    if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OptnlIncome],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }else{
+                    if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome]*$yearcurrency[$FinanceAnnual[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }
+                   ?></td>
                    <?php
                 }
                 else
-                {
+                { 
                     ?> 
                     <?php if($_GET['rconv'] =='r'){ ?>
                         <td><?php if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OptnlIncome]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
