@@ -102,7 +102,7 @@ function sendAuthEmail($poc,$groupId,$allowedDevices,$userEmail){
 
     //$message 	.= "<p>System Note :Authorization will not be allowed if the device limit is exceeded.</p>";
     $message 	.= "<p>&nbsp;</p>";
-    $message 	.= "<p>Thank you,<br><b>Venture Intelligence Support Team<br>Tel: +91-44-42185180/82</b></p>";
+    $message 	.= "<p>Thank you,<br><b>Venture Intelligence Support Team<br>Tel: +91-44-42185180</b></p>";
     $message 	.= "<br><p><small style=font-size:12px>Please add <i>subscription@ventureintelligence.com</i> to your email contact list to prevent emails getting delivered into Junk/Spam folder.</small></p>";
 
 
