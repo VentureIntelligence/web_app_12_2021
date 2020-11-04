@@ -101,11 +101,17 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
     $objPHPExcel = new PHPExcel();
     
 if(isset($_GET['type']) && $_GET['type']=='consolidated'){
-    $where = "CId_FK = ".$_GET['vcid']." and FY !='' and ResultType='1'";
-    $FinanceAnnual = $plstandard->getFullList(1,100,$fields,$where,$order,"name");
-    
-	$objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
-	$objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in INR');
+    $fields = array("PLStandard_Id","CId_FK","IndustryId_FK","OptnlIncome","OtherIncome","OptnlAdminandOthrExp","OptnlProfit","EBITDA","Interest","EBDT","Depreciation","EBT","Tax","PAT","FY","TotalIncome","BINR","DINR","EmployeeRelatedExpenses","ForeignExchangeEarningandOutgo","EarninginForeignExchange","OutgoinForeignExchange","EBT_before_Priod_period","Priod_period","CostOfMaterialsConsumed","PurchasesOfStockInTrade","ChangesInInventories","CSRExpenditure","OtherExpenses","CurrentTax","DeferredTax","total_profit_loss_for_period","profit_loss_of_minority_interest");
+	
+	$where = "CId_FK = ".$_GET['vcid']." and FY !='' and ResultType='1'";
+	$FinanceAnnual = $plstandard->getFullList(1,100,$fields,$where,$order,"name");
+	//print_r($FinanceAnnual);
+    //$excelIndex = $this->createColumnsArray( 'BZ' );
+  
+    // 1-based index
+    $col = 1;
+			$objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
+			$objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in INR');
 			$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->getFont()->setBold(true);
 			$objPHPExcel->getActiveSheet()->setCellValue('A7', 'Operational Income')->getStyle("A7") ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Other Income')->getStyle("A8") ;
@@ -139,12 +145,29 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 			$objPHPExcel->getActiveSheet()->setCellValue('A37', 'Outgo in Foreign Exchange')->getStyle("A37") ;
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
 			$objPHPExcel->getActiveSheet()->setTitle('Annual P&L Consolidated');
+			for($i=0;$i<count($FinanceAnnual);$i++){
+				$row = 6;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyle($col,$row)->getFont()->setBold(true);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][OptnlIncome] );
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][OtherIncome] );
+				$row++;
+				$col++;	
+			}	
+				
+
+
+
 }else{
     $fields = array("PLStandard_Id","CId_FK","IndustryId_FK","OptnlIncome","OtherIncome","OptnlAdminandOthrExp","OptnlProfit","EBITDA","Interest","EBDT","Depreciation","EBT","Tax","PAT","FY","TotalIncome","BINR","DINR","EmployeeRelatedExpenses","ForeignExchangeEarningandOutgo","EarninginForeignExchange","OutgoinForeignExchange","EBT_before_Priod_period","Priod_period","CostOfMaterialsConsumed","PurchasesOfStockInTrade","ChangesInInventories","CSRExpenditure","OtherExpenses","CurrentTax","DeferredTax","total_profit_loss_for_period","profit_loss_of_minority_interest");
     $order="FY DESC";
     $where = "CId_FK = ".$_GET['vcid']." and FY !='' and ResultType='0'";
     $FinanceAnnual = $plstandard->getFullList(1,100,$fields,$where,$order,"name");
    // print_r($FinanceAnnual);
+  // $excelIndex = $this->createColumnsArray( 'BZ' );
+   $i = 0;
+   $index = 1;
    $objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
    $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in INR');
 		   $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->getFont()->setBold(true);
