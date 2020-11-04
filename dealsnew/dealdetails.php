@@ -6412,6 +6412,21 @@ try {
         }else{
             $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, dealdate DESC,'.$query_orderby.' '.$order;
         }
+        if($acqval !=""){
+            $acqvar=" ac.acquirerid IN ( ".$acqval." )";
+        }else{
+            $acqvar="";
+        }
+        if($acqval !="" && $myrow['PECompanyId'] !=''){
+            $orcond=" or ";
+        }else{
+            $orcond="";
+        }
+        if($myrow['PECompanyId'] !=''){
+        $companyvar="  c.pecompanyid =".$myrow['PECompanyId'];
+        }else{
+            $companyvar="";
+        }
         $sql = "SELECT peinv.pecompanyid, 
         peinv.mamaid, 
         c.companyname, 
@@ -6436,7 +6451,7 @@ try {
         AND c.pecompanyid = peinv.pecompanyid 
         AND peinv.deleted = 0 
         AND c.industry != 15 
-        AND ( ac.acquirerid IN ( ".$acqval." ) or c.pecompanyid =".$myrow['PECompanyId'].") 
+        AND ( $acqvar $orcond $companyvar ) 
         AND c.industry IN ( 49, 14, 9, 25, 
                             24, 7, 4, 16, 
                             17, 23, 3, 21, 
@@ -6446,7 +6461,7 @@ try {
         ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
         
         $pers = mysql_query($sql);   
-          // echo $sql;    
+           //echo $sql;    
         //$FinanceAnnual = mysql_fetch_array($financialrs);
         $cont=0;$pedata = array();$totalInv=0;$totalAmount=0;$totalINRAmount=0;$hidecount=0;$hideinrcount=0;
         While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
@@ -6475,6 +6490,7 @@ try {
             if($myrow["hideamount"] == 1){
                 $hidecount=$hidecount+1;
             }
+            
             $totalInv=$totalInv+1-$NoofDealsCntTobeDeducted;
             $totalAmount=$totalAmount+ $myrow["amount"]-$amtTobeDeductedforAggHide;
             $totalINRAmount=$totalINRAmount+ $myrow["Amount_INR"]-$inramtTobeDeductedforAggHide;
@@ -6563,7 +6579,7 @@ try {
                                                          {
                                                                  $hideamount=$ped["amount"];
                                                          }
-                                                          if($ped["AggHide"]==1)
+                                                          if($ped["asset"]==1)
                                                          {
                                                                 $openBracket="(";
                                                                 $closeBracket=")";
@@ -6572,7 +6588,25 @@ try {
                                                          {
                                                                 $openBracket="";
                                                                 $closeBracket="";
+                                                          }
+                                                          if($ped["agghide"]==1)
+                                                        {
+                                                                $opensquareBracket="{";
+                                                                $closesquareBracket="}";
+                                                                $hideFlagset = 1;
+                                                                $amtTobeDeductedforAggHide=$ped["amount"];
+                                                                $NoofDealsCntTobeDeducted=1;
+
+                                                                //$acrossDealsCnt=$acrossDealsCnt-1;
                                                          }
+                                                        else
+                                                        {
+                                                                $opensquareBracket="";
+                                                                $closesquareBracket="";
+                                                                $amtTobeDeductedforAggHide=0;
+                                                                $NoofDealsCntTobeDeducted=0;
+                                                                $cos_array = $cos_withdebt_array;
+                                                        }
                                                           if($ped["SPV"]==1)
                                                          {
                                                                 $openDebtBracket="[";
@@ -6586,7 +6620,7 @@ try {
                                                          ?>
                                                          <tr class="details_linkma" data-row="<?php echo $ped["mamaid"];?>" >
                                  
-                                                                 <td style="width: 530px;"><b><?php echo $openBracket.$openDebtBracket.trim($ped["companyname"]).$closeDebtBracket.$closeBracket;?></b></td>
+                                                                 <td style="width: 530px;"><b><?php echo $openBracket.$openDebtBracket.$opensquareBracket.trim($ped["companyname"]).$closesquareBracket.$closeDebtBracket.$closeBracket;?></b></td>
                                                                  <td style="width: 850px;"><b><?php echo trim($ped["sector_business"]);?></b></td>
                                                                  <td style="width: 260px;"><b><?php echo $ped["acquirer"];?></b></td>
                                                                  <td style="width: 200px;"><b><?php echo $ped["dates"];?></b></td>

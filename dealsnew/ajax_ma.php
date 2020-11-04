@@ -103,6 +103,21 @@ if($_POST['cin']!=''){
         }else{
             $order1 ='ORDER  BY dealdate DESC,'.$query_orderby.' '.$order;
         }
+        if($acqval !=""){
+            $acqvar=" ac.acquirerid IN ( ".$acqval." )";
+        }else{
+            $acqvar="";
+        }
+        if($acqval !="" && $myrow['PECompanyId'] !=''){
+            $orcond=" or ";
+        }else{
+            $orcond="";
+        }
+        if($myrow['PECompanyId'] !=''){
+        $companyvar="  c.pecompanyid =".$myrow['PECompanyId'];
+        }else{
+            $companyvar="";
+        }
         $sql = "SELECT peinv.pecompanyid, 
         peinv.mamaid, 
         c.companyname, 
@@ -127,7 +142,7 @@ if($_POST['cin']!=''){
         AND c.pecompanyid = peinv.pecompanyid 
         AND peinv.deleted = 0 
         AND c.industry != 15 
-        AND ( ac.acquirerid IN ( ".$acqval." ) or c.pecompanyid =".$myrow['PECompanyId'].") 
+        AND ( $acqvar $orcond $companyvar )
         AND c.industry IN ( 49, 14, 9, 25, 
                             24, 7, 4, 16, 
                             17, 23, 3, 21, 
@@ -235,16 +250,34 @@ if($_POST['cin']!=''){
                         {
                                 $hideamount=$ped["amount"];
                         }
-                         if($ped["AggHide"]==1)
-                        {
-                               $openBracket="(";
-                               $closeBracket=")";
-                        }
-                        else
-                        {
-                               $openBracket="";
-                               $closeBracket="";
-                        }
+                        if($ped["asset"]==1)
+                                                         {
+                                                                $openBracket="(";
+                                                                $closeBracket=")";
+                                                         }
+                                                         else
+                                                         {
+                                                                $openBracket="";
+                                                                $closeBracket="";
+                                                          }
+                                                          if($ped["agghide"]==1)
+                                                        {
+                                                                $opensquareBracket="{";
+                                                                $closesquareBracket="}";
+                                                                $hideFlagset = 1;
+                                                                $amtTobeDeductedforAggHide=$ped["amount"];
+                                                                $NoofDealsCntTobeDeducted=1;
+
+                                                                //$acrossDealsCnt=$acrossDealsCnt-1;
+                                                         }
+                                                        else
+                                                        {
+                                                                $opensquareBracket="";
+                                                                $closesquareBracket="";
+                                                                $amtTobeDeductedforAggHide=0;
+                                                                $NoofDealsCntTobeDeducted=0;
+                                                                $cos_array = $cos_withdebt_array;
+                                                        }
                          if($ped["SPV"]==1)
                         {
                                $openDebtBracket="[";
@@ -257,7 +290,7 @@ if($_POST['cin']!=''){
                         }
                         $pe_data.='<tr class="details_linkma" data-row="'.$ped["mamaid"].'" >
 
-                                <td style="width: 530px;"><b>'.$openBracket.$openDebtBracket.trim($ped["companyname"]).$closeDebtBracket.$closeBracket.'</b></td>
+                                <td style="width: 530px;"><b>'.$openBracket.$openDebtBracket.$opensquareBracket.trim($ped["companyname"]).$closesquareBracket.$closeDebtBracket.$closeBracket.'</b></td>
                                 <td style="width: 850px;"><b>'.trim($ped["sector_business"]).'</b></td>
                                 <td style="width: 260px;"><b>'.$ped["acquirer"].'</b></td>
                                 <td style="width: 200px;"><b>'.$ped["dates"].'</b></td>
