@@ -6550,7 +6550,41 @@ try {
                                                      <?php
                                                      
                                                  foreach($pedata as $ped){ 
-                                 
+                                                    $searchString4="PE Firm(s)";
+                                                    $searchString4=strtolower($searchString4);
+                                                    $searchString4ForDisplay="PE Firm(s)";
+                                                    $searchString="Undisclosed";
+                                                    $searchString=strtolower($searchString);
+                                                    $searchString3="Individual";
+                                                    $searchString3=strtolower($searchString3);
+                                                    $companyName=trim($ped["companyname"]);
+                                                    $companyName=strtolower($companyName);
+                                                    $compResult=substr_count($companyName,$searchString);
+                                                    $compResult4=substr_count($companyName,$searchString4);
+                                
+                                                    $acquirerName=$ped["acquirer"];
+                                                    $acquirerName=strtolower($acquirerName);
+                                
+                                                    $compResultAcquirer=substr_count($acquirerName,$searchString4);
+                                                    $compResultAcquirerUndisclosed=substr_count($acquirerName,$searchString);
+                                                    $compResultAcquirerIndividual=substr_count($acquirerName,$searchString3);
+                                
+                                                    if($compResult==0)
+                                                            $displaycomp=$ped["companyname"];
+                                                    elseif($compResult4==1)
+                                                            $displaycomp=ucfirst("$searchString4");
+                                                    elseif($compResult==1)
+                                                            $displaycomp=ucfirst("$searchString");
+                                
+                                                    if(($compResultAcquirer==0) && ($compResultAcquirerUndisclosed==0) && ($compResultAcquirerIndividual==0))
+                                                            $displayAcquirer=$ped["acquirer"];
+                                                    elseif($compResultAcquirer==1)
+                                                            $displayAcquirer=ucfirst("$searchString4ForDisplay");
+                                                    elseif($compResultAcquirerUndisclosed==1)
+                                                            $displayAcquirer=ucfirst("$searchString");
+                                                    elseif($compResultAcquirerIndividual==1)
+                                                            $displayAcquirer=ucfirst("$searchString3");
+                                
                                                           if(trim($ped["sector_business"])==""){
                                  
                                                              $showindsec=$ped["industry"];
@@ -6571,14 +6605,31 @@ try {
                                                              $exitstatus_name = '--';
                                                          }
                                  
-                                                         if($ped["hideamount"]==1)
-                                                         {
-                                                                 $hideamount="--";
-                                                         }
-                                                         else
-                                                         {
-                                                                 $hideamount=$ped["amount"];
-                                                         }
+                                                        //  if($ped["hideamount"]==1)
+                                                        //  {
+                                                        //          $hideamount="--";
+                                                        //  }
+                                                        //  else
+                                                        //  {
+                                                        //          $hideamount=$ped["amount"];
+                                                        //  }
+                                                        if($ped["amount"]==0)
+                                                        {
+                                                                $hideamount="-";
+                                                                $amountobeAdded=0;
+                                                        }
+                                                        elseif($ped["hideamount"]==1)
+                                                        {
+                                                                $hideamount="-";
+                                                                $amountobeAdded=0;
+
+                                                        }
+                                                        else
+                                                        {
+                                                                $hideamount=$ped["amount"];
+                                                                // $acrossDealsCnt=$acrossDealsCnt+1;
+                                                                $amountobeAdded=$ped["Amount"];
+                                                        }
                                                           if($ped["asset"]==1)
                                                          {
                                                                 $openBracket="(";
@@ -6622,7 +6673,7 @@ try {
                                  
                                                                  <td style="width: 530px;"><b><?php echo $openBracket.$openDebtBracket.$opensquareBracket.trim($ped["companyname"]).$closesquareBracket.$closeDebtBracket.$closeBracket;?></b></td>
                                                                  <td style="width: 850px;"><b><?php echo trim($ped["sector_business"]);?></b></td>
-                                                                 <td style="width: 260px;"><b><?php echo $ped["acquirer"];?></b></td>
+                                                                 <td style="width: 260px;"><b><?php echo $displayAcquirer;?></b></td>
                                                                  <td style="width: 200px;"><b><?php echo $ped["dates"];?></b></td>
                                                                  <td style="width: 200px;"><b><?php echo $hideamount;?></b></td>
                                  
