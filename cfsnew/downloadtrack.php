@@ -105,13 +105,25 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 	
 	$where = "CId_FK = ".$_GET['vcid']." and FY !='' and ResultType='1'";
 	$FinanceAnnual = $plstandard->getFullList(1,100,$fields,$where,$order,"name");
+	$finquery=mysql_query("SELECT `FCompanyName` FROM `cprofile` WHERE `Company_Id`='".$FinanceAnnual[0][CId_FK]."'");
+	while($myrow=mysql_fetch_array($finquery)){
+		$companyname=$myrow[0];
+	}
+	$styleArray = array(
+		'borders' => array(
+		  'allborders' => array(
+			'style' => PHPExcel_Style_Border::BORDER_THIN
+		  )
+		)
+	  );
 	//print_r($FinanceAnnual);
     //$excelIndex = $this->createColumnsArray( 'BZ' );
   
     // 1-based index
     $col = 1;
 			$objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
-			$objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in INR');
+			$objPHPExcel->getActiveSheet()->setCellValue('A3', $companyname)->getStyle("A3")->getFont()->setBold(true);
+	        $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in INR');
 			$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->getFont()->setBold(true);
 			$objPHPExcel->getActiveSheet()->setCellValue('A7', 'Operational Income')->getStyle("A7") ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Other Income')->getStyle("A8") ;
@@ -147,9 +159,9 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 			$objPHPExcel->getActiveSheet()->setTitle('Annual P&L Consolidated');
 			for($i=0;$i<count($FinanceAnnual);$i++){
 				$row = 6;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyle($col,$row)->getFont()->setBold(true);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->getFont()->setBold(true);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][OptnlIncome] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][OptnlIncome] )->applyFromArray($styleArray);
 				$row++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][OtherIncome] );
 				$row++;
