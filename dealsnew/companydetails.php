@@ -396,11 +396,11 @@ if(gettype($cityid)!="string"){
 
 		if(($pe_re==0) || ($pe_re==1) || ($pe_re==2) || ($pe_re==3) || ($pe_re==4) || ($pe_re==5) ||($pe_re==6)||($pe_re==10) || ($pe_re==11)|| ($pe_re==7) || ($pe_re==9) ||($pe_re==8))
 		{
-			$investorSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV from
+			$investorSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds  from
 			peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
 			peinvestors as inv where pe.PECompanyId=$SelCompRef and
 			peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
-			and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 order by dates desc";
+			and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by pe.PEId order by dates desc";
 
 			$dealpage="dealinfo.php";
                         if($pe_re==2)
@@ -454,11 +454,11 @@ if(gettype($cityid)!="string"){
 		//echo "<br>--" .$investorSql;
                 //elseif($pe_re==2) // incubatees
 		//{
-                $incubatorSql="SELECT pe.IncDealId,pe.IncubatorId,inc.Incubator FROM
+                $incubatorSql="SELECT pe.IncDealId,pe.IncubatorId,inc.Incubator,DATE_FORMAT( date_month_year, '%M-%Y' ) as dt FROM
                 `incubatordeals` as pe, incubators as inc WHERE IncubateeId =$SelCompRef
                 and pe.IncubatorId= inc.IncubatorId ";
 
-		//   echo "<bR>2 ---" .$investorSql;
+		  // echo "<bR>2 ---" .$investorSql;
 		//}
 		$onBoardSql="select pec.PECompanyId,bd.PECompanyId,bd.ExecutiveId,
 		exe.ExecutiveName,exe.Designation,exe.Company from
@@ -487,16 +487,16 @@ if(gettype($cityid)!="string"){
                         //echo "<br>-- ".$maexitsql;
 
 		$ipoexitsql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,inv.Investor,
-				IPOAmount, DATE_FORMAT( IPODate, '%b-%Y' ) as dt, pe.IPOId ,pe.ExitStatus
+				IPOAmount, DATE_FORMAT( IPODate, '%b-%Y' ) as dt, pe.IPOId ,pe.ExitStatus,GROUP_CONCAT( inv.Investor ORDER BY inv.InvestorId) as Investors
 				FROM ipos AS pe, industry AS i, pecompanies AS pec,ipo_investors as ipoi,peinvestors as inv
                                  WHERE  i.industryid=pec.industry
 			AND pec.PEcompanyId = pe.PECompanyId and pe.Deleted=0 and pec.industry !=15 and pe.PECompanyId=$SelCompRef
-                        and inv.InvestorId=ipoi.InvestorId and ipoi.IPOId=pe.IPOId
+                        and inv.InvestorId=ipoi.InvestorId and ipoi.IPOId=pe.IPOId group by dt
                          order by IPODate desc";
                           // echo "<br>-- ".$ipoexitsql;
 
 		$angelinvsql="SELECT pe.InvesteeId, pe.AggHide, pec.companyname, pec.industry, i.industry, pec.sector_business,
-				DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.AngelDealId ,peinv.InvestorId,inv.Investor
+				DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.AngelDealId ,peinv.InvestorId,inv.Investor,GROUP_CONCAT( inv.InvestorId ORDER BY inv.Investor ) as InvestorIds, GROUP_CONCAT( inv.Investor ORDER BY inv.Investor) as Investors
 				FROM angelinvdeals AS pe, industry AS i, pecompanies AS pec,
    	                        angel_investors as peinv,peinvestors as inv
                                  WHERE  i.industryid=pec.industry AND pec.PEcompanyId = pe.InvesteeId and 
@@ -631,6 +631,10 @@ if(gettype($cityid)!="string"){
 	include_once($headerurl);
 ?>
 <style>
+td.investname span:last-child,td.angelinvestname span:last-child {
+    display: none;
+}
+
 .tableInvest td, .tableInvest td a {
     font-size: 10pt;
     color: #666 !important;
@@ -1965,6 +1969,10 @@ ul.tabView li {
                                             <div class="tab-content">
 
                                                 <div id="incubation" class="tab-items">
+                                                <div  class="col-md-6">
+                                                        <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
+                                                        <thead><tr><th>Incubators</th><th>Deal Period</th></tr></thead>
+                                                            <tbody>
                                                     <?php
                                                          
                                                             if($incubator_cnt>0)
@@ -1973,14 +1981,17 @@ ul.tabView li {
                                                                 {
                                                                     $incubator=$incrow["Incubator"];
                                                                     $incubatorId=$incrow["IncubatorId"];
+                                                                    $incubatordate=$incrow["dt"];?>
+                                                            <tr>
+                                                            <td> <p><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Incubator Details"> <?php echo $incubator;?> </a></p> </td>
+                                                            <td><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$VCFlagValue;?>' target="_blank"> <?php echo $incubatordate;?></a></td>
+                                                            
+                                                            </tr>
+                                                             <?php       
                                                                 }
                                                         ?>   
                                                        
-                                                       <div  class="col-md-6">
-                                                        <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
-                                                        <thead><tr><th>Incubators</th></tr></thead>
-                                                            <tbody>
-                                                            <tr><td> <p><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Incubator Details"> <?php echo $incubator;?> </a></p> </td></tr>
+                                                       
    
                                                                   </tbody>
                                                         </table>
@@ -2004,6 +2015,8 @@ ul.tabView li {
                                                                 While($angelrow=mysql_fetch_array($rsangel, MYSQL_BOTH))
                                                                 {
                                                                 $Investorname=trim($angelrow["Investor"]);
+                                                                $InvestorsName = explode(",",$angelrow["Investors"]);
+                                                                $InvestorIds = explode(",",$angelrow["InvestorIds"]);
                                                                 $Investorname=strtolower($Investorname);
                                                                 $hide_agg = $angelrow['AggHide'];
                                                                 $invRes=substr_count($Investorname,$searchString);
@@ -2016,7 +2029,12 @@ ul.tabView li {
                                                                             if($hide_agg==0) {
 
                                                                 ?>
-                                                                        <tr><td style="alt"><a href='angleinvdetails.php?value=<?php echo $angelrow["InvestorId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' ><?php echo $angelrow["Investor"]; ?></a></td>
+                                                                        <tr>
+                                                                        <td style="alt" class="angelinvestname">
+                                                                        <?php  for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
+                                                                        <a href='angleinvdetails.php?value=<?php echo $InvestorIds[$i].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' ><?php echo $InvestorsName[$i]; ?></a><span>,</span>
+                                                                        <?php } ?>
+                                                                        </td>
 
                                                                         <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>">
                                                                                                 <?php echo $angelrow["dt"];?></a></td></tr>
@@ -2075,7 +2093,11 @@ ul.tabView li {
 
                                                             While($myInvestorrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
                                                                     {
-                                                                            $Investorname=trim($myInvestorrow["Investor"]);
+                                                                       
+                                                                        $Investorname=trim($myInvestorrow["Investor"]);
+                                                                $InvestorsName = explode(",",$myInvestorrow["Investors"]);
+                                                                $InvestorIds = explode(",",$myInvestorrow["InvestorIds"]);
+                                                                            
                                                                             $Investorname=strtolower($Investorname);
                                                                             $invResult=substr_count($Investorname,$searchString);
                                                                             $invResult1=substr_count($Investorname,$searchString1);
@@ -2099,15 +2121,21 @@ ul.tabView li {
                                                                                     else
                                                                                         $addDebtWord="";
 
-                                                            ?>
-                                                            <tr><td style="alt"><a target="_blank" href='<?php echo $invpage;?>?value=<?php echo $myInvestorrow["InvestorId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Investor Details"><?php echo $myInvestorrow["Investor"]; ?></a></td>
-                                                            <?php if($usrRgs[PEInv] !=0){?>
+                                                                                         ?>
+                                                            <tr> 
+                                                            <td class="investname" style="alt">
+                                                                <?php for ($i=0; $i < sizeof($InvestorsName); $i++) {?>
+                                                                <a target="_blank" href='<?php echo $invpage;?>?value=<?php echo $InvestorIds[$i].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Investor Details"><?php echo $InvestorsName[$i]; ?></a><span>,</span>
+                                                                <?php } ?>
+                                                            </td>
+                                                            <?php if($usrRgs[PEInv] !=0){
+                                                                ?>
                                                             <td><a href="dealdetails.php?value=<?php echo $myInvestorrow["DealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>" title="Deal Details"><?php echo $myInvestorrow["dt"];?></a>
-                                                            <?php echo $addTrancheWord;?><?php echo $addDebtWord;?></td>   
+                                                            <?php echo $addTrancheWord;?><?php echo $addDebtWord;  ?></td>   
                                                                             <?php }else{?>
                                                                                 <td><?php echo $myInvestorrow["dt"];?>
                                                             <?php echo $addTrancheWord;?><?php echo $addDebtWord;?></td> 
-                                                                            <?php }?> 
+                                                                            <?php }?></tr> 
                                                                             <?php 
                                                             }
                                                             } 
@@ -2140,12 +2168,20 @@ ul.tabView li {
                                                                 While($ipoexitrow=mysql_fetch_array($rsipoexit, MYSQL_BOTH))
                                                                 {
                                                                   $exitstatusvalueforIPO=$ipoexitrow["ExitStatus"];
+                                                                  $InvestorsName = explode(",",$ipoexitrow["Investors"]);
                                                                   if($exitstatusvalueforIPO==0)
                                                                    {$exitstatusdisplayforIPO="Partial Exit";}
                                                                   elseif($exitstatusvalueforIPO==1)
                                                                   {  $exitstatusdisplayforIPO="Complete Exit";}
                                                                 ?>
-                                                               <tr><td style="alt">IPO</td><td><?php echo $ipoexitrow["Investor"];?></td>
+                                                               <tr><td style="alt">IPO</td>
+                                                               <td class="angelinvestname">
+                                                               <?php //echo $ipoexitrow["Investor"];?>
+                                                               <?php 
+                                                                    for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
+                                                                        <?php echo $InvestorsName[$i]; ?><span>,</span>
+                                                                   <?php } ?>
+                                                               </td>
                                         
                                                                 <td> <a href='ipodealdetails.php?value=<?php echo $ipoexitrow["IPOId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Deal Details"><?php echo $ipoexitrow["dt"];?></a></td>
                                         
