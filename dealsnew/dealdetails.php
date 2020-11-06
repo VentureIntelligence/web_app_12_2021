@@ -6412,6 +6412,21 @@ try {
         }else{
             $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, dealdate DESC,'.$query_orderby.' '.$order;
         }
+        if($acqval !=""){
+            $acqvar=" ac.acquirerid IN ( ".$acqval." )";
+        }else{
+            $acqvar="";
+        }
+        if($acqval !="" && $myrow['PECompanyId'] !=''){
+            $orcond=" or ";
+        }else{
+            $orcond="";
+        }
+        if($myrow['PECompanyId'] !=''){
+        $companyvar="  c.pecompanyid =".$myrow['PECompanyId'];
+        }else{
+            $companyvar="";
+        }
         $sql = "SELECT peinv.pecompanyid, 
         peinv.mamaid, 
         c.companyname, 
@@ -6436,7 +6451,7 @@ try {
         AND c.pecompanyid = peinv.pecompanyid 
         AND peinv.deleted = 0 
         AND c.industry != 15 
-        AND ( ac.acquirerid IN ( ".$acqval." ) or c.pecompanyid =".$myrow['PECompanyId'].") 
+        AND ( $acqvar $orcond $companyvar ) 
         AND c.industry IN ( 49, 14, 9, 25, 
                             24, 7, 4, 16, 
                             17, 23, 3, 21, 
@@ -6446,7 +6461,7 @@ try {
         ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
         
         $pers = mysql_query($sql);   
-          // echo $sql;    
+           //echo $sql;    
         //$FinanceAnnual = mysql_fetch_array($financialrs);
         $cont=0;$pedata = array();$totalInv=0;$totalAmount=0;$totalINRAmount=0;$hidecount=0;$hideinrcount=0;
         While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
@@ -6475,6 +6490,7 @@ try {
             if($myrow["hideamount"] == 1){
                 $hidecount=$hidecount+1;
             }
+            
             $totalInv=$totalInv+1-$NoofDealsCntTobeDeducted;
             $totalAmount=$totalAmount+ $myrow["amount"]-$amtTobeDeductedforAggHide;
             $totalINRAmount=$totalINRAmount+ $myrow["Amount_INR"]-$inramtTobeDeductedforAggHide;
@@ -6534,7 +6550,41 @@ try {
                                                      <?php
                                                      
                                                  foreach($pedata as $ped){ 
-                                 
+                                                    $searchString4="PE Firm(s)";
+                                                    $searchString4=strtolower($searchString4);
+                                                    $searchString4ForDisplay="PE Firm(s)";
+                                                    $searchString="Undisclosed";
+                                                    $searchString=strtolower($searchString);
+                                                    $searchString3="Individual";
+                                                    $searchString3=strtolower($searchString3);
+                                                    $companyName=trim($ped["companyname"]);
+                                                    $companyName=strtolower($companyName);
+                                                    $compResult=substr_count($companyName,$searchString);
+                                                    $compResult4=substr_count($companyName,$searchString4);
+                                
+                                                    $acquirerName=$ped["acquirer"];
+                                                    $acquirerName=strtolower($acquirerName);
+                                
+                                                    $compResultAcquirer=substr_count($acquirerName,$searchString4);
+                                                    $compResultAcquirerUndisclosed=substr_count($acquirerName,$searchString);
+                                                    $compResultAcquirerIndividual=substr_count($acquirerName,$searchString3);
+                                
+                                                    if($compResult==0)
+                                                            $displaycomp=$ped["companyname"];
+                                                    elseif($compResult4==1)
+                                                            $displaycomp=ucfirst("$searchString4");
+                                                    elseif($compResult==1)
+                                                            $displaycomp=ucfirst("$searchString");
+                                
+                                                    if(($compResultAcquirer==0) && ($compResultAcquirerUndisclosed==0) && ($compResultAcquirerIndividual==0))
+                                                            $displayAcquirer=$ped["acquirer"];
+                                                    elseif($compResultAcquirer==1)
+                                                            $displayAcquirer=ucfirst("$searchString4ForDisplay");
+                                                    elseif($compResultAcquirerUndisclosed==1)
+                                                            $displayAcquirer=ucfirst("$searchString");
+                                                    elseif($compResultAcquirerIndividual==1)
+                                                            $displayAcquirer=ucfirst("$searchString3");
+                                
                                                           if(trim($ped["sector_business"])==""){
                                  
                                                              $showindsec=$ped["industry"];
@@ -6555,15 +6605,32 @@ try {
                                                              $exitstatus_name = '--';
                                                          }
                                  
-                                                         if($ped["hideamount"]==1)
-                                                         {
-                                                                 $hideamount="--";
-                                                         }
-                                                         else
-                                                         {
-                                                                 $hideamount=$ped["amount"];
-                                                         }
-                                                          if($ped["AggHide"]==1)
+                                                        //  if($ped["hideamount"]==1)
+                                                        //  {
+                                                        //          $hideamount="--";
+                                                        //  }
+                                                        //  else
+                                                        //  {
+                                                        //          $hideamount=$ped["amount"];
+                                                        //  }
+                                                        if($ped["amount"]==0)
+                                                        {
+                                                                $hideamount="-";
+                                                                $amountobeAdded=0;
+                                                        }
+                                                        elseif($ped["hideamount"]==1)
+                                                        {
+                                                                $hideamount="-";
+                                                                $amountobeAdded=0;
+
+                                                        }
+                                                        else
+                                                        {
+                                                                $hideamount=$ped["amount"];
+                                                                // $acrossDealsCnt=$acrossDealsCnt+1;
+                                                                $amountobeAdded=$ped["Amount"];
+                                                        }
+                                                          if($ped["asset"]==1)
                                                          {
                                                                 $openBracket="(";
                                                                 $closeBracket=")";
@@ -6572,7 +6639,25 @@ try {
                                                          {
                                                                 $openBracket="";
                                                                 $closeBracket="";
+                                                          }
+                                                          if($ped["agghide"]==1)
+                                                        {
+                                                                $opensquareBracket="{";
+                                                                $closesquareBracket="}";
+                                                                $hideFlagset = 1;
+                                                                $amtTobeDeductedforAggHide=$ped["amount"];
+                                                                $NoofDealsCntTobeDeducted=1;
+
+                                                                //$acrossDealsCnt=$acrossDealsCnt-1;
                                                          }
+                                                        else
+                                                        {
+                                                                $opensquareBracket="";
+                                                                $closesquareBracket="";
+                                                                $amtTobeDeductedforAggHide=0;
+                                                                $NoofDealsCntTobeDeducted=0;
+                                                                $cos_array = $cos_withdebt_array;
+                                                        }
                                                           if($ped["SPV"]==1)
                                                          {
                                                                 $openDebtBracket="[";
@@ -6586,9 +6671,9 @@ try {
                                                          ?>
                                                          <tr class="details_linkma" data-row="<?php echo $ped["mamaid"];?>" >
                                  
-                                                                 <td style="width: 530px;"><b><?php echo $openBracket.$openDebtBracket.trim($ped["companyname"]).$closeDebtBracket.$closeBracket;?></b></td>
+                                                                 <td style="width: 530px;"><b><?php echo $openBracket.$openDebtBracket.$opensquareBracket.trim($ped["companyname"]).$closesquareBracket.$closeDebtBracket.$closeBracket;?></b></td>
                                                                  <td style="width: 850px;"><b><?php echo trim($ped["sector_business"]);?></b></td>
-                                                                 <td style="width: 260px;"><b><?php echo $ped["acquirer"];?></b></td>
+                                                                 <td style="width: 260px;"><b><?php echo $displayAcquirer;?></b></td>
                                                                  <td style="width: 200px;"><b><?php echo $ped["dates"];?></b></td>
                                                                  <td style="width: 200px;"><b><?php echo $hideamount;?></b></td>
                                  
@@ -6743,6 +6828,11 @@ try {
     text-transform: uppercase;
     border-right: 0 !important;
 }
+.ma-ajax{
+    display: flex;
+  justify-content: center;
+ 
+}
 .malb{
     /* width: 600px; */
     /* border: 1px solid #ccc; */
@@ -6750,8 +6840,9 @@ try {
     /* overflow: hidden; */
     /* margin: 0 auto; */
     /* z-index: 9000;  */
-    left: 23%;
-    top: 30%;
+    /* left: 23%;
+    top: 30%; */
+    align-self: center;
     position: absolute;
     background-color: #fff;
      display: none;
@@ -6764,11 +6855,12 @@ try {
     position: absolute;
     display: none;
     width: 100%;
-    height: 95%;
+   
 
 }
 .matext{
-    padding: 30px;
+    padding: 23px 30px;
+    font-size: 15px;
     background-color: #e0d8c3;
     color:#333 !important;
     border: 1px solid;
@@ -7435,6 +7527,9 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="deal_date" value="<?php echo $myrow["dt"];?>" >
 </form>
 <script type="text/javascript">
+
+   
+
 $(document).on( 'click','.headertbma', function() {
 
 var formData = new Array();
@@ -8831,6 +8926,10 @@ return $pageURL;
 mysql_close();
 ?>
 <script type="text/javascript" >
+$(document).ready(function(){
+ var $mapopheight=$('.ma-ajax').height();
+ $('#ma_popup').height($mapopheight);
+});
 <?php // if(!$_POST)   { ?>
         /* $("#panel").animate({width: 'toggle'}, 200); 
          $(".btn-slide").toggleClass("active"); 

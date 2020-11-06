@@ -121,7 +121,7 @@ function token(){
     <p><a href='".BASE_URL."password-reset.php?key=$token' target='_blank'>".BASE_URL."password-reset.php?key=".$token."</a></p>
     <p>This link will expire within 12 hours. If you do not wish to reset your password, simply ignore this email and nothing will be changed.</p>
     <p><b>Please Note :</b> Resetting your password will also change the password for the other <a href='".BASE_URL."index.htm' target='_blank'>Venture Intelligence Databases</a> you are subscribed to.</p>
-    <p>If you have questions or need further assistance, feel free to contact us at subscription@ventureintelligence.com or +91-44-4218-5180 / 82.</p>
+    <p>If you have questions or need further assistance, feel free to contact us at subscription@ventureintelligence.com or +91-44-4218-5180.</p>
     <br/>
     <p>Venture Intelligence Team.</p>
     
