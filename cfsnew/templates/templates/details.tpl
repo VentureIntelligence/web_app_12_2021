@@ -2615,18 +2615,10 @@ $(document).on( 'click','.headertbma', function() {
         url: 'ajax_pecfs_ma.php',
         data: formData,
         success: function(data) {
-            
-            
-                clickflagma = 1;
-                var dataResp = $.parseJSON(data);
-                if( dataResp.count == 0 ) {
-                    $('#ma-ajax').addClass( 'empty-container' );   
-                } else {
-                    $('#ma-ajax').removeClass( 'empty-container' );
-                }
-                 $('#ma-ajax').html(dataResp.html);
+             clickflagma = 1;
+                 $('#ma-ajax').html(data);
                  $('#ma-ajax').show();
-                 $('#ma-ajaxhidden').html(dataResp.sql);
+                
             
         }
     });
@@ -2714,13 +2706,7 @@ $(document).on( 'click','#mamenu', function() {
             data: formData,
             success: function(data) {
                 clickflagma = 1;
-                var dataResp = $.parseJSON(data);
-                if( dataResp.count == 0 ) {
-                    $('#ma-ajax').addClass( 'empty-container' );   
-                } else {
-                    $('#ma-ajax').removeClass( 'empty-container' );
-                }
-                 $('#ma-ajax').html(dataResp.html);
+                 $('#ma-ajax').html(data);
                  $('#ma-ajax').show();
             }
         });
