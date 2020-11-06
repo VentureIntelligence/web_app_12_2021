@@ -150,7 +150,7 @@ if($_POST['cin']!=''){
                             18, 11, 66, 106, 
                             8, 12, 22 ) ".$order1;
         ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
-        
+       
         $pers = mysql_query($sql);   
                
         //$FinanceAnnual = mysql_fetch_array($financialrs);
@@ -229,8 +229,9 @@ if($_POST['cin']!=''){
                         <th style="width: 200px;" class="headertbma" data-order="'.$order_amount.'" id="amount">Amount</th>
                     </tr></thead>
                     <tbody id="movies">';
-                    
+                  
                 foreach($pedata as $ped){ 
+                    
                     $searchString4="PE Firm(s)";
                     $searchString4=strtolower($searchString4);
                     $searchString4ForDisplay="PE Firm(s)";
@@ -399,5 +400,6 @@ if($_POST['cin']!=''){
                 //$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';
             
 }
-echo json_encode(array( 'count'=> count($pedata), 'html' => $pe_data ,'sql'=> $sql) );
+echo $pe_data;
+// echo json_encode(array( 'count'=> count($pedata), 'html' => $pe_data ,'sql'=> $sql) );
 ?>
