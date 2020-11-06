@@ -208,18 +208,11 @@ if($_POST['cin']!=''){
         // Table to show the companies with count at the top
         if(count($pedata) > 0){
             
-                $pe_data.='<div class="result-cnt">             
-                        <div class="result-title">
-                            <div class="filter-key-result"> 
-                                <div class="result-rt-cnt">
-                                      
-                                </div>
-                            </div> 
-                        </div>
-                    </div>';
+               
     
                 
-                $pe_data.='<div class="view-table view-table-list ">
+                $pe_data.='<div class="view-table view-table-list " style="border: 1px solid #d4d4d4;
+                padding-top: 24px;">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTable">
                     <thead><tr>
                         <th style="width: 530px;" class="headertbma" data-order="'.$order_company.'" id="companyname">Company</th>
@@ -367,36 +360,39 @@ if($_POST['cin']!=''){
         }else{
             // Show text when deals not found for this given company in PE
             
-                $pe_data .= '<h2>M&A</h2>
+                $pe_data .= '<div class="empty-container ma-contain" style="border:1px solid #d4d4d4  ">
+                                <h2>M&A</h2>
                                 <div class="data-ext-load">
                                     <div id="mca_data2">
                                     <b>No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
                                     </div>
-                                </div>';
+                                </div></div>';
                 /*$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';*/
             
         }
     }else{
          // Show text when company by CIN not found in the PE  companies  table
        
-                $pe_data .= '<h2>M&A</h2>
+                $pe_data .= '<div class="empty-container ma-contain" style="border:1px solid #d4d4d4  ">
+                                <h2>M&A</h2>
                                 <div class="data-ext-load">
                                      <div id="mca_data2">
                                      <b>No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
                                     </div>
-                                </div>';
+                                </div></div>';
                 //$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';
             
     }
 }else{
     // Show text when  CIN not found in the CFS
   
-                $pe_data .= '<h2>M&A</h2>
+                $pe_data .= '<div class="empty-container ma-contain" style="border:1px solid #d4d4d4  ">
+                                <h2>M&A</h2>
                                 <div class="data-ext-load">
                                      <div id="mca_data2">
                                         <b>No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
                                     </div>
-                                </div>';
+                                </div></div>';
                 //$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';
             
 }
