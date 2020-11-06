@@ -514,6 +514,13 @@ if(count($FinanceAnnual_cashflow) == 0){
 
 
                  <div class="finance-filter-custom" style="padding-top: 0px;">
+                 <select onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+        <option>-- select currency --</option>
+       
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>US Dollar USD</option>
+        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>Indian Rupee INR</option>
+        
+    </select>  
 
 <?php if($_GET['queryString']=='INR'){ ?>
     <select name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">

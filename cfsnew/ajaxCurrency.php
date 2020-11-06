@@ -464,6 +464,29 @@ if(count($FinanceAnnual_cashflow) == 0){
               <?php } if($PLDETAILED_MEDIA_PATH){?>
                             <input  name="" type="button"  value="Detailed P&L EXPORT" onClick="window.open('<?php echo MEDIA_PATH?>pldetailed/PLDetailed_{$VCID}.xls?time={$smarty.now}','_blank')" />
                 <?php }?>
+                <div class="finance-filter-custom" style="padding-top: 0px;">
+                 <select onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+        <option>-- select currency --</option>
+       
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>US Dollar USD</option>
+        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>Indian Rupee INR</option>
+        
+    </select>  
+
+<?php if($_GET['queryString']=='INR'){ ?>
+    <select name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="c" <?php if($_GET['rconv']=='c'){ echo "selected";} ?>>Crores</option>
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+        <option  value="l" <?php if($_GET['rconv']=='l'){ echo "selected";} ?>>Lakhs</option>
+    </select>
+<?php }else{ ?>
+    <select name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+         </select> 
+    <?php } ?>
+</div>
 <div style="clear:both;margin-top:18px">
      <?php $rowtype=mysql_query("select ResultType from plstandard where CId_FK =". $_GET['vcid']." Group by ResultType"); 
     $resulttypecount=mysql_num_rows($rowtype);
