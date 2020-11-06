@@ -88,7 +88,37 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
     }else{
         $file=FOLDER_CREATE_PATH.'plstandard/PLStandard_'.$_GET['vcid'].'.xls';     
         $filename=$companyname[$_GET['vcid']].'_PL_Stand.xls';//die; 
-    }
+	}
+	if($_GET['queryString']=='INR'){
+		
+		if($_GET['rconv']=='m'){
+			$convalue = "1000000";
+			$currencytext="INR(Million)";
+		}elseif($_GET['rconv']=='c'){
+			$convalue = "10000000";
+			$currencytext="INR(Crore)";
+		}elseif($_GET['rconv']=='l'){
+			$convalue = "100000";
+			$currencytext="INR(Lakh)";
+		}elseif($_GET['rconv']=='r'){
+			$convalue = "1";
+			$currencytext="INR";
+		}else{
+			$convalue = "1";
+			$currencytext="INR";
+		}
+		}
+		else
+		{
+			if($_GET['rconv']=='m'){
+			$convalue = "1000000";
+			$currencytext="USD(Million)";
+		}else{
+			$convalue = "1";
+			$currencytext="USD";
+		}
+			
+		}
     // if(isset($_GET['type']) && $_GET['type']=='consolidated'){
     //     $file=FOLDER_CREATE_PATH.'plstandard/PLStandard_'.$_GET['vcid'].'_1.xls';
     //     $filename=$companyname[$_GET['vcid']].'_PL_Cons.xls';//die;
@@ -109,114 +139,208 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 	while($myrow=mysql_fetch_array($finquery)){
 		$companyname=$myrow[0];
 	}
-	$styleArray = array(
+	$headerArray = array(
 		'borders' => array(
 		  'allborders' => array(
 			'style' => PHPExcel_Style_Border::BORDER_THIN
 		  )
 		)
 	  );
+	$styleArray = array(
+		'borders' => array(
+		  'allborders' => array(
+			'style' => PHPExcel_Style_Border::BORDER_THIN
+		  )
+		  ),
+		'alignment' => array(
+            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+        )
+	  );
+	  $boldStyle = array( 
+		'font'  => array( 'bold' => true ),
+		'borders' => array(
+			'allborders' => array(
+				'style' => PHPExcel_Style_Border::BORDER_THIN
+			  )
+		) 
+	);
 	//print_r($FinanceAnnual);
     //$excelIndex = $this->createColumnsArray( 'BZ' );
-  
     // 1-based index
     $col = 1;
 			$objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
 			$objPHPExcel->getActiveSheet()->setCellValue('A3', $companyname)->getStyle("A3")->getFont()->setBold(true);
-	        $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in INR');
-			$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->getFont()->setBold(true);
-			$objPHPExcel->getActiveSheet()->setCellValue('A7', 'Operational Income')->getStyle("A7") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Other Income')->getStyle("A8") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Total Income')->getStyle("A9") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A10', 'Cost of materials consumed')->getStyle("A10") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A11', 'Purchases of stock-in-trade')->getStyle("A11") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A12', 'Changes in Inventories')->getStyle("A12") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Employee benefit expense')->getStyle("A13") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A14', 'CSR expenditure')->getStyle("A14") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A15', 'Other Expenses')->getStyle("A15") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A16', 'Operational, Admin & Other Expenses')->getStyle("A16") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Operating Profit')->getStyle("A17") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A18', 'EBITDA')->getStyle("A18") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A19', 'Interest')->getStyle("A19") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A20', 'EBDT')->getStyle("A20") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A21', 'Depreciation')->getStyle("A21") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A22', 'EBT before Exceptional Items')->getStyle("A22") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A23', 'Prior period/Exceptional /Extra Ordinary Items')->getStyle("A23") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'EBT')->getStyle("A24") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Current tax')->getStyle("A25") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A26', 'Deferred tax')->getStyle("A26") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A28', 'PAT')->getStyle("A28") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A29', 'Profit (loss) of minority interest')->getStyle("A29") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A30', 'Total profit (loss) for period')->getStyle("A30") ;    
-			$objPHPExcel->getActiveSheet()->setCellValue('A31', 'EPS ')->getStyle("A31") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A32', '(Basic in INR)')->getStyle("A32") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A33', '(Diluted in INR)')->getStyle("A33") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A35', 'Foreign Exchange Earning and Outgo:')->getStyle("A35") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A36', 'Earning in Foreign Exchange')->getStyle("A36") ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A37', 'Outgo in Foreign Exchange')->getStyle("A37") ;
+	        $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in '.$currencytext);
+			$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->applyFromArray($boldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A7', 'Operational Income')->getStyle("A7")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Other Income')->getStyle("A8") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Total Income')->getStyle("A9") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A10', 'Cost of materials consumed')->getStyle("A10")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A11', 'Purchases of stock-in-trade')->getStyle("A11")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A12', 'Changes in Inventories')->getStyle("A12") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Employee benefit expense')->getStyle("A13")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A14', 'CSR expenditure')->getStyle("A14") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A15', 'Other Expenses')->getStyle("A15")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A16', 'Operational, Admin & Other Expenses')->getStyle("A16")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Operating Profit')->getStyle("A17")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A18', 'EBITDA')->getStyle("A18")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A19', 'Interest')->getStyle("A19")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A20', 'EBDT')->getStyle("A20")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A21', 'Depreciation')->getStyle("A21")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A22', 'EBT before Exceptional Items')->getStyle("A22")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A23', 'Prior period/Exceptional /Extra Ordinary Items')->getStyle("A23")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'EBT')->getStyle("A24")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Current tax')->getStyle("A25")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A26', 'Deferred tax')->getStyle("A26")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A28', 'PAT')->getStyle("A28")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A29', 'Profit (loss) of minority interest')->getStyle("A29")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A30', 'Total profit (loss) for period')->getStyle("A30")->applyFromArray($headerArray) ;    
+			$objPHPExcel->getActiveSheet()->setCellValue('A31', 'EPS ')->getStyle("A31")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A32', '(Basic in INR)')->getStyle("A32")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A33', '(Diluted in INR)')->getStyle("A33")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A35', 'Foreign Exchange Earning and Outgo:')->getStyle("A35") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A36', 'Earning in Foreign Exchange')->getStyle("A36")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A37', 'Outgo in Foreign Exchange')->getStyle("A37")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
-			$objPHPExcel->getActiveSheet()->setTitle('Annual P&L Consolidated');
+			$objPHPExcel->getActiveSheet()->setTitle('Consolidated');
 			for($i=0;$i<count($FinanceAnnual);$i++){
 				$row = 6;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->getFont()->setBold(true);
+				// if($_GET['queryString']!='INR'){
+                //      if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='0';}else{ $vale = $FinanceAnnual[$i][OptnlIncome];$tot=$vale/$convalue;$OptnlIncome = round($tot,2);  if($vale==''){$OptnlIncome = '0';}} 
+             
+                // }
+                // else
+                // {
+                //      if($_GET['rconv'] =='r'){ 
+				// 		 if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='0';}else{$tot=($FinanceAnnual[$i][OptnlIncome]/$convalue);$OptnlIncome =round($tot,2); } 
+                //     } else {  if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='0';}else{ $tot= ($FinanceAnnual[$i][OptnlIncome]/$convalue);$OptnlIncome =round($tot,2); } 
+                //      } 
+				// }
+				if($_GET['queryString']!='INR'){
+					if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome];$tot=$vale/$convalue;$OptnlIncome = round($tot,2);  if($vale==''){$OptnlIncome = '-';}} 
+					if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{ $vale = $FinanceAnnual[$i][OtherIncome];$tot=$vale/$convalue;$OtherIncome = round($tot,2);  if($vale==''){$OtherIncome = '-';}} 
+					if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{ $vale = $FinanceAnnual[$i][TotalIncome];$tot=$vale/$convalue;$TotalIncome = round($tot,2);  if($vale==''){$TotalIncome = '-';}}
+					if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{ $vale = $FinanceAnnual[$i][CostOfMaterialsConsumed];$tot=$vale/$convalue;$CostOfMaterialsConsumed = round($tot,2);  if($vale==''){$CostOfMaterialsConsumed = '-';}} 
+					if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{ $vale = $FinanceAnnual[$i][PurchasesOfStockInTrade];$tot=$vale/$convalue;$PurchasesOfStockInTrade = round($tot,2);  if($vale==''){$PurchasesOfStockInTrade = '-';}}
+					if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{ $vale = $FinanceAnnual[$i][ChangesInInventories];$tot=$vale/$convalue;$ChangesInInventories = round($tot,2);  if($vale==''){$ChangesInInventories = '-';}}
+					if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses];$tot=$vale/$convalue;$EmployeeRelatedExpenses = round($tot,2);  if($vale==''){$EmployeeRelatedExpenses = '-';}}
+					if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{ $vale = $FinanceAnnual[$i][CSRExpenditure];$tot=$vale/$convalue;$CSRExpenditure = round($tot,2);  if($vale==''){$CSRExpenditure = '-';}}
+					if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{ $vale = $FinanceAnnual[$i][OtherExpenses];$tot=$vale/$convalue;$OtherExpenses = round($tot,2);  if($vale==''){$OtherExpenses = '-';}}
+					if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][OptnlAdminandOthrExp];$tot=$vale/$convalue;$OptnlAdminandOthrExp = round($tot,2);  if($vale==''){$OptnlAdminandOthrExp = '-';}}
+					if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{ $vale = $FinanceAnnual[$i][OptnlProfit];$tot=$vale/$convalue;$OptnlProfit = round($tot,2);  if($vale==''){$OptnlProfit = '-';}}
+					if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{ $vale = $FinanceAnnual[$i][EBITDA];$tot=$vale/$convalue;$EBITDA = round($tot,2);  if($vale==''){$EBITDA = '-';}}
+					if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{ $vale = $FinanceAnnual[$i][Interest];$tot=$vale/$convalue;$Interest = round($tot,2);  if($vale==''){$Interest = '-';}}
+					if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{ $vale = $FinanceAnnual[$i][EBDT];$tot=$vale/$convalue;$EBDT = round($tot,2);  if($vale==''){$EBDT = '-';}}
+					if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{ $vale = $FinanceAnnual[$i][Depreciation];$tot=$vale/$convalue;$Depreciation = round($tot,2);  if($vale==''){$Depreciation = '-';}}
+					if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][EBT_before_Priod_period];$tot=$vale/$convalue;$EBT_before_Priod_period = round($tot,2);  if($vale==''){$EBT_before_Priod_period = '-';}}
+					if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][Priod_period];$tot=$vale/$convalue;$Priod_period = round($tot,2);  if($vale==''){$Priod_period = '-';}}
+					if($FinanceAnnual[$i][EBT]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][EBT];$tot=$vale/$convalue;$EBT = round($tot,2);  if($vale==''){$EBT = '-';}}
+					if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{ $vale = $FinanceAnnual[$i][CurrentTax];$tot=$vale/$convalue;$CurrentTax = round($tot,2);  if($vale==''){$CurrentTax = '-';}}
+					if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{ $vale = $FinanceAnnual[$i][DeferredTax];$tot=$vale/$convalue;$DeferredTax = round($tot,2);  if($vale==''){$DeferredTax = '-';}}
+					if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{ $vale = $FinanceAnnual[$i][Tax];$tot=$vale/$convalue;$Tax = round($tot,2);  if($vale==''){$Tax = '-';}}
+					if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{ $vale = $FinanceAnnual[$i][PAT];$tot=$vale/$convalue;$PAT = round($tot,2);  if($vale==''){$PAT = '-';}}
+					if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{ $vale = $FinanceAnnual[$i][BINR];$tot=$vale/$convalue;$BINR = round($tot,2);  if($vale==''){$BINR = '-';}}
+					if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{ $vale = $FinanceAnnual[$i][DINR];$tot=$vale/$convalue;$DINR = round($tot,2);  if($vale==''){$DINR = '-';}}
+					if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){$profit_loss_of_minority_interest ='-';}else{ $vale = $FinanceAnnual[$i][profit_loss_of_minority_interest];$tot=$vale/$convalue;$profit_loss_of_minority_interest = round($tot,2);  if($vale==''){$profit_loss_of_minority_interest = '-';}}
+					if($FinanceAnnual[$i][total_profit_loss_for_period]==0){$total_profit_loss_for_period ='-';}else{ $vale = $FinanceAnnual[$i][total_profit_loss_for_period];$tot=$vale/$convalue;$total_profit_loss_for_period = round($tot,2);  if($vale==''){$total_profit_loss_for_period = '-';}}
+					if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][EarninginForeignExchange];$tot=$vale/$convalue;$EarninginForeignExchange = round($tot,2);  if($vale==''){$EarninginForeignExchange = '-';}}
+					if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][OutgoinForeignExchange];$tot=$vale/$convalue;$OutgoinForeignExchange = round($tot,2);  if($vale==''){$OutgoinForeignExchange = '-';}}
+
+			
+			   }
+			   else
+			   {
+					
+						if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{$tot=($FinanceAnnual[$i][OptnlIncome]/$convalue);$OptnlIncome =round($tot,2); }
+						if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{$tot=($FinanceAnnual[$i][OtherIncome]/$convalue);$OtherIncome =round($tot,2); } 
+						if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);$TotalIncome =round($tot,2); }
+						if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{$tot=($FinanceAnnual[$i][CostOfMaterialsConsumed]/$convalue);$CostOfMaterialsConsumed =round($tot,2); }
+						if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{$tot=($FinanceAnnual[$i][PurchasesOfStockInTrade]/$convalue);$PurchasesOfStockInTrade =round($tot,2); }
+						if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{$tot=($FinanceAnnual[$i][ChangesInInventories]/$convalue);$ChangesInInventories =round($tot,2); }
+						if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{$tot=($FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue);$EmployeeRelatedExpenses =round($tot,2); }
+						if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{$tot=($FinanceAnnual[$i][CSRExpenditure]/$convalue);$CSRExpenditure =round($tot,2); }
+						if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{$tot=($FinanceAnnual[$i][OtherExpenses]/$convalue);$OtherExpenses =round($tot,2); }
+						if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{$tot=($FinanceAnnual[$i][OptnlAdminandOthrExp]/$convalue);$OptnlAdminandOthrExp =round($tot,2); }
+						if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{$tot=($FinanceAnnual[$i][OptnlProfit]/$convalue);$OptnlProfit =round($tot,2); }
+						if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);$EBITDA =round($tot,2); }
+						if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{$tot=($FinanceAnnual[$i][Interest]/$convalue);$Interest =round($tot,2); }
+						if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{$tot=($FinanceAnnual[$i][EBDT]/$convalue);$EBDT =round($tot,2); }
+						if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{$tot=($FinanceAnnual[$i][Depreciation]/$convalue);$Depreciation =round($tot,2); }
+						if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{$tot=($FinanceAnnual[$i][EBT_before_Priod_period]/$convalue);$EBT_before_Priod_period =round($tot,2); }
+						if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{$tot=($FinanceAnnual[$i][Priod_period]/$convalue);$Priod_period =round($tot,2); }
+						if($FinanceAnnual[$i][EBT]==0){$EBT ='-';}else{$tot=($FinanceAnnual[$i][EBT]/$convalue);$EBT =round($tot,2); }
+						if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{$tot=($FinanceAnnual[$i][CurrentTax]/$convalue);$CurrentTax =round($tot,2); }
+						if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{$tot=($FinanceAnnual[$i][DeferredTax]/$convalue);$DeferredTax =round($tot,2); }
+						if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{$tot=($FinanceAnnual[$i][Tax]/$convalue);$Tax =round($tot,2); }
+						if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);$PAT =round($tot,2); }
+						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR]/$convalue);$BINR =round($tot,2); }
+						if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{$tot=($FinanceAnnual[$i][DINR]/$convalue);$DINR =round($tot,2); }
+						if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){$profit_loss_of_minority_interest ='-';}else{$tot=($FinanceAnnual[$i][profit_loss_of_minority_interest]/$convalue);$profit_loss_of_minority_interest =round($tot,2); }
+						if($FinanceAnnual[$i][total_profit_loss_for_period]==0){$total_profit_loss_for_period ='-';}else{$tot=($FinanceAnnual[$i][total_profit_loss_for_period]/$convalue);$total_profit_loss_for_period =round($tot,2); }
+						if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{$tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue);$EarninginForeignExchange =round($tot,2); }
+						if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{$tot=($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue);$OutgoinForeignExchange =round($tot,2); }
+						
+					
+			   }
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][OptnlIncome] )->applyFromArray($styleArray);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$OptnlIncome )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][OtherIncome] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$OtherIncome )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][TotalIncome] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$TotalIncome )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][CostOfMaterialsConsumed] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$CostOfMaterialsConsumed )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][PurchasesOfStockInTrade] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$PurchasesOfStockInTrade )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][ChangesInInventories] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$ChangesInInventories )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][EmployeeRelatedExpenses] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$EmployeeRelatedExpenses )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][CSRExpenditure] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$CSRExpenditure )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][OtherExpenses] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$OtherExpenses )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][OptnlAdminandOthrExp] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$OptnlAdminandOthrExp )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][OptnlProfit] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$OptnlProfit )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][EBITDA] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBITDA )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][Interest] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$Interest )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][EBDT] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBDT )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$FinanceAnnual[$i][Depreciation] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$Depreciation )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][EBT_before_Priod_period] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBT_before_Priod_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][Priod_period] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Priod_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][EBT] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBT )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][CurrentTax] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$CurrentTax )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][DeferredTax] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$DeferredTax )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][Tax] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Tax )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][PAT] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$PAT )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][profit_loss_of_minority_interest] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$profit_loss_of_minority_interest )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][total_profit_loss_for_period] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$total_profit_loss_for_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row=$row+2;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][BINR] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][BINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][DINR] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][DINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row=$row+3;
 				
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][EarninginForeignExchange] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EarninginForeignExchange )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][OutgoinForeignExchange] );
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$OutgoinForeignExchange )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
 				$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth('20');
 				$col++;	
@@ -232,43 +356,199 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
     $FinanceAnnual = $plstandard->getFullList(1,100,$fields,$where,$order,"name");
    // print_r($FinanceAnnual);
   // $excelIndex = $this->createColumnsArray( 'BZ' );
-   $i = 0;
-   $index = 1;
-   $objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
-   $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in INR');
-		   $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->getFont()->setBold(true);
-		   $objPHPExcel->getActiveSheet()->setCellValue('A7', 'Operational Income')->getStyle("A7") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Other Income')->getStyle("A8") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Total Income')->getStyle("A9") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A10', 'Cost of materials consumed')->getStyle("A10") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A11', 'Purchases of stock-in-trade')->getStyle("A11") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A12', 'Changes in Inventories')->getStyle("A12") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A13', 'Employee benefit expense')->getStyle("A13") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A14', 'CSR expenditure')->getStyle("A14") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A15', 'Other Expenses')->getStyle("A15") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A16', 'Operational, Admin & Other Expenses')->getStyle("A16") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A17', 'Operating Profit')->getStyle("A17") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A18', 'EBITDA')->getStyle("A18") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A19', 'Interest')->getStyle("A19") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A20', 'EBDT')->getStyle("A20") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A21', 'Depreciation')->getStyle("A21") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A22', 'EBT before Exceptional Items')->getStyle("A22") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A23', 'Prior period/Exceptional /Extra Ordinary Items')->getStyle("A23") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A24', 'EBT')->getStyle("A24") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A25', 'Current tax')->getStyle("A25") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A26', 'Deferred tax')->getStyle("A26") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A28', 'PAT')->getStyle("A28") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A29', 'Profit (loss) of minority interest')->getStyle("A29") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A30', 'Total profit (loss) for period')->getStyle("A30") ;    
-		   $objPHPExcel->getActiveSheet()->setCellValue('A31', 'EPS ')->getStyle("A31") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A32', '(Basic in INR)')->getStyle("A32") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A33', '(Diluted in INR)')->getStyle("A33") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A35', 'Foreign Exchange Earning and Outgo:')->getStyle("A35") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A36', 'Earning in Foreign Exchange')->getStyle("A36") ;
-		   $objPHPExcel->getActiveSheet()->setCellValue('A37', 'Outgo in Foreign Exchange')->getStyle("A37") ;
-		   $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
-		   $objPHPExcel->getActiveSheet()->setTitle('Annual P&L Standard');
+  $finquery=mysql_query("SELECT `FCompanyName` FROM `cprofile` WHERE `Company_Id`='".$FinanceAnnual[0][CId_FK]."'");
+	while($myrow=mysql_fetch_array($finquery)){
+		$companyname=$myrow[0];
+	}
+	$headerArray = array(
+		'borders' => array(
+		  'allborders' => array(
+			'style' => PHPExcel_Style_Border::BORDER_THIN
+		  )
+		)
+	  );
+	  $styleArray = array(
+		'borders' => array(
+		  'allborders' => array(
+			'style' => PHPExcel_Style_Border::BORDER_THIN
+		  )
+		),
+		'alignment' => array(
+            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+        )
+	  );
+	  $boldStyle = array( 
+		'font'  => array( 'bold' => true ),
+		'borders' => array(
+			'allborders' => array(
+				'style' => PHPExcel_Style_Border::BORDER_THIN
+			  )
+		) 
+	);
+	//print_r($FinanceAnnual);
+    //$excelIndex = $this->createColumnsArray( 'BZ' );
+  
+    // 1-based index
+    $col = 1;
+			$objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
+			$objPHPExcel->getActiveSheet()->setCellValue('A3', $companyname)->getStyle("A3")->getFont()->setBold(true);
+	        $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in '.$currencytext);
+			$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->applyFromArray($boldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A7', 'Operational Income')->getStyle("A7")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Other Income')->getStyle("A8") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Total Income')->getStyle("A9") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A10', 'Cost of materials consumed')->getStyle("A10")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A11', 'Purchases of stock-in-trade')->getStyle("A11")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A12', 'Changes in Inventories')->getStyle("A12") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Employee benefit expense')->getStyle("A13")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A14', 'CSR expenditure')->getStyle("A14") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A15', 'Other Expenses')->getStyle("A15")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A16', 'Operational, Admin & Other Expenses')->getStyle("A16")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Operating Profit')->getStyle("A17")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A18', 'EBITDA')->getStyle("A18")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A19', 'Interest')->getStyle("A19")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A20', 'EBDT')->getStyle("A20")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A21', 'Depreciation')->getStyle("A21")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A22', 'EBT before Exceptional Items')->getStyle("A22")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A23', 'Prior period/Exceptional /Extra Ordinary Items')->getStyle("A23")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'EBT')->getStyle("A24")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Current tax')->getStyle("A25")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A26', 'Deferred tax')->getStyle("A26")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A28', 'PAT')->getStyle("A28")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A29', 'EPS ')->getStyle("A29")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A30', '(Basic in INR)')->getStyle("A30")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A31', '(Diluted in INR)')->getStyle("A31")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A33', 'Foreign Exchange Earning and Outgo:')->getStyle("A33") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A34', 'Earning in Foreign Exchange')->getStyle("A34")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A35', 'Outgo in Foreign Exchange')->getStyle("A35")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
+			$objPHPExcel->getActiveSheet()->setTitle('Standard');
+			for($i=0;$i<count($FinanceAnnual);$i++){
+				$row = 6;
+				if($_GET['queryString']!='INR'){
+					if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome];$tot=$vale/$convalue;$OptnlIncome = round($tot,2);  if($vale==''){$OptnlIncome = '-';}} 
+					if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{ $vale = $FinanceAnnual[$i][OtherIncome];$tot=$vale/$convalue;$OtherIncome = round($tot,2);  if($vale==''){$OtherIncome = '-';}} 
+					if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{ $vale = $FinanceAnnual[$i][TotalIncome];$tot=$vale/$convalue;$TotalIncome = round($tot,2);  if($vale==''){$TotalIncome = '-';}}
+					if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{ $vale = $FinanceAnnual[$i][CostOfMaterialsConsumed];$tot=$vale/$convalue;$CostOfMaterialsConsumed = round($tot,2);  if($vale==''){$CostOfMaterialsConsumed = '-';}} 
+					if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{ $vale = $FinanceAnnual[$i][PurchasesOfStockInTrade];$tot=$vale/$convalue;$PurchasesOfStockInTrade = round($tot,2);  if($vale==''){$PurchasesOfStockInTrade = '-';}}
+					if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{ $vale = $FinanceAnnual[$i][ChangesInInventories];$tot=$vale/$convalue;$ChangesInInventories = round($tot,2);  if($vale==''){$ChangesInInventories = '-';}}
+					if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses];$tot=$vale/$convalue;$EmployeeRelatedExpenses = round($tot,2);  if($vale==''){$EmployeeRelatedExpenses = '-';}}
+					if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{ $vale = $FinanceAnnual[$i][CSRExpenditure];$tot=$vale/$convalue;$CSRExpenditure = round($tot,2);  if($vale==''){$CSRExpenditure = '-';}}
+					if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{ $vale = $FinanceAnnual[$i][OtherExpenses];$tot=$vale/$convalue;$OtherExpenses = round($tot,2);  if($vale==''){$OtherExpenses = '-';}}
+					if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][OptnlAdminandOthrExp];$tot=$vale/$convalue;$OptnlAdminandOthrExp = round($tot,2);  if($vale==''){$OptnlAdminandOthrExp = '-';}}
+					if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{ $vale = $FinanceAnnual[$i][OptnlProfit];$tot=$vale/$convalue;$OptnlProfit = round($tot,2);  if($vale==''){$OptnlProfit = '-';}}
+					if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{ $vale = $FinanceAnnual[$i][EBITDA];$tot=$vale/$convalue;$EBITDA = round($tot,2);  if($vale==''){$EBITDA = '-';}}
+					if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{ $vale = $FinanceAnnual[$i][Interest];$tot=$vale/$convalue;$Interest = round($tot,2);  if($vale==''){$Interest = '-';}}
+					if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{ $vale = $FinanceAnnual[$i][EBDT];$tot=$vale/$convalue;$EBDT = round($tot,2);  if($vale==''){$EBDT = '-';}}
+					if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{ $vale = $FinanceAnnual[$i][Depreciation];$tot=$vale/$convalue;$Depreciation = round($tot,2);  if($vale==''){$Depreciation = '-';}}
+					if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][EBT_before_Priod_period];$tot=$vale/$convalue;$EBT_before_Priod_period = round($tot,2);  if($vale==''){$EBT_before_Priod_period = '-';}}
+					if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][Priod_period];$tot=$vale/$convalue;$Priod_period = round($tot,2);  if($vale==''){$Priod_period = '-';}}
+					if($FinanceAnnual[$i][EBT]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][EBT];$tot=$vale/$convalue;$EBT = round($tot,2);  if($vale==''){$EBT = '-';}}
+					if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{ $vale = $FinanceAnnual[$i][CurrentTax];$tot=$vale/$convalue;$CurrentTax = round($tot,2);  if($vale==''){$CurrentTax = '-';}}
+					if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{ $vale = $FinanceAnnual[$i][DeferredTax];$tot=$vale/$convalue;$DeferredTax = round($tot,2);  if($vale==''){$DeferredTax = '-';}}
+					if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{ $vale = $FinanceAnnual[$i][Tax];$tot=$vale/$convalue;$Tax = round($tot,2);  if($vale==''){$Tax = '-';}}
+					if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{ $vale = $FinanceAnnual[$i][PAT];$tot=$vale/$convalue;$PAT = round($tot,2);  if($vale==''){$PAT = '-';}}
+					if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{ $vale = $FinanceAnnual[$i][BINR];$tot=$vale/$convalue;$BINR = round($tot,2);  if($vale==''){$BINR = '-';}}
+					if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{ $vale = $FinanceAnnual[$i][DINR];$tot=$vale/$convalue;$DINR = round($tot,2);  if($vale==''){$DINR = '-';}}
+					if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][EarninginForeignExchange];$tot=$vale/$convalue;$EarninginForeignExchange = round($tot,2);  if($vale==''){$EarninginForeignExchange = '-';}}
+					if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][OutgoinForeignExchange];$tot=$vale/$convalue;$OutgoinForeignExchange = round($tot,2);  if($vale==''){$OutgoinForeignExchange = '-';}}
+
+			
+			   }
+			   else
+			   {
+					
+						if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{$tot=($FinanceAnnual[$i][OptnlIncome]/$convalue);$OptnlIncome =round($tot,2); }
+						if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{$tot=($FinanceAnnual[$i][OtherIncome]/$convalue);$OtherIncome =round($tot,2); } 
+						if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);$TotalIncome =round($tot,2); }
+						if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{$tot=($FinanceAnnual[$i][CostOfMaterialsConsumed]/$convalue);$CostOfMaterialsConsumed =round($tot,2); }
+						if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{$tot=($FinanceAnnual[$i][PurchasesOfStockInTrade]/$convalue);$PurchasesOfStockInTrade =round($tot,2); }
+						if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{$tot=($FinanceAnnual[$i][ChangesInInventories]/$convalue);$ChangesInInventories =round($tot,2); }
+						if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{$tot=($FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue);$EmployeeRelatedExpenses =round($tot,2); }
+						if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{$tot=($FinanceAnnual[$i][CSRExpenditure]/$convalue);$CSRExpenditure =round($tot,2); }
+						if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{$tot=($FinanceAnnual[$i][OtherExpenses]/$convalue);$OtherExpenses =round($tot,2); }
+						if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{$tot=($FinanceAnnual[$i][OptnlAdminandOthrExp]/$convalue);$OptnlAdminandOthrExp =round($tot,2); }
+						if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{$tot=($FinanceAnnual[$i][OptnlProfit]/$convalue);$OptnlProfit =round($tot,2); }
+						if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);$EBITDA =round($tot,2); }
+						if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{$tot=($FinanceAnnual[$i][Interest]/$convalue);$Interest =round($tot,2); }
+						if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{$tot=($FinanceAnnual[$i][EBDT]/$convalue);$EBDT =round($tot,2); }
+						if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{$tot=($FinanceAnnual[$i][Depreciation]/$convalue);$Depreciation =round($tot,2); }
+						if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{$tot=($FinanceAnnual[$i][EBT_before_Priod_period]/$convalue);$EBT_before_Priod_period =round($tot,2); }
+						if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{$tot=($FinanceAnnual[$i][Priod_period]/$convalue);$Priod_period =round($tot,2); }
+						if($FinanceAnnual[$i][EBT]==0){$EBT ='-';}else{$tot=($FinanceAnnual[$i][EBT]/$convalue);$EBT =round($tot,2); }
+						if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{$tot=($FinanceAnnual[$i][CurrentTax]/$convalue);$CurrentTax =round($tot,2); }
+						if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{$tot=($FinanceAnnual[$i][DeferredTax]/$convalue);$DeferredTax =round($tot,2); }
+						if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{$tot=($FinanceAnnual[$i][Tax]/$convalue);$Tax =round($tot,2); }
+						if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);$PAT =round($tot,2); }
+						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR]/$convalue);$BINR =round($tot,2); }
+						if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{$tot=($FinanceAnnual[$i][DINR]/$convalue);$DINR =round($tot,2); }
+						if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{$tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue);$EarninginForeignExchange =round($tot,2); }
+						if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{$tot=($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue);$OutgoinForeignExchange =round($tot,2); }
+						
+					
+			   }
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$OptnlIncome)->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$OtherIncome )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$TotalIncome )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$CostOfMaterialsConsumed )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$PurchasesOfStockInTrade )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$ChangesInInventories )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$EmployeeRelatedExpenses )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$CSRExpenditure )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$OtherExpenses )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$OptnlAdminandOthrExp )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$OptnlProfit )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBITDA )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$Interest )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBDT )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$Depreciation )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBT_before_Priod_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Priod_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBT )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$CurrentTax )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$DeferredTax )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Tax )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$PAT )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row=$row+2;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][BINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][DINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row=$row+3;
+				
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EarninginForeignExchange )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$OutgoinForeignExchange )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$row++;
+				$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth('20');
+				$col++;	
+			}	
+				
+
+		  
 }
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
