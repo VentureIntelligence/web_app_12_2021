@@ -6828,6 +6828,11 @@ try {
     text-transform: uppercase;
     border-right: 0 !important;
 }
+.ma-ajax{
+    display: flex;
+  justify-content: center;
+ 
+}
 .malb{
     /* width: 600px; */
     /* border: 1px solid #ccc; */
@@ -6835,8 +6840,9 @@ try {
     /* overflow: hidden; */
     /* margin: 0 auto; */
     /* z-index: 9000;  */
-    left: 23%;
-    top: 30%;
+    /* left: 23%;
+    top: 30%; */
+    align-self: center;
     position: absolute;
     background-color: #fff;
      display: none;
@@ -6849,7 +6855,7 @@ try {
     position: absolute;
     display: none;
     width: 100%;
-    height: 95%;
+   
 
 }
 .matext{
@@ -7520,6 +7526,9 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="deal_date" value="<?php echo $myrow["dt"];?>" >
 </form>
 <script type="text/javascript">
+
+   
+
 $(document).on( 'click','.headertbma', function() {
 
 var formData = new Array();
@@ -8916,6 +8925,10 @@ return $pageURL;
 mysql_close();
 ?>
 <script type="text/javascript" >
+$(document).ready(function(){
+ var $mapopheight=$('.ma-ajax').height();
+ $('#ma_popup').height($mapopheight);
+});
 <?php // if(!$_POST)   { ?>
         /* $("#panel").animate({width: 'toggle'}, 200); 
          $(".btn-slide").toggleClass("active"); 
