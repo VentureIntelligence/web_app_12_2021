@@ -252,9 +252,9 @@ span.result-amount-no {
     border-top: none;
     margin-top: 0px;
 }
-{* .finance-filter{
+.finance-filter{
     display: none !important;
-} *}
+} 
 form.custom .finance-filter-custom .custom.dropdown {
     height: 27px !important;
     font-size: 14px;
