@@ -6859,7 +6859,8 @@ try {
 
 }
 .matext{
-    padding: 30px;
+    padding: 23px 30px;
+    font-size: 15px;
     background-color: #e0d8c3;
     color:#333 !important;
     border: 1px solid;
