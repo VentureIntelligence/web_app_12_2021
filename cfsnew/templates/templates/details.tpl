@@ -12,6 +12,9 @@
 {literal}
 <!-- <link href="css/growth.css" rel="stylesheet" type="text/css" /> -->
 <style type="text/css">
+.ma-contain{
+    max-width: 735px !important;
+}
 .finance-filter{
     display: none !important;
 }
@@ -2617,6 +2620,7 @@ $(document).on( 'click','.headertbma', function() {
         success: function(data) {
              clickflagma = 1;
                  $('#ma-ajax').html(data);
+                 $('#ma-ajax').css("border","none");
                  $('#ma-ajax').show();
                 
             
@@ -2707,6 +2711,7 @@ $(document).on( 'click','#mamenu', function() {
             success: function(data) {
                 clickflagma = 1;
                  $('#ma-ajax').html(data);
+                  $('#ma-ajax').css("border","none");
                  $('#ma-ajax').show();
             }
         });
