@@ -1,3 +1,21 @@
+<style>
+.finance-filter-custom{
+    width: 140px;
+    display: flex;
+}
+.btn-cnt input {
+    margin-right: 25px;
+}
+.incurrency{
+    margin: 0px 5px;
+}
+.currencyconversion{
+    width:65px;
+}
+.currencyselection{
+    width:52px;
+}
+</style>
 <?php
 if(!isset($_SESSION)){
     session_save_path("/tmp");
@@ -236,18 +254,9 @@ if(count($FinanceAnnual_cashflow) == 0){
     <label class="cagrlabel">   <input type="radio" name="yoy" id="cagr" value="G"  <?php if($_GET['yoy']=='G'){ echo "checked";} ?> onChange="javascript:valueconversion('G',<?php echo $_GET['vcid']; ?>);" /> Growth</label> 
     <select onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
         <option>-- select currency --</option>
-        <option value="GBP" <?php if($_GET['queryString']=='GBP'){ echo "selected";} ?>>British Pound GBP</option>
-        <option value="EUR" <?php if($_GET['queryString']=='EUR'){ echo "selected";} ?>>Euro EUR</option>
-        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>US Dollar USD</option>
-        <option value="JPY" <?php if($_GET['queryString']=='JPY'){ echo "selected";} ?>>Japanese Yen JPY</option>
-        <option value="CNY" <?php if($_GET['queryString']=='CNY'){ echo "selected";} ?>>Chinese Yuan CNY</option>
-        <option value="AUD" <?php if($_GET['queryString']=='AUD'){ echo "selected";} ?>>Australian Dollar AUD</option>
-        <option value="CHF" <?php if($_GET['queryString']=='CHF'){ echo "selected";} ?>>Swiss Franc CHF</option>
-        <option value="CAD" <?php if($_GET['queryString']=='CAD'){ echo "selected";} ?>>Canadian Dollar CAD</option>
-        <option value="THB" <?php if($_GET['queryString']=='THB'){ echo "selected";} ?>>Thai Baht THB</option>
-        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>Indian Rupee INR</option>
-        <option value="IDR" <?php if($_GET['queryString']=='IDR'){ echo "selected";} ?>>Indonesian Rupiah IDR</option>
-        <option value="HKD" <?php if($_GET['queryString']=='HKD'){ echo "selected";} ?>>Hong Kong Dollar HKD</option>
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        
     </select>  
 </div>
 <?php if($_GET['queryString']=='INR'){ ?>
@@ -275,7 +284,8 @@ if(count($FinanceAnnual_cashflow) == 0){
         $style = '';
     }
 ?>
-<!-- <div class="growth_fulldetails" style="<?php echo $style; ?>">
+<?php if(BASE_URL == "//dev.vionweb.com/" || BASE_URL == "//localhost/vi_webapp/"){?>
+<div class="growth_fulldetails" style="<?php echo $style; ?>">
     <?php
     $growth_precentage = array();
      $ResultType1="SELECT MAX( ResultType ) AS ResultType FROM cagr WHERE CId_FK =".$_GET['vcid']." AND FY !=  ''";
@@ -469,8 +479,8 @@ if(count($FinanceAnnual_cashflow) == 0){
         <?php  } $j++; }      ?>
    <div class="">
    </div>
-</div>  -->
-    <?php }
+</div> 
+    <?php } }
     if(count($FinanceAnnual) > 0){
      $Fycount=0;
      for($i=0;$i<count($FinanceAnnual);$i++){
@@ -513,24 +523,24 @@ if(count($FinanceAnnual_cashflow) == 0){
                 <?php }?>
 
 
-                 <div class="finance-filter-custom" style="padding-top: 0px;">
-                 <select onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+                 <div class="finance-filter-custom" style="padding-top: 0px;display:inline-flex">
+                 <select class="currencyselection" onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
         <option>-- select currency --</option>
        
-        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>US Dollar USD</option>
-        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>Indian Rupee INR</option>
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
         
-    </select>  
+    </select>  <span class="incurrency" > in </span>
 
 <?php if($_GET['queryString']=='INR'){ ?>
-    <select name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+    <select class="currencyconversion" name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
         <option value="c" <?php if($_GET['rconv']=='c'){ echo "selected";} ?>>Crores</option>
         <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
         <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
         <option  value="l" <?php if($_GET['rconv']=='l'){ echo "selected";} ?>>Lakhs</option>
     </select>
 <?php }else{ ?>
-    <select name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+    <select class="currencyconversion"  name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
         <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
         <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
          </select> 
