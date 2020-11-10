@@ -631,6 +631,9 @@ if(gettype($cityid)!="string"){
 	include_once($headerurl);
 ?>
 <style>
+.invdealperiod{
+    padding-left:25px !important;
+}
 td.investname span:last-child,td.angelinvestname span:last-child {
     display: none;
 }
@@ -660,9 +663,13 @@ td.investname span:last-child,td.angelinvestname span:last-child {
     color: #666666;
     margin: 0px !important;
 }
+
 @media only screen and (max-width: 1500px) and (min-width: 1281px){
 .col-md-6 {
     width: 50%;
+}
+.exits{
+    width:80%;
 }
 }
 #incubation td a{
@@ -1919,7 +1926,7 @@ ul.tabView li {
                                         <div class="accordions_dealtitle "><span></span>
                                         <h2 id="companyinfo" class="box_heading content-box ">Investments and Exits Snapshot</h2>
                                         </div>
-                                         <div class="accordions_dealcontent" style="padding-top: 20px;">
+                                        <div class="accordions_dealcontent" style="padding-top: 20px;">
                                             <?php 
                                                
                                                 if($getcompanyrs= mysql_query($investorSql))
@@ -1944,7 +1951,7 @@ ul.tabView li {
                                                 {
                                                     $mandaexit_cnt = mysql_num_rows($rsmandaexit);
                                                 }
-
+                                                if($incubator_cnt>0 || $investor_cnt>0 || $angel_cnt>0 || $ipoexit_cnt>0 || $mandaexit_cnt>0) {
                                             ?>
                                             <ul class="tabView">
                                                 <?php
@@ -1967,7 +1974,7 @@ ul.tabView li {
                                             </ul>
 
                                             <div class="tab-content">
-                                            <div id="investments" class="tab-items activetab">
+                                                <div id="investments" class="tab-items activetab">
                                                     <?php if($investor_cnt > 0){ ?>
                                                         <div class="col-md-6">
                                                         <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest">
@@ -1975,7 +1982,7 @@ ul.tabView li {
 
                                                                 <tr>
                                                                     <th>Investor Name</th> 
-                                                                    <th>Deal Period</th>
+                                                                    <th style="width: 20%;padding-left:25px;">Deal Period</th>
                                                                     
                                                                 </tr>
                                                             </thead>
@@ -2023,7 +2030,7 @@ ul.tabView li {
                                                             </td>
                                                             <?php if($usrRgs[PEInv] !=0){
                                                                 ?>
-                                                            <td><a href="dealdetails.php?value=<?php echo $myInvestorrow["DealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>" title="Deal Details"><?php echo $myInvestorrow["dt"];?></a>
+                                                            <td class="invdealperiod"><a href="dealdetails.php?value=<?php echo $myInvestorrow["DealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>" title="Deal Details"><?php echo $myInvestorrow["dt"];?></a>
                                                             <?php echo $addTrancheWord;?><?php echo $addDebtWord;  ?></td>   
                                                                             <?php }else{?>
                                                                                 <td><?php echo $myInvestorrow["dt"];?>
@@ -2039,7 +2046,7 @@ ul.tabView li {
                                                <div style="height:15px;">
                                                 <p class="note-nia" >*NIA - Not Included for Aggregate</p>
                                                 </div>
-                                            <?php }?> 
+                                                <?php }?> 
                                                          </div>
                                                          <?php } ?>
                                                 </div>
@@ -2050,9 +2057,9 @@ ul.tabView li {
                                                     {
 
                                                     ?>  
-                                                    <div  class="col-md-6">
+                                                    <div  class="col-md-6 exits">
                                                     <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
-                                                    <thead><tr><th>Deal Type</th><th>Investor(s)</th> <th>Deal Period</th> <th>Status</th></tr></thead>
+                                                    <thead><tr><th>Deal Type</th><th style="width:28%">Investor(s)</th> <th>Deal Period</th> <th>Status</th></tr></thead>
                                                     <tbody>
                                                             <?php
                                                             //if($rsipoexit= mysql_query($ipoexitsql))
@@ -2223,19 +2230,22 @@ ul.tabView li {
                                                        
                                                        
    
-                                                                  </tbody>
-                                                        </table>
-                                                        </div>  
+                                                               
 
                                                      <?php } ?>
+                                                        </tbody>
+                                                        </table>
+                                                        </div>  
                                                 </div>
-                                                </div>
-
-                                                
-
-                                                
 
                                             </div>
+                                                            <?php }else{ ?>
+                                                                <p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;text-align:center;"> No data available. </p>
+                                                            <?php } ?>
+
+                                                
+
+                                        </div>
                                             
                                              
                                                    
