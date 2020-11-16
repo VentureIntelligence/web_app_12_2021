@@ -467,7 +467,7 @@ if(count($FinanceAnnual_cashflow) == 0){
    <div class="">
    </div>
 </div> 
-    <?php }}
+    <?php } }
     if(count($FinanceAnnual) > 0){
      $Fycount=0;
      for($i=0;$i<count($FinanceAnnual);$i++){

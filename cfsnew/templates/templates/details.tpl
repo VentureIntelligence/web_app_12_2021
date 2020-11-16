@@ -15,6 +15,7 @@
 .ma-contain{
     max-width: 735px !important;
 }
+
 .finance-filter{
     display: none !important;
 }
@@ -1598,6 +1599,7 @@ function autoResize(id){
     <div id="funding-ajax" class="tab_menu work-masonry-thumb col-4"></div>
     <div id="ma-ajax" class="tab_menu work-masonry-thumb col-4"></div>
     <div id="ma-ajaxhidden" class="tab_menu work-masonry-thumb col-4" style="display:none"></div>
+
     <!-- <div id="master-data"  class="work-masonry-thumb col-4 tab_menu empty-container">
         <h2>COMPANY MASTER DATA</h2>
         <div class="data-ext-load">
@@ -2630,7 +2632,6 @@ $(document).on( 'click','.headertbma', function() {
 });
 
 
-
 $(document).on( 'click','.subMenu', function() {
 
     var row = $(this).attr('data-row');
@@ -2888,6 +2889,8 @@ function resulttypeconsolidate(vcid1){
            
         });
 }
+
+
 
 
 
