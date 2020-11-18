@@ -76,8 +76,8 @@ for($c=0;$c < count($currtype);$c++)
 }
 }
 $yearcurrency=array();
-$currvatype=array('71','72','70','69');
-$fyvalue=array('19','18','17','16');
+$currvatype=array('71.751','74.3407','65.0375','67.9212','63.6120','60.9994','58.0169','52.8298','54.2244','48.88');
+$fyvalue=array('19','18','17','16','15','14','13','12','11','10');
 $yearcurrency=array_combine($fyvalue,$currvatype);
 
 //print_r($_SESSION['curvalue']);
@@ -697,14 +697,14 @@ if(count($NewRatioCalculation)==0){
   </div>
 </div>
 <script type="text/javascript" >
-$(document).ready(function(){
-  if($('.cfs_menu').length > 1){
-      $('.cfs_menu:last').eq(1).remove();
-  }
-  if($('.finance-filter-custom').length > 1){
-      $('.finance-filter-custom').eq(1).remove();
-  }
-});
+// $(document).ready(function(){
+//   if($('.cfs_menu').length > 1){
+//       $('.cfs_menu:last').eq(1).remove();
+//   }
+//   if($('.finance-filter-custom').length > 1){
+//       $('.finance-filter-custom').eq(1).remove();
+//   }
+// });
         $('input[name=cfexportcompare]#cfexportcompare').on("click",function(){
               jQuery('#cashflow_parent #maskscreen').fadeIn(1000);
               $( '#cfexport-popup' ).show();

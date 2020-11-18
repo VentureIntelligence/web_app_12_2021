@@ -76,8 +76,8 @@ for($c=0;$c < count($currtype);$c++)
 }
 }
 $yearcurrency=array();
-$currvatype=array('71','72','70','69');
-$fyvalue=array('19','18','17','16');
+$currvatype=array('71.751','74.3407','65.0375','67.9212','63.6120','60.9994','58.0169','52.8298','54.2244','48.88');
+$fyvalue=array('19','18','17','16','15','14','13','12','11','10');
 $yearcurrency=array_combine($fyvalue,$currvatype);
 
 //print_r($_SESSION['curvalue']);
@@ -845,19 +845,19 @@ if(count($FinanceAnnual_cashflow) == 0){
  
              <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
                  if($_GET['queryString']!='INR'){?>
-                    <td><?php 
+                    <td><b><?php 
                           if($yearcurrency[$FinanceAnnual[$i][FY]] ==''){
                           if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][TotalIncome],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
                         }else{
                           if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][TotalIncome]*$yearcurrency[$FinanceAnnual[$i][FY]];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
-                        }
+                        }?></b></td><?php
                        }else
                        {
                            ?> 
                             <?php if($_GET['rconv'] =='r'){ ?>
-                                           <td><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                           <td><b><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
                                        <?php } else { ?>
-                                           <td><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);echo round($tot,2); } ?></td>
+                                           <td><b><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);echo round($tot,2); } ?></b></td>
                                        <?php } ?>
                                <?php
                        }
@@ -1081,22 +1081,22 @@ if(count($FinanceAnnual_cashflow) == 0){
  
                 <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php
+                    <td><b><?php
                    if($yearcurrency[$FinanceAnnual[$i][FY]] ==''){
                     if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBITDA],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                    }else{
                     if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EBITDA]*$yearcurrency[$FinanceAnnual[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                    }
-                   ?></td>
+                   ?></b></td>
                    <?php
                 }
                 else
                 { 
                     ?> 
                     <?php if($_GET['rconv'] =='r'){ ?>
-                        <td><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                        <td><b><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
                     <?php } else { ?>
-                        <td><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);echo round($tot,2); } ?></td>
+                        <td><b><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);echo round($tot,2); } ?></b></td>
                     <?php } ?>
                     <?php
                 }
@@ -1345,22 +1345,22 @@ if(count($FinanceAnnual_cashflow) == 0){
  
                 <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
                if($_GET['queryString']!='INR'){?>
-                <td><?php
+                <td><b><?php
                if($yearcurrency[$FinanceAnnual[$i][FY]] ==''){
                 if($FinanceAnnual[$i][PAT]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][PAT],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                }else{
                 if($FinanceAnnual[$i][PAT]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][PAT]*$yearcurrency[$FinanceAnnual[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                }
-               ?></td>
+               ?></b></td>
                <?php
             }
             else
             { 
                 ?> 
                 <?php if($_GET['rconv'] =='r'){ ?>
-                    <td><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                    <td><b><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
                 <?php } else { ?>
-                    <td><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);echo round($tot,2); } ?></td>
+                    <td><b><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);echo round($tot,2); } ?></b></td>
                 <?php } ?>
                 <?php
             }
@@ -1814,14 +1814,14 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
 </div>
 
 <script type="text/javascript" >
-$(document).ready(function(){
-  if($('.cfs_menu').length > 1){
-      $('.cfs_menu').eq(1).remove();
-  }
-  if($('.finance-filter-custom').length > 1){
-      $('.finance-filter-custom').eq(1).remove();
-  }
-});
+// $(document).ready(function(){
+//   if($('.cfs_menu').length > 1){
+//       $('.cfs_menu').eq(1).remove();
+//   }
+//   if($('.finance-filter-custom').length > 1){
+//       $('.finance-filter-custom').eq(1).remove();
+//   }
+// });
     $('input[name=plexportcompare]#plexportcompare').click(function(){
               jQuery('#maskscreen').fadeIn(1000);
               $( '#plexport-popup' ).show();
