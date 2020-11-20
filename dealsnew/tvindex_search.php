@@ -441,7 +441,7 @@ $(document).ready(function(){
 	else
 	{
 		//alert('Screen size: less than 1280x720, 1024x768, 800x600 maybe?');
-		$("link[rel=stylesheet]:not(:first)").attr({href : "css/detect800.css"});
+		// $("link[rel=stylesheet]:not(:first)").attr({href : "css/detect800.css"});
 	}
 });
  
