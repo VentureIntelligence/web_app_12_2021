@@ -288,7 +288,7 @@ if(count($NewRatioCalculation)==0){
 <div class="left-cnt"> 
     <label class="cagrvalue"> <input type="radio" name="yoy" id="yoy" value="V"  <?php if($_GET['yoy']=='V'){ echo "checked";} ?> onChange="javascript:valueconversion('V',<?php echo $_GET['vcid']; ?>);" checked="checked" /> Value</label>
     <label class="cagrlabel">   <input type="radio" name="yoy" id="cagr" value="G"  <?php if($_GET['yoy']=='G'){ echo "checked";} ?> onChange="javascript:valueconversion('G',<?php echo $_GET['vcid']; ?>);" /> Growth</label> 
-    <select onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+    <select onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
         <option>-- select currency --</option>
         <option value="GBP" <?php if($_GET['queryString']=='GBP'){ echo "selected";} ?>>British Pound GBP</option>
         <option value="EUR" <?php if($_GET['queryString']=='EUR'){ echo "selected";} ?>>Euro EUR</option>
@@ -380,7 +380,7 @@ if(count($NewRatioCalculation)==0){
                   <?php }?>
 
                    <div class="finance-filter-custom" style="padding-top: 0px;">
-                   <select class="currencyselection" onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+                   <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
         <option>-- select currency --</option>
        
         <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
