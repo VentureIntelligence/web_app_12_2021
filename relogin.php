@@ -63,7 +63,7 @@ session_start();
 										AND dc.Deleted =0 and IPAdd=0";*/
 
         $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.TrialLogin,dm.user_authorization_status FROM RElogin_members AS dm,
-        dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0";
+        dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0  and dm.Deleted = 0";
 
 						if ($totalrs = mysql_query($checkUserSql))
 						{
