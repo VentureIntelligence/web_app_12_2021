@@ -17,7 +17,7 @@
                 header( 'Location: logoff.php?value=caccess' ) ;
             }
         }
-        
+       
         function updateDownload($res){
             //Added By JFR-KUTUNG - Download Limit
             $recCount = mysql_num_rows($res);
@@ -277,15 +277,14 @@
         
         //----------------------------status code------------------------------------
         $statussql='';$cstatussql='';
+        
         if($_POST['status']!="")
         {
             $status= $_POST['status'];
             
-            foreach($status as $statusid)
-            {
-               
-                $statussql = $statussql."frs.id = ".$statusid." or ";
-                if($statusid==2)
+           
+                $statussql = $statussql."frs.id = ".$status." or ";
+                if($status==2)
                 {
                     if($_POST['cstatus']!="")
                     {
@@ -296,7 +295,7 @@
                         }
                     }
                 }
-            }
+            
             
            $statussql = substr($statussql, 0, -3);
            $cstatussql = substr($cstatussql, 0, -3);
