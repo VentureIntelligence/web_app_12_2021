@@ -82,7 +82,7 @@ $pwd=md5(trim($pwd));
             dm.EmailId='$login' and dm.Passwrd='$pwd'
             AND dc.Deleted =0 and dc.IPAdd=0";*/
             $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.TrialLogin,dm.user_authorization_status,dc.maindustries FROM malogin_members AS dm,
-            dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dc.MAMA=1 and dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0";
+            dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dc.MAMA=1 and dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0  and dm.Deleted = 0";
             //	echo "<bR>--".$checkUserSql;
             if ($totalrs = mysql_query($checkUserSql))
             {

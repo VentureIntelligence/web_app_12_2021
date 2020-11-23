@@ -201,6 +201,22 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     }
 </style>
 <SCRIPT LANGUAGE="JavaScript">
+$(document).ready(function(){
+ var chk = $('[name="perEmailId[]"]:checked').length;
+ var chk1 = $('[name="perMAEmailId[]"]:checked').length;
+ var chk2 = $('[name="perREEmailId[]"]:checked').length;
+ var flaglogin;
+
+ 
+ if($('[name="perEmailId[]"]:checked').length==0 && $('[name="perMAEmailId[]"]:checked').length==0 && $('[name="perREEmailId[]"]:checked').length==0)
+ {
+    flaglogin=0;
+ }else{
+    flaglogin=1;
+ }
+ $('.flaghidden').val(flaglogin);
+
+});
     function deleteMembers(companyId){   
     
         var chk;
@@ -264,6 +280,75 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         }
     
     }
+
+    function permissionMembers(companyId){   
+    
+    var chk;
+    var chk1;
+    var chk2;
+    var perEmailId = new Array();
+    var perMAEmailId = new Array();
+    var perREEmailId = new Array();
+    var flaglogin = $('.flaghidden').val();
+    
+    chk = $('[name="perEmailId[]"]:checked').length;
+    chk1 = $('[name="perMAEmailId[]"]:checked').length;
+    chk2 = $('[name="perREEmailId[]"]:checked').length;
+    
+
+    $('input[name="perEmailId[]"]:checked').each(function() {
+
+        perEmailId.push(this.value);
+    });
+    $('input[name="perMAEmailId[]"]:checked').each(function() {
+
+        perMAEmailId.push(this.value);
+    });
+    $('input[name="perREEmailId[]"]:checked').each(function() {
+
+        perREEmailId.push(this.value);
+    });
+    if ((chk > 0) || (chk1 > 0) || (chk2 > 0) ){
+        flaglogin = 1;
+    }
+
+    if ( flaglogin==1)
+    {      
+        if(confirm("Are you sure you want to disable selected members ? ")){
+            var formData= new Array();
+            formData.push({ name: 'perEmailId', value: perEmailId },{ name: 'perMAEmailId', value: perMAEmailId },{ name: 'perREEmailId', value: perREEmailId },{name:'companyId',value:companyId});
+            $.ajax({
+
+                url: 'permembers.php',
+                type: "POST",
+                data: formData,
+                dataType:"json",
+                success: function(data) {
+
+                // window.location = 'https://www.ventureintelligence.com/adminvi/companyedit.php?value=1015268522';
+                    
+                    //console.log(data.length);   
+                    if(data.length > 0){
+                        
+                        alert("Users permission changed Successfully");
+                    }else{
+                        alert("User permission changed Successfully");
+                    }
+                    window.location = '<?php echo BASE_URL; ?>adminvi/companyedit.php?value='+companyId;
+    //                 $.each(data ,function(field,error){
+    //                    console.log(error);
+    //                });
+                }
+            });
+        }
+    }
+    else{
+
+        alert("Pls select one or more user to disable");
+        return false;
+    }
+
+}
     
     function ExporttoExel()
     {
@@ -1004,7 +1089,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                     
                                     <table border="1" align=left cellpadding="2" cellspacing="0" width="70%"  >
                                         <tr style="font-family: Verdana; font-size: 8pt">
-                                        <th colspan=2> Del</th>
+                                        <th > Del</th>
+                                        <th > Disabled</th>
                                         <th>Sl.No</th>
                                         <th >Name</th>
                                         <th> Email Id</th>
@@ -1014,7 +1100,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                         </tr>
                                         <?php
                                             $emailCount=1;
-                                            $getMembersSql ="Select Name,EmailId,Passwrd,deviceCount,exportLimit from dealmembers where DCompId=$companyIdtoEdit and Deleted=0 order by EmailId";
+                                            $getMembersSql ="Select Name,EmailId,Passwrd,deviceCount,exportLimit,Deleted from dealmembers where DCompId=$companyIdtoEdit  order by EmailId";
                                             //echo "<Br>--" .$getMembersSql;
                                             if ($rsMembers=mysql_query($getMembersSql))
                                             {
@@ -1022,8 +1108,11 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                                 {
                                         ?>
                                                     <tr style="font-family: Verdana; font-size: 8pt">
-                                                    <td align=center colspan=2 BGCOLOR="#FF6699"><input name="DelEmailId[]" type="checkbox" value=" <?php echo $myrow["EmailId"]; ?>" >
+                                                    <td align=center BGCOLOR="#FF6699"><input name="DelEmailId[]" type="checkbox" value=" <?php echo $myrow["EmailId"]; ?>" >
                                                     <input type=hidden name="email[]" value="<?php echo $myrow['EmailId']; ?>"> </td>
+                                                    <td align=center >
+                                                    <input name="perEmailId[]" class="perEmailId" type="checkbox" <?php if($myrow["Deleted"]==1){ echo "checked";} ?>  value="<?php echo $myrow["EmailId"]; ?>" >
+                                                    <input type=hidden name="peremail[]" value="<?php echo $myrow['EmailId']; ?>"> </td>
                                                     <td  align=center><?php echo $emailCount; ?></td>
                                                     <td  ><input type=text name="Nams[]"  value="<?php echo trim($myrow['Name']); ?>"> </td>
                                                     <td  > <input type=text name="Mails[]" value="<?php echo trim($myrow['EmailId']); ?> "></td>
@@ -1037,7 +1126,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                             }
                                             //Get members from malogin table
                                             $MAemailCount=1;
-                                            $getMAMembersSql ="Select Name,EmailId,Passwrd,deviceCount,exportLimit from malogin_members where DCompId=$companyIdtoEdit and Deleted=0 order by EmailId ";
+                                            $getMAMembersSql ="Select Name,EmailId,Passwrd,deviceCount,exportLimit,Deleted from malogin_members where DCompId=$companyIdtoEdit  order by EmailId ";
                                             //echo "<Br>--" .$getMAMembersSql;
                                             if ($rsMAMembers=mysql_query($getMAMembersSql))
                                             {
@@ -1045,8 +1134,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                                 {
                                                 ?>
                                                     <tr style="font-family: Verdana; font-size: 8pt">
-                                                    <td align=center colspan=2 BGCOLOR="#FFFF00"><input name="MADelEmailId[]" type="checkbox" value=" <?php echo $myMArow["EmailId"]; ?>" >
+                                                    <td align=center  BGCOLOR="#FFFF00"><input name="MADelEmailId[]" type="checkbox" value=" <?php echo $myMArow["EmailId"]; ?>" >
                                                     <input type=hidden name="emailMA[]" value="<?php echo $myMArow['EmailId']; ?>"> </td>
+                                                    <td align=center  ><input name="perMAEmailId[]" type="checkbox" <?php if($myMArow["Deleted"]==1){ echo "checked";} ?> value="<?php echo $myMArow["EmailId"]; ?>" >
+                                                    <input type=hidden name="peremailMA[]" value="<?php echo $myMArow['EmailId']; ?>"> </td>
                                                     <td  align=center><?php echo $MAemailCount; ?></td>
 
                                                     <td  ><input type=text name="NamsMA[]"  value="<?php echo trim($myMArow['Name']); ?>"> </td>
@@ -1063,7 +1154,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
                                             //Get members from RELogin table
                                             $REemailCount=1;
-                                            $getREMembersSql ="Select Name,EmailId,Passwrd,deviceCount,exportLimit from RElogin_members where DCompId=$companyIdtoEdit and Deleted=0 order by EmailId ";
+                                            $getREMembersSql ="Select Name,EmailId,Passwrd,deviceCount,exportLimit,Deleted from RElogin_members where DCompId=$companyIdtoEdit order by EmailId ";
                                             //echo "<Br>--" .$getREMembersSql;
                                             if ($rsREMembers=mysql_query($getREMembersSql))
                                             {
@@ -1071,8 +1162,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                                 {
                                                     ?>
                                                     <tr style="font-family: Verdana; font-size: 8pt">
-                                                    <td align=center colspan=2 BGCOLOR="GREEN"><input name="REDelEmailId[]" type="checkbox" value=" <?php echo $myRErow["EmailId"]; ?>" >
+                                                    <td align=center  BGCOLOR="GREEN"><input name="REDelEmailId[]" type="checkbox" value=" <?php echo $myRErow["EmailId"]; ?>" >
                                                     <input type=hidden name="emailRE[]" value="<?php echo $myRErow['EmailId']; ?>"> </td>
+                                                    <td align=center ><input name="perREEmailId[]" type="checkbox"  <?php if($myRErow["Deleted"]==1){ echo "checked";} ?> value="<?php echo $myRErow["EmailId"]; ?>" >
+                                                    <input type=hidden name="peremailRE[]" value="<?php echo $myRErow['EmailId']; ?>"> </td>
                                                     <td  align=center><?php echo $REemailCount; ?></td>
 
                                                     <td  ><input type=text name="NamsRE[]"  value="<?php echo trim($myRErow['Name']); ?>"> </td>
@@ -1143,6 +1236,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 </table>
 			<span style="padding: 10px 0px 0px 0px;" class="one" >
                             <input type="button" class="btn" value="Delete Members" name="deleteMember" onClick="deleteMembers(<?php echo $_GET["value"]; ?>);">
+                            <input type="hidden" class="flaghidden" >
+                            <input type="button" class="btn permission" value="Permission Members" name="permissionMember" onClick="permissionMembers(<?php echo $_GET["value"]; ?>);">
 <!--                            <input type="button"  value="Delete Members" name="deleteMember" onClick="deleteMembers(<?php echo $_GET["value"]; ?>);">-->
 <!--                            <input type="button"  value="Add Members" name="addMember" onClick="AddMembers();">-->
                             <input type="submit"  value="Update Member List" name="updateMember" style="float:right;">
