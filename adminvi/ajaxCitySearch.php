@@ -16,8 +16,10 @@
             $cityName=trim($myrow["city_name"]);
             $cityNamelower=$cityName;
             $regionId=$myrow["regionId"];
+            $stateId=$myrow["city_StateID_FK"];
 
-            $jsonarray[]=array('id'=>$cityId,'label'=>$cityName,'value'=>$cityNamelower,'regionId'=>$regionId);
+
+            $jsonarray[]=array('id'=>$cityId,'label'=>$cityName,'value'=>$cityNamelower,'regionId'=>$regionId,'stateId'=>$stateId);
 
         }
     }
