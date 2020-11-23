@@ -68,7 +68,7 @@ if((trim($login)!= "") && (trim($pwd)!=""))
                        AND dc.Deleted =0  and dc.IPAdd=0 ";*/
 
             $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.permission,dc.TrialLogin,dm.user_authorization_status,dc.peindustries FROM dealmembers AS dm,
-            dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0";
+            dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0 and dm.Deleted = 0";
             
 	//	echo "<bR>--".$checkUserSql;
         if ($totalrs = mysql_query($checkUserSql))
