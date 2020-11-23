@@ -62,7 +62,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                     $("#state option[value="+ui.item.stateId+"]").prop('selected', true);  
                     //$("#region").prop("disabled", true);
                 }else{
-                    $("#state option[value=1]").prop('selected', true);
+                    $("#state option[value='--']").prop('selected', true);
                     $("#state").prop("disabled", false);
                 }
             },
