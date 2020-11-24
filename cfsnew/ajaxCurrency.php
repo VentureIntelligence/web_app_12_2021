@@ -1,3 +1,21 @@
+<style>
+.finance-filter-custom{
+    width: 140px;
+    display: flex;
+}
+.btn-cnt input {
+    margin-right: 25px;
+}
+.incurrency{
+    margin: 0px 5px;
+}
+.currencyconversion{
+    width:65px;
+}
+.currencyselection{
+    width:52px;
+}
+</style>
 <?php
 if(!isset($_SESSION)){
     session_save_path("/tmp");
@@ -52,6 +70,17 @@ for($c=0;$c < count($currtype);$c++)
     $_SESSION['typevalue'][$arr_key]=$cn;
 }
 }
+// $yearcurrency=array();
+// $fyvalue=array('20','19','18','17','16','15','14','13','12','11','10','09','08','07','06');
+// $currvatype=array('75.3675337409','69.2813479208','65.1365861653','64.8589085866','66.17526015','62.335530796','60.0593486709','54.2849998474','50.8699989319','44.4','44.9747584839','50.861443474','50.861443474','40.022','43.5898132023','44.535');
+// $yearcurrency=array_combine($fyvalue,$currvatype);
+// $yearcurrency=array();
+// $currvatype=array('75.3675337409','69.2813479208','65.1365861653','64.8589085866','66.17526015','62.335530796','60.0593486709','54.2849998474','50.8699989319','44.4','44.9747584839','50.861443474','40.022','43.5898132023','44.535','71.2921527817','69.6049200418','63.8499066326','67.9669','66.2013798142','63.1889610935','61.859004615','54.8509728363','53.0600413817','44.7000007629','46.41','48.5800658634','39.37','44.25');
+// //$currvatype=array('71.751','74.3407','65.0375','67.9212','63.6120','60.9994','58.0169','52.8298','54.2244','48.88');
+// //$fyvalue=array('19','18','17','16','15','14','13','12','11','10');
+// $fyvalue=array('20','19','18','17','16','15','14','13','12','11','10','09','08','07','06','20 311219','19 311218','18 311217','17 311216','16 311215','15 311214','14 311213','13 311212','12 311211','11 311210','10 311209','09 311208','08 311207','07 311206');
+// $yearcurrency=array_combine($fyvalue,$currvatype);
+include('conversionarray.php');
 //print_r($_SESSION['curvalue']);
 /*Currency Convert Function*/
 function currency_convert($amount,$from_currency,$to_currency)
@@ -197,6 +226,8 @@ if(count($FinanceAnnual_cashflow) == 0){
    <div class="tab_menu_parent" id="balancesheet_parent" style="display:none;"></div>
    <div class="tab_menu_parent" id="cashflow_parent" style="display:none;"></div>
    <div class="tab_menu_parent" id="ratio_parent" style="display:none;"></div>  
+
+<div class="tab_menu" id="profit-loss" style="display:block;">
 <div class="cfs_menu">
     <ul>
         <li class="current subMenu" data-row="profit-loss" href="javascript:;" onclick="javascript:plresult(<?php echo $_GET['vcid'];?>);">PROFIT &amp; LOSS</li>
@@ -219,7 +250,7 @@ if(count($FinanceAnnual_cashflow) == 0){
 <div class="left-cnt"> 
     <label class="cagrvalue"> <input type="radio" name="yoy" id="yoy" value="V"  <?php if($_GET['yoy']=='V'){ echo "checked";} ?> onChange="javascript:valueconversion('V',<?php echo $_GET['vcid']; ?>);" checked="checked" /> Value</label>
     <label class="cagrlabel">   <input type="radio" name="yoy" id="cagr" value="G"  <?php if($_GET['yoy']=='G'){ echo "checked";} ?> onChange="javascript:valueconversion('G',<?php echo $_GET['vcid']; ?>);" /> Growth</label> 
-    <select onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+    <select onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
         <option>-- select currency --</option>
         <option value="GBP" <?php if($_GET['queryString']=='GBP'){ echo "selected";} ?>>British Pound GBP</option>
         <option value="EUR" <?php if($_GET['queryString']=='EUR'){ echo "selected";} ?>>Euro EUR</option>
@@ -250,7 +281,6 @@ if(count($FinanceAnnual_cashflow) == 0){
          </select> </div>
     <?php } ?>
 </div>
-<div class="tab_menu" id="profit-loss" style="display:block;">
 <?php
     if( $companyDetails[0]['listingstatus'] == 1 ) {
         //$style = 'display: none;';
@@ -259,6 +289,7 @@ if(count($FinanceAnnual_cashflow) == 0){
         $style = '';
     }
 ?>
+<?php if(BASE_URL == "//dev.vionweb.com/" || BASE_URL == "//localhost/vi_webapp/" ){?>
 <div class="growth_fulldetails" style="<?php echo $style; ?>">
     <?php
     $growth_precentage = array();
@@ -276,9 +307,11 @@ if(count($FinanceAnnual_cashflow) == 0){
     $latest_p_pat = $growth_precentage[0]['p_pat'];
     for($l=1;$l<=3;$l++){
         $growth_year = $l+$j;
+        
         if($growth_precentage[$growth_year]['FY'] !='' || $growth_precentage[$growth_year-1]['FY'] !=''){
             if($growth_precentage[$growth_year]['FY'] =='' && $growth_precentage[$growth_year-1]['FY'] != ''){
                 $cal_year = $growth_precentage[$growth_year-1]['FY']-1;
+                
                 $last_years=mysql_query("SELECT TotalIncome as p_totalIncome, EBITDA as p_ebitda, PAT as p_pat FROM plstandard WHERE FY='$cal_year' and ResultType='".$resulttype[0][ResultType]."' and CId_FK='".$_GET['vcid']."' limit 0,1");
                 $last_year = mysql_fetch_array($last_years);
                 $p_totalIncome = $last_year['p_totalIncome'];
@@ -312,9 +345,10 @@ if(count($FinanceAnnual_cashflow) == 0){
                                          <?php 
                                              if($_GET['queryString']!='INR'){ 
                                                  if($latest_p_totalIncome==0){
-                                                     echo '&nbsp';                                        
+                                                   echo '&nbsp';                                        
                                                  }else{
-                                                     $vale = currency_convert($latest_p_totalIncome,'INR',$_GET['queryString']);
+                                                     //$vale = currency_convert($latest_p_totalIncome,'INR',$_GET['queryString']);
+                                                     $vale = $latest_p_totalIncome*$yearcurrency[$growth_precentage[$growth_year]['FY']];
                                                      if($vale==''){
                                                          echo '&nbsp';                                            
                                                      }else{ 
@@ -335,7 +369,8 @@ if(count($FinanceAnnual_cashflow) == 0){
                                                  if($p_totalIncome==0){
                                                      echo '&nbsp';                                        
                                                  }else{
-                                                     $vale = currency_convert($p_totalIncome,'INR',$_GET['queryString']);
+                                                    // $vale = currency_convert($p_totalIncome,'INR',$_GET['queryString']);
+                                                     $vale = $p_totalIncome*$yearcurrency[$growth_precentage[$growth_year]['FY']];
                                                      if($vale==''){
                                                          echo '&nbsp';                                            
                                                      }else{ 
@@ -353,7 +388,8 @@ if(count($FinanceAnnual_cashflow) == 0){
                                                  if($latest_p_ebitda==0){
                                                      echo '&nbsp';                                        
                                                  }else{
-                                                     $vale = currency_convert($latest_p_ebitda,'INR',$_GET['queryString']); 
+                                                     //$vale = currency_convert($latest_p_ebitda,'INR',$_GET['queryString']); 
+                                                     $vale = $latest_p_ebitda*$yearcurrency[$growth_precentage[$growth_year]['FY']];
                                                      if($vale==''){
                                                          echo '&nbsp';                                            
                                                      }else{ 
@@ -372,7 +408,8 @@ if(count($FinanceAnnual_cashflow) == 0){
                                                  if($p_ebitda==0){
                                                      echo '&nbsp';                                        
                                                  }else{
-                                                     $vale = currency_convert($p_ebitda,'INR',$_GET['queryString']); 
+                                                     //$vale = currency_convert($p_ebitda,'INR',$_GET['queryString']); 
+                                                     $vale = $p_ebitda*$yearcurrency[$growth_precentage[$growth_year]['FY']];
                                                      if($vale==''){
                                                          echo '&nbsp';                                            
                                                      }else{ 
@@ -389,7 +426,8 @@ if(count($FinanceAnnual_cashflow) == 0){
                                                  if($latest_p_pat==0){
                                                      echo '&nbsp';                                        
                                                  }else{
-                                                     $vale = currency_convert($latest_p_pat,'INR',$_GET['queryString']);
+                                                     //$vale = currency_convert($latest_p_pat,'INR',$_GET['queryString']);
+                                                     $vale = $latest_p_pat*$yearcurrency[$growth_precentage[$growth_year]['FY']];
                                                      if($vale==''){
                                                          echo '&nbsp';                                            
                                                      } else{ 
@@ -408,7 +446,9 @@ if(count($FinanceAnnual_cashflow) == 0){
                                                  if($p_pat==0){
                                                      echo '&nbsp';                                        
                                                  }else{
-                                                     $vale = currency_convert($p_pat,'INR',$_GET['queryString']);
+                                                     //$vale = currency_convert($p_pat,'INR',$_GET['queryString']);
+                                                     $vale = $p_pat*$yearcurrency[$growth_precentage[$growth_year]['FY']];
+                                                     
                                                      if($vale==''){
                                                          echo '&nbsp';                                            
                                                      } else{ 
@@ -426,7 +466,7 @@ if(count($FinanceAnnual_cashflow) == 0){
    <div class="">
    </div>
 </div> 
-<?php if(count($FinanceAnnual) > 0){ 
+<?php } if(count($FinanceAnnual) > 0){ 
 
     if(file_exists(FOLDER_CREATE_PATH.'plstandard/PLStandard_'.$_GET['vcid'].'.xls')){
             $PLSTANDARD_MEDIA_PATH=FOLDER_CREATE_PATH.'plstandard/PLStandard_'.$_GET['vcid'].'.xls';
@@ -438,7 +478,7 @@ if(count($FinanceAnnual_cashflow) == 0){
        
         ?>
         <?php if($PLSTANDARD_MEDIA_PATH || $PLSTANDARD_MEDIA_PATH_CON){?>
-                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;"> 
+                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
                  <input  name="" type="button" id="check" data-check="close" value="P&L EXPORT" onClick="openpl_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 158px 6px; width:180px; " />
 
               <div id="pl_ex" data-slide="close" style=" position: absolute;  width: 100%; display: none; {if $file_pl_cnt > 0 && $file_bs_cnt > 0} left: 0 {else} left: 0 {/if}">
@@ -459,6 +499,29 @@ if(count($FinanceAnnual_cashflow) == 0){
               <?php } if($PLDETAILED_MEDIA_PATH){?>
                             <input  name="" type="button"  value="Detailed P&L EXPORT" onClick="window.open('<?php echo MEDIA_PATH?>pldetailed/PLDetailed_{$VCID}.xls?time={$smarty.now}','_blank')" />
                 <?php }?>
+                <div class="finance-filter-custom" style="padding-top: 0px;">
+                <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+        <option>-- select currency --</option>
+       
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        
+    </select>  <span class="incurrency" > in </span>
+
+<?php if($_GET['queryString']=='INR'){ ?>
+    <select class="currencyconversion" name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="c" <?php if($_GET['rconv']=='c'){ echo "selected";} ?>>Crores</option>
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+        <option  value="l" <?php if($_GET['rconv']=='l'){ echo "selected";} ?>>Lakhs</option>
+    </select>
+<?php }else{ ?>
+    <select class="currencyconversion" name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+         </select> 
+    <?php } ?>
+</div>
 <div style="clear:both;margin-top:18px">
      <?php $rowtype=mysql_query("select ResultType from plstandard where CId_FK =". $_GET['vcid']." Group by ResultType"); 
     $resulttypecount=mysql_num_rows($rowtype);
@@ -701,30 +764,65 @@ if(count($FinanceAnnual_cashflow) == 0){
 </tr></thead>
 <tbody>  
   <tr>
-    <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php  if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][OptnlIncome],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2);if($vale==''){echo '-';}} ?></td>
-       <?php
+  <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
+   $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
     }
-    else
-    {
-        ?> 
-        <td><?php if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][OptnlIncome]/$convalue;echo round($tot,2); } ?></td>
-        <?php
-    }
-}
-?>
+    //print_r($yearcurrency);
+    //echo "year:".$yearcurrency["13 311212"];
+                if($_GET['queryString']!='INR'){?>
+                    <td><?php 
+                   if($yearcurrency[$year] ==''){
+                    if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OptnlIncome],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }else{
+                    if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }
+                   ?></td>
+                   <?php
+                }
+                else
+                { 
+                    ?> 
+                    <?php if($_GET['rconv'] =='r'){ ?>
+                        <td><?php if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OptnlIncome]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                    <?php } else { ?>
+                        <td><?php if($FinanceAnnual[$i][OptnlIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OptnlIncome]/$convalue);echo round($tot,2); } ?></td>
+                    <?php } ?>
+                    <?php
+                }
+            }
+            ?>
   </tr>
   <tr>
     <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
+      $position= strpos($FinanceAnnual[$i][FY]," ");
+      if($position!=''){
+        $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+      }else{
+        $year=$FinanceAnnual[$i][FY];
+      }
     if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][OtherIncome]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OtherIncome],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
+        <td><?php 
+        if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][OtherIncome]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OtherIncome],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+      }else{
+        if($FinanceAnnual[$i][OtherIncome]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][OtherIncome]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+      }
+        ?>
+        </td>
           <?php
     }
     else
     {
         ?> 
-        <td><?php if($FinanceAnnual[$i][OtherIncome]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][OtherIncome]/$convalue;echo round($tot,2); } ?></td>
+         <?php if($_GET['rconv'] =='r'){ ?>
+                        <td><?php if($FinanceAnnual[$i][OtherIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OtherIncome]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                    <?php } else { ?>
+                        <td><?php if($FinanceAnnual[$i][OtherIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OtherIncome]/$convalue);echo round($tot,2); } ?></td>
+                    <?php } ?>
             <?php
     }
 }
@@ -732,33 +830,60 @@ if(count($FinanceAnnual_cashflow) == 0){
   </tr>
   <tr>
  <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><b><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][TotalIncome],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-          <?php
-    }
-    else
-    {
-        ?>  
-        <td><b><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][TotalIncome]/$convalue;echo round($tot,2); } ?></b></td>
-           <?php
-    }
+   $position= strpos($FinanceAnnual[$i][FY]," ");
+   if($position!=''){
+     $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+   }else{
+     $year=$FinanceAnnual[$i][FY];
+   }
+   if($_GET['queryString']!='INR'){?>
+    <td><b><?php 
+          if($yearcurrency[$year] ==''){
+          if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][TotalIncome],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+        }else{
+          if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][TotalIncome]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+        }?></b></td><?php
+       }else
+       {
+           ?> 
+            <?php if($_GET['rconv'] =='r'){ ?>
+                           <td><b><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                       <?php } else { ?>
+                           <td><b><?php if($FinanceAnnual[$i][TotalIncome]==0){echo '-';}else{$tot=($FinanceAnnual[$i][TotalIncome]/$convalue);echo round($tot,2); } ?></b></td>
+                       <?php } ?>
+               <?php
+       }
+    
 }
 ?>
   </tr>
 <!-- Value changes - xbrl2 start -->
  <tr>
               <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
+                $position= strpos($FinanceAnnual[$i][FY]," ");
+                if($position!=''){
+                  $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                }else{
+                  $year=$FinanceAnnual[$i][FY];
+                }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][CostOfMaterialsConsumed],'INR',$_GET['queryString']);
-                    $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?>  
-                    <td><?php if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){echo '-';}else{$tot= ($FinanceAnnual[$i][CostOfMaterialsConsumed]/$convalue);echo round($tot,2); } ?></td>
-                       <?php
-                }
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][CostOfMaterialsConsumed],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][CostOfMaterialsConsumed]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){echo '-';}else{$tot=($FinanceAnnual[$i][CostOfMaterialsConsumed]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){echo '-';}else{$tot=($FinanceAnnual[$i][CostOfMaterialsConsumed]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     }
+                
             }
             ?>
               </tr>
@@ -769,17 +894,30 @@ if(count($FinanceAnnual_cashflow) == 0){
             <tr>
  
              <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][PurchasesOfStockInTrade],'INR',$_GET['queryString']);
-                    $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?>  
-                    <td><?php if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){echo '-';}else{$tot= ($FinanceAnnual[$i][PurchasesOfStockInTrade]/$convalue);echo round($tot,2); } ?></td>
-                       <?php
-                }
+               $position= strpos($FinanceAnnual[$i][FY]," ");
+               if($position!=''){
+                 $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+               }else{
+                 $year=$FinanceAnnual[$i][FY];
+               }
+               if($_GET['queryString']!='INR'){?>
+                <td><?php 
+                      if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][PurchasesOfStockInTrade],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }else{
+                      if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][PurchasesOfStockInTrade]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }
+                   }else
+                   {
+                       ?> 
+                        <?php if($_GET['rconv'] =='r'){ ?>
+                                       <td><?php if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PurchasesOfStockInTrade]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                   <?php } else { ?>
+                                       <td><?php if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PurchasesOfStockInTrade]/$convalue);echo round($tot,2); } ?></td>
+                                   <?php } ?>
+                           <?php
+                   }
+                
             }
             ?>
               </tr>
@@ -788,17 +926,33 @@ if(count($FinanceAnnual_cashflow) == 0){
              <tr>
  
              <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][ChangesInInventories]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][ChangesInInventories],'INR',$_GET['queryString']);
-                    $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?>  
-                    <td><?php if($FinanceAnnual[$i][ChangesInInventories]==0){echo '-';}else{$tot= ($FinanceAnnual[$i][ChangesInInventories]/$convalue);echo round($tot,2); } ?></td>
-                       <?php
-                }
+               $position= strpos($FinanceAnnual[$i][FY]," ");
+               if($position!=''){
+                 $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+               }else{
+                 $year=$FinanceAnnual[$i][FY];
+               }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual[$i][ChangesInInventories]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][ChangesInInventories],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual[$i][ChangesInInventories]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][ChangesInInventories]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual[$i][ChangesInInventories]==0){echo '-';}else{$tot=($FinanceAnnual[$i][ChangesInInventories]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual[$i][ChangesInInventories]==0){echo '-';}else{$tot=($FinanceAnnual[$i][ChangesInInventories]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+                
             }
             ?>
               </tr>
@@ -806,50 +960,95 @@ if(count($FinanceAnnual_cashflow) == 0){
               
             <tr data-for="Employee benifit expenses">
  
-             <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
+             <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][EmployeeRelatedExpenses],'INR',$_GET['queryString']);
-                    $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?>  
-                    <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{$tot= ($FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue);echo round($tot,2); } ?></td>
-                       <?php
-                }
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EmployeeRelatedExpenses],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+                
             }
             ?>
               </tr>
               
                <tr data-for="csr exp">
  
-            <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-            if($_GET['queryString']!='INR'){?>
-                <td><?php if($FinanceAnnual[$i][CSRExpenditure]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][CSRExpenditure],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-            <?php
+            <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+               if($_GET['queryString']!='INR'){?>
+                <td><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual[$i][CSRExpenditure]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][CSRExpenditure],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual[$i][CSRExpenditure]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][CSRExpenditure]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></td>
+               <?php
             }
             else
-            {
-                ?>    
-                <td><?php if($FinanceAnnual[$i][CSRExpenditure]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][CSRExpenditure]/$convalue);echo round($tot,2); } ?></td>
-            <?php
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><?php if($FinanceAnnual[$i][CSRExpenditure]==0){echo '-';}else{$tot=($FinanceAnnual[$i][CSRExpenditure]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                <?php } else { ?>
+                    <td><?php if($FinanceAnnual[$i][CSRExpenditure]==0){echo '-';}else{$tot=($FinanceAnnual[$i][CSRExpenditure]/$convalue);echo round($tot,2); } ?></td>
+                <?php } ?>
+                <?php
             }
             }
             ?>
             </tr>
             <tr data-for="other exp">
  
-            <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-            if($_GET['queryString']!='INR'){?>
-                <td><?php if($FinanceAnnual[$i][OtherExpenses]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OtherExpenses],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-            <?php
+            <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+               if($_GET['queryString']!='INR'){?>
+                <td><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual[$i][OtherExpenses]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OtherExpenses],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual[$i][OtherExpenses]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][OtherExpenses]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></td>
+               <?php
             }
             else
-            {
-                ?>    
-                <td><?php if($FinanceAnnual[$i][OtherExpenses]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][OtherExpenses]/$convalue);echo round($tot,2); } ?></td>
-            <?php
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><?php if($FinanceAnnual[$i][OtherExpenses]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OtherExpenses]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                <?php } else { ?>
+                    <td><?php if($FinanceAnnual[$i][OtherExpenses]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OtherExpenses]/$convalue);echo round($tot,2); } ?></td>
+                <?php } ?>
+                <?php
             }
             }
             ?>
@@ -857,153 +1056,315 @@ if(count($FinanceAnnual_cashflow) == 0){
       <!-- Value changes - xbrl2 end -->      
 
   <tr>
- <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
+ <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
     if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][OptnlAdminandOthrExp],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-           <?php
-    }
-    else
-    {
-        ?>
-        <td><?php if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][OptnlAdminandOthrExp]/$convalue;echo round($tot,2); } ?></td>
-                 <?php
-    }
-}
-?>
-  </tr>
-  <tr>
-     <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][OptnlProfit]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OptnlProfit],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-          <?php
-    }
-    else
-    {
-        ?>
-        <td><?php if($FinanceAnnual[$i][OptnlProfit]==0){echo '-';}else{$tot= $FinanceAnnual[$i][OptnlProfit]/$convalue;echo round($tot,2); } ?></td>
-                  <?php
-    }
-}
-?>
-  </tr>
-  <tr>
-    <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><b><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBITDA],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></b></td>
-          <?php
-    }
-    else
-    {
-        ?> 
-        <td><b><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{ $tot=$FinanceAnnual[$i][EBITDA]/$convalue;echo round($tot,2); } ?></b></td>
-                     <?php
-    }
-}
-?>
-  </tr>
-  <tr>
-    <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][Interest]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][Interest],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-          <?php
-    }
-    else
-    {
-        ?> 
-        <td><?php if($FinanceAnnual[$i][Interest]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][Interest]/$convalue;echo round($tot,2); } ?></td>
-                  <?php
-    }
-}
-?>
-  </tr>
-  <tr>
-     <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][EBDT]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBDT],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
+      <td><?php
+     if($yearcurrency[$year] ==''){
+      if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OptnlAdminandOthrExp],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+     }else{
+      if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][OptnlAdminandOthrExp]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+     }
+     ?></td>
+     <?php
+  }
+  else
+  { 
+      ?> 
+      <?php if($_GET['rconv'] =='r'){ ?>
+          <td><?php if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OptnlAdminandOthrExp]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+      <?php } else { ?>
+          <td><?php if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OptnlAdminandOthrExp]/$convalue);echo round($tot,2); } ?></td>
+      <?php } ?>
       <?php
-    }
-    else
-    {
-        ?>    
-        <td><?php if($FinanceAnnual[$i][EBDT]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][EBDT]/$convalue;echo round($tot,2); } ?></td>
- <?php
-    }
+  }
+   
 }
 ?>
   </tr>
   <tr>
-     <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][Depreciation]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][Depreciation],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-   <?php
+     <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
     }
-    else
-    {
-        ?>    
-          <td><?php if($FinanceAnnual[$i][Depreciation]==0){echo '-';}else{$tot= $FinanceAnnual[$i][Depreciation]/$convalue;echo round($tot,2); } ?></td>
- <?php
-    }
+        if($_GET['queryString']!='INR'){?>
+          <td><?php
+         if($yearcurrency[$year] ==''){
+          if($FinanceAnnual[$i][OptnlProfit]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OptnlProfit],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }else{
+          if($FinanceAnnual[$i][OptnlProfit]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][OptnlProfit]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }
+         ?></td>
+         <?php
+      }
+      else
+      { 
+          ?> 
+          <?php if($_GET['rconv'] =='r'){ ?>
+              <td><?php if($FinanceAnnual[$i][OptnlProfit]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OptnlProfit]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+          <?php } else { ?>
+              <td><?php if($FinanceAnnual[$i][OptnlProfit]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OptnlProfit]/$convalue);echo round($tot,2); } ?></td>
+          <?php } ?>
+          <?php
+      }
+    
 }
 ?>
   </tr>
   <tr>
-    <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){ ?>
-                  <td><?php if($FinanceAnnual[$i][EBT_before_Priod_period] == 0 && $FinanceAnnual[$i][Priod_period] == 0){ $vale = currency_convert($FinanceAnnual[$i][EBT],'INR',$_GET['queryString']); $tot=$vale/$convalue; echo round($tot,2); if($vale==''){echo '-';} }else if($FinanceAnnual[$i][EBT_before_Priod_period]==0 ) {echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBT_before_Priod_period],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-               <?php
-                }
-                else
-                {
-                    ?>    
-                      <td><?php if($FinanceAnnual[$i][EBT_before_Priod_period] == 0 && $FinanceAnnual[$i][Priod_period] == 0){ $tot= ($FinanceAnnual[$i][EBT]/$convalue);echo round($tot,2);  }else if($FinanceAnnual[$i][EBT_before_Priod_period]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][EBT_before_Priod_period]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+    <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+       if($_GET['queryString']!='INR'){?>
+        <td><b><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBITDA],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EBITDA]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }
+       ?></b></td>
+       <?php
+    }
+    else
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ ?>
+            <td><b><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+        <?php } else { ?>
+            <td><b><?php if($FinanceAnnual[$i][EBITDA]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBITDA]/$convalue);echo round($tot,2); } ?></b></td>
+        <?php } ?>
+        <?php
+    }
+   
+}
+?>
+  </tr>
+  <tr>
+    <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+       if($_GET['queryString']!='INR'){?>
+        <td><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][Interest]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][Interest],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][Interest]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][Interest]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }
+       ?></td>
+       <?php
+    }
+    else
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ ?>
+            <td><?php if($FinanceAnnual[$i][Interest]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Interest]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+        <?php } else { ?>
+            <td><?php if($FinanceAnnual[$i][Interest]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Interest]/$convalue);echo round($tot,2); } ?></td>
+        <?php } ?>
+        <?php
+    }
+   
+}
+?>
+  </tr>
+  <tr>
+     <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+        if($_GET['queryString']!='INR'){?>
+          <td><?php
+         if($yearcurrency[$year] ==''){
+          if($FinanceAnnual[$i][EBDT]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBDT],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }else{
+          if($FinanceAnnual[$i][EBDT]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EBDT]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }
+         ?></td>
+         <?php
+      }
+      else
+      { 
+          ?> 
+          <?php if($_GET['rconv'] =='r'){ ?>
+              <td><?php if($FinanceAnnual[$i][EBDT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBDT]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+          <?php } else { ?>
+              <td><?php if($FinanceAnnual[$i][EBDT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBDT]/$convalue);echo round($tot,2); } ?></td>
+          <?php } ?>
+          <?php
+      }
+    
+}
+?>
+  </tr>
+  <tr>
+     <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+        if($_GET['queryString']!='INR'){?>
+          <td><?php
+         if($yearcurrency[$year] ==''){
+          if($FinanceAnnual[$i][Depreciation]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][Depreciation],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }else{
+          if($FinanceAnnual[$i][Depreciation]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][Depreciation]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }
+         ?></td>
+         <?php
+      }
+      else
+      { 
+          ?> 
+          <?php if($_GET['rconv'] =='r'){ ?>
+              <td><?php if($FinanceAnnual[$i][Depreciation]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Depreciation]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+          <?php } else { ?>
+              <td><?php if($FinanceAnnual[$i][Depreciation]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Depreciation]/$convalue);echo round($tot,2); } ?></td>
+          <?php } ?>
+          <?php
+      }
+   
+}
+?>
+  </tr>
+  <tr>
+    <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+       if($_GET['queryString']!='INR'){?>
+        <td><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][EBT_before_Priod_period]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBT_before_Priod_period],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][EBT_before_Priod_period]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EBT_before_Priod_period]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }
+       ?></td>
+       <?php
+    }
+    else
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ ?>
+            <td><?php if($FinanceAnnual[$i][EBT_before_Priod_period]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBT_before_Priod_period]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+        <?php } else { ?>
+            <td><?php if($FinanceAnnual[$i][EBT_before_Priod_period]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBT_before_Priod_period]/$convalue);echo round($tot,2); } ?></td>
+        <?php } ?>
+        <?php
+    }
+               
+            }
+            ?>
+              </tr>
+  <tr>
+    <?php for($i=0;$i<count($FinanceAnnual);$i++){ $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+       if($_GET['queryString']!='INR'){?>
+        <td><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][Priod_period]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][Priod_period],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][Priod_period]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][Priod_period]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }
+       ?></td>
+       <?php
+    }
+    else
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ ?>
+            <td><?php if($FinanceAnnual[$i][Priod_period]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Priod_period]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+        <?php } else { ?>
+            <td><?php if($FinanceAnnual[$i][Priod_period]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Priod_period]/$convalue);echo round($tot,2); } ?></td>
+        <?php } ?>
+        <?php
+    }
+   
             }
             ?>
               </tr>
   <tr>
     <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][Priod_period]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][Priod_period],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-               <?php
-                }
-                else
-                {
-                    ?>    
-                      <td><?php if($FinanceAnnual[$i][Priod_period]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][Priod_period]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-  <tr>
-    <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][EBT]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBT],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-  <?php
+      $position= strpos($FinanceAnnual[$i][FY]," ");
+      if($position!=''){
+        $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+      }else{
+        $year=$FinanceAnnual[$i][FY];
+      }
+       if($_GET['queryString']!='INR'){?>
+        <td><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][EBT]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EBT],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][EBT]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EBT]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }
+       ?></td>
+       <?php
     }
     else
-    {
-        ?>      
-         <td><?php if($FinanceAnnual[$i][EBT]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][EBT]/$convalue;echo round($tot,2); } ?></td>
- <?php
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ ?>
+            <td><?php if($FinanceAnnual[$i][EBT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBT]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+        <?php } else { ?>
+            <td><?php if($FinanceAnnual[$i][EBT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EBT]/$convalue);echo round($tot,2); } ?></td>
+        <?php } ?>
+        <?php
     }
+   
 }
 ?>
   </tr>
   <!-- Value changes - xbrl2 start -->
    <tr data-for="Current tax">
                 <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][CurrentTax]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][CurrentTax],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-               <?php
+                  $position= strpos($FinanceAnnual[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual[$i][FY];
+                  }
+                   if($_GET['queryString']!='INR'){?>
+                    <td><?php
+                   if($yearcurrency[$year] ==''){
+                    if($FinanceAnnual[$i][CurrentTax]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][CurrentTax],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }else{
+                    if($FinanceAnnual[$i][CurrentTax]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][CurrentTax]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }
+                   ?></td>
+                   <?php
                 }
                 else
-                {
-                    ?>    
-                          <td><?php if($FinanceAnnual[$i][CurrentTax]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][CurrentTax]/$convalue);echo round($tot,2); } ?></td>
-                 <?php
-                    }
+                { 
+                    ?> 
+                    <?php if($_GET['rconv'] =='r'){ ?>
+                        <td><?php if($FinanceAnnual[$i][CurrentTax]==0){echo '-';}else{$tot=($FinanceAnnual[$i][CurrentTax]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                    <?php } else { ?>
+                        <td><?php if($FinanceAnnual[$i][CurrentTax]==0){echo '-';}else{$tot=($FinanceAnnual[$i][CurrentTax]/$convalue);echo round($tot,2); } ?></td>
+                    <?php } ?>
+                    <?php
+                }
+                
                 }
                 ?>
               </tr>
@@ -1011,47 +1372,98 @@ if(count($FinanceAnnual_cashflow) == 0){
               
               <tr data-for="Deferred tax">
                 <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][DeferredTax]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][DeferredTax],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-               <?php
+                  $position= strpos($FinanceAnnual[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual[$i][FY];
+                  }
+                   if($_GET['queryString']!='INR'){?>
+                    <td><?php
+                   if($yearcurrency[$year] ==''){
+                    if($FinanceAnnual[$i][DeferredTax]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][DeferredTax],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }else{
+                    if($FinanceAnnual[$i][DeferredTax]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][DeferredTax]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }
+                   ?></td>
+                   <?php
                 }
                 else
-                {
-                    ?>    
-                          <td><?php if($FinanceAnnual[$i][DeferredTax]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][DeferredTax]/$convalue);echo round($tot,2); } ?></td>
-                 <?php
-                    }
+                { 
+                    ?> 
+                    <?php if($_GET['rconv'] =='r'){ ?>
+                        <td><?php if($FinanceAnnual[$i][DeferredTax]==0){echo '-';}else{$tot=($FinanceAnnual[$i][DeferredTax]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                    <?php } else { ?>
+                        <td><?php if($FinanceAnnual[$i][DeferredTax]==0){echo '-';}else{$tot=($FinanceAnnual[$i][DeferredTax]/$convalue);echo round($tot,2); } ?></td>
+                    <?php } ?>
+                    <?php
+                }
+                
                 }
                 ?>  
               </tr>
               <!-- Value changes - xbrl2 end -->
   <tr>
      <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][Tax]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][Tax],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-    <?php
-    }
-    else
-    {
-        ?>   
-        <td><?php if($FinanceAnnual[$i][Tax]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][Tax]/$convalue;echo round($tot,2); } ?></td>
- <?php
-    }
+       $position= strpos($FinanceAnnual[$i][FY]," ");
+       if($position!=''){
+         $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+       }else{
+         $year=$FinanceAnnual[$i][FY];
+       }
+        if($_GET['queryString']!='INR'){?>
+          <td><?php
+         if($yearcurrency[$year] ==''){
+          if($FinanceAnnual[$i][Tax]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][Tax],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }else{
+          if($FinanceAnnual[$i][Tax]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][Tax]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+         }
+         ?></td>
+         <?php
+      }
+      else
+      { 
+          ?> 
+          <?php if($_GET['rconv'] =='r'){ ?>
+              <td><?php if($FinanceAnnual[$i][Tax]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Tax]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+          <?php } else { ?>
+              <td><?php if($FinanceAnnual[$i][Tax]==0){echo '-';}else{$tot=($FinanceAnnual[$i][Tax]/$convalue);echo round($tot,2); } ?></td>
+          <?php } ?>
+          <?php
+      }
+    
 }
 ?>
   </tr>
   <tr>
-    <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><b><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][PAT],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-     <?php
+    <?php for($i=0;$i<count($FinanceAnnual);$i++){
+      $position= strpos($FinanceAnnual[$i][FY]," ");
+      if($position!=''){
+        $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+      }else{
+        $year=$FinanceAnnual[$i][FY];
+      } 
+       if($_GET['queryString']!='INR'){?>
+        <td><b><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][PAT]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][PAT],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][PAT]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][PAT]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }
+       ?></b></td>
+       <?php
     }
     else
-    {
-        ?>   
-         <td><b><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][PAT]/$convalue;echo round($tot,2); } ?></b></td>
- <?php
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ ?>
+            <td><b><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+        <?php } else { ?>
+            <td><b><?php if($FinanceAnnual[$i][PAT]==0){echo '-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);echo round($tot,2); } ?></b></td>
+        <?php } ?>
+        <?php
     }
+   
 }
 ?>
   </tr>
@@ -1060,16 +1472,33 @@ if(count($FinanceAnnual_cashflow) == 0){
               <tr>
  
                  <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][profit_loss_of_minority_interest],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                <?php
-                }
-                else
-                {
-                    ?>     
-                    <td><?php if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][profit_loss_of_minority_interest]/$convalue;echo round($tot,2); } ?></td>
-             <?php
-                }
+                   $position= strpos($FinanceAnnual[$i][FY]," ");
+                   if($position!=''){
+                     $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                   }else{
+                     $year=$FinanceAnnual[$i][FY];
+                   }
+                    if($_GET['queryString']!='INR'){?>
+                      <td><?php
+                     if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][profit_loss_of_minority_interest],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                     }else{
+                      if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][profit_loss_of_minority_interest]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                     }
+                     ?></td>
+                     <?php
+                  }
+                  else
+                  { 
+                      ?> 
+                      <?php if($_GET['rconv'] =='r'){ ?>
+                          <td><?php if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){echo '-';}else{$tot=($FinanceAnnual[$i][profit_loss_of_minority_interest]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                      <?php } else { ?>
+                          <td><?php if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){echo '-';}else{$tot=($FinanceAnnual[$i][profit_loss_of_minority_interest]/$convalue);echo round($tot,2); } ?></td>
+                      <?php } ?>
+                      <?php
+                  }
+               
             }
             ?>
               </tr>
@@ -1077,16 +1506,33 @@ if(count($FinanceAnnual_cashflow) == 0){
               <tr>
  
                  <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                   <td><?php if($FinanceAnnual[$i][total_profit_loss_for_period]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][total_profit_loss_for_period],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                <?php
-                }
-                else
-                {
-                    ?>     
-                    <td><?php if($FinanceAnnual[$i][total_profit_loss_for_period]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][total_profit_loss_for_period]/$convalue;echo round($tot,2); } ?></td>
-             <?php
-                }
+                   $position= strpos($FinanceAnnual[$i][FY]," ");
+                   if($position!=''){
+                     $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                   }else{
+                     $year=$FinanceAnnual[$i][FY];
+                   }
+                    if($_GET['queryString']!='INR'){?>
+                      <td><?php
+                     if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual[$i][total_profit_loss_for_period]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][total_profit_loss_for_period],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                     }else{
+                      if($FinanceAnnual[$i][total_profit_loss_for_period]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][total_profit_loss_for_period]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                     }
+                     ?></td>
+                     <?php
+                  }
+                  else
+                  { 
+                      ?> 
+                      <?php if($_GET['rconv'] =='r'){ ?>
+                          <td><?php if($FinanceAnnual[$i][total_profit_loss_for_period]==0){echo '-';}else{$tot=($FinanceAnnual[$i][total_profit_loss_for_period]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                      <?php } else { ?>
+                          <td><?php if($FinanceAnnual[$i][total_profit_loss_for_period]==0){echo '-';}else{$tot=($FinanceAnnual[$i][total_profit_loss_for_period]/$convalue);echo round($tot,2); } ?></td>
+                      <?php } ?>
+                      <?php
+                  }
+                
             }
             ?>
               </tr>
@@ -1109,31 +1555,64 @@ if(count($FinanceAnnual_cashflow) == 0){
   </tr>
   <tr>
      <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][BINR]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][BINR],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
- <?php
-    }
+      if($position!=''){
+        $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+      }else{
+        $year=$FinanceAnnual[$i][FY];
+      }
+       if($_GET['queryString']!='INR'){?>
+         <td><?php
+        if($yearcurrency[$year] ==''){
+         if($FinanceAnnual[$i][BINR]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][BINR],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+        }else{
+         if($FinanceAnnual[$i][BINR]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][BINR]*$yearcurrency[$year];$tot=$vale/$convalue;echo number_format($tot, 2, '.', ','); if($vale==''){echo '-';}} 
+        }
+        ?></td>
+        <?php
+     }
     else
     {
-        ?>     
-         <td><?php if($FinanceAnnual[$i][BINR]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][BINR]/$convalue;echo round($tot,2); } ?></td>
+        ?>    
+        <?php if($_GET['rconv'] =='r'){ ?>
+             <td><?php if($FinanceAnnual[$i][BINR]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][BINR]);echo number_format($tot, 2, '.', ','); } ?></td>
+        <?php } else { ?>  
+         <td><?php if($FinanceAnnual[$i][BINR]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][BINR]);echo number_format($tot, 2, '.', ','); } ?></td>
+         <?php } ?>
  <?php
     }
+   
 }
 ?>
   </tr>
   <tr>
     <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][DINR]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][DINR],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-   <?php
+      $position= strpos($FinanceAnnual[$i][FY]," ");
+      if($position!=''){
+        $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+      }else{
+        $year=$FinanceAnnual[$i][FY];
+      }
+       if($_GET['queryString']!='INR'){?>
+        <td><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][DINR]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][DINR],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][DINR]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][DINR]*$yearcurrency[$year];$tot=$vale/$convalue;echo number_format($tot, 2, '.', ','); if($vale==''){echo '-';}} 
+       }
+       ?></td>
+       <?php
     }
     else
-    {
-        ?>   
-         <td><?php if($FinanceAnnual[$i][DINR]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][DINR]/$convalue;echo round($tot,2); } ?></td>
- <?php
-    }
+                {
+                    ?>   
+                    <?php if($_GET['rconv'] =='r'){ ?>
+                     <td><?php if($FinanceAnnual[$i][DINR]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][DINR]);echo number_format($tot, 2, '.', ','); } ?></td>
+                    <?php } else { ?>  
+                     <td><?php if($FinanceAnnual[$i][DINR]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][DINR]);echo number_format($tot, 2, '.', ','); } ?></td>
+                     <?php } ?>
+             <?php
+                }
+    
 }
 ?>
   </tr>
@@ -1155,6 +1634,7 @@ if(count($FinanceAnnual_cashflow) == 0){
    <?php
     $EmpRelatedExp = '';
     for($i=0;$i<count($FinanceAnnual);$i++){
+     
         if($_GET['queryString']!='INR'){
             if($FinanceAnnual[$i][EmployeeRelatedExpenses]!=0){
                         $EmpRelatedExp .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][EmployeeRelatedExpenses],'INR',$_GET['queryString']); $tot=$vale/$convalue; round($tot,2).'</td>';
@@ -1176,16 +1656,33 @@ if(count($FinanceAnnual_cashflow) == 0){
      <?php
      //echo $EmpRelatedExp;
     for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-        <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][EmployeeRelatedExpenses],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-   <?php
+      $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+      if($_GET['queryString']!='INR'){?>
+        <td><?php
+       if($yearcurrency[$year] ==''){
+        if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EmployeeRelatedExpenses],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }else{
+        if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+       }
+       ?></td>
+       <?php
     }
     else
-    {
-        ?>      
-        <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{ $tot= $FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue;echo round($tot,2); } ?></td>
- <?php
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ ?>
+            <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+        <?php } else { ?>
+            <td><?php if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){echo '-';}else{$tot=($FinanceAnnual[$i][EmployeeRelatedExpenses]/$convalue);echo round($tot,2); } ?></td>
+        <?php } ?>
+        <?php
     }
+   
 }
 ?>
   </tr> -->
@@ -1196,27 +1693,51 @@ if(count($FinanceAnnual_cashflow) == 0){
   <?php 
     $frnExgEarnCont = '';
     for($i=0;$i<count($FinanceAnnual);$i++){
-        if($_GET['queryString']!='INR'){
-            if($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]!=0){
-            $frnExgEarnCont .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][ForeignExchangeEarningandOutgo],'INR',$_GET['queryString']); $tot=$vale/$convalue; round($tot,2).'</td>';
-        }
+      $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
     }
- else {
+      if($_GET['queryString']!='INR'){?>
+       <?php
+       if($yearcurrency[$year] ==''){
         if($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]!=0){
+          $frnExgEarnCont .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][ForeignExchangeEarningandOutgo],'INR',$_GET['queryString']); $tot=$vale/$convalue; round($tot,2).'</td>';
+      }
+    }else{
+      if($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]!=0){
+        $frnExgEarnCont .= '<td>'. $vale = $FinanceAnnual[$i][ForeignExchangeEarningandOutgo]*$yearcurrency[$year]; $tot=$vale/$convalue; round($tot,2).'</td>';
+    }    
+    
+    }
+       ?>
+       <?php
+    }
+    else
+    { 
+        ?> 
+        <?php if($_GET['rconv'] =='r'){ if($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]!=0){
             $frnExgEarnCont .= '<td>'. $tot= ($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]/$convalue); round($tot,2).'</td>';
         }
-     
- }
+         } else { if($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]!=0){
+          $frnExgEarnCont .= '<td>'. $tot= ($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]/$convalue); round($tot,2).'</td>';
+      }
+      } ?>
+        <?php
+    }
+        
 
     }?>
   </tr>
-      <?php 
+      <?php //echo $frnExgEarnCont;
     if($frnExgEarnCont!='')
     {
   ?>
   
   <tr>
     <?php for($i=0;$i<count($FinanceAnnual);$i++){ 
+       
     if($_GET['queryString']!='INR'){?>
         <td><?php if($FinanceAnnual[$i][ForeignExchangeEarningandOutgo]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual[$i][ForeignExchangeEarningandOutgo],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
    <?php
@@ -1236,33 +1757,91 @@ if(count($FinanceAnnual_cashflow) == 0){
   <?php
     $frnExgEarnin = '';
     for($i=0;$i<count($FinanceAnnual);$i++){
-        if($_GET['queryString']!='INR'){
-            if($FinanceAnnual[$i][EarninginForeignExchange]!=0){
-                        $frnExgEarnin .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][EarninginForeignExchange],'INR',$_GET['queryString']); $tot=$vale/$convalue;round($tot,2).'</td>';
-        }
-    }
- else {
-        if($FinanceAnnual[$i][EarninginForeignExchange]!=0){
-                        $frnExgEarnin .= '<td>'. $tot= ($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); round($tot,2).'</td>';
-        }
+      $position= strpos($FinanceAnnual[$i][FY]," ");
+      if($position!=''){
+        $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+      }else{
+        $year=$FinanceAnnual[$i][FY];
+      }
+ 
+        if($_GET['queryString']!='INR'){?>
+          <?php
+         if($yearcurrency[$year] ==''){
+          if($FinanceAnnual[$i][EarninginForeignExchange]!=0){
+            $frnExgEarnin .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][EarninginForeignExchange],'INR',$_GET['queryString']); $tot=$vale/$convalue;round($tot,2).'</td>';
+}
      
- }
+        }else{
+          if($FinanceAnnual[$i][EarninginForeignExchange]!=0){
+            $frnExgEarnin .= '<td>'. $vale = $FinanceAnnual[$i][EarninginForeignExchange]*$yearcurrency[$year]; $tot=$vale/$convalue;round($tot,2).'</td>';
+}
+          
+    }
+  
+        
+         ?>
+         <?php
+      }
+      else
+      { 
+          ?> 
+          <?php if($_GET['rconv'] =='r'){ 
+              if($FinanceAnnual[$i][EarninginForeignExchange]!=0){
+                $frnExgEarnin .= '<td>'. $tot= ($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); round($tot,2).'</td>';
+}
+           } else { 
+            if($FinanceAnnual[$i][EarninginForeignExchange]!=0){
+              $frnExgEarnin .= '<td>'. $tot= ($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); round($tot,2).'</td>';
+}
+          } ?>
+          <?php
+      }
+    }
+        
 
-            }
+           
                 
               $frnExgOutgoin = '';
+              
                 for($i=0;$i<count($FinanceAnnual);$i++){
-                    if($_GET['queryString']!='INR'){
-                        if($FinanceAnnual[$i][OutgoinForeignExchange]!=0){
-                         $frnExgOutgoin .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][OutgoinForeignExchange],'INR',$_GET['queryString']); $tot=$vale/$convalue; round($tot,2).'</td>';
-                    }
-                }
-             else {
+                  $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
+    }
+                  if($_GET['queryString']!='INR'){?>
+                    <?php
+                   if($yearcurrency[$year] ==''){
                     if($FinanceAnnual[$i][OutgoinForeignExchange]!=0){
+                      $frnExgOutgoin .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][OutgoinForeignExchange],'INR',$_GET['queryString']); $tot=$vale/$convalue; round($tot,2).'</td>';
+                 }
+               
+                  }else{
+                    if($FinanceAnnual[$i][OutgoinForeignExchange]!=0){
+                      $frnExgOutgoin .= '<td>'. $vale = $FinanceAnnual[$i][OutgoinForeignExchange]*$yearcurrency[$year]; $tot=$vale/$convalue; round($tot,2).'</td>';
+                 }
+                   
+              }
+                  
+                   ?>
+                   <?php
+                }
+                else
+                { 
+                    ?> 
+                    <?php if($_GET['rconv'] =='r'){ 
+                       if($FinanceAnnual[$i][OutgoinForeignExchange]!=0){
                         $frnExgOutgoin .= '<td>'. $tot= ($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue); round($tot,2).'</td>';
                     }
-
-             }
+                     } else { 
+                      if($FinanceAnnual[$i][OutgoinForeignExchange]!=0){
+                        $frnExgOutgoin .= '<td>'. $tot= ($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue); round($tot,2).'</td>';
+                    }
+                    } ?>
+                    <?php
+                }
+              
 
             }
             
@@ -1296,20 +1875,35 @@ if(count($FinanceAnnual_cashflow) == 0){
   <tr>
  
                 <?php 
-                //echo $frnExgEarnin;
-               for($i=0;$i<count($FinanceAnnual);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EarninginForeignExchange],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-               <?php
-             $frnExgOutgoin .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][OutgoinForeignExchange],'INR',$_GET['queryString']); $tot=$vale/$convalue; round($tot,2).'</td>';
-        }
-                else
-                {
-                    ?>      
-                     <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); echo round($tot,2); } ?></td>
-             <?php
+                //echo $frnExgOutgoin;
+                for($i=0;$i<count($FinanceAnnual);$i++){ 
+                  $position= strpos($FinanceAnnual[$i][FY]," ");
+    if($position!=''){
+      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+    }else{
+      $year=$FinanceAnnual[$i][FY];
     }
+                  if($_GET['queryString']!='INR'){
+                    if($yearcurrency[$year] ==''){
+                    ?>
+                      <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][EarninginForeignExchange],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
+                 <?php
+               $frnExgOutgoin .= '<td>'. $vale = currency_convert($FinanceAnnual[$i][OutgoinForeignExchange],'INR',$_GET['queryString']); $tot=$vale/$convalue; round($tot,2).'</td>';
+          }else{?>
+            <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][EarninginForeignExchange]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
+       <?php
+     $frnExgOutgoin .= '<td>'. $vale = $FinanceAnnual[$i][OutgoinForeignExchange]*$yearcurrency[$year]; $tot=$vale/$convalue; round($tot,2).'</td>';
+
+
+          }
         }
+                  else
+                  {
+                      ?>      
+                       <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); echo round($tot,2); } ?></td>
+               <?php
+      }
+          }
             ?>
   </tr>
       <?php 
@@ -1322,16 +1916,33 @@ if(count($FinanceAnnual_cashflow) == 0){
                 <?php 
                 //echo  $frnExgOutgoin ;
                 for($i=0;$i<count($FinanceAnnual);$i++){ 
-    if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual[$i][OutgoinForeignExchange]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OutgoinForeignExchange],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-             <?php
-    }
-    else
-    {
-                    ?>   
-                    <td><?php if($FinanceAnnual[$i][OutgoinForeignExchange]==0){echo '-';}else{ $tot= ($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-    }
+                  $position= strpos($FinanceAnnual[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual[$i][FY];
+                  }
+                  if($_GET['queryString']!='INR'){?>
+                    <td><?php
+                   if($yearcurrency[$year] ==''){
+                    if($FinanceAnnual[$i][OutgoinForeignExchange]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual[$i][OutgoinForeignExchange],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }else{
+                    if($FinanceAnnual[$i][OutgoinForeignExchange]==0){echo '-';}else{ $vale = $FinanceAnnual[$i][OutgoinForeignExchange]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }
+                   ?></td>
+                   <?php
+                }
+                else
+                { 
+                    ?> 
+                    <?php if($_GET['rconv'] =='r'){ ?>
+                        <td><?php if($FinanceAnnual[$i][OutgoinForeignExchange]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                    <?php } else { ?>
+                        <td><?php if($FinanceAnnual[$i][OutgoinForeignExchange]==0){echo '-';}else{$tot=($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue);echo round($tot,2); } ?></td>
+                    <?php } ?>
+                    <?php
+                }
+    
 }
 ?>
   </tr>
@@ -1449,6 +2060,29 @@ echo '</pre>';*/
                     <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="bsDataUpdateReq()" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
                 </span>
                   <?php }?>
+                  <div class="finance-filter-custom" style="padding-top: 0px;">
+                <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+        <option>-- select currency --</option>
+       
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        
+    </select>  <span class="incurrency" > in </span>
+
+<?php if($_GET['queryString']=='INR'){ ?>
+    <select class="currencyconversion" name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="c" <?php if($_GET['rconv']=='c'){ echo "selected";} ?>>Crores</option>
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+        <option  value="l" <?php if($_GET['rconv']=='l'){ echo "selected";} ?>>Lakhs</option>
+    </select>
+<?php }else{ ?>
+    <select class="currencyconversion" name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+         </select> 
+    <?php } ?>
+</div>
 <div id="new_balsheet" style="clear:both;">
 <?php $rowtype=mysql_query("select ResultType from balancesheet_new where CId_FK =". $_GET['vcid']." Group by ResultType"); 
     $resulttypecount=mysql_num_rows($rowtype);
@@ -1682,16 +2316,26 @@ echo '</pre>';*/
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][ShareCapital]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1_new[$i][ShareCapital],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <td><?php if($FinanceAnnual1_new[$i][ShareCapital]==0){echo '0';}else{ $tot=($FinanceAnnual1_new[$i][ShareCapital]/$convalue);echo round($tot,2); } ?></td>
-                        <?php
-                }
+               if($_GET['queryString']!='INR'){?>
+                <td><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual1_new[$i][ShareCapital]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][ShareCapital],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual1_new[$i][ShareCapital]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][ShareCapital]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></td>
+               <?php
+            }
+            else
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><?php if($FinanceAnnual1_new[$i][ShareCapital]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][ShareCapital]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                <?php } else { ?>
+                    <td><?php if($FinanceAnnual1_new[$i][ShareCapital]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][ShareCapital]/$convalue);echo round($tot,2); } ?></td>
+                <?php } ?>
+                <?php
+            }
             }
             ?>
               </tr>
@@ -1699,47 +2343,78 @@ echo '</pre>';*/
  
              <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][ReservesSurplus]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1_new[$i][ReservesSurplus],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?>  
-                    <td><?php if($FinanceAnnual1_new[$i][ReservesSurplus]==0){echo '0';}else{$tot= ($FinanceAnnual1_new[$i][ReservesSurplus]/$convalue);echo round($tot,2); } ?></td>
-                       <?php
-                }
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][ReservesSurplus]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][ReservesSurplus],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][ReservesSurplus]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][ReservesSurplus]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][ReservesSurplus]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][ReservesSurplus]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][ReservesSurplus]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][ReservesSurplus]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
               <tr>
  
              <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][TotalFunds]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1_new[$i][TotalFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></b></td>
-                       <?php
-                }
-                else
-                {
-                    ?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][TotalFunds]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][TotalFunds]/$convalue);echo round($tot,2); } ?></b></td>
-                             <?php
-                }
+               if($_GET['queryString']!='INR'){?>
+                <td><b><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual1_new[$i][TotalFunds]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][TotalFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual1_new[$i][TotalFunds]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][TotalFunds]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></b></td>
+               <?php
+            }
+            else
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><b><?php if($FinanceAnnual1_new[$i][TotalFunds]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][TotalFunds]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                <?php } else { ?>
+                    <td><b><?php if($FinanceAnnual1_new[$i][TotalFunds]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][TotalFunds]/$convalue);echo round($tot,2); } ?></b></td>
+                <?php } ?>
+                <?php
+            }
+                
             }
             ?>
               </tr>
               <tr>
  
                  <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][ShareApplication]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][ShareApplication],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?>
-                    <td><?php if($FinanceAnnual1_new[$i][ShareApplication]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][ShareApplication]/$convalue);echo round($tot,2); } ?></td>
-                              <?php
-                }
+              if($_GET['queryString']!='INR'){?>
+                <td><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual1_new[$i][ShareApplication]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][ShareApplication],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual1_new[$i][ShareApplication]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][ShareApplication]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></td>
+               <?php
+            }
+            else
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><?php if($FinanceAnnual1_new[$i][ShareApplication]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][ShareApplication]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                <?php } else { ?>
+                    <td><?php if($FinanceAnnual1_new[$i][ShareApplication]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][ShareApplication]/$convalue);echo round($tot,2); } ?></td>
+                <?php } ?>
+                <?php
+            }
             }
             ?>
               </tr>
@@ -1757,16 +2432,26 @@ echo '</pre>';*/
                 <tr>
                 
                     <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                    if($_GET['queryString']!='INR'){?>
-                        <td><?php if($FinanceAnnual1_new[$i][minority_interest]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][minority_interest],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                        <?php
-                    }
-                    else
-                    {
-                        ?>
-                        <td><?php if($FinanceAnnual1_new[$i][minority_interest]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][minority_interest]/$convalue);echo round($tot,2); } ?></td>
-                                <?php
-                    }
+                     if($_GET['queryString']!='INR'){?>
+                      <td><?php
+                     if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual1_new[$i][minority_interest]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][minority_interest],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                     }else{
+                      if($FinanceAnnual1_new[$i][minority_interest]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][minority_interest]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                     }
+                     ?></td>
+                     <?php
+                  }
+                  else
+                  { 
+                      ?> 
+                      <?php if($_GET['rconv'] =='r'){ ?>
+                          <td><?php if($FinanceAnnual1_new[$i][minority_interest]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][minority_interest]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                      <?php } else { ?>
+                          <td><?php if($FinanceAnnual1_new[$i][minority_interest]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][minority_interest]/$convalue);echo round($tot,2); } ?></td>
+                      <?php } ?>
+                      <?php
+                  }
                     }
                     ?>
                     </tr>
@@ -1800,64 +2485,109 @@ echo '</pre>';*/
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][L_term_borrowings]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][L_term_borrowings],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <td><?php if($FinanceAnnual1_new[$i][L_term_borrowings]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][L_term_borrowings]/$convalue);echo round($tot,2); } ?></td>
-                              <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][deferred_tax_liabilities]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][deferred_tax_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <td><?php if($FinanceAnnual1_new[$i][deferred_tax_liabilities]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][deferred_tax_liabilities]/$convalue);echo round($tot,2); } ?></td>
-                              <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][O_long_term_liabilities]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_long_term_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                  <?php
-                }
-                else
-                {
-                    ?>    
-                    <td><?php if($FinanceAnnual1_new[$i][O_long_term_liabilities]==0){echo '0';}else{$tot= ($FinanceAnnual1_new[$i][O_long_term_liabilities]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][L_term_provisions]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][L_term_provisions],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
+               if($_GET['queryString']!='INR'){?>
+                <td><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual1_new[$i][L_term_borrowings]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][L_term_borrowings],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual1_new[$i][L_term_borrowings]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][L_term_borrowings]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></td>
                <?php
-                }
-                else
-                {
-                    ?>    
-                      <td><?php if($FinanceAnnual1_new[$i][L_term_provisions]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][L_term_provisions]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+            }
+            else
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><?php if($FinanceAnnual1_new[$i][L_term_borrowings]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][L_term_borrowings]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                <?php } else { ?>
+                    <td><?php if($FinanceAnnual1_new[$i][L_term_borrowings]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][L_term_borrowings]/$convalue);echo round($tot,2); } ?></td>
+                <?php } ?>
+                <?php
+            }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][deferred_tax_liabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][deferred_tax_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][deferred_tax_liabilities]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][deferred_tax_liabilities]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][deferred_tax_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][deferred_tax_liabilities]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][deferred_tax_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][deferred_tax_liabilities]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+              
+              
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][O_long_term_liabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_long_term_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][O_long_term_liabilities]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][O_long_term_liabilities]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_long_term_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_long_term_liabilities]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_long_term_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_long_term_liabilities]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+              
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][L_term_provisions]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][L_term_provisions],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][L_term_provisions]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][L_term_provisions]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][L_term_provisions]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][L_term_provisions]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][L_term_provisions]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][L_term_provisions]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+              
+            
             }
             ?>
               </tr>
@@ -1865,15 +2595,28 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_liabilities]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1_new[$i][T_non_current_liabilities],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-              <?php
-                }
-                else
-                {
-                    ?>      
-                     <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_liabilities]==0){echo '0';}else{ $tot=($FinanceAnnual1_new[$i][T_non_current_liabilities]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                  <td><b><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][T_non_current_liabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_non_current_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][T_non_current_liabilities]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][T_non_current_liabilities]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></b></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_non_current_liabilities]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                  <?php } else { ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_non_current_liabilities]/$convalue);echo round($tot,2); } ?></b></td>
+                  <?php } ?>
+                  <?php
+              }
+              
+            
+             
             }
             ?>
               </tr>
@@ -1907,16 +2650,52 @@ echo '</pre>';*/
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][S_term_borrowings]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][S_term_borrowings],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][S_term_borrowings]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][S_term_borrowings],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][S_term_borrowings]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][S_term_borrowings]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][S_term_borrowings]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][S_term_borrowings]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][S_term_borrowings]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][S_term_borrowings]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][S_term_borrowings]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][S_term_borrowings]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
+               if($_GET['queryString']!='INR'){?>
+                <td><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual1_new[$i][Trade_payables]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Trade_payables],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual1_new[$i][Trade_payables]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Trade_payables]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></td>
+               <?php
+            }
+            else
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><?php if($FinanceAnnual1_new[$i][Trade_payables]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Trade_payables]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                <?php } else { ?>
+                    <td><?php if($FinanceAnnual1_new[$i][Trade_payables]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Trade_payables]/$convalue);echo round($tot,2); } ?></td>
+                <?php } ?>
+                <?php
+            }
             }
             ?>
               </tr>
@@ -1924,15 +2703,26 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Trade_payables]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Trade_payables],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][O_current_liabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_current_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][O_current_liabilities]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][O_current_liabilities]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Trade_payables]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Trade_payables]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_current_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_current_liabilities]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_current_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_current_liabilities]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+              
             }
             ?>
               </tr>
@@ -1940,15 +2730,27 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][O_current_liabilities]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_current_liabilities],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][S_term_provisions]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][S_term_provisions],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][S_term_provisions]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][S_term_provisions]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][O_current_liabilities]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][O_current_liabilities]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][S_term_provisions]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][S_term_provisions]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][S_term_provisions]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][S_term_provisions]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+              
+              
             }
             ?>
               </tr>
@@ -1956,15 +2758,28 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][S_term_provisions]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][S_term_provisions],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><b><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][T_current_liabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_current_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][T_current_liabilities]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][T_current_liabilities]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></b></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][S_term_provisions]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][S_term_provisions]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][T_current_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_current_liabilities]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                  <?php } else { ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][T_current_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_current_liabilities]/$convalue);echo round($tot,2); } ?></b></td>
+                  <?php } ?>
+                  <?php
+              }
+              
+              
+             
             }
             ?>
               </tr>
@@ -1972,31 +2787,25 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][T_current_liabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_current_liabilities],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
+                  <td><b><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][T_equity_liabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_equity_liabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][T_equity_liabilities]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][T_equity_liabilities]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></b></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1_new[$i][T_current_liabilities]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][T_current_liabilities]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][T_equity_liabilities]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_equity_liabilities],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1_new[$i][T_equity_liabilities]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][T_equity_liabilities]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][T_equity_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_equity_liabilities]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                  <?php } else { ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][T_equity_liabilities]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_equity_liabilities]/$convalue);echo round($tot,2); } ?></b></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
@@ -2080,15 +2889,26 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Tangible_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Tangible_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Tangible_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Tangible_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Tangible_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Tangible_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Tangible_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Tangible_assets]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Tangible_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Tangible_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Tangible_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Tangible_assets]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+             
             }
             ?>
               </tr>
@@ -2096,79 +2916,131 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Intangible_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Intangible_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Intangible_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Intangible_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Intangible_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Intangible_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Intangible_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Intangible_assets]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Intangible_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Intangible_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Intangible_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Intangible_assets]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][T_fixed_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_fixed_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][T_fixed_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_fixed_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][T_fixed_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][T_fixed_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][T_fixed_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][T_fixed_assets]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][T_fixed_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_fixed_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][T_fixed_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_fixed_assets]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][N_current_investments]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][N_current_investments],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][N_current_investments]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][N_current_investments],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][N_current_investments]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][N_current_investments]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][N_current_investments]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][N_current_investments]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][N_current_investments]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][N_current_investments]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][N_current_investments]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][N_current_investments]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+             
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Deferred_tax_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Deferred_tax_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Deferred_tax_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Deferred_tax_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Deferred_tax_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Deferred_tax_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Deferred_tax_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Deferred_tax_assets]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Deferred_tax_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Deferred_tax_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Deferred_tax_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Deferred_tax_assets]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][L_term_loans_advances]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][L_term_loans_advances],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][L_term_loans_advances]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][L_term_loans_advances],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][L_term_loans_advances]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][L_term_loans_advances]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][L_term_loans_advances]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][L_term_loans_advances]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][L_term_loans_advances]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][L_term_loans_advances]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][L_term_loans_advances]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][L_term_loans_advances]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+             
             }
             ?>
               </tr>
@@ -2177,15 +3049,25 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][O_non_current_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_non_current_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][O_non_current_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_non_current_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][O_non_current_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][O_non_current_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][O_non_current_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][O_non_current_assets]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_non_current_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_non_current_assets]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
@@ -2193,15 +3075,25 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_non_current_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
+                  <td><b><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_non_current_asT_non_current_assetssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][T_non_current_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></b></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][T_non_current_assets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_non_current_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_non_current_assets]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
@@ -2234,16 +3126,27 @@ echo '</pre>';*/
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Current_investments]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Current_investments],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Current_investments]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Current_investments],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Current_investments]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Current_investments]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Current_investments]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Current_investments]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Current_investments]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Current_investments]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Current_investments]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Current_investments]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+             
             }
             ?>
               </tr>
@@ -2251,14 +3154,25 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Inventories]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Inventories],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Inventories]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Inventories],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Inventories]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Inventories]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Inventories]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Inventories]/$convalue);echo round($tot,2); } ?></td>
-             <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Inventories]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Inventories]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Inventories]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Inventories]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
                 }
             }
             ?>
@@ -2266,16 +3180,27 @@ echo '</pre>';*/
                <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Trade_receivables]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Trade_receivables],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Trade_receivables]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Trade_receivables],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Trade_receivables]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Trade_receivables]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Trade_receivables]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Trade_receivables]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Trade_receivables]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Trade_receivables]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Trade_receivables]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Trade_receivables]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+              
             }
             ?>
               </tr>
@@ -2283,15 +3208,25 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][Cash_bank_balances]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Cash_bank_balances],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Cash_bank_balances]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Cash_bank_balances],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Cash_bank_balances]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Cash_bank_balances]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][Cash_bank_balances]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Cash_bank_balances]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Cash_bank_balances]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Cash_bank_balances]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][Cash_bank_balances]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Cash_bank_balances]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
@@ -2300,15 +3235,26 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][S_term_loans_advances]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][S_term_loans_advances],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][S_term_loans_advances]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][S_term_loans_advances],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][S_term_loans_advances]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][S_term_loans_advances]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][S_term_loans_advances]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][S_term_loans_advances]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][S_term_loans_advances]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][S_term_loans_advances]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][S_term_loans_advances]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][S_term_loans_advances]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+              
             }
             ?>
               </tr>
@@ -2317,15 +3263,54 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1_new[$i][O_current_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_current_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][O_current_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_current_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][O_current_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][O_current_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
                  <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_current_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual1_new[$i][O_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_current_assets]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
+            }
+            ?>
+              </tr>
+              
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
+                 
+                  if($_GET['queryString']!='INR'){?>
+                    <td><?php
+                   if($yearcurrency[$year] ==''){
+                    if($FinanceAnnual1_new[$i][T_current_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_current_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }else{
+                    if($FinanceAnnual1_new[$i][T_current_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][T_current_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                   }
+                   ?></td>
+                   <?php
                 }
                 else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1_new[$i][O_current_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][O_current_assets]/$convalue);echo round($tot,2); } ?></td>
-             <?php
+                { 
+                    ?> 
+                    <?php if($_GET['rconv'] =='r'){ ?>
+                        <td><?php if($FinanceAnnual1_new[$i][T_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_current_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                    <?php } else { ?>
+                        <td><?php if($FinanceAnnual1_new[$i][T_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_current_assets]/$convalue);echo round($tot,2); } ?></td>
+                    <?php } ?>
+                    <?php
                 }
+                
             }
             ?>
               </tr>
@@ -2334,32 +3319,25 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][T_current_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_current_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
+                  <td><b><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual1_new[$i][Total_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Total_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual1_new[$i][Total_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][Total_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></b></td>
                  <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1_new[$i][T_current_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][T_current_assets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1_new);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][Total_assets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][Total_assets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1_new[$i][Total_assets]==0){echo '0';}else{ $tot= ($FinanceAnnual1_new[$i][Total_assets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][Total_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Total_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                  <?php } else { ?>
+                      <td><b><?php if($FinanceAnnual1_new[$i][Total_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][Total_assets]/$convalue);echo round($tot,2); } ?></b></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
@@ -2375,7 +3353,7 @@ echo '</pre>';*/
     <?php
     // }
  
-     }     
+         
      
     ?>
     
@@ -2392,6 +3370,7 @@ echo '</pre>';*/
     /* if($Fbcount > 0)
      {*/
     ?>
+     
 <div id="old_balsheet" style="<?php if(count($FinanceAnnual1_new) > 0){ ?> display: none; <?php } ?> ">
     <?php $rowtype=mysql_query("select ResultType from balancesheet where CId_FK =". $_GET['vcid']." Group by ResultType"); 
     $resulttypecount=mysql_num_rows($rowtype);
@@ -2419,6 +3398,29 @@ echo '</pre>';*/
         </ul>
         <h4 style="font-size: 16px;margin-top: 20px;"> <span style="margin-left: 8px;font-size:12px;"><?php echo $runTypetext; ?></span></h4>
     </div> <?php  } ?>
+    <div class="finance-filter-custom" style="padding-top: 0px;">
+                <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
+        <option>-- select currency --</option>
+       
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+        <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        
+    </select>  <span class="incurrency" > in </span>
+
+<?php if($_GET['queryString']=='INR'){ ?>
+    <select class="currencyconversion" name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="c" <?php if($_GET['rconv']=='c'){ echo "selected";} ?>>Crores</option>
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+        <option  value="l" <?php if($_GET['rconv']=='l'){ echo "selected";} ?>>Lakhs</option>
+    </select>
+<?php }else{ ?>
+    <select class="currencyconversion" name="currencytype" id="currencytype"  onchange="javascript:millconversion(this.value,<?php echo $_GET['vcid']; ?>);">
+        <option value="r" <?php if($_GET['rconv']=='r'){ echo "selected";} ?>>Actual Value</option>
+        <option  value="m" <?php if($_GET['rconv']=='m'){ echo "selected";} ?>>Millions</option>
+         </select> 
+    <?php } ?>
+</div>
     <div class="detail-table-div" style="float: left;">
         <table  width="110%" border="0" cellspacing="0" cellpadding="0">
             <tHead> 
@@ -2609,64 +3611,324 @@ echo '</pre>';*/
               </tr>
               <tr>
  
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][ShareCapital]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1[$i][ShareCapital],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <td><?php if($FinanceAnnual1[$i][ShareCapital]==0){echo '0';}else{ $tot=($FinanceAnnual1[$i][ShareCapital]/$convalue);echo round($tot,2); } ?></td>
-                        <?php
-                }
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  } 
+               if($_GET['queryString']!='INR'){?>
+                <td><?php 
+                      if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual1[$i][ShareCapital]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][ShareCapital],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }else{
+                      if($FinanceAnnual1[$i][ShareCapital]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][ShareCapital]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }?></td><?php
+                   }else
+                   {
+                       ?> 
+                        <?php if($_GET['rconv'] =='r'){ ?>
+                                       <td><?php if($FinanceAnnual1[$i][ShareCapital]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ShareCapital]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                   <?php } else { ?>
+                                       <td><?php if($FinanceAnnual1[$i][ShareCapital]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ShareCapital]/$convalue);echo round($tot,2); } ?></td>
+                                   <?php } ?>
+                           <?php
+                   }
             }
             ?>
               </tr>
               <tr>
  
-             <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][ShareApplication]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1[$i][ShareApplication],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?>  
-                    <td><?php if($FinanceAnnual1[$i][ShareApplication]==0){echo '0';}else{$tot= ($FinanceAnnual1[$i][ShareApplication]/$convalue);echo round($tot,2); } ?></td>
-                       <?php
-                }
+             <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+               $position= strpos($FinanceAnnual1[$i][FY]," ");
+               if($position!=''){
+                 $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+               }else{
+                 $year=$FinanceAnnual1[$i][FY];
+               }
+               if($_GET['queryString']!='INR'){?>
+                <td><b><?php 
+                      if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual1[$i][ShareApplication]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][ShareApplication],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }else{
+                      if($FinanceAnnual1[$i][ShareApplication]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][ShareApplication]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }?></b></td><?php
+                   }else
+                   {
+                       ?> 
+                        <?php if($_GET['rconv'] =='r'){ ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][ShareApplication]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ShareApplication]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                   <?php } else { ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][ShareApplication]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ShareApplication]/$convalue);echo round($tot,2); } ?></b></td>
+                                   <?php } ?>
+                           <?php
+                   } 
             }
             ?>
               </tr>
               <tr>
  
-             <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+             <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+               $position= strpos($FinanceAnnual1[$i][FY]," ");
+               if($position!=''){
+                 $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+               }else{
+                 $year=$FinanceAnnual1[$i][FY];
+               } 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1[$i][ReservesSurplus],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                       <?php
-                }
-                else
-                {
-                    ?>
-                    <td><?php if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][ReservesSurplus]/$convalue);echo round($tot,2); } ?></td>
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][ReservesSurplus],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][ReservesSurplus]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ReservesSurplus]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ReservesSurplus]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
                              <?php
+                     }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                   $position= strpos($FinanceAnnual1[$i][FY]," ");
+                   if($position!=''){
+                     $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                   }else{
+                     $year=$FinanceAnnual1[$i][FY];
+                   } 
+                 if($_GET['queryString']!='INR'){?>
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][TotalFunds]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][TotalFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][TotalFunds]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][TotalFunds]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][TotalFunds]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][ReservesSurplus]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][TotalFunds]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                if($_GET['queryString']!='INR'){?>
+                    <td>&nbsp;</td>
+                   <?php
+                }
+                else
+                {
+                    ?> 
+                    <td>&nbsp;</td>
+                    <?php
                 }
             }
             ?>
               </tr>
               <tr>
  
-                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  } 
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][TotalFunds]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][TotalFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></b></td>
-                      <?php
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][SecuredLoans]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][SecuredLoans],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][SecuredLoans]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][SecuredLoans]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][SecuredLoans]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][SecuredLoans]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][SecuredLoans]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][SecuredLoans]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  } 
+                if($_GET['queryString']!='INR'){?>
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][UnSecuredLoans]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][UnSecuredLoans],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][UnSecuredLoans]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][UnSecuredLoans]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][UnSecuredLoans]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][UnSecuredLoans]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][UnSecuredLoans]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][UnSecuredLoans]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                   $position= strpos($FinanceAnnual1[$i][FY]," ");
+                   if($position!=''){
+                     $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                   }else{
+                     $year=$FinanceAnnual1[$i][FY];
+                   } 
+                 if($_GET['queryString']!='INR'){?>
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][LoanFunds]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][LoanFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][LoanFunds]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][LoanFunds]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][LoanFunds]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][LoanFunds]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][LoanFunds]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][LoanFunds]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     }
+            
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                   $position= strpos($FinanceAnnual1[$i][FY]," ");
+                   if($position!=''){
+                     $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                   }else{
+                     $year=$FinanceAnnual1[$i][FY];
+                   } 
+               if($_GET['queryString']!='INR'){?>
+                <td><b><?php 
+                      if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual1[$i][OtherLiabilities]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][OtherLiabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }else{
+                      if($FinanceAnnual1[$i][OtherLiabilities]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][OtherLiabilities]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }?></b></td><?php
+                   }else
+                   {
+                       ?> 
+                        <?php if($_GET['rconv'] =='r'){ ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][OtherLiabilities]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][OtherLiabilities]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                   <?php } else { ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][OtherLiabilities]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][OtherLiabilities]/$convalue);echo round($tot,2); } ?></b></td>
+                                   <?php } ?>
+                           <?php
+                   }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  } 
+                 if($_GET['queryString']!='INR'){?>
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][DeferredTax]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][DeferredTax],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][DeferredTax]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][DeferredTax]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][DeferredTax]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][DeferredTax]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][DeferredTax]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][DeferredTax]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     }
+              
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                   $position= strpos($FinanceAnnual1[$i][FY]," ");
+                   if($position!=''){
+                     $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                   }else{
+                     $year=$FinanceAnnual1[$i][FY];
+                   }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][SourcesOfFunds]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][SourcesOfFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][SourcesOfFunds]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][SourcesOfFunds]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][SourcesOfFunds]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][SourcesOfFunds]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][SourcesOfFunds]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][SourcesOfFunds]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                if($_GET['queryString']!='INR'){?>
+                    <td>&nbsp;</td>
+                   <?php
                 }
                 else
                 {
-                    ?>
-                    <td><b><?php if($FinanceAnnual1[$i][TotalFunds]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][TotalFunds]/$convalue);echo round($tot,2); } ?></b></td>
-                              <?php
+                    ?> 
+                    <td>&nbsp;</td>
+                    <?php
                 }
             }
             ?>
@@ -2691,102 +3953,6 @@ echo '</pre>';*/
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][SecuredLoans]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][SecuredLoans],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <td><?php if($FinanceAnnual1[$i][SecuredLoans]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][SecuredLoans]/$convalue);echo round($tot,2); } ?></td>
-                                 <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][UnSecuredLoans]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][UnSecuredLoans],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <td><?php if($FinanceAnnual1[$i][UnSecuredLoans]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][UnSecuredLoans]/$convalue);echo round($tot,2); } ?></td>
-                              <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][LoanFunds]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][LoanFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></b></td>
-                  <?php
-                }
-                else
-                {
-                    ?>    
-                    <td><b><?php if($FinanceAnnual1[$i][LoanFunds]==0){echo '0';}else{$tot= ($FinanceAnnual1[$i][LoanFunds]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][OtherLiabilities]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][OtherLiabilities],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></b></td>
-               <?php
-                }
-                else
-                {
-                    ?>    
-                      <td><b><?php if($FinanceAnnual1[$i][OtherLiabilities]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][OtherLiabilities]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][DeferredTax]==0){echo '0';}else{$vale = currency_convert($FinanceAnnual1[$i][DeferredTax],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-              <?php
-                }
-                else
-                {
-                    ?>      
-                     <td><b><?php if($FinanceAnnual1[$i][DeferredTax]==0){echo '0';}else{ $tot=($FinanceAnnual1[$i][DeferredTax]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][SourcesOfFunds]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][SourcesOfFunds],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} ?></b></td>
-                <?php
-                }
-                else
-                {
-                    ?>   
-                    <td><b><?php if($FinanceAnnual1[$i][SourcesOfFunds]==0){echo '0';}else{$tot= ($FinanceAnnual1[$i][SourcesOfFunds]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
                     <td>&nbsp;</td>
                    <?php
                 }
@@ -2802,176 +3968,263 @@ echo '</pre>';*/
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td>&nbsp;</td>
-                   <?php
-                }
-                else
-                {
-                    ?> 
-                    <td>&nbsp;</td>
-                    <?php
-                }
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][GrossBlock]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][GrossBlock],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][GrossBlock]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][GrossBlock]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][GrossBlock]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][GrossBlock]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][GrossBlock]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][GrossBlock]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     }
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td>&nbsp;</td>
-                   <?php
-                }
-                else
-                {
-                    ?> 
-                    <td>&nbsp;</td>
-                    <?php
-                }
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][LessAccumulated]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][LessAccumulated],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][LessAccumulated]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][LessAccumulated]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][LessAccumulated]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][LessAccumulated]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][LessAccumulated]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][LessAccumulated]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     } 
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][GrossBlock]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][GrossBlock],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][GrossBlock]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][GrossBlock]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][NetBlock]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][NetBlock],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][NetBlock]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][NetBlock]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][NetBlock]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][NetBlock]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][NetBlock]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][NetBlock]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     } 
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][LessAccumulated]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][LessAccumulated],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][LessAccumulated]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][LessAccumulated]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  <td><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][CapitalWork]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][CapitalWork],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][CapitalWork]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][CapitalWork]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][CapitalWork]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CapitalWork]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][CapitalWork]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CapitalWork]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     } 
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][NetBlock]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][NetBlock],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][NetBlock]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][NetBlock]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][FixedAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][FixedAssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][FixedAssets]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][FixedAssets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][FixedAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][FixedAssets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][FixedAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][FixedAssets]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     }
+            }
+            ?>
+              </tr>
+              <tr>
+ 
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                   if($_GET['queryString']!='INR'){?>
+                    <td><b><?php 
+                          if($yearcurrency[$year] ==''){
+                          if($FinanceAnnual1[$i][IntangibleAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][IntangibleAssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                        }else{
+                          if($FinanceAnnual1[$i][IntangibleAssets]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][IntangibleAssets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                        }?></b></td><?php
+                       }else
+                       {
+                           ?> 
+                            <?php if($_GET['rconv'] =='r'){ ?>
+                                           <td><b><?php if($FinanceAnnual1[$i][IntangibleAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][IntangibleAssets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                       <?php } else { ?>
+                                           <td><b><?php if($FinanceAnnual1[$i][IntangibleAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][IntangibleAssets]/$convalue);echo round($tot,2); } ?></b></td>
+                                       <?php } ?>
+                               <?php
+                       } 
+                
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][CapitalWork]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][CapitalWork],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][CapitalWork]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][CapitalWork]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][OtherNonCurrent]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][OtherNonCurrent],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][OtherNonCurrent]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][OtherNonCurrent]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][OtherNonCurrent]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][OtherNonCurrent]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][OtherNonCurrent]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][OtherNonCurrent]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     } 
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][FixedAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][FixedAssets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][FixedAssets]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][FixedAssets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][Investments]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][Investments],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][Investments]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][Investments]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][Investments]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Investments]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][Investments]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Investments]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     } 
+             
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][IntangibleAssets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][IntangibleAssets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][IntangibleAssets]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][IntangibleAssets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][OtherNonCurrent]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][OtherNonCurrent],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][OtherNonCurrent]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][OtherNonCurrent]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][Investments]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][Investments],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][Investments]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][Investments]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
-            }
-            ?>
-              </tr>
-              <tr>
- 
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][DeferredTaxAssets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][DeferredTaxAssets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][DeferredTaxAssets]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][DeferredTaxAssets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+               if($_GET['queryString']!='INR'){?>
+                <td><b><?php 
+                    if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual1[$i][DeferredTaxAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][DeferredTaxAssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }else{
+                      if($FinanceAnnual1[$i][DeferredTaxAssets]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][DeferredTaxAssets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }?></b></td><?php
+                   }else
+                   {
+                       ?> 
+                        <?php if($_GET['rconv'] =='r'){ ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][DeferredTaxAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][DeferredTaxAssets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                   <?php } else { ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][DeferredTaxAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][DeferredTaxAssets]/$convalue);echo round($tot,2); } ?></b></td>
+                                   <?php } ?>
+                           <?php
+                   } 
             }
             ?>
               </tr>
@@ -2994,96 +4247,177 @@ echo '</pre>';*/
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][SundryDebtors]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][SundryDebtors],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][SundryDebtors]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][SundryDebtors]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                  if($_GET['queryString']!='INR'){?>
+                    <td><?php 
+                        if($yearcurrency[$year] ==''){
+                          if($FinanceAnnual1[$i][SundryDebtors]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][SundryDebtors],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                        }else{
+                          if($FinanceAnnual1[$i][SundryDebtors]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][SundryDebtors]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                        }?></td><?php
+                       }else
+                       {
+                           ?> 
+                            <?php if($_GET['rconv'] =='r'){ ?>
+                                           <td><?php if($FinanceAnnual1[$i][SundryDebtors]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][SundryDebtors]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                       <?php } else { ?>
+                                           <td><?php if($FinanceAnnual1[$i][SundryDebtors]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][SundryDebtors]/$convalue);echo round($tot,2); } ?></td>
+                                       <?php } ?>
+                               <?php
+                       }  
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][CashBankBalances]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][CashBankBalances],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][CashBankBalances]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][CashBankBalances]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php 
+                      if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][CashBankBalances]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][CashBankBalances],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][CashBankBalances]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][CashBankBalances]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][CashBankBalances]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CashBankBalances]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][CashBankBalances]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CashBankBalances]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     }  
+            
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][Inventories]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][Inventories],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][Inventories]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][Inventories]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php 
+                      if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][Inventories]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][Inventories],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][Inventories]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][Inventories]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][Inventories]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Inventories]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][Inventories]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Inventories]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     }  
+            
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][LoansAdvances]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][LoansAdvances],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][LoansAdvances]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][LoansAdvances]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  <td><?php 
+                      if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][LoansAdvances]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][LoansAdvances],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][LoansAdvances]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][LoansAdvances]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][LoansAdvances]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][LoansAdvances]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][LoansAdvances]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][LoansAdvances]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     }  
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][OtherCurrentAssets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][OtherCurrentAssets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][OtherCurrentAssets]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][OtherCurrentAssets]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php 
+                      if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][OtherCurrentAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][OtherCurrentAssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][OtherCurrentAssets]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][OtherCurrentAssets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><?php if($FinanceAnnual1[$i][OtherCurrentAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][OtherCurrentAssets]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                     <?php } else { ?>
+                                         <td><?php if($FinanceAnnual1[$i][OtherCurrentAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][OtherCurrentAssets]/$convalue);echo round($tot,2); } ?></td>
+                                     <?php } ?>
+                             <?php
+                     } 
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][CurrentAssets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][CurrentAssets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][CurrentAssets]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][CurrentAssets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][CurrentAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][CurrentAssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][CurrentAssets]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][CurrentAssets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][CurrentAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CurrentAssets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][CurrentAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CurrentAssets]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     }  
+              
             }
             ?>
               </tr>
@@ -3113,99 +4447,178 @@ echo '</pre>';*/
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual1[$i][Provisions]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][Provisions],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><?php if($FinanceAnnual1[$i][Provisions]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][Provisions]/$convalue);echo round($tot,2); } ?></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+               if($_GET['queryString']!='INR'){?>
+                <td><?php 
+                    if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual1[$i][Provisions]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][Provisions],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }else{
+                      if($FinanceAnnual1[$i][Provisions]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][Provisions]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }?></td><?php
+                   }else
+                   {
+                       ?> 
+                        <?php if($_GET['rconv'] =='r'){ ?>
+                                       <td><?php if($FinanceAnnual1[$i][Provisions]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Provisions]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                                   <?php } else { ?>
+                                       <td><?php if($FinanceAnnual1[$i][Provisions]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Provisions]/$convalue);echo round($tot,2); } ?></td>
+                                   <?php } ?>
+                           <?php
+                   } 
+            
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][CurrentLiabilitiesProvision]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][CurrentLiabilitiesProvision],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][CurrentLiabilitiesProvision]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][CurrentLiabilitiesProvision]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][CurrentLiabilitiesProvision]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][CurrentLiabilitiesProvision],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][CurrentLiabilitiesProvision]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][CurrentLiabilitiesProvision]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][CurrentLiabilitiesProvision]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CurrentLiabilitiesProvision]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][CurrentLiabilitiesProvision]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][CurrentLiabilitiesProvision]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     }  
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][NetCurrentAssets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][NetCurrentAssets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][NetCurrentAssets]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][NetCurrentAssets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][NetCurrentAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][NetCurrentAssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][NetCurrentAssets]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][NetCurrentAssets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][NetCurrentAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][NetCurrentAssets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][NetCurrentAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][NetCurrentAssets]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     } 
             }
             ?>
               </tr>
               <tr>
  
-                <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][ProfitLoss]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][ProfitLoss],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][ProfitLoss]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][ProfitLoss]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                <?php for($i=0;$i<count($FinanceAnnual1);$i++){
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  } 
+               if($_GET['queryString']!='INR'){?>
+                <td><b><?php 
+                      if($yearcurrency[$year] ==''){
+                      if($FinanceAnnual1[$i][ProfitLoss]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][ProfitLoss],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }else{
+                      if($FinanceAnnual1[$i][ProfitLoss]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][ProfitLoss]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                    }?></b></td><?php
+                   }else
+                   {
+                       ?> 
+                        <?php if($_GET['rconv'] =='r'){ ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][ProfitLoss]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ProfitLoss]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                   <?php } else { ?>
+                                       <td><b><?php if($FinanceAnnual1[$i][ProfitLoss]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][ProfitLoss]/$convalue);echo round($tot,2); } ?></b></td>
+                                   <?php } ?>
+                           <?php
+                   } 
             }
             ?>
               </tr>
                <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][Miscellaneous]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][Miscellaneous],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][Miscellaneous]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][Miscellaneous]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                  <td><b><?php 
+                        if($yearcurrency[$year] ==''){
+                        if($FinanceAnnual1[$i][Miscellaneous]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][Miscellaneous],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }else{
+                        if($FinanceAnnual1[$i][Miscellaneous]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][Miscellaneous]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                      }?></b></td><?php
+                     }else
+                     {
+                         ?> 
+                          <?php if($_GET['rconv'] =='r'){ ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][Miscellaneous]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Miscellaneous]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                     <?php } else { ?>
+                                         <td><b><?php if($FinanceAnnual1[$i][Miscellaneous]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][Miscellaneous]/$convalue);echo round($tot,2); } ?></b></td>
+                                     <?php } ?>
+                             <?php
+                     } 
             }
             ?>
               </tr>
                <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual1);$i++){ 
+                  $position= strpos($FinanceAnnual1[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual1[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual1[$i][FY];
+                  }
                     $totalAsserts = $FinanceAnnual1[$i][FixedAssets] + $FinanceAnnual1[$i][IntangibleAssets] + $FinanceAnnual1[$i][OtherNonCurrent] + $FinanceAnnual1[$i][Investments] + $FinanceAnnual1[$i][DeferredTaxAssets] + $FinanceAnnual1[$i][NetCurrentAssets] + $FinanceAnnual1[$i][ProfitLoss] + $FinanceAnnual1[$i][Miscellaneous]; 
                     $FinanceAnnual1[$i][TotalAssets] = ($FinanceAnnual1[$i][TotalAssets]==0)? $totalAsserts : $FinanceAnnual1[$i][TotalAssets];                
                                       
-                if($_GET['queryString']!='INR'){?>
-                    <td><b><?php if($FinanceAnnual1[$i][TotalAssets]==0){echo '0';}else{ $vale = currency_convert($FinanceAnnual1[$i][TotalAssets],'INR',$_GET['queryString']); $tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></b></td>
-                 <?php
-                }
-                else
-                {
-                    ?>   
-                     <td><b><?php if($FinanceAnnual1[$i][TotalAssets]==0){echo '0';}else{ $tot= ($FinanceAnnual1[$i][TotalAssets]/$convalue);echo round($tot,2); } ?></b></td>
-             <?php
-                }
+                    if($_GET['queryString']!='INR'){?>
+                      <td><b><?php 
+                            if($yearcurrency[$year] ==''){
+                            if($FinanceAnnual1[$i][TotalAssets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1[$i][TotalAssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                          }else{
+                            if($FinanceAnnual1[$i][TotalAssets]==0){echo '-';}else{ $vale = $FinanceAnnual1[$i][TotalAssets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2);  if($vale==''){echo '-';}} 
+                          }?></b></td><?php
+                         }else
+                         {
+                             ?> 
+                              <?php if($_GET['rconv'] =='r'){ ?>
+                                             <td><b><?php if($FinanceAnnual1[$i][TotalAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][TotalAssets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                                         <?php } else { ?>
+                                             <td><b><?php if($FinanceAnnual1[$i][TotalAssets]==0){echo '-';}else{$tot=($FinanceAnnual1[$i][TotalAssets]/$convalue);echo round($tot,2); } ?></b></td>
+                                         <?php } ?>
+                                 <?php
+                         }  
             }
             ?>
               </tr>
@@ -3659,120 +5072,193 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual_cashflow);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual_cashflow[$i][NetPLBefore],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <?php if($_GET['rconv'] =='r'){ ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{ $tot=($FinanceAnnual_cashflow[$i][NetPLBefore]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
-                    <?php } else { ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{ $tot=($FinanceAnnual_cashflow[$i][NetPLBefore]/$convalue);echo round($tot,2); } ?></td>
-                    <?php } ?>
-                        <?php
-                }
+                  $position= strpos($FinanceAnnual_cashflow[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual_cashflow[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual_cashflow[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetPLBefore],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetPLBefore]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetPLBefore]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetPLBefore]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
                <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual_cashflow);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if( $FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][CashflowFromOperation],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                   <?php
-                }
-                else
-                {
-                    ?> 
-                    <?php if($_GET['rconv'] =='r'){ ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][CashflowFromOperation]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
-                    <?php } else { ?>
+                  $position= strpos($FinanceAnnual_cashflow[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual_cashflow[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual_cashflow[$i][FY];
+                  }
+               if($_GET['queryString']!='INR'){?>
+                <td><?php
+               if($yearcurrency[$year] ==''){
+                if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][CashflowFromOperation],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }else{
+                if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][CashflowFromOperation]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+               }
+               ?></td>
+               <?php
+            }
+            else
+            { 
+                ?> 
+                <?php if($_GET['rconv'] =='r'){ ?>
+                    <td><?php if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][CashflowFromOperation]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                <?php } else { ?>
                     <td><?php if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][CashflowFromOperation]/$convalue);echo round($tot,2); } ?></td>
-                    <?php } ?>
-                    <?php
-                }
+                <?php } ?>
+                <?php
+            }
+        
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual_cashflow);$i++){ 
+                  $position= strpos($FinanceAnnual_cashflow[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual_cashflow[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual_cashflow[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual_cashflow[$i][NetcashUsedInvestment],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <?php if($_GET['rconv'] =='r'){ ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{ $tot=($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
-                    <?php } else { ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{ $tot=($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]/$convalue);echo round($tot,2); } ?></td>
-                    <?php } ?>
-                        <?php
-                }
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetcashUsedInvestment],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetcashUsedInvestment]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
                <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual_cashflow);$i++){ 
+                  $position= strpos($FinanceAnnual_cashflow[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual_cashflow[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual_cashflow[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if( $FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetcashFromFinance],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                   <?php
-                }
-                else
-                {
-                    ?> 
-                    <?php if($_GET['rconv'] =='r'){ ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetcashFromFinance]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
-                    <?php } else { ?>
-                    <td><?php if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetcashFromFinance]/$convalue);echo round($tot,2); } ?></td>
-                    <?php } ?>
-                    <?php
-                }
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetcashFromFinance],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetcashFromFinance]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetcashFromFinance]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetcashFromFinance]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual_cashflow);$i++){ 
-                if($_GET['queryString']!='INR'){?>
-                    <td><?php if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{$vale = currency_convert($FinanceAnnual_cashflow[$i][NetIncDecCash],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                      <?php
-                }
-                else
-                {
-                    ?> 
-                    <?php if($_GET['rconv'] =='r'){ ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{ $tot=($FinanceAnnual_cashflow[$i][NetIncDecCash]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
-                    <?php } else { ?>
-                    <td><?php if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{ $tot=($FinanceAnnual_cashflow[$i][NetIncDecCash]/$convalue);echo round($tot,2); } ?></td>
-                    <?php } ?>
-                        <?php
-                }
+                  $position= strpos($FinanceAnnual_cashflow[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual_cashflow[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual_cashflow[$i][FY];
+                  }
+                 if($_GET['queryString']!='INR'){?>
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetIncDecCash],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetIncDecCash]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetIncDecCash]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][NetIncDecCash]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
               <tr>
  
                 <?php for($i=0;$i<count($FinanceAnnual_cashflow);$i++){ 
+                  $position= strpos($FinanceAnnual_cashflow[$i][FY]," ");
+                  if($position!=''){
+                    $year=str_replace(" ","_",$FinanceAnnual_cashflow[$i][FY]);
+                  }else{
+                    $year=$FinanceAnnual_cashflow[$i][FY];
+                  }
                 if($_GET['queryString']!='INR'){?>
-                    <td><?php if( $FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][EquivalentEndYear],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} ?></td>
-                   <?php
-                }
-                else
-                {
-                    ?> 
-                    <?php if($_GET['rconv'] =='r'){ ?>
-                        <td><?php if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $tot=($FinanceAnnual_cashflow[$i][EquivalentEndYear]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
-                    <?php } else { ?>
-                    <td><?php if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][EquivalentEndYear]/$convalue);echo round($tot,2); } ?></td>
-                    <?php } ?>
-                    <?php
-                }
+                  <td><?php
+                 if($yearcurrency[$year] ==''){
+                  if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][EquivalentEndYear],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }else{
+                  if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][EquivalentEndYear]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                 }
+                 ?></td>
+                 <?php
+              }
+              else
+              { 
+                  ?> 
+                  <?php if($_GET['rconv'] =='r'){ ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][EquivalentEndYear]/$convalue);echo numberFormat(round($tot,2)); } ?></td>
+                  <?php } else { ?>
+                      <td><?php if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{$tot=($FinanceAnnual_cashflow[$i][EquivalentEndYear]/$convalue);echo round($tot,2); } ?></td>
+                  <?php } ?>
+                  <?php
+              }
             }
             ?>
               </tr>
@@ -3842,6 +5328,14 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
   </div>
 </div>
 <script type="text/javascript" >
+// $(document).ready(function(){
+//   if($('.cfs_menu').length > 1){
+//       $('.cfs_menu').eq(1).remove();
+//   }
+//   if($('.finance-filter-custom').length > 1){
+//       $('.finance-filter-custom').eq(1).remove();
+//   }
+// });
     $('input[name=plexportcompare]#plexportcompare').click(function(){
               jQuery('#maskscreen').fadeIn(1000);
               $( '#plexport-popup' ).show();

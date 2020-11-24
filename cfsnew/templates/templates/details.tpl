@@ -267,7 +267,6 @@ span.result-amount-no {
     border-top: none;
     margin-top: 0px;
 }
-
 form.custom .finance-filter-custom .custom.dropdown {
     height: 27px !important;
     font-size: 14px;
@@ -431,15 +430,22 @@ function currencyconvert(inputString,vcid){
                         $('#pgLoading').hide();
             $('.displaycmp').hide();
                         $('#stMsg').hide();
-                        $(".cfs_menu ul li").removeClass('current');
+                        //$(".cfs_menu ul li").removeClass('current');
                         var row = $('#activeSubmenu').val();
                         if(row == 'profit-loss') {
                             $( '.cagrlabel' ).show();
                         } else {
                             $( '.cagrlabel' ).hide();
                         }
-                        $('.cfs_menu ul li[data-row = '+row+']').addClass('current');
-                        tabMenu(row);
+                        $(".tab_menu_parent").hide();
+                        $("#profit_loss_parent .cfs_menu").show();
+                        
+                        $("#balancesheet_parent .cfs_menu").show();
+                        $("#cashflow_parent .cfs_menu").show();
+                        $(".cfs_menu").hide();
+                        $('#profit-loss .cfs_menu').show();
+                       // $('.cfs_menu ul li[data-row = '+row+']').addClass('current');
+                        //tabMenu(row);
                         resetfoundation();
             //alert(data);
         });
@@ -473,7 +479,7 @@ function valueconversion(inputString1,vcid1){
                         $(".cfs_menu ul li").removeClass('current');
                         var row = $('#activeSubmenu').val();
                         $('.cfs_menu ul li[data-row = '+row+']').addClass('current');
-                        tabMenu(row);
+                        //tabMenu(row);
                         resetfoundation();
             //alert(data);
         });
