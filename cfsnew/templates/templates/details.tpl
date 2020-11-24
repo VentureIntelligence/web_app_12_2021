@@ -281,17 +281,17 @@ form.custom .finance-filter-custom .custom.dropdown .selector {
     height: 27px;
 }
 .btn-cnt {
-    right: 165px !important;
+    right: 175px !important;
 }
 .currencyselection {
-    width: 110px !important;
+    width: 105px !important;
 }
 .finance-filter-custom {
-    width: 175px !important;
+    width: 190px !important;
    
 }
 .custom.dropdown.currencyconversion {
-    width: 135px !important;
+    width: 190px !important;
 }
 .incurrency {
     margin: 5px 5px !important;
