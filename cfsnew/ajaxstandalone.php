@@ -583,10 +583,9 @@ if(count($NewRatioCalculation)==0){
 
    <div class="finance-filter-custom" style="padding-top: 0px;">
    <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
-        <option>-- select currency --</option>
-       
-        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+  
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
         
     </select>  <span class="incurrency" > in </span>
 <?php if($_GET['queryString']=='INR'){ ?>
@@ -2100,10 +2099,9 @@ if(count($NewRatioCalculation)==0){
 <div id="new_balsheet" style="clear:both;">
     <div class="finance-filter-custom" style="padding-top: 0px;">
     <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
-        <option>-- select currency --</option>
-       
-        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+    
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
         
     </select>  <span class="incurrency" > in </span>  
 <?php if($_GET['queryString']=='INR'){ ?>
@@ -4910,10 +4908,9 @@ if(count($NewRatioCalculation)==0){
 
             <div class="finance-filter-custom" style="padding-top: 0px;">
             <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
-        <option>-- select currency --</option>
-       
-        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+            
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
         
     </select>  <span class="incurrency" > in </span>
 <?php if($_GET['queryString']=='INR'){ ?>
@@ -5255,10 +5252,9 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
 <div id="ratio" class=" tab_menu" style="margin-top: 10px;">
     <div class="finance-filter-custom" style="padding-top: 0px;">
     <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
-        <option>-- select currency --</option>
-       
-        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+    
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
         
     </select>  <span class="incurrency" > in </span>
 <?php if($_GET['queryString']=='INR'){ ?>

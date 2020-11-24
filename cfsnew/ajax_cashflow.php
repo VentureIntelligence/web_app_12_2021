@@ -376,10 +376,9 @@ if(count($NewRatioCalculation)==0){
 
           <div class="finance-filter-custom" style="padding-top: 0px;">
           <select class="currencyselection" onChange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
-        <option>-- select currency --</option>
-       
-        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
+         
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
+        <option value="USD" <?php if($_GET['queryString']=='USD'){ echo "selected";} ?>>USD</option>
         
     </select>  <span class="incurrency" > in </span>
 <?php if($_GET['queryString']=='INR'){ ?>

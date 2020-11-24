@@ -281,9 +281,21 @@ form.custom .finance-filter-custom .custom.dropdown .selector {
     height: 27px;
 }
 .btn-cnt {
-    right: 120px !important;
+    right: 165px !important;
 }
-
+.currencyselection {
+    width: 125px !important;
+}
+.finance-filter-custom {
+    width: 175px;
+   
+}
+.custom.dropdown.currencyconversion {
+    width: 175px !important;
+}
+.incurrency {
+    margin: 5px 5px;
+}
 .tooltipratio {
     outline: none;
      text-decoration: none;
