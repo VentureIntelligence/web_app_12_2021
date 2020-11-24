@@ -932,8 +932,9 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                                         if ($dealsinvolvingValue1 != '--' && $dealsinvolvingValue1 != '') {
                                             if($dealsinvolvingValue1 == 1)
                                                 {
-                                                    $dealsinvolving .= "peinv_inv.newinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 1)
-                                                    and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 0) ";
+                                                    // $dealsinvolving .= "peinv_inv.newinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 1)
+                                                    // and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 0) ";
+                                                    $dealsinvolving .= "peinv_inv.newinvestor = '1' ";
                                                 }
                                                 if($dealsinvolvingValue1 == 2)
                                                 {

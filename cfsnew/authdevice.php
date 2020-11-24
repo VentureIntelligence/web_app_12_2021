@@ -27,8 +27,9 @@ if(($username !='') && ($password !='')){
 	//pr($test);
 //	pr($test['username']); //exit;
 }
-
+if(isset($_POST['dauth']) && isset($_POST['user_email']) && isset($_POST['user_password']) &&  isset($_POST['device_details'])){
 $groupId = $authAdmin['GroupList'];
+
 $groupIp = $grouplist->getGroupIP($groupId);
 //  print_r($groupIp);
 $groupPocArray = $grouplist->getGroupEmail($groupId);
@@ -46,6 +47,10 @@ $groupPoc = $groupPocArray['poc'];
 
         header("Location:".BASE_URL."cfsnew/auth.php?device=".$_POST['dauth']."&email=".$_POST['user_email']."&device_detail=".$_POST['device_details']);
         die();
+    } else {
+        header("Location:".BASE_URL."cfsnew/login.php");
+        die(); 
+    }
   //  }
 //}
     
@@ -97,7 +102,7 @@ function sendAuthEmail($poc,$groupId,$allowedDevices,$userEmail){
 
     //$message 	.= "<p>System Note :Authorization will not be allowed if the device limit is exceeded.</p>";
     $message 	.= "<p>&nbsp;</p>";
-    $message 	.= "<p>Thank you,<br><b>Venture Intelligence Support Team<br>Tel: +91-44-42185180/82</b></p>";
+    $message 	.= "<p>Thank you,<br><b>Venture Intelligence Support Team<br>Tel: +91-44-42185180</b></p>";
     $message 	.= "<br><p><small style=font-size:12px>Please add <i>subscription@ventureintelligence.com</i> to your email contact list to prevent emails getting delivered into Junk/Spam folder.</small></p>";
 
 

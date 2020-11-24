@@ -5,6 +5,15 @@ $Db->dbInvestments();
 $displayMessage="";
 include "../onlineaccount.php";
 
+if(isset($_POST['dauth']) && isset($_POST['user_email']) && isset($_POST['user_password']) &&  isset($_POST['device_details'])){
+
+// echo "POST['dauth']) = ".$_POST['dauth'].'<br />';
+// echo "POST['user_email']) = ".$_POST['user_email'].'<br />';
+// echo "POST['user_password']) = ".$_POST['user_password'].'<br />';
+// echo "POST['device_details']) = ".$_POST['device_details'].'<br />';
+
+
+
    $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.permission,dc.TrialLogin FROM dealmembers AS dm,
     dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND
     dm.EmailId='".$_POST['user_email']."' and dm.Passwrd='".md5($_POST['user_password'])."'
@@ -17,13 +26,17 @@ include "../onlineaccount.php";
        // $sqlstatusupdate = "update user_authorized_device set `status`=0 where id=".$_POST['dauth'];
         
         //if($resstatus = mysql_query($sqlstatusupdate) or die(mysql_error())){
-        
-            if ($totalrs = mysql_query($checkUserSql))
-            {       
+            
+            // $totalrs = mysql_query($checkUserSql) -- Need to check
+
+            $totalrs = mysql_query($checkUserSql);
+            $rowsFound = mysql_num_rows($totalrs);
+            if ($rowsFound > 0) 
+            {     
                 While($myrow = mysql_fetch_array($totalrs))
                 { 
                     if( date('Y-m-d')<=$myrow["ExpiryDate"]){  
-                        if($myrow['EmailId'] != ''){ 
+                        if($myrow['EmailId'] != ''){  
                             sendAuthEmail($myrow['DCompId'],$myrow['EmailId'],$myrow['deviceCount']); 
                             header("Location: ".BASE_URL."dealsnew/auth.php?device=".$_POST['dauth']."&email=".$_POST['user_email']."&device_detail=".$_POST['device_details']); 
                             die();
@@ -36,10 +49,18 @@ include "../onlineaccount.php";
                         $displayMessage = $TrialExpired;
                     }
                 }
+            }else{
+                header("Location:".BASE_URL."pelogin.php");
+                die();
             }
        // }
    // }
-    
+} else {
+    header("Location:".BASE_URL."pelogin.php");
+    die(); 
+}
+
+
 /*function getDevicesUsedCount($email,$db){
     $sqlCheckDevice = "SELECT `deviceId` FROM `userlog_device` WHERE `EmailId`='".$email."' AND `dbType`='".$db."'   AND auth_type='0' ";
     $resCheckDevice = mysql_query($sqlCheckDevice) or die(mysql_error());
@@ -56,6 +77,10 @@ function getDevicesUsedCount($email){
 }
 
 function sendAuthEmail($companyId,$userEmail,$allowedDevices){
+
+    // echo 'Insdide Function - userEmail = '. $userEmail . "<br />";
+    //die();
+
     //Get Point of contact
     $sqlGetPoc = "SELECT `poc` FROM `dealcompanies` WHERE `DCompId`='".$companyId."'";
     $resGetPoc = mysql_query($sqlGetPoc);
@@ -66,12 +91,13 @@ function sendAuthEmail($companyId,$userEmail,$allowedDevices){
     $authcode = 'PE'.rand();
     $today = date('Y-m-d');
     $nextDate = date('Y-m-d', strtotime($date .' +3 day'));
-   $sqlInsAuth = "INSERT INTO `user_auth_code` (`user_id`,`emailId`,`dbType`,`reqOn`,`authCode`,`expDate`,`status`) VALUES ('0','".$userEmail."','PE','".$today."','".$authcode."','".$nextDate."','Active')";
+    $sqlInsAuth = "INSERT INTO `user_auth_code` (`user_id`,`emailId`,`dbType`,`reqOn`,`authCode`,`expDate`,`status`) VALUES ('0','".$userEmail."','PE','".$today."','".$authcode."','".$nextDate."','Active')";
     $insResult = mysql_query($sqlInsAuth);
 
     $devicesUsed = getDevicesUsedCount($userEmail);
     //Send Email
     $to    = $userEmail;
+    //$to    = "vijayakumar.k@praniontech.com";
     //$to    = $poc;
     //$to         = 'fidelis@kutung.com';
     $from 	= 'subscription@ventureintelligence.in';
@@ -100,7 +126,8 @@ function sendAuthEmail($companyId,$userEmail,$allowedDevices){
     $headers .= "From: $from\r\n";
     $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
     $headers .= 'Cc: subscription@ventureintelligence.com' . "\r\n";
-
+    $headers .= 'Bcc: vijayakumar.k@praniontech.com, krishna.s@praniontech.com' . "\r\n";
+    // $headers .= 'Cc: krishna.s@praniontech.com' . "\r\n";
     if (@mail($to, $subject, $message, $headers)){
     }else{
     }
