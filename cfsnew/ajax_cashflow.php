@@ -75,10 +75,7 @@ for($c=0;$c < count($currtype);$c++)
 }
 }
 }
-$yearcurrency=array();
-$currvatype=array('71.751','74.3407','65.0375','67.9212','63.6120','60.9994','58.0169','52.8298','54.2244','48.88');
-$fyvalue=array('19','18','17','16','15','14','13','12','11','10');
-$yearcurrency=array_combine($fyvalue,$currvatype);
+include_once('conversionarray.php');
 
 //print_r($_SESSION['curvalue']);
 /*Currency Convert Function*/

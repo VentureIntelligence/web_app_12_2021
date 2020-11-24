@@ -422,10 +422,11 @@ function currencyconvert(inputString,vcid){
                         }
                         $(".tab_menu_parent").hide();
                         $("#profit_loss_parent .cfs_menu").show();
-                        $("#profit-loss .cfs_menu").prev().prev().show();
+                        
                         $("#balancesheet_parent .cfs_menu").show();
                         $("#cashflow_parent .cfs_menu").show();
                         $(".cfs_menu").hide();
+                        $('#profit-loss .cfs_menu').show();
                        // $('.cfs_menu ul li[data-row = '+row+']').addClass('current');
                         //tabMenu(row);
                         resetfoundation();
