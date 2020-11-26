@@ -385,15 +385,6 @@ padding:0px 10px; }
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }
-            var popup = getCookie("mobilepopup");
-            if (popup = "" && popup != null && popup != undefined && popup) {
-                 $(".mobileRedirectPopup").hide();
-            } else {
-                if (Android) {
-                    $(".mobileRedirectPopup").show();
-                    setCookie("mobilepopup", "show", 1);
-                }
-            }
         })
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
@@ -423,7 +414,6 @@ padding:0px 10px; }
             $(".mobileRedirectPopup").hide();
             $(".backdrop").hide();
             setCookie("mobilepopup", "show", 1);
-            console.log("cookie",getCookie("mobilepopup"));
         })
 
         $(document).ready(function(){
@@ -445,12 +435,21 @@ padding:0px 10px; }
        })
 
        function popup(ow){
+            var Android = navigator.userAgent.match(/Android/i);
             if(ow > 1000){
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }else{
-                $(".mobileRedirectPopup").show();
-                $(".backdrop").show();
+                var popup = getCookie("mobilepopup");
+                if (popup == "show") {
+                    $(".mobileRedirectPopup").hide();
+                    $(".backdrop").hide();  
+                } else {
+                    if (Android) {
+                        $(".mobileRedirectPopup").show();
+                        $(".backdrop").show();
+                    }
+                }
             }
        }
 

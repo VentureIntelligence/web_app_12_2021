@@ -11605,13 +11605,6 @@ padding:0px 10px; }
                 loginTextSpan.text("PE");
                 redirectButton.attr("href", "https://apps.apple.com/in/app/pe-vc-deals-database/id1500244706");
             }
-            var popup = getCookie("mobilepopup");
-            if (popup != "" && popup != null) {
-                 $(".mobileRedirectPopup").hide();
-            } else {
-                $(".mobileRedirectPopup").show();
-                setCookie("mobilepopup", "show", 1);
-            }
         })
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
@@ -11662,12 +11655,21 @@ padding:0px 10px; }
        })
 
        function popup(ow){
+            var Android = navigator.userAgent.match(/Android/i);
             if(ow > 1000){
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }else{
-                $(".mobileRedirectPopup").show();
-                $(".backdrop").show();
+                var popup = getCookie("mobilepopup");
+                if (popup == "show") {
+                    $(".mobileRedirectPopup").hide();
+                    $(".backdrop").hide();  
+                } else {
+                    if (Android) {
+                        $(".mobileRedirectPopup").show();
+                        $(".backdrop").show();
+                    }
+                }
             }
-       }     
+       }  
 </script>
