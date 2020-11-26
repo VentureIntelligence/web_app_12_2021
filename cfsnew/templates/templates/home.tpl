@@ -14,8 +14,10 @@ padding:0px 10px; }
             background: #fff;
             height: 185px;
             border-radius: 10px;
-            left:0px;
-            top: 46px;
+            left:50%;
+            top:25%;
+            margin-top:-92.5px;
+            margin-left:-300px;
             -webkit-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
@@ -333,8 +335,7 @@ padding:0px 10px; }
         </div>
         <div class="row">
             <div class="image-col text-center"><img
-                    src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
-                    alt=""></div>
+                    src="images/cfs_app_icon@2x.png"></div>
             <div class="app-text-col">
                 <h5 class="text-left vi_app">
                     VI <span class="login-type"></span> App
@@ -384,15 +385,6 @@ padding:0px 10px; }
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }
-            var popup = getCookie("mobilepopup");
-            if (popup != "" && popup != null) {
-                 $(".mobileRedirectPopup").hide();
-            } else {
-                if (Android) {
-                    $(".mobileRedirectPopup").show();
-                    setCookie("mobilepopup", "show", 1);
-                }
-            }
         })
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
@@ -415,16 +407,27 @@ padding:0px 10px; }
             }
             return "";
         }
+        $(".redirect-button-col .btn").on("click", function () {
+            setCookie("mobilepopup", "show", 1);
+        });
         $(".continue").on("click", function () {
             $(".mobileRedirectPopup").hide();
             $(".backdrop").hide();
+            setCookie("mobilepopup", "show", 1);
         })
 
         $(document).ready(function(){
             var outerWidth =  window.outerWidth;
+            var innerWidth =  600;
+            console.log("innerWidth",innerWidth)
             var outerHeight =  window.outerHeight;
             popup(outerWidth);
-            $(".mobileRedirectPopup").css("width",outerWidth);
+            if(outerWidth < 400){
+                $(".mobileRedirectPopup").css("transform","scale(2.2");
+            }else{
+                 $(".mobileRedirectPopup").css("transform","scale(2.6");
+            }
+            $(".mobileRedirectPopup").width(innerWidth);
             $(window).resize(function(){
                 var ow =  window.outerWidth;
                 popup(ow);
@@ -432,12 +435,21 @@ padding:0px 10px; }
        })
 
        function popup(ow){
+            var Android = navigator.userAgent.match(/Android/i);
             if(ow > 1000){
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }else{
-                $(".mobileRedirectPopup").show();
-                $(".backdrop").show();
+                var popup = getCookie("mobilepopup");
+                if (popup == "show") {
+                    $(".mobileRedirectPopup").hide();
+                    $(".backdrop").hide();  
+                } else {
+                    if (Android) {
+                        $(".mobileRedirectPopup").show();
+                        $(".backdrop").show();
+                    }
+                }
             }
        }
 
