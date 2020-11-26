@@ -2279,7 +2279,7 @@ ul.tabView li {
        
             
         <!-- Angel Only Start -->
-        <div class="row masonry " style="margin-top: 15px;">
+        <div class="row masonry " style="margin-top: 40px;">
             <div class="col-6">
                 <div  class="work-masonry-thumb1 accordian-group">
                  
