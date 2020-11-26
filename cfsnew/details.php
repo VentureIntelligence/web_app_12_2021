@@ -736,6 +736,7 @@ $template->assign("ICRAratingUrl",$ICRAratingUrl);
 
 
 $template->assign("curpageURL",curPageURL()); 
+$template->assign("BASE_URL",BASE_URL); 
 $template->assign("convalue",$convalue ); 
 $template->assign("encodedcompany",$c);     
 $template->assign("companies",$comp_details);

@@ -19,7 +19,7 @@ require_once MODULES_DIR."users.php";
 $users = new users();
 require_once MODULES_DIR."grouplist.php";
 $grouplist = new grouplist();
-
+include_once('conversionarray.php');
 
 
 if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CFS session-usename Empty in downloadtrack page -'.$_SESSION['username']); }
@@ -113,10 +113,10 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
 			if($_GET['rconv']=='m'){
 			$convalue = "1000000";
 			$currencytext="USD(Million)";
-		}else{
-			$convalue = "1";
-			$currencytext="USD";
-		}
+			}else{
+				$convalue = "1";
+				$currencytext="USD";
+			}
 			
 		}
     // if(isset($_GET['type']) && $_GET['type']=='consolidated'){
@@ -217,35 +217,46 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
                 //     } else {  if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='0';}else{ $tot= ($FinanceAnnual[$i][OptnlIncome]/$convalue);$OptnlIncome =round($tot,2); } 
                 //      } 
 				// }
+				    $position= strpos($FinanceAnnual[$i][FY]," ");
+                    if($position!=''){
+                      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                    }else{
+                      $year=$FinanceAnnual[$i][FY];
+					}
+					if($_GET['queryString']!='INR'){
+						$usdconversion=$yearcurrency[$year];
+					}else{
+						$usdconversion="1";
+					}
 				if($_GET['queryString']!='INR'){
-					if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome];$tot=$vale/$convalue;$OptnlIncome = round($tot,2);  if($vale==''){$OptnlIncome = '-';}} 
-					if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{ $vale = $FinanceAnnual[$i][OtherIncome];$tot=$vale/$convalue;$OtherIncome = round($tot,2);  if($vale==''){$OtherIncome = '-';}} 
-					if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{ $vale = $FinanceAnnual[$i][TotalIncome];$tot=$vale/$convalue;$TotalIncome = round($tot,2);  if($vale==''){$TotalIncome = '-';}}
-					if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{ $vale = $FinanceAnnual[$i][CostOfMaterialsConsumed];$tot=$vale/$convalue;$CostOfMaterialsConsumed = round($tot,2);  if($vale==''){$CostOfMaterialsConsumed = '-';}} 
-					if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{ $vale = $FinanceAnnual[$i][PurchasesOfStockInTrade];$tot=$vale/$convalue;$PurchasesOfStockInTrade = round($tot,2);  if($vale==''){$PurchasesOfStockInTrade = '-';}}
-					if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{ $vale = $FinanceAnnual[$i][ChangesInInventories];$tot=$vale/$convalue;$ChangesInInventories = round($tot,2);  if($vale==''){$ChangesInInventories = '-';}}
-					if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses];$tot=$vale/$convalue;$EmployeeRelatedExpenses = round($tot,2);  if($vale==''){$EmployeeRelatedExpenses = '-';}}
-					if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{ $vale = $FinanceAnnual[$i][CSRExpenditure];$tot=$vale/$convalue;$CSRExpenditure = round($tot,2);  if($vale==''){$CSRExpenditure = '-';}}
-					if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{ $vale = $FinanceAnnual[$i][OtherExpenses];$tot=$vale/$convalue;$OtherExpenses = round($tot,2);  if($vale==''){$OtherExpenses = '-';}}
-					if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][OptnlAdminandOthrExp];$tot=$vale/$convalue;$OptnlAdminandOthrExp = round($tot,2);  if($vale==''){$OptnlAdminandOthrExp = '-';}}
-					if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{ $vale = $FinanceAnnual[$i][OptnlProfit];$tot=$vale/$convalue;$OptnlProfit = round($tot,2);  if($vale==''){$OptnlProfit = '-';}}
-					if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{ $vale = $FinanceAnnual[$i][EBITDA];$tot=$vale/$convalue;$EBITDA = round($tot,2);  if($vale==''){$EBITDA = '-';}}
-					if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{ $vale = $FinanceAnnual[$i][Interest];$tot=$vale/$convalue;$Interest = round($tot,2);  if($vale==''){$Interest = '-';}}
-					if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{ $vale = $FinanceAnnual[$i][EBDT];$tot=$vale/$convalue;$EBDT = round($tot,2);  if($vale==''){$EBDT = '-';}}
-					if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{ $vale = $FinanceAnnual[$i][Depreciation];$tot=$vale/$convalue;$Depreciation = round($tot,2);  if($vale==''){$Depreciation = '-';}}
-					if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][EBT_before_Priod_period];$tot=$vale/$convalue;$EBT_before_Priod_period = round($tot,2);  if($vale==''){$EBT_before_Priod_period = '-';}}
-					if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][Priod_period];$tot=$vale/$convalue;$Priod_period = round($tot,2);  if($vale==''){$Priod_period = '-';}}
-					if($FinanceAnnual[$i][EBT]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][EBT];$tot=$vale/$convalue;$EBT = round($tot,2);  if($vale==''){$EBT = '-';}}
-					if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{ $vale = $FinanceAnnual[$i][CurrentTax];$tot=$vale/$convalue;$CurrentTax = round($tot,2);  if($vale==''){$CurrentTax = '-';}}
-					if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{ $vale = $FinanceAnnual[$i][DeferredTax];$tot=$vale/$convalue;$DeferredTax = round($tot,2);  if($vale==''){$DeferredTax = '-';}}
-					if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{ $vale = $FinanceAnnual[$i][Tax];$tot=$vale/$convalue;$Tax = round($tot,2);  if($vale==''){$Tax = '-';}}
-					if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{ $vale = $FinanceAnnual[$i][PAT];$tot=$vale/$convalue;$PAT = round($tot,2);  if($vale==''){$PAT = '-';}}
-					if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{ $vale = $FinanceAnnual[$i][BINR];$tot=$vale/$convalue;$BINR = round($tot,2);  if($vale==''){$BINR = '-';}}
-					if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{ $vale = $FinanceAnnual[$i][DINR];$tot=$vale/$convalue;$DINR = round($tot,2);  if($vale==''){$DINR = '-';}}
-					if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){$profit_loss_of_minority_interest ='-';}else{ $vale = $FinanceAnnual[$i][profit_loss_of_minority_interest];$tot=$vale/$convalue;$profit_loss_of_minority_interest = round($tot,2);  if($vale==''){$profit_loss_of_minority_interest = '-';}}
-					if($FinanceAnnual[$i][total_profit_loss_for_period]==0){$total_profit_loss_for_period ='-';}else{ $vale = $FinanceAnnual[$i][total_profit_loss_for_period];$tot=$vale/$convalue;$total_profit_loss_for_period = round($tot,2);  if($vale==''){$total_profit_loss_for_period = '-';}}
-					if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][EarninginForeignExchange];$tot=$vale/$convalue;$EarninginForeignExchange = round($tot,2);  if($vale==''){$EarninginForeignExchange = '-';}}
-					if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][OutgoinForeignExchange];$tot=$vale/$convalue;$OutgoinForeignExchange = round($tot,2);  if($vale==''){$OutgoinForeignExchange = '-';}}
+					if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome]*$usdconversion;$tot=$vale/$convalue;$OptnlIncome = round($tot,2);  if($vale==''){$OptnlIncome = '-';}} 
+					if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{ $vale = $FinanceAnnual[$i][OtherIncome]*$usdconversion;$tot=$vale/$convalue;$OtherIncome = round($tot,2);  if($vale==''){$OtherIncome = '-';}} 
+					if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{ $vale = $FinanceAnnual[$i][TotalIncome]*$usdconversion;$tot=$vale/$convalue;$TotalIncome = round($tot,2);  if($vale==''){$TotalIncome = '-';}}
+					if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{ $vale = $FinanceAnnual[$i][CostOfMaterialsConsumed]*$usdconversion;$tot=$vale/$convalue;$CostOfMaterialsConsumed = round($tot,2);  if($vale==''){$CostOfMaterialsConsumed = '-';}} 
+					if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{ $vale = $FinanceAnnual[$i][PurchasesOfStockInTrade]*$usdconversion;$tot=$vale/$convalue;$PurchasesOfStockInTrade = round($tot,2);  if($vale==''){$PurchasesOfStockInTrade = '-';}}
+					if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{ $vale = $FinanceAnnual[$i][ChangesInInventories]*$usdconversion;$tot=$vale/$convalue;$ChangesInInventories = round($tot,2);  if($vale==''){$ChangesInInventories = '-';}}
+					if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses]*$usdconversion;$tot=$vale/$convalue;$EmployeeRelatedExpenses = round($tot,2);  if($vale==''){$EmployeeRelatedExpenses = '-';}}
+					if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{ $vale = $FinanceAnnual[$i][CSRExpenditure]*$usdconversion;$tot=$vale/$convalue;$CSRExpenditure = round($tot,2);  if($vale==''){$CSRExpenditure = '-';}}
+					if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{ $vale = $FinanceAnnual[$i][OtherExpenses]*$usdconversion;$tot=$vale/$convalue;$OtherExpenses = round($tot,2);  if($vale==''){$OtherExpenses = '-';}}
+					if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][OptnlAdminandOthrExp]*$usdconversion;$tot=$vale/$convalue;$OptnlAdminandOthrExp = round($tot,2);  if($vale==''){$OptnlAdminandOthrExp = '-';}}
+					if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{ $vale = $FinanceAnnual[$i][OptnlProfit]*$usdconversion;$tot=$vale/$convalue;$OptnlProfit = round($tot,2);  if($vale==''){$OptnlProfit = '-';}}
+					if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{ $vale = $FinanceAnnual[$i][EBITDA]*$usdconversion;$tot=$vale/$convalue;$EBITDA = round($tot,2);  if($vale==''){$EBITDA = '-';}}
+					if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{ $vale = $FinanceAnnual[$i][Interest]*$usdconversion;$tot=$vale/$convalue;$Interest = round($tot,2);  if($vale==''){$Interest = '-';}}
+					if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{ $vale = $FinanceAnnual[$i][EBDT]*$usdconversion;$tot=$vale/$convalue;$EBDT = round($tot,2);  if($vale==''){$EBDT = '-';}}
+					if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{ $vale = $FinanceAnnual[$i][Depreciation]*$usdconversion;$tot=$vale/$convalue;$Depreciation = round($tot,2);  if($vale==''){$Depreciation = '-';}}
+					if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][EBT_before_Priod_period]*$usdconversion;$tot=$vale/$convalue;$EBT_before_Priod_period = round($tot,2);  if($vale==''){$EBT_before_Priod_period = '-';}}
+					if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][Priod_period]*$usdconversion;$tot=$vale/$convalue;$Priod_period = round($tot,2);  if($vale==''){$Priod_period = '-';}}
+					if($FinanceAnnual[$i][EBT]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][EBT]*$usdconversion;$tot=$vale/$convalue;$EBT = round($tot,2);  if($vale==''){$EBT = '-';}}
+					if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{ $vale = $FinanceAnnual[$i][CurrentTax]*$usdconversion;$tot=$vale/$convalue;$CurrentTax = round($tot,2);  if($vale==''){$CurrentTax = '-';}}
+					if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{ $vale = $FinanceAnnual[$i][DeferredTax]*$usdconversion;$tot=$vale/$convalue;$DeferredTax = round($tot,2);  if($vale==''){$DeferredTax = '-';}}
+					if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{ $vale = $FinanceAnnual[$i][Tax]*$usdconversion;$tot=$vale/$convalue;$Tax = round($tot,2);  if($vale==''){$Tax = '-';}}
+					if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{ $vale = $FinanceAnnual[$i][PAT]*$usdconversion;$tot=$vale/$convalue;$PAT = round($tot,2);  if($vale==''){$PAT = '-';}}
+					if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{ $vale = $FinanceAnnual[$i][BINR]*$usdconversion;$tot=$vale/$convalue;$BINR = round($tot,2);  if($vale==''){$BINR = '-';}}
+					if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{ $vale = $FinanceAnnual[$i][DINR]*$usdconversion;$tot=$vale/$convalue;$DINR = round($tot,2);  if($vale==''){$DINR = '-';}}
+					if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){$profit_loss_of_minority_interest ='-';}else{ $vale = $FinanceAnnual[$i][profit_loss_of_minority_interest]*$usdconversion;$tot=$vale/$convalue;$profit_loss_of_minority_interest = round($tot,2);  if($vale==''){$profit_loss_of_minority_interest = '-';}}
+					if($FinanceAnnual[$i][total_profit_loss_for_period]==0){$total_profit_loss_for_period ='-';}else{ $vale = $FinanceAnnual[$i][total_profit_loss_for_period]*$usdconversion;$tot=$vale/$convalue;$total_profit_loss_for_period = round($tot,2);  if($vale==''){$total_profit_loss_for_period = '-';}}
+					if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][EarninginForeignExchange]*$usdconversion;$tot=$vale/$convalue;$EarninginForeignExchange = round($tot,2);  if($vale==''){$EarninginForeignExchange = '-';}}
+					if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][OutgoinForeignExchange]*$usdconversion;$tot=$vale/$convalue;$OutgoinForeignExchange = round($tot,2);  if($vale==''){$OutgoinForeignExchange = '-';}}
 
 			
 			   }
@@ -426,33 +437,45 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 			$objPHPExcel->getActiveSheet()->setTitle('Standard');
 			for($i=0;$i<count($FinanceAnnual);$i++){
 				$row = 6;
+				$position= strpos($FinanceAnnual[$i][FY]," ");
+                    if($position!=''){
+                      $year=str_replace(" ","_",$FinanceAnnual[$i][FY]);
+                    }else{
+                      $year=$FinanceAnnual[$i][FY];
+					}
+					if($_GET['queryString']!='INR'){
+						$usdconversion=$yearcurrency[$year];
+					}else{
+						$usdconversion="1";
+					}
+					
 				if($_GET['queryString']!='INR'){
-					if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome];$tot=$vale/$convalue;$OptnlIncome = round($tot,2);  if($vale==''){$OptnlIncome = '-';}} 
-					if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{ $vale = $FinanceAnnual[$i][OtherIncome];$tot=$vale/$convalue;$OtherIncome = round($tot,2);  if($vale==''){$OtherIncome = '-';}} 
-					if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{ $vale = $FinanceAnnual[$i][TotalIncome];$tot=$vale/$convalue;$TotalIncome = round($tot,2);  if($vale==''){$TotalIncome = '-';}}
-					if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{ $vale = $FinanceAnnual[$i][CostOfMaterialsConsumed];$tot=$vale/$convalue;$CostOfMaterialsConsumed = round($tot,2);  if($vale==''){$CostOfMaterialsConsumed = '-';}} 
-					if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{ $vale = $FinanceAnnual[$i][PurchasesOfStockInTrade];$tot=$vale/$convalue;$PurchasesOfStockInTrade = round($tot,2);  if($vale==''){$PurchasesOfStockInTrade = '-';}}
-					if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{ $vale = $FinanceAnnual[$i][ChangesInInventories];$tot=$vale/$convalue;$ChangesInInventories = round($tot,2);  if($vale==''){$ChangesInInventories = '-';}}
-					if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses];$tot=$vale/$convalue;$EmployeeRelatedExpenses = round($tot,2);  if($vale==''){$EmployeeRelatedExpenses = '-';}}
-					if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{ $vale = $FinanceAnnual[$i][CSRExpenditure];$tot=$vale/$convalue;$CSRExpenditure = round($tot,2);  if($vale==''){$CSRExpenditure = '-';}}
-					if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{ $vale = $FinanceAnnual[$i][OtherExpenses];$tot=$vale/$convalue;$OtherExpenses = round($tot,2);  if($vale==''){$OtherExpenses = '-';}}
-					if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][OptnlAdminandOthrExp];$tot=$vale/$convalue;$OptnlAdminandOthrExp = round($tot,2);  if($vale==''){$OptnlAdminandOthrExp = '-';}}
-					if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{ $vale = $FinanceAnnual[$i][OptnlProfit];$tot=$vale/$convalue;$OptnlProfit = round($tot,2);  if($vale==''){$OptnlProfit = '-';}}
-					if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{ $vale = $FinanceAnnual[$i][EBITDA];$tot=$vale/$convalue;$EBITDA = round($tot,2);  if($vale==''){$EBITDA = '-';}}
-					if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{ $vale = $FinanceAnnual[$i][Interest];$tot=$vale/$convalue;$Interest = round($tot,2);  if($vale==''){$Interest = '-';}}
-					if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{ $vale = $FinanceAnnual[$i][EBDT];$tot=$vale/$convalue;$EBDT = round($tot,2);  if($vale==''){$EBDT = '-';}}
-					if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{ $vale = $FinanceAnnual[$i][Depreciation];$tot=$vale/$convalue;$Depreciation = round($tot,2);  if($vale==''){$Depreciation = '-';}}
-					if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][EBT_before_Priod_period];$tot=$vale/$convalue;$EBT_before_Priod_period = round($tot,2);  if($vale==''){$EBT_before_Priod_period = '-';}}
-					if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][Priod_period];$tot=$vale/$convalue;$Priod_period = round($tot,2);  if($vale==''){$Priod_period = '-';}}
-					if($FinanceAnnual[$i][EBT]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][EBT];$tot=$vale/$convalue;$EBT = round($tot,2);  if($vale==''){$EBT = '-';}}
-					if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{ $vale = $FinanceAnnual[$i][CurrentTax];$tot=$vale/$convalue;$CurrentTax = round($tot,2);  if($vale==''){$CurrentTax = '-';}}
-					if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{ $vale = $FinanceAnnual[$i][DeferredTax];$tot=$vale/$convalue;$DeferredTax = round($tot,2);  if($vale==''){$DeferredTax = '-';}}
-					if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{ $vale = $FinanceAnnual[$i][Tax];$tot=$vale/$convalue;$Tax = round($tot,2);  if($vale==''){$Tax = '-';}}
-					if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{ $vale = $FinanceAnnual[$i][PAT];$tot=$vale/$convalue;$PAT = round($tot,2);  if($vale==''){$PAT = '-';}}
-					if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{ $vale = $FinanceAnnual[$i][BINR];$tot=$vale/$convalue;$BINR = round($tot,2);  if($vale==''){$BINR = '-';}}
-					if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{ $vale = $FinanceAnnual[$i][DINR];$tot=$vale/$convalue;$DINR = round($tot,2);  if($vale==''){$DINR = '-';}}
-					if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][EarninginForeignExchange];$tot=$vale/$convalue;$EarninginForeignExchange = round($tot,2);  if($vale==''){$EarninginForeignExchange = '-';}}
-					if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][OutgoinForeignExchange];$tot=$vale/$convalue;$OutgoinForeignExchange = round($tot,2);  if($vale==''){$OutgoinForeignExchange = '-';}}
+					if($FinanceAnnual[$i][OptnlIncome]==0){$OptnlIncome ='-';}else{ $vale = $FinanceAnnual[$i][OptnlIncome]*$usdconversion;$tot=$vale/$convalue;$OptnlIncome = round($tot,2);  if($vale==''){$OptnlIncome = '-';}} 
+					if($FinanceAnnual[$i][OtherIncome]==0){$OtherIncome ='-';}else{ $vale = $FinanceAnnual[$i][OtherIncome]*$usdconversion;$tot=$vale/$convalue;$OtherIncome = round($tot,2);  if($vale==''){$OtherIncome = '-';}} 
+					if($FinanceAnnual[$i][TotalIncome]==0){$TotalIncome ='-';}else{ $vale = $FinanceAnnual[$i][TotalIncome]*$usdconversion;$tot=$vale/$convalue;$TotalIncome = round($tot,2);  if($vale==''){$TotalIncome = '-';}}
+					if($FinanceAnnual[$i][CostOfMaterialsConsumed]==0){$CostOfMaterialsConsumed ='-';}else{ $vale = $FinanceAnnual[$i][CostOfMaterialsConsumed]*$usdconversion;$tot=$vale/$convalue;$CostOfMaterialsConsumed = round($tot,2);  if($vale==''){$CostOfMaterialsConsumed = '-';}} 
+					if($FinanceAnnual[$i][PurchasesOfStockInTrade]==0){$PurchasesOfStockInTrade ='-';}else{ $vale = $FinanceAnnual[$i][PurchasesOfStockInTrade]*$usdconversion;$tot=$vale/$convalue;$PurchasesOfStockInTrade = round($tot,2);  if($vale==''){$PurchasesOfStockInTrade = '-';}}
+					if($FinanceAnnual[$i][ChangesInInventories]==0){$ChangesInInventories ='-';}else{ $vale = $FinanceAnnual[$i][ChangesInInventories]*$usdconversion;$tot=$vale/$convalue;$ChangesInInventories = round($tot,2);  if($vale==''){$ChangesInInventories = '-';}}
+					if($FinanceAnnual[$i][EmployeeRelatedExpenses]==0){$EmployeeRelatedExpenses ='-';}else{ $vale = $FinanceAnnual[$i][EmployeeRelatedExpenses]*$usdconversion;$tot=$vale/$convalue;$EmployeeRelatedExpenses = round($tot,2);  if($vale==''){$EmployeeRelatedExpenses = '-';}}
+					if($FinanceAnnual[$i][CSRExpenditure]==0){$CSRExpenditure ='-';}else{ $vale = $FinanceAnnual[$i][CSRExpenditure]*$usdconversion;$tot=$vale/$convalue;$CSRExpenditure = round($tot,2);  if($vale==''){$CSRExpenditure = '-';}}
+					if($FinanceAnnual[$i][OtherExpenses]==0){$OtherExpenses ='-';}else{ $vale = $FinanceAnnual[$i][OtherExpenses]*$usdconversion;$tot=$vale/$convalue;$OtherExpenses = round($tot,2);  if($vale==''){$OtherExpenses = '-';}}
+					if($FinanceAnnual[$i][OptnlAdminandOthrExp]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][OptnlAdminandOthrExp]*$usdconversion;$tot=$vale/$convalue;$OptnlAdminandOthrExp = round($tot,2);  if($vale==''){$OptnlAdminandOthrExp = '-';}}
+					if($FinanceAnnual[$i][OptnlProfit]==0){$OptnlProfit ='-';}else{ $vale = $FinanceAnnual[$i][OptnlProfit]*$usdconversion;$tot=$vale/$convalue;$OptnlProfit = round($tot,2);  if($vale==''){$OptnlProfit = '-';}}
+					if($FinanceAnnual[$i][EBITDA]==0){$EBITDA ='-';}else{ $vale = $FinanceAnnual[$i][EBITDA]*$usdconversion;$tot=$vale/$convalue;$EBITDA = round($tot,2);  if($vale==''){$EBITDA = '-';}}
+					if($FinanceAnnual[$i][Interest]==0){$Interest ='-';}else{ $vale = $FinanceAnnual[$i][Interest]*$usdconversion;$tot=$vale/$convalue;$Interest = round($tot,2);  if($vale==''){$Interest = '-';}}
+					if($FinanceAnnual[$i][EBDT]==0){$EBDT ='-';}else{ $vale = $FinanceAnnual[$i][EBDT]*$usdconversion;$tot=$vale/$convalue;$EBDT = round($tot,2);  if($vale==''){$EBDT = '-';}}
+					if($FinanceAnnual[$i][Depreciation]==0){$Depreciation ='-';}else{ $vale = $FinanceAnnual[$i][Depreciation]*$usdconversion;$tot=$vale/$convalue;$Depreciation = round($tot,2);  if($vale==''){$Depreciation = '-';}}
+					if($FinanceAnnual[$i][EBT_before_Priod_period]==0){$EBT_before_Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][EBT_before_Priod_period]*$usdconversion;$tot=$vale/$convalue;$EBT_before_Priod_period = round($tot,2);  if($vale==''){$EBT_before_Priod_period = '-';}}
+					if($FinanceAnnual[$i][Priod_period]==0){$Priod_period ='-';}else{ $vale = $FinanceAnnual[$i][Priod_period]*$usdconversion;$tot=$vale/$convalue;$Priod_period = round($tot,2);  if($vale==''){$Priod_period = '-';}}
+					if($FinanceAnnual[$i][EBT]==0){$OptnlAdminandOthrExp ='-';}else{ $vale = $FinanceAnnual[$i][EBT]*$usdconversion;$tot=$vale/$convalue;$EBT = round($tot,2);  if($vale==''){$EBT = '-';}}
+					if($FinanceAnnual[$i][CurrentTax]==0){$CurrentTax ='-';}else{ $vale = $FinanceAnnual[$i][CurrentTax]*$usdconversion;$tot=$vale/$convalue;$CurrentTax = round($tot,2);  if($vale==''){$CurrentTax = '-';}}
+					if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{ $vale = $FinanceAnnual[$i][DeferredTax]*$usdconversion;$tot=$vale/$convalue;$DeferredTax = round($tot,2);  if($vale==''){$DeferredTax = '-';}}
+					if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{ $vale = $FinanceAnnual[$i][Tax]*$usdconversion;$tot=$vale/$convalue;$Tax = round($tot,2);  if($vale==''){$Tax = '-';}}
+					if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{ $vale = $FinanceAnnual[$i][PAT]*$usdconversion;$tot=$vale/$convalue;$PAT = round($tot,2);  if($vale==''){$PAT = '-';}}
+					if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{ $vale = $FinanceAnnual[$i][BINR]*$usdconversion;$tot=$vale/$convalue;$BINR = round($tot,2);  if($vale==''){$BINR = '-';}}
+					if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{ $vale = $FinanceAnnual[$i][DINR]*$usdconversion;$tot=$vale/$convalue;$DINR = round($tot,2);  if($vale==''){$DINR = '-';}}
+					if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][EarninginForeignExchange]*$usdconversion;$tot=$vale/$convalue;$EarninginForeignExchange = round($tot,2);  if($vale==''){$EarninginForeignExchange = '-';}}
+					if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{ $vale = $FinanceAnnual[$i][OutgoinForeignExchange]*$usdconversion;$tot=$vale/$convalue;$OutgoinForeignExchange = round($tot,2);  if($vale==''){$OutgoinForeignExchange = '-';}}
 
 			
 			   }

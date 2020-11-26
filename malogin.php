@@ -82,7 +82,7 @@ $pwd=md5(trim($pwd));
             dm.EmailId='$login' and dm.Passwrd='$pwd'
             AND dc.Deleted =0 and dc.IPAdd=0";*/
             $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.TrialLogin,dm.user_authorization_status,dc.maindustries FROM malogin_members AS dm,
-            dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dc.MAMA=1 and dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0";
+            dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dc.MAMA=1 and dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0  and dm.Deleted = 0";
             //	echo "<bR>--".$checkUserSql;
             if ($totalrs = mysql_query($checkUserSql))
             {
@@ -369,6 +369,8 @@ $pwd=md5(trim($pwd));
                                     $tempUrl = $_SESSION['madirectURL'];
                                     $_SESSION['madirectURL'] = '';
                                     header("location:$tempUrl");
+                                }elseif($_REQUEST['cfs']==1 || $_REQUEST['pe']==1){
+                                    header( 'Location: ' . BASE_URL . '/ma/madealdetails.php?value='.$_REQUEST['value'] ) ;
                                 }elseif($_REQUEST['search']!=''){
                                         header( 'Location: ' . BASE_URL . 'ma/index.php?search='.$_REQUEST['search'] );
                                 }else
@@ -564,6 +566,7 @@ function checkFields()
 
 <form name="malogin" onSubmit="return checkFields();" method="post" action="malogin.php" >
 <input type="hidden" name="search" value="<?php echo $_REQUEST['search']; ?>" />
+<input type="hidden" name="cfs" value="<?php echo $_REQUEST['cfs']; ?>" />
 <ul>
     <li><input type="text"  name="emailid" value=""  placeholder="Email"/></li>
     <li> <input type="password" name="emailpassword" value=""  placeholder="Password"/></li>

@@ -941,7 +941,7 @@ function clear_sectorSearch1(){
     <SELECT NAME="targetCountry[]" multiple="multiple" id="targetCountry" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
 	<!--<OPTION  value="--" selected> ALL </option>-->
         <?php
-        $countrysql="select countryid,country from country where countryid !=11 ";
+        $countrysql="select countryid,country from country where countryid NOT IN  ('','--','10','11') order by country";
                if ($countryrs = mysql_query($countrysql))
                {
                 $ind_cnt = mysql_num_rows($countryrs);
@@ -968,7 +968,7 @@ function clear_sectorSearch1(){
     <SELECT NAME="acquirerCountry[]" multiple="multiple" id="acquirerCountry" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
        <!--<OPTION  value="--" selected> ALL </option>-->
        <?php
-            $countrysql="select countryid,country from country where countryid !=11 ";
+            $countrysql="select countryid,country from country where countryid NOT IN  ('','--','10','11') order by country";
             if ($countryrs = mysql_query($countrysql))
             {
              $ind_cnt = mysql_num_rows($countryrs);
