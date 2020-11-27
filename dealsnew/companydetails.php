@@ -400,7 +400,7 @@ if(gettype($cityid)!="string"){
 			peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
 			peinvestors as inv where pe.PECompanyId=$SelCompRef and
 			peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
-			and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by pe.PEId order by dates desc";
+			and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15  group by pe.PEId order by dates desc";
 
 			$dealpage="dealinfo.php";
                         if($pe_re==2)
@@ -2005,7 +2005,7 @@ ul.tabView li {
                                                                  <?php
 
                                                             $addTrancheWordtxt = "";
-
+                                                            
                                                             While($myInvestorrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
                                                                     {
                                                                        
@@ -2016,8 +2016,8 @@ ul.tabView li {
                                                                             $Investorname=strtolower($Investorname);
                                                                             $invResult=substr_count($Investorname,$searchString);
                                                                             $invResult1=substr_count($Investorname,$searchString1);
-                                                                            $invResult2=substr_count($Investorname,$searchString2);
-                                                                            if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
+                                                                           // $invResult2=substr_count($Investorname,$searchString2);
+                                                                            if(($invResult==0) && ($invResult1==0) )
                                                                             {
                                                                             $addTrancheWord="";
                                                                             $addDebtWord="";
@@ -2168,10 +2168,10 @@ ul.tabView li {
                                                                 $hide_agg = $angelrow['AggHide'];
                                                                 $invRes=substr_count($Investorname,$searchString);
                                                                         $invRes1=substr_count($Investorname,$searchString1);
-                                                                        $invRes2=substr_count($Investorname,$searchString2);
+                                                                        //$invRes2=substr_count($Investorname,$searchString2);
 
 
-                                                                        if(($invRes==0) && ($invRes1==0) && ($invRes2==0))
+                                                                        if(($invRes==0) && ($invRes1==0) )
                                                                         {
                                                                             if($hide_agg==0) {
 
