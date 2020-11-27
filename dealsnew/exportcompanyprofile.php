@@ -158,18 +158,18 @@
 					echo "Company"."\t";
 					echo "Industry"."\t";
 					echo "Sector"."\t";
-					echo "Stock Code"."\t";
+					//echo "Stock Code"."\t";
 					if($CIN !=" "){
 						echo "CIN No "."\t";
 					}
 					echo "Year Founded"."\t";
-					echo "Address"."\t";
-					echo ""."\t";
+					//echo "Address"."\t";
+					//echo ""."\t";
 					echo "City"."\t";
 					echo "Country"."\t";
-					echo "Zip"."\t";
+					//echo "Zip"."\t";
 					echo "Telephone "."\t";
-					echo "Fax"."\t";
+					//echo "Fax"."\t";
 					echo "Email"."\t";
 					echo "Website"."\t";
                                         
@@ -219,7 +219,7 @@
 						$companyName=$row[1];
 						$schema_insert .=$row[3].$sep; //inudstry
 						$schema_insert .=$row[4].$sep; //sector_business
-						$schema_insert .=$row[6].$sep; //stockcode
+						//$schema_insert .=$row[6].$sep; //stockcode
 						if($row[19] != "")
                         {
                             $schema_insert .=$row[19].$sep; //CIN
@@ -237,13 +237,13 @@
                                                     $schema_insert .= $sep;
                                                 }
 
-						$schema_insert .=$row[8].$sep; //address
-						$schema_insert .=$row[9].$sep; //address line 2
+						//$schema_insert .=$row[8].$sep; //address
+						//$schema_insert .=$row[9].$sep; //address line 2
 						$schema_insert .=$row[10].$sep; //city
 						$schema_insert .=$row[13].$sep; //Country
-						$schema_insert .=$row[11].$sep; //Country
+						//$schema_insert .=$row[11].$sep; //Country
 						$schema_insert .=$row[14].$sep; //Telephone
-						$schema_insert .=$row[15].$sep; //Fax
+						//$schema_insert .=$row[15].$sep; //Fax
 						$schema_insert .=$row[16].$sep; //Email
 						$schema_insert .=$row[5].$sep; //Website
                                                 
