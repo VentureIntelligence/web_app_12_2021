@@ -9,7 +9,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
 <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/development/src/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 {literal}
 <style type="text/css">
@@ -310,6 +310,15 @@ table th, table td {
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                               <label id="req_answer">Overall Count</label>
+                            </div>
+                            <div class="col-md-6" style="width: 53%;">
+                              <input type="number" class="used_search_count" id="o_count" readonly/>
+                              <input type="number" class="total_search_count" id="partner_overall_count" name="partner_overall_count" value="{$partner_details.overallCount}" placeholder="Enter Overall Count"/>		
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                <label id="req_answer">Deal Count</label>
                             </div>
                             <div class="col-md-6" style="width: 53%;">
@@ -326,15 +335,7 @@ table th, table td {
                               <input type="number" class="total_search_count" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" placeholder="Enter API Count"/>		
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                               <label id="req_answer">Overall Count</label>
-                            </div>
-                            <div class="col-md-6" style="width: 53%;">
-                              <input type="number" class="used_search_count" id="o_count" readonly/>
-                              <input type="number" class="total_search_count" id="partner_overall_count" name="partner_overall_count" value="{$partner_details.overallCount}" placeholder="Enter Overall Count"/>		
-                            </div>
-                        </div>
+                        
                         <div class="row r_email">
                            <div align="center" id="partner-external" class="partner-external">
                               <div class="col-md-6">
@@ -435,8 +436,8 @@ $(function() {
     
     $(function () {
     $(".startdatepicker,.expiredatepicker").datetimepicker({
-        locale: "fr",
-        format: "YYYY-MM-DD",
+        locale: "en",
+        format: "DD/MM/YYYY",
         useCurrent: false,
         showTodayButton: true,
         showClear: true,
