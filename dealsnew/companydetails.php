@@ -2283,7 +2283,7 @@ ul.tabView li {
             <div class="col-6">
                 <div  class="work-masonry-thumb1 accordian-group">
                  
-                        <div class="accordions" style="margin-bottom: 15px;">
+                        <div class="accordions" style="margin-bottom: 40px;">
                             <div class="accordions_dealtitle active"><span></span>
                                 <h2 id="companyinfo" class="box_heading content-box ">Tags</h2>
                             </div>

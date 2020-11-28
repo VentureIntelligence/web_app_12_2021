@@ -349,17 +349,19 @@ if(count($NewRatioCalculation)==0){
             // echo "cF1:".$CASHFLOW_MEDIA_PATH_NEW1;exit();
                 
         }
+        $rowtype=mysql_query("select ResultType from cash_flow where CId_FK =". $_GET['vcid']." Group by ResultType"); 
+        $resulttypecountcf=mysql_num_rows($rowtype);
         
-        if ($CASHFLOW_MEDIA_PATH || $CASHFLOW_MEDIA_PATH_NEW1) {?>
+        if ($resulttypecountcf == 1 || $resulttypecountcf == 2) {?>
         
                 <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
                   <input  name="" type="button" id="check1" data-check2="close" value="CASHFLOW EXPORT" onClick="cashflow_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
 
                   <div id="cashflow_ex" style="position: absolute; width: 100%; display: none;  right: 0; text-align: right;padding-right: 18px;">
-                  <?php if($CASHFLOW_MEDIA_PATH){?>
+                  <?php if($resulttypecountcf == 1 || $resulttypecountcf == 2){?>
                <!-- <input  name="" type="button" value="Standalone" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
                <input  name="cfexportcompare"  type="button" value="Standalone"  id="cfexportcompare" style="  width: 180px;border-top: 0;" />
-               <?php } if ($CASHFLOW_MEDIA_PATH_NEW1){?>
+               <?php } if ($resulttypecountcf == 2){?>
                <!-- <input  name="" type="button" value="Consolidated" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}_1.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
                <input  name="cfconexportcompare" type="button" value="Consolidated"  id="cfconexportcompare" style="  width: 180px;border-top: 0;" />
                <?php }?>

@@ -434,7 +434,7 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 			$objPHPExcel->getActiveSheet()->setCellValue('A34', 'Earning in Foreign Exchange')->getStyle("A34")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A35', 'Outgo in Foreign Exchange')->getStyle("A35")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
-			$objPHPExcel->getActiveSheet()->setTitle('Standard');
+			$objPHPExcel->getActiveSheet()->setTitle('Standalone');
 			for($i=0;$i<count($FinanceAnnual);$i++){
 				$row = 6;
 				$position= strpos($FinanceAnnual[$i][FY]," ");
