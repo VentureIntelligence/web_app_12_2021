@@ -5270,7 +5270,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>','_blank')" class="agree-plexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-plexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5278,7 +5278,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated','_blank')" class="agree-plconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-plconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5286,7 +5286,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>','_blank')" class="agree-bsexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-bsexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5294,7 +5294,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated','_blank')" class="agree-bsconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-bsconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5303,7 +5303,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
       <!-- <b><a href="javascript:;" onClick="window.open('<?php //echo MEDIA_PATH;?>cashflow_xbrl2/CASHFLOW_<?php //echo $_GET['vcid'];?>.xls','_blank')" class="agree-cfexport">I Agree</a></b><b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
-      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>','_blank')" class="agree-cfexport">I Agree</a></b>
+      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-cfexport">I Agree</a></b>
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5312,7 +5312,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
       <!-- <b><a href="javascript:;" onClick="window.open('<?php //echo MEDIA_PATH;?>cashflow_xbrl2/CASHFLOW_<?php //echo $_GET['vcid'];?>_1.xls','_blank')" class="agree-cfconexport">I Agree</a></b><b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
-      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated','_blank')" class="agree-cfconexport">I Agree</a></b>
+      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-cfconexport">I Agree</a></b>
   </div>
 </div>
 <script type="text/javascript" >

@@ -2072,17 +2072,18 @@ if(count($NewRatioCalculation)==0){
             $BSHEET_MEDIA_PATH_NEW1=FOLDER_CREATE_PATH.'balancesheet_new/New_BalSheet_'.$_GET['vcid'].'_1.xls';
                 
         }
-        
-        if ($BSHEET_MEDIA_PATH_NEW || $BSHEET_MEDIA_PATH_NEW1) {?>
+        $rowtype=mysql_query("select ResultType from balancesheet_new where CId_FK =". $_GET['vcid']." Group by ResultType"); 
+        $resulttypecountbs=mysql_num_rows($rowtype);
+            if ($resulttypecountbs == 1 || $resulttypecountbs == 2) {?>
         
                 <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 160px;padding-right: 18px;padding-top: 0px !important;"> 
                   <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="openbalancesheet_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
 
                   <div id="balancesheet_ex" style="position: absolute; width: 100%; display: none;  right: 0px; text-align: right;padding-right: 18px;">
-                  <?php if($BSHEET_MEDIA_PATH_NEW){?>
+                  <?php if ($resulttypecountbs == 1 || $resulttypecountbs == 2) {?>
                <!-- <input  name="" type="button" value="Standalone" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
                <input  name="bsexportcompare"  type="button" value="Standalone"  id="bsexportcompare" style="  width: 180px;border-top: 0;" />
-               <?php } if ($BSHEET_MEDIA_PATH_NEW1){?>
+               <?php } if ($resulttypecountbs == 2) {?>
                <!-- <input  name="" type="button" value="Consolidated" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}_1.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
                <input  name="bsconexportcompare" type="button" value="Consolidated"  id="bsconexportcompare" style="  width: 180px;border-top: 0;" />
                <?php }?>
@@ -3263,7 +3264,7 @@ if(count($NewRatioCalculation)==0){
                if($_GET['queryString']!='INR'){?>
                 <td><b><?php
                if($yearcurrency[$year] ==''){
-                if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][O_non_current_asT_non_current_assetssets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual1_new[$i][T_non_current_assets],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                }else{
                 if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{ $vale = $FinanceAnnual1_new[$i][T_non_current_assets]*$yearcurrency[$year];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                }
@@ -3274,9 +3275,9 @@ if(count($NewRatioCalculation)==0){
             { 
                 ?> 
                 <?php if($_GET['rconv'] =='r'){ ?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_non_current_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
+                    <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_non_current_assets]/$convalue);echo numberFormat(round($tot,2)); } ?></b></td>
                 <?php } else { ?>
-                    <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][O_non_current_assets]/$convalue);echo round($tot,2); } ?></b></td>
+                    <td><b><?php if($FinanceAnnual1_new[$i][T_non_current_assets]==0){echo '-';}else{$tot=($FinanceAnnual1_new[$i][T_non_current_assets]/$convalue);echo round($tot,2); } ?></b></td>
                 <?php } ?>
                 <?php
             }
@@ -4881,17 +4882,19 @@ if(count($NewRatioCalculation)==0){
             // echo "cF1:".$CASHFLOW_MEDIA_PATH_NEW1;exit();
                 
         }
+        $rowtype=mysql_query("select ResultType from cash_flow where CId_FK =". $_GET['vcid']." Group by ResultType"); 
+        $resulttypecountcf=mysql_num_rows($rowtype);
         
-        if ($CASHFLOW_MEDIA_PATH || $CASHFLOW_MEDIA_PATH_NEW1) {?>
+        if ($resulttypecountcf == 1 || $resulttypecountcf == 2) {?>
         
                 <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 160px;padding-right: 18px;padding-top: 0px !important;"> 
                   <input  name="" type="button" id="check1" data-check2="close" value="CASHFLOW EXPORT" onClick="cashflow_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
 
                   <div id="cashflow_ex" style="position: absolute; width: 100%; display: none;  right: 0px; text-align: right;padding-right: 18px;">
-                  <?php if($CASHFLOW_MEDIA_PATH){?>
+                  <?php if($resulttypecountcf == 1 || $resulttypecountcf == 2){?>
                <!-- <input  name="" type="button" value="Standalone" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
                <input  name="cfexportcompare"  type="button" value="Standalone"  id="cfexportcompare" style="  width: 180px;border-top: 0;" />
-               <?php } if ($CASHFLOW_MEDIA_PATH_NEW1){?>
+               <?php } if ($resulttypecountcf == 2){?>
                <!-- <input  name="" type="button" value="Consolidated" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}_1.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
                <input  name="cfconexportcompare" type="button" value="Consolidated"  id="cfconexportcompare" style="  width: 180px;border-top: 0;" />
                <?php }?>
@@ -5709,7 +5712,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>','_blank')" class="agree-plexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-plexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5717,7 +5720,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated','_blank')" class="agree-plconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-plconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5725,7 +5728,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>','_blank')" class="agree-bsexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-bsexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5733,7 +5736,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated','_blank')" class="agree-bsconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-bsconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5742,7 +5745,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
       <!-- <b><a href="javascript:;" onClick="window.open('<?php //echo MEDIA_PATH;?>cashflow_xbrl2/CASHFLOW_<?php //echo $_GET['vcid'];?>.xls','_blank')" class="agree-cfexport">I Agree</a></b><b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
-      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>','_blank')" class="agree-cfexport">I Agree</a></b>
+      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-cfexport">I Agree</a></b>
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -5751,7 +5754,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
       <!-- <b><a href="javascript:;" onClick="window.open('<?php //echo MEDIA_PATH;?>cashflow_xbrl2/CASHFLOW_<?php //echo $_GET['vcid'];?>_1.xls','_blank')" class="agree-cfconexport">I Agree</a></b><b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
-      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated','_blank')" class="agree-cfconexport">I Agree</a></b>
+      <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-cfconexport">I Agree</a></b>
   </div>
 </div>
 <script type="text/javascript" >

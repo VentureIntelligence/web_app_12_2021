@@ -503,15 +503,18 @@ if(count($FinanceAnnual_cashflow) == 0){
         }
        
         ?>
-        <?php if($PLSTANDARD_MEDIA_PATH || $PLSTANDARD_MEDIA_PATH_CON){?>
+         <?php $rowtype=mysql_query("select ResultType from plstandard where CId_FK =". $_GET['vcid']." Group by ResultType"); 
+    $resulttypecount=mysql_num_rows($rowtype);
+    ?>
+        <?php if($resulttypecount == 1 || $resulttypecount == 2){?>
                 <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
                  <input  name="" type="button" id="check" data-check="close" value="P&L EXPORT" onClick="openpl_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 158px 6px; width:180px; " />
 
               <div id="pl_ex" data-slide="close" style=" position: absolute;  width: 100%; display: none; {if $file_pl_cnt > 0 && $file_bs_cnt > 0} left: 0 {else} left: 0 {/if}">
-              <?php if ($PLSTANDARD_MEDIA_PATH){?>
+              <?php if ($resulttypecount == 1 || $resulttypecount == 2){?>
              <!--  <input  name="" type="button" value="Standalone" onClick="window.open('downloadtrack.php?vcid={$Company_Id}','_blank')" style="  width: 180px;border-top: 0;" /> -->
               <input  name="plexportcompare" type="button" value="Standalone" id="plexportcompare" style="  width: 180px;border-top: 0;" />
-              <?php  } if ( $PLSTANDARD_MEDIA_PATH_CON){?>
+              <?php  } if ( $resulttypecount == 2){?>
              <!--  <input  name="" type="button" value="Consolidated" onClick="window.open('downloadtrack.php?vcid={$Company_Id}&type=consolidated','_blank')" style="  width: 180px;border-top: 0;" /> -->
               <input  name="plconexportcompare" type="button" value="Consolidated" id="plconexportcompare" style="  width: 180px;border-top: 0;" />
              
@@ -525,6 +528,26 @@ if(count($FinanceAnnual_cashflow) == 0){
               <?php } if($PLDETAILED_MEDIA_PATH){?>
                             <input  name="" type="button"  value="Detailed P&L EXPORT" onClick="window.open('<?php echo MEDIA_PATH?>pldetailed/PLDetailed_{$VCID}.xls?time={$smarty.now}','_blank')" />
                 <?php }?>
+                <!-- <?php //if($PLSTANDARD_MEDIA_PATH || $PLSTANDARD_MEDIA_PATH_CON){?>
+                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                 <input  name="" type="button" id="check" data-check="close" value="P&L EXPORT" onClick="openpl_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 158px 6px; width:180px; " />
+
+              <div id="pl_ex" data-slide="close" style=" position: absolute;  width: 100%; display: none; {if $file_pl_cnt > 0 && $file_bs_cnt > 0} left: 0 {else} left: 0 {/if}">
+              <?php //if ($PLSTANDARD_MEDIA_PATH){?>
+              <input  name="plexportcompare" type="button" value="Standalone" id="plexportcompare" style="  width: 180px;border-top: 0;" />
+              <?php  //} if ( $PLSTANDARD_MEDIA_PATH_CON){?>
+              <input  name="plconexportcompare" type="button" value="Consolidated" id="plconexportcompare" style="  width: 180px;border-top: 0;" />
+             
+              <?php  //}?>
+                 </div>
+                  </span>
+              <?php //} else{?>
+                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                    <input  name="" type="button" id="check" data-check="close" value="P&L EXPORT" onClick="plDataUpdateReq()" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 158px 6px; width:180px; " />
+                </span>
+              <?php //} if($PLDETAILED_MEDIA_PATH){?>
+                            <input  name="" type="button"  value="Detailed P&L EXPORT" onClick="window.open('<?php echo MEDIA_PATH?>pldetailed/PLDetailed_{$VCID}.xls?time={$smarty.now}','_blank')" />
+                <?php //}?> -->
 
 
                  <div class="finance-filter-custom" style="padding-top: 0px;display:inline-flex">
@@ -552,9 +575,7 @@ if(count($FinanceAnnual_cashflow) == 0){
 </div>
 
 <div style="clear:both;margin-top:18px">
-     <?php $rowtype=mysql_query("select ResultType from plstandard where CId_FK =". $_GET['vcid']." Group by ResultType"); 
-    $resulttypecount=mysql_num_rows($rowtype);
-    ?>
+    
    <div class="resulttype-value" style="font-size: 16px;/*margin-bottom: 10px;margin-top: -45px;*/">
     <?php if($resulttypecount==2) {?>
   <ul class="primary">
@@ -1992,7 +2013,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>','_blank')" class="agree-plexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-plexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 <div id="maskscreen"></div>
@@ -2000,7 +2021,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio1,$group1);
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
   <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
       &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
-      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated','_blank')" class="agree-plconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+      <b><a href="javascript:;" onClick="window.open('downloadtrack.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-plconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
 
