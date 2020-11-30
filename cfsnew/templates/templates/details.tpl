@@ -1774,7 +1774,7 @@ function autoResize(id){
             </div>
             <div class="entry">
                     <h5>Link</h5>
-                    <p>{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" id="message_fc" value="{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
+                    <p>https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" id="message_fc" value="https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
                      <input type="hidden" name="useremail_fc" id="useremail_fc" value="{$SESSION_UserEmail}"  /> </p>
             </div>
             <div class="entry">
