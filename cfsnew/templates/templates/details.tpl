@@ -1754,6 +1754,36 @@ function autoResize(id){
 
         </form>
     </div>
+<div class="lb" id="popup-box-dealsma">
+    <div class="title">Send this to Venture</div>
+        <form>
+            <div class="entry">
+                    <label> To*</label>
+                    <input type="text" name="toaddress_fc" id="toaddress_fc"  value="research@ventureintelligence.com"/>
+            </div>
+            <div class="entry">
+                    <h5>Subject*</h5>
+
+                    {if $CompanyProfile.Permissions1 eq '0'}
+                        <p>Request for funding data</p>
+                        <input type="hidden" name="subject_fc" id="subject_fc" value="Request for funding data"  />
+                    {else}
+                        <p>Check for M&A activity</p>
+                        <input type="hidden" name="subject_fc" id="subject_fc" value="Check for M&A activity"  />
+                    {/if}
+            </div>
+            <div class="entry">
+                    <h5>Link</h5>
+                    <p>{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" id="message_fc" value="{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
+                     <input type="hidden" name="useremail_fc" id="useremail_fc" value="{$SESSION_UserEmail}"  /> </p>
+            </div>
+            <div class="entry">
+                <input type="button" value="Submit" id="mailfnbtnma" />
+                <input type="button" value="Cancel" id="cancelfnbtnma" />
+            </div>
+
+        </form>
+    </div>
 
 <div class="lb" id="popup-box-FY-data">
     <div class="title">Send this to Venture</div>
@@ -2900,6 +2930,49 @@ $(document).on( 'click','#deals_data', function() {
     return false;
     
 });
+$(document).on( 'click','#deals_datama', function() {
+
+    jQuery('#maskscreen').fadeIn(1000);
+    jQuery('#popup-box-dealsma').fadeIn();   
+    return false;
+    
+});
+$('#cancelfnbtnma').click(function(){ 
+                     
+            jQuery('#popup-box-dealsma').fadeOut();   
+            jQuery('#maskscreen').fadeOut(1000);
+            return false;
+        });
+        
+$('#mailfnbtnma').click(function(e){ 
+            e.preventDefault();
+
+                $.ajax({
+                    url: 'ajaxsendmail.php',
+                     type: "POST",
+                    data: { to : $("#toaddress_fc").val(), subject : $("#subject_fc").val(), message : $("#message_fc").val() , userMail : $("#useremail_fc").val() , toventure : 1 },
+                    success: function(data){
+                            if(data=="1"){
+                                 alert("Mail Sent Successfully");
+                                jQuery('#popup-box-deals').fadeOut();   
+                                jQuery('#maskscreen').fadeOut(1000);
+
+                        }else{
+                            jQuery('#popup-box-deals').fadeOut();   
+                            jQuery('#maskscreen').fadeOut(1000);
+                            alert("Try Again");
+                        }
+                    },
+                    error:function(){
+                        jQuery('#preloading').fadeOut();
+                        alert("There was some problem sending mail...");
+                    }
+
+                });
+
+            return false;
+        });
+
 $('#cancelfnbtn').click(function(){ 
                      
             jQuery('#popup-box-deals').fadeOut();   
