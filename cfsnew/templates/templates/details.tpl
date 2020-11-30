@@ -1774,7 +1774,7 @@ function autoResize(id){
             </div>
             <div class="entry">
                     <h5>Link</h5>
-                    <p>https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" id="message_fc" value="https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
+                    <p >https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" id="message_fc" value="https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
                      <input type="hidden" name="useremail_fc" id="useremail_fc" value="{$SESSION_UserEmail}"  /> </p>
             </div>
             <div class="entry">
@@ -2985,7 +2985,7 @@ $('#cancelfnbtnma').click(function(){
                 $.ajax({
                     url: 'ajaxsendmail.php',
                      type: "POST",
-                    data: { to : $("#toaddress_fc").val(), subject : $("#subject_fc").val(), message : $("#message_fc").val() , userMail : $("#useremail_fc").val() , toventure : 1 },
+                    data: { to : $("#toaddress_fc").val(), subject : $("#subject_fc").val(), message : $("#message_fc").val() , userMail : $("#useremail_fc").val()  },
                     success: function(data){
                             if(data=="1"){
                                  alert("Mail Sent Successfully");
