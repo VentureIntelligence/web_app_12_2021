@@ -1786,23 +1786,20 @@ function autoResize(id){
         <form>
             <div class="entry">
                     <label> To*</label>
-                    <input type="text" name="toaddress_fc" id="toaddress_fc"  value="research@ventureintelligence.com"/>
+                    <input type="text" name="toaddress_fc" class="toaddress_fcma" id="toaddress_fc"  value="research@ventureintelligence.com"/>
             </div>
             <div class="entry">
                     <h5>Subject*</h5>
 
-                    {if $CompanyProfile.Permissions1 eq '0'}
-                        <p>Request for funding data</p>
-                        <input type="hidden" name="subject_fc" id="subject_fc" value="Request for funding data"  />
-                    {else}
+                    
                         <p>Check for M&A activity</p>
-                        <input type="hidden" name="subject_fc" id="subject_fc" value="Check for M&A activity"  />
-                    {/if}
+                        <input type="hidden" name="subject_fc" class="subject_fcma" id="subject_fc" value="Check for M&A activity"  />
+                    
             </div>
             <div class="entry">
                     <h5>Link</h5>
-                    <p >https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" id="message_fc" value="https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
-                     <input type="hidden" name="useremail_fc" id="useremail_fc" value="{$SESSION_UserEmail}"  /> </p>
+                    <p >https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" class="message_fcma" id="message_fc" value="https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
+                     <input type="hidden" name="useremail_fc" class="useremail_fcma" id="useremail_fc" value="{$SESSION_UserEmail}"  /> </p>
             </div>
             <div class="entry">
                 <input type="button" value="Submit" id="mailfnbtnma" />
@@ -3011,9 +3008,9 @@ $('#cancelfnbtnma').click(function(){
             e.preventDefault();
 
                 $.ajax({
-                    url: 'ajaxsendmail.php',
+                    url: 'ajaxsendmailma.php',
                      type: "POST",
-                    data: { to : $("#toaddress_fc").val(), subject : $("#subject_fc").val(), message : $("#message_fc").val() , userMail : $("#useremail_fc").val()  },
+                    data: { to : $(".toaddress_fcma").val(), subject : $(".subject_fcma").val(), message : $(".message_fcma").val() , userMail : $(".useremail_fcma").val()  },
                     success: function(data){
                             if(data=="1"){
                                  alert("Mail Sent Successfully");
