@@ -396,7 +396,7 @@ if(gettype($cityid)!="string"){
 
 		if(($pe_re==0) || ($pe_re==1) || ($pe_re==2) || ($pe_re==3) || ($pe_re==4) || ($pe_re==5) ||($pe_re==6)||($pe_re==10) || ($pe_re==11)|| ($pe_re==7) || ($pe_re==9) ||($pe_re==8))
 		{
-			$investorSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds  from
+			$investorSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId=9) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId=9) as InvestorIds  from
 			peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
 			peinvestors as inv where pe.PECompanyId=$SelCompRef and
 			peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
@@ -411,7 +411,7 @@ if(gettype($cityid)!="string"){
                         {
                             $invpage="dirdetails.php";
                         }
-		//	echo "<br>0 1 _________________".$investorSql;
+			//echo "<br>0 1 _________________".$investorSql;
 		}
 
 		/*elseif(($pe_re==10) || ($pe_re==11))// PE-ipo 3 , VCIPOs-4class="" target="_blank" href='dirdetails
