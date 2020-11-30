@@ -628,7 +628,7 @@ if($_POST['cin']!=''){
                                     <h2>M&A</h2>
                                     <div class="data-ext-load">
                                         <div id="mca_data2">
-                                        <b>No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
+                                        <b>No M&A activity found for this company <a id="deals_datama" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
                                         </div>
                                     </div></div>';
                     /*$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';*/
@@ -641,7 +641,7 @@ if($_POST['cin']!=''){
                                 <h2>M&A</h2>
                                 <div class="data-ext-load">
                                     <div id="mca_data2">
-                                    <b>No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
+                                    <b>No M&A activity found for this company <a id="deals_datama" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
                                     </div>
                                 </div></div>';
                 /*$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';*/
@@ -654,7 +654,7 @@ if($_POST['cin']!=''){
                                 <h2>M&A</h2>
                                 <div class="data-ext-load">
                                      <div id="mca_data2">
-                                     <b>No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
+                                     <b>No M&A activity found for this company <a id="deals_datama" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
                                     </div>
                                 </div></div>';
                 //$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';
