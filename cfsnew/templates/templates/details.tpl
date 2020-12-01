@@ -581,6 +581,17 @@ function openbalancesheet_ex(elem){
         $(elem).attr("data-check1", "close");
     }
 }
+function openbalancesheet_exold(elem){
+
+    if ($(elem).attr("data-check2") == 'close') {
+        
+        $("#balancesheet_exold").show();
+        $(elem).attr("data-check2", "open");
+    }else{
+        $("#balancesheet_exold").hide();
+        $(elem).attr("data-check2", "close");
+    }
+}
 function cashflow_ex(elem){
 
     if ($(elem).attr("data-check2") == 'close') {
