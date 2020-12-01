@@ -423,9 +423,9 @@ padding:0px 10px; }
             var outerHeight =  window.outerHeight;
             popup(outerWidth);
             if(outerWidth < 400){
-                $(".mobileRedirectPopup").css("transform","scale(2.2");
+                $(".mobileRedirectPopup").css("transform","scale(2.2)");
             }else{
-                 $(".mobileRedirectPopup").css("transform","scale(2.6");
+                 $(".mobileRedirectPopup").css("transform","scale(2.6)");
             }
             $(".mobileRedirectPopup").width(innerWidth);
             $(window).resize(function(){
