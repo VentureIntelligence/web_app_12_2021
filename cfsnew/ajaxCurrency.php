@@ -3360,9 +3360,30 @@ echo '</pre>';*/
      {*/
     ?>
      
-<div id="old_balsheet" style="<?php if(count($FinanceAnnual1_new) > 0){ ?> display: none; <?php } ?> ">
+<div id="old_balsheet" class="tab_menu" style="<?php if(count($FinanceAnnual1_new) > 0){ ?> display: none; <?php } ?> ">
     <?php $rowtype=mysql_query("select ResultType from balancesheet where CId_FK =". $_GET['vcid']." Group by ResultType"); 
     $resulttypecount=mysql_num_rows($rowtype);
+     if ($resulttypecount == 1 || $resulttypecount == 2) {?>
+            
+                    <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                      <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="openbalancesheet_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
+    
+                      <div id="balancesheet_ex" style="position: absolute; width: 100%; display: none;  right: 0; text-align: right;padding-right: 18px;">
+                      <?php if($resulttypecount == 1 || $resulttypecount == 2){?>
+                   <!-- <input  name="" type="button" value="Standalone" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
+                   <input  name="bsoldexportcompare"  type="button" value="Standalone"  id="bsoldexportcompare" style="  width: 180px;border-top: 0;" />
+                   <?php } if ($resulttypecount == 2){?>
+                   <!-- <input  name="" type="button" value="Consolidated" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}_1.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
+                   <input  name="bsoldconexportcompare" type="button" value="Consolidated"  id="bsoldconexportcompare" style="  width: 180px;border-top: 0;" />
+                   <?php }?>
+                      </div>
+                      </span> 
+                      <?php }else{?>
+                        <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                        <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="bsDataUpdateReq()" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
+                    </span>
+                      <?php }
+
       while($resulttypearray=mysql_fetch_array($rowtype))
       {
     ?>
@@ -5315,6 +5336,23 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
       <b><a href="javascript:;" onClick="window.open('downloadtrackCF.php?vcid=<?php echo $_GET['vcid'];?>&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-cfconexport">I Agree</a></b>
   </div>
 </div>
+<div id="maskscreen"></div>
+<div class="lb" id="bsoldexport-popup" style="width: 650px; overflow: visible; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+  <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
+  <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
+      &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
+      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&template=old&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-bsoldexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+  </div>
+</div>
+<div id="maskscreen"></div>
+<div class="lb" id="bsoldconexport-popup" style="width: 650px; overflow: visible; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+  <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
+  <div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
+      &copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
+      <b><a href="javascript:;" onClick="window.open('downloadtrackBS.php?vcid=<?php echo $_GET['vcid'];?>&template=old&type=consolidated&queryString=<?php echo $_GET['queryString'];?>&rconv=<?php echo $_GET['rconv'];?>','_blank')" class="agree-bsoldconexport">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
+  </div>
+</div>
+
 <script type="text/javascript" >
 // $(document).ready(function(){
 //   if($('.cfs_menu').length > 1){
@@ -5408,6 +5446,34 @@ $('input[name=cfconexportcompare]#cfconexportcompare').click(function(){
         $( '#cfconexport-popup' ).on( 'click', '.close-lookup', function() {
             $( '#cfconexport-popup' ).hide();
             jQuery('#maskscreen').fadeOut(1000);
+        });
+        $('input[name=bsoldexportcompare]#bsoldexportcompare').click(function(){
+              jQuery('#balancesheet_parent #maskscreen').fadeIn(1000);
+              $( '#bsoldexport-popup' ).show();
+              return false; 
+            });
+        $( '.agree-bsoldexport').on( 'click', function() {    
+            jQuery('#balancesheet_parent #maskscreen').fadeOut(1000);
+            $( '#bsoldexport-popup' ).hide();
+            return false;
+        });
+        $( '#bsoldexport-popup' ).on( 'click', '.close-lookup', function() {
+            $( '#bsoldexport-popup' ).hide();
+            jQuery('#balancesheet_parent #maskscreen').fadeOut(1000);
+        });
+$('input[name=bsoldconexportcompare]#bsoldconexportcompare').click(function(){
+              jQuery('#balancesheet_parent #maskscreen').fadeIn(1000);
+              $( '#bsoldconexport-popup' ).show();
+              return false; 
+            });
+        $( '.agree-bsoldconexport').on( 'click', function() {    
+            jQuery('#balancesheet_parent #maskscreen').fadeOut(1000);
+            $( '#bsoldconexport-popup' ).hide();
+            return false;
+        });
+        $( '#bsoldconexport-popup' ).on( 'click', '.close-lookup', function() {
+            $( '#bsoldconexport-popup' ).hide();
+            jQuery('#balancesheet_parent #maskscreen').fadeOut(1000);
         });
 
 $(document).ready(function(){
