@@ -285,8 +285,8 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 						if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{$tot=($FinanceAnnual[$i][DeferredTax]/$convalue);$DeferredTax =round($tot,2); }
 						if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{$tot=($FinanceAnnual[$i][Tax]/$convalue);$Tax =round($tot,2); }
 						if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);$PAT =round($tot,2); }
-						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR]/$convalue);$BINR =round($tot,2); }
-						if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{$tot=($FinanceAnnual[$i][DINR]/$convalue);$DINR =round($tot,2); }
+						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR);$BINR =round($tot,2); }
+						if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{$tot=($FinanceAnnual[$i][DINR]);$DINR =round($tot,2); }
 						if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){$profit_loss_of_minority_interest ='-';}else{$tot=($FinanceAnnual[$i][profit_loss_of_minority_interest]/$convalue);$profit_loss_of_minority_interest =round($tot,2); }
 						if($FinanceAnnual[$i][total_profit_loss_for_period]==0){$total_profit_loss_for_period ='-';}else{$tot=($FinanceAnnual[$i][total_profit_loss_for_period]/$convalue);$total_profit_loss_for_period =round($tot,2); }
 						if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{$tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue);$EarninginForeignExchange =round($tot,2); }
@@ -344,9 +344,9 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 				$row++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$total_profit_loss_for_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row=$row+2;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][BINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$BINR )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][DINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$DINR )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row=$row+3;
 				
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EarninginForeignExchange )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
@@ -504,8 +504,8 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 						if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{$tot=($FinanceAnnual[$i][DeferredTax]/$convalue);$DeferredTax =round($tot,2); }
 						if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{$tot=($FinanceAnnual[$i][Tax]/$convalue);$Tax =round($tot,2); }
 						if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);$PAT =round($tot,2); }
-						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR]/$convalue);$BINR =round($tot,2); }
-						if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{$tot=($FinanceAnnual[$i][DINR]/$convalue);$DINR =round($tot,2); }
+						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR]);$BINR =round($tot,2); }
+						if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{$tot=($FinanceAnnual[$i][DINR]);$DINR =round($tot,2); }
 						if($FinanceAnnual[$i][EarninginForeignExchange]==0){$EarninginForeignExchange ='-';}else{$tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue);$EarninginForeignExchange =round($tot,2); }
 						if($FinanceAnnual[$i][OutgoinForeignExchange]==0){$OutgoinForeignExchange ='-';}else{$tot=($FinanceAnnual[$i][OutgoinForeignExchange]/$convalue);$OutgoinForeignExchange =round($tot,2); }
 						
@@ -557,9 +557,9 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 				$row++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$PAT )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle);
 				$row=$row+2;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][BINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$BINR )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$FinanceAnnual[$i][DINR] )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$DINR )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row=$row+3;
 				
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EarninginForeignExchange )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);

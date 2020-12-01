@@ -1916,9 +1916,9 @@ if(count($NewRatioCalculation)==0){
     if ($resulttypecount == 1 || $resulttypecount == 2) {?>
             
       <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
-        <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="openbalancesheet_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
+        <input  name="" type="button" id="check1" data-check2="close" value="BALANCE SHEET EXPORT" onClick="openbalancesheet_exold(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
 
-        <div id="balancesheet_ex" style="position: absolute; width: 100%; display: none;  right: 0; text-align: right;padding-right: 18px;">
+        <div id="balancesheet_exold" style="position: absolute; width: 100%; display: none;  right: 0; text-align: right;padding-right: 18px;">
         <?php if($resulttypecount == 1 || $resulttypecount == 2){?>
      <!-- <input  name="" type="button" value="Standalone" onClick="window.open('{$MEDIA_PATH}balancesheet_new/New_BalSheet_{$VCID}.xls','_blank')" style="  width: 180px;border-top: 0;" /> -->
      <input  name="bsoldexportcompare"  type="button" value="Standalone"  id="bsoldexportcompare" style="  width: 180px;border-top: 0;" />
