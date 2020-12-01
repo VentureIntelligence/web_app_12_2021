@@ -377,6 +377,7 @@ table th, table td {
                            </div>
                          <br />
                         <div align="center">
+                        <input type="hidden" name="count" id="count" value="">
                            <input type="submit" class="form-control submit-btn" name="submit"/>
                         </div>
                         <br />
@@ -416,7 +417,7 @@ $(function() {
       partner_validate_to: "required",
       partner_search_count: "required",
       partner_api_count: "required",
-      partner_overall_count: "required",
+      partner_overall_count:"required",
       partner_email: "required"
     },
     // Specify validation error messages
@@ -427,7 +428,20 @@ $(function() {
       partner_validate_to: "Please Enter To Date",
       partner_search_count: "Please Enter Search Count",
       partner_api_count: "Please Enter API Count",
-      partner_overall_count:"Please Enter Overall Count",
+      partner_overall_count: { required: function(element) {
+                var err = "Please Enter overall count";
+                 var overallcount=parseInt($("#partner_search_count").val())+parseInt($("#partner_api_count").val());
+          var count=$("#partner_overall_count").val();
+         alert(count);
+                if (overallcount >= count) {
+                    err = "sum of search and api count exceeds";
+                    var flag=1;
+                    $('#count').val(flag);
+                   
+                } 
+                return err;
+                }  
+            },
       partner_email: "Please Enter Email"
     }
   });
@@ -467,7 +481,13 @@ $(function() {
 });
 	//Insert Partner Controls
     $("#update_internal_partner").on('submit', function(e){
+       
+         
+         
         e.preventDefault();
+        flag=$('#count').val();
+        alert(flag);
+        if(flag !=1){
         $.ajax({
             type: 'POST',
             url: "PE/edit-partner.php",
@@ -486,6 +506,11 @@ $(function() {
               
             }
         });
+        }
+       // }else{
+           
+       //    alert("overall count exceeds");
+       // }
         return false;
     });
     //End Partner Controls
