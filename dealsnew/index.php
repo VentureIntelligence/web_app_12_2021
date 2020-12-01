@@ -11642,11 +11642,15 @@ padding:0px 10px; }
             console.log("innerWidth",innerWidth)
             var outerHeight =  window.outerHeight;
             popup(outerWidth);
-            if(outerWidth < 400){
-                $(".mobileRedirectPopup").css("transform","scale(2.2");
-            }else{
-                 $(".mobileRedirectPopup").css("transform","scale(2.6");
-            }
+            var Android = navigator.userAgent.match(/Android/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            if(Android){
+                if(outerWidth < 400){
+                    $(".mobileRedirectPopup").css("transform","scale(2.2)");
+                }else{
+                    $(".mobileRedirectPopup").css("transform","scale(2.6)");
+                }
+            }          
             $(".mobileRedirectPopup").width(innerWidth);
             $(window).resize(function(){
                 var ow =  window.outerWidth;
