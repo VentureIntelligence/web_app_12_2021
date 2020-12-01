@@ -285,7 +285,7 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 						if($FinanceAnnual[$i][DeferredTax]==0){$DeferredTax ='-';}else{$tot=($FinanceAnnual[$i][DeferredTax]/$convalue);$DeferredTax =round($tot,2); }
 						if($FinanceAnnual[$i][Tax]==0){$Tax ='-';}else{$tot=($FinanceAnnual[$i][Tax]/$convalue);$Tax =round($tot,2); }
 						if($FinanceAnnual[$i][PAT]==0){$PAT ='-';}else{$tot=($FinanceAnnual[$i][PAT]/$convalue);$PAT =round($tot,2); }
-						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR);$BINR =round($tot,2); }
+						if($FinanceAnnual[$i][BINR]==0){$BINR ='-';}else{$tot=($FinanceAnnual[$i][BINR]);$BINR =round($tot,2); }
 						if($FinanceAnnual[$i][DINR]==0){$DINR ='-';}else{$tot=($FinanceAnnual[$i][DINR]);$DINR =round($tot,2); }
 						if($FinanceAnnual[$i][profit_loss_of_minority_interest]==0){$profit_loss_of_minority_interest ='-';}else{$tot=($FinanceAnnual[$i][profit_loss_of_minority_interest]/$convalue);$profit_loss_of_minority_interest =round($tot,2); }
 						if($FinanceAnnual[$i][total_profit_loss_for_period]==0){$total_profit_loss_for_period ='-';}else{$tot=($FinanceAnnual[$i][total_profit_loss_for_period]/$convalue);$total_profit_loss_for_period =round($tot,2); }
