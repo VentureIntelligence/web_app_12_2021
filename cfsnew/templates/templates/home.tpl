@@ -329,36 +329,7 @@ padding:0px 10px; }
       <b><a href="javascript:;" class="agree-export">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
-<div class="mobileRedirectPopup">
-        <div class="popup-title w-100">
-            <h5 class="text-center">See Venture Intelligence in ...</h5>
-        </div>
-        <div class="row">
-            <div class="image-col text-center"><img
-                    src="images/cfs_app_icon@2x.png"></div>
-            <div class="app-text-col">
-                <h5 class="text-left vi_app">
-                    VI <span class="login-type"></span> App
-                </h5>
-            </div>
-            <div class="redirect-button-col">
-                <button class="btn btn-primary"><a href="#" class="redirectApp">Open</a></button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="image-col text-center"><img
-                    src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
-                    alt=""></div>
-            <div class="app-text-col">
-                <h5 class="text-left">
-                    Chrome
-                </h5>
-            </div>
-            <div class="redirect-button-col">
-                <button class="btn btn-default continue">Continue</button>
-            </div>
-        </div>
-    </div>
+
 </body>
 </html>
 {literal}
@@ -664,3 +635,34 @@ padding:0px 10px; }
         }
     </style>
 {/literal}
+<div class="mobileRedirectPopup">
+        <div class="popup-title w-100">
+            <h5 class="text-center">See Venture Intelligence in ...</h5>
+        </div>
+        <div class="row">
+            <div class="image-col text-center"><img
+                    src="images/cfs_app_icon@2x.png"></div>
+            <div class="app-text-col">
+                <h5 class="text-left vi_app">
+                    VI <span class="login-type"></span> App
+                </h5>
+            </div>
+            <div class="redirect-button-col">
+                <button class="btn btn-primary"><a href="#" class="redirectApp">Open</a></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="image-col text-center"><img
+                    src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
+                    alt=""></div>
+            <div class="app-text-col">
+                <h5 class="text-left">
+                    Chrome
+                </h5>
+            </div>
+            <div class="redirect-button-col">
+                <button class="btn btn-default continue">Continue</button>
+            </div>
+        </div>
+    </div>
+{include file="popup.tpl"}
