@@ -331,7 +331,7 @@ $(document).ready(function(e){
                                <label for="partner_api_limit">Overall Count</label>
                             </div>
                             <div class="col-md-6" style="width: 65%;">
-                                <input type="number" class="form-control" id="partner_overall_count" placeholder="Enter overall Count Limit" name="partner_overall_limit" autocomplete="off"/>
+                                <input type="number" class="form-control" id="partner_overall_count" placeholder="Enter overall Count Limit" value="1000" name="partner_overall_limit" autocomplete="off"/>
                             </div>
                         </div>
                         <div class="row">
