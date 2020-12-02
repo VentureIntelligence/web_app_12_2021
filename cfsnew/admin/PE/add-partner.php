@@ -16,13 +16,16 @@
 
                 
                
-                $partner_duration_from_o = $_POST['partner_duration_from'];
-                $date_1 = str_replace('/', '-', $partner_duration_from_o );
-                $partner_duration_from = date("Y-m-d", strtotime($date_1));
                 
-                $partner_duration_to_o = $_POST['partner_duration_to'];
-                $date_2 = str_replace('/', '-', $partner_duration_to_o );
-                $partner_duration_to = date("Y-m-d", strtotime($date_2));
+
+                $partner_validate_from_o = $_POST['partner_duration_from'];
+                $partner_validate_to_o = $_POST['partner_duration_to'];
+                $date1=date_create_from_format("d/m/Y",trim($partner_validate_from_o));
+                $partner_duration_from = date_format($date1,"Y-m-d H:i:s");
+                $date2=date_create_from_format("d/m/Y",trim($partner_validate_to_o));
+                $partner_duration_to = date_format($date2,"Y-m-d H:i:s");
+               //  $date_2 = str_replace('/', '-', $partner_duration_to_o );
+               //  $partner_duration_to = date("Y-m-d", strtotime($date_2));
                
                 //$partner_duration_from->format('Y-m-d h:i');
                 

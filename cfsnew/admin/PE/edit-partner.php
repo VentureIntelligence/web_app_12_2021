@@ -8,10 +8,18 @@
                 $partner_company = $_POST['partner_company'];
                 $partner_type = $_POST['partner_type'];
                 $partner_token = $_POST['partner_token'];
-                $partner_validate_from = $_POST['partner_validate_from'];
+                // $partner_validate_from = $_POST['partner_validate_from'];
              
                
-                $partner_validate_to = $_POST['partner_validate_to'];
+                // $partner_validate_to = $_POST['partner_validate_to'];
+
+                $partner_validate_from_o = $_POST['partner_validate_from'];
+                $partner_validate_to_o = $_POST['partner_validate_to'];
+                $date1=date_create_from_format("d/m/Y",trim($partner_validate_from_o));
+                $partner_validate_from = date_format($date1,"Y-m-d H:i:s");
+                $date2=date_create_from_format("d/m/Y",trim($partner_validate_to_o));
+                $partner_validate_to = date_format($date2,"Y-m-d H:i:s");
+                
 
 
 

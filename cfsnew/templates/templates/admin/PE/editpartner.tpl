@@ -288,7 +288,7 @@ table th, table td {
                             <div class="col-md-6" style="width: 60%;">
                             
                               <div class="input-group startdatepicker date">
-                                 <input class="form-control" type="text" id="sdate" name="partner_validate_from" value="{$partner_details.validityFrom}" placeholder="DD/MM/YYYY" readonly />
+                                 <input class="form-control" type="text" id="sdate" name="partner_validate_from" value="{$partner_details.validityFrom|date_format:"%d/%m/%Y"}" placeholder="DD/MM/YYYY" readonly />
                                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                               </div>
                               {* <input type="datetime" id="datetimepicker_from" name="partner_validate_from" value="{$partner_details.validityFrom}" placeholder="Validate From"/>		
@@ -303,7 +303,7 @@ table th, table td {
                             <div class="col-md-6" style="width: 60%;">
                               {* <input type="datetime" id="datetimepicker_to" name="partner_validate_to" value="{$partner_details.validityTo}" placeholder="Validate To"/> *}
                               <div class="input-group expiredatepicker date">
-                                 <input class="form-control" type="text" id="edate" name="partner_validate_to" value="{$partner_details.validityTo}" placeholder="DD/MM/YYYY" />
+                                 <input class="form-control" type="text" id="edate" name="partner_validate_to" value="{$partner_details.validityTo|date_format:"%d/%m/%Y"}" placeholder="DD/MM/YYYY" />
                                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                               </div>
                             </div>
@@ -323,7 +323,7 @@ table th, table td {
                             </div>
                             <div class="col-md-6" style="width: 53%;">
                               <input type="number" class="used_search_count" id="s_count" readonly/> 
-                              <input type="number" class="total_search_count" id="partner_search_count" name="partner_search_count" value="{$partner_details.dealCount}" placeholder="Enter Search Count"/>		
+                              <input type="number" class="total_search_count" id="partner_search_count" name="partner_search_count" value="{$partner_details.dealCount}" placeholder="Enter Deal Count"/>		
                             </div>
                         </div>
                         <div class="row">
@@ -332,7 +332,7 @@ table th, table td {
                             </div>
                             <div class="col-md-6" style="width: 53%;">
                               <input type="number" class="used_search_count" id="a_count" readonly/>
-                              <input type="number" class="total_search_count" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" placeholder="Enter API Count"/>		
+                              <input type="number" class="total_search_count" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" placeholder="Enter Company Count"/>		
                             </div>
                         </div>
                         
@@ -428,20 +428,7 @@ $(function() {
       partner_validate_to: "Please Enter To Date",
       partner_search_count: "Please Enter Search Count",
       partner_api_count: "Please Enter API Count",
-      partner_overall_count: { required: function(element) {
-                var err = "Please Enter overall count";
-                 var overallcount=parseInt($("#partner_search_count").val())+parseInt($("#partner_api_count").val());
-          var count=$("#partner_overall_count").val();
-         alert(count);
-                if (overallcount >= count) {
-                    err = "sum of search and api count exceeds";
-                    var flag=1;
-                    $('#count').val(flag);
-                   
-                } 
-                return err;
-                }  
-            },
+      partner_overall_count:"Please Enter overall count",
       partner_email: "Please Enter Email"
     }
   });
@@ -451,7 +438,7 @@ $(function() {
     $(function () {
     $(".startdatepicker,.expiredatepicker").datetimepicker({
         locale: "en",
-        format: "DD/MM/YYYY",
+        format:'DD/MM/YYYY',
         useCurrent: false,
         showTodayButton: true,
         showClear: true,
@@ -482,12 +469,17 @@ $(function() {
 	//Insert Partner Controls
     $("#update_internal_partner").on('submit', function(e){
        
-         
-         
-        e.preventDefault();
-        flag=$('#count').val();
-        alert(flag);
+           var overallcount=parseInt($("#partner_search_count").val())+parseInt($("#partner_api_count").val());
+          var count=$("#partner_overall_count").val();
+        
+                if (overallcount > count) {
+                    var flag=1;
+                  } 
+          e.preventDefault();
+        
         if(flag !=1){
+           $('#partner_search_count').css('border-color','#ccc');
+           $('#partner_api_count').css('border-color','#ccc');
         $.ajax({
             type: 'POST',
             url: "PE/edit-partner.php",
@@ -506,11 +498,13 @@ $(function() {
               
             }
         });
-        }
-       // }else{
+        
+        }else{
            
-       //    alert("overall count exceeds");
-       // }
+           alert("Company count and Deal count should not be greater than the overall count. ");
+           $('#partner_search_count').css('border-color','red');
+           $('#partner_api_count').css('border-color','red');
+        }
         return false;
     });
     //End Partner Controls
