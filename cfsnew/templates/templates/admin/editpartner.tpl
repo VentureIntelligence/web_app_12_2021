@@ -9,7 +9,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
 <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/development/src/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 {literal}
 <style type="text/css">
@@ -288,7 +288,7 @@ table th, table td {
                             <div class="col-md-6" style="width: 60%;">
                             
                               <div class="input-group startdatepicker date">
-                                 <input class="form-control" type="text" id="sdate" name="partner_validate_from" value="{$partner_details.validityFrom}" placeholder="DD/MM/YYYY" readonly />
+                                 <input class="form-control" type="text" id="sdate" name="partner_validate_from" value="{$partner_details.validityFrom|date_format:"%d/%m/%Y"}" placeholder="DD/MM/YYYY" readonly />
                                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                               </div>
                               {* <input type="datetime" id="datetimepicker_from" name="partner_validate_from" value="{$partner_details.validityFrom}" placeholder="Validate From"/>		
@@ -303,7 +303,7 @@ table th, table td {
                             <div class="col-md-6" style="width: 60%;">
                               {* <input type="datetime" id="datetimepicker_to" name="partner_validate_to" value="{$partner_details.validityTo}" placeholder="Validate To"/> *}
                               <div class="input-group expiredatepicker date">
-                                 <input class="form-control" type="text" id="edate" name="partner_validate_to" value="{$partner_details.validityTo}" placeholder="DD/MM/YYYY" />
+                                 <input class="form-control" type="text" id="edate" name="partner_validate_to" value="{$partner_details.validityTo|date_format:"%d/%m/%Y"}" placeholder="DD/MM/YYYY" />
                                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                               </div>
                             </div>
@@ -424,8 +424,8 @@ $(function() {
     
     $(function () {
     $(".startdatepicker,.expiredatepicker").datetimepicker({
-        locale: "fr",
-        format: "YYYY-MM-DD",
+        locale: "en",
+        format: "DD/MM/YYYY",
         useCurrent: false,
         showTodayButton: true,
         showClear: true,

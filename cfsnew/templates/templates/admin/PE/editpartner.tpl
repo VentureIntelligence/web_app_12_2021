@@ -9,7 +9,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
 <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/development/src/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 {literal}
 <style type="text/css">
@@ -288,7 +288,7 @@ table th, table td {
                             <div class="col-md-6" style="width: 60%;">
                             
                               <div class="input-group startdatepicker date">
-                                 <input class="form-control" type="text" id="sdate" name="partner_validate_from" value="{$partner_details.validityFrom}" placeholder="DD/MM/YYYY" readonly />
+                                 <input class="form-control" type="text" id="sdate" name="partner_validate_from" value="{$partner_details.validityFrom|date_format:"%d/%m/%Y"}" placeholder="DD/MM/YYYY" readonly />
                                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                               </div>
                               {* <input type="datetime" id="datetimepicker_from" name="partner_validate_from" value="{$partner_details.validityFrom}" placeholder="Validate From"/>		
@@ -303,27 +303,9 @@ table th, table td {
                             <div class="col-md-6" style="width: 60%;">
                               {* <input type="datetime" id="datetimepicker_to" name="partner_validate_to" value="{$partner_details.validityTo}" placeholder="Validate To"/> *}
                               <div class="input-group expiredatepicker date">
-                                 <input class="form-control" type="text" id="edate" name="partner_validate_to" value="{$partner_details.validityTo}" placeholder="DD/MM/YYYY" />
+                                 <input class="form-control" type="text" id="edate" name="partner_validate_to" value="{$partner_details.validityTo|date_format:"%d/%m/%Y"}" placeholder="DD/MM/YYYY" />
                                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                               </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                               <label id="req_answer">Deal Count</label>
-                            </div>
-                            <div class="col-md-6" style="width: 53%;">
-                              <input type="number" class="used_search_count" id="s_count" readonly/> 
-                              <input type="number" class="total_search_count" id="partner_search_count" name="partner_search_count" value="{$partner_details.dealCount}" placeholder="Enter Search Count"/>		
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                               <label id="req_answer">Company Count</label>
-                            </div>
-                            <div class="col-md-6" style="width: 53%;">
-                              <input type="number" class="used_search_count" id="a_count" readonly/>
-                              <input type="number" class="total_search_count" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" placeholder="Enter API Count"/>		
                             </div>
                         </div>
                         <div class="row">
@@ -335,6 +317,25 @@ table th, table td {
                               <input type="number" class="total_search_count" id="partner_overall_count" name="partner_overall_count" value="{$partner_details.overallCount}" placeholder="Enter Overall Count"/>		
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <label id="req_answer">Deal Count</label>
+                            </div>
+                            <div class="col-md-6" style="width: 53%;">
+                              <input type="number" class="used_search_count" id="s_count" readonly/> 
+                              <input type="number" class="total_search_count" id="partner_search_count" name="partner_search_count" value="{$partner_details.dealCount}" placeholder="Enter Deal Count"/>		
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <label id="req_answer">Company Count</label>
+                            </div>
+                            <div class="col-md-6" style="width: 53%;">
+                              <input type="number" class="used_search_count" id="a_count" readonly/>
+                              <input type="number" class="total_search_count" id="partner_api_count" name="partner_api_count" value="{$partner_details.companyCount}" placeholder="Enter Company Count"/>		
+                            </div>
+                        </div>
+                        
                         <div class="row r_email">
                            <div align="center" id="partner-external" class="partner-external">
                               <div class="col-md-6">
@@ -376,6 +377,7 @@ table th, table td {
                            </div>
                          <br />
                         <div align="center">
+                        <input type="hidden" name="count" id="count" value="">
                            <input type="submit" class="form-control submit-btn" name="submit"/>
                         </div>
                         <br />
@@ -415,7 +417,7 @@ $(function() {
       partner_validate_to: "required",
       partner_search_count: "required",
       partner_api_count: "required",
-      partner_overall_count: "required",
+      partner_overall_count:"required",
       partner_email: "required"
     },
     // Specify validation error messages
@@ -426,7 +428,7 @@ $(function() {
       partner_validate_to: "Please Enter To Date",
       partner_search_count: "Please Enter Search Count",
       partner_api_count: "Please Enter API Count",
-      partner_overall_count:"Please Enter Overall Count",
+      partner_overall_count:"Please Enter overall count",
       partner_email: "Please Enter Email"
     }
   });
@@ -435,8 +437,8 @@ $(function() {
     
     $(function () {
     $(".startdatepicker,.expiredatepicker").datetimepicker({
-        locale: "fr",
-        format: "YYYY-MM-DD",
+        locale: "en",
+        format:'DD/MM/YYYY',
         useCurrent: false,
         showTodayButton: true,
         showClear: true,
@@ -466,7 +468,18 @@ $(function() {
 });
 	//Insert Partner Controls
     $("#update_internal_partner").on('submit', function(e){
-        e.preventDefault();
+       
+           var overallcount=parseInt($("#partner_search_count").val())+parseInt($("#partner_api_count").val());
+          var count=$("#partner_overall_count").val();
+        
+                if (overallcount > count) {
+                    var flag=1;
+                  } 
+          e.preventDefault();
+        
+        if(flag !=1){
+           $('#partner_search_count').css('border-color','#ccc');
+           $('#partner_api_count').css('border-color','#ccc');
         $.ajax({
             type: 'POST',
             url: "PE/edit-partner.php",
@@ -485,6 +498,13 @@ $(function() {
               
             }
         });
+        
+        }else{
+           
+           alert("Company count and Deal count should not be greater than the overall count. ");
+           $('#partner_search_count').css('border-color','red');
+           $('#partner_api_count').css('border-color','red');
+        }
         return false;
     });
     //End Partner Controls

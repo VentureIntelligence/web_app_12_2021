@@ -390,7 +390,7 @@ $( document ).ready( function() {
 			function recreateTable() {
 				 table = $('#partnerApi').DataTable({
 				"autoWidth": true,
-                "order": [3,"DESC"],
+                "order": [[ 4, "desc" ]],
 				 data: partnerapi,
 				"ordering": true,
 				"columns": [
@@ -404,8 +404,26 @@ $( document ).ready( function() {
                             else
                                 return "No-Date";             
                             } 
+                     },
+                    { "data": "createdAt",
+                        render: function(data, type, full) {
+                            if (data != '')
+                                return data;
+                            else
+                                return "No-Date";             
+                        } 
+                    }
+				],
+                "columnDefs": [
+                    {
+                         "targets": 3,
+                         "orderData": 4
+                     },
+                     {
+                         "targets": 4,
+                         "visible": false
                      }
-				]
+                ]
 				});		
 			}		
 		$('#from_date, #to_date').on('change',function () {
@@ -518,6 +536,9 @@ $( document ).ready( function() {
                         </th>
                         <th >
                            Company Name
+                        </th>
+                        <th>
+                           Created Date
                         </th>
                         <th>
                            Created Date
