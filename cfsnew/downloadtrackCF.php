@@ -160,11 +160,22 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                       $boldStyle = array( 
                         'font'  => array( 'bold' => true ),
                         'borders' => array(
-                            'allborders' => array(
-                                'style' => PHPExcel_Style_Border::BORDER_THIN
-                              )
+                          'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        ),
+                        'alignment' => array(
+                                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                            ) 
+                      );
+                      $headerboldStyle = array( 
+                        'font'  => array( 'bold' => true ),
+                        'borders' => array(
+                          'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN
+                            )
                         ) 
-                    );
+                      );
                     //print_r($FinanceAnnual);
                     //$excelIndex = $this->createColumnsArray( 'BZ' );
                     // 1-based index
@@ -172,9 +183,9 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                             $objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
                             $objPHPExcel->getActiveSheet()->setCellValue('A3', $companyname)->getStyle("A3")->getFont()->setBold(true);
                             $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in '.$currencytext);
-                            $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->applyFromArray($boldStyle);
-                            $objPHPExcel->getActiveSheet()->setCellValue('A7', 'Statement of cash flows')->getStyle("A7")->applyFromArray($boldStyle);
-                            $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Net Profit/Loss Before Extraordinary Items And Tax')->getStyle("A8")->applyFromArray($boldStyle);
+                            $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->applyFromArray($headerboldStyle);
+                            $objPHPExcel->getActiveSheet()->setCellValue('A7', 'Statement of cash flows')->getStyle("A7")->applyFromArray($headerboldStyle);
+                            $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Net Profit/Loss Before Extraordinary Items And Tax')->getStyle("A8")->applyFromArray($headerboldStyle);
                             $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Net CashFlow From Operating Activities')->getStyle("A9") ->applyFromArray($headerArray);
                             $objPHPExcel->getActiveSheet()->setCellValue('A10', 'Net Cash Used In Investing Activities')->getStyle("A10")->applyFromArray($headerArray) ;
                             $objPHPExcel->getActiveSheet()->setCellValue('A11', 'Net Cash Used From Financing Activities')->getStyle("A11")->applyFromArray($headerArray) ;
@@ -219,28 +230,28 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                                else
                                {
                                     
-                                        if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);$NetPLBefore =round($tot,2); }
-                                        if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);$CashflowFromOperation =round($tot,2); } 
-                                        if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);$NetcashUsedInvestment =round($tot,2); }
-                                        if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);$NetcashFromFinance =round($tot,2); }
-                                        if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);$NetIncDecCash =round($tot,2); }
-                                        if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);$EquivalentEndYear =round($tot,2); }
+                                        if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);if($_GET['rconv'] =='r'){$NetPLBefore =number_format("$tot");}else{$NetPLBefore =round($tot,2);} }
+                                        if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);if($_GET['rconv'] =='r'){$CashflowFromOperation =number_format("$tot");}else{$CashflowFromOperation =round($tot,2);} } 
+                                        if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);if($_GET['rconv'] =='r'){$NetcashUsedInvestment =number_format("$tot");}else{$NetcashUsedInvestment =round($tot,2);} }
+                                        if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);if($_GET['rconv'] =='r'){$NetcashFromFinance =number_format("$tot");}else{$NetcashFromFinance =round($tot,2);} }
+                                        if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);if($_GET['rconv'] =='r'){$NetIncDecCash =number_format("$tot");}else{$NetIncDecCash =round($tot,2);}}
+                                        if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);if($_GET['rconv'] =='r'){$EquivalentEndYear =number_format("$tot");}else{$EquivalentEndYear =round($tot,2);} }
                                         
                                     
                                }
-                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle);
+                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->applyFromArray($headerboldStyle);
                                 $row=$row+2;
-                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetPLBefore )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetPLBefore )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                 $row++;
-                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$CashflowFromOperation )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$CashflowFromOperation )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                 $row++;
-                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetcashUsedInvestment )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetcashUsedInvestment )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                 $row++;
-                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$NetcashFromFinance )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$NetcashFromFinance )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                 $row++;
-                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetIncDecCash )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetIncDecCash )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                 $row++;
-                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$EquivalentEndYear )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$EquivalentEndYear )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                 $row++;
                                 $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth('20');
                                 $col++;	
@@ -282,11 +293,22 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                       $boldStyle = array( 
                         'font'  => array( 'bold' => true ),
                         'borders' => array(
-                            'allborders' => array(
-                                'style' => PHPExcel_Style_Border::BORDER_THIN
-                              )
+                          'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        ),
+                        'alignment' => array(
+                                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                            ) 
+                      );
+                      $headerboldStyle = array( 
+                        'font'  => array( 'bold' => true ),
+                        'borders' => array(
+                          'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN
+                            )
                         ) 
-                    );
+                      );
                     //print_r($FinanceAnnual);
                     //$excelIndex = $this->createColumnsArray( 'BZ' );
                   
@@ -295,9 +317,9 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                     $objPHPExcel->getActiveSheet()->setCellValue('A1', '© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.')->getStyle('A1')->getAlignment()->setWrapText(true);
                     $objPHPExcel->getActiveSheet()->setCellValue('A3', $companyname)->getStyle("A3")->getFont()->setBold(true);
                     $objPHPExcel->getActiveSheet()->setCellValue('A4', 'All Figures (unless otherwise specified) is in '.$currencytext);
-                    $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->applyFromArray($boldStyle);
-                    $objPHPExcel->getActiveSheet()->setCellValue('A7', 'Statement of cash flows')->getStyle("A7")->applyFromArray($boldStyle);
-                    $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Net Profit/Loss Before Extraordinary Items And Tax')->getStyle("A8")->applyFromArray($boldStyle);
+                    $objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->applyFromArray($headerboldStyle);
+                    $objPHPExcel->getActiveSheet()->setCellValue('A7', 'Statement of cash flows')->getStyle("A7")->applyFromArray($headerboldStyle);
+                    $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Net Profit/Loss Before Extraordinary Items And Tax')->getStyle("A8")->applyFromArray($headerboldStyle);
                     $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Net CashFlow From Operating Activities')->getStyle("A9") ->applyFromArray($headerArray);
                     $objPHPExcel->getActiveSheet()->setCellValue('A10', 'Net Cash Used In Investing Activities')->getStyle("A10")->applyFromArray($headerArray) ;
                     $objPHPExcel->getActiveSheet()->setCellValue('A11', 'Net Cash Used From Financing Activities')->getStyle("A11")->applyFromArray($headerArray) ;
@@ -332,28 +354,28 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                                else
                                {
                                     
-                                if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);$NetPLBefore =round($tot,2); }
-                                if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);$CashflowFromOperation =round($tot,2); } 
-                                if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);$NetcashUsedInvestment =round($tot,2); }
-                                if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);$NetcashFromFinance =round($tot,2); }
-                                if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);$NetIncDecCash =round($tot,2); }
-                                if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);$EquivalentEndYear =round($tot,2); }
+                                if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);if($_GET['rconv'] =='r'){$NetPLBefore =number_format("$tot");}else{$NetPLBefore =round($tot,2);} }
+                                if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);if($_GET['rconv'] =='r'){$CashflowFromOperation =number_format("$tot");}else{$CashflowFromOperation =round($tot,2);} } 
+                                if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);if($_GET['rconv'] =='r'){$NetcashUsedInvestment =number_format("$tot");}else{$NetcashUsedInvestment =round($tot,2);} }
+                                if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);if($_GET['rconv'] =='r'){$NetcashFromFinance =number_format("$tot");}else{$NetcashFromFinance =round($tot,2);} }
+                                if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);if($_GET['rconv'] =='r'){$NetIncDecCash =number_format("$tot");}else{$NetIncDecCash =round($tot,2);} }
+                                if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);if($_GET['rconv'] =='r'){$EquivalentEndYear =number_format("$tot");}else{$EquivalentEndYear =round($tot,2);} }
                                  
                                     
                                }
-                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle);
+                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,"FY".$FinanceAnnual[$i][FY] )->getStyleByColumnAndRow($col,$row)->applyFromArray($headerboldStyle);
                                $row=$row+2;
-                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetPLBefore )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetPLBefore )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                $row++;
-                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$CashflowFromOperation )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$CashflowFromOperation )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                $row++;
-                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetcashUsedInvestment )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetcashUsedInvestment )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                $row++;
-                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$NetcashFromFinance )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$NetcashFromFinance )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                $row++;
-                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetIncDecCash )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$NetIncDecCash )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                $row++;
-                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$EquivalentEndYear )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
+                               $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$EquivalentEndYear )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
                                $row++;
                                $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth('20');
                                $col++;	
