@@ -218,6 +218,7 @@ if(count($FinanceAnnual_cashflow) == 0){
         <li data-row="filings" href="javascript:;" class="subMenu" id="filingsMenu">FILINGS</li>
         <!-- <li data-row="rating-info" href="javascript:;" class="subMenu">RATINGS</li> -->
         <li data-row="funding-ajax" href="javascript:;" class="subMenu" id="funding">FUNDING</li>
+        <li data-row="ma-ajax" href="javascript:;" class="subMenu" id="mamenu">M&A</li>
         <li data-row="master-data-all" href="javascript:;" class="subMenu">MASTER DATA</li>
        <!--  <li id="mcadirector" data-row="signatories_result" href="javascript:;" class="subMenu">BOARD OF DIRECTORS</li>
         <li data-row="chargesRegistered" href="javascript:;" class="subMenu">INDEX OF CHARGES</li> -->
@@ -270,7 +271,8 @@ if(count($FinanceAnnual_cashflow) == 0){
         $style = '';
     }
 ?>
-<!-- <div class="growth_fulldetails" style="<?php echo $style; ?>">
+<?php if(BASE_URL == "//dev.vionweb.com/"){?>
+ <div class="growth_fulldetails" style="<?php echo $style; ?>">
     <?php
     $growth_precentage = array();
      $ResultType1="SELECT MAX( ResultType ) AS ResultType FROM cagr WHERE CId_FK =".$_GET['vcid']." AND FY !=  ''";
@@ -464,8 +466,8 @@ if(count($FinanceAnnual_cashflow) == 0){
         <?php  } $j++; }      ?>
    <div class="">
    </div>
-</div>  -->
-    <?php }
+</div> 
+    <?php } }
     if(count($FinanceAnnual) > 0){
      $Fycount=0;
      for($i=0;$i<count($FinanceAnnual);$i++){

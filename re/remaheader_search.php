@@ -1092,7 +1092,7 @@ if($passwrd != 'P')
      <div>
          <a href="mailto:research@ventureintelligence.com">research@ventureintelligence.com</a>
          <br/>
-         +91-44-42185180/82
+         +91-44-42185180
      </div>
  </div>
 </td>

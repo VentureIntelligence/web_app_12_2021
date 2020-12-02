@@ -2672,8 +2672,9 @@
                                                 if ($dealsinvolvingValue != '--' && $dealsinvolvingValue != '') {
                                                     if($dealsinvolvingValue == 1)
                                                         {
-                                                            $dealsinvolving .= "peinv_inv.newinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 1)
-                                                            and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 0) ";
+                                                            // $dealsinvolving .= "peinv_inv.newinvestor = '1' and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and existinvestor = 1)
+                                                            // and NOT EXISTS(select 'x' from peinvestments_investors where peid= peinv_inv.peid and newinvestor = 0) ";
+                                                            $dealsinvolving .= "peinv_inv.newinvestor = '1' ";
                                                         }
                                                         if($dealsinvolvingValue == 2)
                                                         {
