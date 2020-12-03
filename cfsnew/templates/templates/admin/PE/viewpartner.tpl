@@ -248,12 +248,12 @@ width:20px;
                         <br />
 						<div align="center">
                            <label id="req_answer">Validate From</label>
-                           <input type="text" name="partner_validate_from" value="{$partner_details.validityFrom}" required readonly/>		
+                           <input type="text" name="partner_validate_from" value="{$partner_details.validityFrom|date_format:"%d/%m/%Y"}" required readonly/>		
                         </div>
                         <br />
 						<div align="center">
                            <label id="req_answer">Validate To</label>
-                           <input type="text" name="partner_validate_to" value="{$partner_details.validityTo}" required readonly/>		
+                           <input type="text" name="partner_validate_to" value="{$partner_details.validityTo|date_format:"%d/%m/%Y"}" required readonly/>		
                         </div>
                         <br />
 						<div align="center">
