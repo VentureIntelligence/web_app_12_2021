@@ -22,6 +22,7 @@ padding:0px 10px; }
             -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             z-index:1000;
+            display:none;
         }
         .backdrop{
             height:100vh;
@@ -371,6 +372,7 @@ padding:0px 10px; }
             var redirectButton = $(".redirectApp");
             var loginTextSpan = $(".login-type");
             if (Android) {
+                $(".mobileRedirectPopup").show();
                 if (login == "cfs") {
                     loginTextSpan.text("CFS");
                     redirectButton.attr("href", "intent://scan/#Intent;scheme=Venture+intelligence;package=com.venture.intelligence;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.venture.intelligence;end")
