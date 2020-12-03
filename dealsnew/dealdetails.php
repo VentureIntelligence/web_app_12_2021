@@ -6686,11 +6686,11 @@ try {
                                          
                                          }else{ 
                                             $pageTitle="Request for more deal data- Investment";
-                                              echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" href="mailto:research@ventureintelligence.com?subject=Request for more deal data&body=<?php echo $mailurl;?> " style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this. </p>';
+                                              echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" href="mailto:research@ventureintelligence.com?subject=Check for M&A Activity&body=<?php echo $mailurl;?> " style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this. </p>';
                                         
                                             
                                          }
-                                     }else{ echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;" href="mailto:research@ventureintelligence.com?subject=Request for more deal data&body=<?php echo $mailurl;?> " >Click Here</a> to double check with Venture Intelligence on this. </p>';
+                                     }else{ echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;" href="mailto:research@ventureintelligence.com?subject=Check for M&A Activity&body=<?php echo $mailurl;?> " >Click Here</a> to double check with Venture Intelligence on this. </p>';
                                            
                                      }
                                  
