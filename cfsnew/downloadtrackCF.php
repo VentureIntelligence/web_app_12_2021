@@ -189,7 +189,7 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                             $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Net CashFlow From Operating Activities')->getStyle("A9") ->applyFromArray($headerArray);
                             $objPHPExcel->getActiveSheet()->setCellValue('A10', 'Net Cash Used In Investing Activities')->getStyle("A10")->applyFromArray($headerArray) ;
                             $objPHPExcel->getActiveSheet()->setCellValue('A11', 'Net Cash Used From Financing Activities')->getStyle("A11")->applyFromArray($headerArray) ;
-                            $objPHPExcel->getActiveSheet()->setCellValue('A12', 'Net Inc/Dec In Cash And Cash Equivalents')->getStyle("A12")->applyFromArray($boldStyle);
+                            $objPHPExcel->getActiveSheet()->setCellValue('A12', 'Net Inc/Dec In Cash And Cash Equivalents')->getStyle("A12")->applyFromArray($headerboldStyle);
                             $objPHPExcel->getActiveSheet()->setCellValue('A13', 'Cash And Cash Equivalents End Of Year')->getStyle("A14") ->applyFromArray($headerArray);
                             $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
                             $objPHPExcel->getActiveSheet()->setTitle('Consolidated');
@@ -269,6 +269,7 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                   $FinanceAnnual = $cashflow->getFullList(1,100,$fieldscf,$wherecf,$ordercash,"name",$groupcash); 
                    // print_r($FinanceAnnual);
                   // $excelIndex = $this->createColumnsArray( 'BZ' );
+                 
                   $finquery=mysql_query("SELECT `FCompanyName` FROM `cprofile` WHERE `Company_Id`='".$FinanceAnnual[0][CId_FK]."'");
                     while($myrow=mysql_fetch_array($finquery)){
                         $companyname=$myrow[0];
@@ -323,7 +324,7 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                     $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Net CashFlow From Operating Activities')->getStyle("A9") ->applyFromArray($headerArray);
                     $objPHPExcel->getActiveSheet()->setCellValue('A10', 'Net Cash Used In Investing Activities')->getStyle("A10")->applyFromArray($headerArray) ;
                     $objPHPExcel->getActiveSheet()->setCellValue('A11', 'Net Cash Used From Financing Activities')->getStyle("A11")->applyFromArray($headerArray) ;
-                    $objPHPExcel->getActiveSheet()->setCellValue('A12', 'Net Inc/Dec In Cash And Cash Equivalents')->getStyle("A12")->applyFromArray($boldStyle);
+                    $objPHPExcel->getActiveSheet()->setCellValue('A12', 'Net Inc/Dec In Cash And Cash Equivalents')->getStyle("A12")->applyFromArray($headerboldStyle);
                     $objPHPExcel->getActiveSheet()->setCellValue('A13', 'Cash And Cash Equivalents End Of Year')->getStyle("A14") ->applyFromArray($headerArray);
                     $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
                             $objPHPExcel->getActiveSheet()->setTitle('Standalone');

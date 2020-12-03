@@ -207,7 +207,7 @@ if($_GET['template']!="old"){
 			$objPHPExcel->getActiveSheet()->setCellValue('A22', 'Other current liabilities')->getStyle("A22")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A23', 'Short-term provisions')->getStyle("A23")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'Total current liabilities')->getStyle("A24")->applyFromArray($headerboldStyle);
-			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Total equity and liabilities')->getStyle("A25")->applyFromArray($headerboldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');
+			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Total equity and liabilities')->getStyle("A25")->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A26', '')->getStyle("A26")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Assets [Abstract]')->getStyle("A27")->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A28', '')->getStyle("A28")->applyFromArray($headerArray) ;
@@ -231,7 +231,7 @@ if($_GET['template']!="old"){
 			$objPHPExcel->getActiveSheet()->setCellValue('A46', 'Short-term loans and advances')->getStyle("A46")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A47', 'Other current assets')->getStyle("A47") ->applyFromArray($headerArray);
 			$objPHPExcel->getActiveSheet()->setCellValue('A48', 'Total current assets')->getStyle("A48")->applyFromArray($headerboldStyle);
-			$objPHPExcel->getActiveSheet()->setCellValue('A49', 'Total assets')->getStyle("A49")->applyFromArray($headerboldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');
+			$objPHPExcel->getActiveSheet()->setCellValue('A49', 'Total assets')->getStyle("A49")->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
 			$objPHPExcel->getActiveSheet()->setTitle('Consolidated');
 			for($i=0;$i<count($FinanceAnnual);$i++){
@@ -366,7 +366,7 @@ if($_GET['template']!="old"){
 			   $row++;
 			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_current_liabilities )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 			   $row++;
-			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_equity_liabilities )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');
+			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_equity_liabilities )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 			   $row=$row+2;
 			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 			   $row=$row+2;
@@ -406,7 +406,7 @@ if($_GET['template']!="old"){
 			   $row++;
 			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_current_assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 			   $row++;
-			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Total_assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');
+			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Total_assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 			   $row++;
 
 				$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth('20');
@@ -490,7 +490,7 @@ if($_GET['template']!="old"){
 			$objPHPExcel->getActiveSheet()->setCellValue('A22', 'Other current liabilities')->getStyle("A22")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A23', 'Short-term provisions')->getStyle("A23")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'Total current liabilities')->getStyle("A24")->applyFromArray($headerboldStyle);
-			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Total equity and liabilities')->getStyle("A25")->applyFromArray($headerboldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');
+			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Total equity and liabilities')->getStyle("A25")->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A26', '')->getStyle("A26")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Assets [Abstract]')->getStyle("A27")->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A28', '')->getStyle("A28")->applyFromArray($headerArray) ;
@@ -514,7 +514,7 @@ if($_GET['template']!="old"){
 			$objPHPExcel->getActiveSheet()->setCellValue('A46', 'Short-term loans and advances')->getStyle("A46")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A47', 'Other current assets')->getStyle("A47") ->applyFromArray($headerArray);
 			$objPHPExcel->getActiveSheet()->setCellValue('A48', 'Total current assets')->getStyle("A48")->applyFromArray($headerboldStyle);
-			$objPHPExcel->getActiveSheet()->setCellValue('A49', 'Total assets')->getStyle("A49")->applyFromArray($headerboldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');
+			$objPHPExcel->getActiveSheet()->setCellValue('A49', 'Total assets')->getStyle("A49")->applyFromArray($headerboldStyle);
     $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
 			$objPHPExcel->getActiveSheet()->setTitle('Standalone');
 			for($i=0;$i<count($FinanceAnnual);$i++){
@@ -648,7 +648,7 @@ if($_GET['template']!="old"){
 				$row++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_current_liabilities )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_equity_liabilities )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_equity_liabilities )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 				$row=$row+2;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 				$row=$row+2;
@@ -688,7 +688,7 @@ if($_GET['template']!="old"){
 				$row++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$T_current_assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Total_assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('BBBBBB');
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Total_assets )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 				$row++;
 				
 				$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth('20');
