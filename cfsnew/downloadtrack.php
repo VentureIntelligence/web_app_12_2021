@@ -132,7 +132,7 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
     
 if(isset($_GET['type']) && $_GET['type']=='consolidated'){
     $fields = array("PLStandard_Id","CId_FK","IndustryId_FK","OptnlIncome","OtherIncome","OptnlAdminandOthrExp","OptnlProfit","EBITDA","Interest","EBDT","Depreciation","EBT","Tax","PAT","FY","TotalIncome","BINR","DINR","EmployeeRelatedExpenses","ForeignExchangeEarningandOutgo","EarninginForeignExchange","OutgoinForeignExchange","EBT_before_Priod_period","Priod_period","CostOfMaterialsConsumed","PurchasesOfStockInTrade","ChangesInInventories","CSRExpenditure","OtherExpenses","CurrentTax","DeferredTax","total_profit_loss_for_period","profit_loss_of_minority_interest");
-	
+	$order="FY DESC";
 	$where = "CId_FK = ".$_GET['vcid']." and FY !='' and ResultType='1'";
 	$FinanceAnnual = $plstandard->getFullList(1,100,$fields,$where,$order,"name");
 	$finquery=mysql_query("SELECT `FCompanyName` FROM `cprofile` WHERE `Company_Id`='".$FinanceAnnual[0][CId_FK]."'");
@@ -192,11 +192,11 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'EBT')->getStyle("A24")->applyFromArray($boldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Current tax')->getStyle("A25")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A26', 'Deferred tax')->getStyle("A26")->applyFromArray($headerArray) ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27")->applyFromArray($boldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A28', 'PAT')->getStyle("A28")->applyFromArray($boldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A29', 'Profit (loss) of minority interest')->getStyle("A29")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A30', 'Total profit (loss) for period')->getStyle("A30")->applyFromArray($headerArray) ;    
-			$objPHPExcel->getActiveSheet()->setCellValue('A31', 'EPS ')->getStyle("A31")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A31', 'EPS ')->getStyle("A31")->applyFromArray($boldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A32', '(Basic in INR)')->getStyle("A32")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A33', '(Diluted in INR)')->getStyle("A33")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A35', 'Foreign Exchange Earning and Outgo:')->getStyle("A35") ->applyFromArray($headerArray);
@@ -326,7 +326,7 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 				$row++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$Depreciation )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBT_before_Priod_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$EBT_before_Priod_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($headerArray) ;
 				$row++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$Priod_period )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray);
 				$row++;
@@ -407,7 +407,7 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 			$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Particulars')->getStyle("A6")->applyFromArray($boldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A7', 'Operational Income')->getStyle("A7")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Other Income')->getStyle("A8") ->applyFromArray($headerArray);
-			$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Total Income')->getStyle("A9")->applyFromArray($boldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Total Income')->getStyle("A9") ->applyFromArray($boldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A10', 'Cost of materials consumed')->getStyle("A10")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A11', 'Purchases of stock-in-trade')->getStyle("A11")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A12', 'Changes in Inventories')->getStyle("A12") ->applyFromArray($headerArray);
@@ -425,9 +425,9 @@ if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'EBT')->getStyle("A24")->applyFromArray($boldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Current tax')->getStyle("A25")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A26', 'Deferred tax')->getStyle("A26")->applyFromArray($headerArray) ;
-			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27")->applyFromArray($boldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A27', 'Tax')->getStyle("A27")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A28', 'PAT')->getStyle("A28")->applyFromArray($boldStyle);
-			$objPHPExcel->getActiveSheet()->setCellValue('A29', 'EPS ')->getStyle("A29")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A29', 'EPS ')->getStyle("A29")->applyFromArray($boldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A30', '(Basic in INR)')->getStyle("A30")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A31', '(Diluted in INR)')->getStyle("A31")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A33', 'Foreign Exchange Earning and Outgo:')->getStyle("A33") ->applyFromArray($headerArray);
