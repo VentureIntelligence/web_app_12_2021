@@ -11638,7 +11638,7 @@ padding:0px 10px; }
 
         $(document).ready(function(){
             var outerWidth =  window.outerWidth;
-            var innerWidth =  654;
+            var innerWidth =  600;
             console.log("innerWidth",innerWidth)
             var outerHeight =  window.outerHeight;
             popup(outerWidth);
@@ -11651,6 +11651,7 @@ padding:0px 10px; }
                     $(".mobileRedirectPopup").css("transform","scale(2.6)");
                 }
             }else if(IOS){
+                outerWidth="100vw";
                 innerWidth=outerWidth;
             }            
             $(".mobileRedirectPopup").width(innerWidth);

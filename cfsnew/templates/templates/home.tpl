@@ -390,6 +390,19 @@ padding:0px 10px; }
                 $(".backdrop").hide();
             }
         })
+        var Android = navigator.userAgent.match(/Android/i);
+        if (!Android) {
+                if (login == "cfs") {
+                    loginTextSpan.text("CFS");
+                    redirectButton.attr("href", "intent://scan/#Intent;scheme=Venture+intelligence;package=com.venture.intelligence;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.venture.intelligence;end")
+
+                }
+               
+            } else {
+                // alert("IOS")
+                $(".mobileRedirectPopup").hide();
+                $(".backdrop").hide();
+            }
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
