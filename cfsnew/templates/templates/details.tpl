@@ -1754,6 +1754,33 @@ function autoResize(id){
 
         </form>
     </div>
+<div class="lb" id="popup-box-dealsma">
+    <div class="title">Send this to Venture</div>
+        <form>
+            <div class="entry">
+                    <label> To*</label>
+                    <input type="text" name="toaddress_fc" class="toaddress_fcma" id="toaddress_fc"  value="research@ventureintelligence.com"/>
+            </div>
+            <div class="entry">
+                    <h5>Subject*</h5>
+
+                    
+                        <p>Check for M&A activity</p>
+                        <input type="hidden" name="subject_fc" class="subject_fcma" id="subject_fc" value="Check for M&A activity"  />
+                    
+            </div>
+            <div class="entry">
+                    <h5>Link</h5>
+                    <p >https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}  <input type="hidden" name="message_fc" class="message_fcma" id="message_fc" value="https:{$BASE_URL}cfsnew/details.php?vcid={$VCID}"  />   
+                     <input type="hidden" name="useremail_fc" class="useremail_fcma" id="useremail_fc" value="{$SESSION_UserEmail}"  /> </p>
+            </div>
+            <div class="entry">
+                <input type="button" value="Submit" id="mailfnbtnma" />
+                <input type="button" value="Cancel" id="cancelfnbtnma" />
+            </div>
+
+        </form>
+    </div>
 
 <div class="lb" id="popup-box-FY-data">
     <div class="title">Send this to Venture</div>
@@ -2922,6 +2949,48 @@ $('#cancelfnbtn').click(function(){
 
                         }else{
                             jQuery('#popup-box-deals').fadeOut();   
+                            jQuery('#maskscreen').fadeOut(1000);
+                            alert("Try Again");
+                        }
+                    },
+                    error:function(){
+                        jQuery('#preloading').fadeOut();
+                        alert("There was some problem sending mail...");
+                    }
+
+                });
+
+            return false;
+        });
+$(document).on( 'click','#deals_datama', function() {
+
+    jQuery('#maskscreen').fadeIn(1000);
+    jQuery('#popup-box-dealsma').fadeIn();   
+    return false;
+    
+});
+$('#cancelfnbtnma').click(function(){ 
+                     
+            jQuery('#popup-box-dealsma').fadeOut();   
+            jQuery('#maskscreen').fadeOut(1000);
+            return false;
+        });
+        
+         $('#mailfnbtnma').click(function(e){ 
+            e.preventDefault();
+
+                $.ajax({
+                    url: 'ajaxsendmailma.php',
+                     type: "POST",
+                    data: { to : $(".toaddress_fcma").val(), subject : $(".subject_fcma").val(), message : $(".message_fcma").val() , userMail : $(".useremail_fcma").val()  },
+                    success: function(data){
+                            if(data=="1"){
+                                 alert("Mail Sent Successfully");
+                                jQuery('#popup-box-dealsma').fadeOut();   
+                                jQuery('#maskscreen').fadeOut(1000);
+
+                        }else{
+                            jQuery('#popup-box-dealsma').fadeOut();   
                             jQuery('#maskscreen').fadeOut(1000);
                             alert("Try Again");
                         }
