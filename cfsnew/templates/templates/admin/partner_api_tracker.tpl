@@ -406,6 +406,7 @@ $( document ).ready( function() {
 			function recreateTable() {
 				 table = $('#partnerApi').DataTable({
 				"autoWidth": true,
+                 "order": [[ 4, "desc" ]],
 				 data: partnerapi,
 				"ordering": true,
 				"columns": [
@@ -415,7 +416,7 @@ $( document ).ready( function() {
 					{ "data": "createdAt",
                         render: function(data, type, full) {
                             if (data != '')
-                                return moment(new Date(data)).locale('el').format('DD/MM/YYYY HH:mm:ss');
+                                return moment(new Date(data)).locale('en').format('DD/MM/YYYY HH:mm:ss');
                             else
                                 return "No-Date";             
                             } 

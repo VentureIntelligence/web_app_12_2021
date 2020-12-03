@@ -8,7 +8,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
 <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/development/src/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 {literal}
 <style type="text/css">
@@ -310,7 +310,7 @@ $(document).ready(function(e){
                             </div>
                             <div class="col-md-6" style="width: 65%;">
                                <div class="input-group startdatepicker date">
-                                    <input class="form-control" type="text" id="sdate" autocomplete="off" name="partner_duration_from" value="" placeholder="YYYY-MM-DD" />
+                                    <input class="form-control" type="text" id="sdate" autocomplete="off" name="partner_duration_from" value="" placeholder="DD/MM/YYYY" />
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
@@ -321,25 +321,9 @@ $(document).ready(function(e){
                             </div>
                             <div class="col-md-6" style="width: 65%;">
                                 <div class="input-group expiredatepicker date">
-                                    <input class="form-control" type="text" id="edate" autocomplete="off" name="partner_duration_to" value="" placeholder="YYYY-MM-DD" />
+                                    <input class="form-control" type="text" id="edate" autocomplete="off" name="partner_duration_to" value="" placeholder="DD/MM/YYYY" />
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                               <label for="partner_search_limit">Deal Count</label>
-                            </div>
-                            <div class="col-md-6" style="width: 65%;">
-                                <input type="number" class="form-control" placeholder="Enter Search Count Limit" name="partner_search_limit" autocomplete="off"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                               <label for="partner_api_limit">Company Count</label>
-                            </div>
-                            <div class="col-md-6" style="width: 65%;">
-                                <input type="number" class="form-control" placeholder="Enter API Count Limit" name="partner_api_limit" autocomplete="off"/>
                             </div>
                         </div>
                         <div class="row">
@@ -347,9 +331,26 @@ $(document).ready(function(e){
                                <label for="partner_api_limit">Overall Count</label>
                             </div>
                             <div class="col-md-6" style="width: 65%;">
-                                <input type="number" class="form-control" placeholder="Enter overall Count Limit" name="partner_overall_limit" autocomplete="off"/>
+                                <input type="number" class="form-control" id="partner_overall_count" placeholder="Enter overall Count Limit" value="1000" name="partner_overall_limit" autocomplete="off"/>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <label for="partner_search_limit">Deal Count</label>
+                            </div>
+                            <div class="col-md-6" style="width: 65%;">
+                                <input type="number" class="form-control" id="partner_search_count" placeholder="Enter Deal Count Limit" name="partner_search_limit" autocomplete="off"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <label for="partner_api_limit">Company Count</label>
+                            </div>
+                            <div class="col-md-6" style="width: 65%;">
+                                <input type="number" class="form-control" id="partner_api_count" placeholder="Enter Company Count Limit" name="partner_api_limit" autocomplete="off"/>
+                            </div>
+                        </div>
+                   
                         
                         <div id="p_external_control" class="p_external_control">
                         <div class="row"  >
@@ -434,8 +435,8 @@ $(document).ready(function(e){
     //DatePicker
     $(function () {
     $(".startdatepicker,.expiredatepicker").datetimepicker({
-        locale: "fr",
-        format: "YYYY-MM-DD",
+        locale: "en",
+        format: "DD/MM/YYYY",
         useCurrent: false,
         showTodayButton: true,
         showClear: true,
@@ -506,7 +507,16 @@ $(document).ready(function(e){
     
     //Insert Datas
     $("#insert_internal_partner").on('submit', function(e){
+         var overallcount=parseInt($("#partner_search_count").val())+parseInt($("#partner_api_count").val());
+          var count=$("#partner_overall_count").val();
+        
+                if (overallcount > count) {
+                    var flag=1;
+                  } 
         e.preventDefault();
+         if(flag !=1){
+           $('#partner_search_count').css('border-color','#ccc');
+           $('#partner_api_count').css('border-color','#ccc');
         $.ajax({
             type: 'POST',
             url: "add-partner.php",
@@ -531,6 +541,12 @@ $(document).ready(function(e){
                 
             }
         });
+        }else{
+           
+           alert("Company count and deal count should not be greater than the overall count. ");
+           $('#partner_search_count').css('border-color','red');
+           $('#partner_api_count').css('border-color','red');
+        }
         return false;
     });
 
