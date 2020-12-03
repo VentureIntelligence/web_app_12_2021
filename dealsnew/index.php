@@ -11651,7 +11651,7 @@ padding:0px 10px; }
                     $(".mobileRedirectPopup").css("transform","scale(2.6)");
                 }
             }else if(IOS){
-                outerWidth=475;
+                outerWidth=450;
                 innerWidth=outerWidth;
             }            
             $(".mobileRedirectPopup").width(innerWidth);
