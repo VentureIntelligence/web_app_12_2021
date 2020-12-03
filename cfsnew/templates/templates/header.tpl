@@ -437,7 +437,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
     <link rel="stylesheet" type="text/css" href="css/token-input.css" />
 <link rel="stylesheet" type="text/css" href="css/token-input-facebook.css" />
 <script type="text/javascript" src="js/jquery.tokeninput.js"></script> 
-
+<script type="text/javascript" src="../dealsnew/js/jquery.multiselect.js"></script> 
     <script type="text/javascript">
     
         
@@ -1474,13 +1474,13 @@ filter: alpha(opacity=75);
 <div class="search-main">
 <ul>
 <li><label>INDUSTRY</label> 
-    <select id="answer[Industry]" name="answer[Industry]"  class="" forError="Industry" onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
+    <select id="answer[Industry]" name="answer[Industry]" multiple="multiple"  class="multi-select1" forError="Industry" onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
             <option value="" >Please Select an Industry</option>
             {html_options options=$industries selected=$REQUEST_Answer.Industry}
     </select></li>
     
     <li><label>SECTOR  </label> <span style="float:left;" id="sectordisplay">
-    <select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
+    <select id="answer[Sector]" name="answer[Sector]"  multiple="multiple"  class="multi-select1" forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
                 <option value="" >Please Select a Sector</option>
              
                {if $REQUEST_Answer.Industry neq null}
@@ -1524,13 +1524,13 @@ filter: alpha(opacity=75);
 
 <ul>
 <li><label>INDUSTRY</label> 
-    <select id="answer[Industry]" name="answer[Industry]"  class="" forError="Industry" disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
+    <select id="answer[Industry]" name="answer[Industry]" multiple="multiple"  class="multi-select1" forError="Industry" disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
             <option value="" >Please Select an Industry</option>
             {html_options options=$industries selected=$REQUEST_Answer.Industry}
     </select></li>
     
     <li><label>SECTOR  </label> <span style="float:left;" id="sectordisplay">
-    <select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
+    <select id="answer[Sector]" name="answer[Sector]"  multiple="multiple"  class="multi-select1" forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
                 <option value="" >Please Select a Sector</option>
              
                {if $REQUEST_Answer.Industry neq null}
@@ -1625,13 +1625,13 @@ filter: alpha(opacity=75);
 <div class="search-main">
 <ul>
 <li><label>INDUSTRY</label> 
-    <select id="answer[Industry]" name="answer[Industry]"  class="" forError="Industry" onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
+    <select id="answer[Industry]" name="answer[Industry]"  multiple forError="Industry" onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" style="width: 210px;">
             <option value="" >Please Select an Industry</option>
             {html_options options=$industries selected=$REQUEST_Answer.Industry}
     </select></li>
     
     <li><label>SECTOR  </label> <span style="float:left;" id="sectordisplay">
-    <select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
+    <select id="answer[Sector]" name="answer[Sector]"  multiple forError="Sector" {if $REQUEST_Answer.Industry eq null} disabled {/if}>
                 <option value="" >Please Select a Sector</option>
              
                {html_options options=$sectors selected=$REQUEST_Answer.Sector}
