@@ -11490,7 +11490,7 @@ padding:0px 10px; }
             display: flex;
             /* margin-left: -15px;
             margin-left: -15px; */
-            margin: 10px 0;
+            margin: 18px 0;
         }
 
         .image-col {
@@ -11644,16 +11644,32 @@ padding:0px 10px; }
             popup(outerWidth);
             var Android = navigator.userAgent.match(/Android/i);
             var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            // if(Android){
+            //     if(outerWidth < 400){
+            //         $(".mobileRedirectPopup").css("transform","scale(2.2)");
+            //     }else{
+            //         $(".mobileRedirectPopup").css("transform","scale(2.6)");
+            //     }
+            // }else if(IOS){
+            //     outerWidth=500;
+            //     innerWidth=outerWidth;
+            // }    
             if(Android){
-                if(outerWidth < 400){
-                    $(".mobileRedirectPopup").css("transform","scale(2.2)");
-                }else{
-                    $(".mobileRedirectPopup").css("transform","scale(2.6)");
-                }
+                // if(outerWidth < 400){
+                //     $(".mobileRedirectPopup").css("transform","scale(1.6)");
+                // }else{
+                    $(".mobileRedirectPopup").css("transform","scale(1.6)");
+                //}
             }else if(IOS){
-                outerWidth=500;
+                
+                
+                    $(".mobileRedirectPopup").css("transform","scale(1.6)"); 
+                
+                    outerWidth="61%";
                 innerWidth=outerWidth;
-            }            
+
+                
+            }        
             $(".mobileRedirectPopup").width(innerWidth);
             $(window).resize(function(){
                 var ow =  window.outerWidth;
