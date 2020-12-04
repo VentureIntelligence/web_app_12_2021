@@ -28,6 +28,12 @@
 
 {literal}
     <style>
+    .multi{
+      display:none !important;
+    }
+    button.ui-multiselect.ui-widget.ui-state-default.ui-corner-all{
+      margin-bottom:auto;
+    }
     .ui-multiselect span.ui-icon {
     float: right;
 }
