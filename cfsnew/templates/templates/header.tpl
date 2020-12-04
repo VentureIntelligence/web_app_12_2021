@@ -33,6 +33,7 @@
     }
     button.ui-multiselect.ui-widget.ui-state-default.ui-corner-all{
       margin-bottom:auto;
+      width:210px;
     }
     .ui-multiselect span.ui-icon {
     float: right;

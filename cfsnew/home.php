@@ -162,6 +162,7 @@ if(!isset($authAdmin->user->elements['GroupList']) || $authAdmin->user->elements
 
 $getgroupid = $users->select($_SESSION["user_id"]);
 $getgroup = $grouplist->select($getgroupid['GroupList']); 
+
 if($getgroup['Industry']!=''){
     
     $where10 = "  Industry_Id IN ($getgroup[Industry]) "; // use to leftpanel.php
@@ -586,6 +587,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
 
         if($_REQUEST['answer']['Industry'] != ""){
+            
                 if($where != ''){
                     $where .=  " and  b.Industry  = ".$_REQUEST['answer']['Industry'];
                 }else{
