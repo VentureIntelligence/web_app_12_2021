@@ -42,7 +42,7 @@ padding:0px 10px; }
         .mobileRedirectPopup {
             position: fixed !important;
             background: #fff;
-            height: 185px;
+            height: 195px;
             border-radius: 10px;
             left:50%;
             top:25%;
@@ -374,6 +374,7 @@ $device_list_flag = $this->get_template_vars('device_list_flag');
 </div>
 </div>	
 </div>
+<div class="backdrop"></div>
 <div class="mobileRedirectPopup">
         <div class="popup-title w-100">
             <h5 class="text-center">See Venture Intelligence in ...</h5>
@@ -830,7 +831,7 @@ function checkpopup()
                 }
                 // alert("Android")
             } else if (IOS) {
-                // alert("IOS")
+                //alert("IOS")
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }else{
@@ -889,9 +890,9 @@ function checkpopup()
             var outerHeight =  window.outerHeight;
             popup(outerWidth);
             if(outerWidth < 400){
-                $(".mobileRedirectPopup").css("transform","scale(2.2)");
+                $(".mobileRedirectPopup").css("transform","scale(1.6)");
             }else{
-                 $(".mobileRedirectPopup").css("transform","scale(2.6)");
+                 $(".mobileRedirectPopup").css("transform","scale(1.6)");
             }
             $(".mobileRedirectPopup").width(innerWidth);
             $(window).resize(function(){
