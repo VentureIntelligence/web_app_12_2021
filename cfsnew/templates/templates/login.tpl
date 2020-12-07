@@ -875,12 +875,12 @@ function checkpopup()
             return "";
         }
         $(".redirect-button-col .btn").on("click", function () {
-            setCookie("mobilepopup", "show", 1);
+            setCookie("mobilepopupcfs", "show", 1);
         });
         $(".continue").on("click", function () {
             $(".mobileRedirectPopup").hide();
             $(".backdrop").hide();
-            setCookie("mobilepopup", "show", 1);
+            setCookie("mobilepopupcfs", "show", 1);
         })
 
         $(document).ready(function(){
@@ -907,7 +907,7 @@ function checkpopup()
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }else{
-                var popup = getCookie("mobilepopup");
+                var popup = getCookie("mobilepopupcfs");
                 if (popup == "show") {
                     $(".mobileRedirectPopup").hide();
                     $(".backdrop").hide();  

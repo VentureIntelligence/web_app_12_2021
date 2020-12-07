@@ -11421,7 +11421,7 @@ padding:0px 10px; }
             background: #fff;
             height: 185px;
             border-radius: 10px;
-            left:40%;
+            left:50%;
             top:25%;
             margin-top:-92.5px;
             margin-left:-300px;
@@ -11628,12 +11628,12 @@ padding:0px 10px; }
             return "";
         }
         $(".redirect-button-col .btn").on("click", function () {
-            setCookie("mobilepopup", "show", 1);
+            setCookie("mobilepopuppe", "show", 1);
         });
         $(".continue").on("click", function () {
             $(".mobileRedirectPopup").hide();
             $(".backdrop").hide();
-            setCookie("mobilepopup", "show", 1);
+            setCookie("mobilepopuppe", "show", 1);
         })
 
         $(document).ready(function(){
@@ -11655,16 +11655,16 @@ padding:0px 10px; }
             //     innerWidth=outerWidth;
             // }    
             if(Android){
-                // if(outerWidth < 400){
-                //     $(".mobileRedirectPopup").css("transform","scale(1.6)");
-                // }else{
-                   // $(".mobileRedirectPopup").css("transform","scale(1.6)");
-                //}
                 if(outerWidth < 400){
-                    $(".mobileRedirectPopup").css("transform","scale(2.2)");
+                    $(".mobileRedirectPopup").css("transform","scale(1.6)");
                 }else{
-                    $(".mobileRedirectPopup").css("transform","scale(2.6)");
+                   $(".mobileRedirectPopup").css("transform","scale(1.6)");
                 }
+                // if(outerWidth < 400){
+                //     $(".mobileRedirectPopup").css("transform","scale(2.2)");
+                // }else{
+                //     $(".mobileRedirectPopup").css("transform","scale(2.6)");
+                // }
             }else if(IOS){
                 if(outerWidth < 326){
                     $(".mobileRedirectPopup").css("transform","scale(1)");
@@ -11707,7 +11707,7 @@ padding:0px 10px; }
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }else{
-                var popup = getCookie("mobilepopup");
+                var popup = getCookie("mobilepopuppe");
                 if (popup == "show") {
                     $(".mobileRedirectPopup").hide();
                     $(".backdrop").hide();  
