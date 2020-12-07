@@ -11421,7 +11421,7 @@ padding:0px 10px; }
             background: #fff;
             height: 185px;
             border-radius: 10px;
-            left:50%;
+            left:40%;
             top:25%;
             margin-top:-92.5px;
             margin-left:-300px;
@@ -11658,14 +11658,38 @@ padding:0px 10px; }
                 // if(outerWidth < 400){
                 //     $(".mobileRedirectPopup").css("transform","scale(1.6)");
                 // }else{
-                    $(".mobileRedirectPopup").css("transform","scale(1.6)");
+                   // $(".mobileRedirectPopup").css("transform","scale(1.6)");
                 //}
+                if(outerWidth < 400){
+                    $(".mobileRedirectPopup").css("transform","scale(2.2)");
+                }else{
+                    $(".mobileRedirectPopup").css("transform","scale(2.6)");
+                }
             }else if(IOS){
+                if(outerWidth < 326){
+                    $(".mobileRedirectPopup").css("transform","scale(1)");
+                    $(".mobileRedirectPopup").css("left","24%");
+                    $(".mobileRedirectPopup").css("top","10%");
+                    outerWidth="24%";
+                }else if(outerWidth < 400){
+                    $(".mobileRedirectPopup").css("transform","scale(1)");
+                    $(".mobileRedirectPopup").css("left","20%");
+                    $(".mobileRedirectPopup").css("top","10%");
+                    outerWidth="25%";
+                }else if(outerWidth < 600){
+                    $(".mobileRedirectPopup").css("transform","scale(1)");
+                    $(".mobileRedirectPopup").css("left","19%");
+                    $(".mobileRedirectPopup").css("top","10%");
+                    outerWidth="23%";
+                }else{
+                    $(".mobileRedirectPopup").css("transform","scale(1)");
+                    $(".mobileRedirectPopup").css("left","59%");
+                    outerWidth="60%";
+                }
                 
+                     
                 
-                    $(".mobileRedirectPopup").css("transform","scale(1.6)"); 
-                
-                    outerWidth="61%";
+                   
                 innerWidth=outerWidth;
 
                 
