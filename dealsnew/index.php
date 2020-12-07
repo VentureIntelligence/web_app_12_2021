@@ -11421,7 +11421,7 @@ padding:0px 10px; }
             background: #fff;
             height: 185px;
             border-radius: 10px;
-            left:40%;
+            left:50%;
             top:25%;
             margin-top:-92.5px;
             margin-left:-300px;
@@ -11655,16 +11655,16 @@ padding:0px 10px; }
             //     innerWidth=outerWidth;
             // }    
             if(Android){
-                // if(outerWidth < 400){
-                //     $(".mobileRedirectPopup").css("transform","scale(1.6)");
-                // }else{
-                   // $(".mobileRedirectPopup").css("transform","scale(1.6)");
-                //}
                 if(outerWidth < 400){
-                    $(".mobileRedirectPopup").css("transform","scale(2.2)");
+                    $(".mobileRedirectPopup").css("transform","scale(1.6)");
                 }else{
-                    $(".mobileRedirectPopup").css("transform","scale(2.6)");
+                   $(".mobileRedirectPopup").css("transform","scale(1.6)");
                 }
+                // if(outerWidth < 400){
+                //     $(".mobileRedirectPopup").css("transform","scale(2.2)");
+                // }else{
+                //     $(".mobileRedirectPopup").css("transform","scale(2.6)");
+                // }
             }else if(IOS){
                 if(outerWidth < 326){
                     $(".mobileRedirectPopup").css("transform","scale(1)");
