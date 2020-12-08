@@ -11656,16 +11656,21 @@ padding:0px 10px; }
             // }    
             if(Android){
                 if(outerWidth < 400){
-                    $(".mobileRedirectPopup").css("transform","scale(1.6)");
-                }else{
-                   $(".mobileRedirectPopup").css("transform","scale(1.6)");
+                   
+                    $(".mobileRedirectPopup").css("transform","scale(1.1)");
+                    $(".mobileRedirectPopup").css("left","22.1%");
+                    $(".mobileRedirectPopup").css("top","10%");
+                    outerWidth="22.4%";
+                }else if(outerWidth < 600){
+                    $(".mobileRedirectPopup").css("transform","scale(1.1)");
+                    $(".mobileRedirectPopup").css("left","19.5%");
+                    $(".mobileRedirectPopup").css("top","10%");
+                    outerWidth="22.4%";
                 }
-                // if(outerWidth < 400){
-                //     $(".mobileRedirectPopup").css("transform","scale(2.2)");
-                // }else{
-                //     $(".mobileRedirectPopup").css("transform","scale(2.6)");
-                // }
+               innerWidth=outerWidth;
+
             }else if(IOS){
+                alert(IOS);
                 if(outerWidth < 326){
                     $(".mobileRedirectPopup").css("transform","scale(1)");
                     $(".mobileRedirectPopup").css("left","24%");
@@ -11686,13 +11691,7 @@ padding:0px 10px; }
                     $(".mobileRedirectPopup").css("left","59%");
                     outerWidth="60%";
                 }
-                
-                     
-                
-                   
                 innerWidth=outerWidth;
-
-                
             }        
             $(".mobileRedirectPopup").width(innerWidth);
             $(window).resize(function(){
