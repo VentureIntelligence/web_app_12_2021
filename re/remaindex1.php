@@ -1329,10 +1329,10 @@
                                     <p><b>Note:</b> Only paid subscribers will be able to export data on to Excel.  </p>
                                     <span style="float:right" class="one">
                                          <!--a class ="export" type="submit"  value="Export" name="showdeals"></a-->
-                                    <a class ="export" target="_blank" href="../Sample_merger_acq_data-RE.xls">Sample Export</a>
+                                    <a class ="export" target="_blank" href="../xls/Sample_merger_acq_data-RE.xls">Sample Export</a>
                                     </span>
                                     <script type="text/javascript">
-						$('#exportbtn').html('<a class="export"  href="../Sample_merger_acq_data-RE.xls">Export Sample</a>');
+						$('#exportbtn').html('<a class="export"  href="../xls/Sample_merger_acq_data-RE.xls">Export Sample</a>');
                                     </script>
                                     </span>
             					</div>

@@ -559,7 +559,7 @@
 					?>
 							<span style="float:left" class="one">
 							<b>Note:</b> Only paid subscribers will be able to export data on to Excel.
-							<a target="_blank" href="../sample-pe-backed-IPOs.xls"><u>Click Here</u> </a> for a sample spreadsheet containing PE-backed IPOs
+							<a target="_blank" href="../xls/sample-pe-backed-IPOs.xls"><u>Click Here</u> </a> for a sample spreadsheet containing PE-backed IPOs
 							</span>
 					<?php
 					}
