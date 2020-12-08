@@ -1,7 +1,7 @@
 <?php 
-  
+include_once("../globalconfig.php");  
 // Redirect browser 
-header("Location: https://www.ventureintelligence.com"); 
+header("Location:".GLOBAL_BASE_URL.""); 
   
 exit; 
 ?> 
