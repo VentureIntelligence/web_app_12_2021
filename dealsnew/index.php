@@ -11680,7 +11680,7 @@ padding:0px 10px; }
                 outerWidth=  window.innerWidth;
                 if(outerWidth < 326){
                     $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","72%");
+                    $(".mobileRedirectPopup").css("left","94%");
                     $(".mobileRedirectPopup").css("top","25%");
                     outerWidth="100%";
                 }else if(outerWidth < 400){
