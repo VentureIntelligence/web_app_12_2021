@@ -889,10 +889,30 @@ function checkpopup()
             console.log("innerWidth",innerWidth)
             var outerHeight =  window.outerHeight;
             popup(outerWidth);
-            if(outerWidth < 400){
-                $(".mobileRedirectPopup").css("transform","scale(1.6)");
-            }else{
-                 $(".mobileRedirectPopup").css("transform","scale(1.6)");
+            var Android = navigator.userAgent.match(/Android/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            if(Android){
+                outerWidth=  window.innerWidth;
+                if(outerWidth < 361){
+                   
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","83%");
+                //    $(".mobileRedirectPopup").css("top","10%");
+                   outerWidth="100%";
+               }else if(outerWidth < 400){
+                   
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","78%");
+                //    $(".mobileRedirectPopup").css("top","10%");
+                   outerWidth="100%";
+               }else if(outerWidth < 600){
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","72%");
+                  // $(".mobileRedirectPopup").css("top","10%");
+                   outerWidth="100%";
+               }
+              innerWidth=outerWidth;
+
             }
             $(".mobileRedirectPopup").width(innerWidth);
             $(window).resize(function(){
@@ -903,21 +923,24 @@ function checkpopup()
 
        function popup(ow){
             var Android = navigator.userAgent.match(/Android/i);
-            if(ow > 1000){
-                $(".mobileRedirectPopup").hide();
-                $(".backdrop").hide();
-            }else{
-                var popup = getCookie("mobilepopupcfs");
-                if (popup == "show") {
-                    $(".mobileRedirectPopup").hide();
-                    $(".backdrop").hide();  
-                } else {
-                    if (Android) {
-                        $(".mobileRedirectPopup").show();
-                        $(".backdrop").show();
+            IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            if(Android ){
+                 
+                    var popup = getCookie("mobilepopupcfs");
+                    if (popup == "show") {
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();  
+                    }else{
+                        
+                            $(".mobileRedirectPopup").show();
+                            $(".backdrop").show();
+                        
                     }
-                }
-            }
+                        
+            }else{
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();
+                    }
        }
 </script>
 {/literal}
