@@ -10,7 +10,7 @@ if($_POST['cin']!=''){
     $mybrandname=mysql_fetch_array($companyrsbrand);
     // get company by CIN
     $getcompanysql = "select PECompanyId,companyname from pecompanies where CINNo ='".$_POST['cin']."'";
-    $companyrs = mysql_query($getcompanysql);          
+    $companyrs = mysql_query($getcompanysql);         
     //$myrow=mysql_fetch_array($companyrs);
     while($myrow=mysql_fetch_array($companyrs)){
         $companyidarr[]=$myrow['PECompanyId'];
@@ -101,15 +101,17 @@ if($_POST['cin']!=''){
     //echo $_POST['order'];
     $order = $order_status ? $order_status:'asc';
     $query_orderby = $order_query?$order_query : 'companyname';
-            
-    // if(count($myrow) > 0 && $myrow['PECompanyId']!=''){
+           
+     if(count($myrow) > 0 && $companyid !=''){
        
             if($order_query == "acquirer" || $order_query == "companyname" || $order_query == "sector_business"  || $order_query =="amount" ){
                 $order1 ='ORDER  BY '.$query_orderby.' '. $order .',dealdate DESC';
             }elseif($order_query == "dates" ){
                 $order1 ='ORDER  BY dealdate '.$order;
-            }else{
+            }elseif($companyid !=""){
                 $order1 ='ORDER  BY CASE WHEN c.pecompanyid IN ( '.$companyid.' ) THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
+            }else{
+                $order1 ='ORDER  BY dealdate DESC';
             }
             if($acqval !=""){
                 $acqvar=" ac.acquirerid IN ( ".$acqval." )";
@@ -121,8 +123,9 @@ if($_POST['cin']!=''){
             }else{
                 $orcond="";
             }
+             
             if($companyid !=''){
-            $companyvar="  c.pecompanyid IN ( ".$companyid." )";
+                $companyvar="  c.pecompanyid IN ( ".$companyid." )";
             }else{
                 $companyvar="";
             }
@@ -212,6 +215,9 @@ if($_POST['cin']!=''){
         if($hideinrcount > 0){
             $totalINRAmount = $totalAmount * 1000000 * $usdtoinramount / 10000000;
         } 
+    }else{
+        $pedata = array();
+    }
      
         // Table to show the companies with count at the top
         if(count($pedata) > 0){
@@ -362,16 +368,18 @@ if($_POST['cin']!=''){
 
         
         }else if(count($pedata)==0 ){
-            $getcompanysql = "select PECompanyId,companyname from pecompanies where companyname LIKE '".trim($mybrandname['SCompanyName'])."%'";
-            $companyrs = mysql_query($getcompanysql);          
+            $getcompanysql = "select PECompanyId,companyname from pecompanies where companyname LIKE '".trim($mybrandname['SCompanyName'])."'";
+            $companyrs = mysql_query($getcompanysql); 
+            
             while($myrow=mysql_fetch_array($companyrs)){
                 $companyidarr[]=$myrow['PECompanyId'];
-                $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."%' or ";
             }
             $companyname = trim($companyname,"or ");
-            $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
+            $acqcompanyname = "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."'";
+
+            $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $acqcompanyname";
             $acquirer= mysql_query($acquirersql);
-            
+           
             while($myacq=mysql_fetch_array($acquirer)){
                 $acqarr[]=$myacq['AcquirerId'];
             }
@@ -382,8 +390,10 @@ if($_POST['cin']!=''){
                 $order1 ='ORDER  BY '.$query_orderby.' '. $order .',dealdate DESC';
             }elseif($order_query == "dates" ){
                 $order1 ='ORDER  BY dealdate '.$order;
-            }else{
+            }elseif($companyid !=""){
                 $order1 ='ORDER  BY CASE WHEN c.pecompanyid IN ( '.$companyid.' ) THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
+            }else{
+                $order1 ='ORDER  BY dealdate DESC';
             }
             if($acqval !=""){
                 $acqvar=" ac.acquirerid IN ( ".$acqval." )";
@@ -435,7 +445,7 @@ if($_POST['cin']!=''){
         ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
        
         $pers = mysql_query($sql);   
-        //echo $sql;
+       
         //$FinanceAnnual = mysql_fetch_array($financialrs);
         $cont=0;$pedata = array();$totalInv=0;$totalAmount=0;$totalINRAmount=0;$hidecount=0;$hideinrcount=0;
         While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
@@ -660,19 +670,7 @@ if($_POST['cin']!=''){
                 //$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';
             
     }
-// }else{
-//     // Show text when  CIN not found in the CFS
-  
-//                 $pe_data .= '<div class="empty-container ma-contain" style="border:1px solid #d4d4d4  ">
-//                                 <h2>M&A</h2>
-//                                 <div class="data-ext-load">
-//                                      <div id="mca_data2">
-//                                         <b>No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this.</b>
-//                                     </div>
-//                                 </div></div>';
-//                 //$pe_data .= '<div style="font-size:20px;text-align:center;margin-top:80px;color:#000000;font-weight:bold;margin-bottom: 10px;"><span display: inline-block;vertical-align: middle;line-height: normal;> This does not seem to be PE backed company. Please <a id="deals_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #000000;">Click Here</a> to alert us if you would like us to double check</span></div>';
-            
-// }
+
 echo $pe_data;
 // echo json_encode(array( 'count'=> count($pedata), 'html' => $pe_data ,'sql'=> $sql) );
 ?>
