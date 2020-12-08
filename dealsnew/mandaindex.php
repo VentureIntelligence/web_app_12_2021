@@ -600,18 +600,18 @@
     if($hide_pms==0)
     {   
         $var_hideforexit=0;
-        $samplexls="../sample-exits-via-m&a.xls";
+        $samplexls="../xls/sample-exits-via-m&a.xls";
     }
     elseif($hide_pms==1)
     {   $var_hideforexit=1;
         $searchTitle = "List of Public Market Sales - Exits";
-        $samplexls="../sample-exits-via-m&a(publicmarketsales).xls";
+        $samplexls="../xls/sample-exits-via-m&a(publicmarketsales).xls";
     }
     //Merge view - to set condition for hide_for_exit 
     elseif($hide_pms==2)
     {   $var_hideforexit='0,1';
         $searchTitle = "List of M&A and Public Market Sales - Exits";
-        $samplexls="../sample-exits-via-m&a(publicmarketsales).xls";
+        $samplexls="../xls/sample-exits-via-m&a(publicmarketsales).xls";
     }
     
     
