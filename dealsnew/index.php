@@ -11553,7 +11553,7 @@ padding:0px 10px; }
     </style> 
     <div class="backdrop"></div>
     <div class="mobileRedirectPopup">
-        <div class="popup-title w-100">
+        <div class="popup-title ">
             <h5 class="text-center">See Venture Intelligence in ...</h5>
         </div>
         <div class="row">
@@ -11655,42 +11655,55 @@ padding:0px 10px; }
             //     innerWidth=outerWidth;
             // }    
             if(Android){
-                if(outerWidth < 400){
+                outerWidth=  window.innerWidth;
+                if(outerWidth < 361){
                    
-                    $(".mobileRedirectPopup").css("transform","scale(1.1)");
-                    $(".mobileRedirectPopup").css("left","22.1%");
-                    $(".mobileRedirectPopup").css("top","10%");
-                    outerWidth="22.4%";
-                }else if(outerWidth < 600){
-                    $(".mobileRedirectPopup").css("transform","scale(1.1)");
-                    $(".mobileRedirectPopup").css("left","19.5%");
-                    $(".mobileRedirectPopup").css("top","10%");
-                    outerWidth="22.4%";
-                }
-               innerWidth=outerWidth;
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","83%");
+                //    $(".mobileRedirectPopup").css("top","10%");
+                   outerWidth="100%";
+               }else if(outerWidth < 400){
+                   
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","78%");
+                //    $(".mobileRedirectPopup").css("top","10%");
+                   outerWidth="100%";
+               }else if(outerWidth < 600){
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","72%");
+                  // $(".mobileRedirectPopup").css("top","10%");
+                   outerWidth="100%";
+               }
+              innerWidth=outerWidth;
 
             }else if(IOS){
-                alert(IOS);
+                outerWidth=  window.innerWidth;
                 if(outerWidth < 326){
                     $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","24%");
-                    $(".mobileRedirectPopup").css("top","10%");
-                    outerWidth="24%";
+                    $(".mobileRedirectPopup").css("left","72%");
+                    $(".mobileRedirectPopup").css("top","25%");
+                    outerWidth="100%";
                 }else if(outerWidth < 400){
                     $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","20%");
-                    $(".mobileRedirectPopup").css("top","10%");
-                    outerWidth="25%";
+                    $(".mobileRedirectPopup").css("left","80%");
+                    $(".mobileRedirectPopup").css("top","25%");
+                    outerWidth="100%";
                 }else if(outerWidth < 600){
                     $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","19%");
-                    $(".mobileRedirectPopup").css("top","10%");
-                    outerWidth="23%";
+                    $(".mobileRedirectPopup").css("left","72%");
+                    $(".mobileRedirectPopup").css("top","25%");
+                    outerWidth="100%";
+                }else if(outerWidth < 1025){
+                    $(".mobileRedirectPopup").css("transform","scale(1)");
+                    $(".mobileRedirectPopup").css("left","58%");
+                    $(".mobileRedirectPopup").css("top","25%");
+                    outerWidth="60%";
                 }else{
                     $(".mobileRedirectPopup").css("transform","scale(1)");
                     $(".mobileRedirectPopup").css("left","59%");
                     outerWidth="60%";
                 }
+              
                 innerWidth=outerWidth;
             }        
             $(".mobileRedirectPopup").width(innerWidth);
@@ -11701,21 +11714,26 @@ padding:0px 10px; }
        })
 
        function popup(ow){
+          
             var Android = navigator.userAgent.match(/Android/i);
-            if(ow > 1000){
-                $(".mobileRedirectPopup").hide();
-                $(".backdrop").hide();
-            }else{
-                var popup = getCookie("mobilepopuppe");
-                if (popup == "show") {
-                    $(".mobileRedirectPopup").hide();
-                    $(".backdrop").hide();  
-                } else {
-                    if (Android) {
-                        $(".mobileRedirectPopup").show();
-                        $(".backdrop").show();
+            IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            if(Android || IOS){
+                 
+                    var popup = getCookie("mobilepopuppe");
+                    if (popup == "show") {
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();  
+                    }else{
+                        
+                            $(".mobileRedirectPopup").show();
+                            $(".backdrop").show();
+                        
                     }
-                }
-            }
+                        
+            }else{
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();
+                    }
+            
        }  
 </script>
