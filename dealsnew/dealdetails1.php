@@ -1227,7 +1227,7 @@ include_once($refineUrl); ?>
 
                                      <?php
                                      }else { ?>
-                                                         <a class ="export" id="expshowdeals" target="_blank" href="../Sample_Sheet_Investments.xls"  style="float:right">Sample Export</a>
+                                                         <a class ="export" id="expshowdeals" target="_blank" href="../xls/Sample_Sheet_Investments.xls"  style="float:right">Sample Export</a>
                                  <?php } ?>
                              </div>
         
@@ -1293,7 +1293,7 @@ include_once($refineUrl); ?>
 
                                      <?php
                                      }else { ?>
-                                                         <a class ="export" id="expshowdeals" target="_blank" href="../Sample_Sheet_Investments.xls" style="float:right">Sample Export</a>
+                                                         <a class ="export" id="expshowdeals" target="_blank" href="../xls/Sample_Sheet_Investments.xls" style="float:right">Sample Export</a>
                                  <?php } ?>
                                  
                              </div>
