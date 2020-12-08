@@ -157,7 +157,7 @@ invoked from -peimpact.htm
 
 		mail($to,$subject,$message,$headers);
 
-				$file="ibdirectory.txt";
+				$file="txt/ibdirectory.txt";
 				$schema_insert="";
 				//TRYING TO WRIRE IN EXCEL
 							 //define separator (defines columns in excel & tabs in word)

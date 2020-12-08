@@ -139,7 +139,7 @@ if( isset($_REQUEST['vcdirectory'])) {
     
     
     
-    $file="vcdirectory.txt";
+    $file="txt/vcdirectory.txt";
 				$schema_insert="";
 				//TRYING TO WRIRE IN EXCEL
 							 //define separator (defines columns in excel & tabs in word)
@@ -188,7 +188,7 @@ if( isset($_REQUEST['vcdirectory'])) {
 										}
                                                                                 
                                                                             //Added on 2017_04_05    
-                                                                            $file1="peimpact-downloads.txt";
+                                                                            $file1="txt/peimpact-downloads.txt";
                                                                             if (file_exists($file1))
 										{
                                                                                     //echo "<br>break 1--" .$file1;
