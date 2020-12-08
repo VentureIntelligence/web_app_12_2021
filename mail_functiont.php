@@ -138,7 +138,7 @@ if( isset($_REQUEST['vcdirectory'])) {
     
     
     
-    $file="vcdirectory.txt";
+    $file="txt/vcdirectory.txt";
 				$schema_insert="";
 				//TRYING TO WRIRE IN EXCEL
 							 //define separator (defines columns in excel & tabs in word)

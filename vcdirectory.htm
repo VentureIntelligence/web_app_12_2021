@@ -125,7 +125,7 @@
             </section> -->
 
             <section class="vcd-cnt" id="contenthide2" style="display: none">
-              <h3 class="vcd-sub-title">Thanks for your interest in this Venture Intelligence product. In case the download doesn't happen automatically, <a target="_blank" href="vc-handbook.pdf" id="pdffile" class="under-line" style="font-size:22px;" download>Click Here</a> to download manually.</h3>
+              <h3 class="vcd-sub-title">Thanks for your interest in this Venture Intelligence product. In case the download doesn't happen automatically, <a target="_blank" href="pdf/vc-handbook.pdf" id="pdffile" class="under-line" style="font-size:22px;" download>Click Here</a> to download manually.</h3>
               <h3 class="vcd-sub-title">You might also be interested in receiving to our Free Deal Digest Weekly Newsletter.</h3>
               <h3 class="vcd-sub-title">Delivered by email each Friday, the Deal Digest Weekly newsletter provides a snapshot of Private Equity-Venture Capital Transactions and M&A activity in India.</h3>
               <h3 class="vcd-sub-title">To learn more and sign up for the free newsletter, <a target="_blank" href="https://www.ventureintelligence.com/weekly-newsletter.htm" class="under-line" style="font-size:22px;">Click Here</a></h3>
@@ -461,13 +461,13 @@
 
                             //$.get( "download.php", function( data ) {   });
                             $.ajax({
-                              url: 'vc-handbook.pdf',
+                              url: 'pdf/vc-handbook.pdf',
                               success: function(data) {
                                 var blob=new Blob([data]);
                                 var link=document.createElement('a');
                                 //link.href=window.URL.createObjectURL(blob);
-                                link.href="vc-handbook.pdf";
-                                link.download="vc-handbook.pdf";
+                                link.href="pdf/vc-handbook.pdf";
+                                link.download="pdf/vc-handbook.pdf";
                                 console.log(link);
                                 link.click();
                                 
