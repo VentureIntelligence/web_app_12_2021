@@ -19,6 +19,6 @@
 User-agent: *
 Crawl-delay: 10
 # Files
-Disallow: /vc-handbook.pdf
+Disallow: /pdf/vc-handbook.pdf
 Disallow: /download.php
 

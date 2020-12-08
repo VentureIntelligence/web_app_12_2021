@@ -148,7 +148,7 @@ invoked from -peimpact.htm
 		//echo $message;
 
 
-		$file="peimpact-downloads.txt";
+		$file="txt/peimpact-downloads.txt";
 				$schema_insert="";
 
 				//TRYING TO WRIRE IN EXCEL

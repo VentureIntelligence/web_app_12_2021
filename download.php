@@ -126,11 +126,11 @@ if($_POST['emailid'] != ""){
 	set_time_limit(0);
 
 	//path to the file
-	$file_path='vc-handbook.pdf';
+	$file_path='pdf/vc-handbook.pdf';
 
 
 	//Call the download function with file path,file name and file type
-	output_file($file_path, 'vc-handbook.pdf', 'application/pdf');
+	output_file($file_path, 'pdf/vc-handbook.pdf', 'application/pdf');
 }
 
 	/*
