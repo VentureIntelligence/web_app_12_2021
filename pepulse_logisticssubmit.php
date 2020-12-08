@@ -147,7 +147,7 @@ invoked from -pepulse_logistics.htm  AND pepulse_logistics.php ( 2 files)
 
 		//	$currentdir=getcwd();
 		//	$file = $currentdir . "/cleantechcompanies.xls";
-		$file="logistics-cos.txt";
+		$file="txt/logistics-cos.txt";
 		$schema_insert="";
 		//TRYING TO WRIRE IN EXCEL
 					 //define separator (defines columns in excel & tabs in word)

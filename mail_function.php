@@ -138,7 +138,7 @@ if( isset($_REQUEST['vcdirectory'])) {
     
     
     
-    $file="vcdirectory.txt";
+    $file="txt/vcdirectory.txt";
 				$schema_insert="";
 				//TRYING TO WRIRE IN EXCEL
 							 //define separator (defines columns in excel & tabs in word)
@@ -336,7 +336,7 @@ if( isset($_REQUEST['weeklynewsletter'])) {
 if(isset($_REQUEST['filedownload'])){
     
     //download.php
-$filename="vc-handbook.pdf";
+$filename="pdf/vc-handbook.pdf";
 
 $path = BASE_URL."/pdf/"; 
 $filename= $path.basename($filename);
