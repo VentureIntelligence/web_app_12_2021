@@ -3865,17 +3865,17 @@ include_once($refineUrl); ?>
 
                                         if($hide_pms==0)
                                         { $var_hideforexit=0;
-                                        $samplexls="../sample-exits-via-m&a.xls";
+                                        $samplexls="../xls/sample-exits-via-m&a.xls";
                                         }
                                         elseif($hide_pms==1)
                                         { $var_hideforexit=1;
                                         $searchTitle = "List of Public Market Sales - Exits";
-                                        $samplexls="../sample-exits-via-m&a(publicmarketsales).xls";
+                                        $samplexls="../xls/sample-exits-via-m&a(publicmarketsales).xls";
                                         }
                                         elseif($hide_pms==2)
                                         { $var_hideforexit='0,1';
                                         $searchTitle = "List of Public Market Sales - Exits";
-                                        $samplexls="../sample-exits-via-m&a.xls";
+                                        $samplexls="../xls/sample-exits-via-m&a.xls";
                                         }
                                  
                                  
@@ -3918,7 +3918,7 @@ include_once($refineUrl); ?>
 
                                      <?php
                                      }else { ?>
-                                                         <a class ="export" id="expshowdeals" target="_blank" href="../Sample_Sheet_Investments.xls" style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
+                                                         <a class ="export" id="expshowdeals" target="_blank" href="../xls/Sample_Sheet_Investments.xls" style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
                                  <?php } ?>
                                  
                              </div>

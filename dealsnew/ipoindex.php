@@ -2231,11 +2231,11 @@
                                     <p><b>Note:</b> Only paid subscribers will be able to export data on to Excel.Clicking Sample Export button for a sample spreadsheet containing PE-backed IPOs.  </p>
                                     <span style="float:right;margin-right:20px;" class="one">
                                          <!--a class ="export" type="submit"  value="Export" name="showdeals"></a-->
-                                    <a class ="export" target="_blank" href="../sample-pe-backed-IPOs.xls">Sample Export</a>
+                                    <a class ="export" target="_blank" href="../xls/sample-pe-backed-IPOs.xls">Sample Export</a>
                                     </span>
                                     <div style="clear: both;"></div>
                                     <script type="text/javascript">
-                        $('#export-btn').html('<a class="export"  href="../sample-pe-backed-IPOs.xls">Export Sample</a>');
+                        $('#export-btn').html('<a class="export"  href="../xls/sample-pe-backed-IPOs.xls">Export Sample</a>');
                                     </script>
                                     </span>
                             </div>

@@ -472,7 +472,7 @@ if ($vcflagValue == 0) {
     $searchAggTitle = "Aggregate Data - VC Investments ";
     $aggsql = "SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
             FROM peinvestments AS pe,pecompanies as pec,industry as i,stage as s  where pe.StageID=s.StageId and s.VCView=1 and  ";
-    $samplexls = "Sample_Sheet_Investments(VC Deals).xls";
+    $samplexls = "../xls/Sample_Sheet_Investments(VC Deals).xls";
     //    echo "<br>Check for stage** - " .$checkForStage;
 }
 if($_POST['filtersector'] != ''){

@@ -3925,7 +3925,7 @@ try {
 
                                  <?php
                                  }else { ?>
-                                                     <a class ="export" id="expshowdeals" target="_blank" href="../Sample_Sheet_Investments.xls"  style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
+                                                     <a class ="export" id="expshowdeals" target="_blank" href="../xls/Sample_Sheet_Investments.xls"  style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
                              <?php } ?>
                          </div>
     
@@ -3955,7 +3955,7 @@ try {
 
                                  <?php
                                  }else { ?>
-                                                     <a class ="export" id="expshowdeals" target="_blank" href="../Sample_Sheet_Investments.xls" style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
+                                                     <a class ="export" id="expshowdeals" target="_blank" href="../xls/Sample_Sheet_Investments.xls" style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
                              <?php } ?>
                              
                          </div>
