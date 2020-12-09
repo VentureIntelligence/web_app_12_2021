@@ -11644,31 +11644,34 @@ padding:0px 10px; }
             popup(outerWidth);
             var Android = navigator.userAgent.match(/Android/i);
             var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
-           
+            // if(Android){
+            //     if(outerWidth < 400){
+            //         $(".mobileRedirectPopup").css("transform","scale(2.2)");
+            //     }else{
+            //         $(".mobileRedirectPopup").css("transform","scale(2.6)");
+            //     }
+            // }else if(IOS){
+            //     outerWidth=500;
+            //     innerWidth=outerWidth;
+            // }    
             if(Android){
                 outerWidth=  window.innerWidth;
-            //     if(outerWidth < 361){
+                if(outerWidth < 361){
                    
-            //        $(".mobileRedirectPopup").css("transform","scale(1)");
-            //        $(".mobileRedirectPopup").css("left","83%");
-            //     //    $(".mobileRedirectPopup").css("top","10%");
-            //        outerWidth="100%";
-            //    }else if(outerWidth < 400){
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","83%");
+                
+               }else if(outerWidth < 400){
                    
-            //        $(".mobileRedirectPopup").css("transform","scale(1)");
-            //        $(".mobileRedirectPopup").css("left","78%");
-            //     //    $(".mobileRedirectPopup").css("top","10%");
-            //        outerWidth="100%";
-            //    }else if(outerWidth < 600){
-            //        $(".mobileRedirectPopup").css("transform","scale(1)");
-            //        $(".mobileRedirectPopup").css("left","72%");
-            //       // $(".mobileRedirectPopup").css("top","10%");
-            //        outerWidth="100%";
-            //    }
-            $(".mobileRedirectPopup").css("transform","scale(1.2)");
-               $(".mobileRedirectPopup").css("margin-left","0px");
-               $(".mobileRedirectPopup").css("left","10%");
-               outerWidth="80%";
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","78%");
+               
+               }else if(outerWidth < 600){
+                   $(".mobileRedirectPopup").css("transform","scale(1)");
+                   $(".mobileRedirectPopup").css("left","72%");
+                  
+               }
+                outerWidth="100%";
               innerWidth=outerWidth;
 
             }else if(IOS){
