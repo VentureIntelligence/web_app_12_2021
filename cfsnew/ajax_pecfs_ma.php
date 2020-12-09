@@ -3,7 +3,13 @@ require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
 
 $pe_data='';
+$month1=01; 
+                        $year1 = 2004;
+                        $month2= date('n');
+                        $year2 = date('Y');
 
+                        $dt1 = $year1."-".$month1."-01";
+                        $dt2 = $year2."-".$month2."-31";
 if($_POST['cin']!=''){
     $brandsql="SELECT `SCompanyName` FROM `cprofile` WHERE `CIN`='".$_POST['cin']."'";
     $companyrsbrand = mysql_query($brandsql);          
@@ -147,7 +153,7 @@ if($_POST['cin']!=''){
         mama AS peinv, 
         pecompanies AS c, 
         industry AS i 
- WHERE  dealdate BETWEEN '2004-1-01' AND '2020-10-31' 
+ WHERE  dealdate BETWEEN '" . $dt1. "' and '" . $dt2 . "'
         AND ac.acquirerid = peinv.acquirerid 
         AND c.industry = i.industryid 
         AND c.pecompanyid = peinv.pecompanyid 
@@ -429,7 +435,7 @@ if($_POST['cin']!=''){
         mama AS peinv, 
         pecompanies AS c, 
         industry AS i 
- WHERE  dealdate BETWEEN '2004-1-01' AND '2020-10-31' 
+ WHERE  dealdate BETWEEN '" . $dt1. "' and '" . $dt2 . "'
         AND ac.acquirerid = peinv.acquirerid 
         AND c.industry = i.industryid 
         AND c.pecompanyid = peinv.pecompanyid 
