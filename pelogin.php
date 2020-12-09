@@ -1209,18 +1209,20 @@ function checkpopup()
 .entry-pad{
 padding:0px 10px; }
         .mobileRedirectPopup {
-            position: fixed !important;
+            position: absolute !important;
             background: #fff;
             height: 185px;
+            width:700px;
             border-radius: 10px;
             left:50%;
             top:25%;
             margin-top:-92.5px;
-            margin-left:-300px;
+            margin-left:-350px;
             -webkit-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             z-index:1001;
+           
         }
         .backdrop{
             height:100vh;
@@ -1362,12 +1364,19 @@ padding:0px 10px; }
             </div>
         </div>
         <div class="row">
-            <div class="image-col text-center"><img
+            <div class="image-col text-center">
+            <?php if($user_browser=="Safari"){?>
+                <img
+                    src="https://www.pngfind.com/pngs/m/314-3147164_download-png-ico-icns-flat-safari-icon-png.png"
+            alt=""><?php }else if($user_browser=="Chrome"){?>
+            <img
                     src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
-                    alt=""></div>
+                    alt="">
+                   <?php } ?>
+            </div>
             <div class="app-text-col">
                 <h5 class="text-left">
-                    Chrome
+                    <?php echo $user_browser;?>
                 </h5>
             </div>
             <div class="redirect-button-col">
@@ -1375,14 +1384,19 @@ padding:0px 10px; }
             </div>
         </div>
     </div>
+    
 <script>
    $(document).ready(function () {
+    //    alert(window.innerWidth);
+    //    var innerwidth=window.innerWidth;
+    
             var userAgent = navigator.userAgent.toLowerCase();
             var login = "pe";
             var Android = navigator.userAgent.match(/Android/i);
-            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
             var redirectButton = $(".redirectApp");
             var loginTextSpan = $(".login-type");
+            
             if (Android) {
                 if (login == "cfs") {
                     loginTextSpan.text("CFS");
@@ -1425,87 +1439,67 @@ padding:0px 10px; }
         $(".continue").on("click", function () {
             $(".mobileRedirectPopup").hide();
             $(".backdrop").hide();
-          setCookie("mobilepopuppe", "show", 1);
+            setCookie("mobilepopuppe", "show", 1);
         })
 
         $(document).ready(function(){
-            var outerWidth =  window.outerWidth;
-            var innerWidth =  600;
-            console.log("innerWidth",innerWidth)
-            var outerHeight =  window.outerHeight;
-            popup(outerWidth);
-            var Android = navigator.userAgent.match(/Android/i);
-            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
-            if(Android){
-                outerWidth=  window.innerWidth;
-                //     if(outerWidth < 326){
-                    
-                    
-                //        $(".mobileRedirectPopup").css("left","80%");
-                    
-                    
-                //    }else if(outerWidth < 361){
-                    
-                    
-                //        $(".mobileRedirectPopup").css("left","83%");
-                
-                //    }else if(outerWidth < 400){
-                    
-                    
-                //        $(".mobileRedirectPopup").css("left","78%");
-                    
-                //    }else if(outerWidth < 600){
-                    
-                //        $(".mobileRedirectPopup").css("left","72%");
-                    
-                    
-                //    }
-               $(".mobileRedirectPopup").css("transform","scale(1.2)");
-               $(".mobileRedirectPopup").css("margin-left","0px");
-               $(".mobileRedirectPopup").css("left","10%");
-               outerWidth="80%";
-              innerWidth=outerWidth;
-            }else if(IOS){
-                outerWidth=  window.innerWidth;
-                if(outerWidth < 326){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","94%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="100%";
-                }else if(outerWidth < 400){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","80%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="100%";
-                }else if(outerWidth < 600){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","72%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="100%";
-                }else if(outerWidth < 1025){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","58%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="60%";
-                }else{
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","59%");
-                    outerWidth="60%";
-                }
-                innerWidth=outerWidth;
+    //         var outerWidth =  window.outerWidth;
+    //         var innerWidth =  600;
+    //         console.log("innerWidth",innerWidth)
+    //         var outerHeight =  window.outerHeight;
+    //         popup(outerWidth);
+    //         var Android = navigator.userAgent.match(/Android/i);
+    //         var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    //         if(Android){
+    //             outerWidth=  window.innerWidth;
+               
+    //            $(".mobileRedirectPopup").css("transform","scale(1.2)");
+    //            $(".mobileRedirectPopup").css("margin-left","0px");
+    //            $(".mobileRedirectPopup").css("left","10%");
+    //            outerWidth="80%";
+    //           innerWidth=outerWidth;
+    //         }else if(IOS){
+    //             outerWidth=  window.innerWidth;
+    //             if(outerWidth < 326){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","94%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="100%";
+    //             }else if(outerWidth < 400){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","80%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="100%";
+    //             }else if(outerWidth < 600){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","72%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="100%";
+    //             }else if(outerWidth < 1025){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","58%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="60%";
+    //             }else{
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","59%");
+    //                 outerWidth="60%";
+    //             }
+    //             innerWidth=outerWidth;
 
                 
-            }            
-            $(".mobileRedirectPopup").width(innerWidth);
-            $(window).resize(function(){
-                var ow =  window.outerWidth;
-                popup(ow);
-            });
-       })
+    //         }            
+    //         $(".mobileRedirectPopup").width(innerWidth);
+    //         $(window).resize(function(){
+    //             var ow =  window.outerWidth;
+    //             popup(ow);
+    //         });
+    //    })
 
-       function popup(ow){
+    //    function popup(ow){
             var Android = navigator.userAgent.match(/Android/i);
-            IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            
             if(Android || IOS){
                  
                     var popup = getCookie("mobilepopuppe");
@@ -1524,7 +1518,8 @@ padding:0px 10px; }
                 $(".mobileRedirectPopup").hide();
                 $(".backdrop").hide();
             }
-       }  
+      // }  
+    })
 </script>
 <?php if($_GET['emailValidation'] == "0"){ ?>
 <script> $('#popup_main').attr("style", "display: none !important"); </script> 

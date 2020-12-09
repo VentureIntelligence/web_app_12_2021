@@ -11420,15 +11420,17 @@ padding:0px 10px; }
             position: fixed !important;
             background: #fff;
             height: 185px;
+            width:700px;
             border-radius: 10px;
             left:50%;
             top:25%;
             margin-top:-92.5px;
-            margin-left:-300px;
+            margin-left:-350px;
             -webkit-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             z-index:1001;
+            
         }
         .backdrop{
             height:100vh;
@@ -11570,12 +11572,62 @@ padding:0px 10px; }
             </div>
         </div>
         <div class="row">
-            <div class="image-col text-center"><img
+            <div class="image-col text-center">
+            <?php if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE)
+$user_os =  'Windows';
+elseif((strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== FALSE) && strpos($_SERVER['HTTP_USER_AGENT'], 'Linux')!==FALSE)
+$user_os = 'Android';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Linux') !== FALSE) //For Supporting IE 11
+$user_os =  'Linux';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== FALSE)
+$user_os = 'IOS';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== FALSE)
+$user_os = 'IOS';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== FALSE || strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== FALSE)
+$user_os = 'iOS';
+
+if($user_os=='IOS'){      
+
+if(strpos($_SERVER['HTTP_USER_AGENT'], 'FxiOS') !== FALSE)
+  $user_browser = 'Firefox';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'CriOS') !== FALSE)
+  $user_browser = 'Chrome';
+else
+  $user_browser = "Safari";
+}else{
+
+if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
+  $user_browser =  'IE';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
+  $user_browser =  'IE';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') !== FALSE) //For Supporting IE EDGE
+  $user_browser =  'IE';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
+  $user_browser = 'Firefox';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)
+  $user_browser = 'Chrome';
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== FALSE)
+  $user_browser = "Opera_Mini";
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== FALSE)
+  $user_browser = "Opera";
+elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
+  $user_browser = "Safari";
+}
+ if($user_browser=="Safari"){?>
+                <img
+                    src="https://www.pngfind.com/pngs/m/314-3147164_download-png-ico-icns-flat-safari-icon-png.png"
+            alt=""><?php }else if($user_browser=="Chrome"){?>
+            <img
                     src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
-                    alt=""></div>
+                    alt="">
+                   <?php } ?>
+                    </div>
             <div class="app-text-col">
                 <h5 class="text-left">
-                    Chrome
+                <?php  
+
+
+echo $user_browser;?>
                 </h5>
             </div>
             <div class="redirect-button-col">
@@ -11588,7 +11640,7 @@ padding:0px 10px; }
             var userAgent = navigator.userAgent.toLowerCase();
             var login = "pe";
             var Android = navigator.userAgent.match(/Android/i);
-            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
             var redirectButton = $(".redirectApp");
             var loginTextSpan = $(".login-type");
             if (Android) {
@@ -11637,81 +11689,87 @@ padding:0px 10px; }
         })
 
         $(document).ready(function(){
-            var outerWidth =  window.outerWidth;
-            var innerWidth =  600;
-            console.log("innerWidth",innerWidth)
-            var outerHeight =  window.outerHeight;
-            popup(outerWidth);
-            var Android = navigator.userAgent.match(/Android/i);
-            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
            
-            if(Android){
-                outerWidth=  window.innerWidth;
-            //     if(outerWidth < 361){
+    //         var outerWidth =  window.outerWidth;
+    //         var innerWidth =  600;
+    //         console.log("innerWidth",innerWidth)
+    //         var outerHeight =  window.outerHeight;
+    //         popup(outerWidth);
+    //         var Android = navigator.userAgent.match(/Android/i);
+    //         var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    //         // if(Android){
+    //         //     if(outerWidth < 400){
+    //         //         $(".mobileRedirectPopup").css("transform","scale(2.2)");
+    //         //     }else{
+    //         //         $(".mobileRedirectPopup").css("transform","scale(2.6)");
+    //         //     }
+    //         // }else if(IOS){
+    //         //     outerWidth=500;
+    //         //     innerWidth=outerWidth;
+    //         // }    
+    //         if(Android){
+    //             outerWidth=  window.innerWidth;
+    //             if(outerWidth < 361){
                    
-            //        $(".mobileRedirectPopup").css("transform","scale(1)");
-            //        $(".mobileRedirectPopup").css("left","83%");
-            //     //    $(".mobileRedirectPopup").css("top","10%");
-            //        outerWidth="100%";
-            //    }else if(outerWidth < 400){
+    //                $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                $(".mobileRedirectPopup").css("left","83%");
+                
+    //            }else if(outerWidth < 400){
                    
-            //        $(".mobileRedirectPopup").css("transform","scale(1)");
-            //        $(".mobileRedirectPopup").css("left","78%");
-            //     //    $(".mobileRedirectPopup").css("top","10%");
-            //        outerWidth="100%";
-            //    }else if(outerWidth < 600){
-            //        $(".mobileRedirectPopup").css("transform","scale(1)");
-            //        $(".mobileRedirectPopup").css("left","72%");
-            //       // $(".mobileRedirectPopup").css("top","10%");
-            //        outerWidth="100%";
-            //    }
-            $(".mobileRedirectPopup").css("transform","scale(1.2)");
-               $(".mobileRedirectPopup").css("margin-left","0px");
-               $(".mobileRedirectPopup").css("left","10%");
-               outerWidth="80%";
-              innerWidth=outerWidth;
+    //                $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                $(".mobileRedirectPopup").css("left","78%");
+               
+    //            }else if(outerWidth < 600){
+    //                $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                $(".mobileRedirectPopup").css("left","72%");
+                  
+    //            }
+    //             outerWidth="100%";
+    //           innerWidth=outerWidth;
 
-            }else if(IOS){
-                outerWidth=  window.innerWidth;
-                if(outerWidth < 326){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","94%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="100%";
-                }else if(outerWidth < 400){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","80%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="100%";
-                }else if(outerWidth < 600){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","72%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="100%";
-                }else if(outerWidth < 1025){
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","58%");
-                    $(".mobileRedirectPopup").css("top","25%");
-                    outerWidth="60%";
-                }else{
-                    $(".mobileRedirectPopup").css("transform","scale(1)");
-                    $(".mobileRedirectPopup").css("left","59%");
-                    outerWidth="60%";
-                }
+    //         }else if(IOS){
+    //             outerWidth=  window.innerWidth;
+    //             if(outerWidth < 326){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","94%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="100%";
+    //             }else if(outerWidth < 400){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","80%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="100%";
+    //             }else if(outerWidth < 600){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","72%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="100%";
+    //             }else if(outerWidth < 1025){
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","58%");
+    //                 $(".mobileRedirectPopup").css("top","25%");
+    //                 outerWidth="60%";
+    //             }else{
+    //                 $(".mobileRedirectPopup").css("transform","scale(1)");
+    //                 $(".mobileRedirectPopup").css("left","59%");
+    //                 outerWidth="60%";
+    //             }
               
-                innerWidth=outerWidth;
-            }        
-            $(".mobileRedirectPopup").width(innerWidth);
-            $(window).resize(function(){
-                var ow =  window.outerWidth;
-                popup(ow);
-            });
-       })
+    //             innerWidth=outerWidth;
+    //         }        
+    //         $(".mobileRedirectPopup").width(innerWidth);
+    //         $(window).resize(function(){
+    //             var ow =  window.outerWidth;
+    //             popup(ow);
+    //         });
+    //    })
 
-       function popup(ow){
+    //    function popup(ow){
           
             var Android = navigator.userAgent.match(/Android/i);
-            IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            // alert(IOS);
+            // alert(Android);
             if(Android || IOS){
                  
                     var popup = getCookie("mobilepopuppe");
@@ -11730,5 +11788,6 @@ padding:0px 10px; }
                         $(".backdrop").hide();
                     }
             
-       }  
+      // }  
+      })
 </script>

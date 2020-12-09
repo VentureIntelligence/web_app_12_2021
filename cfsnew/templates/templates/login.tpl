@@ -35,7 +35,9 @@
 </script>
 
 {/literal}
+
 {literal}
+ 
     <style>
 .entry-pad{
 padding:0px 10px; }
@@ -43,11 +45,12 @@ padding:0px 10px; }
             position: fixed !important;
             background: #fff;
             height: 195px;
+            width:700px;
             border-radius: 10px;
             left:50%;
             top:25%;
             margin-top:-92.5px;
-            margin-left:-300px;
+            margin-left:-350px;
             -webkit-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
@@ -286,12 +289,12 @@ $device_list_flag = $this->get_template_vars('device_list_flag');
       <br>  Please select one of them to deauthorize</p>
       <div class="pop-div">
       {php}
+      
            $emailid = $this->get_template_vars('emailid');
 
            $device_array = $this->get_template_vars('devices_array'); 
            $device_array_list = $this->get_template_vars('devices_array_list');
            $deviceDetail_devices =array();
-             
             $count= 1; 
             $deviceDetail_versions = array();
             $min_version="";
@@ -376,7 +379,7 @@ $device_list_flag = $this->get_template_vars('device_list_flag');
 </div>
 <div class="backdrop"></div>
 <div class="mobileRedirectPopup">
-        <div class="popup-title w-100">
+        <div class="popup-title ">
             <h5 class="text-center">See Venture Intelligence in ...</h5>
         </div>
         <div class="row">
@@ -392,12 +395,20 @@ $device_list_flag = $this->get_template_vars('device_list_flag');
             </div>
         </div>
         <div class="row">
-            <div class="image-col text-center"><img
+         
+            <div class="image-col text-center">
+            {if $user_browser eq "Safari"}
+                <img
+                    src="https://www.pngfind.com/pngs/m/314-3147164_download-png-ico-icns-flat-safari-icon-png.png"
+            alt="">{/if}{if $user_browser eq  "Chrome"}
+            <img
                     src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
-                    alt=""></div>
+                    alt="">
+                   {/if}
+                   </div>
             <div class="app-text-col">
                 <h5 class="text-left">
-                    Chrome
+                   {$user_browser}
                 </h5>
             </div>
             <div class="redirect-button-col">
@@ -407,6 +418,7 @@ $device_list_flag = $this->get_template_vars('device_list_flag');
     </div>
 {php}
 /** Check condition to show the alertbox **/ 
+print_r($device_details);
 if(($device_list_flag == 1) && (count($device_array) >= 1)) {  {/php}
          <script> $("#popup_main").show(); </script>     
 {php}  } else {
@@ -816,7 +828,7 @@ function checkpopup()
             var userAgent = navigator.userAgent.toLowerCase();
             var login = "cfs";
             var Android = navigator.userAgent.match(/Android/i);
-            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
             var redirectButton = $(".redirectApp");
             var loginTextSpan = $(".login-type");
             if (Android) {
@@ -884,32 +896,9 @@ function checkpopup()
         })
 
         $(document).ready(function(){
-            var outerWidth =  window.outerWidth;
-            var innerWidth =  600;
-            console.log("innerWidth",innerWidth)
-            var outerHeight =  window.outerHeight;
-            popup(outerWidth);
+           
             var Android = navigator.userAgent.match(/Android/i);
-            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
-            if(Android){
-                outerWidth=  window.innerWidth;
-                $(".mobileRedirectPopup").css("transform","scale(1.2)");
-               $(".mobileRedirectPopup").css("margin-left","0px");
-               $(".mobileRedirectPopup").css("left","10%");
-               outerWidth="80%";
-              innerWidth=outerWidth;
-
-            }
-            $(".mobileRedirectPopup").width(innerWidth);
-            $(window).resize(function(){
-                var ow =  window.outerWidth;
-                popup(ow);
-            });
-       })
-
-       function popup(ow){
-            var Android = navigator.userAgent.match(/Android/i);
-            IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
             if(Android ){
                  
                     var popup = getCookie("mobilepopupcfs");
@@ -927,7 +916,7 @@ function checkpopup()
                         $(".mobileRedirectPopup").hide();
                         $(".backdrop").hide();
                     }
-       }
+       })
 </script>
 {/literal}
 </body>
