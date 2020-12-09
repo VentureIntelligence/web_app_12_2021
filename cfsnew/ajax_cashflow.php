@@ -508,7 +508,7 @@ if(count($NewRatioCalculation)==0){
                        if($yearcurrency[$FinanceAnnual_cashflow[$i][FY]] ==''){
                         if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetPLBefore],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }else{
-                        if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetPLBefore]*$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                        if($FinanceAnnual_cashflow[$i][NetPLBefore]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetPLBefore]/$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }
                        ?></td>
                        <?php
@@ -535,7 +535,7 @@ if(count($NewRatioCalculation)==0){
                        if($yearcurrency[$FinanceAnnual_cashflow[$i][FY]] ==''){
                         if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][CashflowFromOperation],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }else{
-                        if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][CashflowFromOperation]*$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                        if($FinanceAnnual_cashflow[$i][CashflowFromOperation]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][CashflowFromOperation]/$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }
                        ?></td>
                        <?php
@@ -562,7 +562,7 @@ if(count($NewRatioCalculation)==0){
                        if($yearcurrency[$FinanceAnnual_cashflow[$i][FY]] ==''){
                         if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetcashUsedInvestment],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }else{
-                        if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetcashUsedInvestment]*$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                        if($FinanceAnnual_cashflow[$i][NetcashUsedInvestment]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetcashUsedInvestment]/$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }
                        ?></td>
                        <?php
@@ -589,7 +589,7 @@ if(count($NewRatioCalculation)==0){
                        if($yearcurrency[$FinanceAnnual_cashflow[$i][FY]] ==''){
                         if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetcashFromFinance],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }else{
-                        if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetcashFromFinance]*$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                        if($FinanceAnnual_cashflow[$i][NetcashFromFinance]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetcashFromFinance]/$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }
                        ?></td>
                        <?php
@@ -616,7 +616,7 @@ if(count($NewRatioCalculation)==0){
                        if($yearcurrency[$FinanceAnnual_cashflow[$i][FY]] ==''){
                         if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][NetIncDecCash],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }else{
-                        if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetIncDecCash]*$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                        if($FinanceAnnual_cashflow[$i][NetIncDecCash]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][NetIncDecCash]/$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }
                        ?></td>
                        <?php
@@ -643,7 +643,7 @@ if(count($NewRatioCalculation)==0){
                        if($yearcurrency[$FinanceAnnual_cashflow[$i][FY]] ==''){
                         if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][EquivalentEndYear],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }else{
-                        if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][EquivalentEndYear]*$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
+                        if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = $FinanceAnnual_cashflow[$i][EquivalentEndYear]/$yearcurrency[$FinanceAnnual_cashflow[$i][FY]];$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                        }
                        ?></td>
                        <?php
