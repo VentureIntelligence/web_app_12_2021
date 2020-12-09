@@ -893,10 +893,10 @@ function checkpopup()
             var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
             if(Android){
                 outerWidth=  window.innerWidth;
-                $(".mobileRedirectPopup").css("transform","scale(1)");
+                $(".mobileRedirectPopup").css("transform","scale(1.2)");
                $(".mobileRedirectPopup").css("margin-left","0px");
-               $(".mobileRedirectPopup").css("left","0%");
-               outerWidth="100%";
+               $(".mobileRedirectPopup").css("left","10%");
+               outerWidth="80%";
               innerWidth=outerWidth;
 
             }

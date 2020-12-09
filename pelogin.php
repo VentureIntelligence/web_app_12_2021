@@ -1460,10 +1460,10 @@ padding:0px 10px; }
                     
                     
                 //    }
-               $(".mobileRedirectPopup").css("transform","scale(1)");
+               $(".mobileRedirectPopup").css("transform","scale(1.2)");
                $(".mobileRedirectPopup").css("margin-left","0px");
-               $(".mobileRedirectPopup").css("left","0%");
-               outerWidth="100%";
+               $(".mobileRedirectPopup").css("left","10%");
+               outerWidth="80%";
               innerWidth=outerWidth;
             }else if(IOS){
                 outerWidth=  window.innerWidth;

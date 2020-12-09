@@ -11644,16 +11644,7 @@ padding:0px 10px; }
             popup(outerWidth);
             var Android = navigator.userAgent.match(/Android/i);
             var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
-            // if(Android){
-            //     if(outerWidth < 400){
-            //         $(".mobileRedirectPopup").css("transform","scale(2.2)");
-            //     }else{
-            //         $(".mobileRedirectPopup").css("transform","scale(2.6)");
-            //     }
-            // }else if(IOS){
-            //     outerWidth=500;
-            //     innerWidth=outerWidth;
-            // }    
+           
             if(Android){
                 outerWidth=  window.innerWidth;
             //     if(outerWidth < 361){
@@ -11674,10 +11665,10 @@ padding:0px 10px; }
             //       // $(".mobileRedirectPopup").css("top","10%");
             //        outerWidth="100%";
             //    }
-            $(".mobileRedirectPopup").css("transform","scale(1)");
+            $(".mobileRedirectPopup").css("transform","scale(1.2)");
                $(".mobileRedirectPopup").css("margin-left","0px");
-               $(".mobileRedirectPopup").css("left","0%");
-               outerWidth="100%";
+               $(".mobileRedirectPopup").css("left","10%");
+               outerWidth="80%";
               innerWidth=outerWidth;
 
             }else if(IOS){
