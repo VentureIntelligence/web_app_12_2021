@@ -1212,12 +1212,12 @@ padding:0px 10px; }
             position: absolute !important;
             background: #fff;
             height: 185px;
-            width:300px;
+            width:700px;
             border-radius: 10px;
             left:50%;
             top:25%;
             margin-top:-92.5px;
-            margin-left:-150px;
+            margin-left:-350px;
             -webkit-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
             box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
@@ -1364,12 +1364,19 @@ padding:0px 10px; }
             </div>
         </div>
         <div class="row">
-            <div class="image-col text-center"><img
+            <div class="image-col text-center">
+            <?php if($user_browser=="Safari"){?>
+                <img
+                    src="https://www.pngfind.com/pngs/m/314-3147164_download-png-ico-icns-flat-safari-icon-png.png"
+            alt=""><?php }else if($user_browser=="Chrome"){?>
+            <img
                     src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
-                    alt=""></div>
+                    alt="">
+                   <?php } ?>
+            </div>
             <div class="app-text-col">
                 <h5 class="text-left">
-                    Chrome
+                    <?php echo $user_browser;?>
                 </h5>
             </div>
             <div class="redirect-button-col">
@@ -1380,12 +1387,16 @@ padding:0px 10px; }
     
 <script>
    $(document).ready(function () {
+    //    alert(window.innerWidth);
+    //    var innerwidth=window.innerWidth;
+    
             var userAgent = navigator.userAgent.toLowerCase();
             var login = "pe";
             var Android = navigator.userAgent.match(/Android/i);
-            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
             var redirectButton = $(".redirectApp");
             var loginTextSpan = $(".login-type");
+            
             if (Android) {
                 if (login == "cfs") {
                     loginTextSpan.text("CFS");
@@ -1428,7 +1439,7 @@ padding:0px 10px; }
         $(".continue").on("click", function () {
             $(".mobileRedirectPopup").hide();
             $(".backdrop").hide();
-          setCookie("mobilepopuppe", "show", 1);
+            setCookie("mobilepopuppe", "show", 1);
         })
 
         $(document).ready(function(){
@@ -1487,7 +1498,8 @@ padding:0px 10px; }
 
     //    function popup(ow){
             var Android = navigator.userAgent.match(/Android/i);
-            IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            
             if(Android || IOS){
                  
                     var popup = getCookie("mobilepopuppe");

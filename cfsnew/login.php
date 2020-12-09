@@ -577,6 +577,7 @@ $device_details = $user_os."_".$user_browser."_".$deviceId;
 
     $template->assign("devices_array",$devices_array);
     $template->assign("device_details",$device_details);
+    $template->assign("user_browser",$user_browser);
     $template->assign("devices_array_list",$devices_array_list); 
     $template->assign("emailid",$_POST["username"]);
     $template->assign("emailpassword",$_POST["user_password"]);
