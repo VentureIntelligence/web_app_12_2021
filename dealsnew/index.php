@@ -11689,7 +11689,12 @@ echo $user_browser;?>
         })
 
         $(document).ready(function(){
-           
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            if(IOS=="iPhone")
+            {
+                $(".mobileRedirectPopup").css("width","350px");
+                $(".mobileRedirectPopup").css("margin-left","-175px");
+            }
     //         var outerWidth =  window.outerWidth;
     //         var innerWidth =  600;
     //         console.log("innerWidth",innerWidth)
