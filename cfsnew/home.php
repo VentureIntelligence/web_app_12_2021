@@ -397,7 +397,14 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
         $template->assign("fdownload",$authAdmin->user->elements['ExDownloadCount']);
 
-        if($_REQUEST['resetfield']=="SearchFieds" ){
+        if($_REQUEST['resetfield']=="Sector" ){
+            $pos = array_search($_REQUEST['resetfieldindex'], $_REQUEST['answer']['Sector']);
+            $_REQUEST['answer']['Sector'][$pos]="";
+        }else if($_REQUEST['resetfield']=="Industry" ){
+            $pos = array_search($_REQUEST['resetfieldindex'], $_REQUEST['answer']['Industry']);
+            $_REQUEST['answer']['Industry'][$pos]="";
+            $_REQUEST['answer']['Sector']="";
+        }else if($_REQUEST['resetfield']=="SearchFieds" ){
              $_REQUEST['answer']['SearchFieds'][$_REQUEST['resetfieldindex']]="";
              $_REQUEST['Grtr_'.$_REQUEST['resetfieldindex']]="";
              $_REQUEST['Less_'.$_REQUEST['resetfieldindex']]="";
@@ -585,25 +592,28 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         //	pr($where);
         }		
 
-
+      
         if($_REQUEST['answer']['Industry'] != ""){
+            $industry1=$_REQUEST['answer']['Industry'];
+            $industry1=array_filter($industry1);
+            $industry=  implode(',', $industry1);
             
                 if($where != ''){
-                    $where .=  " and  b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $where .=  " and  b.Industry IN( ".$industry.")";
                 }else{
-                    $where .=  "b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $where .=  "b.Industry IN( ".$industry.")";
                 }
 
                 if($whereCountNew != ''){
-                    $whereCountNew .=  " and  b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereCountNew .=  " and  b.Industry IN( ".$industry.")";
                 }else{
-                    $whereCountNew .=  "b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereCountNew .=  "b.Industry IN( ".$industry.")";
                 }
 
                 if($whereHomeCountNew != ''){
-                    $whereHomeCountNew .=  " and  b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereHomeCountNew .=  " and  b.Industry IN( ".$industry.")";
                 }else{
-                    $whereHomeCountNew .=  "b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereHomeCountNew .=  "b.Industry IN( ".$industry.")";
                 }
         }	
 
@@ -641,22 +651,26 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         }
 
         if($_REQUEST['answer']['Sector'] != ""){
+            $sector1=$_REQUEST['answer']['Sector'];
+            $sector1=array_filter($sector1);
+            $sector=  implode(',', $sector1);
+            
                 if($where!=''){
-                    $where .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $where .=  " and  b.Sector  IN (".$sector.")";
                 }else{
-                    $where .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $where .=  " b.Sector  IN (".$sector.")";
                 }
 
                 if($whereCountNew!=''){
-                    $whereCountNew .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereCountNew .=  " and  b.Sector  IN (".$sector.")";
                 }else{
-                    $whereCountNew .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereCountNew .=  " b.Sector  IN (".$sector.")";
                 }
 
                 if($whereHomeCountNew!=''){
-                    $whereHomeCountNew .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereHomeCountNew .=  " and  b.Sector  IN (".$sector.")";
                 }else{
-                    $whereHomeCountNew .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereHomeCountNew .=  " b.Sector  IN (".$sector.")";
                 }
         }
 
