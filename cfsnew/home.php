@@ -651,10 +651,13 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         }
 
         if($_REQUEST['answer']['Sector'] != ""){
+            
             $sector1=$_REQUEST['answer']['Sector'];
+            
             $sector1=array_filter($sector1);
             $sector=  implode(',', $sector1);
             
+            if(count($sector1)>0){
                 if($where!=''){
                     $where .=  " and  b.Sector  IN (".$sector.")";
                 }else{
@@ -672,6 +675,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 }else{
                     $whereHomeCountNew .=  " b.Sector  IN (".$sector.")";
                 }
+            }
         }
 
         if($_REQUEST['answer']['SubSector'] != ""){
