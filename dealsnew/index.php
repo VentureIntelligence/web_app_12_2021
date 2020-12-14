@@ -460,8 +460,8 @@ if ($vcflagValue == 0) {
     $searchAggTitle = "Aggregate Data - PE Investments ";
     $aggsql = "select count(PEId) as totaldeals,sum(amount) as totalamount from peinvestments as pe,
             pecompanies as pec,industry as i where ";
-    /*$samplexls="../Sample_Sheet_Investments.xls";*/
-    $samplexls = "../Sample sheet.xlsx";
+    $samplexls="../xls/Sample_Sheet_Investments.xls";
+    // $samplexls = "../Sample sheet.xlsx";
 } elseif ($vcflagValue == 1) {
     $addVCFlagqry = " and pec.industry!=15  and s.VCview=1 and pe.amount <=20 ";
     $view_table = 'VCnew_portfolio_cos';
@@ -4662,14 +4662,20 @@ if ($studentOption == 1) {
 
                     </script>
                     <?php
+                   
 if ($exportToExcel == 1) {
+    
         ?>
                         <span style="float:right" class="one">
                         <input class ="export" type="button"  value="Export" name="showdeals">
                         </span>
                               <div class="title-links" id="exportbtn"></div>
-                        <script type="text/javascript">
-                              $('#exportbtn').html('<a class="export_new" id="expshowdeals" name="showdeals">Export</a>');
+                              <script type="text/javascript">
+                            <?php  if($vcflagValue == '0'){?>
+                                $('#exportbtn').html('<a class ="export_new" id="expshowdeals" data-type="multicheckbox" name="showdeals">Export</a>');
+                            <?php }else{?>
+                                $('#exportbtn').html('<a class ="export_new" id="expshowdeals" data-type="nomulticheckbox" name="showdeals">Export</a>');
+                            <?php } ?>
                         </script>
                     <?php
 }
@@ -5287,6 +5293,7 @@ if ($type != 1) {
             // });
                 // Start T960 -------------------------------------------------------------
             $('#expshowdeals').click(function(){
+               
                 $exportmultiselect = $('#expshowdeals').attr("data-type");
                 if($exportmultiselect == 'multicheckbox'){
                     jQuery('#maskscreen').fadeIn();
