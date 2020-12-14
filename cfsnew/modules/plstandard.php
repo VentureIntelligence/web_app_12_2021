@@ -1270,7 +1270,7 @@ class plstandard extends database {
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		$esql = "SELECT ".$fields." FROM ".$this->dbName." a";
 		//$esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-                $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY JOIN balancesheet_new bsn1 on bsn1.CID_FK=b.Company_Id ";
+                $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
 		$esql .=  $maxFYQuery;
 
 		if(strlen($where)) $esql.= " WHERE ".$where;

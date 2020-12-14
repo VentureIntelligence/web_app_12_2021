@@ -589,6 +589,908 @@ arguments.length==2&&typeof arguments[1]=="string")return d.datepicker["_"+a+"Da
 (function(a){a.widget("ui.dropdownchecklist",{version:function(){alert("DropDownCheckList v1.4")},_appendDropContainer:function(b){var d=a("<div/>");d.addClass("ui-dropdownchecklist ui-dropdownchecklist-dropcontainer-wrapper");d.addClass("ui-widget");d.attr("id",b.attr("id")+"-ddw");d.css({position:"absolute",left:"-33000px",top:"-33000px"});var c=a("<div/>");c.addClass("ui-dropdownchecklist-dropcontainer ui-widget-content");c.css("overflow-y","auto");d.append(c);d.insertAfter(b);d.isOpen=false;return d},_isDropDownKeyShortcut:function(c,b){return c.altKey&&(a.ui.keyCode.DOWN==b)},_isDropDownCloseKey:function(c,b){return(a.ui.keyCode.ESCAPE==b)||(a.ui.keyCode.ENTER==b)},_keyFocusChange:function(f,i,c){var g=a(":focusable");var d=g.index(f);if(d>=0){d+=i;if(c){var e=this.dropWrapper.find("input:not([disabled])");var b=g.index(e.get(0));var h=g.index(e.get(e.length-1));if(d<b){d=h}else{if(d>h){d=b}}}g.get(d).focus()}},_handleKeyboard:function(d){var b=this;var c=(d.keyCode||d.which);if(!b.dropWrapper.isOpen&&b._isDropDownKeyShortcut(d,c)){d.stopImmediatePropagation();b._toggleDropContainer(true)}else{if(b.dropWrapper.isOpen&&b._isDropDownCloseKey(d,c)){d.stopImmediatePropagation();b._toggleDropContainer(false);b.controlSelector.focus()}else{if(b.dropWrapper.isOpen&&(d.target.type=="checkbox")&&((c==a.ui.keyCode.DOWN)||(c==a.ui.keyCode.UP))){d.stopImmediatePropagation();b._keyFocusChange(d.target,(c==a.ui.keyCode.DOWN)?1:-1,true)}else{if(b.dropWrapper.isOpen&&(c==a.ui.keyCode.TAB)){}}}}},_handleFocus:function(f,d,b){var c=this;if(b&&!c.dropWrapper.isOpen){f.stopImmediatePropagation();if(d){c.controlSelector.addClass("ui-state-hover");if(a.ui.dropdownchecklist.gLastOpened!=null){a.ui.dropdownchecklist.gLastOpened._toggleDropContainer(false)}}else{c.controlSelector.removeClass("ui-state-hover")}}else{if(!b&&!d){if(f!=null){f.stopImmediatePropagation()}c.controlSelector.removeClass("ui-state-hover");c._toggleDropContainer(false)}}},_cancelBlur:function(c){var b=this;if(b.blurringItem!=null){clearTimeout(b.blurringItem);b.blurringItem=null}},_appendControl:function(){var j=this,c=this.sourceSelect,k=this.options;var b=a("<span/>");b.addClass("ui-dropdownchecklist ui-dropdownchecklist-selector-wrapper ui-widget");b.css({display:"inline-block",cursor:"default",overflow:"hidden"});var f=c.attr("id");if((f==null)||(f=="")){f="ddcl-"+a.ui.dropdownchecklist.gIDCounter++}else{f="ddcl-"+f}b.attr("id",f);var h=a("<span/>");h.addClass("ui-dropdownchecklist-selector ui-state-default");h.css({display:"inline-block",overflow:"hidden","white-space":"nowrap"});var d=c.attr("tabIndex");if(d==null){d=0}else{d=parseInt(d);if(d<0){d=0}}h.attr("tabIndex",d);h.keyup(function(l){j._handleKeyboard(l)});h.focus(function(l){j._handleFocus(l,true,true)});h.blur(function(l){j._handleFocus(l,false,true)});b.append(h);if(k.icon!=null){var i=(k.icon.placement==null)?"left":k.icon.placement;var g=a("<div/>");g.addClass("ui-icon");g.addClass((k.icon.toOpen!=null)?k.icon.toOpen:"ui-icon-triangle-1-e");g.css({"float":i});h.append(g)}var e=a("<span/>");e.addClass("ui-dropdownchecklist-text");e.css({display:"inline-block","white-space":"nowrap",overflow:"hidden"});h.append(e);b.hover(function(){if(!j.disabled){h.addClass("ui-state-hover")}},function(){if(!j.disabled){h.removeClass("ui-state-hover")}});b.click(function(l){if(!j.disabled){l.stopImmediatePropagation();j._toggleDropContainer(!j.dropWrapper.isOpen)}});b.insertAfter(c);a(window).resize(function(){if(!j.disabled&&j.dropWrapper.isOpen){j._toggleDropContainer(true)}});return b},_createDropItem:function(g,f,o,l,q,h,e,k){var m=this,c=this.options,d=this.sourceSelect,p=this.controlWrapper;var t=a("<div/>");t.addClass("ui-dropdownchecklist-item");t.css({"white-space":"nowrap"});var r=h?' checked="checked"':"";var j=e?' class="inactive"':' class="active"';var b=p.attr("id");var n=b+"-i"+g;var s;if(m.isMultiple){s=a('<input disabled type="checkbox" id="'+n+'"'+r+j+' tabindex="'+f+'" />')}else{s=a('<input disabled type="radio" id="'+n+'" name="'+b+'"'+r+j+' tabindex="'+f+'" />')}s=s.attr("index",g).val(o);t.append(s);var i=a("<label for="+n+"/>");i.addClass("ui-dropdownchecklist-text");if(q!=null){i.attr("style",q)}i.css({cursor:"default"});i.html(l);if(k){t.addClass("ui-dropdownchecklist-indent")}t.addClass("ui-state-default");if(e){t.addClass("ui-state-disabled")}i.click(function(u){u.stopImmediatePropagation()});t.append(i);t.hover(function(v){var u=a(this);if(!u.hasClass("ui-state-disabled")){u.addClass("ui-state-hover")}},function(v){var u=a(this);u.removeClass("ui-state-hover")});s.click(function(w){var v=a(this);w.stopImmediatePropagation();if(v.hasClass("active")){var x=m.options.onItemClick;if(a.isFunction(x)){try{x.call(m,v,d.get(0))}catch(u){v.prop("checked",!v.prop("checked"));m._syncSelected(v);return}}m._syncSelected(v);m.sourceSelect.trigger("change","ddcl_internal");if(!m.isMultiple&&c.closeRadioOnClick){m._toggleDropContainer(false)}}});t.click(function(y){var x=a(this);y.stopImmediatePropagation();if(!x.hasClass("ui-state-disabled")){var v=x.find("input");var w=v.prop("checked");v.prop("checked",!w);var z=m.options.onItemClick;if(a.isFunction(z)){try{z.call(m,v,d.get(0))}catch(u){v.prop("checked",w);m._syncSelected(v);return}}m._syncSelected(v);m.sourceSelect.trigger("change","ddcl_internal");if(!w&&!m.isMultiple&&c.closeRadioOnClick){m._toggleDropContainer(false)}}else{x.focus();m._cancelBlur()}});t.focus(function(v){var u=a(this);v.stopImmediatePropagation()});t.keyup(function(u){m._handleKeyboard(u)});return t},_createGroupItem:function(f,d){var b=this;var e=a("<div />");e.addClass("ui-dropdownchecklist-group ui-widget-header");if(d){e.addClass("ui-state-disabled")}e.css({"white-space":"nowrap"});var c=a("<span/>");c.addClass("ui-dropdownchecklist-text");c.css({cursor:"default"});c.text(f);e.append(c);e.click(function(h){var g=a(this);h.stopImmediatePropagation();g.focus();b._cancelBlur()});e.focus(function(h){var g=a(this);h.stopImmediatePropagation()});return e},_createCloseItem:function(e){var b=this;var d=a("<div />");d.addClass("ui-state-default ui-dropdownchecklist-close ui-dropdownchecklist-item");d.css({"white-space":"nowrap","text-align":"right"});var c=a("<span/>");c.addClass("ui-dropdownchecklist-text");c.css({cursor:"default"});c.html(e);d.append(c);d.click(function(g){var f=a(this);g.stopImmediatePropagation();f.focus();b._toggleDropContainer(false)});d.hover(function(f){a(this).addClass("ui-state-hover")},function(f){a(this).removeClass("ui-state-hover")});d.focus(function(g){var f=a(this);g.stopImmediatePropagation()});return d},_appendItems:function(){var d=this,f=this.options,h=this.sourceSelect,g=this.dropWrapper;var b=g.find(".ui-dropdownchecklist-dropcontainer");h.children().each(function(j){var k=a(this);if(k.is("option")){d._appendOption(k,b,j,false,false)}else{if(k.is("optgroup")){var l=k.prop("disabled");var n=k.attr("label");if(n!=""){var m=d._createGroupItem(n,l);b.append(m)}d._appendOptions(k,b,j,true,l)}}});if(f.explicitClose!=null){var i=d._createCloseItem(f.explicitClose);b.append(i)}var c=b.outerWidth();var e=b.outerHeight();return{width:c,height:e}},_appendOptions:function(g,d,f,c,b){var e=this;g.children("option").each(function(h){var i=a(this);var j=(f+"."+h);e._appendOption(i,d,j,c,b)})},_appendOption:function(g,b,h,d,n){var m=this;var k=g.html();if((k!=null)&&(k!="")){var j=g.val();var i=g.attr("style");var f=g.prop("selected");var e=(n||g.prop("disabled"));var c=m.controlSelector.attr("tabindex");var l=m._createDropItem(h,c,j,k,i,f,e,d);b.append(l)}},_syncSelected:function(h){var i=this,l=this.options,b=this.sourceSelect,d=this.dropWrapper;var c=b.get(0).options;var g=d.find("input.active");if(l.firstItemChecksAll=="exclusive"){if((h==null)&&a(c[0]).prop("selected")){g.prop("checked",false);a(g[0]).prop("checked",true)}else{if((h!=null)&&(h.attr("index")==0)){var e=h.prop("checked");g.prop("checked",false);a(g[0]).prop("checked",e)}else{var f=true;var k=null;g.each(function(m){if(m>0){var n=a(this).prop("checked");if(!n){f=false}}else{k=a(this)}});if(k!=null){if(f){g.prop("checked",false)}k.prop("checked",f)}}}}else{if(l.firstItemChecksAll){if((h==null)&&a(c[0]).prop("selected")){g.prop("checked",true)}else{if((h!=null)&&(h.attr("index")==0)){g.prop("checked",h.prop("checked"))}else{var f=true;var k=null;g.each(function(m){if(m>0){var n=a(this).prop("checked");if(!n){f=false}}else{k=a(this)}});if(k!=null){k.prop("checked",f)}}}}}var j=0;g=d.find("input");g.each(function(n){var m=a(c[n+j]);var o=m.html();if((o==null)||(o=="")){j+=1;m=a(c[n+j])}m.prop("selected",a(this).prop("checked"))});i._updateControlText();if(h!=null){h.focus()}},_sourceSelectChangeHandler:function(c){var b=this,d=this.dropWrapper;d.find("input").val(b.sourceSelect.val());b._updateControlText()},_updateControlText:function(){var c=this,g=this.sourceSelect,d=this.options,f=this.controlWrapper;var h=g.find("option:first");var b=g.find("option");var i=c._formatText(b,d.firstItemChecksAll,h);var e=f.find(".ui-dropdownchecklist-text");e.html(i);e.attr("title",e.text())},_formatText:function(b,d,e){var f;if(a.isFunction(this.options.textFormatFunction)){try{f=this.options.textFormatFunction(b)}catch(c){alert("textFormatFunction failed: "+c)}}else{if(d&&(e!=null)&&e.prop("selected")){f=e.html()}else{f="";b.each(function(){if(a(this).prop("selected")){if(f!=""){f+=", "}var g=a(this).attr("style");var h=a("<span/>");h.html(a(this).html());if(g==null){f+=h.html()}else{h.attr("style",g);f+=a("<span/>").append(h).html()}}});if(f==""){f=(this.options.emptyText!=null)?this.options.emptyText:" "}}}return f},_toggleDropContainer:function(e){var c=this;var d=function(f){if((f!=null)&&f.dropWrapper.isOpen){f.dropWrapper.isOpen=false;a.ui.dropdownchecklist.gLastOpened=null;var h=f.options;f.dropWrapper.css({top:"-33000px",left:"-33000px"});var g=f.controlSelector;g.removeClass("ui-state-active");g.removeClass("ui-state-hover");var j=f.controlWrapper.find(".ui-icon");if(j.length>0){j.removeClass((h.icon.toClose!=null)?h.icon.toClose:"ui-icon-triangle-1-s");j.addClass((h.icon.toOpen!=null)?h.icon.toOpen:"ui-icon-triangle-1-e")}a(document).unbind("click",d);f.dropWrapper.find("input.active").prop("disabled",true);if(a.isFunction(h.onComplete)){try{h.onComplete.call(f,f.sourceSelect.get(0))}catch(i){alert("callback failed: "+i)}}}};var b=function(n){if(!n.dropWrapper.isOpen){n.dropWrapper.isOpen=true;a.ui.dropdownchecklist.gLastOpened=n;var g=n.options;if((g.positionHow==null)||(g.positionHow=="absolute")){n.dropWrapper.css({position:"absolute",top:n.controlWrapper.position().top+n.controlWrapper.outerHeight()+"px",left:n.controlWrapper.position().left+"px"})}else{if(g.positionHow=="relative"){n.dropWrapper.css({position:"relative",top:"0px",left:"0px"})}}var m=0;if(g.zIndex==null){var l=n.controlWrapper.parents().map(function(){var o=a(this).css("z-index");return isNaN(o)?0:o}).get();var i=Math.max.apply(Math,l);if(i>=0){m=i+1}}else{m=parseInt(g.zIndex)}if(m>0){n.dropWrapper.css({"z-index":m})}var j=n.controlSelector;j.addClass("ui-state-active");j.removeClass("ui-state-hover");var h=n.controlWrapper.find(".ui-icon");if(h.length>0){h.removeClass((g.icon.toOpen!=null)?g.icon.toOpen:"ui-icon-triangle-1-e");h.addClass((g.icon.toClose!=null)?g.icon.toClose:"ui-icon-triangle-1-s")}a(document).bind("click",function(o){d(n)});var f=n.dropWrapper.find("input.active");f.prop("disabled",false);var k=f.get(0);if(k!=null){k.focus()}}};if(e){d(a.ui.dropdownchecklist.gLastOpened);b(c)}else{d(c)}},_setSize:function(b){var m=this.options,f=this.dropWrapper,l=this.controlWrapper;var k=b.width;if(m.width!=null){k=parseInt(m.width)}else{if(m.minWidth!=null){var c=parseInt(m.minWidth);if(k<c){k=c}}}var i=this.controlSelector;i.css({width:k+"px"});var g=i.find(".ui-dropdownchecklist-text");var d=i.find(".ui-icon");if(d!=null){k-=(d.outerWidth()+4);g.css({width:k+"px"})}k=l.outerWidth();var j=(m.maxDropHeight!=null)?parseInt(m.maxDropHeight):-1;var h=((j>0)&&(b.height>j))?j:b.height;var e=b.width<k?k:b.width;a(f).css({height:h+"px",width:e+"px"});f.find(".ui-dropdownchecklist-dropcontainer").css({height:h+"px"})},_init:function(){var c=this,d=this.options;if(a.ui.dropdownchecklist.gIDCounter==null){a.ui.dropdownchecklist.gIDCounter=1}c.blurringItem=null;var g=c.element;c.initialDisplay=g.css("display");g.css("display","none");c.initialMultiple=g.prop("multiple");c.isMultiple=c.initialMultiple;if(d.forceMultiple!=null){c.isMultiple=d.forceMultiple}g.prop("multiple",true);c.sourceSelect=g;var e=c._appendControl();c.controlWrapper=e;c.controlSelector=e.find(".ui-dropdownchecklist-selector");var f=c._appendDropContainer(e);c.dropWrapper=f;var b=c._appendItems();c._updateControlText(e,f,g);c._setSize(b);if(d.firstItemChecksAll){c._syncSelected(null)}if(d.bgiframe&&typeof c.dropWrapper.bgiframe=="function"){c.dropWrapper.bgiframe()}c.sourceSelect.change(function(i,h){if(h!="ddcl_internal"){c._sourceSelectChangeHandler(i)}})},_refreshOption:function(e,d,c){var b=e.parent();if(d){e.prop("disabled",true);e.removeClass("active");e.addClass("inactive");b.addClass("ui-state-disabled")}else{e.prop("disabled",false);e.removeClass("inactive");e.addClass("active");b.removeClass("ui-state-disabled")}e.prop("checked",c)},_refreshGroup:function(c,b){if(b){c.addClass("ui-state-disabled")}else{c.removeClass("ui-state-disabled")}},close:function(){this._toggleDropContainer(false)},refresh:function(){var b=this,e=this.sourceSelect,d=this.dropWrapper;var c=d.find("input");var g=d.find(".ui-dropdownchecklist-group");var h=0;var f=0;e.children().each(function(i){var j=a(this);var l=j.prop("disabled");if(j.is("option")){var k=j.prop("selected");var n=a(c[f]);b._refreshOption(n,l,k);f+=1}else{if(j.is("optgroup")){var o=j.attr("label");if(o!=""){var m=a(g[h]);b._refreshGroup(m,l);h+=1}j.children("option").each(function(){var p=a(this);var r=(l||p.prop("disabled"));var q=p.prop("selected");var s=a(c[f]);b._refreshOption(s,r,q);f+=1})}}});b._syncSelected(null)},enable:function(){this.controlSelector.removeClass("ui-state-disabled");this.disabled=false},disable:function(){this.controlSelector.addClass("ui-state-disabled");this.disabled=true},destroy:function(){a.Widget.prototype.destroy.apply(this,arguments);this.sourceSelect.css("display",this.initialDisplay);this.sourceSelect.prop("multiple",this.initialMultiple);this.controlWrapper.unbind().remove();this.dropWrapper.remove()}});a.extend(a.ui.dropdownchecklist,{defaults:{width:null,maxDropHeight:null,firstItemChecksAll:false,closeRadioOnClick:false,minWidth:50,positionHow:"absolute",bgiframe:false,explicitClose:null}})})(jQuery);
 /* popup.js */
 !function(t){"use strict";var o="LePopup",e={modal:!0,autoShowDelay:!1,autoCloseDelay:!1,sessionInterval:0,closeOnButton:!0,closeOnEsc:!0,closeOnClick:!0,closeOnContentClick:!1,animSpeed:300,skin:"default"},i={lePopup:{overlay:"<div id='lepopup-overlay' />",wrap:"<div id='lepopup-wrap' />",outer:"<div id='lepopup-outer' />",inner:"<div id='lepopup-inner' />",close:"<div id='lepopup-footer'><div id='lepopup-close' title='Close Popup'></div></div>"},loading:"loading",visible:"visible",cookieName:"lepopup_interval"};function n(n,s){this.element=n,this.$element=t(this.element),this.options=t.extend({},e,s),this._defaults=e,this._name=o,this.$popup=null,this.$overlay=null,this.$outer=null,this.$close=null,this.$content=null,this.timeout=null,this.dynamic=null,this.ajax=null,this.prevSkin=this.options.skin,this.cookieName=i.cookieName+"_"+this.$element.LeCompatibleAttr("id"),this.storageSupport=!1,this.init()}n.prototype={init:function(){try{localStorage&&(this.storageSupport=!0)}catch(t){console.log(t)}this.setPopup(),this.setAutoShow(),this.$element.is("a[href*='.php']")?this.dynamic=!0:(this.dynamic=!1,this.$element.css("display","none")),this.bindLinks()},setPopup:function(){if(this.$popup=t("#"+t(i.lePopup.wrap).LeCompatibleAttr("id")),!this.$popup.length){var o=t(i.lePopup.wrap);o.append(t(t(i.lePopup.outer).addClass(this.options.skin).append(i.lePopup.inner+i.lePopup.close))),this.$popup=t(o);t("body").append(this.$popup).append(i.lePopup.overlay),t.browser.msie&&t.browser.version<=7&&this.$popup.find("#lepopup-outer").css({"max-width":"900px"})}this.$close="boolean"==typeof this.options.closeOnButton?this.$popup.find("#lepopup-close"):this.options.closeOnButton,this.$content=this.$popup.find("#lepopup-inner"),this.$outer=this.$popup.find("#lepopup-outer"),this.$overlay=t("#"+t(i.lePopup.overlay).LeCompatibleAttr("id")),this.setCloseButton()},getCloseButton:function(){return"boolean"==typeof this.options.closeOnButton||1==this.options.closeOnButton?this.$popup.find("#lepopup-close"):"string"==typeof this.options.closeOnButton&&this.$content.find(this.options.closeOnButton)},setCloseButton:function(){"string"==typeof this.options.closeOnButton&&this.$popup.find("#lepopup-footer").hide()},bindClosures:function(){var o=this;this.options.closeOnEsc&&t(document).bind("keyup",function(t){27===t.which&&o.toggle(!1)}),this.options.closeOnClick&&this.$overlay.bind("click",function(t){o.toggle(!1)}),this.options.closeOnContentClick&&this.$outer.bind("click",function(t){o.toggle(!1)}),this.options.closeOnButton&&this.getCloseButton().bind("click",function(t){o.toggle(!1),t.preventDefault()})},unbindClosures:function(){(this.options.closeOnEsc&&t(document).unbind("keyup"),this.options.closeOnClick&&this.$overlay.unbind("click"),this.options.closeOnContentClick&&this.$outer.unbind("click"),this.options.closeOnButton)&&this.getCloseButton().unbind("click")},bindLinks:function(){var o=this;this.$links=t("a[href=#"+this.$element.LeCompatibleAttr("id")+"]"),this.dynamic&&t.extend(this.$links,this.$element),this.$links.bind("click",function(t){return o.toggle(!0),t.preventDefault(),!1})},bindResize:function(){var o=this;t(window).bind("resize scroll",function(){o.setPosition()})},unbindResize:function(){t(window).unbind("resize")},setAutoShow:function(){if(!1!==this.options.autoShowDelay){var o=parseFloat(this.getCookie(this.cookieName),10)||null,e=parseFloat(this.options.sessionInterval,10),i=this;null===o||0!==e&&o===e||(this.deleteCookie(this.cookieName),o=parseFloat(this.getCookie(this.cookieName),10)||null),null!==o&&0!=e||t(document).bind("ready",function(){i.options.autoShowDelay>0?i.timeout=setTimeout(function(){i.toggle(!0),i.setAutoClose(),e&&i.setCookie(i.cookieName,e,e)},i.options.autoShowDelay):(i.toggle(!0),i.setAutoClose())})}},setAutoClose:function(){var t=this;this.options.autoCloseDelay>0&&(this.timeout=setTimeout(function(){t.toggle(!1)},this.options.autoCloseDelay+this.options.animSpeed))},setCloseAllow:function(){var t=this.options.allowCloseOnAutoShow;!1!==t&&(this.unbindClosures(),!0===t?setTimeout(function(){self.bindClosures()},this.options.closeDelay):"number"==typeof t&&setTimeout(function(){self.bindClosures()},t))},toggle:function(o,e){var n,s=this;clearTimeout(this.timeout),this.dynamic&&void 0===e&&o?(n=this.$element.attr("href"),this.$outer.addClass(i.loading),this.ajax=t.get(n).done(function(o){s.toggle(!0,t(o)),s.ajax=null}).always(function(){s.$outer.removeClass(i.loading)}),this.doToggle(o)):(void 0===e&&(e=this.$element.clone().css("display","block")),o&&this.$content.empty().append(e),this.doToggle(o))},doToggle:function(t){this.toggleOverlay(t),t?this.bindClosures():this.unbindClosures(),this.setToggle(this.$popup,t),this.$popup.css(this.getPosition())},toggleOverlay:function(t){this.options.modal&&this.setToggle(this.$overlay,t)},setPosition:function(){this.$popup.is(":visible")&&(t(window).scrollTop()-this.$popup.offset().top<0||t(window).scrollTop()+t(window).height()-(this.$popup.outerHeight()+this.$popup.offset().top)>0)&&this.$popup.stop(!0,!1).animate(this.getPosition(),this.options.animSpeed)},getPosition:function(){return{left:t(window).width()/2-this.$popup.outerWidth()/2+t(document).scrollLeft(),top:t(window).height()/2-this.$popup.outerHeight()/2+t(document).scrollTop()}},setToggle:function(t,o){if(void 0===t||0===t.length)return!1;var e=this;t.clearQueue(),o?t.is(":visible")||(this.setSkin(),this.setCloseBut(),t.stop().fadeIn(this.options.animSpeed,function(){e.bindResize()})):(t.is(":visible")&&this.unbindResize(),t.stop().fadeOut(this.options.animSpeed,function(){e.emptyContent(),e.setCloseBut()}))},emptyContent:function(){if(this.ajax)return this.ajax.abort(),!1;this.$content.empty()},setSkin:function(){this.$outer.removeClass(this.prevSkin).addClass(this.options.skin),this.prevSkin=this.options.skin},setCloseBut:function(){var t=this.getCloseButton();"boolean"==typeof this.options.closeOnButton?this.$popup.find("#lepopup-footer").toggle(this.options.closeOnButton):"string"==typeof this.options.closeOnButton&&(this.$popup.find("#lepopup-footer").toggle(!1),t.show())},getCookie:function(t){var o=document.cookie.split(";"),e="",i="",n=!1,s="";if(this.storageSupport)return new Date(localStorage.getItem(t))<new Date?null:localStorage.getItem(t+"_interval");for(s=0;s<o.length;s++){if((e=o[s].split("="))[0].replace(/^\s+|\s+$/g,"")==t)return n=!0,e.length>1&&(i=unescape(e[1].replace(/^\s+|\s+$/g,""))),i;e=null,""}return n?void 0:null},setCookie:function(t,o,e,i,n,s){var l=new Date;l.setTime(l.getTime()),e&&(e=1e3*e*60*60);var p=new Date(l.getTime()+e);if(-1==this.options.sessionInterval&&(p=new Date(l.getTime()+99999999990*-o)),this.storageSupport)return localStorage.setItem(t,p.toGMTString()),localStorage.setItem(t+"_interval",o),!0;document.cookie=t+"="+escape(o)+(e?";expires="+p.toGMTString():"")+(i?";path="+i:"")+(n?";domain="+n:"")+(s?";secure":"")},deleteCookie:function(t,o,e){if(this.storageSupport)return localStorage.removeItem(t),localStorage.removeItem(t+"_interval"),!0;this.getCookie(t)&&(document.cookie=t+"="+(o?";path="+o:"")+(e?";domain="+e:"")+";expires=Thu, 01-Jan-1970 00:00:01 GMT")},method:function(){}},t.fn[o]=function(e){return this.each(function(){t.data(this,"plugin_"+o)||t.data(this,"plugin_"+o,new n(this,e))})},t.fn.LeCompatibleAttr=function(){try{return this.prop("id")}catch(t){return this.attr("id")}}}(jQuery);
+/* jshint forin:true, noarg:true, noempty:true, eqeqeq:true, boss:true, undef:true, curly:true, browser:true, jquery:true */
+/*
+ * jQuery MultiSelect UI Widget 1.14pre
+ * Copyright (c) 2012 Eric Hynds
+ *
+ * http://www.erichynds.com/jquery/jquery-ui-multiselect-widget/
+ *
+ * Depends:
+ *   - jQuery 1.4.2+
+ *   - jQuery UI 1.8 widget factory
+ *
+ * Optional:
+ *   - jQuery UI effects
+ *   - jQuery UI position utility
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+ */
+(function($, undefined) {
+
+  var multiselectID = 0;
+  var $doc = $(document);
+
+  $.widget("ech.multiselect", {
+
+    // default options
+    options: {
+      header: true,
+      height: 175,
+      minWidth: 225,
+      classes: '',
+      checkAllText: 'Check all',
+      uncheckAllText: 'Uncheck all',
+      noneSelectedText: 'Select options',
+      selectedText: '# selected',
+      selectedList: 0,
+      show: null,
+      hide: null,
+      autoOpen: false,
+      multiple: true,
+      position: {}
+    },
+
+    _create: function() {
+      var el = this.element.hide();
+      var o = this.options;
+
+      this.speed = $.fx.speeds._default; // default speed for effects
+      this._isOpen = false; // assume no
+
+      // create a unique namespace for events that the widget
+      // factory cannot unbind automatically. Use eventNamespace if on
+      // jQuery UI 1.9+, and otherwise fallback to a custom string.
+      this._namespaceID = this.eventNamespace || ('multiselect' + multiselectID);
+
+      var button = (this.button = $('<button type="button"><span class="ui-icon ui-icon-triangle-2-n-s"></span></button>'))
+        .addClass('ui-multiselect ui-widget ui-state-default ui-corner-all')
+        .addClass(o.classes)
+        .attr({ 'title':el.attr('title'), 'aria-haspopup':true, 'tabIndex':el.attr('tabIndex') })
+        .insertAfter(el),
+
+        buttonlabel = (this.buttonlabel = $('<span />'))
+          .html(o.noneSelectedText)
+          .appendTo(button),
+
+        menu = (this.menu = $('<div />'))
+          .addClass('ui-multiselect-menu ui-widget ui-widget-content ui-corner-all')
+          .addClass(o.classes)
+          .appendTo(document.body),
+
+        header = (this.header = $('<div />'))
+          .addClass('ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix')
+          .appendTo(menu),
+
+        headerLinkContainer = (this.headerLinkContainer = $('<ul />'))
+          .addClass('ui-helper-reset')
+          .html(function() {
+            if(o.header === true) {
+              return '<li><a class="ui-multiselect-all" href="#"><span class="ui-icon ui-icon-check"></span><span>' + o.checkAllText + '</span></a></li><li><a class="ui-multiselect-none" href="#"><span class="ui-icon ui-icon-closethick"></span><span>' + o.uncheckAllText + '</span></a></li>';
+            } else if(typeof o.header === "string") {
+              return '<li>' + o.header + '</li>';
+            } else {
+              return '';
+            }
+          })
+          .append('<li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>')
+          .appendTo(header),
+
+        checkboxContainer = (this.checkboxContainer = $('<ul />'))
+          .addClass('ui-multiselect-checkboxes ui-helper-reset')
+          .appendTo(menu);
+
+        // perform event bindings
+        this._bindEvents();
+
+        // build menu
+        this.refresh(true);
+
+        // some addl. logic for single selects
+        if(!o.multiple) {
+          menu.addClass('ui-multiselect-single');
+        }
+
+        // bump unique ID
+        multiselectID++;
+    },
+
+    _init: function() {
+      if(this.options.header === false) {
+        this.header.hide();
+      }
+      if(!this.options.multiple) {
+        this.headerLinkContainer.find('.ui-multiselect-all, .ui-multiselect-none').hide();
+      }
+      if(this.options.autoOpen) {
+        this.open();
+      }
+      if(this.element.is(':disabled')) {
+        this.disable();
+      }
+    },
+
+    refresh: function(init) {
+      var el = this.element;
+      var o = this.options;
+      var menu = this.menu;
+      var checkboxContainer = this.checkboxContainer;
+      var optgroups = [];
+      var html = "";
+      var id = el.attr('id') || multiselectID++; // unique ID for the label & option tags
+
+      // build items
+      el.find('option').each(function(i) {
+        var $this = $(this);
+        var parent = this.parentNode;
+        var title = this.innerHTML;
+        var description = this.title;
+        var value = this.value;
+        var inputID = 'ui-multiselect-' + (this.id || id + '-option-' + i);
+        var isDisabled = this.disabled;
+        var isSelected = this.selected;
+        var labelClasses = [ 'ui-corner-all' ];
+        var liClasses = (isDisabled ? 'ui-multiselect-disabled ' : ' ') + this.className;
+        var optLabel;
+
+        // is this an optgroup?
+        if(parent.tagName === 'OPTGROUP') {
+          optLabel = parent.getAttribute('label');
+
+          // has this optgroup been added already?
+          if($.inArray(optLabel, optgroups) === -1) {
+            html += '<li class="ui-multiselect-optgroup-label ' + parent.className + '"><a href="#">' + optLabel + '</a></li>';
+            optgroups.push(optLabel);
+          }
+        }
+
+        if(isDisabled) {
+          labelClasses.push('ui-state-disabled');
+        }
+
+        // browsers automatically select the first option
+        // by default with single selects
+        if(isSelected && !o.multiple) {
+          labelClasses.push('ui-state-active');
+        }
+
+        html += '<li class="' + liClasses + '">';
+
+        // create the label
+        html += '<label for="' + inputID + '" title="' + description + '" class="' + labelClasses.join(' ') + '">';
+        html += '<input id="' + inputID + '" name="multiselect_' + id + '" type="' + (o.multiple ? "checkbox" : "radio") + '" value="' + value + '" title="' + title + '"';
+
+        // pre-selected?
+        if(isSelected) {
+          html += ' checked="checked"';
+          html += ' aria-selected="true"';
+        }
+
+        // disabled?
+        if(isDisabled) {
+          html += ' disabled="disabled"';
+          html += ' aria-disabled="true"';
+        }
+
+        // add the title and close everything off
+        html += ' /><span>' + title + '</span></label></li>';
+      });
+
+      // insert into the DOM
+      checkboxContainer.html(html);
+
+      // cache some moar useful elements
+      this.labels = menu.find('label');
+      this.inputs = this.labels.children('input');
+
+      // set widths
+      this._setButtonWidth();
+      this._setMenuWidth();
+
+      // remember default value
+      this.button[0].defaultValue = this.update();
+
+      // broadcast refresh event; useful for widgets
+      if(!init) {
+        this._trigger('refresh');
+      }
+    },
+
+    // updates the button text. call refresh() to rebuild
+    update: function() {
+      var o = this.options;
+      var $inputs = this.inputs;
+      var $checked = $inputs.filter(':checked');
+      var numChecked = $checked.length;
+      var value;
+
+      if(numChecked === 0) {
+        value = o.noneSelectedText;
+      } else {
+        if($.isFunction(o.selectedText)) {
+          value = o.selectedText.call(this, numChecked, $inputs.length, $checked.get());
+        } else if(/\d/.test(o.selectedList) && o.selectedList > 0 && numChecked <= o.selectedList) {
+          value = $checked.map(function() { return $(this).next().html(); }).get().join(', ');
+        } else {
+          value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length);
+        }
+      }
+
+      this._setButtonValue(value);
+
+      return value;
+    },
+
+    // this exists as a separate method so that the developer 
+    // can easily override it.
+    _setButtonValue: function(value) {
+      this.buttonlabel.text(value);
+    },
+
+    // binds events
+    _bindEvents: function() {
+      var self = this;
+      var button = this.button;
+
+      function clickHandler() {
+        self[ self._isOpen ? 'close' : 'open' ]();
+        return false;
+      }
+
+      // webkit doesn't like it when you click on the span :(
+      button
+        .find('span')
+        .bind('click.multiselect', clickHandler);
+
+      // button events
+      button.bind({
+        click: clickHandler,
+        keypress: function(e) {
+          switch(e.which) {
+            case 27: // esc
+              case 38: // up
+              case 37: // left
+              self.close();
+            break;
+            case 39: // right
+              case 40: // down
+              self.open();
+            break;
+          }
+        },
+        mouseenter: function() {
+          if(!button.hasClass('ui-state-disabled')) {
+            $(this).addClass('ui-state-hover');
+          }
+        },
+        mouseleave: function() {
+          $(this).removeClass('ui-state-hover');
+        },
+        focus: function() {
+          if(!button.hasClass('ui-state-disabled')) {
+            $(this).addClass('ui-state-focus');
+          }
+        },
+        blur: function() {
+          $(this).removeClass('ui-state-focus');
+        }
+      });
+
+      // header links
+      this.header.delegate('a', 'click.multiselect', function(e) {
+        // close link
+        if($(this).hasClass('ui-multiselect-close')) {
+          self.close();
+
+          // check all / uncheck all
+        } else {
+          self[$(this).hasClass('ui-multiselect-all') ? 'checkAll' : 'uncheckAll']();
+        }
+
+        e.preventDefault();
+      });
+
+      // optgroup label toggle support
+      this.menu.delegate('li.ui-multiselect-optgroup-label a', 'click.multiselect', function(e) {
+        e.preventDefault();
+
+        var $this = $(this);
+        var $inputs = $this.parent().nextUntil('li.ui-multiselect-optgroup-label').find('input:visible:not(:disabled)');
+        var nodes = $inputs.get();
+        var label = $this.parent().text();
+
+        // trigger event and bail if the return is false
+        if(self._trigger('beforeoptgrouptoggle', e, { inputs:nodes, label:label }) === false) {
+          return;
+        }
+
+        // toggle inputs
+        self._toggleChecked(
+          $inputs.filter(':checked').length !== $inputs.length,
+          $inputs
+        );
+
+        self._trigger('optgrouptoggle', e, {
+          inputs: nodes,
+          label: label,
+          checked: nodes[0].checked
+        });
+      })
+      .delegate('label', 'mouseenter.multiselect', function() {
+        if(!$(this).hasClass('ui-state-disabled')) {
+          self.labels.removeClass('ui-state-hover');
+          $(this).addClass('ui-state-hover').find('input').focus();
+        }
+      })
+      .delegate('label', 'keydown.multiselect', function(e) {
+        e.preventDefault();
+
+        switch(e.which) {
+          case 9: // tab
+            case 27: // esc
+            self.close();
+          break;
+          case 38: // up
+            case 40: // down
+            case 37: // left
+            case 39: // right
+            self._traverse(e.which, this);
+          break;
+          case 13: // enter
+            $(this).find('input')[0].click();
+          break;
+        }
+      })
+      .delegate('input[type="checkbox"], input[type="radio"]', 'click.multiselect', function(e) {
+        var $this = $(this);
+        var val = this.value;
+        var checked = this.checked;
+        var tags = self.element.find('option');
+
+        // bail if this input is disabled or the event is cancelled
+        if(this.disabled || self._trigger('click', e, { value: val, text: this.title, checked: checked }) === false) {
+          e.preventDefault();
+          return;
+        }
+
+        // make sure the input has focus. otherwise, the esc key
+        // won't close the menu after clicking an item.
+        $this.focus();
+
+        // toggle aria state
+        $this.attr('aria-selected', checked);
+
+        // change state on the original option tags
+        tags.each(function() {
+          if(this.value === val) {
+            this.selected = checked;
+          } else if(!self.options.multiple) {
+            this.selected = false;
+          }
+        });
+
+        // some additional single select-specific logic
+        if(!self.options.multiple) {
+          self.labels.removeClass('ui-state-active');
+          $this.closest('label').toggleClass('ui-state-active', checked);
+
+          // close menu
+          self.close();
+        }
+
+        // fire change on the select box
+        self.element.trigger("change");
+
+        // setTimeout is to fix multiselect issue #14 and #47. caused by jQuery issue #3827
+        // http://bugs.jquery.com/ticket/3827
+        setTimeout($.proxy(self.update, self), 10);
+      });
+
+      // close each widget when clicking on any other element/anywhere else on the page
+      $doc.bind('mousedown.' + this._namespaceID, function(e) {
+        if(self._isOpen && !$.contains(self.menu[0], e.target) && !$.contains(self.button[0], e.target) && e.target !== self.button[0]) {
+          self.close();
+        }
+      });
+
+      // deal with form resets.  the problem here is that buttons aren't
+      // restored to their defaultValue prop on form reset, and the reset
+      // handler fires before the form is actually reset.  delaying it a bit
+      // gives the form inputs time to clear.
+      $(this.element[0].form).bind('reset.multiselect', function() {
+        setTimeout($.proxy(self.refresh, self), 10);
+      });
+    },
+
+    // set button width
+    _setButtonWidth: function() {
+      var width = this.element.outerWidth();
+      var o = this.options;
+
+      if(/\d/.test(o.minWidth) && width < o.minWidth) {
+        width = o.minWidth;
+      }
+
+      // set widths
+      this.button.outerWidth(width);
+    },
+
+    // set menu width
+    _setMenuWidth: function() {
+      var m = this.menu;
+      m.outerWidth(this.button.outerWidth());
+    },
+
+    // move up or down within the menu
+    _traverse: function(which, start) {
+      var $start = $(start);
+      var moveToLast = which === 38 || which === 37;
+
+      // select the first li that isn't an optgroup label / disabled
+      $next = $start.parent()[moveToLast ? 'prevAll' : 'nextAll']('li:not(.ui-multiselect-disabled, .ui-multiselect-optgroup-label)')[ moveToLast ? 'last' : 'first']();
+
+      // if at the first/last element
+      if(!$next.length) {
+        var $container = this.menu.find('ul').last();
+
+        // move to the first/last
+        this.menu.find('label')[ moveToLast ? 'last' : 'first' ]().trigger('mouseover');
+
+        // set scroll position
+        $container.scrollTop(moveToLast ? $container.height() : 0);
+
+      } else {
+        $next.find('label').trigger('mouseover');
+      }
+    },
+
+    // This is an internal function to toggle the checked property and
+    // other related attributes of a checkbox.
+    //
+    // The context of this function should be a checkbox; do not proxy it.
+    _toggleState: function(prop, flag) {
+      return function() {
+        if(!this.disabled) {
+          this[ prop ] = flag;
+        }
+
+        if(flag) {
+          this.setAttribute('aria-selected', true);
+        } else {
+          this.removeAttribute('aria-selected');
+        }
+      };
+    },
+
+    _toggleChecked: function(flag, group) {
+      var $inputs = (group && group.length) ?  group : this.inputs;
+      var self = this;
+
+      // toggle state on inputs
+      $inputs.each(this._toggleState('checked', flag));
+
+      // give the first input focus
+      $inputs.eq(0).focus();
+
+      // update button text
+      this.update();
+
+      // gather an array of the values that actually changed
+      var values = $inputs.map(function() {
+        return this.value;
+      }).get();
+
+      // toggle state on original option tags
+      this.element
+        .find('option')
+        .each(function() {
+          if(!this.disabled && $.inArray(this.value, values) > -1) {
+            self._toggleState('selected', flag).call(this);
+          }
+        });
+
+      // trigger the change event on the select
+      if($inputs.length) {
+        this.element.trigger("change");
+      }
+    },
+
+    _toggleDisabled: function(flag) {
+      this.button.attr({ 'disabled':flag, 'aria-disabled':flag })[ flag ? 'addClass' : 'removeClass' ]('ui-state-disabled');
+
+      var inputs = this.menu.find('input');
+      var key = "ech-multiselect-disabled";
+
+      if(flag) {
+        // remember which elements this widget disabled (not pre-disabled)
+        // elements, so that they can be restored if the widget is re-enabled.
+        inputs = inputs.filter(':enabled').data(key, true)
+      } else {
+        inputs = inputs.filter(function() {
+          return $.data(this, key) === true;
+        }).removeData(key);
+      }
+
+      inputs
+        .attr({ 'disabled':flag, 'arial-disabled':flag })
+        .parent()[ flag ? 'addClass' : 'removeClass' ]('ui-state-disabled');
+
+      this.element.attr({
+        'disabled':flag,
+        'aria-disabled':flag
+      });
+    },
+
+    // open the menu
+    open: function(e) {
+      var self = this;
+      var button = this.button;
+      var menu = this.menu;
+      var speed = this.speed;
+      var o = this.options;
+      var args = [];
+
+      // bail if the multiselectopen event returns false, this widget is disabled, or is already open
+      if(this._trigger('beforeopen') === false || button.hasClass('ui-state-disabled') || this._isOpen) {
+        return;
+      }
+
+      var $container = menu.find('ul').last();
+      var effect = o.show;
+
+      // figure out opening effects/speeds
+      if($.isArray(o.show)) {
+        effect = o.show[0];
+        speed = o.show[1] || self.speed;
+      }
+
+      // if there's an effect, assume jQuery UI is in use
+      // build the arguments to pass to show()
+      if(effect) {
+        args = [ effect, speed ];
+      }
+
+      // set the scroll of the checkbox container
+      $container.scrollTop(0).height(o.height);
+
+      // positon
+      this.position();
+
+      // show the menu, maybe with a speed/effect combo
+      $.fn.show.apply(menu, args);
+
+      // select the first option
+      // triggering both mouseover and mouseover because 1.4.2+ has a bug where triggering mouseover
+      // will actually trigger mouseenter.  the mouseenter trigger is there for when it's eventually fixed
+      this.labels.eq(0).trigger('mouseover').trigger('mouseenter').find('input').trigger('focus');
+
+      button.addClass('ui-state-active');
+      this._isOpen = true;
+      this._trigger('open');
+    },
+
+    // close the menu
+    close: function() {
+      if(this._trigger('beforeclose') === false) {
+        return;
+      }
+
+      var o = this.options;
+      var effect = o.hide;
+      var speed = this.speed;
+      var args = [];
+
+      // figure out opening effects/speeds
+      if($.isArray(o.hide)) {
+        effect = o.hide[0];
+        speed = o.hide[1] || this.speed;
+      }
+
+      if(effect) {
+        args = [ effect, speed ];
+      }
+
+      $.fn.hide.apply(this.menu, args);
+      this.button.removeClass('ui-state-active').trigger('blur').trigger('mouseleave');
+      this._isOpen = false;
+      this._trigger('close');
+    },
+
+    enable: function() {
+      this._toggleDisabled(false);
+    },
+
+    disable: function() {
+      this._toggleDisabled(true);
+    },
+
+    checkAll: function(e) {
+      this._toggleChecked(true);
+      this._trigger('checkAll');
+    },
+
+    uncheckAll: function() {
+      this._toggleChecked(false);
+      this._trigger('uncheckAll');
+    },
+
+    getChecked: function() {
+      return this.menu.find('input').filter(':checked');
+    },
+
+    destroy: function() {
+      // remove classes + data
+      $.Widget.prototype.destroy.call(this);
+
+      // unbind events
+      $doc.unbind(this._namespaceID);
+
+      this.button.remove();
+      this.menu.remove();
+      this.element.show();
+
+      return this;
+    },
+
+    isOpen: function() {
+      return this._isOpen;
+    },
+
+    widget: function() {
+      return this.menu;
+    },
+
+    getButton: function() {
+      return this.button;
+    },
+
+    position: function() {
+      var o = this.options;
+
+      // use the position utility if it exists and options are specifified
+      if($.ui.position && !$.isEmptyObject(o.position)) {
+        o.position.of = o.position.of || this.button;
+
+        this.menu
+          .show()
+          .position(o.position)
+          .hide();
+
+        // otherwise fallback to custom positioning
+      } else {
+        var pos = this.button.offset();
+
+        this.menu.css({
+          top: pos.top + this.button.outerHeight(),
+          left: pos.left
+        });
+      }
+    },
+
+    // react to option changes after initialization
+    _setOption: function(key, value) {
+      var menu = this.menu;
+
+      switch(key) {
+        case 'header':
+          menu.find('div.ui-multiselect-header')[value ? 'show' : 'hide']();
+          break;
+        case 'checkAllText':
+          menu.find('a.ui-multiselect-all span').eq(-1).text(value);
+          break;
+        case 'uncheckAllText':
+          menu.find('a.ui-multiselect-none span').eq(-1).text(value);
+          break;
+        case 'height':
+          menu.find('ul').last().height(parseInt(value, 10));
+          break;
+        case 'minWidth':
+          this.options[key] = parseInt(value, 10);
+          this._setButtonWidth();
+          this._setMenuWidth();
+          break;
+        case 'selectedText':
+        case 'selectedList':
+        case 'noneSelectedText':
+          this.options[key] = value; // these all needs to update immediately for the update() call
+          this.update();
+          break;
+        case 'classes':
+          menu.add(this.button).removeClass(this.options.classes).addClass(value);
+          break;
+        case 'multiple':
+          menu.toggleClass('ui-multiselect-single', !value);
+          this.options.multiple = value;
+          this.element[0].multiple = value;
+          this.refresh();
+          break;
+        case 'position':
+          this.position();
+      }
+
+      $.Widget.prototype._setOption.apply(this, arguments);
+    }
+  });
+
+})(jQuery);
+
+/* jshint forin:true, noarg:true, noempty:true, eqeqeq:true, boss:true, undef:true, curly:true, browser:true, jquery:true */
+/*
+ * jQuery MultiSelect UI Widget Filtering Plugin 1.5pre
+ * Copyright (c) 2012 Eric Hynds
+ *
+ * http://www.erichynds.com/jquery/jquery-ui-multiselect-widget/
+ *
+ * Depends:
+ *   - jQuery UI MultiSelect widget
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+ */
+(function($) {
+  var rEscape = /[\-\[\]{}()*+?.,\\\^$|#\s]/g;
+
+  $.widget('ech.multiselectfilter', {
+
+    options: {
+      label: '',
+      width: null, /* override default width set in css file (px). null will inherit */
+      placeholder: 'Enter keywords',
+      autoReset: false
+    },
+
+    _create: function() {
+      var opts = this.options;
+      var elem = $(this.element);
+
+      // get the multiselect instance
+      var instance = (this.instance = (elem.data('echMultiselect') || elem.data("multiselect")));
+
+      // store header; add filter class so the close/check all/uncheck all links can be positioned correctly
+      var header = (this.header = instance.menu.find('.ui-multiselect-header').addClass('ui-multiselect-hasfilter'));
+
+      // wrapper elem
+      var wrapper = (this.wrapper = $('<div class="ui-multiselect-filter">' + (opts.label.length ? opts.label : '') + '<input placeholder="'+opts.placeholder+'" type="search"' + (/\d/.test(opts.width) ? 'style="width:'+opts.width+'px"' : '') + ' /></div>').prependTo(this.header));
+
+      // reference to the actual inputs
+      this.inputs = instance.menu.find('input[type="checkbox"], input[type="radio"]');
+
+      // build the input box
+      this.input = wrapper.find('input').bind({
+        keydown: function(e) {
+          // prevent the enter key from submitting the form / closing the widget
+          if(e.which === 13) {
+            e.preventDefault();
+          }
+        },
+        keyup: $.proxy(this._handler, this),
+        click: $.proxy(this._handler, this)
+      });
+
+      // cache input values for searching
+      this.updateCache();
+
+      // rewrite internal _toggleChecked fn so that when checkAll/uncheckAll is fired,
+      // only the currently filtered elements are checked
+      instance._toggleChecked = function(flag, group) {
+        var $inputs = (group && group.length) ?  group : this.labels.find('input');
+        var _self = this;
+
+        // do not include hidden elems if the menu isn't open.
+        var selector = instance._isOpen ?  ':disabled, :hidden' : ':disabled';
+
+        $inputs = $inputs
+          .not(selector)
+          .each(this._toggleState('checked', flag));
+
+        // update text
+        this.update();
+
+        // gather an array of the values that actually changed
+        var values = $inputs.map(function() {
+          return this.value;
+        }).get();
+
+        // select option tags
+        this.element.find('option').filter(function() {
+          if(!this.disabled && $.inArray(this.value, values) > -1) {
+            _self._toggleState('selected', flag).call(this);
+          }
+        });
+
+        // trigger the change event on the select
+        if($inputs.length) {
+          this.element.trigger('change');
+        }
+      };
+
+      // rebuild cache when multiselect is updated
+      var doc = $(document).bind('multiselectrefresh', $.proxy(function() {
+        this.updateCache();
+        this._handler();
+      }, this));
+
+      // automatically reset the widget on close?
+      if(this.options.autoReset) {
+        doc.bind('multiselectclose', $.proxy(this._reset, this));
+      }
+    },
+
+    // thx for the logic here ben alman
+    _handler: function(e) {
+      var term = $.trim(this.input[0].value.toLowerCase()),
+
+      // speed up lookups
+      rows = this.rows, inputs = this.inputs, cache = this.cache;
+
+      if(!term) {
+        rows.show();
+      } else {
+        rows.hide();
+
+        var regex = new RegExp(term.replace(rEscape, "\\$&"), 'gi');
+
+        this._trigger("filter", e, $.map(cache, function(v, i) {
+          if(v.search(regex) !== -1) {
+            rows.eq(i).show();
+            return inputs.get(i);
+          }
+
+          return null;
+        }));
+      }
+
+      // show/hide optgroups
+      this.instance.menu.find(".ui-multiselect-optgroup-label").each(function() {
+        var $this = $(this);
+        var isVisible = $this.nextUntil('.ui-multiselect-optgroup-label').filter(function() {
+          return $.css(this, "display") !== 'none';
+        }).length;
+
+        $this[isVisible ? 'show' : 'hide']();
+      });
+    },
+
+    _reset: function() {
+      this.input.val('').trigger('keyup');
+    },
+
+    updateCache: function() {
+      // each list item
+      this.rows = this.instance.menu.find(".ui-multiselect-checkboxes li:not(.ui-multiselect-optgroup-label)");
+
+      // cache
+      this.cache = this.element.children().map(function() {
+        var elem = $(this);
+
+        // account for optgroups
+        if(this.tagName.toLowerCase() === "optgroup") {
+          elem = elem.children();
+        }
+
+        return elem.map(function() {
+          return this.innerHTML.toLowerCase();
+        }).get();
+      }).get();
+    },
+
+    widget: function() {
+      return this.wrapper;
+    },
+
+    destroy: function() {
+      $.Widget.prototype.destroy.call(this);
+      this.input.val('').trigger("keyup");
+      this.wrapper.remove();
+    }
+  });
+
+})(jQuery);
 /* foundation.js */
 /*
  * Foundation Responsive Library
@@ -629,9 +1531,9 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
     <link rel="stylesheet" type="text/css" href="css/token-input.css" />
 <link rel="stylesheet" type="text/css" href="css/token-input-facebook.css" />
 <script type="text/javascript" src="js/jquery.tokeninput.js"></script> 
-<script type="text/javascript" src="../dealsnew/js/jquery.multiselect.js"></script> 
+
 <link rel="stylesheet" type="text/css" href="../dealsnew/css/jquery.multiselect.filter.css" />
-<script type="text/javascript" src="../dealsnew/js/jquery.multiselect.filter.js"></script>
+
     <script type="text/javascript">
     $(function(){
       $("select.multi").multiselect();
@@ -795,7 +1697,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
                     });
                      $('#growth-table > tbody:last').append(str);
                     //  var countOfSelected = selectedOptions.size();
-                    $(document).foundation();
+                   // $(document).foundation();
                     $(".multi-select").dropdownchecklist('destroy');
                     $(".multi-select").dropdownchecklist({emptyText: "Please select ...",
         onItemClick: function(checkbox, selector){
@@ -1391,28 +2293,15 @@ function isNumber(evt) {
   {
     var str= $('#industry').val();
     
-    var xmlhttp;
-    if (window.XMLHttpRequest)
-      {// code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp=new XMLHttpRequest();
-      }
-    else
-      {// code for IE6, IE5
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-    xmlhttp.onreadystatechange=function()
-      {
-      if (xmlhttp.readyState==4 && xmlhttp.status==200)
-      {
-      document.getElementById("sectordisplay").innerHTML=xmlhttp.responseText;
-                   //     $(document).foundation();
-      //alert(xmlhttp.responseText);
-      $('select.multi').multiselect();
-      }
-      }
-    xmlhttp.open("GET","autosector.php?queryString1="+str,true);
-    xmlhttp.send();
-     
+        jQuery.ajax({
+        type: "POST",
+        url: "autosector.php?queryString1="+str,
+        
+        success: function(response){
+        jQuery("#sectordisplay").html(response);
+        $('select.multi').multiselect();
+        }
+        }); 
   }
         function sectorsonload(str)
   {
@@ -1433,6 +2322,7 @@ function isNumber(evt) {
       document.getElementById("sectordisplay").innerHTML=xmlhttp.responseText;
                        // $(document).foundation();
       //alert(xmlhttp.responseText);
+      $('select.multi').multiselect();
       }
       }
     xmlhttp.open("GET","autosector.php?queryString1="+str,true);
@@ -1694,7 +2584,7 @@ filter: alpha(opacity=75);
                {/if}
     </select></span></li>
     
-<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" {if $REQUEST.ListingStatus eq 1} checked {/if}/> <span>Listed</span></label>
+<li class="companylist"><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" {if $REQUEST.ListingStatus eq 1} checked {/if}/> <span>Listed</span></label>
     <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" {if $REQUEST.ListingStatus1 eq 2 or count($REQUEST) eq 0} checked {/if}/> <span>Privately held(Ltd)</span></label>
     <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" {if $REQUEST.ListingStatus2 eq 3} checked {/if}/> <span>Partnership</span></label>
     <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" {if $REQUEST.ListingStatus3 eq 4} checked {/if}/> <span>Proprietorship</span></label></li>
@@ -1744,7 +2634,7 @@ filter: alpha(opacity=75);
                {/if}
     </select></span></li>
     
-<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
+<li class="companylist"><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
     <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" disabled  checked /> <span>Privately held(Ltd)</span></label>
     <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" disabled  checked /> <span>Partnership</span></label>
     <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" disabled   checked /> <span>Proprietorship</span></label></li>
@@ -1794,7 +2684,7 @@ filter: alpha(opacity=75);
                {/if}
     </select></span></li>
     
-<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
+<li class="companylist"><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" disabled  checked /> <span>Listed</span></label>
     <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" disabled checked /> <span>Privately held(Ltd)</span></label>
     <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" disabled  checked/> <span>Partnership</span></label>
     <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" disabled checked /> <span>Proprietorship</span></label></li>
@@ -1843,7 +2733,7 @@ filter: alpha(opacity=75);
                {html_options options=$sectors selected=$REQUEST_Answer.Sector}
     </select></span></li>
     
-<li><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" {if $REQUEST.ListingStatus eq 1} checked {/if}/> <span>Listed</span></label>
+<li class="companylist"><label><input type="checkbox" name="ListingStatus" id="Listed" value="1" {if $REQUEST.ListingStatus eq 1} checked {/if}/> <span>Listed</span></label>
     <label>  <input type="checkbox" name="ListingStatus1" id="Unlisted" value="2" {if $REQUEST.ListingStatus1 eq 2 or count($REQUEST) eq 0} checked {/if}/> <span>Privately held(Ltd)</span></label>
     <label>  <input type="checkbox" name="ListingStatus2" id="Partnership" value="3" {if $REQUEST.ListingStatus2 eq 3} checked {/if}/> <span>Partnership</span></label>
     <label><input type="checkbox" name="ListingStatus3" id="Proprietorship" value="4" {if $REQUEST.ListingStatus3 eq 4} checked {/if}/> <span>Proprietorship</span></label></li>

@@ -80,7 +80,7 @@ $indust = $industries->getIndustries($where10,$order10);
 
 
 $template->assign("industries" ,$indust);
-$template->assign("sectors" , $sectors->getSectors($where12,$order12));
+//$template->assign("sectors" , $sectors->getSectors($where12,$order12));
 
 /*Year Starts*/
 	for($i=2011; $i>=2006; $i--){
@@ -196,7 +196,7 @@ $template->assign("REQUEST",$_REQUEST);
 //print_r($ind);
 //$template->assign("industries" , $ind);
 if($_REQUEST['answer']['Industry']!=""){
-    $industry=  implode(',', $_REQUEST['answer']['Industry']);
+    $industry=  implode(',', array_values(array_filter($_REQUEST['answer']['Industry'])));
     $where12 = " IndustryId_FK IN (".$industry.")";
 }
 $order6 = "SectorName asc";
@@ -275,11 +275,10 @@ if ($_REQUEST['answer']['Industry']!=""){
 }
 
 if ($_REQUEST['answer']['Sector']!=""){
-    $sect=array_filter($_REQUEST['answer']['Sector']);
+    $sect=array_values(array_filter($_REQUEST['answer']['Sector']));
     $val=count($sect);
-    
     foreach($sect as $s){
-    $fliterlist[$i++]=array('field'=>'Sector','key'=>$s,'value'=>$sec[$s]);
+        $fliterlist[$i++]=array('field'=>'Sector','key'=>$s,'value'=>$sec[$s]);
     }
 }
 if ($_REQUEST['ListingStatus']!="")

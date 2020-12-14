@@ -2,9 +2,9 @@
 	include "header.php";
 	require_once MODULES_DIR."/sectors.php";
 	$sectors = new sectors();
-        if($_GET['queryString1']!='')
+        if($_REQUEST['queryString1']!='')
         {
-            $where .= "IndustryId_FK IN( ".$_GET['queryString1'].")";
+            $where .= "IndustryId_FK IN( ".$_REQUEST['queryString1'].")";
             echo '<select id="answer[Sector]" name="answer[Sector][]" class="multi" forError="Sector" style="width: 210px;" multiple>';
 			
         }

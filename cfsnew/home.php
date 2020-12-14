@@ -403,7 +403,23 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         }else if($_REQUEST['resetfield']=="Industry" ){
             $pos = array_search($_REQUEST['resetfieldindex'], $_REQUEST['answer']['Industry']);
             $_REQUEST['answer']['Industry'][$pos]="";
-            $_REQUEST['answer']['Sector']="";
+            $where="IndustryId_FK IN( ".$_REQUEST['resetfieldindex'].")";
+            $order = "SectorName asc";
+            $fields="Sector_Id";
+            $Companiesval = $sectors->getSectorslist($where,$order);
+            if($_REQUEST['answer']['Sector']!='')
+            {
+                $result = array_values(array_intersect($_REQUEST['answer']['Sector'], $Companiesval));
+                //print_r($Companiesval);
+                foreach($result as $r){
+                    $pos = array_search($r, $_REQUEST['answer']['Sector']);
+                    //echo $pos." ";
+                   
+                    $_REQUEST['answer']['Sector'][$pos]="";
+                }
+               
+            }
+            //$_REQUEST['answer']['Sector']=array_values($_REQUEST['answer']['Sector']);
         }else if($_REQUEST['resetfield']=="SearchFieds" ){
              $_REQUEST['answer']['SearchFieds'][$_REQUEST['resetfieldindex']]="";
              $_REQUEST['Grtr_'.$_REQUEST['resetfieldindex']]="";
