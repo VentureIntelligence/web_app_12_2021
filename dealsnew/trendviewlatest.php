@@ -9,7 +9,7 @@ if($vcflagValue==0)
             $searchAggTitle = "Aggregate Data - PE Investments ";
             $aggsql= "select count(PEId) as totaldeals,sum(amount) as totalamount from peinvestments as pe,
             pecompanies as pec,industry as i where ";
-            $samplexls="../Sample_Sheet_Investments.xls";
+            $samplexls="../xls/Sample_Sheet_Investments.xls";
         }
         elseif($vcflagValue==1)
         {

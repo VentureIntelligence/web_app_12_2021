@@ -148,7 +148,7 @@ invoked from -pepulse_edu.htm  AND pepulse_edu.php ( 2 files)
 
 		mail($to,$subject,$message,$headers);
 
-	$file="imcompanies.txt";
+	$file="txt/imcompanies.txt";
 					$schema_insert="";
 					//TRYING TO WRIRE IN EXCEL
 								 //define separator (defines columns in excel & tabs in word)

@@ -37,6 +37,46 @@
         'key'    => $GLOBALS['key'],
         'secret' => $GLOBALS['secret']
     ));
+    if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE)
+                    $user_os =  'Windows';
+                elseif((strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== FALSE) && strpos($_SERVER['HTTP_USER_AGENT'], 'Linux')!==FALSE)
+                    $user_os = 'Android';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Linux') !== FALSE) //For Supporting IE 11
+                    $user_os =  'Linux';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== FALSE)
+                    $user_os = 'IOS';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== FALSE)
+                    $user_os = 'IOS';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== FALSE || strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== FALSE)
+                    $user_os = 'iOS';
+
+              if($user_os=='IOS'){      
+
+                  if(strpos($_SERVER['HTTP_USER_AGENT'], 'FxiOS') !== FALSE)
+                      $user_browser = 'Firefox';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'CriOS') !== FALSE)
+                      $user_browser = 'Chrome';
+                  else
+                      $user_browser = "Safari";
+              }else{
+
+                  if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
+                      $user_browser =  'IE';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
+                      $user_browser =  'IE';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') !== FALSE) //For Supporting IE EDGE
+                      $user_browser =  'IE';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
+                      $user_browser = 'Firefox';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)
+                      $user_browser = 'Chrome';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== FALSE)
+                      $user_browser = "Opera_Mini";
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== FALSE)
+                      $user_browser = "Opera";
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
+                      $user_browser = "Safari";
+              }
 /* --------------------- End of home.Php code */
 if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CFS session-usename Empty in home page -'.$_SESSION['username']); }
 
@@ -2050,6 +2090,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $template->assign('pageDescription',"CFS - Company Search");
         $template->assign('pageKeyWords',"CFS - Company Search");
         $template->assign('userEmail',$_SESSION['UserEmail']);
+        $template->assign('user_browser',$user_browser);
         $template->display('home.tpl');
         
         // Footer
