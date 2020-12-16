@@ -1678,7 +1678,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     // T975 RATIO BASED
                     if( !$acrossallFlag || !$acrossallRFlag ) {
 
-                         if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25)){
+                         if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25) && $industry=='' ){
                         $query= "select value from configuration where purpose='initial_count'";
                         $count=mysql_query($query);
                         $total_top1=mysql_fetch_row($count);
@@ -1688,7 +1688,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         }
                        // $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery);
                     }
-                    if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25)){
+                    if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25) && $industry==''){
                         $query= "select value from configuration where purpose='initial_count'";
                         $count=mysql_query($query);
                         $total=mysql_fetch_row($count);
