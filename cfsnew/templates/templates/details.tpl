@@ -267,17 +267,20 @@ span.result-amount-no {
     border-top: none;
     margin-top: 0px;
 }
-form.custom .finance-filter-custom .custom.dropdown {
+.finance-filter{
+    display: none !important;
+}
+  .finance-filter-custom .custom.dropdown {
     height: 27px !important;
     font-size: 14px;
 }
 
-form.custom .finance-filter-custom .custom.dropdown .current {
+  .finance-filter-custom .custom.dropdown .current {
     line-height: 27px;
     margin-right: 1.3125em;
 }
 
-form.custom .finance-filter-custom .custom.dropdown .selector {
+  .finance-filter-custom .custom.dropdown .selector {
     height: 27px;
 }
 .btn-cnt {

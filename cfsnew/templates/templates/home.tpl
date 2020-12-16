@@ -667,7 +667,7 @@ padding:0px 10px; }
                 .list-tab{
                     clear:both !important;
                     }
-                    form.custom .custom.dropdown ul li { width: 100%;}
+                    .custom.dropdown ul li { width: 100%;}
         #export-popup .agree-export {
             margin-right: 10px;
         }
