@@ -647,8 +647,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 }
         //	pr($where);
         }		
-
-      
+      if(count($_REQUEST['answer']['Industry'])>1){
         if($_REQUEST['answer']['Industry'] != ""){
             $industry1=$_REQUEST['answer']['Industry'];
             $industry1=array_filter($industry1);
@@ -672,7 +671,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     $whereHomeCountNew .=  "b.Industry IN( ".$industry.")";
                 }
         }	
-
+    }
         if(isset($_REQUEST['auditorname']) && $_REQUEST['auditorname']!='' ){
 
             $auditornamearr = explode(',', $_REQUEST['auditorname']);
