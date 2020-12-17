@@ -63,6 +63,15 @@ $("#panel").css("height",bodyheight);
         
     </div>
        </td>  </tr> *}
+<tr><td colspan="2">State</td></tr>  
+<tr><td Colspan="2"><select id="State" multiple="multiple" name="answer[State][]"  class="multi"   forError="State"   onchange="changestateval();">
+    {html_options options=$state selected=$REQUEST_Answer.State}
+</select></td>  </tr>
+<tr><td colspan="2">City</td></tr>  
+<tr><td Colspan="2"><select id="City" multiple="multiple" name="answer[City][]"  class="multi"   forError="City">
+    {html_options options=$city selected=$REQUEST_Answer.City}
+ </select></td>  </tr>
+<input type="hidden" name="name" id="ChargesholderName" value="{if $ChargesholderName}{$ChargesholderName}{/if}" style="width:100% !important">
 <tr><td colspan="2">Address (city)</td></tr>  
 <tr><td Colspan="2"><input type="text" name="chargeaddress" id="chargeaddress" autocomplete="off"  value="{if $chargeaddress}{$chargeaddress}{/if}" style="width:100% !important" > <img  id="autosuggest_loading3"  src="images/autosuggest_loading.gif" style="display:none;"></td>  </tr>
 <input type="hidden" name="name" id="ChargesholderName" value="{if $ChargesholderName}{$ChargesholderName}{/if}" style="width:100% !important">
@@ -109,5 +118,20 @@ $("#panel").css("height",bodyheight);
 </div>
  <input type="hidden" name="resetfield" value="" id="resetfield"/>	
    <input type="hidden" name="resetfieldindex" value="" id="resetfieldindex"/>
+<script>
+function changestateval() {
+                    var state = $('#State').val();  
+                 
+                        jQuery.ajax({
+        type: "POST",
+        url: "auto-regionstatecity.php?getcity&state="+state,
+        
+        success: function(response){
+        jQuery("#City").html(response);
+        $('select.multi').multiselect();
+        }
+        }); 
 
+               };
+</script>
   

@@ -437,7 +437,9 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
     <link rel="stylesheet" type="text/css" href="css/token-input.css" />
 <link rel="stylesheet" type="text/css" href="css/token-input-facebook.css" />
 <script type="text/javascript" src="js/jquery.tokeninput.js"></script> 
-
+<script type="text/javascript" src="../dealsnew/js/jquery.multiselect.js"></script> 
+<script type="text/javascript" src="../dealsnew/js/jquery.multiselect.filter.js"></script>
+<link rel="stylesheet" type="text/css" href="../dealsnew/css/jquery.multiselect.filter.css" />
     <script type="text/javascript">
     
         
