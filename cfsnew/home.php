@@ -443,6 +443,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         }else if($_REQUEST['resetfield']=="Industry" ){
             $pos = array_search($_REQUEST['resetfieldindex'], $_REQUEST['answer']['Industry']);
             $_REQUEST['answer']['Industry'][$pos]="";
+            $_REQUEST['answer']['Industry']=array_filter($_REQUEST['answer']['Industry']);
             $where="IndustryId_FK IN( ".$_REQUEST['resetfieldindex'].")";
             $order = "SectorName asc";
             $fields="Sector_Id";
@@ -646,8 +647,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         //$where .=  " b.UserStatus = 0";
                 }
         //	pr($where);
-        }		
-      if(count($_REQUEST['answer']['Industry'])>1){
+        }	
+      
+      if(count(array_filter($_REQUEST['answer']['Industry']))>0){
         if($_REQUEST['answer']['Industry'] != ""){
             $industry1=$_REQUEST['answer']['Industry'];
             $industry1=array_filter($industry1);
