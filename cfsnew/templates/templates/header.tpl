@@ -2141,6 +2141,7 @@ function isNumber(evt) {
     }
     return true;
 }
+
   </script>
     
     
@@ -2354,7 +2355,7 @@ function isNumber(evt) {
                 }, 400);
                
 }
-
+  
 </script>
     
     <style type="text/css">
@@ -2397,7 +2398,7 @@ filter: alpha(opacity=75);
 <div style="position:absolute; left:50%; top:50%; margin:-250px 0 0 -250px;">
 <img src="images/loading_page1.gif" width="508" height="381" alt=""/> </div>
 </div>
-<div class="header"><div class="logo"> 
+<div class="header companylist"><div class="logo"> 
   <a href="index.php"><!-- <img src="images/logo.gif" width="149" height="41" alt="Venture Intelligence" /> --><div class="vilogo" ></div></a>
 </div>
 <div class="header-right">
@@ -2408,7 +2409,7 @@ filter: alpha(opacity=75);
 <!-- <li {if $pageName eq 'comparers.php'} class="active" {/if}><a href="comparers.php"><i class="compare"></i> COMPARE</a></li> -->
 <!--<li {if $pageName eq 'other_report.php' || $pageName eq 'other_report_details.php'} class="active" {/if}><a href="other_report.php"><i class="other_report"></i> OTHER REPORTS</a></li>--></ul>
 
-<ul class="search-user" style="padding-right: 15px;">
+<ul class="search-user " style="padding-right: 15px;">
 {if $searchlimit gte $searchDone} 
 <li class="classic-btn tour-lock"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
 <li class="search-company" style="position:relative; border:none;">
@@ -2448,7 +2449,7 @@ filter: alpha(opacity=75);
     <li class="avt-user"  data-dropdown="drop1" id="accoutlist"><a href="#" id="accoutlist"><i></i> Welcome {$authAdmin.user.elements.username}{if $authAdmin.user_id}{$authAdmin.firstname}{else}Guest{/if}</a></li>
      {/if}
  
-    <ul id="drop1" class="f-dropdown" data-dropdown-content>  
+    <ul id="drop1" class="companylist f-dropdown" data-dropdown-content>  
                         <li class="o_link"><a href="../pelogin.php" target="_blank">PE/VC Deals Database</a></li>
                         <li class="o_link"><a href="../relogin.php" target="_blank">PE in Real Estate Database</a></li>
                         <li class="o_link"><a href="../malogin.php" target="_blank">M&A Deals Database</a></li> 
@@ -2760,7 +2761,7 @@ filter: alpha(opacity=75);
 </div>
 </div>
 
-<div class="container slide-bg {if $pageName eq 'home.php'} container-bg {/if}">
+<div class="container companylist slide-bg {if $pageName eq 'home.php'} container-bg {/if}">
 {/if}
 
 
