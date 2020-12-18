@@ -685,6 +685,12 @@ $(document).mouseup(function (e)
       }
 </script>
     <style>
+    ul.ui-multiselect-checkboxes.ui-helper-reset input.hidden-field {
+    visibility: inherit;
+}
+ul.ui-multiselect-checkboxes.ui-helper-reset span.custom {
+    display: none;
+}
 .entry-pad{
 padding:0px 10px; }
 
