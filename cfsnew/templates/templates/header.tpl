@@ -2571,7 +2571,7 @@ filter: alpha(opacity=75);
 <div class="search-main">
 <ul>
 <li><label>INDUSTRY</label> 
-    <select id="answer[Industry]" name="answer[Industry][]" class="multi" forError="Industry" onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" multiple style="width: 210px;"style="width: 210px;">
+    <select id="industry" name="answer[Industry][]" class="multi" forError="Industry" onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" multiple style="width: 210px;"style="width: 210px;">
             
             {html_options options=$industries selected=$REQUEST_Answer.Industry}
     </select></li>
@@ -2621,7 +2621,7 @@ filter: alpha(opacity=75);
 
 <ul>
 <li><label>INDUSTRY</label> 
-    <select id="answer[Industry]" name="answer[Industry][]" class="multi" forError="Industry" disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" multiple style="width: 210px;">
+    <select id="industry" name="answer[Industry][]" class="multi" forError="Industry" disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" multiple style="width: 210px;">
             
             {html_options options=$industries selected=$REQUEST_Answer.Industry}
     </select></li>
@@ -2671,7 +2671,7 @@ filter: alpha(opacity=75);
 <div class="search-main">
 <ul>
 <li><label>INDUSTRY</label> 
-    <select id="answer[Industry]" name="answer[Industry][]" class="multi" forError="Industry"  disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" multiple style="width: 210px;">
+    <select id="industry" name="answer[Industry][]" class="multi" forError="Industry"  disabled onload="suggestsectors(this.value);" onchange="suggestsectors(this.value);" multiple style="width: 210px;">
             
             {html_options options=$industries selected=$REQUEST_Answer.Industry}
     </select></li>
