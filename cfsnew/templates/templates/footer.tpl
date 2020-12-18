@@ -10,8 +10,9 @@
   // '.js><\/script>')
   </script>
 <script type="text/javascript">
- $('.container').foundation();
- $('.companylist').foundation();
+ //$('.container').foundation();
+ //$('.companylist').foundation();
+ $(document).foundation();
  
 	$(".btn-slide").click("slow", function(){  
 		$(this).toggleClass("active"); 
