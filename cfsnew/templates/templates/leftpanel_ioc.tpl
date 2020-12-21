@@ -19,6 +19,10 @@ $("#panel").css("height",bodyheight);
     .container-left li{
         border-bottom : 1px solid transparent !important;
     }
+    button.ui-multiselect.ui-widget.ui-state-default.ui-corner-all {
+    margin-bottom: auto;
+    width: 243px !important;
+}
     </style>
 {/literal}
 <input type="hidden" name="HmeSearch" id="HmeSearch" value="HmeSearch" />
@@ -68,7 +72,7 @@ $("#panel").css("height",bodyheight);
     {html_options options=$state selected=$REQUEST_Answer.State}
 </select></td>  </tr> *}
 <tr><td colspan="2">City</td></tr>  
-<tr><td Colspan="2"><select id="City" multiple="multiple" name="city[]"  class="multi"   forError="City">
+<tr><td Colspan="2"><select id="City" multiple="multiple" name="answer[City][]"  class="multi"   forError="City">
     {html_options options=$city selected=$REQUEST_Answer.City}
  </select></td>  </tr>
 <input type="hidden" name="name" id="ChargesholderName" value="{if $ChargesholderName}{$ChargesholderName}{/if}" style="width:100% !important">

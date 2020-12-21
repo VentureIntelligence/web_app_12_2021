@@ -343,6 +343,9 @@ if(isset($_REQUEST['auditorname']) && $_REQUEST['auditorname']!='' ){
 if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){ 
     $fliterlist[$i++]=array('field'=>'#chargeaddress','key'=>'','value'=>'Charge Address');
 }
+if(isset($_REQUEST['answer']['City']) && $_REQUEST['answer']['City']!=''){ 
+    $fliterlist[$i++]=array('field'=>'#city','key'=>'','value'=>'City');
+}
 if(isset($_REQUEST['tagsearch_auto']) && $_REQUEST['tagsearch_auto']!=''){ 
     $tagsearch = "tag:" . trim($_REQUEST['tagsearch_auto']);
     $fliterlist[$i++]=array('field'=>'#tagsearch_auto','key'=>'','value'=>$tagsearch);
