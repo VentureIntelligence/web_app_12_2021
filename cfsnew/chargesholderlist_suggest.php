@@ -134,9 +134,9 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
                 $template->assign("chargeaddress" , $_REQUEST['chargeaddress']);
                
         }
-       // print_r($_REQUEST['city']);
-        if(isset($_REQUEST['city']) && $_REQUEST['city']!=''){
-            $cityid=implode(",",$_REQUEST['city']);
+        
+        if(isset($_REQUEST['answer']['City']) && $_REQUEST['answer']['City']!=''){
+            $cityid=implode(",",$_REQUEST['answer']['City']);
             $citysql="select city_name from city where city_id IN(".$cityid.")";
             
             if($query=mysql_query($citysql)){
@@ -148,14 +148,15 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
             }
            
             $name=trim($nameval,",");
-            
+            echo "Name:".$name;
             if($chargewhere != ''){
                 $chargewhere .="    and a1.`city` IN( ".$name.")";
             }else{
                 $chargewhere .="    a1.`city` IN( ".$name.")";
             }
                 
-                $template->assign("city" , $_REQUEST['city']);
+                $template->assign("cities" , $_REQUEST['answer']['City']);
+                $template->assign("cityval" ,$name);
                
         }
 

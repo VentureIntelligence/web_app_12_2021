@@ -73,7 +73,8 @@ $("#panel").css("height",bodyheight);
 </select></td>  </tr> *}
 <tr><td colspan="2">City</td></tr>  
 <tr><td Colspan="2"><select id="City" multiple="multiple" name="answer[City][]"  class="multi"   forError="City">
-    {html_options options=$city selected=$REQUEST_Answer.City}
+    {html_options options=$city selected=$cities}
+    {$REQUEST_answer.City}
  </select></td>  </tr>
 <input type="hidden" name="name" id="ChargesholderName" value="{if $ChargesholderName}{$ChargesholderName}{/if}" style="width:100% !important">
 <tr><td colspan="2">Address (city)</td></tr>  

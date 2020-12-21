@@ -60,6 +60,7 @@
      $chargetoamount=$_POST['chargetoamount'];
      $chargefromdate=$_POST['chargefromdate'];
      $chargetodate=$_POST['chargetodate'];
+     $city=$_POST['city'];
      if($filtered_chargesholdername !=''){
         if($chargewhere != ''){
             $chargewhere .='    and a1.`Charge Holder` IN  ('.$filtered_chargesholdername.')';
@@ -118,6 +119,21 @@
     }
         
         $template->assign("chargeaddress" , $chargeaddress);
+       
+}
+if(isset($city) && $city!=''){
+   // $cityid=implode(",",$city);
+  
+   
+   
+    
+    if($chargewhere != ''){
+        $chargewhere .="    and a1.`city` IN( ".$city.")";
+    }else{
+        $chargewhere .="    a1.`city` IN( ".$city.")";
+    }
+        
+        $template->assign("cities" , $city);
        
 }
 
