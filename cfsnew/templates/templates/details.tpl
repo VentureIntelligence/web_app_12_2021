@@ -1,6 +1,14 @@
 {include file="header.tpl"}
 {include file="leftpanel.tpl"}
-
+{* {if ($BASE_URL neq "//www.ventureintelligence.asia/dev/")}
+{literal}
+<style>
+.finance-filter{
+    display: none !important;
+}
+</style>
+{/literal}
+{/if} *}
 {literal}
 <!-- <link href="css/growth.css" rel="stylesheet" type="text/css" /> -->
 <style type="text/css">
@@ -8,6 +16,9 @@
     max-width: 735px !important;
 }
 
+.finance-filter{
+    display: none !important;
+}
 .growth_fulldetails{position:relative;margin:0;padding:0}.firstyear_growth{width:440px;height:auto;margin:12px 5px 17px 0;display:inline-block}.thirdyear_growth{width:440px;height:auto;margin:12px 5px 17px 0;display:inline-block}.fifthyear_growth{width:440px;height:auto;margin:12px 0 17px;display:inline-block}.growth_heading{background:#414141;color:#eee;font-size:14px;font-family:calibri;font-weight:700;text-align:center;padding:15px 0;text-transform:uppercase}.growth_content{padding:12px 10px;background:#dcdcdc;overflow:hidden}.ebitda,.pat,.total_income{width:140px;height:auto;float:left}.ebitda_heading,.income_heading,.pat_heading{text-align:center;font-family:calibri;font-weight:400;font-size:14px;color:#000}.growth_details{background:#ececec;padding:16px 6px}.ebitda_details,.income_details,.pat_details{width:140px;display:inline-block}.up_bg{background:url(images/spriteimage1.png) no-repeat center;width:21px;height:13px;background-position:-181px -5px;display:block;margin:6px auto}.down_bg{background:url(images/spriteimage1.png) no-repeat center;width:21px;height:13px;background-position:-212px -5px;display:block;margin:6px auto}.down_content,.up_content{color:#fff;display:block;margin-bottom:12px}.up_content p{background:#249724}.down_content p{background:#ff1414}.down_content p,.up_content p{padding:0 3px;margin:0 auto;font-size:13px;font-family:calibri;width:46px;text-align:center;font-weight:700}.down_amount,.up_amount{font-family:calibri;color:#000;font-size:13px;display:block;text-align:center}.up_amount{color:#249724}.down_amount{color:#ff1414}.growth_fulldetails{width:100%;overflow:hidden;text-align:center}.fifthyear_growth,.firstyear_growth,.thirdyear_growth{width:32.5%!important}.ebitda,.pat,.total_income{width:33%!important}.growth_details{padding:16px 0!important;overflow:hidden}.growth_content{padding:12px 0!important}.fifthyear_growth .ebitda,.fifthyear_growth .total_income,.thirdyear_growth .pat,.thirdyear_growth .total_income{width:33%!important}.fifthyear_growth .ebitda_details,.fifthyear_growth .income_details,.thirdyear_growth .income_details,.thirdyear_growth .pat_details{width:33%!important;float:left}.ebitda_details,.income_details,.pat_details{width:33%!important;float:left}.fifthyear_growth{margin-right:2px}.fifthyear_growth:last-child{margin-right:0!important}.cfs_menu{width:100%;font-size:large}.cfs_menu ul li{float:left;margin-right:0;background:#413529;margin-bottom:10px;width:11.1%;cursor:pointer;text-align:center;color:rgba(255,255,255,1);display:table-cell;vertical-align:middle;height:60px;line-height:60px;font-size:16px;padding:0 10px}@media (max-width:992px){.cfs_menu ul li{font-size:11px!important}}.cfs_menu ul .current{box-shadow:none;margin-right:0;margin-top:0;color:#413529;background:#fff!important;border-top:1px solid #413529!important;border-bottom:1px solid #413529!important}.cfs_menu ul li.current{box-shadow:none;margin-right:0;margin-top:0;color:#413529;background:#fff!important;border-top:1px solid #413529!important;border-bottom:1px solid #413529!important;padding:0 10px}.cfs_menu ul li:first-child.current{border-left:1px solid #413529!important}.cfs_menu ul li:last-child.current{border-right:1px solid #413529!important}.cfs_menu ul li.current:hover{color:#413529}.cfs_menu ul li:hover{color:#fff;curser:pointer}.container-right .companies-fount-new h1{float:left}.companies-fount-new .compare-new{float:right;margin-top:20px}.companies-fount-new{overflow:hidden;margin:0 0 30px}.click-top a{position:fixed;right:20px;bottom:20px;width:50px;height:50px}.click-top{position:fixed;bottom:20px;right:20px;display:none}.tab_menu{display:none}#balancesheet{margin-top:10px}.no_data{padding:10px;text-align:center}
 #tdShowDirectorMasterdata a {
     color: #000 !important;
@@ -259,23 +270,35 @@ span.result-amount-no {
 .finance-filter{
     display: none !important;
 }
-form.custom .finance-filter-custom .custom.dropdown {
+  .finance-filter-custom .custom.dropdown {
     height: 27px !important;
     font-size: 14px;
 }
 
-form.custom .finance-filter-custom .custom.dropdown .current {
+  .finance-filter-custom .custom.dropdown .current {
     line-height: 27px;
     margin-right: 1.3125em;
 }
 
-form.custom .finance-filter-custom .custom.dropdown .selector {
+  .finance-filter-custom .custom.dropdown .selector {
     height: 27px;
 }
 .btn-cnt {
-    right: 120px !important;
+    right: 175px !important;
 }
-
+.currencyselection {
+    width: 105px !important;
+}
+.finance-filter-custom {
+    width: 190px !important;
+   
+}
+.custom.dropdown.currencyconversion {
+    width: 190px !important;
+}
+.incurrency {
+    margin: 5px 5px !important;
+}
 .tooltipratio {
     outline: none;
      text-decoration: none;
@@ -422,15 +445,22 @@ function currencyconvert(inputString,vcid){
                         $('#pgLoading').hide();
             $('.displaycmp').hide();
                         $('#stMsg').hide();
-                        $(".cfs_menu ul li").removeClass('current');
+                        //$(".cfs_menu ul li").removeClass('current');
                         var row = $('#activeSubmenu').val();
                         if(row == 'profit-loss') {
                             $( '.cagrlabel' ).show();
                         } else {
                             $( '.cagrlabel' ).hide();
                         }
-                        $('.cfs_menu ul li[data-row = '+row+']').addClass('current');
-                        tabMenu(row);
+                        $(".tab_menu_parent").hide();
+                        $("#profit_loss_parent .cfs_menu").show();
+                        
+                        $("#balancesheet_parent .cfs_menu").show();
+                        $("#cashflow_parent .cfs_menu").show();
+                        $(".cfs_menu").hide();
+                        $('#profit-loss .cfs_menu').show();
+                       // $('.cfs_menu ul li[data-row = '+row+']').addClass('current');
+                        //tabMenu(row);
                         resetfoundation();
             //alert(data);
         });
@@ -464,7 +494,7 @@ function valueconversion(inputString1,vcid1){
                         $(".cfs_menu ul li").removeClass('current');
                         var row = $('#activeSubmenu').val();
                         $('.cfs_menu ul li[data-row = '+row+']').addClass('current');
-                        tabMenu(row);
+                        //tabMenu(row);
                         resetfoundation();
             //alert(data);
         });
@@ -552,6 +582,17 @@ function openbalancesheet_ex(elem){
     }else{
         $("#balancesheet_ex").hide();
         $(elem).attr("data-check1", "close");
+    }
+}
+function openbalancesheet_exold(elem){
+
+    if ($(elem).attr("data-check2") == 'close') {
+        
+        $("#balancesheet_exold").show();
+        $(elem).attr("data-check2", "open");
+    }else{
+        $("#balancesheet_exold").hide();
+        $(elem).attr("data-check2", "close");
     }
 }
 function cashflow_ex(elem){
@@ -644,6 +685,12 @@ $(document).mouseup(function (e)
       }
 </script>
     <style>
+    ul.ui-multiselect-checkboxes.ui-helper-reset input.hidden-field {
+    visibility: inherit;
+}
+ul.ui-multiselect-checkboxes.ui-helper-reset span.custom {
+    display: none;
+}
 .entry-pad{
 padding:0px 10px; }
 
@@ -2907,6 +2954,7 @@ function resulttypeconsolidate(vcid1){
            
         });
 }
+
 
 
 
