@@ -35,6 +35,150 @@
 </script>
 
 {/literal}
+
+{literal}
+ 
+    <style>
+.entry-pad{
+padding:0px 10px; }
+        .mobileRedirectPopup {
+            position: fixed !important;
+            background: #fff;
+            height: 195px;
+            width:700px;
+            border-radius: 10px;
+            left:50%;
+            top:25%;
+            margin-top:-92.5px;
+            margin-left:-350px;
+            -webkit-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
+            box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
+            z-index:1000;
+            display:none;
+        }
+        .backdrop{
+            height:100vh;
+            width:100vw;
+            background:rgba(50, 50, 50, 0.75);
+            z-index:500;
+            position:absolute;
+            top:0px;
+            left:0px;
+            overflow:hidden;
+        }
+        .app-text-col h5{
+            font-size:1em !important;
+            color:#302922 !important;
+            margin-left: 20px;
+        }
+        h5 {
+            margin: 10px 0px;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .btn {
+            padding: 10px;
+            width: 100%;
+            border-radius: 25px;
+            border: 0px solid #000;
+            -webkit-box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+            box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+            text-decoration: none;
+        }
+         .redirect-button-col .btn {
+            margin-top: 2px;
+        }
+        .redirect-button-col .btn-primary {
+            background: #302922 !important;
+        }
+        .redirect-button-col .btn-primary a{
+            color: white !important;
+        }
+        .redirect-button-col .btn-default {
+            background: unset !important;
+            color: #302922;
+        }
+
+        .d-none {
+            display: none;
+        }
+
+        .d-block {
+            display: block;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            /* margin-left: -15px;
+            margin-left: -15px; */
+            margin: 10px 0;
+        }
+
+        .image-col {
+            width: 18%;
+            padding-right: 0px;
+            padding-left: 15px;
+        }
+
+        .app-text-col {
+            width: 50%;
+            padding-right: 15px;
+            padding-left: 0px;
+        }
+
+        .redirect-button-col {
+            width: 35%;
+            padding-right: 15px;
+            padding-left: 15px;
+            text-align: center;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        .popup-title{
+            padding-left:20px;
+            padding-right:20px;
+            margin-bottom:15px;
+        }
+        .popup-title h5 {
+            border-bottom: 1.25px solid #302922;
+            padding-bottom: 10px;
+            padding-top: 5px;
+            font-size:1rem;
+        }
+
+        .image-col img {
+            max-width: 50px !important;
+            border-radius: 50px;
+            height: 40px;
+            margin-top:1px;
+        }
+
+        .btn a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .btn.btn-primary a {
+            color: #fff !important;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+    </style>
+{/literal}
 </head>
 
 <body class="loginpage"> 
@@ -145,12 +289,12 @@ $device_list_flag = $this->get_template_vars('device_list_flag');
       <br>  Please select one of them to deauthorize</p>
       <div class="pop-div">
       {php}
+      
            $emailid = $this->get_template_vars('emailid');
 
            $device_array = $this->get_template_vars('devices_array'); 
            $device_array_list = $this->get_template_vars('devices_array_list');
            $deviceDetail_devices =array();
-             
             $count= 1; 
             $deviceDetail_versions = array();
             $min_version="";
@@ -233,9 +377,48 @@ $device_list_flag = $this->get_template_vars('device_list_flag');
 </div>
 </div>	
 </div>
-
+<div class="backdrop"></div>
+<div class="mobileRedirectPopup">
+        <div class="popup-title ">
+            <h5 class="text-center">See Venture Intelligence in ...</h5>
+        </div>
+        <div class="row">
+            <div class="image-col text-center"><img
+                    src="images/cfs_app_icon@2x.png"></div>
+            <div class="app-text-col">
+                <h5 class="text-left vi_app">
+                    VI <span class="login-type"></span> App
+                </h5>
+            </div>
+            <div class="redirect-button-col">
+                <button class="btn btn-primary"><a href="#" class="redirectApp">Open</a></button>
+            </div>
+        </div>
+        <div class="row">
+         
+            <div class="image-col text-center">
+            {if $user_browser eq "Safari"}
+                <img
+                    src="https://www.pngfind.com/pngs/m/314-3147164_download-png-ico-icns-flat-safari-icon-png.png"
+            alt="">{/if}{if $user_browser eq  "Chrome"}
+            <img
+                    src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
+                    alt="">
+                   {/if}
+                   </div>
+            <div class="app-text-col">
+                <h5 class="text-left">
+                   {$user_browser}
+                </h5>
+            </div>
+            <div class="redirect-button-col">
+                <button class="btn btn-default continue">Continue</button>
+            </div>
+        </div>
+    </div>
 {php}
 /** Check condition to show the alertbox **/ 
+print_r($device_details);
 if(($device_list_flag == 1) && (count($device_array) >= 1)) {  {/php}
          <script> $("#popup_main").show(); </script>     
 {php}  } else {
@@ -640,6 +823,100 @@ function checkpopup()
     }
  	
 }
+
+ $(document).ready(function () {
+            var userAgent = navigator.userAgent.toLowerCase();
+            var login = "cfs";
+            var Android = navigator.userAgent.match(/Android/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            var redirectButton = $(".redirectApp");
+            var loginTextSpan = $(".login-type");
+            if (Android) {
+                $(".mobileRedirectPopup").show();
+                if (login == "cfs") {
+                    loginTextSpan.text("CFS");
+                    redirectButton.attr("href", "intent://scan/#Intent;scheme=Venture+intelligence;package=com.venture.intelligence;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.venture.intelligence;end")
+
+                } else if (login == "pe") {
+                    loginTextSpan.text("PE");
+                    redirectButton.attr("href", " intent://scan/#Intent;scheme=Venture+intelligence;package=com.intelligence.venture;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.intelligence.venture;end")
+                }
+                // alert("Android")
+            } else if (IOS) {
+                //alert("IOS")
+                $(".mobileRedirectPopup").hide();
+                $(".backdrop").hide();
+            }else{
+                //alert("desktop");
+                $(".mobileRedirectPopup").hide();
+                $(".backdrop").hide();
+            }
+        })
+        var Android = navigator.userAgent.match(/Android/i);
+        if (!Android) {
+                if (login == "cfs") {
+                    loginTextSpan.text("CFS");
+                    redirectButton.attr("href", "intent://scan/#Intent;scheme=Venture+intelligence;package=com.venture.intelligence;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.venture.intelligence;end")
+
+                }
+               
+            } else {
+                // alert("IOS")
+                $(".mobileRedirectPopup").hide();
+                $(".backdrop").hide();
+            }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        $(".redirect-button-col .btn").on("click", function () {
+            setCookie("mobilepopupcfs", "show", 1);
+        });
+        $(".continue").on("click", function () {
+            $(".mobileRedirectPopup").hide();
+            $(".backdrop").hide();
+            setCookie("mobilepopupcfs", "show", 1);
+        })
+
+        $(document).ready(function(){
+           
+            var Android = navigator.userAgent.match(/Android/i);
+            IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            if(Android ){
+                 
+                    var popup = getCookie("mobilepopupcfs");
+                    if (popup == "show") {
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();  
+                    }else{
+                        
+                            $(".mobileRedirectPopup").show();
+                            $(".backdrop").show();
+                        
+                    }
+                        
+            }else{
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();
+                    }
+       })
 </script>
 {/literal}
 </body>
