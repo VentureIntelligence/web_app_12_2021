@@ -1,0 +1,20 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^api\.ventureintelligence\.asia$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.api\.ventureintelligence\.asia$
+RewriteRule ^webapi\/pe$ "https\:\/\/api\.ventureintelligence\.asia\/webapi\/pe" [R=301,L]
+RewriteCond %{HTTP_HOST} ^api\.ventureintelligence\.asia$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.api\.ventureintelligence\.asia$
+RewriteRule ^partnerapi\/cfs$ "https\:\/\/api\.ventureintelligence\.asia\/partnerapi\/cfs" [R=301,L]
+RewriteCond %{HTTP_HOST} ^api\.ventureintelligence\.asia$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.api\.ventureintelligence\.asia$
+RewriteRule ^mobileapi\/pe$ "https\:\/\/api\.ventureintelligence\.com\/mobileapi\/pe" [R=301,L]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-SSL} !on
+RewriteCond %{HTTP_HOST} ^api\.ventureintelligence\.asia$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.api\.ventureintelligence\.asia$
+RewriteRule ^crm$ "https\:\/\/api\.ventureintelligence\.asia\/crm" [R=301,L]
+RewriteCond %{HTTP_HOST} ^api\.ventureintelligence\.asia$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.api\.ventureintelligence\.asia$
+RewriteRule ^partnerapi\/pe$ "https\:\/\/api\.ventureintelligence\.asia\/partnerapi\/pe" [R=301,L]
+
