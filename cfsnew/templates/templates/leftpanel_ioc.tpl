@@ -16,6 +16,9 @@ $("#panel").css("height",bodyheight);
 });
     </script>
     <style>
+    .ui-state-default .ui-icon {
+    background-image: url(images/ui-icons_888888_256x240.png) !important;
+}
     .container-left li{
         border-bottom : 1px solid transparent !important;
     }
