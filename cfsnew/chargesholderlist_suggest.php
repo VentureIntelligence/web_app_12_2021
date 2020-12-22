@@ -135,8 +135,13 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
                
         }
         
-        if(isset($_REQUEST['answer']['City']) && $_REQUEST['answer']['City']!=''){
-            $cityid=implode(",",$_REQUEST['answer']['City']);
+        if(isset($_REQUEST['answer']['City']) && $_REQUEST['answer']['City']!='' || $_GET['cityid']!=''){
+            if($_GET['cityid']!=''){
+                $cityid=$_GET['cityid'];
+            }else{
+                $cityid=implode(",",$_REQUEST['answer']['City']);
+            }
+            
             $citysql="select city_name from city where city_id IN(".$cityid.")";
             
             if($query=mysql_query($citysql)){
@@ -148,15 +153,59 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
             }
            
             $name=trim($nameval,",");
-            echo "Name:".$name;
+            
             if($chargewhere != ''){
                 $chargewhere .="    and a1.`city` IN( ".$name.")";
             }else{
                 $chargewhere .="    a1.`city` IN( ".$name.")";
             }
+            if($_GET['cityid']!=''){
+                $cityids=explode(",",$_GET['cityid']);
+                $cityarray=$cityids;
+            }else{
+                $cityarray=$_REQUEST['answer']['City'];
+            }
                 
-                $template->assign("cities" , $_REQUEST['answer']['City']);
+                $template->assign("cities" , $cityarray);
                 $template->assign("cityval" ,$name);
+                $template->assign("cityid" ,$cityid);
+               
+        }
+        //print_r($_REQUEST['answer']['State']);
+
+        if(isset($_REQUEST['answer']['State']) && $_REQUEST['answer']['State']!=''|| $_GET['stateid']!=''){
+            if($_GET['stateid']!=''){
+                $stateid=$_GET['stateid'];
+            }else{
+                $stateid=implode(",",$_REQUEST['answer']['State']);
+            }
+            $citysql="select state_name from state where state_id IN(".$stateid.")";
+            
+            if($query=mysql_query($citysql)){
+                while($myrow=mysql_fetch_array($query))
+                {
+                   $statenameval .="'".$myrow['state_name']."',";
+                }
+                
+            }
+           
+            $statename=trim($statenameval,",");
+            
+            if($chargewhere != ''){
+                $chargewhere .="    and a1.`state` IN( ".$statename.")";
+            }else{
+                $chargewhere .="    a1.`state` IN( ".$statename.")";
+            }
+                
+            if($_GET['stateid']!=''){
+                $stateids=explode(",",$_GET['stateid']);
+                $statearray=$stateids;
+            }else{
+                $statearray=$_REQUEST['answer']['State'];
+            }
+                $template->assign("states" , $statearray);
+                $template->assign("stateval" ,$statename);
+                $template->assign("stateid" ,$stateid);
                
         }
 
@@ -413,3 +462,8 @@ $ioc_filter_status = $_GET['ioc_filter'];
     print "\n";
     //set of code ends
 ?>
+<script>
+$('select.multi').multiselect();
+$("#City").multiselect({noneSelectedText: 'Select City', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+$("#State").multiselect({noneSelectedText: 'Select State', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+</script>

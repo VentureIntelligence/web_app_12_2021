@@ -61,6 +61,7 @@
      $chargefromdate=$_POST['chargefromdate'];
      $chargetodate=$_POST['chargetodate'];
      $city=$_POST['city'];
+     $state=$_POST['state'];
      if($filtered_chargesholdername !=''){
         if($chargewhere != ''){
             $chargewhere .='    and a1.`Charge Holder` IN  ('.$filtered_chargesholdername.')';
@@ -122,11 +123,7 @@
        
 }
 if(isset($city) && $city!=''){
-   // $cityid=implode(",",$city);
-  
    
-   
-    
     if($chargewhere != ''){
         $chargewhere .="    and a1.`city` IN( ".$city.")";
     }else{
@@ -136,9 +133,21 @@ if(isset($city) && $city!=''){
         $template->assign("cities" , $city);
        
 }
+if(isset($state) && $state!=''){
+    
+    if($chargewhere != ''){
+        $chargewhere .="    and a1.`state` IN( ".$state.")";
+    }else{
+        $chargewhere .="    a1.`state` IN( ".$state.")";
+    }
+        
+        $template->assign("state" , $state);
+       
+}
+
 
         
-     $ExportResult = $plstandard->getcompanyList_cnt($chargewhere,$limit,$page);
+    $ExportResult = $plstandard->getcompanyList_cnt($chargewhere,$limit,$page);
      
     updateDownload($ExportResult);
     
@@ -190,10 +199,12 @@ if(isset($city) && $city!=''){
 	header("Expires: 0");
         
         $sep = "\n"; //tabbed character
+        $tab = "\t"; //tabbed character
         //print("\n");
         $currFY = Date('y');
-	echo "Company Name"."\t";
-        
+    echo "Company Name"."\t";
+    echo "State"."\t";
+    echo "City"."\t";    
         
         print("\n");
 
@@ -208,7 +219,9 @@ if(isset($city) && $city!=''){
 	foreach($ExportResult as $row) { 
            
             $company_name = preg_replace("/\s+/", " ", $row['company_name']);
-            $schema_insert .= htmlspecialchars_decode(trim($company_name)).$sep;
+            $schema_insert .= htmlspecialchars_decode(trim($company_name)).$tab;
+            $schema_insert .= htmlspecialchars_decode(trim($row['state'])).$tab;
+            $schema_insert .= htmlspecialchars_decode(trim($row['city'])).$sep;
 //            if ($fyDiff > 0)
 //                $schema_insert .= movetabs($fyDiff);    
                    

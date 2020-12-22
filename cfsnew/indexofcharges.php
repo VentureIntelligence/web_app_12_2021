@@ -109,6 +109,9 @@
 ?>
 <script>
 $('select.multi').multiselect();
+$("#City").multiselect({noneSelectedText: 'Select City', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+$("#State").multiselect({noneSelectedText: 'Select State', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+
 </script>
 <style>
 /* .ui-dropdownchecklist{
