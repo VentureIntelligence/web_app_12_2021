@@ -120,6 +120,20 @@ class sectors extends database {
 		}
 		return $return_array;
 	}	
+	function getSectorslist($where,$order){
+		$sql = "select Sector_Id, SectorName, IndustryId_FK from ".$this->dbName;
+		if(strlen($where)) $sql.= " WHERE ".$where;
+		if(strlen($order)) $sql.= " ORDER BY ".$order;
+                
+		$this->execute($sql);
+		$return_array = array();
+		while ($rs = $this->fetch()) {
+			//pr($rs);
+			$return_array[$cont]= $rs[0];
+			$cont++;
+		}
+		return $return_array;
+	}	
 	
         function getsingleSectors($where,$order){
 		$sql = "select Sector_Id, SectorName, IndustryId_FK, naics_code from ".$this->dbName;
