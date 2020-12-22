@@ -6,6 +6,7 @@
 {if $searchupperlimit gte $searchlowerlimit}   
 {include file="filters.tpl"}
 {literal}
+
     <style>
 .entry-pad{
 padding:0px 10px; }
@@ -371,6 +372,7 @@ padding:0px 10px; }
 </body>
 </html>
 {literal}
+
     <script type="text/javascript">
         $(document).ready(function () {
             var userAgent = navigator.userAgent.toLowerCase();
@@ -667,7 +669,7 @@ padding:0px 10px; }
                 .list-tab{
                     clear:both !important;
                     }
-                    form.custom .custom.dropdown ul li { width: 100%;}
+                    .custom.dropdown ul li { width: 100%;}
         #export-popup .agree-export {
             margin-right: 10px;
         }

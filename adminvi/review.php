@@ -892,7 +892,7 @@ document.img1.src=img_src;
 				?>
 						<span style="float:left" class="one">
 						<b>Note:</b> Only paid subscribers will be able to export data on to Excel.
-						<a target="_blank" href="../Sample_Sheet_Investments-RE.xls"><u>Click Here</u> </a> for a sample spreadsheet containing RE investments
+						<a target="_blank" href="../xls/Sample_Sheet_Investments-RE.xls"><u>Click Here</u> </a> for a sample spreadsheet containing RE investments
 						</span>
 
 				<?php

@@ -472,7 +472,7 @@ if ($vcflagValue == 0) {
     $searchAggTitle = "Aggregate Data - VC Investments ";
     $aggsql = "SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
             FROM peinvestments AS pe,pecompanies as pec,industry as i,stage as s  where pe.StageID=s.StageId and s.VCView=1 and  ";
-    $samplexls = "Sample_Sheet_Investments(VC Deals).xls";
+    $samplexls = "../xls/Sample_Sheet_Investments(VC Deals).xls";
     //    echo "<br>Check for stage** - " .$checkForStage;
 }
 if($_POST['filtersector'] != ''){
@@ -11358,7 +11358,7 @@ div.token-input-dropdown{
   <h1 class="popup_header">Quick Search</h1>
   <span class="popup_close"><a href="javascript: void(0);">X</a></span>
   <div class="popup_content">
-      <form name="searchallleftmenu12" action="<?php echo $actionlink; ?>" method="post" id="searchallleftmenu12">
+      <form name="searchallleftmenu12" action="<?php echo $actionlink; ?>" method="post" id="searchallleftmenu12" autocomplete="off">
       <div class="popup_form">
           <select class="popup_dropdown" name="popup_select" id="popup_select">
               <option value="">All</option>
@@ -11371,7 +11371,7 @@ div.token-input-dropdown{
               <option value="tags">Tags</option>
          </select>
          <div class="popup_searching">
-            <input type="text" name="popup_keyword" id="popup_keyword" value="" placeholder="Enter Keyword" class="popup_text" />
+            <input type="text" name="popup_keyword" id="popup_keyword" value="" placeholder="Enter Keyword" class="popup_text" autocomplete="off" />
             <input type="hidden" name="advisor_type" id="advisor_type" value="" />
             <div id="search_load" style="  overflow-y: scroll;  max-height: 130px;  background: #fff;display:none;  width: 300px;position: absolute;top: 40px;">
             <span id="com_clearall" title="Clear All" onclick="clear_allsearch();" style="background: rgb(191, 160, 116); position: absolute; top: 29px; right: 30px; padding: 3px; display: block;">(X)</span>

@@ -788,7 +788,7 @@
                                              <input class="export" type="button" id="expshowdeals"  value="Export" name="showREIPOdeal">
                                          <?php
                                          } else { ?>
-                                             <a href="../../Sample_Sheet_Investments-RE.xls" id="expshowdeals" target="_blank"  style="float:right">Sample Export</a>
+                                             <a href="../../xls/Sample_Sheet_Investments-RE.xls" id="expshowdeals" target="_blank"  style="float:right">Sample Export</a>
                                              
 <!--                                             <input class="export" type="button" id="expshowdeals"  value="Export Sample" name="showREIPOdeal">-->
                                          <?php      }
@@ -867,7 +867,7 @@
                                              <input class="export" type="button" id="expshowdeals"  value="Export" name="showREIPOdeal">
                                          <?php
                                          } else { ?>
-                                             <a href="../../Sample_Sheet_Investments-RE.xls" id="expshowdeals" target="_blank"  style="float:right">Sample Export</a>
+                                             <a href="../../xls/Sample_Sheet_Investments-RE.xls" id="expshowdeals" target="_blank"  style="float:right">Sample Export</a>
                                              
 <!--                                             <input class="export" type="button" id="expshowdeals"  value="Export Sample" name="showREIPOdeal">-->
                                          <?php      }

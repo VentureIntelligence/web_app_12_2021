@@ -1599,7 +1599,7 @@
                                     -RE.xls">Sample Export</a>
                                     </span>
                                     <script type="text/javascript">
-						$('#exportbtn').html('<a class="export"  href="../sample-exits-via-m&a-RE.xls">Export Sample</a>');
+						$('#exportbtn').html('<a class="export"  href="../xls/sample-exits-via-m&a-RE.xls">Export Sample</a>');
                                     </script>
                                     </span>
             					</div>

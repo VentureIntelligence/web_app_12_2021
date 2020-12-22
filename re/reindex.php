@@ -2152,11 +2152,11 @@
                                     <p><b>Note:</b> Only paid subscribers will be able to export data on to Excel.Clicking Sample Export button for a sample spreadsheet containing PE investments.  </p>
                                     <span style="float:right;margin-right: 20px;" class="one">
                                          <!--a class ="export" type="submit"  value="Export" name="showdeals"></a-->
-                                    <a class ="export" target="_blank" href="../Sample_Sheet_Investments-RE.xls">Sample Export</a>
+                                    <a class ="export" target="_blank" href="../">Sample Export</a>
                                     </span>
                                     
                                     <script type="text/javascript">
-						$('#exportbtn').html('<a class="export"  href="../Sample_Sheet_Investments-RE.xls">Export Sample</a>');
+						$('#exportbtn').html('<a class="export"  href="../xls/Sample_Sheet_Investments-RE.xls">Export Sample</a>');
                                                 
              
                                     </script>

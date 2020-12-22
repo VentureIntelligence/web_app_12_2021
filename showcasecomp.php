@@ -127,7 +127,7 @@ $Db = new dbInvestments();
 		//$headers .= "Cc: ashok@ventureintelligence.in\n";
 
 	//	mail($to,$subject,$message,$headers);
-                $file="showcasecompanies.txt";
+                $file="txt/showcasecompanies.txt";
 		$schema_insert="";
 		//TRYING TO WRIRE IN EXCEL
 					 //define separator (defines columns in excel & tabs in word)

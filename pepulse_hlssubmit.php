@@ -148,7 +148,7 @@ invoked from -pepulse_hls.htm  AND pepulse_hls.php ( 2 files)
 
 		//	$currentdir=getcwd();
 		//	$file = $currentdir . "/hlscompanies.xls";
-		$file="hlscompanies.txt";
+		$file="txt/hlscompanies.txt";
 		$schema_insert="";
 		//TRYING TO WRIRE IN EXCEL
 					 //define separator (defines columns in excel & tabs in word)

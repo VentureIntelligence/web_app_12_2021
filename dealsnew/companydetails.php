@@ -396,11 +396,11 @@ if(gettype($cityid)!="string"){
 
 		if(($pe_re==0) || ($pe_re==1) || ($pe_re==2) || ($pe_re==3) || ($pe_re==4) || ($pe_re==5) ||($pe_re==6)||($pe_re==10) || ($pe_re==11)|| ($pe_re==7) || ($pe_re==9) ||($pe_re==8))
 		{
-			$investorSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV from
+			$investorSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId=9) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId=9) as InvestorIds  from
 			peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
 			peinvestors as inv where pe.PECompanyId=$SelCompRef and
 			peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
-			and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 order by dates desc";
+			and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15  group by pe.PEId order by dates desc";
 
 			$dealpage="dealinfo.php";
                         if($pe_re==2)
@@ -411,7 +411,7 @@ if(gettype($cityid)!="string"){
                         {
                             $invpage="dirdetails.php";
                         }
-		//	echo "<br>0 1 _________________".$investorSql;
+			//echo "<br>0 1 _________________".$investorSql;
 		}
 
 		/*elseif(($pe_re==10) || ($pe_re==11))// PE-ipo 3 , VCIPOs-4class="" target="_blank" href='dirdetails
@@ -454,11 +454,11 @@ if(gettype($cityid)!="string"){
 		//echo "<br>--" .$investorSql;
                 //elseif($pe_re==2) // incubatees
 		//{
-                $incubatorSql="SELECT pe.IncDealId,pe.IncubatorId,inc.Incubator FROM
+                $incubatorSql="SELECT pe.IncDealId,pe.IncubatorId,inc.Incubator,DATE_FORMAT( date_month_year, '%M-%Y' ) as dt FROM
                 `incubatordeals` as pe, incubators as inc WHERE IncubateeId =$SelCompRef
                 and pe.IncubatorId= inc.IncubatorId ";
 
-		//   echo "<bR>2 ---" .$investorSql;
+		  // echo "<bR>2 ---" .$investorSql;
 		//}
 		$onBoardSql="select pec.PECompanyId,bd.PECompanyId,bd.ExecutiveId,
 		exe.ExecutiveName,exe.Designation,exe.Company from
@@ -478,30 +478,30 @@ if(gettype($cityid)!="string"){
 		//	AND pec.PEcompanyId = pe.PECompanyId and pe.Deleted=0 and pec.industry !=15 and pe.PECompanyId=$SelCompRef order by dt desc";
 
                 $maexitsql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business, inv.Investor,
-			DealAmount, DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.MandAId ,pe.ExitStatus, pe.DealTypeId, dt.DealType
+			DealAmount, DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.MandAId ,pe.ExitStatus, pe.DealTypeId, dt.DealType,GROUP_CONCAT( inv.Investor ORDER BY inv.InvestorId) as Investors
 			FROM manda AS pe, industry AS i, pecompanies AS pec,manda_investors as mi ,peinvestors as inv, dealtypes AS dt
                          WHERE  i.industryid=pec.industry
 			AND pec.PEcompanyId = pe.PECompanyId and pe.Deleted=0 and pec.industry !=15 and pe.PECompanyId=$SelCompRef
-			and inv.InvestorId=mi.InvestorId and mi.MandAId=pe.MandAId and pe.DealTypeId=dt.DealTypeId
+			and inv.InvestorId=mi.InvestorId and mi.MandAId=pe.MandAId and pe.DealTypeId=dt.DealTypeId group by dt 
                         order by DealDate desc ";
-                        //echo "<br>-- ".$maexitsql;
+                      //  echo "<br>-- ".$maexitsql;
 
 		$ipoexitsql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,inv.Investor,
-				IPOAmount, DATE_FORMAT( IPODate, '%b-%Y' ) as dt, pe.IPOId ,pe.ExitStatus
+				IPOAmount, DATE_FORMAT( IPODate, '%b-%Y' ) as dt, pe.IPOId ,pe.ExitStatus,GROUP_CONCAT( inv.Investor ORDER BY inv.InvestorId) as Investors
 				FROM ipos AS pe, industry AS i, pecompanies AS pec,ipo_investors as ipoi,peinvestors as inv
                                  WHERE  i.industryid=pec.industry
 			AND pec.PEcompanyId = pe.PECompanyId and pe.Deleted=0 and pec.industry !=15 and pe.PECompanyId=$SelCompRef
-                        and inv.InvestorId=ipoi.InvestorId and ipoi.IPOId=pe.IPOId
+                        and inv.InvestorId=ipoi.InvestorId and ipoi.IPOId=pe.IPOId group by dt
                          order by IPODate desc";
-                          // echo "<br>-- ".$ipoexitsql;
+                         //  echo "<br>-- ".$ipoexitsql;
 
 		$angelinvsql="SELECT pe.InvesteeId, pe.AggHide, pec.companyname, pec.industry, i.industry, pec.sector_business,
-				DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.AngelDealId ,peinv.InvestorId,inv.Investor
+				DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.AngelDealId ,peinv.InvestorId,inv.Investor,GROUP_CONCAT( inv.InvestorId ORDER BY inv.Investor ) as InvestorIds, GROUP_CONCAT( inv.Investor ORDER BY inv.Investor) as Investors
 				FROM angelinvdeals AS pe, industry AS i, pecompanies AS pec,
    	                        angel_investors as peinv,peinvestors as inv
                                  WHERE  i.industryid=pec.industry AND pec.PEcompanyId = pe.InvesteeId and 
                                  pe.Deleted=0 and pec.industry !=15 and pe.InvesteeId=$SelCompRef
-                                 and  peinv.AngelDealId=pe.AngelDealId and inv.InvestorId=peinv.InvestorId order by dt desc";
+                                 and  peinv.AngelDealId=pe.AngelDealId and inv.InvestorId=peinv.InvestorId and inv.InvestorId!=9 group by AngelDealId order by dt desc";
                                 // echo "<Br>---" .$angelinvsql;
                 // $company_link_Sql ="select * from pecompanies_links where PECompanyId=$SelCompRef";
         
@@ -631,6 +631,280 @@ if(gettype($cityid)!="string"){
 	include_once($headerurl);
 ?>
 <style>
+.invdealperiod{
+    padding-left:25px !important;
+}
+td.investname span:last-child,td.angelinvestname span:last-child {
+    display: none;
+}
+
+.tableInvest td, .tableInvest td a {
+    font-size: 10pt;
+    color: #666 !important;
+    font-weight: 600;
+}
+.tableInvest tbody td:first-child, .tableInvest tbody td:first-child a {
+    color: #000 !important;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 10pt;
+}
+.relatedcompanies span a{
+    margin:0px 15px;
+}
+.tagelements {
+    float: left;
+    padding: 12px 0px;
+    padding-right: 12px;
+    margin-bottom: 0px;
+    width: 25%;
+    box-sizing: border-box;
+}
+.tagelements a {
+    color: #7b5e40;
+    font-weight: bold;
+    display: block;
+    font-size: 14px;
+    text-decoration: underline;
+}
+/* .tagelements{
+    padding:5px;
+}
+.tagelements span{
+    padding:5px;
+    font-weight:600;
+} */
+.accordions_dealcontent p {
+    color: #666666;
+    margin: 0px !important;
+}
+
+@media only screen and (max-width: 1500px) and (min-width: 1281px){
+.col-md-6 {
+    width: 50%;
+}
+.exits{
+    width:80%;
+}
+}
+#incubation td a{
+    font-weight:600;
+}
+.box_heading {
+    background: #BDA074;
+    border-radius: 4px;
+    color: #fff;
+    text-transform: capitalize !important;
+}
+.accordian-group tr {
+    border-bottom: 1px solid #ccc;
+    clear: both;
+    margin: 0px;
+    width: 100%;
+}
+.accordian-group tr:last-child {
+    border-bottom: none;
+}
+.accordian-group table {
+    background: #fff;
+    padding: 0px !important;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: none;
+}
+.activetab {
+    display: block !important;
+}
+.tab-items {
+    display: none;
+}
+ul.tabView li.current {
+    color: #fff;
+    background-color: #c09f74;
+}
+ul.tabView li {
+    list-style-type: none;
+    display: inline-block;
+    color: #c09f74;
+    padding: 10px 10px 10px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+ ul.tabView {
+    border-bottom: none !important;
+    width: 100%;
+    overflow: hidden;
+}
+.accordions_dealcontent ul {
+    color: #000;
+}
+.accordions_dealcontent {
+    color: #000;
+    /* transition: 0.8s linear; */
+    box-shadow: 0px 3px #e3e4e4;
+    border: 1px solid #afb0b3;
+    border-top: 1px solid transparent;
+    width: 100%;
+    /* padding: 10px 20px; */
+    padding: 0px 20px;
+    padding-top: 8px;
+    padding-bottom: 7px;
+    box-sizing: border-box;
+    border-top: none;
+}
+.accordian-group {
+    background: #fff !important;
+    border: none !important;
+    margin-bottom: 15px !important;
+}
+.accordions {
+    position: relative;
+}
+.accordions_dealtitle {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    /* background-color: #c9c4b7; */
+    background-color: #e0d8c3;
+    cursor: pointer;
+    /* transition: 0.8s linear; */
+    border: 1px solid #a28669;
+    /* margin-top: 2px; */
+    box-sizing: border-box;
+}
+.accordions_dealtitle span {
+    align-self: center;
+    display: block;
+    padding-left: 15px;
+}
+.accordions_dealtitle span:after {
+    content: " ";
+    background: url(images/sprites-icons.png) no-repeat -22px -59px;
+    width: 24px;
+    height: 24px;
+    display: block;
+    /* background-position: -5px -5px; */
+    margin-right: 5px;
+    border-radius: 50px;
+}
+.box_heading.content-box {
+    border-radius: 5px 5px 0 0;
+}
+.box_heading.content-box {
+    background: #e0d8c3 !important;
+}
+.accordions_dealtitle.active span:after {
+    background: url(images/sprites-icons.png) no-repeat -72px -59px;
+    width: 24px;
+    height: 24px;
+    display: block;
+    /* background-position: -5px -5px; */
+    margin-right: 5px;
+    border-radius: 50px;
+}
+.accordions_dealtitle h2 {
+    /* padding: 15px 0px !important; */
+    /* padding: 10px 0px !important; */
+    padding-top: 13px !important;
+    padding-bottom: 12px !important;
+    margin: 0;
+    color: #333333 !important;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+    /* font-size: 22px !important; */
+    font-size: 19px !important;
+    background: #fff;
+}
+.box_heading.content-box {
+    background: #C9C4B7;
+    color: #000000;
+    overflow: hidden;
+}
+.work-masonry-thumb1 h2 {
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px solid #d4d4d4;
+    color: #c09f74;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+ .row.masonry .col-6{
+    width: 100%;
+    /* padding: 7px 0; */
+    box-sizing: border-box;
+    /* vertical-align: middle; */
+    display: inline-block;
+    float: none;column-fill: auto;
+}
+.accordions_dealcontent .com-address-cnt{
+    padding: 20px 0px 0px !important
+}
+/*.view-detailed{
+    padding: 10px 0;
+}*/
+.detailtitle{
+    position: relative !important;left: 0px !important;
+}
+.detailtitle a{
+    font-size: 21px !important;
+    color: #333;
+    font-weight: 600;
+        text-decoration: none;
+    text-transform: capitalize;
+}
+.inner-section .action-links{
+        background-color: #fff;
+}
+.profile-view-left{
+    position:relative;
+}
+.tablelistview .more-info p{
+    font-size: 9pt;
+    line-height: 18px !important;
+    text-align: justify;
+}
+.companyinfo_table td a{
+    color: #666 !important;text-decoration: none;
+}
+.companydealcontent{
+    height: 205px;
+    
+}
+.section1 .accordions_dealcontent{
+    /*border: 1px solid #4e4e4e;*/
+    border: 1px solid #afb0b3;
+    border-top: none;
+    box-shadow: 0px 3px #d9dada;
+    padding-right: 10px;
+}
+.row.masonry .col-6 {
+    width: 50%;
+    padding: 0px 8px;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+}
+.row.masonry .col-6:first-child{
+    padding-left: 0px;
+}
+.row.masonry .col-6:nth-child(2){
+    padding-right: 0px;
+}
+ @-moz-document url-prefix() {
+    .row.masonry .col-6 {
+        width: 50%;
+        padding: 0px 8px;
+        box-sizing: border-box;
+        display: block;
+        float: left;
+    }
+} 
+.companydealcontent{
+    /*min-height:485px;*/
+}
 /*969 changes*/
 .list-tab.mt-list-tab.tablist {
     margin-top: 120px;
@@ -1151,24 +1425,24 @@ if(gettype($cityid)!="string"){
                           </div>
 
                   <?php }
-                  if($stockcode!="")
-                  {
+                 // if($stockcode!="")
+                  //{
                   ?>
-                          <div class="com-add-li">
+                          <!-- <div class="com-add-li">
                              <h6>STOCK CODE</h6>
-                          <span><?php echo $stockcode;?></span>
-                          </div>
-                  <?php }
-                   if ($Address1 != "" || $Address2 != "") 
-                   { ?>
-                                        <div class="com-add-li">
+                          <span><?php //echo $stockcode;?></span>
+                          </div> -->
+                  <?php //}
+                   //if ($Address1 != "" || $Address2 != ""){ 
+                       ?>
+                                        <!-- <div class="com-add-li">
                                           <h6>ADDRESS</h6>
-                                      <span> <?php echo $Address1; ?><?php if ($Address2 != "") echo "<br/>" . $Address2; ?></span>
-                                  </div>
+                                      <span> <?php //echo $Address1; ?><?php //if ($Address2 != "") echo "<br/>" . $Address2; ?></span>
+                                  </div> -->
 
 
                      <?php
-                  }
+                  //}
                   if ($AdCity != "") 
                   { ?>
                                       <div class="com-add-li">
@@ -1189,15 +1463,15 @@ if(gettype($cityid)!="string"){
 
                      <?php
                      }
-                    if (($Zip != "") || ($Zip > 0)) 
-                        { ?>
-                                  <div class="com-add-li">
+                    //if (($Zip != "") || ($Zip > 0)) 
+                      //  { ?>
+                                  <!-- <div class="com-add-li">
                                           <h6>ZIP</h6>
-                                      <span><?php echo $Zip; ?></span>
-                                  </div>
+                                      <span><?php //echo $Zip; ?></span>
+                                  </div> -->
 
                      <?php
-                  }
+                  //}
                    if (($Tel != "") || ($Tel > 0)) {
                      ?>
                                   <div class="com-add-li">
@@ -1206,14 +1480,14 @@ if(gettype($cityid)!="string"){
                                   </div>
                   <?php
                    }
-                   if(($Fax!="")|| ($Fax>0)) 
-                  {
+                   //if(($Fax!="")|| ($Fax>0)) 
+                 // {
                   ?>
-                                  <div class="com-add-li">
+                                  <!-- <div class="com-add-li">
                                           <h6>FAX</h6>
-                                      <span><?php echo $Fax; ?></span>
-                                  </div>
-                  <?php }
+                                      <span><?php //echo $Fax; ?></span>
+                                  </div> -->
+                  <?php // }
                   if (trim($Email) != "") {
                       ?>
                                   <div class="com-add-li">
@@ -1661,553 +1935,476 @@ if(gettype($cityid)!="string"){
             
     </section>
     
-    <section class="com-cnt-sec">
-        
-        
-        <?php
-         $rolescount2=0;
-         foreach ($roles as $ro) {  if($ro->role == 'past_investor' || $ro->role == 'current_investor') { $rolescount2++; } }
-        
-        
-        if(mysql_num_rows($companyrs)>0 || $rolescount2>0  ){ ?>
-        
-    	<header>
-        	<h3>INVESTMENTS</h3>
-        </header>
-        
-        <?php } ?>
-        
-        
-        <div class="com-col" id="ventureInvestment">
-           
-            <div style="margin:0 15px">
-            <div class="company-cnt-sec">
-                 <span class="">INVESTMENTS from Our Database</span>
-                 <img src="img/co-sec-logo.png" alt="vi" class="fr mar-top">
-            <div class="vicomp-cnt">
-            </div>
-                
-            </div>
-            </div>
-            
-            
-        <div class="postContainer postContent masonry-container " >  
     
-  
-    
-    <?php
-    $investor_cnt=0;
-    if($investorSql!="")
-    {
-    if($getcompanyrs= mysql_query($investorSql))
-    {
-        $investor_cnt = mysql_num_rows($getcompanyrs);
-    }
-    }
-    if($investor_cnt>0)
-    {
+    <div  class="work-masonry-thumb1 accordian-group" href="http://erikjohanssonphoto.com/work/aizone-ss13/">
+                                     <div class="accordions">
+                                        <div class="accordions_dealtitle "><span></span>
+                                        <h2 id="companyinfo" class="box_heading content-box ">Investments and Exits Snapshot</h2>
+                                        </div>
+                                        <div class="accordions_dealcontent" style="padding-top: 20px;">
+                                            <?php 
+                                               
+                                                if($getcompanyrs= mysql_query($investorSql))
+                                                {
+                                                    $investor_cnt = mysql_num_rows($getcompanyrs);
+                                                }
+                                                
+                                                
+                                                if($incrs= mysql_query($incubatorSql))
+                                                {
+                                                    $incubator_cnt = mysql_num_rows($incrs);
+                                                }
+                                                if($rsangel= mysql_query($angelinvsql))
+                                                {
+                                                    $angel_cnt = mysql_num_rows($rsangel);
+                                                }
+                                                if($rsipoexit= mysql_query($ipoexitsql))
+                                                {
+                                                    $ipoexit_cnt = mysql_num_rows($rsipoexit);
+                                                }
+                                                if($rsmandaexit= mysql_query($maexitsql))
+                                                {
+                                                    $mandaexit_cnt = mysql_num_rows($rsmandaexit);
+                                                }
+                                                if($incubator_cnt>0 || $investor_cnt>0 || $angel_cnt>0 || $ipoexit_cnt>0 || $mandaexit_cnt>0) {
+                                            ?>
+                                            <ul class="tabView">
+                                                <?php
+                                                if($incubator_cnt>0) { ?> 
+                                                    <li href="#incubation">Incubation</li>
+                                                <?php } ?>
+                                                <?php
+                                                if($angel_cnt>0) { ?> 
+                                                    <li href="#angel">ANGEL INVESTMENTS</li>
+                                                <?php } ?>
+                                                <?php
+                                                if($investor_cnt>0) { ?> 
+                                                    <li href="#investments" class="current">PE/VC INVESTMENTS</li>
+                                                <?php } ?>
+                                                <?php
+                                                if(($ipoexit_cnt>0)||($mandaexit_cnt>0 )) { ?> 
+                                                    <li href="#exits">PE/VC Exits</li>
+                                                <?php } ?>
+                                                <div class="clearfix"></div>
+                                            </ul>
 
-    ?>    
-      
-    
-    
-    <div  class="work-masonry-thumb  com-inv-sec for-nai  col-2" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
-    <h2>PE/VC Investors</h2>
-    <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
-    <thead><tr><th>Investor Name</th> <th>Deal Period</th></tr></thead>
-    <tbody>
-         <?php
-            $addTrancheWordtxt = "";
+                                            <div class="tab-content">
+                                                <div id="investments" class="tab-items activetab">
+                                                    <?php if($investor_cnt > 0){ ?>
+                                                        <div class="col-md-6">
+                                                        <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest">
+                                                            <thead>
 
-            While($myInvestorrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
-                    {
-                            $Investorname=trim($myInvestorrow["Investor"]);
-                            $Investorname=strtolower($Investorname);
-                            $invResult=substr_count($Investorname,$searchString);
-                            $invResult1=substr_count($Investorname,$searchString1);
-                            $invResult2=substr_count($Investorname,$searchString2);
-                            if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
-                            {
-                               $addTrancheWord="";
-                               $addDebtWord="";
-                                if(($pe_re==0) || ($pe_re==1) || ($pe_re==8) )
-                                {
-                                    if($myInvestorrow["AggHide"]==1) {
-                                        $addTrancheWord="; NIA";
-                                        $addTrancheWordtxt = $addTrancheWord;
-                                    }else
-                                        $addTrancheWord="";
-                                }
-                                else
-                                    $addTrancheWord="";
-                                    if($myInvestorrow["SPV"]==1)
-                                        $addDebtWord="; Debt";
-                                    else
-                                        $addDebtWord="";
+                                                                <tr>
+                                                                    <th>Investor Name</th> 
+                                                                    <th style="width: 20%;padding-left:25px;">Deal Period</th>
+                                                                    
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                 <?php
 
-            ?>
-         <tr><td style="alt"><a target="_blank" href='<?php echo $invpage;?>?value=<?php echo $myInvestorrow["InvestorId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Investor Details"><?php echo $myInvestorrow["Investor"]; ?></a></td>
-        <?php if($usrRgs[PEInv] !=0){?>
-            <td><a href="dealdetails.php?value=<?php echo $myInvestorrow["DealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>" title="Deal Details"><?php echo $myInvestorrow["dt"];?></a>
-            <?php echo $addTrancheWord;?><?php echo $addDebtWord;?></td>   
-                            <?php }else{?>
-                                <td><?php echo $myInvestorrow["dt"];?>
-            <?php echo $addTrancheWord;?><?php echo $addDebtWord;?></td> 
-                            <?php }?> 
-                             <?php 
-      }
-       } 
-?>  
-    </tbody>
-    </table> 
-    <?php if($addTrancheWordtxt == "; NIA"){ ?>
-            <p class="note-nia">*NIA - Not Included for Aggregate</p>
-        <?php }?>
+                                                            $addTrancheWordtxt = "";
+                                                            
+                                                            While($myInvestorrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
+                                                                    {
+                                                                       
+                                                                        $Investorname=trim($myInvestorrow["Investor"]);
+                                                                $InvestorsName = explode(",",$myInvestorrow["Investors"]);
+                                                                $InvestorIds = explode(",",$myInvestorrow["InvestorIds"]);
+                                                                            
+                                                                            $Investorname=strtolower($Investorname);
+                                                                            $invResult=substr_count($Investorname,$searchString);
+                                                                            $invResult1=substr_count($Investorname,$searchString1);
+                                                                           // $invResult2=substr_count($Investorname,$searchString2);
+                                                                            if(($invResult==0) && ($invResult1==0) )
+                                                                            {
+                                                                            $addTrancheWord="";
+                                                                            $addDebtWord="";
+                                                                                if(($pe_re==0) || ($pe_re==1) || ($pe_re==8) )
+                                                                                {
+                                                                                    if($myInvestorrow["AggHide"]==1) {
+                                                                                        $addTrancheWord="; NIA";
+                                                                                        $addTrancheWordtxt = $addTrancheWord;
+                                                                                    }else
+                                                                                        $addTrancheWord="";
+                                                                                }
+                                                                                else
+                                                                                    $addTrancheWord="";
+                                                                                    if($myInvestorrow["SPV"]==1)
+                                                                                        $addDebtWord="; Debt";
+                                                                                    else
+                                                                                        $addDebtWord="";
 
-    </div>
- <?php
-    }
-    if($incrs= mysql_query($incubatorSql))
-        {
-             $incubator_cnt = mysql_num_rows($incrs);
-        }
-        if($incubator_cnt>0)
-        {
-            While($incrow=mysql_fetch_array($incrs, MYSQL_BOTH))
-            {
-                $incubator=$incrow["Incubator"];
-                $incubatorId=$incrow["IncubatorId"];
-            }
-    ?>   
-    
-   <div  class="work-masonry-thumb  com-inv-sec   col-1" href="http://erikjohanssonphoto.com/work/aizone-ss13/">
-    <h2>Incubators</h2>
-    <table cellpadding="0" cellspacing="0" class="tablelistview">
-        <tr><td> <p><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Incubator Details"> <?php echo $incubator;?> </a></p> </td></tr>
-    </table>
-    </div>                         
-    <?php
-    } 
-         if($rsipoexit= mysql_query($ipoexitsql))
-        {
-             $ipoexit_cnt = mysql_num_rows($rsipoexit);
-        }
-        if($rsmandaexit= mysql_query($maexitsql))
-        {
-             $mandaexit_cnt = mysql_num_rows($rsmandaexit);
-        }
-        if(($ipoexit_cnt>0)||($mandaexit_cnt>0 ))
-        {
+                                                                                         ?>
+                                                            <tr> 
+                                                            <td class="investname" style="alt">
+                                                                <?php for ($i=0; $i < sizeof($InvestorsName); $i++) {?>
+                                                                <a target="_blank" href='<?php echo $invpage;?>?value=<?php echo $InvestorIds[$i].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Investor Details"><?php echo $InvestorsName[$i]; ?></a><span>,</span>
+                                                                <?php } ?>
+                                                            </td>
+                                                            <?php if($usrRgs[PEInv] !=0){
+                                                                ?>
+                                                            <td class="invdealperiod"><a href="dealdetails.php?value=<?php echo $myInvestorrow["DealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>" title="Deal Details"><?php echo $myInvestorrow["dt"];?></a>
+                                                            <?php echo $addTrancheWord;?><?php echo $addDebtWord;  ?></td>   
+                                                                            <?php }else{?>
+                                                                                <td><?php echo $myInvestorrow["dt"];?>
+                                                            <?php echo $addTrancheWord;?><?php echo $addDebtWord;?></td> 
+                                                                            <?php }?></tr> 
+                                                                            <?php 
+                                                            }
+                                                            } 
+                                                        ?>  
+                                                            </tbody>
+                                                        </table>
+                                                        <?php if($addTrancheWordtxt == "; NIA"){ ?>
+                                               <div style="height:15px;">
+                                                <p class="note-nia" >*NIA - Not Included for Aggregate</p>
+                                                </div>
+                                                <?php }?> 
+                                                         </div>
+                                                         <?php } ?>
+                                                </div>
+                                                <div id="exits" class="tab-items">
+                                                    <?php 
 
-        ?>                                                 
-            <div  class="work-masonry-thumb  com-inv-sec   col-2" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
-            <h2>PE/VC Exits</h2>
-            <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
-            <thead><tr><th>Deal Type</th><th>Investor(s)</th> <th>Deal Period</th> <th>Status</th></tr></thead>
-            <tbody>
-                 <?php
-                        //if($rsipoexit= mysql_query($ipoexitsql))
-                        //{
-                        While($ipoexitrow=mysql_fetch_array($rsipoexit, MYSQL_BOTH))
-                        {
-                          $exitstatusvalueforIPO=$ipoexitrow["ExitStatus"];
-                          if($exitstatusvalueforIPO==0)
-                           {$exitstatusdisplayforIPO="Partial Exit";}
-                          elseif($exitstatusvalueforIPO==1)
-                          {  $exitstatusdisplayforIPO="Complete Exit";}
-                        ?>
-                       <tr><td style="alt">IPO</td><td><?php echo $ipoexitrow["Investor"];?></td>
+                                                    if(($ipoexit_cnt>0)||($mandaexit_cnt>0 ))
+                                                    {
 
-                        <td> <a href='ipodealdetails.php?value=<?php echo $ipoexitrow["IPOId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Deal Details"><?php echo $ipoexitrow["dt"];?></a></td>
+                                                    ?>  
+                                                    <div  class="col-md-6 exits">
+                                                    <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
+                                                    <thead><tr><th>Deal Type</th><th style="width:28%">Investor(s)</th> <th>Deal Period</th> <th>Status</th></tr></thead>
+                                                    <tbody>
+                                                            <?php
+                                                            //if($rsipoexit= mysql_query($ipoexitsql))
+                                                            //{
+                                                                While($ipoexitrow=mysql_fetch_array($rsipoexit, MYSQL_BOTH))
+                                                                {
+                                                                    
+                                                                  $exitstatusvalueforIPO=$ipoexitrow["ExitStatus"];
+                                                                  $InvestorsName = explode(",",$ipoexitrow["Investors"]);
+                                                                  if($exitstatusvalueforIPO==0)
+                                                                   {$exitstatusdisplayforIPO="Partial Exit";}
+                                                                  elseif($exitstatusvalueforIPO==1)
+                                                                  {  $exitstatusdisplayforIPO="Complete Exit";}
+                                                                ?>
+                                                               <tr><td style="alt">IPO</td>
+                                                               <td class="angelinvestname">
+                                                               <?php //echo $ipoexitrow["Investor"];?>
+                                                               <?php 
+                                                                    for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
+                                                                        <?php echo $InvestorsName[$i]; ?><span>,</span>
+                                                                   <?php } ?>
+                                                               </td>
+                                        
+                                                                <td> <a href='ipodealdetails.php?value=<?php echo $ipoexitrow["IPOId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Deal Details"><?php echo $ipoexitrow["dt"];?></a></td>
+                                        
+                                                                <td><?php echo $exitstatusdisplayforIPO;?></td>
+                                                                </tr>
+                                        
+                                        
+                                                                <?php
+                                                                        }
+                                        
+                                                                        if($rsmandaexit= mysql_query($maexitsql))
+                                                                //{
+                                                                While($mymandaexitrow=mysql_fetch_array($rsmandaexit, MYSQL_BOTH))
+                                                                {
+                                                                    $InvestorsName = explode(",",$mymandaexitrow["Investors"]);
+                                                                    $exitstatusvalue=$mymandaexitrow["ExitStatus"];
+                                                                  //$exitstatusvalue=$mymandaexitrow["ExitStatus"];
+                                                                  if($exitstatusvalue==0)
+                                                                   {$exitstatusdisplay="Partial Exit";}
+                                                                  elseif($exitstatusvalue==1)
+                                                                  {  $exitstatusdisplay="Complete Exit";}
+                                                                ?>
+                                        
+                                                                <tr><tr><td style="alt"><!--M&A--> <?php echo $mymandaexitrow["DealType"] ?></td>
+                                                                
+                                                                 <td class="angelinvestname">
+                                                                     <?php 
+                                                                    for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
+                                                                        <?php echo $InvestorsName[$i]; ?><span>,</span>
+                                                                   <?php } ?>
+                                                                </td> 
+                                                                <!-- <td><?php echo $mymandaexitrow["Investor"];?></td> -->
+                                        
+                                                                <td> <a href='mandadealdetails.php?value=<?php echo $mymandaexitrow["MandAId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Deal Details"><?php echo $mymandaexitrow["dt"];?></a></td>
+                                        
+                                                                <td><?php echo $exitstatusdisplay;?></td>
+                                                                </tr>
+                                                                <?php
+                                                                } 
+                                                           ?>  
+                                                </tbody>
+                                                </table> 
+                                                
+                                                </div>
+                                                <?php
+                                                }
+                                                ?>
+                                                </div>
+                                                
 
-                        <td><?php echo $exitstatusdisplayforIPO;?></td>
-                        </tr>
-
-
-                        <?php
-                                }
-
-                                if($rsmandaexit= mysql_query($maexitsql))
-                        //{
-                        While($mymandaexitrow=mysql_fetch_array($rsmandaexit, MYSQL_BOTH))
-                        {
-                          $exitstatusvalue=$mymandaexitrow["ExitStatus"];
-                          if($exitstatusvalue==0)
-                           {$exitstatusdisplay="Partial Exit";}
-                          elseif($exitstatusvalue==1)
-                          {  $exitstatusdisplay="Complete Exit";}
-                        ?>
-
-                        <tr><tr><td style="alt"><!--M&A--> <?php echo $mymandaexitrow["DealType"] ?></td><td><?php echo $mymandaexitrow["Investor"];?></td>
-
-                        <td> <a href='mandadealdetails.php?value=<?php echo $mymandaexitrow["MandAId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Deal Details"><?php echo $mymandaexitrow["dt"];?></a></td>
-
-                        <td><?php echo $exitstatusdisplay;?></td>
-                        </tr>
-                        <?php
-                        } 
-                       ?>  
-            </tbody>
-            </table> 
-            </div>
-         <?php
-            }
-            
-       
-        /*if($myrow["uploadfilename"]!="" || mysql_num_rows($company_link_Sql)>0 )
-        {   
-        ?>
-
-        <div  class="work-masonry-thumb  com-inv-sec   col-2" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
-        <h2>FINANCIALS INFO</h2>
-        <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
-        <tbody>
-<!--             <?php
-
-              //  if($finlink!="")
-              //  {
-                ?>
-                    <tr><td ><h4>Link for Financials
-                            </h4><p style="word-break: break-all;"><a target="_blank" href=<?php //echo $finlink; ?> ><?php //echo $finlink; ?></a></p></td></tr>
-
-                <?php
-              //  } 
-                ?>-->
-                
-                
-<?php                 
-if($myrow["uploadfilename"]!="")
-{
-        ?>
-               <?php
-                if($exportToExcel==1)
-                 {
-                 ?>
-                <tr>
-                    <td class="txtBold"><a href="<?php echo $file;?>" target="_blank" > Download Excel File </a></td>
-                </tr>
-                <tr>
-                    <td class="txtBold"><a href="<?php echo GLOBAL_BASE_URL; ?>cfsnew/comparers.php" target="_blank">View in CFS Database</a></td>
-                </tr>
-                 <?php
-                 }
-                else
-                 {
-                 ?>
-                <tr>
-                             <td>&nbsp;Paid Subscribers can view a link to the co. financials here </td> </tr>
-                 <?php
-                  }
-                 ?>
-               
-        <?php
-} 
-        ?>
-        
-        
-        
-        <!-- pecompany links -->
-         <?php if(mysql_num_rows($company_link_Sql)>0){ ?>
-        <tr> <td><h4> Links & Comments </h4></td><td>
-  
-         <?php while($com_links_com = mysql_fetch_array($company_link_Sql)) { ?>
-         <p style="font-weight: normal;margin:2px  0 8px;line-height: 20px;"><a href='<?php echo $com_links_com['Link']?> ' target="_blank" style="font-weight: bold;"> <?php echo $com_links_com['Link']?>  </a> <br> <?php echo $com_links_com['Comment']?>  </p> 
-        <?php } ?>
-         </td></tr>
-        <?php } ?>
-        <!-- end pecompany links -->
-        
-     </tbody>
-        </table> 
-        </div>   
-        <?php
-        }*/
-      
-        
-    /*if($myrow["filingfile"]!="" || mysql_num_rows($company_link_Sql)>0 )
-        {   
-        ?>
-
-        <div  class="work-masonry-thumb  com-inv-sec   col-2" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
-        <h2>FILINGS INFO</h2>
-        <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
-        <tbody>
-<!--             <?php
-
-              //  if($finlink!="")
-              //  {
-                ?>
-                    <tr><td ><h4>Link for Financials
-                            </h4><p style="word-break: break-all;"><a target="_blank" href=<?php //echo $finlink; ?> ><?php //echo $finlink; ?></a></p></td></tr>
-
-                <?php
-              //  } 
-                ?>-->
-                
-                
-<?php    
-if($myrow["filingfile"]!="")
-{
-        ?>
-                <tr><td  ><h4>Filing </h4>
-                <?php
-                if($exportToExcel==1)
-                 {
-               
-                        $filing = "../../uploadfilingfiles/".str_replace(" ", "%20",$myrow["filingfile"]);
-                        $info = new SplFileInfo($myrow["filingfile"]);
-                                       
-                        if($info->getExtension()!='pdf'){ ?>
-                                <td><a href=<?php echo $filing;?> > Click here </a></td>
-                        <?php }else{ ?>
-                                <td><a href="downloadpdf.php?file=<?php echo $myrow["filingfile"]; ?>" > Click here </a></td>
-                        <?php    }
-                    ?>
-                </tr>
-                 <?php
-                 }
-                else
-                 {
-                 ?>
-                             <td>&nbsp;Paid Subscribers can view a link to the co. financials here </td> </tr>
-                 <?php
-                  }
-                 ?>
-               
-        <?php
-} */
-        ?>
-            
-            
-             <?php
-        if($rsangel= mysql_query($angelinvsql))
-            {
-                 $angel_cnt = mysql_num_rows($rsangel);
-            }
-            if($angel_cnt>0)
-            {                   
-        ?>
-        
-         <div   class="work-masonry-thumb  com-inv-sec   col-2 masonry-brick" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
-            <h2>Angel Investments</h2>
-            <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
-            <thead><tr><th>Investor Name</th> <th>Deal Period</th></tr></thead>
-            <tbody>
-             <?php
-
-                While($angelrow=mysql_fetch_array($rsangel, MYSQL_BOTH))
-                {
-                  $Investorname=trim($angelrow["Investor"]);
-                $Investorname=strtolower($Investorname);
-                $hide_agg = $angelrow['AggHide'];
-                $invRes=substr_count($Investorname,$searchString);
-                        $invRes1=substr_count($Investorname,$searchString1);
-                        $invRes2=substr_count($Investorname,$searchString2);
+                                                <div id="angel" class="tab-items">
+                                                   <?php
+                                                        
+                                                            if($angel_cnt>0)
+                                                            {                   
+                                                        ?>
+                                                    
+                                                        <div class="col-md-6" >
+                                                            <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
+                                                            <thead><tr><th>Investor Name</th> <th>Deal Period</th></tr></thead>
+                                                            <tbody>
+                                                             <?php
+                                                                While($angelrow=mysql_fetch_array($rsangel, MYSQL_BOTH))
+                                                                {
+                                                                $Investorname=trim($angelrow["Investor"]);
+                                                                $InvestorsName = explode(",",$angelrow["Investors"]);
+                                                                $InvestorIds = explode(",",$angelrow["InvestorIds"]);
+                                                                $Investorname=strtolower($Investorname);
+                                                                $hide_agg = $angelrow['AggHide'];
+                                                                $invRes=substr_count($Investorname,$searchString);
+                                                                        $invRes1=substr_count($Investorname,$searchString1);
+                                                                        //$invRes2=substr_count($Investorname,$searchString2);
 
 
-                        if(($invRes==0) && ($invRes1==0) && ($invRes2==0))
-                        {
-                            if($hide_agg==0) {
+                                                                        if(($invRes==0) && ($invRes1==0) )
+                                                                        {
+                                                                            if($hide_agg==0) {
 
-?>
-                        <tr><td style="alt"><a href='angleinvdetails.php?value=<?php echo $angelrow["InvestorId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' ><?php echo $angelrow["Investor"]; ?></a></td>
+                                                                ?>
+                                                                        <tr>
+                                                                        <td style="alt" class="angelinvestname">
+                                                                        <?php  for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
+                                                                        <a href='angleinvdetails.php?value=<?php echo $InvestorIds[$i].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' ><?php echo $InvestorsName[$i]; ?></a><span>,</span>
+                                                                        <?php } ?>
+                                                                        </td>
 
-                        <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>">
-                                                <?php echo $angelrow["dt"];?></a></td></tr>
+                                                                        <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>">
+                                                                                                <?php echo $angelrow["dt"];?></a></td></tr>
 
-<?php
-                            } else { ?>
-                                <tr><td style="alt"><?php echo $angelrow["Investor"]; ?></td>
+                                                                <?php
+                                                                            } else { ?>
+                                                                                <tr><td style="alt"><?php echo $angelrow["Investor"]; ?></td>
 
-                        <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>">
-                                                <?php echo $angelrow["dt"];?></a></td></tr>
-                        <?php } }
-                        elseif(($invRes==1) || ($invRes1==1) || ($invRes2==1))
-                        {
-                          $AddUnknowUndisclosedAtLast=$angelrow["Investor"];
-                          $dealid=$angelrow["AngelDealId"];
-                                $dtdisplay=$angelrow["dt"];
-                        }
-                        elseif($invRes2==1)
-                        {
-                          $AddOtherAtLast=$angelrow["Investor"];
-                          $dealid=$angelrow["AngelDealId"];
-                          $dtdisplay1=$angelrow["dt"];
-                          }
+                                                                        <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>">
+                                                                                                <?php echo $angelrow["dt"];?></a></td></tr>
+                                                                        <?php } }
+                                                                        elseif(($invRes==1) || ($invRes1==1) || ($invRes2==1))
+                                                                        {
+                                                                        $AddUnknowUndisclosedAtLast=$angelrow["Investor"];
+                                                                        $dealid=$angelrow["AngelDealId"];
+                                                                                $dtdisplay=$angelrow["dt"];
+                                                                        }
+                                                                        elseif($invRes2==1)
+                                                                        {
+                                                                        $AddOtherAtLast=$angelrow["Investor"];
+                                                                        $dealid=$angelrow["AngelDealId"];
+                                                                        $dtdisplay1=$angelrow["dt"];
+                                                                        }
 
-                }
+                                                                }
 
-            // if($AddUnknowUndisclosedAtLast!="")
-            //{
-              ?>
-            </tbody>
-            </table> 
-           
-            </div>
-           
+                                                            // if($AddUnknowUndisclosedAtLast!="")
+                                                            //{
+                                                              ?>
+                                                            </tbody>
+                                                            </table> 
+                                                           
+                                                            </div>
 
-            
-    <?php
-            } ?>
-           
-         
-         
-         </div>
-        
-       
-        </div>
-        
-        <!-- Angel Only Start -->
-       
-        <?php         
-           /* if($rolescount2 > 0) { ?> 
-            
-        <div class="com-col" style="padding: 20px">
-             
-            <div class="investment-cnt-com">
-                <div class="company-cnt-sec">
-                <span class="">INVESTORS from previous rounds</span>
-                <img src="img/angle-list.png" alt="angle-list" class="fr mar-top">
-                </div>
-                 <?php foreach ($roles as $ro) {  
-                    if($ro->role == 'past_investor' || $ro->role == 'current_investor') { ?>
-                <div class="com-investment-profile">
+                                               
+
+                                                <?php } ?>
+                                                </div>
+                                                <div id="incubation" class="tab-items">
+                                                <div  class="col-md-6">
+                                                        <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
+                                                        <thead><tr><th>Incubators</th><th>Deal Period</th></tr></thead>
+                                                            <tbody>
+                                                    <?php
+                                                         
+                                                            if($incubator_cnt>0)
+                                                            {   
+                                                                While($incrow=mysql_fetch_array($incrs, MYSQL_BOTH))
+                                                                {
+                                                                    $incubator=$incrow["Incubator"];
+                                                                    $incubatorId=$incrow["IncubatorId"];
+                                                                    $incubatordate=$incrow["dt"];?>
+                                                            <tr>
+                                                            <td> <p><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' title="Incubator Details"> <?php echo $incubator;?> </a></p> </td>
+                                                            <td><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$VCFlagValue;?>' target="_blank"> <?php echo $incubatordate;?></a></td>
+                                                            
+                                                            </tr>
+                                                             <?php       
+                                                                }
+                                                        ?>   
+                                                       
+                                                       
+   
+                                                               
+
+                                                     <?php } ?>
+                                                        </tbody>
+                                                        </table>
+                                                        </div>  
+                                                </div>
+
+                                            </div>
+                                                            <?php }else{ ?>
+                                                                <p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;text-align:center;"> No data available. </p>
+                                                            <?php } ?>
+
+                                                
+
+                                        </div>
+                                            
+                                             
+                                                   
+                                             
+                                         
                     
-                    <?php if($ro->tagged->image) { ?>
-                    <img src="<?php echo $ro->tagged->image ?>" alt="<?php echo $ro->tagged->name ?>">
-                    <?php }elseif($ro->tagged->thumb_url) { ?>
-                    <img src="<?php echo $ro->tagged->thumb_url ?>" alt="<?php echo $ro->tagged->name ?>">
-                    <?php } ?>
-                    
-                    
-                    <div class="inver-pro-sec">
-                        <?php
-                         $InvQuery = mysql_query("SELECT InvestorId FROM peinvestors where angelco_invID='".$ro->tagged->id."' LIMIT 1"); 
-                        $Invcount = mysql_num_rows($InvQuery);
-                        if($Invcount>0) {
-                            $Invalue = mysql_fetch_array($InvQuery);
-                        ?>
-                        <h5><a href="angleinvdetails.php?value=<?php echo $Invalue['InvestorId'];?>/2"><?php echo $ro->tagged->name ?></a></h5>
-                        <?php } else { ?>
-                        <h5><a href="angleinvdetails.php?value=<?php echo $ro->tagged->id?>/2&angelco_only"><?php echo $ro->tagged->name ?></a></h5>
-                        <?php } ?>
-                       
-                        <?php if($ro->role == 'past_investor'){?>
-                        <span style="font-size: 14px;font-weight: bold;"> Past Investor </span>
-                        <?php } else if($ro->role == 'current_investor'){?>
-                        <span style="font-size: 14px;font-weight: bold;"> Current Investor </span>
-                        <?php } ?>
-                        
-                        
-                        <p>
-                            <?php  if($ro->tagged->bio) { echo $ro->tagged->bio; } elseif($ro->tagged->high_concept){ echo $ro->tagged->high_concept; } ?>
-                        </p>
-                    </div>
-                </div>
-                 <?php } } ?>
-
-            </div>
-           
-         </div>
-            
-        <?php } */?>
+                            <div style="clear: both;"></div>
+                            
+                                    </div>
+        
+        
+        
+        
+    
                 
        
             
         <!-- Angel Only Start -->
-        
-    </section>
-    <?php 
-                    if ($myrow["tags"] != "") 
-                    { 
-                            ?>      
-	<section class="com-cnt-sec relatedCompany">
-    	<header>
-    		<h3>Related Companies</h3>
-         </header>
-            
-         <div class="com-col">
-             <img src="img/co-sec-logo.png" alt="vi" class="fr mar-top">
-            <div class="com-address-cnt bor-top-cnt">
-             <?php 
-                $company_id = array();$s=0; 
-                $ex_tags = explode(',',$myrow["tags"]);
-                 if(count($ex_tags) > 0){
-                    for($k=0;$k<count($ex_tags);$k++){
-                        if($ex_tags[$k] !=''){
-                            $ex_tags_inner = explode(':',$ex_tags[$k]);
-                            $inner_tag = trim($ex_tags_inner[0]);
-                            $inner_tag_val = trim($ex_tags_inner[1]);
-                            if($inner_tag =='c') {
-                                $CompanyQuery = mysql_query("SELECT PECompanyId,companyname FROM pecompanies where (tags like '%c:$inner_tag_val%' or tags like '%c: $inner_tag_val%' or tags like '%c : $inner_tag_val%'     or tags like '%c : $inner_tag_val%') and PECompanyId != '$SelCompRef'");
-                                if(mysql_num_rows($CompanyQuery) >0){ ?>
-                <div <?php if($s != 0) { ?>style="border-top: 1px solid #d4d4d4;"<?php } ?>>
-                <?php
-                                    while($myrow1=mysql_fetch_array($CompanyQuery, MYSQL_BOTH))
-                                    { 
-                                        if(!in_array($myrow1["PECompanyId"], $company_id)){                                    
-                                            $company_id[] = $myrow1["PECompanyId"]; ?>
-                                            <div class="com-add-li">
-                                                <span><a href="companydetails.php?value=<?php echo $myrow1["PECompanyId"].'/'.$VCFlagValue.'/';?>"><?php echo $myrow1['companyname']; ?></a></span>
-</div>
-                                    <?php  }                                  
-                                    } ?>
-                    <div style="clear:both"></div>
-                </div>
-                <?php  $s++; 
-                                }
+        <div class="row masonry " style="margin-top: 15px;">
+            <div class="col-6">
+                <div  class="work-masonry-thumb1 accordian-group">
+                 
+                        <div class="accordions" style="margin-bottom: 40px;">
+                            <div class="accordions_dealtitle active"><span></span>
+                                <h2 id="companyinfo" class="box_heading content-box ">Tags</h2>
+                            </div>
+                             <div class="accordions_dealcontent" style="display: none;">
+                                 <?php 
+                            if ($myrow["tags"] != "") 
+                            { 
+                                    ?>   
+                    <div class="">
+                     <?php $ex_tags = explode(',',$myrow["tags"]);
+                     if(count($ex_tags) > 0){
+                        for($k=0;$k<count($ex_tags);$k++){
+                            if($ex_tags[$k] !=''){
+                                $ex_tags_inner = explode(':',$ex_tags[$k]);
+                                $inner_tag = trim($ex_tags_inner[1]);
+                                if($inner_tag !='' && trim($ex_tags_inner[0]) != 'c') {  ?>
+                                    <div class="tagelements" style="display:inline-block;margin: 8px 0px;">
+                                        <span><a href="javascript:void(0)" class="tags_link"><?php echo $inner_tag; ?></a></span>
+                                    </div>             
+                            <?php }
                             }
                         }
+                    } ?>       
+                    <div style="clear:both"></div>              
+                    </div>  
+
+                    <!--Header-->
+                    <?php if($vcflagValue=="0" || $vcflagValue=="1")
+                    {
+                        $actionlink1="index.php?value=".$vcflagValue;
                     }
-                } ?>                     
-            </div>  
-         </div>
-    
-    </section>    
-	<section class="com-cnt-sec tags">
-    	<header>
-    		<h3>TAGS</h3>
-         </header>
-    
-         <div class="com-col">
-            <div class="com-address-cnt bor-top-cnt">
-             <?php $ex_tags = explode(',',$myrow["tags"]);
-             if(count($ex_tags) > 0){
-                for($k=0;$k<count($ex_tags);$k++){
-                    if($ex_tags[$k] !=''){
-                        $ex_tags_inner = explode(':',$ex_tags[$k]);
-                        $inner_tag = trim($ex_tags_inner[1]);
-                        if($inner_tag !='' && trim($ex_tags_inner[0]) != 'c') {  ?>
-                            <div class="com-add-li">
-                                <span><a href="javascript:void(0)" class="tags_link"><?php echo $inner_tag; ?></a></span>
-                            </div>             
-                    <?php }
+                    else if($vcflagValue=="4" || $vcflagValue=="5" || $vcflagValue=="3")
+                    {
+                            $actionlink1="svindex.php?value=".$vcflagValue;
                     }
-                }
-            } ?>                     
-            </div>  
-         </div>
-<!--Header-->
-<?php if($vcflagValue=="0" || $vcflagValue=="1")
-{
-    $actionlink1="index.php?value=".$vcflagValue;
-}
-else if($vcflagValue=="4" || $vcflagValue=="5" || $vcflagValue=="3")
-{
-        $actionlink1="svindex.php?value=".$vcflagValue;
-}
-else if($vcflagValue=="6"){
-        $actionlink1="incindex.php";
-}else if($vcflagValue=="2"){
-     $actionlink1="angelindex.php";
-}
-?>
-            <form action="<?php echo $actionlink1; ?>" name="tagForm" id="tagForm"  method="post">
+                    else if($vcflagValue=="6"){
+                            $actionlink1="incindex.php";
+                    }else if($vcflagValue=="2"){
+                         $actionlink1="angelindex.php";
+                    }
+                    ?>
+                    <?php
+                            } else { 
+                                echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;text-align:center;"> No data available. </p>';
+                            }?>
+                            <form action="<?php echo $actionlink1; ?>" name="tagForm" id="tagForm"  method="post">
                 <input type="hidden" value="" name="searchTagsField" id="searchTagsField" />
               </form>
-    </section>
-                    <?php
-                    }?>
+        </div> 
+                    </div>
+          
+
+         </div>
+            </div>
+            <div class="col-6">
+                <div  class="work-masonry-thumb1 accordian-group">
+                 
+                            
+                  
+                  <div class="accordions">
+                    <div class="accordions_dealtitle active"><span></span>
+                       <h2 id="companyinfo" class="box_heading content-box ">Related Companies</h2>
+                    </div>
+                    <div class="accordions_dealcontent" style="display: none;">
+ <?php 
+                                    if ($myrow["tags"] != "") 
+                                    { 
+                                            ?>  
+                            <div >
+                             <?php 
+                                $company_id = array();$s=0; 
+                                $ex_tags = explode(',',$myrow["tags"]);
+                                $noCompanytags = false;
+                                 if(count($ex_tags) > 0){
+                                    for($k=0;$k<count($ex_tags);$k++){
+                                        if($ex_tags[$k] !=''){
+                                            $ex_tags_inner = explode(':',$ex_tags[$k]);
+                                            $inner_tag = trim($ex_tags_inner[0]);
+                                            $inner_tag_val = trim($ex_tags_inner[1]);
+                                            if($inner_tag =='c') {
+                                                $noCompanytags = true;
+                                                $CompanyQuery = mysql_query("SELECT PECompanyId,companyname FROM pecompanies where (tags like '%c:$inner_tag_val%' or tags like '%c: $inner_tag_val%' or tags like '%c : $inner_tag_val%'     or tags like '%c : $inner_tag_val%') and PECompanyId != '$SelCompRef'");
+                                                if(mysql_num_rows($CompanyQuery) >0){ ?>
+                                <div class="relatedcompanies" <?php if($s != 0) { ?>style="border-top: 1px solid #d4d4d4;"<?php } ?>>
+                                <?php
+                                                    while($myrow1=mysql_fetch_array($CompanyQuery, MYSQL_BOTH))
+                                                    { 
+                                                        if(!in_array($myrow1["PECompanyId"], $company_id)){                                    
+                                                            $company_id[] = $myrow1["PECompanyId"]; ?>
+                                                            <div class="tagelementss" >
+                                                            
+                                                                <span><a href="companydetails.php?value=<?php echo $myrow1["PECompanyId"].'/'.$VCFlagValue.'/';?>"><?php echo $myrow1['companyname']; ?></a></span>
+                </div>
+                                                    <?php  }                                  
+                                                    } ?>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <?php  $s++; 
+                                                }
+                                            }
+                                        }
+                                    }
+                                } ?> 
+
+                                <?php if(!$noCompanytags){
+                                    echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;text-align:center;"> No data available. </p>';
+                                }?>                    
+                            </div>  
+                            <?php
+                                    } else {
+                                        echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;text-align:center;"> No data available. </p>';
+                                    }?>
+                    </div>
+                 </div>
+                 
+                 </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    
+    
 </div>
     
     
@@ -2231,9 +2428,9 @@ else if($vcflagValue=="6"){
     if(($exportToExcel==1) && (!isset($_REQUEST['angelco_only'])))
     {
     ?>
-                    <span style="float:right" class="one">
+                    <!-- <span style="float:right" class="one">
                              <input class ="export_new exlexport" type="button" id="expshowdealsbtn"  value="Export" name="showdeals">
-                    </span>
+                    </span> -->
                 <script type="text/javascript">
                     $('#exportbtn').html('<input style="margin-left: 5px;" class ="export_new exlexport"  type="button" id="expshowdeals"  value="Export" name="showdeals">');
                 </script>
@@ -2733,6 +2930,24 @@ function curPageURL() {
              }                                        
 </script> 
 <style>
+.tagelementss a {
+    color: #7b5e40;
+    font-weight: bold;
+    display: block;
+    font-size: 14px;
+    text-decoration: underline;
+}
+.tagelementss {
+    float: left;
+    padding: 12px 0px;
+    /* padding-right: 12px; */
+    margin-bottom: 0px;
+    width: 25%;
+    min-height: 56px;
+    box-sizing: border-box;
+
+}
+
 .select2-container{box-sizing:border-box;display:inline-block;margin:0;position:relative;vertical-align:middle}.select2-container .select2-selection--single{box-sizing:border-box;cursor:pointer;display:block;height:28px;user-select:none;-webkit-user-select:none}.select2-container .select2-selection--single .select2-selection__rendered{display:block;padding-left:8px;padding-right:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.select2-container .select2-selection--single .select2-selection__clear{position:relative}.select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered{padding-right:8px;padding-left:20px}.select2-container .select2-selection--multiple{box-sizing:border-box;cursor:pointer;display:block;min-height:32px;user-select:none;-webkit-user-select:none}.select2-container .select2-selection--multiple .select2-selection__rendered{display:inline-block;overflow:hidden;padding-left:8px;text-overflow:ellipsis;white-space:nowrap}.select2-container .select2-search--inline{float:left}.select2-container .select2-search--inline .select2-search__field{box-sizing:border-box;border:none;font-size:100%;margin-top:5px;padding:0}.select2-container .select2-search--inline .select2-search__field::-webkit-search-cancel-button{-webkit-appearance:none}.select2-dropdown{background-color:white;border:1px solid #aaa;border-radius:4px;box-sizing:border-box;display:block;position:absolute;left:-100000px;width:100%;z-index:1051}.select2-results{display:block}.select2-results__options{list-style:none;margin:0;padding:0}.select2-results__option{padding:6px;user-select:none;-webkit-user-select:none}.select2-results__option[aria-selected]{cursor:pointer}.select2-container--open .select2-dropdown{left:0}.select2-container--open .select2-dropdown--above{border-bottom:none;border-bottom-left-radius:0;border-bottom-right-radius:0}.select2-container--open .select2-dropdown--below{border-top:none;border-top-left-radius:0;border-top-right-radius:0}.select2-search--dropdown{display:block;padding:4px}.select2-search--dropdown .select2-search__field{padding:4px;width:100%;box-sizing:border-box}.select2-search--dropdown .select2-search__field::-webkit-search-cancel-button{-webkit-appearance:none}.select2-search--dropdown.select2-search--hide{display:none}.select2-close-mask{border:0;margin:0;padding:0;display:block;position:fixed;left:0;top:0;min-height:100%;min-width:100%;height:auto;width:auto;opacity:0;z-index:99;background-color:#fff;filter:alpha(opacity=0)}.select2-hidden-accessible{border:0 !important;clip:rect(0 0 0 0) !important;-webkit-clip-path:inset(50%) !important;clip-path:inset(50%) !important;height:1px !important;overflow:hidden !important;padding:0 !important;position:absolute !important;width:1px !important;white-space:nowrap !important}.select2-container--default .select2-selection--single{background-color:#fff;border:1px solid #aaa;border-radius:4px}.select2-container--default .select2-selection--single .select2-selection__rendered{color:#444;line-height:28px}.select2-container--default .select2-selection--single .select2-selection__clear{cursor:pointer;float:right;font-weight:bold}.select2-container--default .select2-selection--single .select2-selection__placeholder{color:#999}.select2-container--default .select2-selection--single .select2-selection__arrow{height:26px;position:absolute;top:1px;right:1px;width:20px}.select2-container--default .select2-selection--single .select2-selection__arrow b{border-color:#888 transparent transparent transparent;border-style:solid;border-width:5px 4px 0 4px;height:0;left:50%;margin-left:-4px;margin-top:-2px;position:absolute;top:50%;width:0}.select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__clear{float:left}.select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__arrow{left:1px;right:auto}.select2-container--default.select2-container--disabled .select2-selection--single{background-color:#eee;cursor:default}.select2-container--default.select2-container--disabled .select2-selection--single .select2-selection__clear{display:none}.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b{border-color:transparent transparent #888 transparent;border-width:0 4px 5px 4px}.select2-container--default .select2-selection--multiple{background-color:white;border:1px solid #aaa;border-radius:4px;cursor:text}.select2-container--default .select2-selection--multiple .select2-selection__rendered{box-sizing:border-box;list-style:none;margin:0;padding:0 5px;width:100%}.select2-container--default .select2-selection--multiple .select2-selection__rendered li{list-style:none}.select2-container--default .select2-selection--multiple .select2-selection__placeholder{color:#999;margin-top:5px;float:left}.select2-container--default .select2-selection--multiple .select2-selection__clear{cursor:pointer;float:right;font-weight:bold;margin-top:5px;margin-right:10px}.select2-container--default .select2-selection--multiple .select2-selection__choice{background-color:#e4e4e4;border:1px solid #aaa;border-radius:4px;cursor:default;float:left;margin-right:5px;margin-top:5px;padding:0 5px}.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{color:#999;cursor:pointer;display:inline-block;font-weight:bold;margin-right:2px}.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover{color:#333}.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice,.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder,.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline{float:right}.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice{margin-left:5px;margin-right:auto}.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove{margin-left:2px;margin-right:auto}.select2-container--default.select2-container--focus .select2-selection--multiple{border:solid black 1px;outline:0}.select2-container--default.select2-container--disabled .select2-selection--multiple{background-color:#eee;cursor:default}.select2-container--default.select2-container--disabled .select2-selection__choice__remove{display:none}.select2-container--default.select2-container--open.select2-container--above .select2-selection--single,.select2-container--default.select2-container--open.select2-container--above .select2-selection--multiple{border-top-left-radius:0;border-top-right-radius:0}.select2-container--default.select2-container--open.select2-container--below .select2-selection--single,.select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple{border-bottom-left-radius:0;border-bottom-right-radius:0}.select2-container--default .select2-search--dropdown .select2-search__field{border:1px solid #aaa}.select2-container--default .select2-search--inline .select2-search__field{background:transparent;border:none;outline:0;box-shadow:none;-webkit-appearance:textfield}.select2-container--default .select2-results>.select2-results__options{max-height:200px;overflow-y:auto}.select2-container--default .select2-results__option[role=group]{padding:0}.select2-container--default .select2-results__option[aria-disabled=true]{color:#999}.select2-container--default .select2-results__option[aria-selected=true]{background-color:#ddd}.select2-container--default .select2-results__option .select2-results__option{padding-left:1em}.select2-container--default .select2-results__option .select2-results__option .select2-results__group{padding-left:0}.select2-container--default .select2-results__option .select2-results__option .select2-results__option{margin-left:-1em;padding-left:2em}.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option{margin-left:-2em;padding-left:3em}.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option{margin-left:-3em;padding-left:4em}.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option{margin-left:-4em;padding-left:5em}.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option{margin-left:-5em;padding-left:6em}.select2-container--default .select2-results__option--highlighted[aria-selected]{background-color:#5897fb;color:white}.select2-container--default .select2-results__group{cursor:default;display:block;padding:6px}.select2-container--classic .select2-selection--single{background-color:#f7f7f7;border:1px solid #aaa;border-radius:4px;outline:0;background-image:-webkit-linear-gradient(top, #fff 50%, #eee 100%);background-image:-o-linear-gradient(top, #fff 50%, #eee 100%);background-image:linear-gradient(to bottom, #fff 50%, #eee 100%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0)}.select2-container--classic .select2-selection--single:focus{border:1px solid #5897fb}.select2-container--classic .select2-selection--single .select2-selection__rendered{color:#444;line-height:28px}.select2-container--classic .select2-selection--single .select2-selection__clear{cursor:pointer;float:right;font-weight:bold;margin-right:10px}.select2-container--classic .select2-selection--single .select2-selection__placeholder{color:#999}.select2-container--classic .select2-selection--single .select2-selection__arrow{background-color:#ddd;border:none;border-left:1px solid #aaa;border-top-right-radius:4px;border-bottom-right-radius:4px;height:26px;position:absolute;top:1px;right:1px;width:20px;background-image:-webkit-linear-gradient(top, #eee 50%, #ccc 100%);background-image:-o-linear-gradient(top, #eee 50%, #ccc 100%);background-image:linear-gradient(to bottom, #eee 50%, #ccc 100%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFCCCCCC', GradientType=0)}.select2-container--classic .select2-selection--single .select2-selection__arrow b{border-color:#888 transparent transparent transparent;border-style:solid;border-width:5px 4px 0 4px;height:0;left:50%;margin-left:-4px;margin-top:-2px;position:absolute;top:50%;width:0}.select2-container--classic[dir="rtl"] .select2-selection--single .select2-selection__clear{float:left}.select2-container--classic[dir="rtl"] .select2-selection--single .select2-selection__arrow{border:none;border-right:1px solid #aaa;border-radius:0;border-top-left-radius:4px;border-bottom-left-radius:4px;left:1px;right:auto}.select2-container--classic.select2-container--open .select2-selection--single{border:1px solid #5897fb}.select2-container--classic.select2-container--open .select2-selection--single .select2-selection__arrow{background:transparent;border:none}.select2-container--classic.select2-container--open .select2-selection--single .select2-selection__arrow b{border-color:transparent transparent #888 transparent;border-width:0 4px 5px 4px}.select2-container--classic.select2-container--open.select2-container--above .select2-selection--single{border-top:none;border-top-left-radius:0;border-top-right-radius:0;background-image:-webkit-linear-gradient(top, #fff 0%, #eee 50%);background-image:-o-linear-gradient(top, #fff 0%, #eee 50%);background-image:linear-gradient(to bottom, #fff 0%, #eee 50%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0)}.select2-container--classic.select2-container--open.select2-container--below .select2-selection--single{border-bottom:none;border-bottom-left-radius:0;border-bottom-right-radius:0;background-image:-webkit-linear-gradient(top, #eee 50%, #fff 100%);background-image:-o-linear-gradient(top, #eee 50%, #fff 100%);background-image:linear-gradient(to bottom, #eee 50%, #fff 100%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF', GradientType=0)}.select2-container--classic .select2-selection--multiple{background-color:white;border:1px solid #aaa;border-radius:4px;cursor:text;outline:0}.select2-container--classic .select2-selection--multiple:focus{border:1px solid #5897fb}.select2-container--classic .select2-selection--multiple .select2-selection__rendered{list-style:none;margin:0;padding:0 5px}.select2-container--classic .select2-selection--multiple .select2-selection__clear{display:none}.select2-container--classic .select2-selection--multiple .select2-selection__choice{background-color:#e4e4e4;border:1px solid #aaa;border-radius:4px;cursor:default;float:left;margin-right:5px;margin-top:5px;padding:0 5px}.select2-container--classic .select2-selection--multiple .select2-selection__choice__remove{color:#888;cursor:pointer;display:inline-block;font-weight:bold;margin-right:2px}.select2-container--classic .select2-selection--multiple .select2-selection__choice__remove:hover{color:#555}.select2-container--classic[dir="rtl"] .select2-selection--multiple .select2-selection__choice{float:right}.select2-container--classic[dir="rtl"] .select2-selection--multiple .select2-selection__choice{margin-left:5px;margin-right:auto}.select2-container--classic[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove{margin-left:2px;margin-right:auto}.select2-container--classic.select2-container--open .select2-selection--multiple{border:1px solid #5897fb}.select2-container--classic.select2-container--open.select2-container--above .select2-selection--multiple{border-top:none;border-top-left-radius:0;border-top-right-radius:0}.select2-container--classic.select2-container--open.select2-container--below .select2-selection--multiple{border-bottom:none;border-bottom-left-radius:0;border-bottom-right-radius:0}.select2-container--classic .select2-search--dropdown .select2-search__field{border:1px solid #aaa;outline:0}.select2-container--classic .select2-search--inline .select2-search__field{outline:0;box-shadow:none}.select2-container--classic .select2-dropdown{background-color:#fff;border:1px solid transparent}.select2-container--classic .select2-dropdown--above{border-bottom:none}.select2-container--classic .select2-dropdown--below{border-top:none}.select2-container--classic .select2-results>.select2-results__options{max-height:200px;overflow-y:auto}.select2-container--classic .select2-results__option[role=group]{padding:0}.select2-container--classic .select2-results__option[aria-disabled=true]{color:grey}.select2-container--classic .select2-results__option--highlighted[aria-selected]{background-color:#3875d7;color:#fff}.select2-container--classic .select2-results__group{cursor:default;display:block;padding:6px}.select2-container--classic.select2-container--open .select2-dropdown{border-color:#5897fb}
 .select2-dropdown{
     border-radius: 0px;
@@ -2805,6 +3020,27 @@ span#select2-city-container {
     mysql_close($cnx);
 ?>
 <script>
+ $(document).ready(function() {
+         $('.tabView li').click(function(){
+            var selectedtab = $(this).attr('href');
+            $('.tab-items').removeClass('activetab');
+            $('.tabView li').removeClass('current');
+            $(this).addClass('current');
+            $(selectedtab).addClass('activetab');
+         });
+
+         
+         $(".newslinktooltip a").mouseover(function(){
+            $($(this).attr('data-target')).css("display","block");
+        });  
+        $(".newslinktooltip a").mouseout(function(){
+            $($(this).attr('data-target')).css("display","none");
+        });
+      });
+$(".accordions_dealtitle").on("click", function() {
+    
+    $(this).toggleClass("active").next().slideToggle();
+});
 $resulttag = $('.result-title').height();
 $resulttagwidth = $('.result-select').width();
             $resulttaglist = $('.result-select').height();
