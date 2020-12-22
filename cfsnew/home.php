@@ -37,6 +37,46 @@
         'key'    => $GLOBALS['key'],
         'secret' => $GLOBALS['secret']
     ));
+    if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE)
+                    $user_os =  'Windows';
+                elseif((strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== FALSE) && strpos($_SERVER['HTTP_USER_AGENT'], 'Linux')!==FALSE)
+                    $user_os = 'Android';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Linux') !== FALSE) //For Supporting IE 11
+                    $user_os =  'Linux';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== FALSE)
+                    $user_os = 'IOS';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== FALSE)
+                    $user_os = 'IOS';
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== FALSE || strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== FALSE)
+                    $user_os = 'iOS';
+
+              if($user_os=='IOS'){      
+
+                  if(strpos($_SERVER['HTTP_USER_AGENT'], 'FxiOS') !== FALSE)
+                      $user_browser = 'Firefox';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'CriOS') !== FALSE)
+                      $user_browser = 'Chrome';
+                  else
+                      $user_browser = "Safari";
+              }else{
+
+                  if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
+                      $user_browser =  'IE';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
+                      $user_browser =  'IE';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') !== FALSE) //For Supporting IE EDGE
+                      $user_browser =  'IE';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
+                      $user_browser = 'Firefox';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)
+                      $user_browser = 'Chrome';
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== FALSE)
+                      $user_browser = "Opera_Mini";
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== FALSE)
+                      $user_browser = "Opera";
+                  elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
+                      $user_browser = "Safari";
+              }
 /* --------------------- End of home.Php code */
 if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CFS session-usename Empty in home page -'.$_SESSION['username']); }
 
@@ -162,6 +202,7 @@ if(!isset($authAdmin->user->elements['GroupList']) || $authAdmin->user->elements
 
 $getgroupid = $users->select($_SESSION["user_id"]);
 $getgroup = $grouplist->select($getgroupid['GroupList']); 
+
 if($getgroup['Industry']!=''){
     
     $where10 = "  Industry_Id IN ($getgroup[Industry]) "; // use to leftpanel.php
@@ -396,7 +437,31 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
         $template->assign("fdownload",$authAdmin->user->elements['ExDownloadCount']);
 
-        if($_REQUEST['resetfield']=="SearchFieds" ){
+        if($_REQUEST['resetfield']=="Sector" ){
+            $pos = array_search($_REQUEST['resetfieldindex'], $_REQUEST['answer']['Sector']);
+            $_REQUEST['answer']['Sector'][$pos]="";
+        }else if($_REQUEST['resetfield']=="Industry" ){
+            $pos = array_search($_REQUEST['resetfieldindex'], $_REQUEST['answer']['Industry']);
+            $_REQUEST['answer']['Industry'][$pos]="";
+            $_REQUEST['answer']['Industry']=array_filter($_REQUEST['answer']['Industry']);
+            $where="IndustryId_FK IN( ".$_REQUEST['resetfieldindex'].")";
+            $order = "SectorName asc";
+            $fields="Sector_Id";
+            $Companiesval = $sectors->getSectorslist($where,$order);
+            if($_REQUEST['answer']['Sector']!='')
+            {
+                $result = array_values(array_intersect($_REQUEST['answer']['Sector'], $Companiesval));
+                //print_r($Companiesval);
+                foreach($result as $r){
+                    $pos = array_search($r, $_REQUEST['answer']['Sector']);
+                    //echo $pos." ";
+                   
+                    $_REQUEST['answer']['Sector'][$pos]="";
+                }
+               
+            }
+            //$_REQUEST['answer']['Sector']=array_values($_REQUEST['answer']['Sector']);
+        }else if($_REQUEST['resetfield']=="SearchFieds" ){
              $_REQUEST['answer']['SearchFieds'][$_REQUEST['resetfieldindex']]="";
              $_REQUEST['Grtr_'.$_REQUEST['resetfieldindex']]="";
              $_REQUEST['Less_'.$_REQUEST['resetfieldindex']]="";
@@ -582,29 +647,33 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         //$where .=  " b.UserStatus = 0";
                 }
         //	pr($where);
-        }		
-
-
+        }	
+      
+      if(count(array_filter($_REQUEST['answer']['Industry']))>0){
         if($_REQUEST['answer']['Industry'] != ""){
+            $industry1=$_REQUEST['answer']['Industry'];
+            $industry1=array_filter($industry1);
+            $industry=  implode(',', $industry1);
+            
                 if($where != ''){
-                    $where .=  " and  b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $where .=  " and  b.Industry IN( ".$industry.")";
                 }else{
-                    $where .=  "b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $where .=  "b.Industry IN( ".$industry.")";
                 }
 
                 if($whereCountNew != ''){
-                    $whereCountNew .=  " and  b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereCountNew .=  " and  b.Industry IN( ".$industry.")";
                 }else{
-                    $whereCountNew .=  "b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereCountNew .=  "b.Industry IN( ".$industry.")";
                 }
 
                 if($whereHomeCountNew != ''){
-                    $whereHomeCountNew .=  " and  b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereHomeCountNew .=  " and  b.Industry IN( ".$industry.")";
                 }else{
-                    $whereHomeCountNew .=  "b.Industry  = ".$_REQUEST['answer']['Industry'];
+                    $whereHomeCountNew .=  "b.Industry IN( ".$industry.")";
                 }
         }	
-
+    }
         if(isset($_REQUEST['auditorname']) && $_REQUEST['auditorname']!='' ){
 
             $auditornamearr = explode(',', $_REQUEST['auditorname']);
@@ -639,23 +708,31 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         }
 
         if($_REQUEST['answer']['Sector'] != ""){
+            
+            $sector1=$_REQUEST['answer']['Sector'];
+            
+            $sector1=array_filter($sector1);
+            $sector=  implode(',', $sector1);
+            
+            if(count($sector1)>0){
                 if($where!=''){
-                    $where .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $where .=  " and  b.Sector  IN (".$sector.")";
                 }else{
-                    $where .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $where .=  " b.Sector  IN (".$sector.")";
                 }
 
                 if($whereCountNew!=''){
-                    $whereCountNew .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereCountNew .=  " and  b.Sector  IN (".$sector.")";
                 }else{
-                    $whereCountNew .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereCountNew .=  " b.Sector  IN (".$sector.")";
                 }
 
                 if($whereHomeCountNew!=''){
-                    $whereHomeCountNew .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereHomeCountNew .=  " and  b.Sector  IN (".$sector.")";
                 }else{
-                    $whereHomeCountNew .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+                    $whereHomeCountNew .=  " b.Sector  IN (".$sector.")";
                 }
+            }
         }
 
         if($_REQUEST['answer']['SubSector'] != ""){
@@ -1602,7 +1679,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     // T975 RATIO BASED
                     if( !$acrossallFlag || !$acrossallRFlag ) {
 
-                         if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25)){
+                         if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25) && $industry=='' ){
                         $query= "select value from configuration where purpose='initial_count'";
                         $count=mysql_query($query);
                         $total_top1=mysql_fetch_row($count);
@@ -1612,7 +1689,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         }
                        // $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery);
                     }
-                    if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25)){
+                    if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25) && $industry==''){
                         $query= "select value from configuration where purpose='initial_count'";
                         $count=mysql_query($query);
                         $total=mysql_fetch_row($count);
@@ -2014,6 +2091,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $template->assign('pageDescription',"CFS - Company Search");
         $template->assign('pageKeyWords',"CFS - Company Search");
         $template->assign('userEmail',$_SESSION['UserEmail']);
+        $template->assign('user_browser',$user_browser);
         $template->display('home.tpl');
         
         // Footer
