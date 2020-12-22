@@ -11487,7 +11487,7 @@ padding:0px 10px; }
             display: block;
         }
 
-        .row {
+        .mobileRedirectPopup .row {
             width: 100%;
             display: flex;
             /* margin-left: -15px;
