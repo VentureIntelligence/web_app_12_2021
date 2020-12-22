@@ -2,15 +2,15 @@
 	include "header.php";
 	require_once MODULES_DIR."/sectors.php";
 	$sectors = new sectors();
-        if($_GET['queryString1']!='')
+        if($_REQUEST['queryString1']!='null')
         {
-            $where .= "IndustryId_FK = ".$_GET['queryString1'];
-            echo '<select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector">';
-			echo '<option value="">Please Select a Sector</option>';
+            $where .= "IndustryId_FK IN( ".$_REQUEST['queryString1'].")";
+            echo '<select id="answer[Sector]" name="answer[Sector][]" class="multi" forError="Sector" style="width: 210px;" multiple>';
+			
         }
         else{
-        	echo '<select id="answer[Sector]" name="answer[Sector]"  class="" forError="Sector" disabled>';
-        	echo '<option value="">Please Select a Sector</option>';
+        	echo '<select id="answer[Sector]" name="answer[Sector][]" class="multi" forError="Sector" style="width: 210px;" multiple disabled>';
+        	
         }
 	$order .= "SectorName asc";
 	$Companies = $sectors->getFullList(1,100,$fields,$where,$order,"name");
@@ -19,6 +19,7 @@
 	for($i=0;$i<count($Companies);$i++){
 ?>
 <option value="<?php echo $Companies[$i]['Sector_Id']; ?>"><?php echo $Companies[$i]['SectorName']; ?></option>
+
 <?php
 }
 	echo '</select>';
