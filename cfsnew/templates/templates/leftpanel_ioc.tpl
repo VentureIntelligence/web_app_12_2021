@@ -92,12 +92,13 @@ $("#panel").css("height",bodyheight);
        </td>  </tr> *}
  <tr><td colspan="2">State</td></tr>  
 <tr><td Colspan="2"><select id="State" multiple="multiple" name="answer[State][]"  class="multi"   forError="State">
-    {html_options options=$state selected=$states}
+    {html_options options=$iocstate selected=$states}
+    
 </select></td>  </tr> 
 <tr><td colspan="2">City</td></tr>  
 <tr><td Colspan="2"><select id="City" multiple="multiple" name="answer[City][]"  class="multi"   forError="City">
-    {html_options options=$city selected=$cities}
-    {$REQUEST_answer.City}
+    {html_options options=$ioccity selected=$cities}
+   
  </select></td>  </tr>
 <input type="hidden" name="name" id="ChargesholderName" value="{if $ChargesholderName}{$ChargesholderName}{/if}" style="width:100% !important">
 {* <tr><td colspan="2">Address (city)</td></tr>  

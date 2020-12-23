@@ -222,6 +222,8 @@ $template->assign("ipuser",$ipuser);
 $template->assign("authAdminListId",$listid);
 $template->assign("isAuth",$isAuth);
 $template->assign("city" , $city->getCity());
+$template->assign("iocstate" , $state->getiocState());
+$template->assign("ioccity" , $state->getiocCity());
 /*Smarty Assign Ends*/
 
 
