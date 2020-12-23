@@ -123,25 +123,25 @@
        
 }
 if(isset($city) && $city!=''){
-   
+    $city=str_replace(",","','",$city);
     if($chargewhere != ''){
-        $chargewhere .="    and a1.`city` IN( ".$city.")";
+        $chargewhere .="    and a1.`city` IN( '".$city."')";
     }else{
-        $chargewhere .="    a1.`city` IN( ".$city.")";
+        $chargewhere .="    a1.`city` IN( '".$city."')";
     }
         
-        $template->assign("cities" , $city);
+       // $template->assign("cities" , $city);
        
 }
 if(isset($state) && $state!=''){
-    
+    $state=str_replace(",","','",$state);
     if($chargewhere != ''){
-        $chargewhere .="    and a1.`state` IN( ".$state.")";
+        $chargewhere .="    and a1.`state` IN( '".$state."')";
     }else{
-        $chargewhere .="    a1.`state` IN( ".$state.")";
+        $chargewhere .="    a1.`state` IN( '".$state."')";
     }
         
-        $template->assign("state" , $state);
+       // $template->assign("state" , $state);
        
 }
 

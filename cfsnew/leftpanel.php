@@ -2,7 +2,7 @@
 $StateWhere = "state_CountryID_FK = 113";
 $order7="state_name asc";
 $template->assign("state" , $state->getState($StateWhere,$order7));
-
+$template->assign("iocstate" , $state->getiocState());
 //pr($authAdmin);
 
 //pr($_SESSION);
@@ -222,7 +222,7 @@ $StateWhere = "state_CountryID_FK = 113";
 
 $states=$state->getState($StateWhere,$order7);
 $template->assign("state" , $states);
-
+$template->assign("iocstate" , $state->getiocState());
  if ($_REQUEST['answer']['Region']!="" && $_REQUEST['answer']['State']=="") { 
             $region_where = '';
             foreach($_REQUEST['answer']['Region'] as $regions){
