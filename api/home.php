@@ -406,7 +406,7 @@
 		</div>
 	</div>
 </div>
-<script src="https://malsup.github.com/jquery.form.js"></script>
+<script src="https://malsup.github.io/jquery.form.js"></script>
 <script type="text/javascript">
 	$( document ).ready( function() {
 		$( '#db_type' ).on( 'change', function() {
