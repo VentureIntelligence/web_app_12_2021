@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ventureintelligence API Document</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui.css" >
+  <style>
+    html
+    {
+      box-sizing: border-box;
+      overflow: -moz-scrollbars-vertical;
+      overflow-y: scroll;
+    }
+    *,
+    *:before,
+    *:after
+    {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin:0;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+
+<div id="swagger-ui"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-bundle.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-standalone-preset.js"> </script>
+<script>
+window.onload = function() {
+
+  var spec =  {
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Venture Intelligence -  Third Party API Documentation",
+    "version": "1.0.0",
+    "description": "This is the specification for the CFS Partner API, which have clear request and response details\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.ventureintelligence.asia/partnerapi/cfs/",
+      "description": "PROD"
+    }
+  ],
+  "paths": {
+    "/profileData": {
+      "post": {
+        "tags": [
+          "profileData"
+        ],
+        "summary": "To fetch ProfileData details, we require a token, username, password, userType and companyName.",
+        "requestBody": {
+          "description": "Input parameters are:",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "token",
+                  "userName",
+                  "password",
+                  "userType",
+                  "companyName"
+                ],
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "description": "Dynamic token"
+                  },
+                  "userName": {
+                    "type": "string",
+                    "description": "Email of the user"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user"
+                  },
+                  "userType": {
+                    "type": "string",
+                    "enum": [
+                      "External",
+                      "Internal"
+                    ]
+                  },
+                  "companyName": {
+                    "type": "string",
+                    "description": "User input of company name"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "companydetail": {
+                      "type": "object",
+                      "properties": {
+                        "Company_Id": {
+                          "type": "integer"
+                        },
+                        "SCompanyName": {
+                          "type": "string"
+                        },
+                        "FCompanyName": {
+                          "type": "string"
+                        },
+                        "CIN": {
+                          "type": "string"
+                        },
+                        "Old_CIN": {
+                          "type": "string"
+                        },
+                        "CashFlow": {
+                          "type": "object",
+                          "properties": {
+                            "Standalone": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "cashflow_id": {
+                                    "type": "integer"
+                                  },
+                                  "CId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "IndustryId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "CashflowFromOperation": {
+                                    "type": "integer"
+                                  },
+                                  "NetcashUsedInvestment": {
+                                    "type": "integer"
+                                  },
+                                  "NetcashFromFinance": {
+                                    "type": "integer"
+                                  },
+                                  "FY": {
+                                    "type": "string"
+                                  },
+                                  "ResultType": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            },
+                            "Consolidated": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "cashflow_id": {
+                                    "type": "integer"
+                                  },
+                                  "CId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "IndustryId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "CashflowFromOperation": {
+                                    "type": "integer"
+                                  },
+                                  "NetcashUsedInvestment": {
+                                    "type": "integer"
+                                  },
+                                  "NetcashFromFinance": {
+                                    "type": "integer"
+                                  },
+                                  "FY": {
+                                    "type": "string"
+                                  },
+                                  "ResultType": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "CompanyProfile": {
+                          "type": "object",
+                          "properties": {
+                            "ContactName": {
+                              "type": "string"
+                            },
+                            "Designation": {
+                              "type": "string"
+                            },
+                            "AuditorName": {
+                              "type": "string"
+                            },
+                            "Phone": {
+                              "type": "string"
+                            },
+                            "Email": {
+                              "type": "string"
+                            },
+                            "Website": {
+                              "type": "string"
+                            },
+                            "CIN": {
+                              "type": "string"
+                            },
+                            "Address": {
+                              "type": "string"
+                            },
+                            "BusinessDescription": {
+                              "type": "string"
+                            },
+                            "TransactionStatus": {
+                              "type": "string"
+                            },
+                            "Year": {
+                              "type": "integer"
+                            },
+                            "City": {
+                              "type": "string"
+                            },
+                            "Industry": {
+                              "type": "string"
+                            },
+                            "Sector": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "enum": [
+                        "ERR_MANDATORY_INPUT_NOT_PROVIDED",
+                        "ERR_TOKEN_INTIMATION"
+                      ],
+                      "description": "Error Code for the operation. It will be one of the following\\:\n  * ERR_MANDATORY_INPUT_NOT_PROVIDED - Required data not provided\n  * ERR_TOKEN_INTIMATION - Token invalid\n"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/financialData": {
+      "post": {
+        "tags": [
+          "financialData"
+        ],
+        "summary": "To fetch FinancialData details, we require a token, username, password, userType and companyName.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "token",
+                  "userName",
+                  "password",
+                  "userType",
+                  "companyName"
+                ],
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "description": "Dynamic token"
+                  },
+                  "userName": {
+                    "type": "string",
+                    "description": "Email of the user"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user"
+                  },
+                  "userType": {
+                    "type": "string",
+                    "enum": [
+                      "External",
+                      "Internal"
+                    ]
+                  },
+                  "companyName": {
+                    "type": "string",
+                    "description": "User input of company name"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "companydetail": {
+                      "type": "object",
+                      "properties": {
+                        "Company_Id": {
+                          "type": "integer"
+                        },
+                        "SCompanyName": {
+                          "type": "string"
+                        },
+                        "FCompanyName": {
+                          "type": "string"
+                        },
+                        "CIN": {
+                          "type": "string"
+                        },
+                        "Old_CIN": {
+                          "type": "string"
+                        },
+                        "plstandards": {
+                          "type": "object",
+                          "properties": {
+                            "Standalone": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "PLStandard_Id": {
+                                    "type": "integer"
+                                  },
+                                  "CId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "IndustryId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "EBITDA": {
+                                    "type": "integer"
+                                  },
+                                  "PAT": {
+                                    "type": "integer"
+                                  },
+                                  "TotalIncome": {
+                                    "type": "integer"
+                                  },
+                                  "FY": {
+                                    "type": "string"
+                                  },
+                                  "ResultType": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            },
+                            "Consolidated": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "PLStandard_Id": {
+                                    "type": "integer"
+                                  },
+                                  "CId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "IndustryId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "EBITDA": {
+                                    "type": "integer"
+                                  },
+                                  "PAT": {
+                                    "type": "integer"
+                                  },
+                                  "TotalIncome": {
+                                    "type": "integer"
+                                  },
+                                  "FY": {
+                                    "type": "string"
+                                  },
+                                  "ResultType": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "balancesheet": {
+                          "type": "object",
+                          "properties": {
+                            "Standalone": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "BalanceSheet_Id": {
+                                    "type": "integer"
+                                  },
+                                  "CId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "IndustryId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "NonCurrentAssets": {
+                                    "type": "integer"
+                                  },
+                                  "CurrentAssets": {
+                                    "type": "integer"
+                                  },
+                                  "TotalAssets": {
+                                    "type": "integer"
+                                  },
+                                  "TotalShareholdersFund": {
+                                    "type": "integer"
+                                  },
+                                  "NonCurrentLiabilities": {
+                                    "type": "integer"
+                                  },
+                                  "CurrentLiabilities": {
+                                    "type": "integer"
+                                  },
+                                  "TotalEquityLiabilities": {
+                                    "type": "integer"
+                                  },
+                                  "FY": {
+                                    "type": "string"
+                                  },
+                                  "ResultType": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            },
+                            "Consolidated": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "BalanceSheet_Id": {
+                                    "type": "integer"
+                                  },
+                                  "CId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "IndustryId_FK": {
+                                    "type": "integer"
+                                  },
+                                  "NonCurrentAssets": {
+                                    "type": "integer"
+                                  },
+                                  "CurrentAssets": {
+                                    "type": "integer"
+                                  },
+                                  "TotalAssets": {
+                                    "type": "integer"
+                                  },
+                                  "TotalShareholdersFund": {
+                                    "type": "integer"
+                                  },
+                                  "NonCurrentLiabilities": {
+                                    "type": "integer"
+                                  },
+                                  "CurrentLiabilities": {
+                                    "type": "integer"
+                                  },
+                                  "TotalEquityLiabilities": {
+                                    "type": "integer"
+                                  },
+                                  "FY": {
+                                    "type": "string"
+                                  },
+                                  "ResultType": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "enum": [
+                        "ERR_MANDATORY_INPUT_NOT_PROVIDED",
+                        "ERR_TOKEN_INTIMATION"
+                      ],
+                      "description": "Error Code for the operation. It will be one of the following\\:\n  * ERR_MANDATORY_INPUT_NOT_PROVIDED - Required data not provided\n   * ERR_TOKEN_INTIMATION - Token invalid\n"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    }
+  }
+};
+  // Build a system
+  const ui = SwaggerUIBundle({
+    spec: spec,
+    dom_id: '#swagger-ui',
+    deepLinking: true,
+    presets: [
+      SwaggerUIBundle.presets.apis,
+      SwaggerUIStandalonePreset
+    ],
+    plugins: [
+      SwaggerUIBundle.plugins.DownloadUrl
+    ],
+    layout: "StandaloneLayout"
+  })
+
+  window.ui = ui
+}
+</script>
+</body>
+
+</html>
