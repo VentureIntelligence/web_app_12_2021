@@ -7,6 +7,17 @@
 <link rel="stylesheet" type="text/css" href="../../dealsnew/css/token-input-facebook.css" />
 {literal}
 <style>
+.token-input-list-facebook{
+      width:375px !important;
+      height: 42px !important;
+}
+#token-input-companyauto_sug{
+width:375px !important;
+    box-shadow: 0px 0px 0px 0px !important;
+    background: #fff;
+
+}
+
 .search-main li label,form.custom .custom.disabled{
     opacity:0.6
 }
@@ -152,7 +163,13 @@
                 <div id="accordion" style="margin-top:6px;">
                  <label id="search_by"  style="font-size:22px;float: left;padding: 12px 20px;font-weight: 600;">Search by:</label>
                     <div style="float:left">
-                    <input typr="text" class="form-control company_name" id="companylist" autocomplete="off" placeholder="Company Name" style="border:1px solid #ccc;"/> 
+                    {* <input typr="text" class="form-control company_name" id="companylist" autocomplete="off" placeholder="Company Name" style="border:1px solid #ccc;"/> *}
+                    <input type="hidden" id="companysearch" name="companysearch" value="<?php echo $csearch;  ?>" placeholder="" style="width:220px;">
+     <input type="text" id="companyauto_sug" name="companyauto_sug" value="<?php echo $cauto;  ?>" placeholder="" style="width:220px;" autocomplete="off">
+     <div id="companyauto_load" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none;  width: 223px;">
+        
+    </div>
+      
                     <div id="testcompany" style="  overflow-y: auto;  max-height: 118px;  background: #e6e6e6;display:none; width:225px;">
                     </div>
                     </div>
@@ -281,7 +298,7 @@ $( "#chargeholderlist" ).keyup(function() {
 }
 
 });
-$("#companylist").tokenInput("company_list.php?",{
+$("#companyauto_sug").tokenInput("company_list.php?",{
             theme: "facebook",
             minChars:2,
             queryParam: "companyname",
@@ -289,14 +306,14 @@ $("#companylist").tokenInput("company_list.php?",{
             noResultsText: "No Result Found",
             preventDuplicates: true,
                 onAdd: function (item) {
-                      $("#companylist").tokenInput("clear");
+                     // $("#companyauto_sug").tokenInput("clear");
                       clear_keywordsearch();
                       clear_sectorsearch();
                       clear_searchallfield();
                      // disableFileds();
                 },
                 onDelete: function (item) {
-                    var selectedValues = $('#companylist').tokenInput("get");
+                    var selectedValues = $('#companyauto_sug').tokenInput("get");
                     var inputCount = selectedValues.length;
                     if(inputCount==0){ 
                        // reloadPage();
