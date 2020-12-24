@@ -143,7 +143,7 @@ class state extends database {
 	   return $return_array;
    }
    function getiocCity(){
-	$sql = "select City from index_of_charges where City!='' Group by City order by City asc";
+	$sql = "select City from index_of_charges Group by City order by City asc";
 	$this->execute($sql);
 	$return_array = array();
 	$this->setFetchMode('num');
