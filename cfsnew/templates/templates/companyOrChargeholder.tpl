@@ -3,7 +3,8 @@
 
 <div class="container-right">
 <!-- {if $searchupperlimit gte $searchlowerlimit}   --> 
-
+<link rel="stylesheet" type="text/css" href="../../dealsnew/css/token-input.css" />
+<link rel="stylesheet" type="text/css" href="../../dealsnew/css/token-input-facebook.css" />
 {literal}
 <style>
 .search-main li label,form.custom .custom.disabled{
@@ -280,35 +281,30 @@ $( "#chargeholderlist" ).keyup(function() {
 }
 
 });
-
-$( "#companylist" ).keyup(function() {
-  var companyname = $("#companylist").val();
-  if(companyname.length > 3 ) {
-    $.ajax({
-      type: "post",
-      url: "company_list.php",
-      data: {
-        companyname: companyname
-      },
-      success: function(data) {
-        $("#testcompany").fadeIn();
-        $("#testcompany").html(data);
-         var drop = $('#testcompany').height();
-        if(drop >= 150){
-         $(".result-cnt").css("padding","2% 0% 0% 0%");
-        }else{
-          $(".result-cnt").css("padding","2% 0% 8% 0%");
-        }
-      }
-    });
-  }
-  else{
-  $("#testcompany").fadeOut();
-  $("#testcompany").empty();
-  $(".result-cnt").css("padding","2% 0% 8% 0%");
-}
-
-});
+$("#companylist").tokenInput("company_list.php?",{
+            theme: "facebook",
+            minChars:2,
+            queryParam: "companyname",
+            hintText: "",
+            noResultsText: "No Result Found",
+            preventDuplicates: true,
+                onAdd: function (item) {
+                      $("#companylist").tokenInput("clear");
+                      clear_keywordsearch();
+                      clear_sectorsearch();
+                      clear_searchallfield();
+                     // disableFileds();
+                },
+                onDelete: function (item) {
+                    var selectedValues = $('#companylist').tokenInput("get");
+                    var inputCount = selectedValues.length;
+                    if(inputCount==0){ 
+                       // reloadPage();
+                      // enableFileds();
+                    }
+                },
+           // prePopulate : {php} if($companysug_response!=''){echo   $companysug_response; }else{ echo 'null'; } {/php}
+        });
 $('.updateFinancialHome').click(function(){ 
                     jQuery('#maskscreen').fadeIn(1000);
                     jQuery('#popup-box').fadeIn();   
@@ -345,27 +341,7 @@ $('.updateFinancialHome').click(function(){
            }
        }
     
-        $('#testcompany #result_cc label').live("click", function() {  //on click 
-                      
-                       var sltholder='';
-                       var sltcount=0;
-                                                   
-                              var holder = $(this).text();                             
-                             
-                                 if(sltcount==0) { sltholder+=holder; }
-                                 else { sltholder+=","+holder; }
-                             
-                              $("#testcompany").show();
-                     $("#companylist").attr('readonly','readonly');  
-                     $("#companylist").val(sltholder); 
-                      $('#pgLoading').css('display', 'block');
-                       $('#pgLoading')
-  .delay(15000)
-  .queue(function (next) { 
-    $(this).css('display', 'none'); 
-    next(); 
-  });
-             });
+        
        
  
        $('.ch_holder input').live("click", function() {   
@@ -463,6 +439,7 @@ $(".holderhidden").val($optionchecklist+$optchk);
            }
        }); 
       
+     
  
 </script>
 {/literal}
