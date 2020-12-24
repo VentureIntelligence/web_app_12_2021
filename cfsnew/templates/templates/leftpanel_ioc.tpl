@@ -16,6 +16,9 @@ $("#panel").css("height",bodyheight);
 });
     </script>
     <style>
+    .container-left .growth-table td {
+    padding: 3px 0px !important;
+}
     .ui-state-default .ui-icon {
     background-image: url(images/ui-icons_888888_256x240.png) !important;
 }
