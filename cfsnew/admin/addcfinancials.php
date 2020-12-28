@@ -1062,7 +1062,7 @@ $Balancewhere1 = " a.CId_FK = ".$_REQUEST['answer']['New_BSCompanyId']." && a.Re
 $BalanceEXitsChk1 = $balancesheet_new->getFullList(1,10,$BalanceFields1,$Balancewhere1,"FY DESC","name");
 
 $k=0;
-
+print_r($Test);
 	for ($k = 0; $k <= $YearCount-2; $k++) {
                 
 		if($Test[$k][1] != "<br>" && $Test[$k][1] != ''){	
