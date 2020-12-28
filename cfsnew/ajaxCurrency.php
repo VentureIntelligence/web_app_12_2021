@@ -2,6 +2,7 @@
 .finance-filter-custom{
     width: 140px;
     display: flex;
+    
 }
 .btn-cnt input {
     margin-right: 25px;
@@ -469,7 +470,7 @@ if(count($FinanceAnnual_cashflow) == 0){
        
         ?>
         <?php if($PLSTANDARD_MEDIA_PATH || $PLSTANDARD_MEDIA_PATH_CON){?>
-                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 70px !important;"> 
                  <input  name="" type="button" id="check" data-check="close" value="P&L EXPORT" onClick="openpl_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 158px 6px; width:180px; " />
 
               <div id="pl_ex" data-slide="close" style=" position: absolute;  width: 100%; display: none; {if $file_pl_cnt > 0 && $file_bs_cnt > 0} left: 0 {else} left: 0 {/if}">
@@ -490,7 +491,7 @@ if(count($FinanceAnnual_cashflow) == 0){
               <?php } if($PLDETAILED_MEDIA_PATH){?>
                             <input  name="" type="button"  value="Detailed P&L EXPORT" onClick="window.open('<?php echo MEDIA_PATH?>pldetailed/PLDetailed_{$VCID}.xls?time={$smarty.now}','_blank')" />
                 <?php }?>
-                <div class="finance-filter-custom" style="padding-top: 0px;">
+                <div class="finance-filter-custom" style="padding-top: 70px;">
                 <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
                 
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
@@ -2032,7 +2033,7 @@ echo '</pre>';*/
         
         if ($BSHEET_MEDIA_PATH_NEW || $BSHEET_MEDIA_PATH_NEW1) {?>
         
-                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 70px !important;"> 
                   <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="openbalancesheet_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
 
                   <div id="balancesheet_ex" style="position: absolute; width: 100%; display: none;  right: 0; text-align: right;">
@@ -2050,7 +2051,7 @@ echo '</pre>';*/
                     <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="bsDataUpdateReq()" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
                 </span>
                   <?php }?>
-                  <div class="finance-filter-custom" style="padding-top: 0px;">
+                  <div class="finance-filter-custom" style="padding-top: 70px;">
                 <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
                 
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
@@ -3365,7 +3366,7 @@ echo '</pre>';*/
     $resulttypecount=mysql_num_rows($rowtype);
      if ($resulttypecount == 1 || $resulttypecount == 2) {?>
             
-                    <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                    <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 70px !important;"> 
                       <input  name="" type="button" id="check1" data-check2="close" value="BALANCE SHEET EXPORT" onClick="openbalancesheet_exold(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
     
                       <div id="balancesheet_exold" style="position: absolute; width: 100%; display: none;  right: 0; text-align: right;padding-right: 18px;">
@@ -3379,7 +3380,7 @@ echo '</pre>';*/
                       </div>
                       </span> 
                       <?php }else{?>
-                        <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                        <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 70px !important;"> 
                         <input  name="" type="button" id="check1" data-check1="close" value="BALANCE SHEET EXPORT" onClick="bsDataUpdateReq()" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
                     </span>
                       <?php }
@@ -3408,7 +3409,7 @@ echo '</pre>';*/
         </ul>
         <h4 style="font-size: 16px;margin-top: 20px;"> <span style="margin-left: 8px;font-size:12px;"><?php echo $runTypetext; ?></span></h4>
     </div> <?php  } ?>
-    <div class="finance-filter-custom" style="padding-top: 0px;">
+    <div class="finance-filter-custom" style="padding-top: 70px;">
                 <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
                 
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>
@@ -4956,7 +4957,7 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
         
         if ($CASHFLOW_MEDIA_PATH || $CASHFLOW_MEDIA_PATH_NEW1) {?>
         
-                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 0px !important;"> 
+                <span class="btn-cnt" style="  /*position: relative;float:right;*/position: absolute;float: right;right: 0;padding-right: 18px;padding-top: 70px !important;"> 
                   <input  name="" type="button" id="check1" data-check2="close" value="CASHFLOW EXPORT" onClick="cashflow_ex(this)" style=" background: #a37635 url(images/arrow-dropdown.png) no-repeat 163px 6px; width:180px; " />
 
                   <div id="cashflow_ex" style="position: absolute; width: 100%; display: none;  right: 0; text-align: right;padding-right: 18px;">
