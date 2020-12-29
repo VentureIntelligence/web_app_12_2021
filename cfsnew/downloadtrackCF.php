@@ -218,24 +218,24 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                                         $usdconversion="1";
                                     }
                                 if($_GET['queryString']!='INR'){
-                                    if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{ $vale = $FinanceAnnual[$i][NetPLBefore]/$usdconversion;$tot=$vale/$convalue;$NetPLBefore = round($tot,2);  if($vale==''){$NetPLBefore = '-';}} 
-                                    if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{ $vale = $FinanceAnnual[$i][CashflowFromOperation]/$usdconversion;$tot=$vale/$convalue;$CashflowFromOperation = round($tot,2);  if($vale==''){$CashflowFromOperation = '-';}} 
-                                    if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{ $vale = $FinanceAnnual[$i][NetcashUsedInvestment]/$usdconversion;$tot=$vale/$convalue;$NetcashUsedInvestment = round($tot,2);  if($vale==''){$NetcashUsedInvestment = '-';}}
-                                    if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{ $vale = $FinanceAnnual[$i][NetcashFromFinance]/$usdconversion;$tot=$vale/$convalue;$NetcashFromFinance = round($tot,2);  if($vale==''){$NetcashFromFinance = '-';}} 
-                                    if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{ $vale = $FinanceAnnual[$i][NetIncDecCash]/$usdconversion;$tot=$vale/$convalue;$NetIncDecCash = round($tot,2);  if($vale==''){$NetIncDecCash = '-';}}
-                                    if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{ $vale = $FinanceAnnual[$i][EquivalentEndYear]/$usdconversion;$tot=$vale/$convalue;$EquivalentEndYear = round($tot,2);  if($vale==''){$EquivalentEndYear = '-';}}
+                                    if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='0';}else{ $vale = $FinanceAnnual[$i][NetPLBefore]/$usdconversion;$tot=$vale/$convalue;$NetPLBefore = round($tot,2);  if($vale==''){$NetPLBefore = '0';}} 
+                                    if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='0';}else{ $vale = $FinanceAnnual[$i][CashflowFromOperation]/$usdconversion;$tot=$vale/$convalue;$CashflowFromOperation = round($tot,2);  if($vale==''){$CashflowFromOperation = '0';}} 
+                                    if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='0';}else{ $vale = $FinanceAnnual[$i][NetcashUsedInvestment]/$usdconversion;$tot=$vale/$convalue;$NetcashUsedInvestment = round($tot,2);  if($vale==''){$NetcashUsedInvestment = '0';}}
+                                    if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='0';}else{ $vale = $FinanceAnnual[$i][NetcashFromFinance]/$usdconversion;$tot=$vale/$convalue;$NetcashFromFinance = round($tot,2);  if($vale==''){$NetcashFromFinance = '0';}} 
+                                    if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='0';}else{ $vale = $FinanceAnnual[$i][NetIncDecCash]/$usdconversion;$tot=$vale/$convalue;$NetIncDecCash = round($tot,2);  if($vale==''){$NetIncDecCash = '0';}}
+                                    if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='0';}else{ $vale = $FinanceAnnual[$i][EquivalentEndYear]/$usdconversion;$tot=$vale/$convalue;$EquivalentEndYear = round($tot,2);  if($vale==''){$EquivalentEndYear = '0';}}
                                     
                             
                                }
                                else
                                {
                                     
-                                        if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);if($_GET['rconv'] =='r'){$NetPLBefore =number_format("$tot");}else{$NetPLBefore =round($tot,2);} }
-                                        if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);if($_GET['rconv'] =='r'){$CashflowFromOperation =number_format("$tot");}else{$CashflowFromOperation =round($tot,2);} } 
-                                        if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);if($_GET['rconv'] =='r'){$NetcashUsedInvestment =number_format("$tot");}else{$NetcashUsedInvestment =round($tot,2);} }
-                                        if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);if($_GET['rconv'] =='r'){$NetcashFromFinance =number_format("$tot");}else{$NetcashFromFinance =round($tot,2);} }
-                                        if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);if($_GET['rconv'] =='r'){$NetIncDecCash =number_format("$tot");}else{$NetIncDecCash =round($tot,2);}}
-                                        if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);if($_GET['rconv'] =='r'){$EquivalentEndYear =number_format("$tot");}else{$EquivalentEndYear =round($tot,2);} }
+                                        if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='0';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);if($_GET['rconv'] =='r'){$NetPLBefore =number_format("$tot");}else{$NetPLBefore =round($tot,2);} }
+                                        if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='0';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);if($_GET['rconv'] =='r'){$CashflowFromOperation =number_format("$tot");}else{$CashflowFromOperation =round($tot,2);} } 
+                                        if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='0';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);if($_GET['rconv'] =='r'){$NetcashUsedInvestment =number_format("$tot");}else{$NetcashUsedInvestment =round($tot,2);} }
+                                        if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='0';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);if($_GET['rconv'] =='r'){$NetcashFromFinance =number_format("$tot");}else{$NetcashFromFinance =round($tot,2);} }
+                                        if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='0';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);if($_GET['rconv'] =='r'){$NetIncDecCash =number_format("$tot");}else{$NetIncDecCash =round($tot,2);}}
+                                        if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='0';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);if($_GET['rconv'] =='r'){$EquivalentEndYear =number_format("$tot");}else{$EquivalentEndYear =round($tot,2);} }
                                         
                                     
                                }
@@ -343,24 +343,24 @@ if($toturcount2[0][3] >= $toturcount2[0][7]){
                                     }
                                     
                                 if($_GET['queryString']!='INR'){
-                                  if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{ $vale = $FinanceAnnual[$i][NetPLBefore]/$usdconversion;$tot=$vale/$convalue;$NetPLBefore = round($tot,2);  if($vale==''){$NetPLBefore = '-';}} 
-                                  if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{ $vale = $FinanceAnnual[$i][CashflowFromOperation]/$usdconversion;$tot=$vale/$convalue;$CashflowFromOperation = round($tot,2);  if($vale==''){$CashflowFromOperation = '-';}} 
-                                  if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{ $vale = $FinanceAnnual[$i][NetcashUsedInvestment]/$usdconversion;$tot=$vale/$convalue;$NetcashUsedInvestment = round($tot,2);  if($vale==''){$NetcashUsedInvestment = '-';}}
-                                  if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{ $vale = $FinanceAnnual[$i][NetcashFromFinance]/$usdconversion;$tot=$vale/$convalue;$NetcashFromFinance = round($tot,2);  if($vale==''){$NetcashFromFinance = '-';}} 
-                                  if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{ $vale = $FinanceAnnual[$i][NetIncDecCash]/$usdconversion;$tot=$vale/$convalue;$NetIncDecCash = round($tot,2);  if($vale==''){$NetIncDecCash = '-';}}
-                                  if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{ $vale = $FinanceAnnual[$i][EquivalentEndYear]/$usdconversion;$tot=$vale/$convalue;$EquivalentEndYear = round($tot,2);  if($vale==''){$EquivalentEndYear = '-';}}
+                                  if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='0';}else{ $vale = $FinanceAnnual[$i][NetPLBefore]/$usdconversion;$tot=$vale/$convalue;$NetPLBefore = round($tot,2);  if($vale==''){$NetPLBefore = '0';}} 
+                                  if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='0';}else{ $vale = $FinanceAnnual[$i][CashflowFromOperation]/$usdconversion;$tot=$vale/$convalue;$CashflowFromOperation = round($tot,2);  if($vale==''){$CashflowFromOperation = '0';}} 
+                                  if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='0';}else{ $vale = $FinanceAnnual[$i][NetcashUsedInvestment]/$usdconversion;$tot=$vale/$convalue;$NetcashUsedInvestment = round($tot,2);  if($vale==''){$NetcashUsedInvestment = '0';}}
+                                  if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='0';}else{ $vale = $FinanceAnnual[$i][NetcashFromFinance]/$usdconversion;$tot=$vale/$convalue;$NetcashFromFinance = round($tot,2);  if($vale==''){$NetcashFromFinance = '0';}} 
+                                  if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='0';}else{ $vale = $FinanceAnnual[$i][NetIncDecCash]/$usdconversion;$tot=$vale/$convalue;$NetIncDecCash = round($tot,2);  if($vale==''){$NetIncDecCash = '0';}}
+                                  if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='0';}else{ $vale = $FinanceAnnual[$i][EquivalentEndYear]/$usdconversion;$tot=$vale/$convalue;$EquivalentEndYear = round($tot,2);  if($vale==''){$EquivalentEndYear = '0';}}
                                   
                             
                                }
                                else
                                {
                                     
-                                if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='-';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);if($_GET['rconv'] =='r'){$NetPLBefore =number_format("$tot");}else{$NetPLBefore =round($tot,2);} }
-                                if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='-';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);if($_GET['rconv'] =='r'){$CashflowFromOperation =number_format("$tot");}else{$CashflowFromOperation =round($tot,2);} } 
-                                if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='-';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);if($_GET['rconv'] =='r'){$NetcashUsedInvestment =number_format("$tot");}else{$NetcashUsedInvestment =round($tot,2);} }
-                                if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='-';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);if($_GET['rconv'] =='r'){$NetcashFromFinance =number_format("$tot");}else{$NetcashFromFinance =round($tot,2);} }
-                                if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='-';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);if($_GET['rconv'] =='r'){$NetIncDecCash =number_format("$tot");}else{$NetIncDecCash =round($tot,2);} }
-                                if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='-';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);if($_GET['rconv'] =='r'){$EquivalentEndYear =number_format("$tot");}else{$EquivalentEndYear =round($tot,2);} }
+                                if($FinanceAnnual[$i][NetPLBefore]==0){$NetPLBefore ='0';}else{$tot=($FinanceAnnual[$i][NetPLBefore]/$convalue);if($_GET['rconv'] =='r'){$NetPLBefore =number_format("$tot");}else{$NetPLBefore =round($tot,2);} }
+                                if($FinanceAnnual[$i][CashflowFromOperation]==0){$CashflowFromOperation ='0';}else{$tot=($FinanceAnnual[$i][CashflowFromOperation]/$convalue);if($_GET['rconv'] =='r'){$CashflowFromOperation =number_format("$tot");}else{$CashflowFromOperation =round($tot,2);} } 
+                                if($FinanceAnnual[$i][NetcashUsedInvestment]==0){$NetcashUsedInvestment ='0';}else{$tot=($FinanceAnnual[$i][NetcashUsedInvestment]/$convalue);if($_GET['rconv'] =='r'){$NetcashUsedInvestment =number_format("$tot");}else{$NetcashUsedInvestment =round($tot,2);} }
+                                if($FinanceAnnual[$i][NetcashFromFinance]==0){$NetcashFromFinance ='0';}else{$tot=($FinanceAnnual[$i][NetcashFromFinance]/$convalue);if($_GET['rconv'] =='r'){$NetcashFromFinance =number_format("$tot");}else{$NetcashFromFinance =round($tot,2);} }
+                                if($FinanceAnnual[$i][NetIncDecCash]==0){$NetIncDecCash ='0';}else{$tot=($FinanceAnnual[$i][NetIncDecCash]/$convalue);if($_GET['rconv'] =='r'){$NetIncDecCash =number_format("$tot");}else{$NetIncDecCash =round($tot,2);} }
+                                if($FinanceAnnual[$i][EquivalentEndYear]==0){$EquivalentEndYear ='0';}else{$tot=($FinanceAnnual[$i][EquivalentEndYear]/$convalue);if($_GET['rconv'] =='r'){$EquivalentEndYear =number_format("$tot");}else{$EquivalentEndYear =round($tot,2);} }
                                  
                                     
                                }
