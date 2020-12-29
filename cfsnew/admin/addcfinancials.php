@@ -1062,7 +1062,7 @@ $Balancewhere1 = " a.CId_FK = ".$_REQUEST['answer']['New_BSCompanyId']." && a.Re
 $BalanceEXitsChk1 = $balancesheet_new->getFullList(1,10,$BalanceFields1,$Balancewhere1,"FY DESC","name");
 
 $k=0;
-print_r($Test);
+
 	for ($k = 0; $k <= $YearCount-2; $k++) {
                 
 		if($Test[$k][1] != "<br>" && $Test[$k][1] != ''){	
@@ -1084,136 +1084,136 @@ print_r($Test);
 					
 					
 					if($Test[$k][2] != "NULL"){					
-						$Insert_BalanceSheet['ShareCapital']            = $Test[$k][2];
+						$Insert_BalanceSheet['ShareCapital']            =str_replace(",","",$Test[$k][2]); 
 					}
 					if($Test[$k][3] != "NULL"){
-						$Insert_BalanceSheet['ReservesSurplus']         = $Test[$k][3];
+						$Insert_BalanceSheet['ReservesSurplus']         = str_replace(",","",$Test[$k][3]); 
 					}
 					if($Test[$k][4] != "NULL"){
-						$Insert_BalanceSheet['TotalFunds']              = $Test[$k][4];
+						$Insert_BalanceSheet['TotalFunds']              = str_replace(",","",$Test[$k][4]); 
 					}	
 					if($Test[$k][5] != "NULL"){
-						$Insert_BalanceSheet['ShareApplication']        = $Test[$k][5];
+						$Insert_BalanceSheet['ShareApplication']        = str_replace(",","",$Test[$k][5]);
 					}
 					//Lines added for minority_interest field to db
                      if($_REQUEST['balanceResultType']==1){
 						if($Test[$k][6] != "NULL"){
-						$Insert_BalanceSheet['minority_interest']        = $Test[$k][6];
+						$Insert_BalanceSheet['minority_interest']        = str_replace(",","",$Test[$k][6]);
 						}
 					}                
                                         
                                         
 					if($Test[$k][7] != "NULL"){
-						$Insert_BalanceSheet['N_current_liabilities']       = $Test[$k][7];
+						$Insert_BalanceSheet['N_current_liabilities']       = str_replace(",","",$Test[$k][7]);
 					}
 					if($Test[$k][8] != "NULL"){
-						$Insert_BalanceSheet['L_term_borrowings']           = $Test[$k][8];
+						$Insert_BalanceSheet['L_term_borrowings']           = str_replace(",","",$Test[$k][8]);
 					}                                        
                                         if($Test[$k][9] != "NULL"){
-						$Insert_BalanceSheet['deferred_tax_liabilities']    = $Test[$k][9];
+						$Insert_BalanceSheet['deferred_tax_liabilities']    = str_replace(",","",$Test[$k][9]);
 					}
 					if($Test[$k][10] != "NULL"){
-						$Insert_BalanceSheet['O_long_term_liabilities']     = $Test[$k][10];
+						$Insert_BalanceSheet['O_long_term_liabilities']     = str_replace(",","",$Test[$k][10]);
 					} 
 					if($Test[$k][11] != "NULL"){
-						$Insert_BalanceSheet['L_term_provisions']       = $Test[$k][11];
+						$Insert_BalanceSheet['L_term_provisions']       = str_replace(",","",$Test[$k][11]);
 					}
 					if($Test[$k][12] != "NULL"){
-						$Insert_BalanceSheet['T_non_current_liabilities']   = $Test[$k][12];
+						$Insert_BalanceSheet['T_non_current_liabilities']   = str_replace(",","",$Test[$k][12]);
 					}
                                         
                                         
                                         
 					if($Test[$k][14] != "NULL"){
-						$Insert_BalanceSheet['Current_liabilities']     = $Test[$k][14];
+						$Insert_BalanceSheet['Current_liabilities']     = str_replace(",","",$Test[$k][14]);
 					}
 					if($Test[$k][15] != "NULL"){
-						$Insert_BalanceSheet['S_term_borrowings']       = $Test[$k][15];
+						$Insert_BalanceSheet['S_term_borrowings']       = str_replace(",","",$Test[$k][15]);
 					}
 					if($Test[$k][16] != "NULL"){
-						$Insert_BalanceSheet['Trade_payables']          = $Test[$k][16];
+						$Insert_BalanceSheet['Trade_payables']          = str_replace(",","",$Test[$k][16]);
 					}
 					if($Test[$k][17] != "NULL"){
-						$Insert_BalanceSheet['O_current_liabilities']   = $Test[$k][17];
+						$Insert_BalanceSheet['O_current_liabilities']   = str_replace(",","",$Test[$k][17]);
 					}
 					if($Test[$k][18] != "NULL"){
-						$Insert_BalanceSheet['S_term_provisions']       = $Test[$k][18];
+						$Insert_BalanceSheet['S_term_provisions']       = str_replace(",","",$Test[$k][18]);
 					}
 					if($Test[$k][19] != "NULL"){
-						$Insert_BalanceSheet['T_current_liabilities']   = $Test[$k][19];
+						$Insert_BalanceSheet['T_current_liabilities']   = str_replace(",","",$Test[$k][19]);
 					}
 					if($Test[$k][20] != "NULL"){
-						$Insert_BalanceSheet['T_equity_liabilities']    = $Test[$k][20];
+						$Insert_BalanceSheet['T_equity_liabilities']    = str_replace(",","",$Test[$k][20]);
 					}
                                         
                                         
                                         
                                         
 					if($Test[$k][22] != "NULL"){
-						$Insert_BalanceSheet['Assets']                  = $Test[$k][22];
+						$Insert_BalanceSheet['Assets']                  = str_replace(",","",$Test[$k][22]);
 					}
                                         
                                         
 					if($Test[$k][24] != "NULL"){
-						$Insert_BalanceSheet['N_current_assets']        = $Test[$k][24];
+						$Insert_BalanceSheet['N_current_assets']        = str_replace(",","",$Test[$k][24]);
 					}
                                         
                                         
 					if($Test[$k][26] != "NULL"){
-						$Insert_BalanceSheet['Fixed_assets']            = $Test[$k][26];
+						$Insert_BalanceSheet['Fixed_assets']            = str_replace(",","",$Test[$k][26]);
 					}
 					if($Test[$k][27] != "NULL"){
-						$Insert_BalanceSheet['Tangible_assets']         = $Test[$k][27];
+						$Insert_BalanceSheet['Tangible_assets']         = str_replace(",","",$Test[$k][27]);
 					}
 					if($Test[$k][28] != "NULL"){
-						$Insert_BalanceSheet['Intangible_assets']       = $Test[$k][28];
+						$Insert_BalanceSheet['Intangible_assets']       =str_replace(",","",$Test[$k][28]);
 					}
 					if($Test[$k][29] != "NULL"){
-						$Insert_BalanceSheet['T_fixed_assets']          = $Test[$k][29];
+						$Insert_BalanceSheet['T_fixed_assets']          = str_replace(",","",$Test[$k][29]);
 					}
 					if($Test[$k][30] != "NULL"){
-						$Insert_BalanceSheet['N_current_investments']   = $Test[$k][30];
+						$Insert_BalanceSheet['N_current_investments']   = str_replace(",","",$Test[$k][30]);
 					}
 					if($Test[$k][31] != "NULL"){
-						$Insert_BalanceSheet['Deferred_tax_assets']     = $Test[$k][31];
+						$Insert_BalanceSheet['Deferred_tax_assets']     = str_replace(",","",$Test[$k][31]);
 					}
 					if($Test[$k][32] != "NULL"){
-						$Insert_BalanceSheet['L_term_loans_advances']   = $Test[$k][32];
+						$Insert_BalanceSheet['L_term_loans_advances']   =str_replace(",","",$Test[$k][32]);
 					}
 					if($Test[$k][33] != "NULL"){
-						$Insert_BalanceSheet['O_non_current_assets']    = $Test[$k][33];
+						$Insert_BalanceSheet['O_non_current_assets']    = str_replace(",","",$Test[$k][33]);
 					}
 					if($Test[$k][34] != "NULL"){
-						$Insert_BalanceSheet['T_non_current_assets']    = $Test[$k][34];
+						$Insert_BalanceSheet['T_non_current_assets']    = str_replace(",","",$Test[$k][34]);
 					}
                                         
                                         
 					if($Test[$k][36] != "NULL"){
-						$Insert_BalanceSheet['Current_assets']          = $Test[$k][36];
+						$Insert_BalanceSheet['Current_assets']          = str_replace(",","",$Test[$k][36]);
 					}
 					if($Test[$k][37] != "NULL"){
-						$Insert_BalanceSheet['Current_investments']     = $Test[$k][37];
+						$Insert_BalanceSheet['Current_investments']     = str_replace(",","",$Test[$k][37]);
 					}
 					if($Test[$k][38] != "NULL"){
-						$Insert_BalanceSheet['Inventories']             = $Test[$k][38];
+						$Insert_BalanceSheet['Inventories']             = str_replace(",","",$Test[$k][38]);
 					}
 					if($Test[$k][39] != "NULL"){
-						$Insert_BalanceSheet['Trade_receivables']       = $Test[$k][39];
+						$Insert_BalanceSheet['Trade_receivables']       = str_replace(",","",$Test[$k][39]);
 					}
 					if($Test[$k][40] != "NULL"){
-						$Insert_BalanceSheet['Cash_bank_balances']      = $Test[$k][40];
+						$Insert_BalanceSheet['Cash_bank_balances']      = str_replace(",","",$Test[$k][40]);
 					}
                                         if($Test[$k][41] != "NULL"){
-						$Insert_BalanceSheet['S_term_loans_advances']   = $Test[$k][41];
+						$Insert_BalanceSheet['S_term_loans_advances']   = str_replace(",","",$Test[$k][41]);
 					}
                                         if($Test[$k][42] != "NULL"){
-						$Insert_BalanceSheet['O_current_assets']        = $Test[$k][42];
+						$Insert_BalanceSheet['O_current_assets']        = str_replace(",","",$Test[$k][42]);
 					}
                                         if($Test[$k][43] != "NULL"){
-						$Insert_BalanceSheet['T_current_assets']        = $Test[$k][43];
+						$Insert_BalanceSheet['T_current_assets']        = str_replace(",","",$Test[$k][43]);
 					}
                                         if($Test[$k][44] != "NULL"){
-						$Insert_BalanceSheet['Total_assets']            = $Test[$k][44];
+						$Insert_BalanceSheet['Total_assets']            = str_replace(",","",$Test[$k][44]);
 					}
 					
 					//$Insert_BalanceSheet['FY']                     = trim(ereg_replace("[^0-9mM()]", " ", $Test[$k][1]));
