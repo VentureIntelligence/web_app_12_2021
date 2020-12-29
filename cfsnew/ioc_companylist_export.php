@@ -62,6 +62,7 @@
      $chargetodate=$_POST['chargetodate'];
      $city=$_POST['city'];
      $state=$_POST['state'];
+     $cityflag=$_POST['cityflag'];
      if($filtered_chargesholdername !=''){
         if($chargewhere != ''){
             $chargewhere .='    and a1.`Charge Holder` IN  ('.$filtered_chargesholdername.')';
@@ -122,6 +123,7 @@
         $template->assign("chargeaddress" , $chargeaddress);
        
 }
+
 if(isset($city) && $city!=''){
     $city=str_replace(",","','",$city);
     if($chargewhere != ''){
@@ -135,8 +137,10 @@ if(isset($city) && $city!=''){
 }
 if(isset($state) && $state!=''){
     $state=str_replace(",","','",$state);
-    if($chargewhere != ''){
+    if($chargewhere != '' && $cityflag==0 ){
         $chargewhere .="    and a1.`state` IN( '".$state."')";
+    }elseif($chargewhere != '' && $cityflag==1){
+        $chargewhere .="    or a1.`State` IN( '".$state."')";
     }else{
         $chargewhere .="    a1.`state` IN( '".$state."')";
     }

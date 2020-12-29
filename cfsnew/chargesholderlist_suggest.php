@@ -134,7 +134,7 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
                 $template->assign("chargeaddress" , $_REQUEST['chargeaddress']);
                
         }
-        
+        $cityflag=0;
         if(isset($_REQUEST['answer']['City']) && $_REQUEST['answer']['City']!='' || $_GET['cityid']!=''){
             if($_GET['cityid']!=''){
                 //$cityid=$_GET['cityid'];
@@ -163,8 +163,10 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
             
             if($chargewhere != ''){
                 $chargewhere .="    and a1.`city` IN(' ".$cityid."')";
+                $cityflag=1;
             }else{
                 $chargewhere .="    a1.`city` IN( '".$cityid."')";
+                $cityflag=1;
             }
             if($_GET['cityid']!=''){
                 // $cityids=explode(",",$_GET['cityid']);
@@ -210,8 +212,11 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
            
             $statename=trim($statenameval,",");
             
-            if($chargewhere != ''){
+            if($chargewhere != '' && $cityflag==0){
                 $chargewhere .="    and a1.`State` IN( '".$stateid."')";
+                
+            }elseif($chargewhere != '' && $cityflag==1){
+                $chargewhere .="    or a1.`State` IN( '".$stateid."')";
             }else{
                 $chargewhere .="    a1.`State` IN( '".$stateid."')";
             }
@@ -453,6 +458,7 @@ $ioc_filter_status = $_GET['ioc_filter'];
     $template->assign('pageDescription',"CFS - Company Search Or Charges Holder");
     $template->assign('pageKeyWords',"CFS - Company Search Or Charges Holder");
     $template->assign('userEmail',$_SESSION['UserEmail']);
+    $template->assign("cityflag" , $cityflag);
     $template->display('chargesholderlist_suggest.tpl');
 ?>
 <?php
