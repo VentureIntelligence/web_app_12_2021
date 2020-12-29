@@ -458,6 +458,7 @@ $ioc_filter_status = $_GET['ioc_filter'];
     $template->assign('pageDescription',"CFS - Company Search Or Charges Holder");
     $template->assign('pageKeyWords',"CFS - Company Search Or Charges Holder");
     $template->assign('userEmail',$_SESSION['UserEmail']);
+    $template->assign("cityflag" , $cityflag);
     $template->display('chargesholderlist_suggest.tpl');
 ?>
 <?php
