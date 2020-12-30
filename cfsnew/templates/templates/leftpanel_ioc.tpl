@@ -25,6 +25,14 @@ $("#panel").css("height",bodyheight);
     .container-left li{
         border-bottom : 1px solid transparent !important;
     }
+.token-input-list-facebook{
+    padding: 2px 1px;
+}
+li.token-input-token-facebook {
+    margin: 2px 3px 2px 3px;
+    padding: 3px;
+}
+
     button.ui-multiselect.ui-widget.ui-state-default.ui-corner-all {
     margin-bottom: auto;
     width: 245px !important;

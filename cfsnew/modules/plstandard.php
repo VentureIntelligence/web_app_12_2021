@@ -1119,8 +1119,8 @@ class plstandard extends database {
 	}
 
 	function getchargesholderList($field){	
-	$sql = "SELECT a1.companyName as company_name, a1.CIN as cin, a1.`Charge Holder` as chargeholder, a1.SRN, a1.`Charge ID` as chargeid, a1.Created_Date, a1.Modified_Date, a1.Address, a1.`Charge amount secured` as amount, a1.`Date_Of_Satisfaction` as dateofcharge FROM index_of_charges as a1 where
-		a1.CIN ='".$field."' group by chargeid";
+	$sql = "SELECT a1.companyName as company_name, a1.CIN as cin, a1.`Charge Holder` as chargeholder, a1.SRN, a1.`Charge ID` as chargeid, a1.Created_Date, a1.Modified_Date, a1.Address, a1.`Charge amount secured` as amount, a1.`Date_Of_Satisfaction` as dateofcharge, a1.`City` as city, a1.`State` as state FROM index_of_charges as a1 where
+		a1.CIN IN('".$field."') group by chargeid";
 	
 			$this->setFetchMode('ASSOC');
 			$this->execute($sql);
