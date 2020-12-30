@@ -203,16 +203,16 @@ $k=0;
 					
 					   $Insert_PLStandard['IndustryId_FK']          = $IndustryId;
 					if($Test[$k][2] != "NULL"){					
-						$Insert_PLStandard['OptnlIncome']            = $Test[$k][2];
+						$Insert_PLStandard['OptnlIncome']            = str_replace(",","",$Test[$k][2]);
 					}
 					$update_PLStandard['OptnlIncome'] = NULL;   
 					//pr($Test[$k][2]);
 					if($Test[$k][3] != "NULL"){
-						$Insert_PLStandard['OtherIncome']    		 = $Test[$k][3];
+						$Insert_PLStandard['OtherIncome']    		 = str_replace(",","",$Test[$k][3]);
 					}
                                         $update_PLStandard['OtherIncome'] =  NULL;
 					if($Test[$k][4] != "NULL"){
-						$Insert_PLStandard['TotalIncome']    		 = $Test[$k][4];
+						$Insert_PLStandard['TotalIncome']    		 = str_replace(",","",$Test[$k][4]);
 					}	
                                         $update_PLStandard['TotalIncome'] =  NULL;	
 						//if($Test[$k][4]=='-'){
@@ -222,48 +222,48 @@ $k=0;
 					//}
 				//pr($Test[$k][4]);
 					if($Test[$k][5] != "NULL"){
-						$Insert_PLStandard['OptnlAdminandOthrExp']   = $Test[$k][5];
+						$Insert_PLStandard['OptnlAdminandOthrExp']   = str_replace(",","",$Test[$k][5]);
 					}
                                         $update_PLStandard['OptnlAdminandOthrExp'] =  NULL;
 				//pr($Test[$k][5]);
 					if($Test[$k][6] != "NULL"){
-						$Insert_PLStandard['OptnlProfit']            = $Test[$k][6];
+						$Insert_PLStandard['OptnlProfit']            = str_replace(",","",$Test[$k][6]);
 					}
                                         $update_PLStandard['OptnlProfit'] =  NULL;
 					if($Test[$k][7] != "NULL"){
-						$Insert_PLStandard['EBITDA']                 = $Test[$k][7];
+						$Insert_PLStandard['EBITDA']                 = str_replace(",","",$Test[$k][7]);
 					}
                                         $update_PLStandard['EBITDA'] =  NULL;
 					if($Test[$k][8] != "NULL"){
-						$Insert_PLStandard['Interest']               = $Test[$k][8];
+						$Insert_PLStandard['Interest']               = str_replace(",","",$Test[$k][8]);
 					}
                                         $update_PLStandard['Interest'] =  NULL;
 					if($Test[$k][9] != "NULL"){
-						$Insert_PLStandard['EBDT']                   = $Test[$k][9];
+						$Insert_PLStandard['EBDT']                   = str_replace(",","",$Test[$k][9]);
 					}
                                         $update_PLStandard['EBDT'] =  NULL;
 					if($Test[$k][10] != "NULL"){
-						$Insert_PLStandard['Depreciation']           = $Test[$k][10];
+						$Insert_PLStandard['Depreciation']           = str_replace(",","",$Test[$k][10]);
 					}
                                         $update_PLStandard['Depreciation'] =  NULL;
 					if($Test[$k][11] != "NULL"){
-						$Insert_PLStandard['EBT_before_Priod_period']                    = $Test[$k][11];
+						$Insert_PLStandard['EBT_before_Priod_period']                    = str_replace(",","",$Test[$k][11]);
 					}
                                         $update_PLStandard['EBT_before_Priod_period'] =  NULL;
 					if($Test[$k][12] != "NULL"){
-						$Insert_PLStandard['Priod_period']                    = $Test[$k][12];
+						$Insert_PLStandard['Priod_period']                    = str_replace(",","",$Test[$k][12]);
 					}
                                         $update_PLStandard['Priod_period'] =  NULL;
 					if($Test[$k][13] != "NULL"){
-						$Insert_PLStandard['EBT']                    = $Test[$k][13];
+						$Insert_PLStandard['EBT']                    = str_replace(",","",$Test[$k][13]);
 					}
                                         $update_PLStandard['EBT'] =  NULL;
 					if($Test[$k][14] != "NULL"){
-						$Insert_PLStandard['Tax']                    = $Test[$k][14];
+						$Insert_PLStandard['Tax']                    = str_replace(",","",$Test[$k][14]);
 					}
                                         $update_PLStandard['Tax'] =  NULL;
 					if($Test[$k][15] != "NULL"){
-						$Insert_PLStandard['PAT']                    = $Test[$k][15];
+						$Insert_PLStandard['PAT']                    = str_replace(",","",$Test[$k][15]);
 					}
                     $update_PLStandard['PAT'] =  NULL;
 
@@ -271,61 +271,61 @@ $k=0;
                     if($_REQUEST['ResultType'] == 0){
 
                     	if($Test[$k][17] != "NULL"){
-							$Insert_PLStandard['BINR'] = $Test[$k][17];
+							$Insert_PLStandard['BINR'] = str_replace(",","",$Test[$k][17]);
 						}
 	                    $update_PLStandard['BINR'] =  NULL;
 						if($Test[$k][18] != "NULL"){
-							$Insert_PLStandard['DINR'] = $Test[$k][18];
+							$Insert_PLStandard['DINR'] = str_replace(",","",$Test[$k][18]);
 						}
 	                    $update_PLStandard['DINR'] =  NULL;
 	                    if($Test[$k][20] != "NULL"){
-							$Insert_PLStandard['EmployeeRelatedExpenses']  = $Test[$k][20];
+							$Insert_PLStandard['EmployeeRelatedExpenses']  = str_replace(",","",$Test[$k][20]);
 						}	
 	                    $update_PLStandard['EmployeeRelatedExpenses'] =  NULL;
 						if($Test[$k][21] != "NULL"){
-							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = $Test[$k][21];
+							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = str_replace(",","",$Test[$k][21]);
 						}
 	                    $update_PLStandard['ForeignExchangeEarningandOutgo'] =  NULL;
 						if($Test[$k][22] != "NULL"){
-							$Insert_PLStandard['EarninginForeignExchange'] = $Test[$k][22];
+							$Insert_PLStandard['EarninginForeignExchange'] = str_replace(",","",$Test[$k][22]);
 						}
 	                    $update_PLStandard['EarninginForeignExchange'] =  NULL;
 						if($Test[$k][23] != "NULL"){
-							$Insert_PLStandard['OutgoinForeignExchange'] = $Test[$k][23];
+							$Insert_PLStandard['OutgoinForeignExchange'] = str_replace(",","",$Test[$k][23]);
 						}
 	                    $update_PLStandard['OutgoinForeignExchange'] =  NULL;
 
                     } else if($_REQUEST['ResultType'] == 1){
                     	if($Test[$k][16] != "NULL"){
-							$Insert_PLStandard['profit_loss_of_minority_interest'] = strip_tags($Test[$k][16]);
+							$Insert_PLStandard['profit_loss_of_minority_interest'] = strip_tags(str_replace(",","",$Test[$k][16]));
 						}
 	                    $update_PLStandard['profit_loss_of_minority_interest'] =  NULL;
 	                    if($Test[$k][17] != "NULL"){
-							$Insert_PLStandard['total_profit_loss_for_period'] = strip_tags($Test[$k][17]);
+							$Insert_PLStandard['total_profit_loss_for_period'] = strip_tags(str_replace(",","",$Test[$k][17]));
 						}
 	                    $update_PLStandard['total_profit_loss_for_period'] =  NULL;
 	                    if($Test[$k][19] != "NULL"){
-							$Insert_PLStandard['BINR'] = $Test[$k][19];
+							$Insert_PLStandard['BINR'] = str_replace(",","",$Test[$k][19]);
 						}
 	                    $update_PLStandard['BINR'] =  NULL;
 	                    if($Test[$k][20] != "NULL"){
-							$Insert_PLStandard['DINR'] = $Test[$k][20];
+							$Insert_PLStandard['DINR'] = str_replace(",","",$Test[$k][20]);
 						}
 	                    $update_PLStandard['DINR'] =  NULL;
 	                    if($Test[$k][22] != "NULL"){
-							$Insert_PLStandard['EmployeeRelatedExpenses'] = $Test[$k][22];
+							$Insert_PLStandard['EmployeeRelatedExpenses'] = str_replace(",","",$Test[$k][22]);
 						}
 	                    $update_PLStandard['EmployeeRelatedExpenses'] =  NULL;
 	                    if($Test[$k][23] != "NULL"){
-							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = $Test[$k][23];
+							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = str_replace(",","",$Test[$k][23]);
 						}
 	                    $update_PLStandard['ForeignExchangeEarningandOutgo'] =  NULL;
 	                    if($Test[$k][24] != "NULL"){
-							$Insert_PLStandard['EarninginForeignExchange'] = $Test[$k][24];
+							$Insert_PLStandard['EarninginForeignExchange'] = str_replace(",","",$Test[$k][24]);
 						}
 	                    $update_PLStandard['EarninginForeignExchange'] =  NULL;
 	                    if($Test[$k][25] != "NULL"){
-							$Insert_PLStandard['OutgoinForeignExchange'] = $Test[$k][25];
+							$Insert_PLStandard['OutgoinForeignExchange'] = str_replace(",","",$Test[$k][25]);
 						}
 	                    $update_PLStandard['OutgoinForeignExchange'] =  NULL;
                     	
@@ -353,151 +353,151 @@ $k=0;
 					
 					   $Insert_PLStandard['IndustryId_FK']          = $IndustryId;
 					if($Test[$k][2] != "NULL"){					
-						$Insert_PLStandard['OptnlIncome']            = $Test[$k][2];
+						$Insert_PLStandard['OptnlIncome']            = str_replace(",","",$Test[$k][2]);
 					}
 					$update_PLStandard['OptnlIncome'] = NULL;   
 					//pr($Test[$k][2]);
 					if($Test[$k][3] != "NULL"){
-						$Insert_PLStandard['OtherIncome']    		 = $Test[$k][3];
+						$Insert_PLStandard['OtherIncome']    		 = str_replace(",","",$Test[$k][3]);
 					}
                                         $update_PLStandard['OtherIncome'] =  NULL;
 					if($Test[$k][4] != "NULL"){
-						$Insert_PLStandard['TotalIncome']    		 = $Test[$k][4];
+						$Insert_PLStandard['TotalIncome']    		 = str_replace(",","",$Test[$k][4]);
 					}	
                                         $update_PLStandard['TotalIncome'] =  NULL;	
 					
 					if($Test[$k][5] != "NULL"){
-						$Insert_PLStandard['CostOfMaterialsConsumed'] = $Test[$k][5];
+						$Insert_PLStandard['CostOfMaterialsConsumed'] = str_replace(",","",$Test[$k][5]);
 					}
 					$update_PLStandard['CostOfMaterialsConsumed'] =  NULL;
 					if($Test[$k][6] != "NULL"){
-						$Insert_PLStandard['PurchasesOfStockInTrade'] = $Test[$k][6];
+						$Insert_PLStandard['PurchasesOfStockInTrade'] = str_replace(",","",$Test[$k][6]);
 					}
 					$update_PLStandard['PurchasesOfStockInTrade'] =  NULL;
 					if($Test[$k][7] != "NULL"){
-						$Insert_PLStandard['ChangesInInventories'] = $Test[$k][7];
+						$Insert_PLStandard['ChangesInInventories'] = str_replace(",","",$Test[$k][7]);
 					}
 					$update_PLStandard['ChangesInInventories'] =  NULL;
 					if($Test[$k][9] != "NULL"){
-						$Insert_PLStandard['CSRExpenditure'] = $Test[$k][9];
+						$Insert_PLStandard['CSRExpenditure'] = str_replace(",","",$Test[$k][9]);
 					}
 					$update_PLStandard['CSRExpenditure'] =  NULL;
 					if($Test[$k][10] != "NULL"){
-						$Insert_PLStandard['OtherExpenses'] = $Test[$k][10];
+						$Insert_PLStandard['OtherExpenses'] = str_replace(",","",$Test[$k][10]);
 					}
 		            $update_PLStandard['OtherExpenses'] =  NULL;
 
 					if($Test[$k][11] != "NULL"){
-						$Insert_PLStandard['OptnlAdminandOthrExp'] = $Test[$k][11];
+						$Insert_PLStandard['OptnlAdminandOthrExp'] = str_replace(",","",$Test[$k][11]);
 					}
 		            $update_PLStandard['OptnlAdminandOthrExp'] =  NULL;
 					if($Test[$k][12] != "NULL"){
-						$Insert_PLStandard['OptnlProfit'] = $Test[$k][12];
+						$Insert_PLStandard['OptnlProfit'] = str_replace(",","",$Test[$k][12]);
 					}
 					$update_PLStandard['OptnlProfit'] =  NULL;
 					if($Test[$k][13] != "NULL"){
-						$Insert_PLStandard['EBITDA'] = $Test[$k][13];
+						$Insert_PLStandard['EBITDA'] = str_replace(",","",$Test[$k][13]);
 					}
 					$update_PLStandard['EBITDA'] =  NULL;
 					if($Test[$k][14] != "NULL"){
-						$Insert_PLStandard['Interest'] = $Test[$k][14];
+						$Insert_PLStandard['Interest'] = str_replace(",","",$Test[$k][14]);
 					}
 					$update_PLStandard['Interest'] =  NULL;
 					if($Test[$k][15] != "NULL"){
-						$Insert_PLStandard['EBDT'] = $Test[$k][15];
+						$Insert_PLStandard['EBDT'] = str_replace(",","",$Test[$k][15]);
 					}
 					$update_PLStandard['EBDT'] =  NULL;
 					if($Test[$k][16] != "NULL"){
-						$Insert_PLStandard['Depreciation'] = $Test[$k][16];
+						$Insert_PLStandard['Depreciation'] = str_replace(",","",$Test[$k][16]);
 					}
 					$update_PLStandard['Depreciation'] =  NULL;
 					if($Test[$k][17] != "NULL"){
-						$Insert_PLStandard['EBT_before_Priod_period'] = $Test[$k][17];
+						$Insert_PLStandard['EBT_before_Priod_period'] = str_replace(",","",$Test[$k][17]);
 					}
 					$update_PLStandard['EBT_before_Priod_period'] =  NULL;
 					if($Test[$k][18] != "NULL"){
-						$Insert_PLStandard['Priod_period'] = $Test[$k][18];
+						$Insert_PLStandard['Priod_period'] = str_replace(",","",$Test[$k][18]);
 					}
 					$update_PLStandard['Priod_period'] =  NULL;
 					if($Test[$k][19] != "NULL"){
-						$Insert_PLStandard['EBT'] = $Test[$k][19];
+						$Insert_PLStandard['EBT'] = str_replace(",","",$Test[$k][19]);
 					}
 					$update_PLStandard['EBT'] =  NULL;
 
 					if($Test[$k][20] != "NULL"){
-						$Insert_PLStandard['CurrentTax'] = $Test[$k][20];
+						$Insert_PLStandard['CurrentTax'] = str_replace(",","",$Test[$k][20]);
 					}
 					$update_PLStandard['CurrentTax'] =  NULL;
 					if($Test[$k][21] != "NULL"){
-						$Insert_PLStandard['DeferredTax'] = $Test[$k][21];
+						$Insert_PLStandard['DeferredTax'] = str_replace(",","",$Test[$k][21]);
 					}
 					$update_PLStandard['DeferredTax'] =  NULL;
 
 					if($Test[$k][22] != "NULL"){
-						$Insert_PLStandard['Tax'] = $Test[$k][22];
+						$Insert_PLStandard['Tax'] = str_replace(",","",$Test[$k][22]);
 					}
 					$update_PLStandard['Tax'] =  NULL;
 					if($Test[$k][23] != "NULL"){
-						$Insert_PLStandard['PAT'] = $Test[$k][23];
+						$Insert_PLStandard['PAT'] = str_replace(",","",$Test[$k][23]);
 					}
 					$update_PLStandard['PAT'] =  NULL;
 					
 					if( $_REQUEST['ResultType'] == 0 ) {
 						if($Test[$k][25] != "NULL"){
-							$Insert_PLStandard['BINR'] = $Test[$k][25];
+							$Insert_PLStandard['BINR'] = str_replace(",","",$Test[$k][25]);
 						}
 						$update_PLStandard['BINR'] =  NULL;
 						if($Test[$k][26] != "NULL"){
-							$Insert_PLStandard['DINR'] = $Test[$k][26];
+							$Insert_PLStandard['DINR'] = str_replace(",","",$Test[$k][26]);
 						}
 		                $update_PLStandard['DINR'] =  NULL;
 		                if($Test[$k][8] != "NULL"){
-							$Insert_PLStandard['EmployeeRelatedExpenses'] = $Test[$k][8];
+							$Insert_PLStandard['EmployeeRelatedExpenses'] = str_replace(",","",$Test[$k][8]);
 						}
 						$update_PLStandard['EmployeeRelatedExpenses'] =  NULL;
 						if($Test[$k][28] != "NULL"){
-							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = $Test[$k][28];
+							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = str_replace(",","",$Test[$k][28]);
 						}
 						$update_PLStandard['ForeignExchangeEarningandOutgo'] =  NULL;
 						if($Test[$k][29] != "NULL"){
-							$Insert_PLStandard['EarninginForeignExchange'] = $Test[$k][29];
+							$Insert_PLStandard['EarninginForeignExchange'] = str_replace(",","",$Test[$k][29]);
 						}
 						$update_PLStandard['EarninginForeignExchange'] =  NULL;
 						if($Test[$k][30] != "NULL") {
-							$Insert_PLStandard['OutgoinForeignExchange'] = $Test[$k][30];
+							$Insert_PLStandard['OutgoinForeignExchange'] = str_replace(",","",$Test[$k][30]);
 						}
 		                $update_PLStandard['OutgoinForeignExchange'] =  NULL;
 					} else if($_REQUEST['ResultType'] == 1){
 						if($Test[$k][24] != "NULL"){
-							$Insert_PLStandard['profit_loss_of_minority_interest'] = strip_tags( $Test[$k][24] );
+							$Insert_PLStandard['profit_loss_of_minority_interest'] = strip_tags( str_replace(",","",$Test[$k][24]) );
 						}
 						$update_PLStandard['profit_loss_of_minority_interest'] =  NULL;
 						if($Test[$k][25] != "NULL"){
-							$Insert_PLStandard['total_profit_loss_for_period'] = strip_tags( $Test[$k][25] );
+							$Insert_PLStandard['total_profit_loss_for_period'] = strip_tags( str_replace(",","",$Test[$k][25]) );
 						}
 						$update_PLStandard['total_profit_loss_for_period'] =  NULL;
 						if($Test[$k][27] != "NULL"){
-							$Insert_PLStandard['BINR'] = $Test[$k][27];
+							$Insert_PLStandard['BINR'] = str_replace(",","",$Test[$k][27]);
 						}
 						$update_PLStandard['BINR'] =  NULL;
 						if($Test[$k][28] != "NULL"){
-							$Insert_PLStandard['DINR'] = $Test[$k][28];
+							$Insert_PLStandard['DINR'] = str_replace(",","",$Test[$k][28]);
 						}
 		                $update_PLStandard['DINR'] =  NULL;
 		                if($Test[$k][8] != "NULL"){
-							$Insert_PLStandard['EmployeeRelatedExpenses'] = $Test[$k][8];
+							$Insert_PLStandard['EmployeeRelatedExpenses'] = str_replace(",","",$Test[$k][8]);
 						}
 						$update_PLStandard['EmployeeRelatedExpenses'] =  NULL;
 						if($Test[$k][30] != "NULL"){
-							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = $Test[$k][30];
+							$Insert_PLStandard['ForeignExchangeEarningandOutgo'] = str_replace(",","",$Test[$k][30]);
 						}
 						$update_PLStandard['ForeignExchangeEarningandOutgo'] =  NULL;
 						if($Test[$k][31] != "NULL"){
-							$Insert_PLStandard['EarninginForeignExchange'] = $Test[$k][31];
+							$Insert_PLStandard['EarninginForeignExchange'] = str_replace(",","",$Test[$k][31]);
 						}
 						$update_PLStandard['EarninginForeignExchange'] =  NULL;
 						if($Test[$k][32] != "NULL") {
-							$Insert_PLStandard['OutgoinForeignExchange'] = $Test[$k][32];
+							$Insert_PLStandard['OutgoinForeignExchange'] = str_replace(",","",$Test[$k][32]);
 						}
 		                $update_PLStandard['OutgoinForeignExchange'] =  NULL;
                     	
@@ -852,100 +852,100 @@ $k=0;
 					   $Insert_BalanceSheet['IndustryId_FK']          = $IndustryId;
 					
 					if($Test[$k][4] != "NULL"){					
-						$Insert_BalanceSheet['ShareCapital']            = $Test[$k][4];
+						$Insert_BalanceSheet['ShareCapital']            = str_replace(",","",$Test[$k][4]);
 					}
 					if($Test[$k][5] != "NULL"){
-						$Insert_BalanceSheet['ShareApplication']    		 = $Test[$k][5];
+						$Insert_BalanceSheet['ShareApplication']    		 = str_replace(",","",$Test[$k][5]);
 					}
 					if($Test[$k][6] != "NULL"){
-						$Insert_BalanceSheet['ReservesSurplus']    		 = $Test[$k][6];
+						$Insert_BalanceSheet['ReservesSurplus']    		 = str_replace(",","",$Test[$k][6]);
 					}	
 					if($Test[$k][7] != "NULL"){
-						$Insert_BalanceSheet['TotalFunds']   = $Test[$k][7];
+						$Insert_BalanceSheet['TotalFunds']   = str_replace(",","",$Test[$k][7]);
 					}
 					if($Test[$k][9] != "NULL"){
-						$Insert_BalanceSheet['SecuredLoans']            = $Test[$k][9];
+						$Insert_BalanceSheet['SecuredLoans']            = str_replace(",","",$Test[$k][9]);
 					}
 					if($Test[$k][10] != "NULL"){
-						$Insert_BalanceSheet['UnSecuredLoans']            = $Test[$k][10];
+						$Insert_BalanceSheet['UnSecuredLoans']            = str_replace(",","",$Test[$k][10]);
 					}
 					if($Test[$k][11] != "NULL"){
-						$Insert_BalanceSheet['LoanFunds']                 = $Test[$k][11];
+						$Insert_BalanceSheet['LoanFunds']                 = str_replace(",","",$Test[$k][11]);
 					}
 					if($Test[$k][12] != "NULL"){
-						$Insert_BalanceSheet['OtherLiabilities']               = $Test[$k][12];
+						$Insert_BalanceSheet['OtherLiabilities']               = str_replace(",","",$Test[$k][12]);
 					}
 					if($Test[$k][13] != "NULL"){
-						$Insert_BalanceSheet['DeferredTax']                   = $Test[$k][13];
+						$Insert_BalanceSheet['DeferredTax']                   = str_replace(",","",$Test[$k][13]);
 					}
 					if($Test[$k][14] != "NULL"){
-						$Insert_BalanceSheet['SourcesOfFunds']           = $Test[$k][14];
+						$Insert_BalanceSheet['SourcesOfFunds']           = str_replace(",","",$Test[$k][14]);
 					}
 					if($Test[$k][18] != "NULL"){
-						$Insert_BalanceSheet['GrossBlock']                    = $Test[$k][18];
+						$Insert_BalanceSheet['GrossBlock']                    = str_replace(",","",$Test[$k][18]);
 					}
 					if($Test[$k][19] != "NULL"){
-						$Insert_BalanceSheet['LessAccumulated']                    = $Test[$k][19];
+						$Insert_BalanceSheet['LessAccumulated']                    = str_replace(",","",$Test[$k][19]);
 					}
 					if($Test[$k][20] != "NULL"){
-						$Insert_BalanceSheet['NetBlock']                    = $Test[$k][20];
+						$Insert_BalanceSheet['NetBlock']                    = str_replace(",","",$Test[$k][20]);
 					}
 					if($Test[$k][21] != "NULL"){
-						$Insert_BalanceSheet['CapitalWork']                    = $Test[$k][21];
+						$Insert_BalanceSheet['CapitalWork']                    = str_replace(",","",$Test[$k][21]);
 					}
 					if($Test[$k][22] != "NULL"){
-						$Insert_BalanceSheet['FixedAssets']                   = $Test[$k][22];
+						$Insert_BalanceSheet['FixedAssets']                   =str_replace(",","",$Test[$k][22]);
 					}
 					if($Test[$k][23] != "NULL"){
-						$Insert_BalanceSheet['IntangibleAssets']                   = $Test[$k][23];
+						$Insert_BalanceSheet['IntangibleAssets']                   = str_replace(",","",$Test[$k][23]);
 					}
 					if($Test[$k][24] != "NULL"){
-						$Insert_BalanceSheet['OtherNonCurrent']                   = $Test[$k][24];
+						$Insert_BalanceSheet['OtherNonCurrent']                   = str_replace(",","",$Test[$k][24]);
 					}
 					if($Test[$k][25] != "NULL"){
-						$Insert_BalanceSheet['Investments']            = $Test[$k][25];
+						$Insert_BalanceSheet['Investments']            = str_replace(",","",$Test[$k][25]);
 					}
 					if($Test[$k][26] != "NULL"){
-						$Insert_BalanceSheet['DeferredTaxAssets']                 = $Test[$k][26];
+						$Insert_BalanceSheet['DeferredTaxAssets']                 = str_replace(",","",$Test[$k][26]);
 					}
 					if($Test[$k][28] != "NULL"){
-						$Insert_BalanceSheet['SundryDebtors']               = $Test[$k][28];
+						$Insert_BalanceSheet['SundryDebtors']               = str_replace(",","",$Test[$k][28]);
 					}
 					if($Test[$k][29] != "NULL"){
-						$Insert_BalanceSheet['CashBankBalances']                   = $Test[$k][29];
+						$Insert_BalanceSheet['CashBankBalances']                   = str_replace(",","",$Test[$k][29]);
 					}
 					if($Test[$k][30] != "NULL"){
-						$Insert_BalanceSheet['Inventories']           = $Test[$k][30];
+						$Insert_BalanceSheet['Inventories']           = str_replace(",","",$Test[$k][30]);
 					}
 					if($Test[$k][31] != "NULL"){
-						$Insert_BalanceSheet['LoansAdvances']                    = $Test[$k][31];
+						$Insert_BalanceSheet['LoansAdvances']                    = str_replace(",","",$Test[$k][31]);
 					}
 					if($Test[$k][32] != "NULL"){
-						$Insert_BalanceSheet['OtherCurrentAssets']                    = $Test[$k][32];
+						$Insert_BalanceSheet['OtherCurrentAssets']                    = str_replace(",","",$Test[$k][32]);
 					}
 					if($Test[$k][33] != "NULL"){
-						$Insert_BalanceSheet['CurrentAssets']                    = $Test[$k][33];
+						$Insert_BalanceSheet['CurrentAssets']                    = str_replace(",","",$Test[$k][33]);
 					}
 					if($Test[$k][35] != "NULL"){
-						$Insert_BalanceSheet['CurrentLiabilities']                    = $Test[$k][35];
+						$Insert_BalanceSheet['CurrentLiabilities']                    = str_replace(",","",$Test[$k][35]);
 					}
 					if($Test[$k][36] != "NULL"){
-						$Insert_BalanceSheet['Provisions']                   = $Test[$k][36];
+						$Insert_BalanceSheet['Provisions']                   = str_replace(",","",$Test[$k][36]);
 					}
 					if($Test[$k][37] != "NULL"){
-						$Insert_BalanceSheet['CurrentLiabilitiesProvision']                   = $Test[$k][37];
+						$Insert_BalanceSheet['CurrentLiabilitiesProvision']                   = str_replace(",","",$Test[$k][37]);
 					}
 					if($Test[$k][38] != "NULL"){
-						$Insert_BalanceSheet['NetCurrentAssets']                   = $Test[$k][38];
+						$Insert_BalanceSheet['NetCurrentAssets']                   = str_replace(",","",$Test[$k][38]);
 					}
 					if($Test[$k][39] != "NULL"){
-						$Insert_BalanceSheet['ProfitLoss']                   = $Test[$k][39];
+						$Insert_BalanceSheet['ProfitLoss']                   = str_replace(",","",$Test[$k][39]);
 					}
 					if($Test[$k][40] != "NULL"){
-						$Insert_BalanceSheet['Miscellaneous']                   = $Test[$k][40];
+						$Insert_BalanceSheet['Miscellaneous']                   = str_replace(",","",$Test[$k][40]);
 					}
 					if($Test[$k][41] != "NULL"){
-						$Insert_BalanceSheet['TotalAssets']                   = $Test[$k][41];
+						$Insert_BalanceSheet['TotalAssets']                   = str_replace(",","",$Test[$k][41]);
 					}
 					
 					//$Insert_BalanceSheet['FY']                     = trim(ereg_replace("[^0-9mM()]", " ", $Test[$k][1]));
@@ -1084,136 +1084,136 @@ $k=0;
 					
 					
 					if($Test[$k][2] != "NULL"){					
-						$Insert_BalanceSheet['ShareCapital']            = $Test[$k][2];
+						$Insert_BalanceSheet['ShareCapital']            =str_replace(",","",$Test[$k][2]); 
 					}
 					if($Test[$k][3] != "NULL"){
-						$Insert_BalanceSheet['ReservesSurplus']         = $Test[$k][3];
+						$Insert_BalanceSheet['ReservesSurplus']         = str_replace(",","",$Test[$k][3]); 
 					}
 					if($Test[$k][4] != "NULL"){
-						$Insert_BalanceSheet['TotalFunds']              = $Test[$k][4];
+						$Insert_BalanceSheet['TotalFunds']              = str_replace(",","",$Test[$k][4]); 
 					}	
 					if($Test[$k][5] != "NULL"){
-						$Insert_BalanceSheet['ShareApplication']        = $Test[$k][5];
+						$Insert_BalanceSheet['ShareApplication']        = str_replace(",","",$Test[$k][5]);
 					}
 					//Lines added for minority_interest field to db
                      if($_REQUEST['balanceResultType']==1){
 						if($Test[$k][6] != "NULL"){
-						$Insert_BalanceSheet['minority_interest']        = $Test[$k][6];
+						$Insert_BalanceSheet['minority_interest']        = str_replace(",","",$Test[$k][6]);
 						}
 					}                
                                         
                                         
 					if($Test[$k][7] != "NULL"){
-						$Insert_BalanceSheet['N_current_liabilities']       = $Test[$k][7];
+						$Insert_BalanceSheet['N_current_liabilities']       = str_replace(",","",$Test[$k][7]);
 					}
 					if($Test[$k][8] != "NULL"){
-						$Insert_BalanceSheet['L_term_borrowings']           = $Test[$k][8];
+						$Insert_BalanceSheet['L_term_borrowings']           = str_replace(",","",$Test[$k][8]);
 					}                                        
                                         if($Test[$k][9] != "NULL"){
-						$Insert_BalanceSheet['deferred_tax_liabilities']    = $Test[$k][9];
+						$Insert_BalanceSheet['deferred_tax_liabilities']    = str_replace(",","",$Test[$k][9]);
 					}
 					if($Test[$k][10] != "NULL"){
-						$Insert_BalanceSheet['O_long_term_liabilities']     = $Test[$k][10];
+						$Insert_BalanceSheet['O_long_term_liabilities']     = str_replace(",","",$Test[$k][10]);
 					} 
 					if($Test[$k][11] != "NULL"){
-						$Insert_BalanceSheet['L_term_provisions']       = $Test[$k][11];
+						$Insert_BalanceSheet['L_term_provisions']       = str_replace(",","",$Test[$k][11]);
 					}
 					if($Test[$k][12] != "NULL"){
-						$Insert_BalanceSheet['T_non_current_liabilities']   = $Test[$k][12];
+						$Insert_BalanceSheet['T_non_current_liabilities']   = str_replace(",","",$Test[$k][12]);
 					}
                                         
                                         
                                         
 					if($Test[$k][14] != "NULL"){
-						$Insert_BalanceSheet['Current_liabilities']     = $Test[$k][14];
+						$Insert_BalanceSheet['Current_liabilities']     = str_replace(",","",$Test[$k][14]);
 					}
 					if($Test[$k][15] != "NULL"){
-						$Insert_BalanceSheet['S_term_borrowings']       = $Test[$k][15];
+						$Insert_BalanceSheet['S_term_borrowings']       = str_replace(",","",$Test[$k][15]);
 					}
 					if($Test[$k][16] != "NULL"){
-						$Insert_BalanceSheet['Trade_payables']          = $Test[$k][16];
+						$Insert_BalanceSheet['Trade_payables']          = str_replace(",","",$Test[$k][16]);
 					}
 					if($Test[$k][17] != "NULL"){
-						$Insert_BalanceSheet['O_current_liabilities']   = $Test[$k][17];
+						$Insert_BalanceSheet['O_current_liabilities']   = str_replace(",","",$Test[$k][17]);
 					}
 					if($Test[$k][18] != "NULL"){
-						$Insert_BalanceSheet['S_term_provisions']       = $Test[$k][18];
+						$Insert_BalanceSheet['S_term_provisions']       = str_replace(",","",$Test[$k][18]);
 					}
 					if($Test[$k][19] != "NULL"){
-						$Insert_BalanceSheet['T_current_liabilities']   = $Test[$k][19];
+						$Insert_BalanceSheet['T_current_liabilities']   = str_replace(",","",$Test[$k][19]);
 					}
 					if($Test[$k][20] != "NULL"){
-						$Insert_BalanceSheet['T_equity_liabilities']    = $Test[$k][20];
+						$Insert_BalanceSheet['T_equity_liabilities']    = str_replace(",","",$Test[$k][20]);
 					}
                                         
                                         
                                         
                                         
 					if($Test[$k][22] != "NULL"){
-						$Insert_BalanceSheet['Assets']                  = $Test[$k][22];
+						$Insert_BalanceSheet['Assets']                  = str_replace(",","",$Test[$k][22]);
 					}
                                         
                                         
 					if($Test[$k][24] != "NULL"){
-						$Insert_BalanceSheet['N_current_assets']        = $Test[$k][24];
+						$Insert_BalanceSheet['N_current_assets']        = str_replace(",","",$Test[$k][24]);
 					}
                                         
                                         
 					if($Test[$k][26] != "NULL"){
-						$Insert_BalanceSheet['Fixed_assets']            = $Test[$k][26];
+						$Insert_BalanceSheet['Fixed_assets']            = str_replace(",","",$Test[$k][26]);
 					}
 					if($Test[$k][27] != "NULL"){
-						$Insert_BalanceSheet['Tangible_assets']         = $Test[$k][27];
+						$Insert_BalanceSheet['Tangible_assets']         = str_replace(",","",$Test[$k][27]);
 					}
 					if($Test[$k][28] != "NULL"){
-						$Insert_BalanceSheet['Intangible_assets']       = $Test[$k][28];
+						$Insert_BalanceSheet['Intangible_assets']       =str_replace(",","",$Test[$k][28]);
 					}
 					if($Test[$k][29] != "NULL"){
-						$Insert_BalanceSheet['T_fixed_assets']          = $Test[$k][29];
+						$Insert_BalanceSheet['T_fixed_assets']          = str_replace(",","",$Test[$k][29]);
 					}
 					if($Test[$k][30] != "NULL"){
-						$Insert_BalanceSheet['N_current_investments']   = $Test[$k][30];
+						$Insert_BalanceSheet['N_current_investments']   = str_replace(",","",$Test[$k][30]);
 					}
 					if($Test[$k][31] != "NULL"){
-						$Insert_BalanceSheet['Deferred_tax_assets']     = $Test[$k][31];
+						$Insert_BalanceSheet['Deferred_tax_assets']     = str_replace(",","",$Test[$k][31]);
 					}
 					if($Test[$k][32] != "NULL"){
-						$Insert_BalanceSheet['L_term_loans_advances']   = $Test[$k][32];
+						$Insert_BalanceSheet['L_term_loans_advances']   =str_replace(",","",$Test[$k][32]);
 					}
 					if($Test[$k][33] != "NULL"){
-						$Insert_BalanceSheet['O_non_current_assets']    = $Test[$k][33];
+						$Insert_BalanceSheet['O_non_current_assets']    = str_replace(",","",$Test[$k][33]);
 					}
 					if($Test[$k][34] != "NULL"){
-						$Insert_BalanceSheet['T_non_current_assets']    = $Test[$k][34];
+						$Insert_BalanceSheet['T_non_current_assets']    = str_replace(",","",$Test[$k][34]);
 					}
                                         
                                         
 					if($Test[$k][36] != "NULL"){
-						$Insert_BalanceSheet['Current_assets']          = $Test[$k][36];
+						$Insert_BalanceSheet['Current_assets']          = str_replace(",","",$Test[$k][36]);
 					}
 					if($Test[$k][37] != "NULL"){
-						$Insert_BalanceSheet['Current_investments']     = $Test[$k][37];
+						$Insert_BalanceSheet['Current_investments']     = str_replace(",","",$Test[$k][37]);
 					}
 					if($Test[$k][38] != "NULL"){
-						$Insert_BalanceSheet['Inventories']             = $Test[$k][38];
+						$Insert_BalanceSheet['Inventories']             = str_replace(",","",$Test[$k][38]);
 					}
 					if($Test[$k][39] != "NULL"){
-						$Insert_BalanceSheet['Trade_receivables']       = $Test[$k][39];
+						$Insert_BalanceSheet['Trade_receivables']       = str_replace(",","",$Test[$k][39]);
 					}
 					if($Test[$k][40] != "NULL"){
-						$Insert_BalanceSheet['Cash_bank_balances']      = $Test[$k][40];
+						$Insert_BalanceSheet['Cash_bank_balances']      = str_replace(",","",$Test[$k][40]);
 					}
                                         if($Test[$k][41] != "NULL"){
-						$Insert_BalanceSheet['S_term_loans_advances']   = $Test[$k][41];
+						$Insert_BalanceSheet['S_term_loans_advances']   = str_replace(",","",$Test[$k][41]);
 					}
                                         if($Test[$k][42] != "NULL"){
-						$Insert_BalanceSheet['O_current_assets']        = $Test[$k][42];
+						$Insert_BalanceSheet['O_current_assets']        = str_replace(",","",$Test[$k][42]);
 					}
                                         if($Test[$k][43] != "NULL"){
-						$Insert_BalanceSheet['T_current_assets']        = $Test[$k][43];
+						$Insert_BalanceSheet['T_current_assets']        = str_replace(",","",$Test[$k][43]);
 					}
                                         if($Test[$k][44] != "NULL"){
-						$Insert_BalanceSheet['Total_assets']            = $Test[$k][44];
+						$Insert_BalanceSheet['Total_assets']            = str_replace(",","",$Test[$k][44]);
 					}
 					
 					//$Insert_BalanceSheet['FY']                     = trim(ereg_replace("[^0-9mM()]", " ", $Test[$k][1]));
@@ -1421,28 +1421,28 @@ $FYList = $FYList_N = array();
                     
                     $Insert_CFStandard['IndustryId_FK']          = $IndustryId;
                     if($Test[$k][3] != "NULL"){                    
-                        $Insert_CFStandard['NetPLBefore']            = $Test[$k][3];
+                        $Insert_CFStandard['NetPLBefore']            = str_replace(",","",$Test[$k][3]);
                     }
                     $update_CFStandard['NetPLBefore'] = NULL;   
                     
                     if($Test[$k][4] != "NULL"){
-                        $Insert_CFStandard['CashflowFromOperation']             = $Test[$k][4];
+                        $Insert_CFStandard['CashflowFromOperation']             = str_replace(",","",$Test[$k][4]);
                     }
                     $update_CFStandard['CashflowFromOperation'] =  NULL;
                     if($Test[$k][5] != "NULL"){
-                        $Insert_CFStandard['NetcashUsedInvestment']             = $Test[$k][5];
+                        $Insert_CFStandard['NetcashUsedInvestment']             = str_replace(",","",$Test[$k][5]);
                     }    
                     $update_CFStandard['NetcashUsedInvestment'] =  NULL;    
                     if($Test[$k][6] != "NULL"){
-                        $Insert_CFStandard['NetcashFromFinance']   = $Test[$k][6];
+                        $Insert_CFStandard['NetcashFromFinance']   = str_replace(",","",$Test[$k][6]);
                     }
                     $update_CFStandard['NetcashFromFinance'] =  NULL;
                     if($Test[$k][7] != "NULL"){
-                        $Insert_CFStandard['NetIncDecCash']  = $Test[$k][7];
+                        $Insert_CFStandard['NetIncDecCash']  = str_replace(",","",$Test[$k][7]);
                     }
                     $update_CFStandard['NetIncDecCash'] =  NULL;
                     if($Test[$k][9] != "NULL"){
-                        $Insert_CFStandard['EquivalentEndYear']  = $Test[$k][9];
+                        $Insert_CFStandard['EquivalentEndYear']  = str_replace(",","",$Test[$k][9]);
                     }
                     $update_CFStandard['EquivalentEndYear'] =  NULL;
                    
