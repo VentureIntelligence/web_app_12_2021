@@ -11449,6 +11449,7 @@ padding:0px 10px; }
             top:0px;
             left:0px;
             overflow:hidden;
+            display:none;
         }
         .app-text-col h5{
             font-size:1em !important;
