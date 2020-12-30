@@ -19,6 +19,14 @@ $("#panel").css("height",bodyheight);
     .container-left li{
         border-bottom : 1px solid transparent !important;
     }
+.token-input-list-facebook{
+    padding: 2px 1px;
+}
+li.token-input-token-facebook {
+    margin: 2px 3px 2px 3px;
+    padding: 3px;
+}
+
     </style>
 {/literal}
 <input type="hidden" name="HmeSearch" id="HmeSearch" value="HmeSearch" />
