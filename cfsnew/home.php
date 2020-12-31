@@ -31,7 +31,7 @@
     require_once MAIN_PATH.APP_NAME."/aws.php";	// load logins
 
     require_once('aws.phar');
-
+    include_once('conversionarray.php');
     use Aws\S3\S3Client;
     $client = S3Client::factory(array(
         'key'    => $GLOBALS['key'],
@@ -78,6 +78,9 @@
                       $user_browser = "Safari";
               }
 /* --------------------- End of home.Php code */
+
+
+    
 if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CFS session-usename Empty in home page -'.$_SESSION['username']); }
 
 //if(isset($_POST['refine']) || (isset($_POST['filterData']) && ($_POST['filterData'] == 'yes')) || (isset($_POST['headerSearch']))){
@@ -376,6 +379,12 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         else{
             $limit=25;
         }
+        if($_REQUEST['currency']!='' || $_REQUEST['currency']=="INR"){
+            $currency=$_REQUEST['currency'];
+        unset($_REQUEST['currency']);}
+        else{
+            $currency="INR";
+        }
 
         if(count($_POST)==0)
         {
@@ -423,6 +432,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $template->assign("curPage" , $page);
         $template->assign("countflag" , $countflag);
         $template->assign("limit" , $limit);
+        $template->assign("currency" , $currency);
         $usergroup1 = $authAdmin->user->elements['GroupList'];
         $fields2 = array("*");
         $where2 = "Group_Id =".$usergroup1;
@@ -2092,6 +2102,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $template->assign('pageKeyWords',"CFS - Company Search");
         $template->assign('userEmail',$_SESSION['UserEmail']);
         $template->assign('user_browser',$user_browser);
+        $template->assign('yearcurrency',$yearcurrency);
         $template->display('home.tpl');
         
         // Footer

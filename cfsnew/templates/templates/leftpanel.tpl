@@ -143,7 +143,7 @@
 <li>
  
 <div class="growth-yr"> 
-    <label for="Crores"><input type="checkbox" name="Crores" id="Crores" value="10000000" checked />  In Cr <span style="margin-left:10px;">Year:</span> </label>
+    <label for="Crores">{if $currency eq "INR"}<input type="checkbox" name="Crores" id="Crores" value="10000000" checked />  In Cr {/if}{if $currency eq "USD"}<input type="checkbox" name="Million" id="Million" value="1000000" checked />  In M {/if}<span style="margin-left:10px;">Year:</span> </label>
 <label for="anyof"><input type="radio" name="arcossall" id="anyof" value="AnyOf" {if $REQUEST.arcossall eq ("AnyOf")} checked {/if}/>  Any Of  </label>
 <label for="acrossall"><input type="radio" name="arcossall" id="acrossall" value="across" {if $REQUEST.arcossall eq ("across")} checked {/if}/> Across All </label>
 </div>
