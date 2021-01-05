@@ -12,7 +12,12 @@ if(isset($_FILES['leaguefilepathtest']))
         {
             $target_dir = "importfiles/test";
             $inputFile = $_FILES['leaguefilepathtest']['tmp_name'];
-            $inputFilename = $_FILES['leaguefilepathtest']['name'];
+            //$inputFilename = $_FILES['leaguefilepathtest']['name'];
+            $file = $_FILES['leaguefilepathtest']['name'];
+            $array = explode('.', $file);
+            $fileName=$array[0];
+            $fileExt=$array[1];
+            $inputFilename=$fileName."_".date('d-m-Y_hi').".".$fileExt;
             $target_file = $target_dir . basename($inputFilename);
             $extension = strtoupper(pathinfo($inputFilename, PATHINFO_EXTENSION));
             if (file_exists($target_file)) {
@@ -88,6 +93,25 @@ if(isset($_FILES['leaguefilepathtest']))
                             
                             $insert_exec = mysql_query($insert_Query);
                       
+                    }
+                    $to    = 'vijayakumar.k@praniontech.com';
+                    $from 	= 'info@ventureintelligence.in';
+                    $subject 	= "league table test page data upload"; // Subject of the email
+                    //Message
+                    $message 	= 'Please find the details below:';
+        
+                    $message 	.= "<p></p>";
+        
+                    $message 	.=".$username. -- uploaded the file in leagues_test page ";
+        
+                    $headers  = 'MIME-Version: 1.0' . "\r\n";
+                    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                    $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
+                    $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
+                    $headers .= 'Cc: krishna.s@praniontech.com' . "\r\n";
+        
+                    if (@mail($to, $subject, $message, $headers)){
+                    }else{
                     }
                     echo "Success";
                 }   
