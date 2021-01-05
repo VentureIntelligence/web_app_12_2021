@@ -62,8 +62,8 @@ if(isset($_FILES['leaguefilepathtest']))
                         if($selcnt == 0){
                             $rowcount++;
                             //if((count($dataleague[$i]) == '10') || (count($dataleague[$i]) == '11')){
-                                $insert_Query = "INSERT INTO `league_table_data` (`id`, `advisor_name`, `deal`, `amount`, `industry`, `sector`, `date`, `deal_type`, `points`, `advisor_type`,`notable`) 
-                                                VALUES (NULL, '$advisorname', '$deal', '$amt', '$industry', '$sector', '$date_deal', '$dealtype', '$points', '$advisor_type','$notable ')";
+                                $insert_Query = "INSERT INTO `league_table_data` (`id`, `advisor_name`, `deal`, `amount`, `industry`, `sector`, `date`, `deal_type`, `points`, `advisor_type`,`notable`,`create_date`) 
+                                                VALUES (NULL, '$advisorname', '$deal', '$amt', '$industry', '$sector', '$date_deal', '$dealtype', '$points', '$advisor_type','$notable ', now())";
                                 $insert_exec = mysql_query($insert_Query);
                            // }
                         }
