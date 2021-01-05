@@ -318,7 +318,7 @@ if(companyauto_sug_count!=''){
   }
 }
 if(chargeholderlist_count!=''){
-  if(chargeholderlist_count > 1){
+  if(chargeholderlist_count >= 1){
     $(".chargesholderlist").attr('action','chargesholderlist_suggest.php');
     $('.chargesholderlist').submit();
   }
