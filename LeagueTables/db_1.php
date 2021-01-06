@@ -7,7 +7,7 @@ if (!$con)
   {
   echo "Failed to connect to MySQL: ";
   }
-  define('BASE_URL','https://www.ventureintelligence.com/');
+  define('BASE_URL',GLOBAL_BASE_URL);
 /*  mysql_query("CREATE TABLE IF NOT EXISTS `industry` (
   `id` int(7) NOT NULL AUTO_INCREMENT,
   `industry` tinytext NOT NULL,
