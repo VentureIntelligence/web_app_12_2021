@@ -162,7 +162,7 @@ if(isset($_REQUEST['chargeholdertest']) && $_REQUEST['chargeholdertest']!='' ){
             //$name=trim($nameval,",");
             
             if($chargewhere != ''){
-                $chargewhere .="    and a1.`city` IN(' ".$cityid."')";
+                $chargewhere .="    and a1.`city` IN('".$cityid."')";
                 $cityflag=1;
             }else{
                 $chargewhere .="    a1.`city` IN( '".$cityid."')";
