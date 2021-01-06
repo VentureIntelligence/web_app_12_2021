@@ -1,6 +1,6 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
-$con=mysql_connect("localhost","venture_leag_dev","leaguetable_dev");
+$con=mysql_connect("localhost","venture_leag_dev","Leaguetable_Dev123");
 mysql_select_db("venture_leaguetable_dev") or die ("DB selection error");
 // Check connection
 if (!$con)
