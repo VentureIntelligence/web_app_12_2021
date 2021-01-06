@@ -19,7 +19,8 @@
     $city = new city();
     require_once MODULES_DIR."countries.php";
     $countries = new countries();
-    
+    include_once('conversionarray.php');
+    $currency=$_REQUEST['currency'];
     function updateDownload($res){
         //Added By JFR-KUTUNG - Download Limit
         $recCount = count($res);
@@ -409,8 +410,13 @@
 //                            }else{
 //                                $roundDigit = 2;                               
 //                            }
-                            $revenue=$total_income/10000000;
-                            $revenueincr=round($revenue, 2);
+                            if($currency == "INR"){
+                                $revenue=$total_income/10000000;
+                                $revenueincr=round($revenue, 2);
+                            }else if($currency == "USD"){
+                                $revenue=($total_income/$yearcurrency[$pl['FY']])/1000000;
+                                $revenueincr=round($revenue, 2);
+                            }
                           //  $revenueincr = ($revenueincr==0) ? "" : $revenueincr;
                             $schema_insert .= $revenueincr.$sep;
                         }
@@ -426,8 +432,13 @@
                         $schema_insert .= $sep;
                     }else{
                         $EBIDTA = $pl['EBITDA'];
-                        $EBIDTAdiv=$EBIDTA/10000000;
-                        $EBIDTAcr=round($EBIDTAdiv, 2);
+                        if($currency == "INR"){
+                            $EBIDTAdiv=$EBIDTA/10000000;
+                            $EBIDTAcr=round($EBIDTAdiv, 2);
+                        }else if($currency == "USD"){
+                            $EBIDTAdiv=($EBIDTA/$yearcurrency[$pl['FY']])/1000000;
+                            $EBIDTAcr=round($EBIDTAdiv, 2);
+                        }
                        // $EBIDTAcr = ($EBIDTAcr==0) ? "" : $EBIDTAcr;
                         $schema_insert .= $EBIDTAcr.$sep;
                     }

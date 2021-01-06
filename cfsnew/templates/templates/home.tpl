@@ -269,7 +269,8 @@ padding:0px 10px; }
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if}    
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
-            <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
+            <input type="hidden" name="currency" id="currency" value="{$currency}"/>     
             <input type="hidden" id="exportexcel" name="exportexcel" value="{$searchexport}"/>
             <div class="btn-cnt p10" style="float:right;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>
@@ -282,7 +283,8 @@ padding:0px 10px; }
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if} 
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
-            <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="exportenable" id="exportenable" value="0"/>   
+            <input type="hidden" name="currency" id="currency" value="{$currency}"/>  
             <input type="hidden" id="exportexcel" name="exportexcel1" value="{$searchexport2}"/>
             <div class="btn-cnt p10" style="float:right;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>
@@ -296,6 +298,7 @@ padding:0px 10px; }
     {/if} 
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="currency" id="currency" value="{$currency}"/> 
             <input type="hidden" id="exportexcel" name="exportexcel2" value="{$searchexport3}"/>
             <div class="btn-cnt p10" style="float:right;"><input  class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>

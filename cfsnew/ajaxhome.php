@@ -25,7 +25,7 @@ require_once MODULES_DIR."users.php";
 $users = new users();
 require_once MODULES_DIR."city.php";
 $city = new city();
-
+include_once('conversionarray.php');
 require_once MAIN_PATH.APP_NAME."/aws.php";	// load logins
 
 require_once('aws.phar');
@@ -169,7 +169,12 @@ if($getgroup['Permissions']!=2)
     }
 }
 
-
+if($_REQUEST['currency']!='' || $_REQUEST['currency']=="INR"){
+    $currency=$_REQUEST['currency'];
+unset($_REQUEST['currency']);}
+else{
+    $currency="INR";
+}
 
 //
 
@@ -1817,8 +1822,8 @@ $end2=count($_REQUEST['answer']['GrowthSearchFieds'])-1;
        $template->assign("paginationdiv","");
 }
 
-
-
+$template->assign("currency" , $currency);
+$template->assign('yearcurrency',$yearcurrency);
 if($chargewhere!='')
     { $template->display('ajaxhomewithcharge.tpl'); }
 else
