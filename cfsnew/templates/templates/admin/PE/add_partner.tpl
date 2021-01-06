@@ -16,7 +16,7 @@
 .tooltip {
     background:#404040;
     color:#fff !important;
-    top: 51% !important;
+    top: 45% !important;
     padding:5px;
     border-radius:5px;
     
