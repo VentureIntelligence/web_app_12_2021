@@ -63,12 +63,13 @@ if(isset($_FILES['leaguefilepath']))
                         if($selcnt == 0){
                             $rowcount++;
                            // if((count($dataleague[$i]) == '10') || (count($dataleague[$i]) == '11')){
-                                $insert_Query = "INSERT INTO `league_table_data` (`id`, `advisor_name`, `deal`, `amount`, `industry`, `sector`, `date`, `deal_type`, `points`, `advisor_type`,`notable`,`create_date`) 
-                                                VALUES (NULL, '$advisorname', '$deal', '$amt', '$industry', '$sector', '$date_deal', '$dealtype', '$points', '$advisor_type','$notable',now())";
-                                $insert_exec = mysql_query($insert_Query);
+                            $insert_Query = "INSERT INTO `league_table_data` (`id`, `advisor_name`, `deal`, `amount`, `industry`, `sector`, `date`, `deal_type`, `points`, `advisor_type`,`notable`,`created_date`) 
+                            VALUES (NULL, '$advisorname', '$deal', '$amt', '$industry', '$sector', '$date_deal', '$dealtype', '$points', '$advisor_type','$notable',now())";
+                            $insert_exec = mysql_query($insert_Query);
                            // }
                         }
-                    }$select_Query1 = "SELECT id FROM `league_table_data` ";
+                    }
+                    $select_Query1 = "SELECT id FROM `league_table_data` ";
                     $exec_sel1 = mysql_query($select_Query1);
                     $tablecount = mysql_num_rows($exec_sel1);
                     $yearVal = mysql_query("SELECT YEAR(date) as year FROM league_table_data GROUP BY YEAR(date)");
