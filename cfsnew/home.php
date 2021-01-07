@@ -526,6 +526,8 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
         if($_REQUEST['Crores']!=""){
                 $crores=$_REQUEST['Crores'];
+        }else if($_REQUEST['Million']!=''){
+            $crores=$_REQUEST['Million'];
         }else{
                 $crores=1;
         }
