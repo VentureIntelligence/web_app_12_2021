@@ -88,7 +88,7 @@ if(isset($_FILES['leaguefilepath']))
                     // echo "username:".$username;	
                     if($inputFilename !="" || $rowcount !="" || $tablecount !="" ||  $latestyear !="" ||  $username !="" ){
                        
-                           $insert_Query = "INSERT INTO `leaguetabletest_log` (`username`, `logfile`, `excel_total_rows`, `table_total_rows`, `latestyear`, `created_date`) 
+                           $insert_Query = "INSERT INTO `leaguetable_log` (`username`, `logfile`, `excel_total_rows`, `table_total_rows`, `latestyear`, `created_date`) 
                                             VALUES ( '$username', '$inputFilename', '$rowcount', '$tablecount', '$latestyear', now())";
                             
                             $insert_exec = mysql_query($insert_Query);
