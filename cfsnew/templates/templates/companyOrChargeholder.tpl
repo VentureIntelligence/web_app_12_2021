@@ -296,11 +296,16 @@ $('#companylist,#chargeholderlist').on('keyup keypress', function(e) {
 $("#token-input-companyauto_sug").attr("placeholder", "Company Name");
 $('.search').on('click',function(){
 var companyauto_sugval = $('#companyauto_sug').val(); 
+var chargeholderlistval=$('.holderhidden').val(); 
+if(companyauto_sugval=="" && chargeholderlistval=="")
+{
+  alert("Please choose company or charge holder name");
+}
 if(companyauto_sugval!=''){
 var companyauto_sug = companyauto_sugval.split(","); 
 var companyauto_sug_count=companyauto_sug.length; 
 }
-var chargeholderlistval=$('.holderhidden').val(); 
+
 if(chargeholderlistval!=''){
 var chargeholderlist = chargeholderlistval.split(","); 
 var chargeholderlist_count=chargeholderlist.length; 
