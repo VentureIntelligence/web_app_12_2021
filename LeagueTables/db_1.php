@@ -1,13 +1,13 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
-$con=mysql_connect("localhost","venture_leag_dev","leaguetable_dev");
+$con=mysql_connect("localhost","venture_leag_dev","Leaguetable_Dev123");
 mysql_select_db("venture_leaguetable_dev") or die ("DB selection error");
 // Check connection
 if (!$con)
   {
   echo "Failed to connect to MySQL: ";
   }
-  define('BASE_URL','https://www.ventureintelligence.com/');
+  define('BASE_URL',GLOBAL_BASE_URL);
 /*  mysql_query("CREATE TABLE IF NOT EXISTS `industry` (
   `id` int(7) NOT NULL AUTO_INCREMENT,
   `industry` tinytext NOT NULL,
