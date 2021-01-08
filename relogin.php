@@ -360,7 +360,18 @@ session_start();
 							}
 							elseif ($cnt==0)
 							{
-								$displayMessage= $LoginAccess;
+                                $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.TrialLogin,dm.user_authorization_status FROM RElogin_members AS dm,
+                                dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dm.EmailId='$login' and dm.Passwrd='$pwd' AND dc.Deleted =0  and dm.Deleted = 1";
+                        
+                                                if ($totalrs = mysql_query($checkUserSql))
+                                                {
+                                                    $disablecnt= mysql_num_rows($totalrs);
+                                                }
+                                                if($disablecnt==0){
+                                                    $displayMessage= $LoginAccess;
+                                                }else{
+                                                    $displayMessage= $UnauthorisedLoginMessage;
+                                                }
 							}
 						}
 					}
