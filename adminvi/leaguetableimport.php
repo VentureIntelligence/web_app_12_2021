@@ -97,9 +97,9 @@ if(isset($_FILES['leaguefilepath']))
                             $insert_exec = mysql_query($insert_Query);
                       
                     }
-                    $to    = 'vijayakumar.k@praniontech.com';
+                    $to    = 'arun@ventureintelligence.in';
                     $from 	= 'info@ventureintelligence.in';
-                    $subject 	= "league table main page data upload"; // Subject of the email
+                    $subject 	= "League table main page data upload"; // Subject of the email
                     //Message
                     $message 	= 'Please find the details below:';
         
@@ -113,7 +113,7 @@ if(isset($_FILES['leaguefilepath']))
                     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                     $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
                     $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
-                    $headers .= 'Cc: krishna.s@praniontech.com' . "\r\n";
+                    $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";
        
                     if (@mail($to, $subject, $message, $headers)){
                     }else{
