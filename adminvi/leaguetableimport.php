@@ -105,7 +105,7 @@ if(isset($_FILES['leaguefilepath']))
         
                     $message 	.= "<p></p>";
 		            $message .="<table style='border-spacing: 0px;'><tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Admin User name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Page</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Host</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Updated time</th></tr>";
-                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$username."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>LeagueTable Page</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'></td>".$_SERVER[HTTP_HOST]."</tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'></td>".$date."</tr>";
+                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$username."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>LeagueTable Page</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$_SERVER[HTTP_HOST]."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$date."</td></tr>";
                     $message .= "</table>";
                    // $message 	.=".$username. -- uploaded the file in leagues main page ";
         
