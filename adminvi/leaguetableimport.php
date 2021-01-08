@@ -4,6 +4,7 @@ include_once '../LeagueTables/db.php';
 include '../LeagueTables/simplexlsx.class.php';
 $uploadOk = 1;
 $username=$_REQUEST['username'];
+
 if(isset($_FILES['leaguefilepath']))
 {
     if($_FILES['leaguefilepath']['tmp_name'])
@@ -81,6 +82,7 @@ if(isset($_FILES['leaguefilepath']))
                     }
                     $Lyears = array_unique($Lyears);
                     $latestyear=end($Lyears);
+                    $date= date("Y-m-d h:i:s");
                    // rsort($Lyears);
                     // echo "filename:".$inputFilename;
                     // echo "excelcount:".$rowcount;
@@ -102,15 +104,17 @@ if(isset($_FILES['leaguefilepath']))
                     $message 	= 'Please find the details below:';
         
                     $message 	.= "<p></p>";
-        
-                    $message 	.=".$username. -- uploaded the file in leagues main page ";
+		            $message .="<table style='border-spacing: 0px;'><tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Admin User name</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Page</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Host</th><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Updated time</th></tr>";
+                    $message .="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>".$username."</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'>LeagueTable Page</td><td style='padding: 3px 6px;border: 1px solid #cccfcf;'></td>".$_SERVER[HTTP_HOST]."</tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;'></td>".$date."</tr>";
+                    $message .= "</table>";
+                   // $message 	.=".$username. -- uploaded the file in leagues main page ";
         
                     $headers  = 'MIME-Version: 1.0' . "\r\n";
                     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                     $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
                     $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
                     $headers .= 'Cc: krishna.s@praniontech.com' . "\r\n";
-        
+       
                     if (@mail($to, $subject, $message, $headers)){
                     }else{
                     }
