@@ -392,7 +392,21 @@ if((trim($login)!= "") && (trim($pwd)!=""))
                 }
                 elseif ($cnt==0)
                 {
+                    $checkUserSql= "SELECT dm.EmailId, dm.Passwrd,dm.Name, dm.DCompId,dc.ExpiryDate,dc.IPAdd,dm.deviceCount,dm.exportLimit,dc.Student,dc.permission,dc.TrialLogin,dm.user_authorization_status,dc.peindustries FROM dealmembers AS dm,
+                    dealcompanies AS dc WHERE dm.DCompId = dc.DCompId AND dm.EmailId='$login'  AND dc.Deleted =0 and dm.Deleted = 1";
+                    
+            //	echo "<bR>--".$checkUserSql;
+                    if ($totalrs = mysql_query($checkUserSql))
+                    {
+                        $disablecnt= mysql_num_rows($totalrs);
+                    }    
+                    if($disablecnt==0){
                         $displayMessage= $LoginAccess;
+                    }else{
+                        $displayMessage= $UnauthorisedLoginMessage;
+                        $_SESSION['loginusername'] = "";
+                        $_SESSION['password'] = "";
+                    }
                 }
         }
     }
