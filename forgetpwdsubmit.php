@@ -14,23 +14,23 @@ if(trim($pwdemail)!="")
 {
 
   if($pwdForDB == "" || $pwdForDB == "cfs") { 
-    $checkForUnknownLoginSql="select * from users where username='$pwdemail'";
-    $firstnamesql="select firstname from users where username='$pwdemail'";
+    $checkForUnknownLoginSql="select * from users where username='$pwdemail' and usr_flag !='0'";
+    $firstnamesql="select firstname from users where username='$pwdemail' and usr_flag !='0'";
   } else if ($pwdForDB == "P" || $pwdForDB == "R" || $pwdForDB == "M") {
     // $checkForUnknownLoginSql="select * from dealmembers where EmailId='$pwdemail'";
     // $firstnamesql="select Name from dealmembers where EmailId='$pwdemail'";
     if ($pwdForDB == "P"){
-      $checkForUnknownLoginSql="select * from dealmembers where EmailId='$pwdemail'";
-      $firstnamesql="select Name from dealmembers where EmailId='$pwdemail'";
+      $checkForUnknownLoginSql="select * from dealmembers where EmailId='$pwdemail' and Deleted = 0";
+      $firstnamesql="select Name from dealmembers where EmailId='$pwdemail' and Deleted = 0";
     }else if($pwdForDB == "R"){
-      $checkForUnknownLoginSql="select * from RElogin_members where EmailId='$pwdemail'";
-      $firstnamesql="select Name from RElogin_members where EmailId='$pwdemail'";
+      $checkForUnknownLoginSql="select * from RElogin_members where EmailId='$pwdemail' and Deleted = 0";
+      $firstnamesql="select Name from RElogin_members where EmailId='$pwdemail' and Deleted = 0";
     }else if($pwdForDB == "M"){
-      $checkForUnknownLoginSql="select * from malogin_members where EmailId='$pwdemail'";
-      $firstnamesql="select Name from malogin_members where EmailId='$pwdemail'";
+      $checkForUnknownLoginSql="select * from malogin_members where EmailId='$pwdemail' and Deleted = 0";
+      $firstnamesql="select Name from malogin_members where EmailId='$pwdemail' and Deleted = 0";
     }else{
-      $checkForUnknownLoginSql="select * from dealmembers where EmailId='$pwdemail'";
-      $firstnamesql="select Name from dealmembers where EmailId='$pwdemail'";
+      $checkForUnknownLoginSql="select * from dealmembers where EmailId='$pwdemail' and Deleted = 0";
+      $firstnamesql="select Name from dealmembers where EmailId='$pwdemail' and Deleted = 0";
     }
   }
   /*  else if($pwdForDB == "R") {
@@ -58,7 +58,7 @@ if(trim($pwdemail)!="")
   }
 	//echo "<br>----" .$random_cnt;
 
-	$UnauthorisedLoginMessage="Your are not listed as a database subscriber. Please contact us for subscription information. <a href='contactus.htm'> Contact us >> </a>";
+	$UnauthorisedLoginMessage="You are not listed as a database subscriber. Please contact us for subscription information. <a href='contactus.htm'> Contact us >> </a>";
   
   
 function RandomToken($length = 10){
