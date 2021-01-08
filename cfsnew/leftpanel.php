@@ -328,8 +328,15 @@ $fliterlist[$i++]=array('field'=>'ResultType','key'=>$_REQUEST['ResultType'],'va
 
 //left panel
 
-if ($_REQUEST['Crores']=="10000000")
-$fliterlist[$i++]=array('field'=>'Crores','key'=>$_REQUEST['Crores'],'value'=>"Fin.In Crores");
+if($currency=="INR")
+{
+    $fliterlist[$i++]=array('field'=>'Crores','key'=>$_REQUEST['Crores'],'value'=>"Fin.In Crores");
+} 
+if ($currency=="USD")
+{
+    $fliterlist[$i++]=array('field'=>'Million','key'=>$_REQUEST['Million'],'value'=>"Fin.In Million");
+}
+   
 
 if ($_REQUEST['arcossall']!="")
 $fliterlist[$i++]=array('field'=>'arcossall','key'=>$_REQUEST['arcossall'],'value'=>"Fin.".$_REQUEST['arcossall']);
