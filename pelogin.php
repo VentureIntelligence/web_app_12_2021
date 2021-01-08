@@ -404,6 +404,8 @@ if((trim($login)!= "") && (trim($pwd)!=""))
                         $displayMessage= $LoginAccess;
                     }else{
                         $displayMessage= $UnauthorisedLoginMessage;
+                        $_SESSION['loginusername'] = "";
+                        $_SESSION['password'] = "";
                     }
                 }
         }
