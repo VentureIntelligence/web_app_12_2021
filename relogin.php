@@ -371,6 +371,8 @@ session_start();
                                                     $displayMessage= $LoginAccess;
                                                 }else{
                                                     $displayMessage= $UnauthorisedLoginMessage;
+                                                    $_SESSION['loginusername'] = "";
+                                                    $_SESSION['password'] = "";
                                                 }
 							}
 						}
