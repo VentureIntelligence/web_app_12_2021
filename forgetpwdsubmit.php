@@ -58,7 +58,7 @@ if(trim($pwdemail)!="")
   }
 	//echo "<br>----" .$random_cnt;
 
-	$UnauthorisedLoginMessage="Your are not listed as a database subscriber. Please contact us for subscription information. <a href='contactus.htm'> Contact us >> </a>";
+	$UnauthorisedLoginMessage="You are not listed as a database subscriber. Please contact us for subscription information. <a href='contactus.htm'> Contact us >> </a>";
   
   
 function RandomToken($length = 10){
