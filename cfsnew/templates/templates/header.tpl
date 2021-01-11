@@ -1728,7 +1728,8 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
     function validate()
     {
         var conval=$('#country').val();
-        document.location.href='home.php?searchv='+conval;
+        var currency=$('#currency').val();
+        document.location.href='home.php?searchv='+conval+'&currency='+currency;
         return false;
     }
     function onkeypress(event) {   
@@ -2426,7 +2427,9 @@ filter: alpha(opacity=75);
         </li>
     <li>
         <form id="form" action="home.php" method="post">
+      
             <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
+            <input type="hidden" name="currency" id="currency" value="{$currency}" />
             <input type="submit" name="search_export" id="search_export" value="Go" class="search_export" style="{if $searchSubmit != '' }display:block{/if}"/>
         </form>
     </li>

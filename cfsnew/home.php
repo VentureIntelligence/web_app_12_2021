@@ -525,11 +525,17 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $Insert_CGroup['SubCount'] = $search_visit[SearchVisit_count];
 
         $grouplist->update($Insert_CGroup);
-
+        $yearval=$plstandard->getyear();
+        $Latestyear=$yearval[0][0];
         if($_REQUEST['Crores']!=""){
-                $crores=$_REQUEST['Crores'];
-        }else if($_REQUEST['Million']!=''){
-            $crores=$_REQUEST['Million']*$yearcurrency['20'];
+            $crores=$_REQUEST['Crores'];
+        }else if($_REQUEST['Million']!='' || $_GET['currency']!=''){
+            if($_REQUEST['Million']!=''){
+                $crores=$_REQUEST['Million']*$yearcurrency[$Latestyear];
+            }else{
+                $crores=1000000*$yearcurrency[$Latestyear];
+            }
+            
         }else{
                 $crores=1;
         }
@@ -1571,6 +1577,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $template->assign("totalrecord",$total);
         $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
     }
+    
        
         /*Advanced Searches Ends*/
 
@@ -1765,7 +1772,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $template->assign("totalrecord",$total);
                 /*Financial Search Ends*/
         }
-        
+       
         /*Growth Search YOY Starts*/
         
         $end1=count($_REQUEST['answer']['GrowthSearchFieds'])-1;
@@ -2037,7 +2044,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             sort($pages);
         
             if($search_export_value!=''){
-                $pagination_search ='searchv='.$search_export_value.'&';  
+                $pagination_search ='searchv='.$search_export_value.'&currency='.$currency;  
             }else{
                 $pagination_search='';
             }

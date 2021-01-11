@@ -53,8 +53,8 @@ require_once MODULES_DIR."growthpercentage.php";
 $growthpercentage = new growthpercentage();
 require_once MODULES_DIR."cagr.php";
 $cagr = new cagr();
-
-
+$currencyval=$_GET['currencyval'];
+$template->assign("currencyval",$currencyval);
 if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CFS session-usename Empty in Details page -'.$_SESSION['username']); }
 
 
