@@ -1410,7 +1410,7 @@ padding: 4px 10px 4px 35px !important;
                       </tr>
                       <tr>  
                             <td><h4>Website</h4> </td>
-                            <td class=""><p><?php if($myrow["website"]!=""){  echo $myrow["website"];}else{echo "";}?></p></td>                              
+                            <td class=""><p><?php if($myrow["website"]!=""){ ?><a href=<?php echo $myrow["website"];?> target="_blank" > <?php echo $myrow["website"];?> </a><?php }else{echo "";}?></p></td>                              
                       </tr>
                       <tr>  
                             <td><h4>Financials</h4> </td>
