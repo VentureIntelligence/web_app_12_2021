@@ -31,7 +31,7 @@
     require_once MAIN_PATH.APP_NAME."/aws.php";	// load logins
 
     require_once('aws.phar');
-    include_once('conversionarray_list.php');
+    include_once('conversionarray.php');
    
     use Aws\S3\S3Client;
     $client = S3Client::factory(array(
@@ -529,7 +529,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         if($_REQUEST['Crores']!=""){
                 $crores=$_REQUEST['Crores'];
         }else if($_REQUEST['Million']!=''){
-            $crores=$_REQUEST['Million'];
+            $crores=$_REQUEST['Million']*$yearcurrency['20'];
         }else{
                 $crores=1;
         }
