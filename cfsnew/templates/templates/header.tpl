@@ -28,7 +28,10 @@
 
 {literal}
     <style>
-    
+    /*1072*/
+    .custom.dropdown.limit.currency {
+    float: left;
+}
     button.ui-multiselect.ui-widget.ui-state-default.ui-corner-all{
       margin-bottom:auto;
       width:210px;
@@ -2426,7 +2429,7 @@ filter: alpha(opacity=75);
     <!--input name="fsubmit" id="fsubmit" type="button" /--></form>
         </li>
     <li>
-        <form id="form" action="home.php" method="post">
+        <form id="form" action="home.php" method="post" onsubmit="return validate();">
       
             <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
             <input type="hidden" name="currency" id="currency" value="{$currency}" />
