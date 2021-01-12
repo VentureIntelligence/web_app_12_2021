@@ -379,6 +379,8 @@ $pwd=md5(trim($pwd));
                                 elseif($myrow["ExpiryDate"] <= date('y-m-d'))
                                 {
                                     $displayMessage= $TrialExpired;
+                                    $_SESSION['loginusername'] = "";
+                                    $_SESSION['password'] = "";
                                 }
                             }
                     }
