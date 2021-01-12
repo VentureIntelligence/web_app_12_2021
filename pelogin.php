@@ -178,7 +178,6 @@ if((trim($login)!= "") && (trim($pwd)!=""))
                                 // mysql_query($sqlnewdevice);
                                $processLoginFlag=1;
                             }else{
-                                
                                 $sqlChkdevices = "SELECT * FROM `user_authorized_device` WHERE `user_email`='".$myrow['EmailId']."' limit 2";
                                 $resChkdevices = mysql_query($sqlChkdevices) or die(mysql_error());
                                 // Same device validate
@@ -310,7 +309,7 @@ if((trim($login)!= "") && (trim($pwd)!=""))
 
 
                         if ($processLoginFlag==1){
-
+                            
                             if( date('Y-m-d')<=$myrow["ExpiryDate"])
                             {
                                 session_register("UserNames");
@@ -381,7 +380,7 @@ if((trim($login)!= "") && (trim($pwd)!=""))
                                     }
                                }
                             }
-                            elseif($myrow["ExpiryDate"] >= date('y-m-d'))
+                            elseif($myrow["ExpiryDate"] <= date('y-m-d'))
                             {
                                     $displayMessage= $TrialExpired;
                             }
