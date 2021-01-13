@@ -20,6 +20,10 @@
 <script src="js/showHide.js" type="text/javascript"></script>
 <script src="js/jquery.flexslider.js"></script>
 <script src="js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="js/jquery.multiselect.js"></script> 
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script> 
+<link rel="stylesheet" type="text/css" href="css/jquery.multiselect.filter.css" />
+<script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>
 <!--<script src="js/switch.min.js" type="text/javascript"></script>-->
 <!--<link href="css/switch.css" type="text/css" rel="stylesheet">-->
 <script type="text/javascript">
@@ -333,7 +337,10 @@ overflow: hidden;
   line-height: 18px !important;
 }
 .period-date label{
-  line-height: 32px !important;
+  line-height: 25px !important;
+  font-size: 13px;
+    font-weight: 600;
+    margin: 0px 5px;
 }
 .detailed-title-links h2{
   margin-bottom: -20px !important;
@@ -341,8 +348,67 @@ overflow: hidden;
 .result-title {
     margin-top: -20px !important;
     padding: 20px 0 15px !important;
+    position:inherit;
+}
+.datesubmit{
+    cursor: pointer;
+    float: left;
+    background: url(../dealsnew/images/icon-search.png) no-repeat center #a2753a !important;
+    border: 1px solid #a2753a;
+    width: 33px !important;
+    height: 25px;
+    min-width: 33px !important;
+}
+.investorfilter{
+    float:right;
+    width: 33%;
+}
+.investorfilter select{padding:3px;}
+.period-date select,.period-date+.search-btn,#expshowdeals{margin-top:0px !important;}
+.exportinvest {
+    border: 1px solid #a2733a;
 }
 
+.with-invs{
+    font-size: 13px;
+    padding: 5px;
+    border-bottom: 1px solid #a37535;
+    background-color: #fff;
+    text-align: center;
+    padding-top: 30px;
+    cursor: pointer;
+}
+.without-invs{
+    font-size: 13px;
+    padding: 5px;
+    border-bottom: 1px solid #a37535;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+ .profile-invs {
+    font-size: 13px;
+    padding: 5px;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+.title-links a{
+    margin-left:0px !important;
+}
+.export {
+    padding-left: 20px !important;
+}
+.result-title .title-links {
+    position: absolute !important;
+}
+.inves{
+    position: absolute;
+    right: 10%;
+}
+.result-title h2{
+    margin-bottom:5px;
+}
 </style>
 </head>
 <?php if($_SESSION['PE_TrialLogin']==1){ ?>

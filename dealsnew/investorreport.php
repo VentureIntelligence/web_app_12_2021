@@ -122,6 +122,25 @@ else if($vcflagValue==2){
 <div id="container">
     <table cellpadding="0" cellspacing="0" width="100%" >
         <tr>
+        <td class="left-td-bg" id="tdfilter" <?php if($dealvalue==111){echo "style=display:none;";}?>>
+    <div class="acc_main" id="acc_main" >
+        <div class="slide" style="z-index:9999; position:relative;"><a href="#" class="btn-slide active" id="openRefine">Slide Panel</a></div>    
+        <div id="panel" style="display:block; overflow:visible; clear:both;">
+<?php 
+
+//if($vcflagValue!=2 && $dealvalue!=111){
+   
+    include_once('dirrefineactiveinvestor.php');
+//}elseif($vcflagValue == 2 && $dealvalue!=110 && $dealvalue!=111){
+
+  //  include_once('dirangelrefine.php');
+//}
+?>
+     <input type="hidden" name="resetfield" value="" id="resetfield"/> 
+    </div>  
+</div>
+
+</td>
             <?php
             $exportToExcel = 0;
             $TrialSql = "select dm.DCompId,dc.DCompId,TrialLogin,Student from dealcompanies as dc,dealmembers as dm
@@ -196,19 +215,9 @@ else if($vcflagValue==2){
                                 <span class="result-no" id="show-total-deal"> <?php echo $report_cntall; ?> Results found</span>
                                 <span class="result-for">for Most Active Investor</span> 
                                 <input class="postlink" type="hidden" name="numberofcom" value="<?php echo $investor_cnt; ?>">
-                                  <input class ="export_new" type="button" id="expshowdeals"  value="Export" name="showdeals" style="float:right; margin-right:2%">
-                            </h2>
-    
-                          
-                                            
-                        </div>
-                        <div class="view-detailed" style="margin-top:40px;">
-                            <div class="detailed-title-links" style="padding-bottom:0px !important;">
-                                
-                                <a class="postlink" id="previous" href="pedirview.php?value=<?php echo $vcflagValue; ?>">&lt; Back</a>
-                                <h2 style="margin-left:0px;">  Most Active Investors</h2>
-                                <div style="float:right;" >
-<div class="period-date">
+                                  <div class="investorfilter" style="width:33%;margin-top: -3px;">
+                                  <div class="inves">
+                                  <div class="period-date">
 <label>To</label>
 <?php
         $month1 = ($_POST['month1']=='') ? '1' : $_POST['month1'];
@@ -321,61 +330,22 @@ else if($vcflagValue==2){
 	?> 
 </SELECT>
 </div>
-  <div class="search-btn"  > <input name="searchpe" type="submit" value="Search" class="datesubmit" id="datesubmit"/></div>
-  
-  
-                              <!-- <label><b>Year</b></label>
-                                    <SELECT NAME="month1" id='month1'>
-                                        <OPTION id=1 value="--"> Month </option>
-                                       <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
-                                       <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
-                                       <OPTION VALUE='3' <?php echo ($month1 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
-                                       <OPTION VALUE='4' <?php echo ($month1 == '4') ? 'SELECTED' : ''; ?>>Apr</OPTION>
-                                       <OPTION VALUE='5' <?php echo ($month1 == '5') ? 'SELECTED' : ''; ?>>May</OPTION>
-                                       <OPTION VALUE='6' <?php echo ($month1 == '6') ? 'SELECTED' : ''; ?>>Jun</OPTION>
-                                       <OPTION VALUE='7' <?php echo ($month1 == '7') ? 'SELECTED' : ''; ?>>Jul</OPTION>
-                                       <OPTION VALUE='8' <?php echo ($month1 == '8') ? 'SELECTED' : ''; ?>>Aug</OPTION>
-                                       <OPTION VALUE='9' <?php echo ($month1 == '9') ? 'SELECTED' : ''; ?>>Sep</OPTION>
-                                       <OPTION VALUE='10' <?php echo ($month1 == '10') ? 'SELECTED' : ''; ?>>Oct</OPTION>
-                                       <OPTION VALUE='11' <?php echo ($month1 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
-                                      <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
-                                  </SELECT>
-                                    <SELECT NAME="year" id="year"  id="year" sytle="float:left;">
-
-                                        <?php 
-                                            $yearsql1="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
-                                            if($yearSql=mysql_query($yearsql1))
-                                            {
-                                                   /* if($type == 1)  
-                                                    {
-                                                        if($_POST['year']=='')
-                                                        {
-                                                            $year;
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        if($_POST['year']=='')
-                                                        {
-                                                            $year;
-                                                        }
-                                                    }*/
-
-                                                    $currentyear = 1998;
-                                                    $i=date("Y");
-                                                    While($i>= $currentyear )
-                                                    {
-                                                        $id = $i;
-                                                        $name = $i;
-                                                        $isselected = ($year==$i) ? 'SELECTED' : '';
-                                                        echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                                                        $i--;
-                                                    }
-                                            } ?> 
-                                    </SELECT>-->
-                             </div>
-                          <!--      <a  class="postlink" id="previous" href="javascript:history.back(-1)">< Back</a>-->
-
+  <div class="search-btn"  > <input name="searchpe" type="submit" value="" class="datesubmit" id="datesubmit"/></div>
+  </div>
+  <?php if($report_cnt>0){?><div class="title-links " id="exportbtn"></div><?php } ?>
+                                    <!-- <input class ="export_new" type="button" id="expshowdeals"  value="Export" name="showdeals" style="margin-right:2%"> -->
+                                  </div>
+                            </h2>
+    
+                          
+                                            
+                        </div>
+                        <div class="view-detailed" >
+                            <div class="detailed-title-links" style="padding-bottom:0px !important;">
+                                
+                                <a class="postlink" id="previous" href="pedirview.php?value=<?php echo $vcflagValue; ?>">&lt; Back</a>
+                                <h2 style="margin-left:0px;">  Most Active Investors</h2>
+                               
                             </div>  
                         </div> 
                           <input type="hidden" name="flag" value="<?php echo $vcflagValue; ?>" />
@@ -519,7 +489,7 @@ else if($vcflagValue==2){
 
             </form>
             <form name="invreport" id="invreport"  method="post" action="exportinvreport.php">
-               
+                <input type="hidden" name="showprofile" id="showprofile" value="" >
                 <input type="hidden" name="date_year1" value="<?php echo $year1; ?>" >
                 <input type="hidden" name="date_year2" value="<?php echo $year2; ?>" >
                 <input type="hidden" name="date_month1" value="<?php echo $month1; ?>" >
@@ -682,13 +652,19 @@ else if($vcflagValue==2){
 </script>
 <script type="text/javascript">
 
-      $('#expshowdeals').click(function(){
+      $(document).on('click','.profile-invs',function(){
             jQuery('#maskscreen').fadeIn();
             jQuery('#popup-box-copyrights').fadeIn();   
             return false;
         });
+        $(document).on('click','.exportdealsinvest',function(){ 
+                    $("#showprofile").val($(this).attr("data-invs"));
+                    jQuery('#maskscreen').fadeIn();
+                    jQuery('#popup-box-copyrights').fadeIn();   
+                    return false;
+                });
 
-        function initExport(){ 
+        function initExporttable(){ 
             $.ajax({
                 url: 'ajxCheckDownload.php',
                 dataType: 'json',
@@ -754,12 +730,12 @@ function checkForDate()
 </div>
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 632px; display: none;"></div>
 <div class="lb" id="popup-box-copyrights" style="width:650px !important;">
-   <span id="expcancelbtn" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
+   <span id="expcancelbtntable" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
     <div class="copyright-body" style="text-align: center;">&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.
     </div>
     <div class="cr_entry" style="text-align:center;">
         
-        <input type="button" value="I Agree" id="agreebtn" />
+        <input type="button" value="I Agree" id="agreebtntable" />
     </div>
 
 </div>
@@ -776,31 +752,51 @@ mysql_close();
     ?>
     $("#panel").animate({width: 'toggle'}, 200);
     $(".btn-slide").toggleClass("active");
+    $(document).ready(function(){
     if ($('.left-td-bg').css("min-width") == '264px') {
         $('.left-td-bg').css("min-width", '36px');
         $('.acc_main').css("width", '35px');
+        
     }
     else {
         $('.left-td-bg').css("min-width", '264px');
         $('.acc_main').css("width", '264px');
     }
+});
+    
 <?php } ?>
     
-    $(document).on('click','#agreebtn',function(){
+    $(document).on('click','#agreebtntable',function(){
          $('#popup-box-copyrights').fadeOut();   
         $('#maskscreen').fadeOut(1000);
         $('#preloading').fadeIn();   
-        initExport();
+        initExporttable();
         return false; 
      });
     
-     $(document).on('click','#expcancelbtn',function(){
+     $(document).on('click','#expcancelbtntable',function(){
 
         jQuery('#popup-box-copyrights').fadeOut();   
         jQuery('#maskscreen').fadeOut(1000);
         return false;
     });
 
+</script>
+<script type="text/javascript">
+    $('#exportbtn').html('<a class ="export" onClick="open_ex(this)" data-check="close"  style="background: #a37635 url(../cfsnew/images/arrow-dropdown.png) no-repeat 90px 8px;width: 80px;">Export</a><div style="display:none;" class="exportinvest"><div class="with-invs exportdealsinvest" data-invs="0">Profile only</div><div class="without-invs exportdealsinvest" data-invs="1">Profile with inv.</div><div class="profile-invs exportdealsinvest" data-invs="2">Table only</div></div>');
+    function open_ex(element){
+                    if ($(element).attr("data-check") == 'close') {
+                        $(".exportinvest").show();
+                        $(element).attr("data-check", "open");
+                    }else if($(element).attr("data-check") == 'open'){
+                        $(".exportinvest").hide();
+                        $(element).attr("data-check", "close");
+                    }else{
+                        $(".exportinvest").hide();
+                        $(element).attr("data-check", "close");
+                    }
+                }
+              
 </script>
 <?php
 mysql_close();

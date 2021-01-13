@@ -124,7 +124,7 @@ $actionUrl = "newinvestorreport.php?flag=1";
         text-align: center;
         font-size: 24px;
         margin-bottom: -20px;
-        margin-top: 1px;
+        margin-top: 5px;
     }
 </style>
 <form name="newinvestorreport" action="<?php echo $actionUrl; ?>" method="post" id="newinvestorreport">
@@ -206,19 +206,8 @@ $actionUrl = "newinvestorreport.php?flag=1";
                                 <span class="result-no" id="show-total-deal"> <?php echo $report_cntall; ?> Results found</span>
                                 <span class="result-for">for New Investor</span> 
                                 <input class="postlink" type="hidden" name="numberofcom" value="<?php echo $investor_cnt; ?>">
-                                  <input class ="export_new" type="button" id="expshowdeals"  value="Export" name="showdeals" style="float:right; margin-right:2%">
-                            </h2>
-    
-                          
-                                            
-                        </div>
-                        <div class="view-detailed" style="margin-top:40px;">
-                            <div class="detailed-title-links" style="padding-bottom:0px !important;">
-                                <div class="pagetitle">NEW INVESTORS</div>
-                                <a class="postlink" id="previous" href="pedirview.php?value=<?php echo $vcflagValue; ?>">&lt; Back</a>
-                                <!-- <h2 style="margin-left:0px;"> New Investors</h2> -->
-                                <div style="float:right; margin-top: -6px;" >
-<div class="period-date">
+                                <div class="investorfilter">
+                                 <div class="period-date">
 <label>To</label>
 <SELECT NAME="month1" id="month1">
      <OPTION id=1 value="--"> Month </option>
@@ -328,7 +317,21 @@ $actionUrl = "newinvestorreport.php?flag=1";
     ?> 
 </SELECT>
 </div>
-  <div class="search-btn"  > <input name="searchpe" type="submit" value="Search" class="datesubmit" id="datesubmit"/></div>
+  <div class="search-btn"  > <input name="searchpe" type="submit" value="" class="datesubmit" id="datesubmit"/></div>
+  <?php if($report_cnt > 0){?><div class="title-links " id="exportbtn"></div><?php } ?>
+  </div> 
+                                  <!--<input class ="export_new" type="button" id="expshowdeals"  value="Export" name="showdeals" style="float:right; margin-right:2%">-->
+                            </h2>
+    
+                          
+                                           
+                        </div>
+                        <div class="view-detailed" >
+                            <div class="detailed-title-links" style="padding-bottom:0px !important;">
+                                <div class="pagetitle">NEW INVESTORS</div>
+                                <a class="postlink" id="previous" href="pedirview.php?value=<?php echo $vcflagValue; ?>">&lt; Back</a>
+                                <!-- <h2 style="margin-left:0px;"> New Investors</h2> -->
+                                <div style="float:right; margin-top: -6px;" >
   
   
                               <!-- <label><b>Year</b></label>
@@ -788,6 +791,21 @@ mysql_close();
         return false;
     });
 
+</script>
+<script type="text/javascript">
+    $('#exportbtn').html('<a class ="export" onClick="open_ex(this)" data-check="close"  style="background: #a37635 url(../cfsnew/images/arrow-dropdown.png) no-repeat 90px 8px;width: 80px;">Export</a><div style="display:none;" class="exportinvest"><div class="with-invs exportdealsinvest" data-invs="0">Profile only</div><div class="without-invs exportdealsinvest" data-invs="1">Profile with inv.</div><div class="profile-invs exportdealsinvest" data-invs="2">Table only</div></div>');
+    function open_ex(element){
+                    if ($(element).attr("data-check") == 'close') {
+                        $(".exportinvest").show();
+                        $(element).attr("data-check", "open");
+                    }else if($(element).attr("data-check") == 'open'){
+                        $(".exportinvest").hide();
+                        $(element).attr("data-check", "close");
+                    }else{
+                        $(".exportinvest").hide();
+                        $(element).attr("data-check", "close");
+                    }
+                }
 </script>
 <?php
 mysql_close();
