@@ -21,8 +21,15 @@ if($vcflagValue==0){
 
 if (!$_POST) {
 
-    $year1=$year2=date('Y');
+    
+    if(date('m')=='01'){
+        $month1=$month2=12;
+        $year1=$year2=date('Y')-1;
+
+    }else{
     $month1=$month2=date('m') - 1;
+    $year1=$year2=date('Y');
+    }
     // $month1='01';
     // $month2='12';
     $dt1 = $year1.'-'.$month1.'-01';
@@ -131,6 +138,25 @@ $actionUrl = "newinvestorreport.php?flag=1";
 <div id="container">
     <table cellpadding="0" cellspacing="0" width="100%" >
         <tr>
+        <td class="left-td-bg" id="tdfilter" <?php if($dealvalue==111){echo "style=display:none;";}?>>
+    <div class="acc_main" id="acc_main" >
+        <div class="slide" style="z-index:9999; position:relative;"><a href="#" class="btn-slide active" id="openRefine">Slide Panel</a></div>    
+        <div id="panel" style="display:block; overflow:visible; clear:both;">
+<?php 
+
+//if($vcflagValue!=2 && $dealvalue!=111){
+   
+    include_once('dirrefineactiveinvestor.php');
+//}elseif($vcflagValue == 2 && $dealvalue!=110 && $dealvalue!=111){
+
+  //  include_once('dirangelrefine.php');
+//}
+?>
+     <input type="hidden" name="resetfield" value="" id="resetfield"/> 
+    </div>  
+</div>
+
+</td>
             <?php
             $exportToExcel = 0;
             $TrialSql = "select dm.DCompId,dc.DCompId,TrialLogin,Student from dealcompanies as dc,dealmembers as dm
@@ -290,10 +316,10 @@ $actionUrl = "newinvestorreport.php?flag=1";
     <OPTION id=2 value=""> Year </option>
     <?php 
         $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates asc";
-                 if($_POST['year2']=='')
-                {
-                    $year2=date("Y");
-                }
+                //  if($_POST['year2']=='')
+                // {
+                //     $year2=date("Y");
+                // }
         if($yearSql=mysql_query($yearsql))
         {
             /*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
