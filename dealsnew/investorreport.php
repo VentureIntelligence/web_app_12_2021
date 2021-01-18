@@ -42,37 +42,164 @@ if (!$_POST) {
 
 
 }
-if($_SESSION['PE_industries']!=''){
+$datevalue = returnMonthname($month1) ."-".$year1 ."to". returnMonthname($month2) ."-" .$year2;
+                $splityear1=(substr($year1,2));
+                $splityear2=(substr($year2,2));
+                $sdatevalueCheck1 = returnMonthname($month1) ." ".$splityear1;
+                $edatevalueCheck2 = returnMonthname($month2) ."  ".$splityear2;
+//exit();
+function returnMonthname($mth)
+        {
+            if($mth==1)
+                return "Jan";
+            elseif($mth==2)
+                return "Feb";
+            elseif($mth==3)
+                return "Mar";
+            elseif($mth==4)
+                return "Apr";
+            elseif($mth==5)
+                return "May";
+            elseif($mth==6)
+                return "Jun";
+            elseif($mth==7)
+                return "Jul";
+            elseif($mth==8)
+                return "Aug";
+            elseif($mth==9)
+                return "Sep";
+            elseif($mth==10)
+                return "Oct";
+            elseif($mth==11)
+                return "Nov";
+            elseif($mth==12)
+                return "Dec";
+    }
+if($resetfield=="industry")
+        { 
+            $_POST['industry']="";
+            $industry="";
+        }
+        else 
+        {
+            $industry=trim($_POST['industry']);
+            /*if ($industry != '--' && count($industry) > 0) {
+                $searchallfield = '';
+            }*/
+        }
+        if($resetfield=="stage")
+            { 
+             $_POST['stage']="";
+             $stageval="";
+            }
+            else 
+            {
+             $stageval=$_POST['stage'];
+            }
+           
+            if($_POST['stage'] && $stageval!="")
+            {
+                    $boolStage=true;
+            }
+            else
+            {
+                    $stage="--";
+                    $boolStage=false;
+            }
+            if($resetfield=="firmtype")
+            { 
+                $_POST['firmtype']="";
+                $firmtypetxt="";
+            }
+            else 
+            {
+                $firmtypetxt=$_POST['firmtype'];
+            }
+    
+            $firmtypevalue=implode(",",$firmtypetxt);
+            foreach($firmtypetxt as $firmid)
+                        {
+                                $firmsql= "select FirmType from firmtypes where FirmTypeId=$firmid";
+                        //  echo "<br>**".$stagesql;
+                                if ($firmtyp = mysql_query($firmsql))
+                                {
+                                        While($myrow=mysql_fetch_array($firmtyp, MYSQL_BOTH))
+                                        {
+                                                $firmvaluetext= $firmvaluetext.",".$myrow["FirmType"] ;
+                                               // print_r($firmvaluetext);
+                                        }
+                                }
+                        }
+                        $firmvaluetext = substr_replace($firmvaluetext, '', 0,1);
+    
+            if ($boolStage==true)
+                            {
+                                $stagevalue="";
+                                $stageidvalue="";
+                                foreach($stageval as $stage)
+                                {
+                                        //echo "<br>****----" .$stage;
+                                        $stagevalue= $stagevalue. " `peinvestments`.StageId=" .$stage." or ";
+                                        $stageidvalue=$stageidvalue.",".$stage;
+                                }
 
-    $comp_industry_id_where = ' AND `pecompanies`.industry IN ('.$_SESSION['PE_industries'].') ';
+                                $wherestage = $stagevalue ;
+                                $qryDealTypeTitle="Stage  - ";
+                                $strlength=strlen($wherestage);
+                                $strlength=$strlength-3;
+                                //echo "<Br>----------------" .$wherestage;
+                                $wherestage= substr ($wherestage , 0,$strlength);
+                                $wherestage =" and (".$wherestage.")";
+                             //echo "<br>---" .$stringto;
+
+                            }
+
+            if ($firmtypetxt!= "" && $firmtypetxt != "--")
+                $wherefirmtypetxt = " AND `peinvestors`.FirmTypeId IN (".$firmtypevalue.")";
+                if($industry >0)
+                {
+                    $industrysql= "select industry from industry where IndustryId=$industry";
+                    if ($industryrs = mysql_query($industrysql))
+                    {
+                            While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
+                            {
+                                    $industryvalue=$myrow["industry"];
+                            }
+                    }
+                }
+if($_POST['industry']!=''){
+
+    $comp_industry_id_where = ' AND `pecompanies`.industry IN ('.$_POST['industry'].') ';
+}else{
+    $comp_industry_id_where = "";
 }
     if($vcflagValue==0){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' AND hide_pevc_flag =1 )  $comp_industry_id_where group by `peinvestments_investors`.`InvestorId`";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' AND hide_pevc_flag =1 )  $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==1){
 
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PEcompanyID`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from 
             `peinvestments_investors`,`peinvestments`,`peinvestors` ,`pecompanies`,`industry`,`stage` where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` 
             and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `pecompanies`.`PEcompanyID` = `peinvestments`.`PECompanyID` 
             and `pecompanies`.`industry` = `industry`.`industryid` and `peinvestments`.`StageId` = `stage`.StageId and `peinvestments`.`dates` between '" . $dt1 . "' 
-            and '" . $dt2 . "' and `peinvestments`.`amount` <=20 and `stage`.`VCview`=1 and `pecompanies`.`industry` !=15 and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' AND hide_pevc_flag =1 ) $comp_industry_id_where group by `peinvestments_investors`.`InvestorId`";
+            and '" . $dt2 . "' and `peinvestments`.`amount` <=20 and `stage`.`VCview`=1 and `pecompanies`.`industry` !=15 and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' AND hide_pevc_flag =1 ) $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==3){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' )  $comp_industry_id_where group by `peinvestments_investors`.`InvestorId`";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' )  $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==4){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT'  )  $comp_industry_id_where group by `peinvestments_investors`.`InvestorId`";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT'  )  $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==5){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF'  ) $comp_industry_id_where group by `peinvestments_investors`.`InvestorId`";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF'  ) $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==2){
         
         $reportsql = "SELECT count(peinv_inv.AngelDealId) as deals, inv.Investor as investor, inv.InvestorId as id, count(peinv.InvesteeId) as cos
@@ -80,7 +207,7 @@ FROM angel_investors AS peinv_inv, peinvestors AS inv, angelinvdeals AS peinv, p
 WHERE inv.InvestorId = peinv_inv.InvestorId
 AND peinv.AngelDealId = peinv_inv.AngelDealId
 AND c.PECompanyId = peinv.InvesteeId
-AND peinv.Deleted =0 and inv.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "'
+AND peinv.Deleted =0 and inv.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "' $comp_industry_id_where $wherestage $wherefirmtypetxt
 Group by inv.InvestorId"; 
 }
     $totalreportsql = $reportsql;
@@ -88,12 +215,13 @@ $order = " order by deals desc";
 $ajaxcompanysql = urlencode($reportsql);
 
  $reportsql .= $order;
-//echo $reportsql;
+ echo "<div style='display:none'>$reportsql</div>";
+
 $topNav='Directory';
 include_once('investor_search.php');
 //include_once('dirnew_header.php');
 ?>
-</form>
+
 <?php if($vcflagValue==0){
 $actionUrl = "investorreport.php"; }
 else if($vcflagValue==1){
@@ -121,7 +249,6 @@ else if($vcflagValue==2){
 }
 ?>
 
-<form name="investorreport" action="<?php echo $actionUrl; ?>" method="post" id="investorreport">
 <div id="container">
     <table cellpadding="0" cellspacing="0" width="100%" >
         <tr>
@@ -336,12 +463,176 @@ else if($vcflagValue==2){
   <div class="search-btn"  > <input name="searchpe" type="submit" value="" class="datesubmit" id="datesubmit"/></div>
   </div>
   <?php if($report_cnt>0){?><div class="title-links " id="exportbtn"></div><?php } ?>
+  
                                     <!-- <input class ="export_new" type="button" id="expshowdeals"  value="Export" name="showdeals" style="margin-right:2%"> -->
                                   </div>
                             </h2>
     
                           
-                                            
+                            <ul class="result-select">
+                                <?php
+                                $cl_count = count($_POST);
+                                if($cl_count > 4)
+                                {
+                                   ?>
+                                <li class="result-select-close" style="border:none;"><a href="investorreport.php?value=<?php echo $vcflagValue; ?>"><img width="7" height="7" border="0" alt="" src="images/icon-close-ul.png"> </a></li>
+                                <?php
+                                }
+                               if($industry >0 && $industry!=null){ ?>
+                                <li title="Industry">
+                                    <?php echo $industryvalue; ?><a   onclick="resetinput('industry');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php }if($followonVC!="--" && $followonVC!=""){ ?>
+                            <li>
+                            <?php echo $followonVCFundText ?><a  onclick="resetinput('followonVCFund');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                            </li>
+                            <?php } if($exited !="--" && $exitedText !=''){ ?>
+                            <li>
+                            <?php echo $exitedText?><a  onclick="resetinput('exitedstatus');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                            </li>
+                            <?php }    
+                                if($stagevaluetext!="" && $stagevaluetext!=null) { ?>
+                                <li> 
+                                    <?php echo $stagevaluetext ?><a  onclick="resetinput('stage');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php }  
+                                    if($round!="--" && $round!=null){ $drilldownflag=0; ?>
+                                    <li> 
+                                        <?php echo $round; ?><a  onclick="resetinput('round');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <!-- -->
+                                    <?php } 
+                                if($investorType !="--" && $investorType!=null){ ?>
+                                <li> 
+                                    <?php echo $invtypevalue; ?><a  onclick="resetinput('invType');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+                                if($regionId > 0){ ?>
+                                <li> 
+                                    <?php echo $regionvalue; ?><a  onclick="resetinput('txtregion');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php }   
+                                if($txtregion !="--" && $txtregion !=""){ ?>
+                            <li>
+                            <?php echo $regionText?><a  onclick="resetinput('txtregion');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                            </li>
+                            <?php } 
+                                if (($startRangeValue!= "--") && ($endRangeValue != "")){ ?>
+                                <li> 
+                                    <?php echo "(USM)".$startRangeValue ."-" .$endRangeValueDisplay ?><a  onclick="resetinput('range');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+                                if($city!=""){ $drilldownflag=0; ?>
+                                    <li> 
+                                        <?php echo $city; ?><a  onclick="resetinput('city');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <!-- -->
+                                <?php } 
+                                if (trim($sdatevalueCheck1) !=''){ ?>
+                                <li> 
+                                    <?php echo $sdatevalueCheck1. "-" .$edatevalueCheck2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+
+                                if($firmvaluetext!="--" && $firmvaluetext!=null) { $drilldownflag=0; ?>
+                                <li> 
+                                    <?php echo  $firmvaluetext;?><a  onclick="resetinput('firmtype');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+                                // echo $cityname;
+                                // exit();
+                                 if($vcflagValue != 6 && $dealvalue != 103 && $dealvalue != 104){ 
+                                    if($countryname!="--" && $countryname!=null && ($cityname != '' || $countryNINname != '')) { $drilldownflag=0; ?>
+                                        <li> 
+                                        <?php $cross_city = str_replace("'", " ", $cityname_list); ?>
+                                        <?php 
+                                            $cross_country = str_replace("'", " ", $countryname_list); 
+                                            if($cross_country == ''){
+                                                $cross_country = $countryname;
+                                            }
+                                        ?>
+                                        <?php
+                                            if($countrytxt != "NIN"){
+                                                if($cityname =="All City"){
+                                                    ?>
+                                                    <?php echo $cross_country." - ".ucwords(strtolower($cityname));?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>        
+                                                <?php
+                                                    }else{
+                                                ?>
+                                            <?php echo $cross_country." - ".ucwords(strtolower($cross_city));?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                            <?php }
+                                            }else{ ?>
+                                                <?php if($countryNINname == "All Countries"){
+                                                    ?>
+                                                <?php echo $cross_country." - ".ucwords(strtolower($countryNINname));?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                                <?php }else{ ?>
+                                                    <?php echo "Non India - ".$cross_country;?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </li>
+                                    <?php } 
+                                }
+
+                                if($keyword!="") { ?>
+                                <li> 
+                                    <?php echo $keyword;?><a  onclick="resetinput('keywordsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+                                if($companysearch!="") { ?>
+                                <li> 
+                                    <?php echo $companysearch;?><a  onclick="resetinput('companysearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+                                if($sectorsearch!="") { ?>
+                                <li> 
+                                    <?php echo $sectorsearch;?><a  onclick="resetinput('sectorsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php }
+                                if($advisorsearch_trans!="") { ?>
+                                <li> 
+                                    <?php echo $advisorsearch_trans;?><a  onclick="resetinput('advisorsearch_trans');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+                                if($advisorsearch_legal!="") { ?>
+                                <li> 
+                                    <?php echo $advisorsearch_legal;?><a  onclick="resetinput('advisorsearch_legal');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } 
+                                 if($dirsearch!="") { ?>
+                                <li> 
+                                    <?php echo $dirsearch;?><a  onclick="resetinput('autocomplete');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php } if($searchallfield!=""){ $drilldownflag=0; ?>
+                                <li> 
+                                    <?php echo trim($searchallfield)?><a  onclick="resetinput('searchallfield');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php }
+                                 if ($tagsearch != '') {
+
+                                            $ex_tags_filter = explode(':', $tagsearch);
+
+                                            if (count($ex_tags_filter) > 1) {
+                                                $tagsearch = trim($tagsearch);
+                                          } else {
+
+                                                $tagsearch = "tag:" . trim($tagsearch);
+                                            }
+                                            ?>
+                                                <li><?php echo $tagsearch; ?><a  onclick="resetinput('tagsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a></li>
+                                            <?php
+                                }
+                               $_POST['resetfield']="";
+                                foreach($_POST as $value => $link) 
+                                { 
+                                    if($link == "" || $link == "--" || $link == " ") 
+                                    { 
+                                        unset($_POST[$value]); 
+                                    } 
+                                }
+                                //print_r($_POST);
+                                
+                                ?>
+                             </ul>                 
                         </div>
                         <div class="view-detailed" >
                             <div class="detailed-title-links" style="padding-bottom:0px !important;">

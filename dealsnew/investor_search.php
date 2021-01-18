@@ -429,7 +429,15 @@ overflow: hidden;
         include_once('refinedef.php');?>
     <!--Header-->
     <?php
-       $actionlink="pedirview.php?value=".$vcflagValue;
+    if(basename($_SERVER['PHP_SELF'])=="pedirview.php"){
+        $actionlink="pedirview.php?value=".$vcflagValue;
+    }elseif(basename($_SERVER['PHP_SELF'])=="investorreport.php"){
+        $actionlink="investorreport.php";
+    }elseif(basename($_SERVER['PHP_SELF'])=="newinvestorreport.php"){
+        $actionlink="newinvestorreport.php";
+    }
+   
+       //$actionlink="investorreport.php?value=".$vcflagValue;
     ?>
 
 
@@ -595,8 +603,7 @@ if($vcflagValue==0 || $vcflagValue==1 || $vcflagValue==3 || $vcflagValue==4 || $
     <?php
 }
 ?>
-</form>
-<form name="yearchange" id="yearchange" action="investorreport.php" method="post">
+
 
 <script>
     $(document).ready(function(){
