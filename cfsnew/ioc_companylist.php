@@ -59,7 +59,15 @@
     // elseif($exportsql2)
     //     $ExportResult = $cagr->ExporttoExcel($exportsql2);
    // $field = $_POST['company_exportid'];
+   if($_POST['company_exportid']!='')
+   {
     $field = $_POST['company_exportid'];
+   }
+   if($_POST['companyhiddenval']!='')
+   {
+    $value = $_POST['companyhiddenval'];
+    $field = str_replace(",","','",$value);
+   }
     // exit();
     $ExportResult = $plstandard->getchargesholderList($field);
       
@@ -114,7 +122,10 @@
 	header("Pragma: no-cache");
   header("Expires: 0");
   print("\n"); 
+  if($_POST['company_exportid']!='')
+   {
   echo  $ExportResult[0]['company_name'];
+   }
   print("\n"); 
   print("\n"); 
     $sep = "\t"; //tabbed character
@@ -122,14 +133,22 @@
     //print("\n");
     $currFY = Date('y');
   // echo "S.No"."\t";
-	echo "SRN"."\t";
-	echo "Charge ID"."\t";
+  if($_POST['companyhiddenval']!='')
+  {
+  echo "Company Name"."\t";
+  }
+  echo "SRN"."\t";
+ 	echo "Charge ID"."\t";
 	echo "Charges Holder Name"."\t";
 	echo "Date of creation"."\t";
   echo "Date of modification"."\t";
   echo "Date of satisfaction"."\t";
-	echo "Amount"."\t";
-	echo "Address"."\t";
+  echo "Amount"."\t";
+  echo "City"."\t";
+	echo "State"."\t";
+  echo "Address"."\t";
+  
+  
     // echo "Year Founded"."\t";
     print("\n");
     //print("\n");
@@ -162,7 +181,12 @@
         $satisfaction_date = date("d/m/Y", $timestamp2);
       }else{$satisfaction_date= "-";}
     //$schema_insert .=$cnt.$sep;
+    if($_POST['companyhiddenval']!='')
+    {
+     $schema_insert .= $row['company_name'].$sep;
+    }
      $schema_insert .= $row['SRN'].$sep;
+    
      $schema_insert .= $row['chargeid'].$sep;
      $schema_insert .= trim(str_replace(";","",$row['chargeholder'])).$sep;
     
@@ -171,7 +195,11 @@
      $schema_insert .= trim($satisfaction_date).$sep;
     
      $schema_insert .= str_replace(",","",$row['amount'].$sep);
+     $schema_insert .=$row['city'].$sep;
+     $schema_insert .= $row['state'].$sep;
      $schema_insert .= str_replace(", "," ",$row['Address']);
+     
+    
      $schema_insert .=$newline;
      //$cnt++;
 	} 

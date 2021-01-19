@@ -7,6 +7,18 @@
 {literal}
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
+#previous{
+float: left;
+    margin-left: 0 !important;
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    float: left;
+    padding: 5px 10px;
+    color: #fff;
+    background-color: #A2753A;
+    display: inline-block;
+}
  #maskscreen {
             position: fixed;
             left: 0;
@@ -116,8 +128,18 @@ table#chargesholderDetails{
     width: 225px !important;
     border-color: black;
   }
-    </style>
-    <style>
+ .updateFinancialHome{
+       float: right;
+    position: absolute;
+    right: 0;
+    top: 5px;
+ }   
+ .exportbutton{
+       float: right;
+    position: absolute;
+    right: 0;
+    top: 0px;
+ }   
 table, td, th {  
   border: 2px solid #aaa;
   text-align: left;
@@ -182,11 +204,12 @@ background-color: #000;
 </form>    
  
 
-<h1 style="padding:0px !important;font-size: 17px;">
+<div style="padding:0px !important;font-size: 17px;position:relative;">
+<a class="postlink" id="previous" href="indexofcharges.php?value=0" >&lt; Back</a>
 {if $Companyid !=''}
-  <a style="color: #9f7917;font-size: 20px;" target="_blank" href='details.php?vcid={$Companyid}'>{$FCompanyName} 
-  <b style="font-size: 17px;color: #414141;">(Brand Name: <u>{$SCompanyName}</u>)</b></a>
-  <div style="float:right;">
+  <h2 style="color: #9f7917;font-size: 20px;text-align: center;"><a style="color: #9f7917;font-size: 20px;" target="_blank" href='details.php?vcid={$Companyid}'>{$FCompanyName} 
+  <b style="font-size: 17px;color: #414141;">(Brand Name: <u>{$SCompanyName}</u>)</b></a></h2>
+  <div class="exportbutton" >
   
     <form name="Frm_Compare" id="exportform_company" action="ioc_companylist.php" method="post" class="custom" enctype="multipart/form-data">
 
@@ -199,14 +222,15 @@ background-color: #000;
   </div>
   
   {else}
-  <span style="color: #9f7917;font-size: 20px;">{$Searchcompany}</span>
-  <div style="float:right;">
+  <h2 style="color: #9f7917;font-size: 20px;text-align: center;">{$Searchcompany}</h2>
   
    <a href="javascript:void(0)" class="updateFinancialHome" >Click here to request for financials</a>
+   <div style="float:right;">
+  
   </div>
   {/if}
   
-</h1>  
+</div>  
 <div class="lb" id="popup-box">
 	<div class="title">Dont find a Company ?</div>
         <form name="addDBFinacials" id="addDBFinacials">
@@ -239,7 +263,7 @@ background-color: #000;
     <div class="list-tab"  style="margin-top: 12px;">
 <ul>
 
-<li><a class="postlinkval" {if $ioc_fstatus eq 1}href="chargesholderlist_suggest.php?ioc_fstatus=1{if $ioc_fchargeaddress neq ''}&chargeaddress={$ioc_fchargeaddress}{/if}{if $ioc_fchargefromdate neq ''}&chargefromdate={$ioc_fchargefromdate}{/if}{if $ioc_fchargetodate neq ''}&chargetodate={$ioc_fchargetodate}{/if}{if $ioc_fchargefromamount neq ''}&chargefromamount={$ioc_fchargefromamount}{/if}{if $ioc_fchargetoamount neq ''}&chargetoamount={$ioc_fchargetoamount}{/if}{/if}{if $pageno}&page={$pageno}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
+<li><a class="postlinkval" {if $ioc_fstatus eq 1}href="chargesholderlist_suggest.php?ioc_fstatus=1{if $ioc_fchargeaddress neq ''}&chargeaddress={$ioc_fchargeaddress}{/if}{if $ioc_fchargefromdate neq ''}&chargefromdate={$ioc_fchargefromdate}{/if}{if $ioc_fchargetodate neq ''}&chargetodate={$ioc_fchargetodate}{/if}{if $ioc_fchargefromamount neq ''}&chargefromamount={$ioc_fchargefromamount}{/if}{if $ioc_fchargetoamount neq ''}&chargetoamount={$ioc_fchargetoamount}{/if}{/if}{if $pageno}&page={$pageno}{/if}{if $stateid neq ''}&stateid={$stateid}{/if}{if $cityid neq ''}&cityid={$cityid}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
 
 <li><a class="postlink active" href="#"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
 </ul>
