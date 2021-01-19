@@ -207,7 +207,7 @@
 										//	echo "<br>Insert RE investment :".$insertcompanysql;
 											if ($rsinsert = mysql_query($insertcompanysql))
 											{
-												//echo "<br>Insert PE-" .$insertcompanysql;
+												echo "<br>Insert RE-" .$insertcompanysql;
 												 foreach ($investorString as $inv)
 													{
 														if(trim($inv)!=="")
@@ -325,7 +325,7 @@ function returnDate($mth,$yr)
 	function insert_company($companyname,$industryId,$web,$regionId)
 	{
 		$dbpecomp = new dbInvestments();
-		$getPECompanySql = "select PECompanyId from REcompanies where companyname= '$companyname'";
+		$getPECompanySql = "select PECompanyId from REcompanies where companyname = '$companyname'";
 		//echo "<br>select--" .$getPECompanySql;
 		if ($rsgetPECompanyId = mysql_query($getPECompanySql))
 		{
