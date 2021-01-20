@@ -407,20 +407,7 @@ img.fixed-logo{display:none}
       </div>
     </div>
   </header>
-<style>
-    .new-sec,.container-01{
-        background: #F2EDE1 !important;
-        text-align: center;
-        
-    }
-    .new-sec{
-    margin: auto;
-    width: 50%;
-    padding: 6% 0%;
-    height: 80px;
-    
-}
-</style>
+
   <!-- inner page header -->
   <div class="inner-header league-tables">
   	<div class="container-01">
@@ -437,14 +424,9 @@ img.fixed-logo{display:none}
     <div class="content">
       <div class="row">
         <div class="new-sec" id="sec-new">
-        <div class="table-center-wrapper">
-      <div class="login-right">
-        <h4 style="font-weight: 600;">We are facing some technical issues w.r.t league table pages. We will alert once it is back online. Sorry for the inconvenience caused.</h4>
         
-      </div>
-    </div>
         	<div class="inner-page">
-            	<div class="league-tab" style="display:none;">
+            	<div class="league-tab">
 
                   <br>
                   <h3>League Tables - Updated Now For Jan-Dec 2020</h3>  <!--Changes done by client on 13-08-2020-->
