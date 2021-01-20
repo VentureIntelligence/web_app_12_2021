@@ -1,6 +1,7 @@
 <?php include_once("globalconfig.php"); ?>
 <?php
-    include_once 'LeagueTables/db.php';
+    require("dbconnectvi.php");
+$Db = new dbInvestments();
     if($_REQUEST['value']!=''){
 
         $value=$_REQUEST['value'];
@@ -348,7 +349,7 @@ img.fixed-logo{display:none}
 
 <body <?php if($popupdisplay == 1){ echo 'onload="openPopUp()"';}?>>
         <?php
-    $yearVal = mysql_query("SELECT YEAR(date) as year FROM league_table_data GROUP BY YEAR(date)");
+    $yearVal = mysql_query("SELECT YEAR(date) as year FROM leaguetable_main_data GROUP BY YEAR(date)");
     while ($y = mysql_fetch_array($yearVal)) {
 
         if( $y['year'] > 0 && $y['year'] != 1899 ){
@@ -359,7 +360,7 @@ img.fixed-logo{display:none}
     rsort($Lyears);
 
 
-    $Lindustry = mysql_query("SELECT i.id, l.industry FROM league_table_data l JOIN industry i ON i.industry=l.industry GROUP BY l.industry");
+    $Lindustry = mysql_query("SELECT i.id, l.industry FROM leaguetable_main_data l JOIN industry i ON i.industry=l.industry GROUP BY l.industry");
 
 
     ?>
@@ -633,7 +634,7 @@ img.fixed-logo{display:none}
                                // echo "SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE $advisortyp $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY Volume DESC";
                             if($value==1){
 
-                                $sqlselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE $advisortyp $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
+                                $sqlselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE $advisortyp $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
                                 $count = mysql_num_rows($sqlselect);
 
 
@@ -682,7 +683,7 @@ img.fixed-logo{display:none}
                                                        }else{
                                                             $rank = $rank+1;
                                                        }
-                                                   $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$row['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                                   $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$row['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                    $notable = "";
                                                    $finalNotable = "";
 
@@ -727,7 +728,7 @@ img.fixed-logo{display:none}
                             <?php
                             }elseif($value==3){
                           //  echo "SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE $advisortyp$whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY No_of_deals DESC";
-                                $sqlselect2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE $advisortyp $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
+                                $sqlselect2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE $advisortyp $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
                                 $count2 = mysql_num_rows($sqlselect2);
 
                             ?>
@@ -774,7 +775,7 @@ img.fixed-logo{display:none}
                                                     }else{
                                                         $rank = $rank+1;
                                                     }
-                                                   $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$row2['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                                   $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$row2['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                    $notable = "";
                                                    $finalNotable = "";
                                                    while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -820,7 +821,7 @@ img.fixed-logo{display:none}
                             <?php
                             }elseif($value==2){
                                //echo "SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE  $advisortyp $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY Volume DESC";
-                                $sqlMA = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE  $advisortyp $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
+                                $sqlMA = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE  $advisortyp $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
                                 $mAcount = mysql_num_rows($sqlMA);
                             ?>
 
@@ -868,7 +869,7 @@ img.fixed-logo{display:none}
                                                          $tr_ma_rank = $tr_ma_rank+1;
                                                     }
 
-                                                   $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$row['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                                   $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$row['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                    $notable = "";
                                                    $finalNotable = "";
                                                    while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -914,7 +915,7 @@ img.fixed-logo{display:none}
 
                             <?php
                             }elseif($value==4){
-                                $sqlMA2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE  $advisortyp $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
+                                $sqlMA2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE  $advisortyp $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
                                 $mAcount2 = mysql_num_rows($sqlMA2);
                             ?>
 
@@ -963,7 +964,7 @@ img.fixed-logo{display:none}
                                                         $tr_ma_rank = $tr_ma_rank+1;
                                                     }
 
-                                                   $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$row2['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                                   $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$row2['advisor_name']."' AND advisor_type LIKE 'Transaction%' AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                    $notable = "";
                                                    $finalNotable = "";
                                                    while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -1045,7 +1046,7 @@ img.fixed-logo{display:none}
                             <?php
                             if($value==5){
 
-                                $sqllegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
+                                $sqllegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
                                 $countlegal = mysql_num_rows($sqllegalselect);
                              ?>
                         	<div id="dtab-1-1" class="dtab-content current" data-current="dtab-1-1">
@@ -1089,7 +1090,7 @@ img.fixed-logo{display:none}
                                                    }else{
                                                     $legal_pe_rank = $legal_pe_rank+1;
                                                    }
-                                                   $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                                   $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                    $notable = "";
                                                    $finalNotable = "";
                                                    while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -1136,7 +1137,7 @@ img.fixed-logo{display:none}
                             }elseif($value==7){
 
 
-                                $sqllegalselect2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
+                                $sqllegalselect2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
                                 $countlegal2 = mysql_num_rows($sqllegalselect2);
                              ?>
                             <div id="dtab-1-2" class="dtab-content " data-current="dtab-1-2"  >
@@ -1181,7 +1182,7 @@ img.fixed-logo{display:none}
                                                    }else{
                                                     $legal_pe_rank2 = $legal_pe_rank2+1;
                                                    }
-                                                   $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$legalrow2['advisor_name']."' AND advisor_type='Legal'AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                                   $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$legalrow2['advisor_name']."' AND advisor_type='Legal'AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                    $notable = "";
                                                    $finalNotable = "";
                                                    while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -1227,7 +1228,7 @@ img.fixed-logo{display:none}
                             <?php
                             }elseif($value==6){
 
-                                $sqlMALegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
+                                $sqlMALegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
                                 $MAcountlegal = mysql_num_rows($sqlMALegalselect);
                             ?>
                             <div id="dtab-2-1" class="dtab-content" data-current="dtab-2-1">
@@ -1272,7 +1273,7 @@ img.fixed-logo{display:none}
                                                }else{
                                                 $legal_m_rank = $legal_m_rank+1;
                                                }
-                                               $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                               $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                $notable = "";
                                                $finalNotable = "";
                                                while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -1318,7 +1319,7 @@ img.fixed-logo{display:none}
                                 <?php
                                 }elseif($value==8){
 
-                                $sqlMALegalselect2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
+                                $sqlMALegalselect2 = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
                                 $MAcountlegal2 = mysql_num_rows($sqlMALegalselect2);
                             ?>
                             <div id="dtab-2-2" class="dtab-content" data-current="dtab-2-2"  >
@@ -1363,7 +1364,7 @@ img.fixed-logo{display:none}
                                                }else{
                                                 $legal_m_rank = $legal_m_rank+1;
                                                }
-                                               $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$legalrow2['advisor_name']."' AND advisor_type='Legal'AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                               $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$legalrow2['advisor_name']."' AND advisor_type='Legal'AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                $notable = "";
                                                $finalNotable = "";
                                                while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -1419,7 +1420,7 @@ img.fixed-logo{display:none}
                             </ul>
                             <?php
 
-                                $sqllegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
+                                $sqllegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='PE' GROUP BY advisor_name ORDER BY No_of_deals DESC") or die(mysql_error());
                                 $countlegal = mysql_num_rows($sqllegalselect);
                              ?>
                         	<div id="dtab-1" class="dtab-content current">
@@ -1463,7 +1464,7 @@ img.fixed-logo{display:none}
                                                    }else{
                                                     $legal_pe_rank = $legal_pe_rank+1;
                                                    }
-                                                   $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                                   $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='PE' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                    $notable = "";
                                                    $finalNotable = "";
                                                    while($fetchNotable = mysql_fetch_array($selectNotable)){
@@ -1508,7 +1509,7 @@ img.fixed-logo{display:none}
                         	</div>
 
                             <?php
-                                $sqlMALegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `league_table_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
+                                $sqlMALegalselect = mysql_query("SELECT count( id ) AS No_of_deals, advisor_name, SUM( points ) AS points, SUM(amount) AS Volume FROM `leaguetable_main_data` WHERE advisor_type='Legal' $whereCondition AND deal_type='M&A' GROUP BY advisor_name ORDER BY Volume DESC") or die(mysql_error());
                                 $MAcountlegal = mysql_num_rows($sqlMALegalselect);
                             ?>
                             <div id="dtab-2" class="dtab-content">
@@ -1552,7 +1553,7 @@ img.fixed-logo{display:none}
                                                }else{
                                                 $legal_m_rank = $legal_m_rank+1;
                                                }
-                                               $selectNotable = mysql_query("SELECT deal,notable FROM league_table_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
+                                               $selectNotable = mysql_query("SELECT deal,notable FROM leaguetable_main_data WHERE advisor_name = '".$legalrow['advisor_name']."' AND advisor_type='Legal'AND deal_type='M&A' AND  date between '$from' AND '$to'  AND notable='Y'");
                                                $notable = "";
                                                $finalNotable = "";
                                                while($fetchNotable = mysql_fetch_array($selectNotable)){
