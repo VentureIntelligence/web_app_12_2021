@@ -193,7 +193,13 @@ if($resetfield=="industry")
                                 {
                                         //echo "<br>****----" .$stage;
                                         $stagevalue= $stagevalue. " `peinvestments`.StageId=" .$stage." or ";
-                                        $stageidvalue=$stageidvalue.",".$stage;
+                                        if($stageidvalue!="")
+                                        {
+                                            $comma=",";
+                                        }else{
+                                            $comma="";
+                                        }
+                                        $stageidvalue=$stageidvalue.$comma.$stage;
                                 }
 
                                 $wherestage = $stagevalue ;
@@ -724,6 +730,12 @@ else if($vcflagValue==2){
                 <input type="hidden" name="date_month2" value="<?php echo $month2; ?>" >
                 <input type="hidden" name="flaghidden" value="<?php echo $vcflagValue; ?>" >
                 <input type="hidden" name="dealhidden" value="<?php echo $vcflagValue; ?>" >
+                <input type="hidden" name="txthidedateStartValue" value=<?php echo $dt1; ?> >
+                <input type="hidden" name="txthidedateEndValue" value=<?php echo $dt2; ?>>
+                <input type="hidden" name="txthidestageid" value="<?php echo $stageidvalue;?>" >
+                <input type="hidden" name="txthideindustryid" value="<?php echo $industry;?>" >
+                <input type="hidden" name="txthidefirmtypeid" value="<?php echo $firmtypevalue;?>" >
+                <input type="hidden" name="txthidemostactive" value="1" >
 
             </form>
     <script src="<?php echo $refUrl; ?>js/listviewfunctions.js"></script>
