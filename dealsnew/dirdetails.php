@@ -3663,9 +3663,21 @@ table.inv-pro-table tr td:first-child {
  height: 28px;
  display: block;
  background-position: -5px -5px;
- margin-right: 5px;
+ margin-right: 10px;
  border-radius: 50px;
+ content:'';
 }
+.accordions_title span:after {
+ background-image: url(images/expand_plus.png);
+ width: 28px;
+ height: 28px;
+ display: block;
+ background-position: -5px -5px;
+ margin-right: 10px;
+ border-radius: 50px;
+ content:'';
+}
+
 
 .directoryheader1 header{
     background:#fff !important;
