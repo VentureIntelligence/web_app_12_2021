@@ -375,39 +375,7 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
 }
 ?>
 </li>
-<?php
-if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $vcflagValue==5)
-{
-?>
-<li class="even"><h4>Round</h4>
-  <select name="round" onchange="this.form.submit();" id="round">
-            <OPTION id=0 value="--" <?php if($round == "--") echo 'selected'; ?>> Select Round </option>
-                <option id="1" value="seed" <?php if($round == "seed") echo 'selected'; ?>>Seed</option>
-                <?php
-                    $j=1;
-                    if($vcflagValue==0){
-                        $seed=13;
-                    }else{
-                        $seed=5;
-}
-                    for($i=1; $i<$seed; $i++) {
-                        $j++;
-                        if($round == $i)
-                            echo '<option id="'.$j.'" value="'.$i.'" selected>'.$i.'</option>';
-                        else
-                          echo '<option id="'.$j.'" value="'.$i.'">'.$i.'</option>';  
-                    }
-                    if($vcflagValue==0){
-                        
-?>
-                
-                    <option id="1" value="Open Market Transaction" <?php if($round == "Open Market Transaction") echo 'selected'; ?>>Open Market Transaction</option>
-                    <option id="1" value="Preferential Allotment" <?php if($round == "Preferential Allotment") echo 'selected'; ?>>Preferential Allotment</option>
-                    <option id="1" value="Special Situation" <?php if($round == "Special Situation") echo 'selected'; ?>>Special Situation</option> 
-              <?php } ?>
-        </select>
-</li>
-<?php } ?>
+
 <li><h4>Firm Type</h4>
   <div class="selectgroup">
   

@@ -42,11 +42,7 @@ if (!$_POST) {
 
 
 }
-$datevalue = returnMonthname($month1) ."-".$year1 ."to". returnMonthname($month2) ."-" .$year2;
-                $splityear1=(substr($year1,2));
-                $splityear2=(substr($year2,2));
-                $sdatevalueCheck1 = returnMonthname($month1) ." ".$splityear1;
-                $edatevalueCheck2 = returnMonthname($month2) ."  ".$splityear2;
+
 //exit();
 function returnMonthname($mth)
         {
@@ -75,6 +71,7 @@ function returnMonthname($mth)
             elseif($mth==12)
                 return "Dec";
     }
+    $resetfield=$_POST['resetfield'];  
 if($resetfield=="industry")
         { 
             $_POST['industry']="";
@@ -115,7 +112,32 @@ if($resetfield=="industry")
             {
                 $firmtypetxt=$_POST['firmtype'];
             }
-    
+            if($resetfield=="period")
+            {
+             $month1= 01; 
+             //$year1 = date('Y', strtotime(date('Y')." -1  Year"));
+             $month2='12';
+             $year1 =$year2 = date('Y');
+             $_POST['month1']="";
+             $_POST['year1']="";
+             $_POST['month2']="";
+             $_POST['year2']="";
+             $datevalue = returnMonthname($month1) ."-".$year1 ."to". returnMonthname($month2) ."-" .$year2;
+                $splityear1=(substr($year1,2));
+                $splityear2=(substr($year2,2));
+                $sdatevalueCheck1 = returnMonthname($month1) ." ".$splityear1;
+                $edatevalueCheck2 = returnMonthname($month2) ."  ".$splityear2;
+                $dt1 = $year1.'-'.$month1.'-01';
+                $dt2 = $year2.'-'.$month2.'-31';
+               
+            } else{
+                $datevalue = returnMonthname($month1) ."-".$year1 ."to". returnMonthname($month2) ."-" .$year2;
+                $splityear1=(substr($year1,2));
+                $splityear2=(substr($year2,2));
+                $sdatevalueCheck1 = returnMonthname($month1) ." ".$splityear1;
+                $edatevalueCheck2 = returnMonthname($month2) ."  ".$splityear2;
+            }
+            
             $firmtypevalue=implode(",",$firmtypetxt);
             foreach($firmtypetxt as $firmid)
                         {
@@ -131,7 +153,38 @@ if($resetfield=="industry")
                                 }
                         }
                         $firmvaluetext = substr_replace($firmvaluetext, '', 0,1);
-    
+                        if($boolStage==true)
+                        {
+                                    foreach($stageval as $stageid)
+                                    {
+                                            $stagesql= "select Stage from stage where StageId=$stageid";
+                                    //  echo "<br>**".$stagesql;
+                                            if ($stagers = mysql_query($stagesql))
+                                            {
+                                                    While($myrow=mysql_fetch_array($stagers, MYSQL_BOTH))
+                                                    {
+                                                            $stagevaluetext= $stagevaluetext. ",".$myrow["Stage"] ;
+                                                    }
+                                            }
+                                    }
+                                    $stagevaluetext =substr_replace($stagevaluetext, '', 0,1);
+                        }
+                        else
+                                {
+                            $stagevaluetext="";
+                            
+                                        if($investorType !="")
+                                        {
+                                                $invTypeSql= "select InvestorTypeName from investortype where InvestorType='$investorType'";
+                                                if ($invrs = mysql_query($invTypeSql))
+                                                {
+                                                        While($myrow=mysql_fetch_array($invrs, MYSQL_BOTH))
+                                                        {
+                                                                $invtypevalue=$myrow["InvestorTypeName"];
+                                                        }
+                                                }
+                            }
+                                }
             if ($boolStage==true)
                             {
                                 $stagevalue="";
@@ -482,153 +535,34 @@ else if($vcflagValue==2){
                                 <li title="Industry">
                                     <?php echo $industryvalue; ?><a   onclick="resetinput('industry');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
-                                <?php }if($followonVC!="--" && $followonVC!=""){ ?>
-                            <li>
-                            <?php echo $followonVCFundText ?><a  onclick="resetinput('followonVCFund');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                            </li>
+                                <?php }    
+                                if($stagevaluetext!="" && $stagevaluetext!=null) { ?>
+                                <li> 
+                                    <?php echo $stagevaluetext ?><a  onclick="resetinput('stage');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
                             <?php } if($exited !="--" && $exitedText !=''){ ?>
                             <li>
                             <?php echo $exitedText?><a  onclick="resetinput('exitedstatus');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
                             <?php }    
-                                if($stagevaluetext!="" && $stagevaluetext!=null) { ?>
-                                <li> 
-                                    <?php echo $stagevaluetext ?><a  onclick="resetinput('stage');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php }  
-                                    if($round!="--" && $round!=null){ $drilldownflag=0; ?>
-                                    <li> 
-                                        <?php echo $round; ?><a  onclick="resetinput('round');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                    </li>
-                                    <!-- -->
-                                    <?php } 
-                                if($investorType !="--" && $investorType!=null){ ?>
-                                <li> 
-                                    <?php echo $invtypevalue; ?><a  onclick="resetinput('invType');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                if($regionId > 0){ ?>
-                                <li> 
-                                    <?php echo $regionvalue; ?><a  onclick="resetinput('txtregion');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php }   
-                                if($txtregion !="--" && $txtregion !=""){ ?>
-                            <li>
-                            <?php echo $regionText?><a  onclick="resetinput('txtregion');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                            </li>
-                            <?php } 
-                                if (($startRangeValue!= "--") && ($endRangeValue != "")){ ?>
-                                <li> 
-                                    <?php echo "(USM)".$startRangeValue ."-" .$endRangeValueDisplay ?><a  onclick="resetinput('range');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                if($city!=""){ $drilldownflag=0; ?>
-                                    <li> 
-                                        <?php echo $city; ?><a  onclick="resetinput('city');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                    </li>
-                                    <!-- -->
-                                <?php } 
-                                if (trim($sdatevalueCheck1) !=''){ ?>
-                                <li> 
-                                    <?php echo $sdatevalueCheck1. "-" .$edatevalueCheck2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-
-                                if($firmvaluetext!="--" && $firmvaluetext!=null) { $drilldownflag=0; ?>
+                                 if($firmvaluetext!="--" && $firmvaluetext!=null) { $drilldownflag=0; ?>
                                 <li> 
                                     <?php echo  $firmvaluetext;?><a  onclick="resetinput('firmtype');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
-                                <?php } 
+                                    <?php }  
+                                if (trim($sdatevalueCheck1) !='' ){ ?>
+                                <li> 
+                                    <?php echo $sdatevalueCheck1. "-" .$edatevalueCheck2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                </li>
+                                <?php }
+                                 
                                 // echo $cityname;
                                 // exit();
-                                 if($vcflagValue != 6 && $dealvalue != 103 && $dealvalue != 104){ 
-                                    if($countryname!="--" && $countryname!=null && ($cityname != '' || $countryNINname != '')) { $drilldownflag=0; ?>
-                                        <li> 
-                                        <?php $cross_city = str_replace("'", " ", $cityname_list); ?>
-                                        <?php 
-                                            $cross_country = str_replace("'", " ", $countryname_list); 
-                                            if($cross_country == ''){
-                                                $cross_country = $countryname;
-                                            }
-                                        ?>
-                                        <?php
-                                            if($countrytxt != "NIN"){
-                                                if($cityname =="All City"){
-                                                    ?>
-                                                    <?php echo $cross_country." - ".ucwords(strtolower($cityname));?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>        
-                                                <?php
-                                                    }else{
-                                                ?>
-                                            <?php echo $cross_country." - ".ucwords(strtolower($cross_city));?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                            <?php }
-                                            }else{ ?>
-                                                <?php if($countryNINname == "All Countries"){
-                                                    ?>
-                                                <?php echo $cross_country." - ".ucwords(strtolower($countryNINname));?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                                <?php }else{ ?>
-                                                    <?php echo "Non India - ".$cross_country;?><a  onclick="resetinput('country');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                                <?php } ?>
-                                            <?php } ?>
-                                        </li>
-                                    <?php } 
-                                }
+                                 
 
-                                if($keyword!="") { ?>
-                                <li> 
-                                    <?php echo $keyword;?><a  onclick="resetinput('keywordsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                if($companysearch!="") { ?>
-                                <li> 
-                                    <?php echo $companysearch;?><a  onclick="resetinput('companysearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                if($sectorsearch!="") { ?>
-                                <li> 
-                                    <?php echo $sectorsearch;?><a  onclick="resetinput('sectorsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php }
-                                if($advisorsearch_trans!="") { ?>
-                                <li> 
-                                    <?php echo $advisorsearch_trans;?><a  onclick="resetinput('advisorsearch_trans');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                if($advisorsearch_legal!="") { ?>
-                                <li> 
-                                    <?php echo $advisorsearch_legal;?><a  onclick="resetinput('advisorsearch_legal');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } 
-                                 if($dirsearch!="") { ?>
-                                <li> 
-                                    <?php echo $dirsearch;?><a  onclick="resetinput('autocomplete');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php } if($searchallfield!=""){ $drilldownflag=0; ?>
-                                <li> 
-                                    <?php echo trim($searchallfield)?><a  onclick="resetinput('searchallfield');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php }
-                                 if ($tagsearch != '') {
-
-                                            $ex_tags_filter = explode(':', $tagsearch);
-
-                                            if (count($ex_tags_filter) > 1) {
-                                                $tagsearch = trim($tagsearch);
-                                          } else {
-
-                                                $tagsearch = "tag:" . trim($tagsearch);
-                                            }
-                                            ?>
-                                                <li><?php echo $tagsearch; ?><a  onclick="resetinput('tagsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a></li>
-                                            <?php
-                                }
+                                
                                $_POST['resetfield']="";
-                                foreach($_POST as $value => $link) 
-                                { 
-                                    if($link == "" || $link == "--" || $link == " ") 
-                                    { 
-                                        unset($_POST[$value]); 
-                                    } 
-                                }
+                               
                                 //print_r($_POST);
                                 
                                 ?>
@@ -794,6 +728,7 @@ else if($vcflagValue==2){
             </form>
     <script src="<?php echo $refUrl; ?>js/listviewfunctions.js"></script>
     <script type="text/javascript">
+    
                                     var orderby = '<?php echo $orderby; ?>';
                                     var ordertype = '<?php echo $ordertype; ?>';
                                     $(".jp-next").live("click", function() {
@@ -936,16 +871,18 @@ else if($vcflagValue==2){
                                         return false;
 
                                     });*/
-                                    function resetinput(fieldname)
-                                    {
-                                        $("#resetfield").val(fieldname);
-                                        //alert( $("#resetfield").val());
-                                        $("#pesearch").submit();
-                                        return false;
-                                    }
+                                   
 </script>
 <script type="text/javascript">
-
+function resetinput(fieldname)
+                {
+                 
+               // alert($('[name="'+fieldname+'"]').val());
+                  $("#resetfield").val(fieldname);
+                  //alert( $("#resetfield").val(fieldname));
+                  $("#pesearch").submit();
+                    return false;
+                }
       $(document).on('click','.profile-invs',function(){
             jQuery('#maskscreen').fadeIn();
             jQuery('#popup-box-copyrights').fadeIn();   
