@@ -883,18 +883,27 @@ function resetinput(fieldname)
                   $("#pesearch").submit();
                     return false;
                 }
-      $(document).on('click','.profile-invs',function(){
-            jQuery('#maskscreen').fadeIn();
-            jQuery('#popup-box-copyrights').fadeIn();   
-            return false;
-        });
+    //   $(document).on('click','.profile-invs',function(){
+    //         jQuery('#maskscreen').fadeIn();
+    //         jQuery('#popup-box-copyrights').fadeIn();   
+    //         return false;
+    //     });
         $(document).on('click','.exportdealsinvest',function(){ 
                     $("#showprofile").val($(this).attr("data-invs"));
                     jQuery('#maskscreen').fadeIn();
                     jQuery('#popup-box-copyrights').fadeIn();   
+                    jQuery('#popup-box-copyrightstable').fadeOut();
                     return false;
                 });
 
+        $(document).on('click','.exportdealsinvesttable',function(){ 
+                    $("#showprofile").val($(this).attr("data-invs"));
+                    jQuery('#maskscreen').fadeIn();
+                    jQuery('#popup-box-copyrightstable').fadeIn(); 
+                    jQuery('#popup-box-copyrights').fadeOut();    
+                    return false;
+                });
+       
         function initExporttable(){ 
             $.ajax({
                 url: 'ajxCheckDownload.php',
@@ -909,6 +918,36 @@ function resetinput(fieldname)
 
                     if (currentRec < remLimit){
                         hrefval= 'exportinvreport.php';
+                        $("#invreport").attr("action", hrefval);
+                        $("#invreport").submit();
+                        jQuery('#preloading').fadeOut();
+                    }else{
+                        jQuery('#preloading').fadeOut();
+                        //alert("You have downloaded "+ downloaded +" records of allowed "+ exportLimit +" records(within 48 hours). You can download "+ remLimit +" more records.");
+                        alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+                    }
+                },
+                error:function(){
+                    jQuery('#preloading').fadeOut();
+                    alert("There was some problem exporting...");
+                }
+
+            });
+        }
+        function initExport(){ 
+            $.ajax({
+                url: 'ajxCheckDownload.php',
+                dataType: 'json',
+                success: function(data){
+                    var downloaded = data['recDownloaded'];
+                    var exportLimit = data.exportLimit;
+                    var currentRec = <?php echo $report_cnt; ?>;
+
+                    //alert(currentRec + downloaded);
+                    var remLimit = exportLimit-downloaded;
+
+                    if (currentRec < remLimit){
+                        hrefval= 'exportinvestorprofile.php';
                         $("#invreport").attr("action", hrefval);
                         $("#invreport").submit();
                         jQuery('#preloading').fadeOut();
@@ -960,13 +999,24 @@ function checkForDate()
 </script>
 </div>
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 632px; display: none;"></div>
-<div class="lb" id="popup-box-copyrights" style="width:650px !important;">
+<div class="lb" id="popup-box-copyrightstable" style="width:650px !important;">
    <span id="expcancelbtntable" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
     <div class="copyright-body" style="text-align: center;">&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.
     </div>
     <div class="cr_entry" style="text-align:center;">
         
         <input type="button" value="I Agree" id="agreebtntable" />
+    </div>
+
+</div>
+
+<div class="lb" id="popup-box-copyrights" style="width:650px !important;">
+   <span id="expcancelbtn" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
+    <div class="copyright-body" style="text-align: center;">&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.
+    </div>
+    <div class="cr_entry" style="text-align:center;">
+        
+        <input type="button" value="I Agree" id="agreebtn" />
     </div>
 
 </div>
@@ -998,7 +1048,7 @@ mysql_close();
 <?php } ?>
     
     $(document).on('click','#agreebtntable',function(){
-         $('#popup-box-copyrights').fadeOut();   
+         $('#popup-box-copyrightstable').fadeOut();   
         $('#maskscreen').fadeOut(1000);
         $('#preloading').fadeIn();   
         initExporttable();
@@ -1007,14 +1057,28 @@ mysql_close();
     
      $(document).on('click','#expcancelbtntable',function(){
 
-        jQuery('#popup-box-copyrights').fadeOut();   
+        jQuery('#popup-box-copyrightstable').fadeOut();   
         jQuery('#maskscreen').fadeOut(1000);
         return false;
     });
+    $(document).on('click','#agreebtn',function(){
+                $('#popup-box-copyrights').fadeOut();   
+                $('#maskscreen').fadeOut(1000);
+                $('#preloading').fadeIn();   
+                initExport();
+                return false; 
+            });
+
+            $(document).on('click','#expcancelbtn',function(){
+
+                jQuery('#popup-box-copyrights').fadeOut();   
+                jQuery('#maskscreen').fadeOut(1000);
+                return false;
+            });
 
 </script>
 <script type="text/javascript">
-    $('#exportbtn').html('<a class ="export" onClick="open_ex(this)" data-check="close"  style="background: #a37635 url(../cfsnew/images/arrow-dropdown.png) no-repeat 90px 8px;width: 80px;">Export</a><div style="display:none;" class="exportinvest"><div class="with-invs exportdealsinvest" data-invs="0">Profile only</div><div class="without-invs exportdealsinvest" data-invs="1">Profile with inv.</div><div class="profile-invs exportdealsinvest" data-invs="2">Table only</div></div>');
+    $('#exportbtn').html('<a class ="export" onClick="open_ex(this)" data-check="close"  style="background: #a37635 url(../cfsnew/images/arrow-dropdown.png) no-repeat 90px 8px;width: 80px;">Export</a><div style="display:none;" class="exportinvest"><div class="with-invs exportdealsinvest" data-invs="0">Profile only</div><div class="without-invs exportdealsinvest" data-invs="1">Profile with inv.</div><div class="profile-invs exportdealsinvesttable" data-invs="2">Table only</div></div>');
     function open_ex(element){
                     if ($(element).attr("data-check") == 'close') {
                         $(".exportinvest").show();
