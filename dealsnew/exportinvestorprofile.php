@@ -83,6 +83,12 @@ function updateDownload($res){
                     $advisorsearch_trans=$_POST['txthideadvisortrans'];
                        $searchallfield=$_POST['searchallfield'];
                        $invname=$_POST['invname'];
+                       $firmtypeid=$_POST['txthidefirmtypeid'];
+                       $mostactiveflag=$_POST['txthidemostactive'];
+                       $newinvestorflag=$_POST['txthidenewinvestor'];
+                       $defaultday = $_POST['txthidedatedefaultday'];
+                       $endDate = $_POST['txthidedateendDate'];
+                      
                                     //echo "<br>^^^".$investorID;
 
                     $searchString="Undisclosed";
@@ -226,8 +232,9 @@ function updateDownload($res){
                       //  $filetitle="VCPMS";
                     }
                 if(!isset($_POST[ 'sqlquery' ])){
-                
+               
                     if($pe_vc_flag==0 || $pe_vc_flag==1){
+                       
                         if($keyword!="")
                             {
                                     $showallsql="select distinct peinv.InvestorId,inv.Investor,inv.*
@@ -318,7 +325,7 @@ function updateDownload($res){
                             }
                             else
                             {
-                           
+                          
                                 if(isset($_REQUEST['txthideinvestorId']) && $_REQUEST['txthideinvestorId']!=''){
                                 $InvestorId = $_REQUEST['txthideinvestorId'];    
                                 $showallsql = "select distinct peinv.InvestorId,inv.Investor,inv.*
@@ -337,7 +344,10 @@ function updateDownload($res){
                                 
                                 if ($investorType!= "")
                                         $whereInvType = " pe.InvestorType = '".$investorType."'";
-                                
+                                if($firmtypeid !="")
+                                {
+                                    $wherefirmtypetxt = " inv.FirmTypeId IN (".$firmtypeid.")";
+                                }
                                 if ($boolStage==true)
                                 {
                                         $stagevalue="";
@@ -383,6 +393,14 @@ function updateDownload($res){
 
                                     $wheredates= " dates between '" . $dt1. "' and '" . $dt2 . "'";
                                 }
+                                if($mostactiveflag == 1){
+                                    $wheremostactive = " pe.AggHide='0' and pe.SPV='0' and peinv.`InvestorId`!=9 ";
+                                }
+                                if($newinvestorflag == 1){
+                                    $wheremostactive = "  peinv.InvestorId !=9 and pe.Deleted = 0 and pec.industry !=15
+                                    and peinv.InvestorId NOT IN (SELECT peinv_inv.InvestorId from peinvestments_investors AS peinv_inv, peinvestments as pe  
+                                           where pe.PEId = peinv_inv.PEId and pe.dates between  '" . $defaultday . "'  and  '" . $endDate . "' ) ";
+                                }
                                 if ($whereind != "")
                                 {
                                         $showallsql=$showallsql . $whereind ." and ";
@@ -413,12 +431,21 @@ function updateDownload($res){
                                         $showallsql=$showallsql.$whererange . " and ";
                                         $bool=true;
                                 }
-                                if(($wheredates !== "") )
+                                if(($wheredates != "") )
                                 {
                                         $showallsql = $showallsql . $wheredates ." and ";
                                         $bool=true;
                                 }
-                                
+                               
+                                if($wheremostactive != ""){
+                                    $showallsql = $showallsql . $wheremostactive ." and ";
+                                    $bool=true;
+                                }
+                                if(($wherefirmtypetxt != ""))
+                                {
+                                        $showallsql = $showallsql . $wherefirmtypetxt ." and ";
+                                        $bool=true;
+                                }
                                 $showallsql = $showallsql. " pe.PECompanyId=pec.PECompanyId and peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                 pe.StageId=s.StageId and pec.industry!=15 and
                                 pe.Deleted=0 " .$addVCFlagqry. " order by inv.Investor ";
@@ -982,7 +1009,7 @@ function updateDownload($res){
                         $isUpdated = true;
                     } 
                 }
-
+              
                 if( $dt1 != '' && $dt2 != '' ) {
                     $pevcInvestmentWhere = " and peinv.dates between '" . $dt1. "' and '" . $dt2 . "'";
                     $IPOInvestmentWhere = " and peinv.IPODate between '" . $dt1. "' and '" . $dt2 . "'";
@@ -1020,6 +1047,7 @@ function updateDownload($res){
 //                    echo $_REQUEST['txthideinvestorId']."<br>---" .$sql;
 //                   exit();
                     //execute query
+                  //  echo $sql;exit();
                    $result = @mysql_query($sql)
                         or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
                    updateDownload($result);
