@@ -182,7 +182,7 @@ img.fixed-logo{display:none}
     rsort($Lyears);
 
 
-    $Lindustry = mysql_query("SELECT i.id, l.industry FROM leaguetable_test_data l JOIN industry i ON i.industry=l.industry GROUP BY l.industry");
+    $Lindustry = mysql_query("SELECT i.id, l.industry FROM leaguetable_test_data l JOIN league_test_industry i ON i.industry=l.industry GROUP BY l.industry");
 
 
     ?>
@@ -229,7 +229,7 @@ img.fixed-logo{display:none}
       </div>
     </div>
   </header>
-
+  
   <!-- inner page header -->
   <div class="inner-header league-tables">
   	<div class="container-01">
@@ -246,7 +246,7 @@ img.fixed-logo{display:none}
     <div class="content">
       <div class="row">
         <div class="new-sec" id="sec-new">
-
+       
         	<div class="inner-page">
             	<div class="league-tab">
 
@@ -302,7 +302,7 @@ img.fixed-logo{display:none}
                                     <select name="industry" id="industry">
                                     	<option value=""> -- Select Industry --</option>
                                         <?php
-                                            $Industryselect = mysql_query("SELECT * FROM `industry` ORDER BY industry ASC") or die(mysql_error());
+                                            $Industryselect = mysql_query("SELECT * FROM `league_test_industry` ORDER BY industry ASC") or die(mysql_error());
 
 
 
@@ -343,7 +343,7 @@ img.fixed-logo{display:none}
                                     }*/
                                     $industry = (trim($_POST['industry']) != "") ? trim($_POST['industry']) : "";
                                     if($industry){
-                                      $getIndustry = mysql_query("SELECT industry from industry WHERE id=$industry");
+                                      $getIndustry = mysql_query("SELECT industry from league_test_industry WHERE id=$industry");
                                       $fetchIndustry = mysql_fetch_array($getIndustry);
                                       $industryName = $fetchIndustry['industry'];
                                     }
