@@ -1211,7 +1211,14 @@ exit();
                                 
                                     
                                 $schema_insert .=rtrim($MgmtTeam['ExecutiveMgmt'],',').$sep;  //Management Team
-                                $schema_insert .=$row[16].$sep; //FirmType
+                                $firm_typeId      = $row[29];
+                                $firm_typesql      = "SELECT FirmType FROM firmtypes where FirmTypeId='$firm_typeId'";
+                                if ($rsfirm_type = mysql_query($firm_typesql)) {
+                                    While ($myfirm_typerow = mysql_fetch_array($rsfirm_type, MYSQL_BOTH)) {
+                                        $firm_typename = $myfirm_typerow["FirmType"];
+                                    }
+                                }
+                                $schema_insert .= $firm_typename.$sep; //FirmType
                                 
                             if($pe_vc_flag!=2){
 
