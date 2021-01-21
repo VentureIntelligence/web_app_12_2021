@@ -187,8 +187,7 @@ Group by inv.InvestorId order by deals desc";
     $query1 = $reportsql;
 }
 $searchtitle = "Most Active Investors-$year";
-echo $reportsql;
-exit();
+
 function moneyFormatIndia($num) {
     $explrestunits = "";
     if (strlen($num) > 3) {
