@@ -1,7 +1,7 @@
 <?php include_once("globalconfig.php"); ?>
 <?php
     require("dbconnectvi.php");
-$Db = new dbInvestments();
+    $Db = new dbInvestments();
     if($_REQUEST['value']!=''){
 
         $value=$_REQUEST['value'];
@@ -360,7 +360,7 @@ img.fixed-logo{display:none}
     rsort($Lyears);
 
 
-    $Lindustry = mysql_query("SELECT i.id, l.industry FROM leaguetable_main_data l JOIN industry i ON i.industry=l.industry GROUP BY l.industry");
+    $Lindustry = mysql_query("SELECT i.id, l.industry FROM leaguetable_main_data l JOIN league_main_industry i ON i.industry=l.industry GROUP BY l.industry");
 
 
     ?>
@@ -480,7 +480,7 @@ img.fixed-logo{display:none}
                                     <select name="industry" id="industry">
                                     	<option value=""> -- Select Industry --</option>
                                         <?php
-                                            $Industryselect = mysql_query("SELECT * FROM `industry` ORDER BY industry ASC") or die(mysql_error());
+                                            $Industryselect = mysql_query("SELECT * FROM `league_main_industry` ORDER BY industry ASC") or die(mysql_error());
 
 
 
@@ -521,7 +521,7 @@ img.fixed-logo{display:none}
                                     }*/
                                     $industry = (trim($_POST['industry']) != "") ? trim($_POST['industry']) : "";
                                     if($industry){
-                                      $getIndustry = mysql_query("SELECT industry from industry WHERE id=$industry");
+                                      $getIndustry = mysql_query("SELECT industry from league_main_industry WHERE id=$industry");
                                       $fetchIndustry = mysql_fetch_array($getIndustry);
                                       $industryName = $fetchIndustry['industry'];
                                     }
