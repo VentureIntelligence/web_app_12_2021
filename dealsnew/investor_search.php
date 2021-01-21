@@ -409,6 +409,15 @@ overflow: hidden;
 .result-title h2{
     margin-bottom:5px;
 }
+.result-title li{
+    position:unset !important;
+}
+.result-select {
+    padding: 3px 3px 1px 2px !important;
+}
+.result-select-close a {
+    margin: -6px 0px 0px 0px !important;
+}
 </style>
 </head>
 <?php if($_SESSION['PE_TrialLogin']==1){ ?>
@@ -449,12 +458,7 @@ overflow: hidden;
 <td class="left-box"> <div class="logo-img"> <a href="index.php"><img src="images/logo.gif" width="167" height="45" alt="Venture Intelligence" title="Venture Intelligence" border="0" /></a></div></td>
 
 <td class="right-box">
-<ul>
-<!-- <li <?php echo ($topNav=='Dashboard') ? 'class="active"' : '' ; ?>><a href="dashboard.php?type=1"><i class="i-dashboard"></i>Dashboard</a></li> -->
-<li <?php echo ($topNav=='Deals') ? 'class="active"' : '' ; ?>><a href="angelindex.php"><i class="i-data-deals"></i>Deals</a></li>
-<li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?>><a href="pedirview.php?value=<?php echo $vcflagValue; ?>"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
-</ul>
+<?php include('top_menu.php'); ?>
 <ul class="fr">
 <li ><div style="float:right;padding: 9px 15px" class="key-search"><b></b> <input  autofocus="autofocus" type="text" name="searchallfield" placeholder=" Keyword Search"
                                                                                       <?php if($searchallfield!="") echo "value=".$searchallfield ;?>

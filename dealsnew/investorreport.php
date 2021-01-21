@@ -537,6 +537,11 @@ else if($vcflagValue==2){
                                 <li class="result-select-close" style="border:none;"><a href="investorreport.php?value=<?php echo $vcflagValue; ?>"><img width="7" height="7" border="0" alt="" src="images/icon-close-ul.png"> </a></li>
                                 <?php
                                 }
+                                if (trim($sdatevalueCheck1) !='' ){ ?>
+                                    <li> 
+                                        <?php echo $sdatevalueCheck1. "-" .$edatevalueCheck2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    </li>
+                                    <?php }
                                if($industry >0 && $industry!=null){ ?>
                                 <li title="Industry">
                                     <?php echo $industryvalue; ?><a   onclick="resetinput('industry');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
@@ -556,11 +561,7 @@ else if($vcflagValue==2){
                                     <?php echo  $firmvaluetext;?><a  onclick="resetinput('firmtype');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
                                     <?php }  
-                                if (trim($sdatevalueCheck1) !='' ){ ?>
-                                <li> 
-                                    <?php echo $sdatevalueCheck1. "-" .$edatevalueCheck2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
-                                </li>
-                                <?php }
+                                
                                  
                                 // echo $cityname;
                                 // exit();
@@ -577,7 +578,7 @@ else if($vcflagValue==2){
                         <div class="view-detailed" >
                             <div class="detailed-title-links" style="padding-bottom:0px !important;">
                                 
-                                <a class="postlink" id="previous" href="pedirview.php?value=<?php echo $vcflagValue; ?>">&lt; Back</a>
+                                <a  id="previous" href="pedirview.php?value=<?php echo $vcflagValue; ?>">&lt; Back</a>
                                 <h2 style="margin-left:0px;">  Most Active Investors</h2>
                                
                             </div>  
@@ -886,15 +887,7 @@ else if($vcflagValue==2){
                                    
 </script>
 <script type="text/javascript">
-function resetinput(fieldname)
-                {
-                 
-               // alert($('[name="'+fieldname+'"]').val());
-                  $("#resetfield").val(fieldname);
-                  //alert( $("#resetfield").val(fieldname));
-                  $("#pesearch").submit();
-                    return false;
-                }
+
     //   $(document).on('click','.profile-invs',function(){
     //         jQuery('#maskscreen').fadeIn();
     //         jQuery('#popup-box-copyrights').fadeIn();   
@@ -1090,7 +1083,7 @@ mysql_close();
 
 </script>
 <script type="text/javascript">
-    $('#exportbtn').html('<a class ="export" onClick="open_ex(this)" data-check="close"  style="background: #a37635 url(../cfsnew/images/arrow-dropdown.png) no-repeat 90px 8px;width: 80px;">Export</a><div style="display:none;" class="exportinvest"><div class="with-invs exportdealsinvest" data-invs="0">Profile only</div><div class="without-invs exportdealsinvest" data-invs="1">Profile with inv.</div><div class="profile-invs exportdealsinvesttable" data-invs="2">Table only</div></div>');
+    $('#exportbtn').html('<a class ="export" onClick="open_ex(this)" data-check="close"  style="background: #a37635 url(../cfsnew/images/arrow-dropdown.png) no-repeat 90px 8px;width: 80px;">Export</a><div style="display:none;" class="exportinvest"><div class="with-invs exportdealsinvest" data-invs="1">Profile only</div><div class="without-invs exportdealsinvest" data-invs="0">Profile with inv.</div><div class="profile-invs exportdealsinvesttable" data-invs="2">Table only</div></div>');
     function open_ex(element){
                     if ($(element).attr("data-check") == 'close') {
                         $(".exportinvest").show();
@@ -1103,7 +1096,16 @@ mysql_close();
                         $(element).attr("data-check", "close");
                     }
                 }
-              
+               
+function resetinput(fieldname)
+                {
+                 
+               // alert($('[name="'+fieldname+'"]').val());
+                  $("#resetfield").val(fieldname);
+                  //alert( $("#resetfield").val(fieldname));
+                  $("#pesearch").submit();
+                    return false;
+                }
 </script>
 <?php
 mysql_close();

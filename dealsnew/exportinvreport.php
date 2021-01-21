@@ -60,12 +60,26 @@ if ($_POST['date_year1']=='') {
     $month2='12';
     $dt1 = $year1.'-'.$month1.'-01';
     $dt2 = $year2.'-'.$month2.'-31';
-
+    $industry=$_POST['txthideindustryid'];
+    $stageval=$_POST['txthidestageid'];
+    $firmtypeid=$_POST['txthidefirmtypeid'];
+    if($industry!='')
+    {
+        $whereindustry=" and `pecompanies`.industry= $industry";
+    }
+    if($stageval!='')
+    {
+        $wherestage =" and`peinvestments`.StageId IN(" .$stageval.")";
+    }
+    if($firmtypeid!='')
+    {
+        $wherefirmtypetxt = " and `peinvestors`.FirmTypeId IN (".$firmtypeid.")";
+    }
     if($vcflagValue==0){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' group by `peinvestments_investors`.`InvestorId` and peinvestments.Deleted =0 order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0'  $whereindustry $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId` and peinvestments.Deleted =0 order by deals desc";
     }
     else if($vcflagValue==1){
 
@@ -73,23 +87,23 @@ if ($_POST['date_year1']=='') {
             `peinvestments_investors`,`peinvestments`,`peinvestors` ,`pecompanies`,`industry`,`stage` where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` 
             and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `pecompanies`.`PEcompanyID` = `peinvestments`.`PECompanyID` 
             and `pecompanies`.`industry` = `industry`.`industryid` and `peinvestments`.`StageId` = `stage`.StageId and `peinvestments`.`dates` between '" . $dt1 . "' 
-            and '" . $dt2 . "' and `peinvestments`.`amount` <=20 and `stage`.`VCview`=1 and `pecompanies`.`industry` !=15 and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 group by `peinvestments_investors`.`InvestorId` order by deals desc";
+            and '" . $dt2 . "' and `peinvestments`.`amount` <=20 and `stage`.`VCview`=1 and `pecompanies`.`industry` !=15 and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0  $whereindustry $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId` order by deals desc";
   
     }else if($vcflagValue==3){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' )  group by `peinvestments_investors`.`InvestorId`  order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' )  $whereindustry $wherestage $wherefirmtypetxt  group by `peinvestments_investors`.`InvestorId`  order by deals desc";
     }else if($vcflagValue==4){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT'  )  group by `peinvestments_investors`.`InvestorId` order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT'  )  $whereindustry $wherestage $wherefirmtypetxt  group by `peinvestments_investors`.`InvestorId` order by deals desc";
     }else if($vcflagValue==5){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF'  )  group by `peinvestments_investors`.`InvestorId` order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF'  )  $whereindustry $wherestage $wherefirmtypetxt  group by `peinvestments_investors`.`InvestorId` order by deals desc";
     }else if($vcflagValue==2){
         
         $reportsql = "SELECT count(peinv_inv.AngelDealId) as deals, inv.Investor as investor, inv.InvestorId as id, count(peinv.InvesteeId) as cos
@@ -97,7 +111,7 @@ FROM angel_investors AS peinv_inv, peinvestors AS inv, angelinvdeals AS peinv, p
 WHERE inv.InvestorId = peinv_inv.InvestorId
 AND peinv.AngelDealId = peinv_inv.AngelDealId
 AND c.PECompanyId = peinv.InvesteeId
-AND peinv.Deleted =0 and inv.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "'
+AND peinv.Deleted =0 and inv.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "'  $whereindustry $wherestage $wherefirmtypetxt 
 Group by inv.InvestorId order by deals desc"; 
 }
     $query1 = $reportsql;
@@ -115,35 +129,51 @@ Group by inv.InvestorId order by deals desc";
         $month1='01';
         $month2='12';
     }
+    $industry=$_POST['txthideindustryid'];
+    $stageval=$_POST['txthidestageid'];
+    $firmtypeid=$_POST['txthidefirmtypeid'];
     
+    
+    if($industry!='')
+    {
+        $whereindustry=" and `pecompanies`.industry= $industry";
+    }
+    if($stageval!='')
+    {
+        $wherestage =" and`peinvestments`.StageId IN(" .$stageval.")";
+    }
+    if($firmtypeid!='')
+    {
+        $wherefirmtypetxt = " and `peinvestors`.FirmTypeId IN (".$firmtypeid.")";
+    }
    if($vcflagValue==0){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 group by `peinvestments_investors`.`InvestorId` order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 $whereindustry $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId` order by deals desc";
     }else if($vcflagValue==1){
 
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PEcompanyID`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from 
             `peinvestments_investors`,`peinvestments`,`peinvestors` ,`pecompanies`,`industry`,`stage` where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` 
             and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `pecompanies`.`PEcompanyID` = `peinvestments`.`PECompanyID` 
             and `pecompanies`.`industry` = `industry`.`industryid` and `peinvestments`.`StageId` = `stage`.StageId and `peinvestments`.`dates` between '" . $dt1 . "' 
-            and '" . $dt2 . "' and `peinvestments`.`amount` <=20 and `stage`.`VCview`=1 and `pecompanies`.`industry` !=15 and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 group by `peinvestments_investors`.`InvestorId` order by deals desc";
+            and '" . $dt2 . "' and `peinvestments`.`amount` <=20 and `stage`.`VCview`=1 and `pecompanies`.`industry` !=15 and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 $whereindustry $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId` order by deals desc";
   
     }else if($vcflagValue==3){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' )  group by `peinvestments_investors`.`InvestorId` order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' )  $whereindustry $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId` order by deals desc";
     }else if($vcflagValue==4){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT'  )  group by `peinvestments_investors`.`InvestorId` order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT'  ) $whereindustry $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId` order by deals desc";
     }else if($vcflagValue==5){
         
         $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
-        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF'  )  group by `peinvestments_investors`.`InvestorId` order by deals desc";
+        and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF'  ) $whereindustry $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId` order by deals desc";
     }else if($vcflagValue==2){
         
         $reportsql = "SELECT count(peinv_inv.AngelDealId) as deals, inv.Investor as investor, inv.InvestorId as id, count(peinv.InvesteeId) as cos
@@ -151,13 +181,14 @@ FROM angel_investors AS peinv_inv, peinvestors AS inv, angelinvdeals AS peinv, p
 WHERE inv.InvestorId = peinv_inv.InvestorId
 AND peinv.AngelDealId = peinv_inv.AngelDealId
 AND c.PECompanyId = peinv.InvesteeId
-AND peinv.Deleted =0 and inv.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "'
+AND peinv.Deleted =0 and inv.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "' $whereindustry $wherestage $wherefirmtypetxt
 Group by inv.InvestorId order by deals desc"; 
 }
     $query1 = $reportsql;
 }
 $searchtitle = "Most Active Investors-$year";
-
+echo $reportsql;
+exit();
 function moneyFormatIndia($num) {
     $explrestunits = "";
     if (strlen($num) > 3) {
@@ -201,8 +232,7 @@ function moneyFormatUS($num) {
     }
     return $thecash; // writes the final format where $currency is the currency symbol.
 }
-//echo $query1;
-//exit;
+
 $result = @mysql_query($query1) or die("Couldn't execute query:<br>" . mysql_error() . "<br>" . mysql_errno());
 //echo '<pre>';
 //print_r($result);
