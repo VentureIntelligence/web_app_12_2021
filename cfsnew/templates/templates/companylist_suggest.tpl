@@ -198,15 +198,14 @@ background-color: #000;
 
 </style>
 {/literal}
-<div id="container" style="margin-top: 25px;">
+<div id="container" >
  <form method="post" id="Frm_HmeSearch1" action="chargesholderlist_suggest.php">
                       <input type="hidden" name="holderhiddenval" class="holderhiddenval" value='{$ChargesholderName}'>
 </form>    
- 
 
-<div style="padding:0px !important;font-size: 17px;position:relative;">
-<a class="postlink" id="previous" href="indexofcharges.php?value=0" >&lt; Back</a>
 {if $Companyid !=''}
+<div style="padding:0px !important;font-size: 17px;position:relative;margin-top: 25px;">
+<a class="postlink" id="previous" href="indexofcharges.php?value=0" >&lt; Back</a>
   <h2 style="color: #9f7917;font-size: 20px;text-align: center;"><a style="color: #9f7917;font-size: 20px;" target="_blank" href='details.php?vcid={$Companyid}'>{$FCompanyName} 
   <b style="font-size: 17px;color: #414141;">(Brand Name: <u>{$SCompanyName}</u>)</b></a></h2>
   <div class="exportbutton" >
@@ -222,9 +221,32 @@ background-color: #000;
   </div>
   
   {else}
+  <div style="padding:0px !important;font-size: 17px;position:relative;top: -30px;"><a href="javascript:void(0)" class="updateFinancialHome" >Click here to request for financials</a></div>
+
+  <div style="padding:0px !important;font-size: 17px;position:relative;margin-top: 35px;">
+<a class="postlink" id="previous" href="indexofcharges.php?value=0" >&lt; Back</a>
   <h2 style="color: #9f7917;font-size: 20px;text-align: center;">{$Searchcompany}</h2>
+  <div class="exportbutton" >
   
-   <a href="javascript:void(0)" class="updateFinancialHome" >Click here to request for financials</a>
+    <form name="Frm_Compare" id="exportform_company" action="ioc_companylist.php" method="post" class="custom" enctype="multipart/form-data">
+
+    <div class="btn-cnt" style="float:right; padding-top:0px !important;padding-bottom:0px !important">
+      <input name="company_exportid" type="hidden" value="{$CompanyID}">
+      <input name="exportcompare_company" class="home_export" id="exportcompare_company" type="button" value="EXPORT">
+    </div>
+    </form>
+
+  </div>
+  {* <h2 style="color: #9f7917;font-size: 20px;text-align: center;">{$Searchcompany}</h2>
+  <form name="Frm_Compare" id="exportform_company" action="ioc_companylist.php" method="post" class="custom" enctype="multipart/form-data">
+<div class="exportbutton" >
+    <div class="btn-cnt" style="float:right; padding-top:0px !important;padding-bottom:0px !important">
+      <input name="company_exportid" type="hidden" value="{$CompanyID}">
+      <input name="exportcompare_company" class="home_export" id="exportcompare_company" type="button" value="EXPORT">
+    </div>
+    </form>
+    </div> *}
+   {* <a href="javascript:void(0)" class="updateFinancialHome" >Click here to request for financials</a> *}
    <div style="float:right;">
   
   </div>

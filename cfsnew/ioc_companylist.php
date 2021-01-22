@@ -144,9 +144,9 @@
   echo "Date of modification"."\t";
   echo "Date of satisfaction"."\t";
   echo "Amount"."\t";
-  echo "City"."\t";
-	echo "State"."\t";
-  echo "Address"."\t";
+  echo "Chargeholder Address"."\t";
+  echo "City (Company)"."\t";
+	echo "State (Company)"."\t";
   
   
     // echo "Year Founded"."\t";
@@ -195,9 +195,9 @@
      $schema_insert .= trim($satisfaction_date).$sep;
     
      $schema_insert .= str_replace(",","",$row['amount'].$sep);
+     $schema_insert .= str_replace(", "," ",$row['Address'].$sep);
      $schema_insert .=$row['city'].$sep;
-     $schema_insert .= $row['state'].$sep;
-     $schema_insert .= str_replace(", "," ",$row['Address']);
+     $schema_insert .= $row['state'];
      
     
      $schema_insert .=$newline;
