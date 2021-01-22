@@ -7010,7 +7010,8 @@ if(tagsearchval == ''){
         console.log(year1);
         console.log(month2);
         console.log(year2);
-        if(year1>year2 || month1 > month2){
+        //if(year1>year2 || month1 > month2){
+        if(year1>year2 ){
             alert("To date cannot be less than From date");
             $(this).removeAttr("onchange","this.form.submit();");
             search_filter=1
