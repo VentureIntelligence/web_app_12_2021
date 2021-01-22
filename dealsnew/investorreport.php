@@ -251,14 +251,15 @@ else if($vcflagValue==2){
                             }
                         }
                         
-                        $i=1998;
-                        While($i<= $currentyear )
+                        $currentyear = date("Y");
+                        $i=$currentyear;
+                        While($i>= 1998 )
                         {
                         $id = $i;
                         $name = $i;
                         $isselected = ($year1==$id) ? 'SELECTED' : '';
                         echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                        $i++;
+                        $i--;
                         }
 
 			/*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
@@ -307,15 +308,15 @@ else if($vcflagValue==2){
 				$isselcted = ($year2== $id) ? 'SELECTED' : '';
 				echo "<OPTION id=". $id. " value='". $id."' ".$isselcted.">".$name."</OPTION>\n";
 			}*/
-                    $currentyear = date("Y");
-                        $i=1998;
-                        While($i<= $currentyear )
+                        $currentyear = date("Y");
+                        $i=$currentyear;
+                        While($i>= 1998 )
                         {
                         $id = $i;
                         $name = $i;
                         $isselected = ($year2==$id) ? 'SELECTED' : '';
                         echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                        $i++;
+                        $i--;
                         }
 		}
 	?> 
