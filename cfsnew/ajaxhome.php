@@ -524,16 +524,19 @@ if($_REQUEST['CountingStatus'] == 0 && $_REQUEST['CountingStatus'] != ""){
 
 
 if($_REQUEST['answer']['Industry'] != ""){
+    $industry1=$_REQUEST['answer']['Industry'];
+            $industry1=array_filter($industry1);
+            $industry=  implode(',', $industry1);
 	if($where != ''){
-		$where .=  " and  a.IndustryId_FK  = ".$_REQUEST['answer']['Industry'];
+		$where .=  " and  a.IndustryId_FK  IN( ".$industry.")";
 	}else{
-		$where .=  "a.IndustryId_FK  = ".$_REQUEST['answer']['Industry'];
+		$where .=  "a.IndustryId_FK  IN( ".$industry.")";
 	}
 
     if($whereHomeCountNew != ''){
-        $whereHomeCountNew .=  " and  a.IndustryId_FK  = ".$_REQUEST['answer']['Industry'];
+        $whereHomeCountNew .=  " and  a.IndustryId_FK  IN( ".$industry.")";
     }else{
-        $whereHomeCountNew .=  "a.IndustryId_FK  = ".$_REQUEST['answer']['Industry'];
+        $whereHomeCountNew .=  "a.IndustryId_FK  IN( ".$industry.")";
     }
 }	
 
@@ -571,16 +574,20 @@ if(isset($_REQUEST['auditorname']) && $_REQUEST['auditorname']!='' ){
         }
 
 if($_REQUEST['answer']['Sector'] != ""){
+    $sector1=$_REQUEST['answer']['Sector'];
+            
+            $sector1=array_filter($sector1);
+            $sector=  implode(',', $sector1);
 	if($where!=''){
-		$where .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+		$where .=  " and  b.Sector  IN (".$sector.")";
 	}else{
-		$where .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+		$where .=  " b.Sector  IN (".$sector.")";
 	}
 
     if($whereHomeCountNew!=''){
-        $whereHomeCountNew .=  " and  b.Sector  = ".$_REQUEST['answer']['Sector'];
+        $whereHomeCountNew .=  " and  b.Sector  IN (".$sector.")";
     }else{
-        $whereHomeCountNew .=  " b.Sector  = ".$_REQUEST['answer']['Sector'];
+        $whereHomeCountNew .=  " b.Sector IN (".$sector.")";
     }
 }	
 
