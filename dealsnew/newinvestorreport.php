@@ -20,9 +20,14 @@ if($vcflagValue==0){
 }
 
 if (!$_POST) {
+    if(date('m')=='01'){
+        $month1=$month2=12;
+        $year1=$year2=date('Y')-1;
 
-    $year1=$year2=date('Y');
-    $month1=$month2=date('m') - 1;
+    }else{
+        $month1=$month2=date('m') - 1;
+        $year1=$year2=date('Y');
+    }
     // $month1='01';
     // $month2='12';
     $dt1 = $year1.'-'.$month1.'-01';
@@ -302,10 +307,10 @@ $actionUrl = "newinvestorreport.php?flag=1";
     <OPTION id=2 value=""> Year </option>
     <?php 
         $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates asc";
-                 if($_POST['year2']=='')
-                {
-                    $year2=date("Y");
-                }
+                //  if($_POST['year2']=='')
+                // {
+                //     $year2=date("Y");
+                // }
         if($yearSql=mysql_query($yearsql))
         {
             /*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
