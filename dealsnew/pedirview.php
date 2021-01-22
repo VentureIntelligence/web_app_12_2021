@@ -7010,8 +7010,10 @@ if(tagsearchval == ''){
         console.log(year1);
         console.log(month2);
         console.log(year2);
+        var startdate= new Date(year1,month1-1,01);
+        var enddate= new Date(year2,month2-1,01);
         //if(year1>year2 || month1 > month2){
-        if(year1>year2 ){
+        if(startdate>enddate ){
             alert("To date cannot be less than From date");
             $(this).removeAttr("onchange","this.form.submit();");
             search_filter=1
@@ -7055,8 +7057,8 @@ if(tagsearchval == ''){
             $(this).removeAttr("onchange","this.form.submit();");
             search_filter=1
         }else{
-        //$(this).attr("onchange","this.form.submit();");
-        //$("#pesearch").submit();
+        $(this).attr("onchange","this.form.submit();");
+        $("#pesearch").submit();
         search_filter="";
         }
         //alert("You have selected the country - " + selectedCountry);
