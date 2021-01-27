@@ -2099,8 +2099,6 @@
         $topNav = 'Deals';
         $tour='Allow';
         $tourpage='mandaindex';
-    //echo "<div style='display:none'>$companysql</div>";
-   //echo "<div style='display:none'><pre>"; print_r( $_POST ); echo "</pre></div>";
         include_once('mandaheader_search.php');
     ?>
     <script type="text/javascript">
