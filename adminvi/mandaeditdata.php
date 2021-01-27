@@ -754,7 +754,8 @@ $currentyear = date("Y");
 								<tr>
 								<td >&nbsp;Financial <br>
 								</td>
-								<td valign=top><INPUT name="txtfilepath" TYPE="file" value="<?php echo $mycomprow["uploadfilename"]; ?>" size=50>
+								<td valign=top>
+								<!-- <INPUT name="txtfilepath" TYPE="file" value="<?php //echo $mycomprow["uploadfilename"]; ?>" size=50> -->
 								<input name="txtfile" type="text" size="22" value="<?php echo $mycomprow["uploadfilename"]; ?>" >
                                                               	<input type="button" value="Delete File" name="deletemandafile" onClick="delUploadFile();"  >
                                                          	</td>	</tr>

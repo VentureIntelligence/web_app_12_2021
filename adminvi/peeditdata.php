@@ -1144,7 +1144,8 @@ if($pe_re=="PE")
 								<tr>
 								<td >&nbsp;Financial <br>
 								</td>
-								<td valign=top><INPUT NAME="txtfilepath" TYPE="file" value="<?php echo $mycomprow["uploadfilename"]; ?>" size=50>
+								<td valign=top>
+                                <!-- <INPUT NAME="txtfilepath" TYPE="file" value="<?php //echo $mycomprow["uploadfilename"]; ?>" size=50> -->
 								<input name="txtfile" type="text" size="22" value="<?php echo $mycomprow["uploadfilename"]; ?>" >
 								<?php
 									if($pe_re=="PE")

@@ -626,7 +626,8 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 								<tr>
 								<td >&nbsp;Valuation Working <br>
 								</td>
-								<td valign=top><INPUT NAME="txtvaluationworkingfilepath" TYPE="file" value="<?php echo $mycomprow["Valuation_Working_fname"]; ?>" size=50>
+								<td valign=top>
+								<!-- <INPUT NAME="txtvaluationworkingfilepath" TYPE="file" value="<?php //echo $mycomprow["Valuation_Working_fname"]; ?>" size=50> -->
 								<input name="txtvaluationworkingfile" type="text" size="22" value="<?php echo $mycomprow["Valuation_Working_fname"]; ?>" >
 
 								<input type="button" value="Delete File" name="deletepeuploadfile" onClick="delUploadFile();"  >
