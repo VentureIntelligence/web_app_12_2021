@@ -1192,11 +1192,12 @@ function updateDownload($res){
                                     
                                 $schema_insert .=rtrim($MgmtTeam['ExecutiveMgmt'],',').$sep;  //Management Team
                                 $firm_typeId      = $row[29];
+                                $firm_typename='';
                                 $firm_typesql      = "SELECT FirmType FROM firmtypes where FirmTypeId='$firm_typeId'";
                                 if ($rsfirm_type = mysql_query($firm_typesql)) {
                                     While ($myfirm_typerow = mysql_fetch_array($rsfirm_type, MYSQL_BOTH)) {
-                                        $firm_typename = $myfirm_typerow["FirmType"];
-                                    }
+                                         $firm_typename = $myfirm_typerow["FirmType"];
+                                       }
                                 }
                                 $schema_insert .= $firm_typename.$sep; //FirmType
                                 
