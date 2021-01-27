@@ -5186,7 +5186,7 @@
         $defpage=$defvalue;
         $stagedef=1;
         $tour='Allow';
-        echo "<div style='display:none'>$showallsql</div>";
+        //echo "<div style='display:none'>$showallsql</div>";
         //echo 'flag='.$vcflagValue; exit;
         $strvalue[1]='';
     include_once('dirnew_header.php');
@@ -5354,7 +5354,7 @@
 .filter-area {
     float: left;
     margin-left: 20px;
-    margin-top: -18px;
+    margin-top: -16px;
 }
 .filter-area select {
     margin-right:15px;

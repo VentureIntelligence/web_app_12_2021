@@ -1003,9 +1003,8 @@
         $ajaxcompanysql=  urlencode($companysql);
         if($companysql!="")
            $companysql = $companysql . " order by ".$dateorder.", ".$orderby." ".$ordertype ; 
-       echo "<div style='display:none'>$companysql</div>";
-
-    $topNav = 'Deals';
+       //echo "<div style='display:none'>$companysql</div>";
+         $topNav = 'Deals';
     include_once('incheader_search.php');
     ?>
 

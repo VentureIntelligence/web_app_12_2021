@@ -3413,7 +3413,7 @@ $getcompaniesSql = "SELECT DISTINCT pe.PECompanyId as PECompanyId, pec. * , i.in
 //Stage
 $stagesql = "select StageId,Stage from stage ";
 
-echo "<div style='display:none'>$companysql</div>";
+// echo "<div style='display:none'>$companysql</div>";
 //exit;
 $topNav = 'Deals';
 $defpage = $vcflagValue;

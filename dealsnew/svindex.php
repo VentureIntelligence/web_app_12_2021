@@ -2885,9 +2885,9 @@
         $hideIndustry=""; 
     }
 
-       echo "<div style='display:none'>".$companysql;
-       echo "</div>";
-       //echo "<div style='display:none'><pre>"; print_r( $_POST ); echo "</pre></div>";
+    //    echo "<div style='display:none'>".$companysql;
+    //    echo "</div>";
+   //echo "<div style='display:none'><pre>"; print_r( $_POST ); echo "</pre></div>";
     $topNav = 'Deals';
         $defpage=$VCFlagValue;
         $investdef=3;

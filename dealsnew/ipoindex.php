@@ -1278,7 +1278,7 @@
 
     <?php 
     $topNav = 'Deals';
-    echo "<div style='display:none'>$companysql</div>";
+    //echo "<div style='display:none'>$companysql</div>";
     include_once('ipoheader_search.php');
     ?>
     <script type="text/javascript">
