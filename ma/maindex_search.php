@@ -1150,4 +1150,12 @@ $('input[type="checkbox"]').click(evaluate).each(evaluate);*/
                    $('#real_total_inv_company').val('');
                   this.form.submit();
               }
+  
+$(document).ready(function () {
+    
+    $('#searchallfield').keyup(function() {
+        var $th = $(this);
+        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' .\n\nPlease use only letters, space and numbers.'); return ''; } ) );
+    });
+});
 </script>
