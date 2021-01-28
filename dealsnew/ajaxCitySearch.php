@@ -5,6 +5,12 @@
     $VCFlagValue=$_REQUEST['vcflag'];
     $search=trim($_REQUEST['search']);
     //echo $search;exit;
+    if(!isset($_SESSION['UserNames']))
+    {
+            header('Location:../pelogin.php');
+    }
+    else
+    {
     $getcitySql="SELECT * FROM `city` where `city_name` like '".$search."%' group by `city_name`";
     $jsonarray=array();
 
@@ -23,5 +29,5 @@
     
     echo json_encode($jsonarray);
             
-               
+}         
 ?>
