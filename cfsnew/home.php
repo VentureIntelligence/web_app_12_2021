@@ -114,6 +114,20 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
     } else {
         $addFYCondition = " and a.FY = aa.MFY";
     }
+    if($_REQUEST['currency']!='' || $_REQUEST['currency']=="INR"){
+        $currency=$_REQUEST['currency'];
+    unset($_REQUEST['currency']);}
+    else{
+        $currency="INR";
+    }
+    if($currency != 'INR')
+    {
+        $usdjoinCondition = " INNER JOIN currencyrates as c on a.FY = c.FY";
+        $usdfield =", c.currency";
+    }else{
+        $usdjoinCondition ="";
+        $usdfield ="";
+    }
 
     $template->assign("tagsearch",$tagsearch);    
     $template->assign("tagandor",$tagandor);  
@@ -380,12 +394,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         else{
             $limit=25;
         }
-        if($_REQUEST['currency']!='' || $_REQUEST['currency']=="INR"){
-            $currency=$_REQUEST['currency'];
-        unset($_REQUEST['currency']);}
-        else{
-            $currency="INR";
-        }
+        
         
 
         if(count($_POST)==0)
@@ -525,16 +534,17 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $Insert_CGroup['SubCount'] = $search_visit[SearchVisit_count];
 
         $grouplist->update($Insert_CGroup);
-        $yearval=$plstandard->getyear();
-        $Latestyear=$yearval[0][0];
+        // $yearval=$plstandard->getyear();
+        // $Latestyear=$yearval[0][0];
         if($_REQUEST['Crores']!=""){
             $crores=$_REQUEST['Crores'];
         }else if($_REQUEST['Million']!='' || $_GET['currency']!=''){
-            if($_REQUEST['Million']!=''){
-                $crores=$_REQUEST['Million']*$yearcurrency[$Latestyear];
-            }else{
-                $crores=1000000*$yearcurrency[$Latestyear];
-            }
+           // if($_REQUEST['Million']!=''){
+                //$crores=$_REQUEST['Million']*$yearcurrency[$Latestyear];
+                $crores=$_REQUEST['Million'];
+            // }else{
+            //     $crores=1000000*$yearcurrency[$Latestyear];
+            // }
             
         }else{
                 $crores=1;
@@ -844,26 +854,43 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         $value=$PL_STNDSEARCHFIELDS[$_REQUEST['answer']['SearchFieds'][$i]];
                         if($_REQUEST['Commonandor'] == "" || $_REQUEST['Commonandor'] == "and"){
                                 if($_REQUEST[$Gtrt] != "" && $_REQUEST[$Gtrt] < 100){
-
                                     if($value == "Total Debt"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = "(bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                        }
+                                        $where .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                         
                                     }elseif($value == "Networth"){
-                                        
-                                        $where .= " and (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereCountNew .= " and (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereHomeCountNew .= " and (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " bsn.TotalFunds";
+                                        }
+                                        $where .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                         
                                     }elseif($value == "Capital Employed"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                        }
+                                        $where .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                     }else{
-                                        
+                                         if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                             if($currency !="INR"){
+                                                 $value = $value."/c.currency/1000000";
+                                             }else{
+                                                 $value = $value;
+                                             }
+                                         }
                                         $where .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)."))" ;
                                         $whereCountNew .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)."))" ;
                                         $whereHomeCountNew .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)."))" ;
@@ -873,24 +900,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                 else if($_REQUEST[$Gtrt] != "" && $_REQUEST[$Gtrt] >= 100)
                                 {
                                     if($value == "Total Debt"){
-
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                        }
+                                        $where .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                         
                                     }elseif($value == "Networth"){
-                                        
-                                        $where .= " and (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereCountNew .= " and (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereHomeCountNew .= " and (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                        }else{
+                                            $curvalue =  " bsn.TotalFunds";
+                                        }
+                                        $where .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                         
                                     }elseif($value == "Capital Employed"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                        }
+                                        $where .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                     }else{
-                                        
+                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                            if($currency !="INR"){
+                                                $value = $value."/c.currency/1000000";
+                                            }else{
+                                                $value = $value;
+                                            }
+                                        }
                                         $where .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)." ))";
                                         $whereCountNew .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)." ))";
                                         $whereHomeCountNew .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)." ))";
@@ -901,23 +946,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                 if($_REQUEST[$Less] != ""){
                                     
                                         if($value == "Total Debt"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
+                                            if($currency !="INR"){
+                                                $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                            }else{
+                                                $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                            }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                         
                                     }elseif($value == "Networth"){
-                                        
-                                        $where .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " bsn.TotalFunds";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                         
                                     }elseif($value == "Capital Employed"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                     }else{
+                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                            if($currency !="INR"){
+                                                $value = $value."/c.currency/1000000";
+                                            }else{
+                                                $value = $value;
+                                            }
+                                        }
                                         $where .= " and (a.".$value." < ".($_REQUEST[$Less]*$crores)." or (a.".$value." is null and a.OptnlIncome <".($_REQUEST[$Less]*$crores)."))" ;
                                         $whereCountNew .= " and (a.".$value."<".($_REQUEST[$Less]*$crores)." or (a.".$value." is null and a.OptnlIncome <".($_REQUEST[$Less]*$crores)."))" ;
                                         $whereHomeCountNew .= " and (a.".$value."<".($_REQUEST[$Less]*$crores)." or (a.".$value." is null and a.OptnlIncome <".($_REQUEST[$Less]*$crores)."))" ;
@@ -932,24 +996,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                 if($_REQUEST[$Gtrt] < 100){
 
                                                     if($value == "Total Debt"){
-                                        
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Networth"){
-
-                                                        $where .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " bsn.TotalFunds";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Capital Employed"){
-
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                     }else{
-
+                                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                                            if($currency !="INR"){
+                                                                $value = $value."/c.currency/1000000";
+                                                            }else{
+                                                                $value = $value;
+                                                            }
+                                                        }    
                                                         $where .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
                                                         $whereCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
                                                         $whereHomeCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
@@ -960,24 +1042,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                 {
 
                                                     if($value == "Total Debt"){
-                                        
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Networth"){
-
-                                                        $where .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " bsn.TotalFunds";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Capital Employed"){
-
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                     }else{
-                                                        
+                                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                                            if($currency !="INR"){
+                                                                $value = $value."/c.currency/1000000";
+                                                            }else{
+                                                                $value = $value;
+                                                            }
+                                                        }
                                                         $where .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
                                                         $whereCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
                                                         $whereHomeCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
@@ -989,23 +1089,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                 if($_REQUEST[$Gtrt] < 100){
 
                                                     if($value == "Total Debt"){
-                                        
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Networth"){
-
-                                                        $where .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " bsn.TotalFunds";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Capital Employed"){
-
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                     }else{
+                                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                                            if($currency !="INR"){
+                                                                $value = $value."/c.currency/1000000";
+                                                            }else{
+                                                                $value = $value;
+                                                            }
+                                                        }
                                                         $where .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
                                                         $whereCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
                                                         $whereHomeCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
@@ -1014,26 +1133,45 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                 else if($_REQUEST[$Gtrt] >= 100)
                                                 {
                                                     if($value == "Total Debt"){
-
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                                        }
+                                                        $where .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Networth"){
-
-                                                        $where .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and ((bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " bsn.TotalFunds";
+                                                        }
+                                                        $where .= " and ((".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                                     }elseif($value == "Capital Employed"){
-
-                                                        $where .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                        $whereHomeCountNew .= " and (((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        if($currency !="INR"){
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                                        }else{
+                                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                                        }
+                                                        $where .= " and ((".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereCountNew .= " and ((".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                        $whereHomeCountNew .= " and ((".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                     }else{
-                                                        $where .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
-                                                        $whereCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
-                                                        $whereHomeCountNew .= " and ((a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
+                                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                                            if($currency !="INR"){
+                                                                $value = $value."/c.currency/1000000";
+                                                            }else{
+                                                                $value = $value;
+                                                            }
+                                                        }
+                                                        $where .= " and ((a.".$value." >=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
+                                                        $whereCountNew .= " and ((a.".$value." >=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
+                                                        $whereHomeCountNew .= " and ((a.".$value." >=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
                                                 }
                                         }
                                         }
@@ -1042,23 +1180,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                         if($_REQUEST[$Gtrt] < 100){
 
                                             if($value == "Total Debt"){
-                                        
-                                                $where .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereHomeCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                if($currency !="INR"){
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                                }else{
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                                }
+                                                $where .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereHomeCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                             }elseif($value == "Networth"){
-
-                                                $where .= " or (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereCountNew .= " or (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereHomeCountNew .= " or (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                if($currency !="INR"){
+                                                    $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                                }else{
+                                                    $curvalue = " bsn.TotalFunds";
+                                                }
+                                                $where .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereHomeCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                             }elseif($value == "Capital Employed"){
-
-                                                $where .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereHomeCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                if($currency !="INR"){
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                                }else{
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                                }
+                                                $where .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereHomeCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                             }else{
+                                                if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                                    if($currency !="INR"){
+                                                        $value = $value."/c.currency/1000000";
+                                                    }else{
+                                                        $value = $value;
+                                                    }
+                                                }
                                                 $where .= " or (a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
                                                 $whereCountNew .= " or (a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
                                                 $whereHomeCountNew .= " or (a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
@@ -1069,23 +1226,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                         {
 
                                             if($value == "Total Debt"){
-                                        
-                                                $where .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereHomeCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                if($currency !="INR"){
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                                }else{
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                                }
+                                                $where .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereHomeCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                             }elseif($value == "Networth"){
-
-                                                $where .= " or (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereCountNew .= " or (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereHomeCountNew .= " or (bsn.TotalFunds >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                if($currency !="INR"){
+                                                    $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                                }else{
+                                                    $curvalue = " bsn.TotalFunds";
+                                                }
+                                                $where .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereHomeCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
 
                                             }elseif($value == "Capital Employed"){
-
-                                                $where .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
-                                                $whereHomeCountNew .= " or ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                if($currency !="INR"){
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                                }else{
+                                                    $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                                }
+                                                $where .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
+                                                $whereHomeCountNew .= " or (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                             }else{
+                                                if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                                    if($currency !="INR"){
+                                                        $value = $value."/c.currency/1000000";
+                                                    }else{
+                                                        $value = $value;
+                                                    }
+                                                }
                                                 $where .= " or (a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
                                                 $whereCountNew .= " or (a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
                                                 $whereHomeCountNew .= " or (a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
@@ -1097,23 +1273,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                 if($Less=='Less_0' && !empty($_REQUEST['Less_0'])){
                                     
                                     if($value == "Total Debt"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).") " ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).") " ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                         
                                     }elseif($value == "Networth"){
-                                        
-                                        $where .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " bsn.TotalFunds";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                         
                                     }elseif($value == "Capital Employed"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                     }else{
+                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                            if($currency !="INR"){
+                                                $value = $value."/c.currency/1000000";
+                                            }else{
+                                                $value = $value;
+                                            }
+                                        }
                                         //$where .= " or  a.".$value."<".($_REQUEST[$Less]*$crores);
                                          $where .= " and  (a.".$value."<".($_REQUEST[$Less]*$crores)." or (a.".$value." is null and a.OptnlIncome <".($_REQUEST[$Less]*$crores)."))" ;
                                          $whereCountNew .= " and  (a.".$value."<".($_REQUEST[$Less]*$crores)." or (a.".$value." is null and a.OptnlIncome <".($_REQUEST[$Less]*$crores)."))" ;
@@ -1124,23 +1319,42 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                 }elseif($_REQUEST[$Less] != ""){
                                     
                                      if($value == "Total Debt"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings) < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings)";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                         
                                     }elseif($value == "Networth"){
-                                        
-                                        $where .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and (bsn.TotalFunds < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " bsn.TotalFunds/c.currency/1000000";
+                                        }else{
+                                            $curvalue =  " bsn.TotalFunds";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                         
                                     }elseif($value == "Capital Employed"){
-                                        
-                                        $where .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
-                                        $whereHomeCountNew .= " and ((bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds) < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        if($currency !="INR"){
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)/c.currency/1000000";
+                                        }else{
+                                            $curvalue = " (bsn.L_term_borrowings + bsn.S_term_borrowings + bsn.TotalFunds)";
+                                        }
+                                        $where .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
+                                        $whereHomeCountNew .= " and (".$curvalue." < "  .($_REQUEST[$Less]*$crores).")" ;
                                     }else{
+                                        if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
+                                            if($currency !="INR"){
+                                                $value = $value."/c.currency/1000000";
+                                            }else{
+                                                $value = $value;
+                                            }
+                                        }
                                         //$where .= " or a.".$value."<".($_REQUEST[$Less]*$crores);
                                         $where .= " and (a.".$value."<".($_REQUEST[$Less]*$crores)." or (a.".$value." is null and a.OptnlIncome <".($_REQUEST[$Less]*$crores)."))" ;
                                         $whereCountNew .= " and (a.".$value."<".($_REQUEST[$Less]*$crores)." or (a.".$value." is null and a.OptnlIncome <".($_REQUEST[$Less]*$crores)."))" ;
@@ -1258,10 +1472,10 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $maxFYQuery = "INNER JOIN (
                                     SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                                 ) as aa
-                                ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
+                                ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
 
                 /*$fields = array(" a.CId_FK, a.EBITDA,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome",  "max(a.ResultType) as MaxResultType" );*/
-                $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets" );
+                $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield );
                 if($ratio !=''){
                 array_push($fields,$ratio);
                 }
@@ -1335,9 +1549,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
+                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
 
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets" );
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield );
             if($ratio !=''){
                 array_push($fields,$ratio);
             }
@@ -1409,9 +1623,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
+                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
                 
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets");
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
@@ -1482,9 +1696,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
+                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
    
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets");
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
@@ -1584,11 +1798,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         if($_REQUEST['YOYCAGR'] != ("gAnyOf" || 'gacross' || "CAGR")){
 
             /*$fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType");*/
-            $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,max(a.FY) as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "max(a.ResultType) as MaxResultType,bsn.Total_assets");
+            $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,max(a.FY) as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
-            $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets");
+            $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields1,$ratio);
                 }
@@ -1607,8 +1821,8 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $maxFYQuery = "INNER JOIN (
                                 SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
                             ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition";
-
+                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+    
             if($_REQUEST['arcossall']=='across'){
                     $acrossallFlag = true;
                     //$group .= "  b.Company_Id HAVING count(b.Company_Id) > b.FYCount";
@@ -1617,8 +1831,6 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     }else {
                         $group = " a.CId_FK HAVING count(a.CId_FK) = FYValue ";
                     }
-            }else{
-                    $group = " b.Company_Id $havingClause";
             }
 
             // T975 Ratio based - filter for across ratio
@@ -1629,7 +1841,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     }else {
                         $group = " a.CId_FK HAVING count(a.CId_FK) = FYValue ";
                     }
-            }else{
+            }
+            if($_REQUEST['arcossall'] !='across' && $_REQUEST['arcossallr'] != 'across')
+            {
                     $group = " b.Company_Id $havingClause";
             }
             // End

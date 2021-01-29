@@ -2567,6 +2567,7 @@ filter: alpha(opacity=75);
     <div class="container">
 {elseif $pageName eq 'details.php'}
 <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="home.php" method="post" enctype="multipart/form-data" >
+<input type="hidden" name="currency" id="currency" value="{$currency}" />
                <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
                 <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="{$REQUEST.oldFinacialDataFlag}"/>
                 <input type="hidden" name="sortby" id="sortby" value="{$sortby}"/>
