@@ -1141,32 +1141,32 @@ if($pe_re=="PE")
 								<td >Link for Financials (LISTED FIRM ONLY)</td>
 								<td><textarea name="txtfinlink" rows="3" cols="40"><?php echo $mycomprow["FinLink"]; ?></textarea> </td>
 								</tr>
-								<tr>
+								<!-- <tr>
 								<td >&nbsp;Financial <br>
 								</td>
 								<td valign=top>
-                                <!-- <INPUT NAME="txtfilepath" TYPE="file" value="<?php //echo $mycomprow["uploadfilename"]; ?>" size=50> -->
-								<input name="txtfile" type="text" size="22" value="<?php echo $mycomprow["uploadfilename"]; ?>" >
+                                <INPUT NAME="txtfilepath" TYPE="file" value="<?php //echo $mycomprow["uploadfilename"]; ?>" size=50>
+								<input name="txtfile" type="text" size="22" value="<?php //echo $mycomprow["uploadfilename"]; ?>" >
 								<?php
-									if($pe_re=="PE")
-									{
+									// if($pe_re=="PE")
+									// {
 									?>
 										<input type="button" value="Delete File" name="deletepeuploadfile" onClick="delUploadFile();"  >
 									<?php
-									}
-									else
-									{
+									// }
+									// else
+									// {
 									?>
 										<input type="button" value="Delete File" name="deletereuploadfile" onClick="delREUploadFile('F');"  >
 									<?php
-									}
+									// }
 									?>
 
 
 								</td>
 
 
-								</tr>
+								</tr> -->
 
 								<tr>
 								<td >&nbsp;Source</td>
