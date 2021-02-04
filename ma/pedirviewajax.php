@@ -3,6 +3,7 @@
         $compId=0;
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
+        include ('machecklogin.php');
        //print_r($_POST);
         $dealvalue = isset($_POST['showdeals']) ? $_POST['showdeals'] :103;
        // echo $dealvalue;
@@ -499,9 +500,9 @@
                     sort($pages);
                  if($currentpage<2){
                  ?>
-                 <a class="jp-previous jp-disabled" >â†? Previous</a>
+                 <a class="jp-previous jp-disabled" >ï¿½? Previous</a>
                  <?php } else { ?>
-                 <a class="jp-previous" >â†? Previous</a>
+                 <a class="jp-previous" >ï¿½? Previous</a>
                  <?php } for($i=0;$i<count($pages);$i++){ 
                      if($pages[$i] > 0 && $pages[$i] <= $totalpages){
                 ?>

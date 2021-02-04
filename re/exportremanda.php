@@ -9,7 +9,7 @@ invoked from: remandadealinfo.php
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
-        
+    include ('checklogin.php');       
         //Check Session Id 
         $sesID=session_id();
         $emailid=$_SESSION['REUserEmail'];

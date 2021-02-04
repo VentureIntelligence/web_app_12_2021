@@ -6,7 +6,8 @@ echo $ext;
 require_once "../dbconnectvi.php";
 $Db = new dbInvestments();
 //session_save_path("/tmp");
-session_start();
+
+//session_start();
 include_once 'tvindex_search.php';
 
 $dbtype=$_POST['dbtypeValue'];
@@ -19,6 +20,12 @@ $dbtype=$_POST['dbtypeValue'];
         'key'    => $GLOBALS['key'],
         'secret' => $GLOBALS['secret']
     ));
+    if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {
 ?>
 
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
@@ -367,4 +374,4 @@ src="#">
 		
 	</div>
 </div>
-
+<?php } ?>

@@ -1,4 +1,8 @@
 <?php
+include_once("../globalconfig.php");
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('checklogin.php');
 $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '0';
 $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 ?>

@@ -1,4 +1,13 @@
-<?php include_once("../globalconfig.php"); ?>
+<?php include_once("../globalconfig.php");
+require_once("../dbconnectvi.php");//including database connectivity file
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+         header('Location:../pelogin.php');
+}
+else
+{
+?>
 <style>.companyProfile{ margin-top:0px !important; } .com-cnt-sec{margin-top:0px;} .view-detailed1{padding-top:0px;}</style>
 <?php
         if($pe_re=="0-0")
@@ -1648,3 +1657,4 @@ else if($vcflagValue=="6"){
         position: absolute;margin-top: 5px;font-size: 13px;margin-bottom: 0px;
     }
 </style>
+<?php } ?>

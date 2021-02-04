@@ -3,7 +3,8 @@ if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();
 }
-
+include "header.php";
+    include "sessauth.php";
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
 $dlogUserEmail = $_SESSION['UserEmail'];

@@ -3,7 +3,13 @@
         $companyId=632270771;
         $compId=0;
         require_once("../dbconnectvi.php");
-	$Db = new dbInvestments();
+    $Db = new dbInvestments();
+    if(!isset($_SESSION['UserNames']))
+    {
+            header('Location:../pelogin.php');
+    }
+    else
+    {
         include ('checklogin.php');
         $vcflagValue = isset($_REQUEST['value']) ? $_REQUEST['value'] : '0'; 
         $type=$_REQUEST['type'];
@@ -1469,6 +1475,6 @@ function writeSql_for_no_records($sqlqry,$mailid)
 							         print "\n";
 
  }
-
+    }
 
     ?>

@@ -1,5 +1,7 @@
 <?php
-
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('checklogin.php');
     
     $to=$_POST['to'];
     
