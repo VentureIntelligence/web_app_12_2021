@@ -247,6 +247,8 @@ $(document).ready(function(e){
         $("#partner_info").val("internal");
         $("#insert_internal_partner #partner_password").removeAttr('required');
         $("#insert_internal_partner #partner_email").removeAttr('required');
+        //  $("#partner_subapi_info").val("0");
+        //$("#partner-subapi").hide();
     }
     else if(partner_type_control == "external_partner"){
         $("#title_id").html("Create External Partner");
@@ -254,7 +256,23 @@ $(document).ready(function(e){
         $("#partner-internal").hide();
         $("#partner_type option[value='external_partner']").attr("selected","selected");
         $("#partner_info").val("external");
+        //$("#partner-subapi").hide();
+        // $("#partner_subapi_info").val("0");
     }
+     else if(partner_type_control == "sub_api_partner"){
+         $("#title_id").html("Create Sub API Partner");
+        document.title = 'Create Sub API Partner';
+        $("#partner-internal").hide();
+        $("#partner_type option[value='external_partner']").attr("selected","selected");
+        $("#partner_info").val("sub_api_partner");
+        /* $("#title_id").html("Create Sub API Partner");
+        document.title = 'Create Sub API Partner';
+        $("#partner-internal").hide();
+        $("#partner-external").hide();
+        $("#partner_type option[value='sub_api_partner']").attr("selected","selected");
+        $("#partner_info").val("sub_api_partner");
+        $("#partner_subapi_info").val("1"); */
+    } 
 });
  {/literal}
 </script>
@@ -281,6 +299,7 @@ $(document).ready(function(e){
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="Enter Name" id="partner_name" name="partner_name" autocomplete="off"/>
                                 <input type="hidden" name="partner_info" id="partner_info" />
+                                <input type="hidden" name="partner_subapi_info" id="partner_subapi_info" {if $type eq "sub_api_partner"}value="1"{else}value="0"{/if}/>
                             </div>
                         </div>
                         <div class="row">
@@ -300,6 +319,7 @@ $(document).ready(function(e){
                                     <option hidden="">Select Partner Type</option>
                                     <option id="partner-internal" value="internal_partner">Internal Partner</option>
                                     <option id="partner-external" value="external_partner">External Partner</option>
+                                    {* <option id="partner-subapi" value="sub_api_partner">Sub API Partner</option> *}
                                 </select>
                             </div>
                         </div>

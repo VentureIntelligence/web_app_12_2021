@@ -383,12 +383,20 @@ $( document ).ready( function() {
 				"columns": [
 					{ "data": "partnerName" },
 					{ "data": "partner_company" },
+                    { "data": "api_type",
+                        render: function(data, type, full) {
+                            if (data == '1')
+                                return 'SubAPI';
+                            else
+                                return 'PE'       
+                            } 
+                    },
 					{ "data": "partnerType",
                         render: function(data, type, full) {
                             if (data == 'external_partner')
                                 return 'External';
                             else if(data == 'internal_partner')
-                                return "Internal";      
+                                return "Internal";
                             else
                                 return 'error'       
                             } 
@@ -562,6 +570,7 @@ $( document ).ready( function() {
                      <tr>
                         <th >Name</th>
                         <th>Company</th>
+                        <th>APIType</th>
                         <th>Type</th>
                         {* <th >Token</th> *}
                         <th >Validate From</th>
