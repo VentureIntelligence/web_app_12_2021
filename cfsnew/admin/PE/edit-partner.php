@@ -6,6 +6,7 @@
                 $partner_id = $_POST['partner_id'];
                 $partner_name = $_POST['partner_name'];
                 $partner_company = $_POST['partner_company'];
+                $partner_subapi = $_POST['sub_api_partner'];
                 $partner_type = $_POST['partner_type'];
                 $partner_token = $_POST['partner_token'];
                 // $partner_validate_from = $_POST['partner_validate_from'];
@@ -52,6 +53,7 @@
                                 `companyCount` = "'.$partner_api_count.'", 
                                 `overallCount` = "'.$partner_overall_count.'",
                                 `partner_status` = "'.$status.'", 
+                                `api_type` ="'.$partner_subapi.'",
                                 `updatedAt` = now() 
                                 WHERE `partner_id` = "'.$partner_id.'"';
                             
@@ -92,6 +94,7 @@
                                         `password` = "'.$update_password.'",
                                         `companyName` = "'.$partner_company.'", 
                                         `partner_status` = "'.$status.'", 
+                                        `api_type` ="'.$partner_subapi.'",
                                         `updatedAt` = now() 
                                         WHERE `user_id` = "'.$user_id.'"';
                         $sql_external_updated = mysql_query($sql_external);
@@ -111,6 +114,7 @@
                                     `companyCount` = "'.$partner_api_count.'", 
                                     `overallCount` = "'.$partner_overall_count.'",
                                     `partner_status` = "'.$status.'", 
+                                    `api_type` ="'.$partner_subapi.'",
                                     `updatedAt` = now() 
                                     WHERE `partner_id` = "'.$partner_id.'"';
 
@@ -127,4 +131,5 @@
                                 die('Could not enter data: ' . mysql_error());
                         }
                     }
+                   
 ?>
