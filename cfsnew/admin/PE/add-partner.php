@@ -4,7 +4,6 @@
         include( dirname(__FILE__)."/../../etc/conf.php");
        // if($_POST){
                 $partner_name = $_POST['partner_name'];
-                $partner_type = $_POST['partner_type'];
                 $partner_token = $_POST['partner_token'];
                 $partner_status = $_POST['partner_status'];
 
@@ -34,6 +33,8 @@
                 $partner_overall_limit = $_POST['partner_overall_limit'];
                 
                 $partner_info = $_POST['partner_info'];
+                $partner_subapi_info = $_POST['partner_subapi_info'];
+                $partner_type = $_POST['partner_type'];
                 $partner_email = $_POST['partner_email'];
                 $partner_password = $_POST['partner_password'];
                 $password = md5($partner_password);
@@ -44,13 +45,12 @@
                $ex_partner_valid = mysql_query($validate_partner_email);
                $valid_partner = mysql_fetch_array($ex_partner_valid);
                $valid_user = $valid_partner['partner'];
-               
                 if($partner_info == "internal"){
                   if($partner_name != '' && $partner_company != '' && $partner_duration_from != '' && $partner_duration_to != '' && $partner_search_limit != '' && $partner_api_limit != ''){
                      // $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, serachCount, apiCount, user_id, partner_status, createdAt) 
                      // VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '0', '$status', now())";
-                     $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount,overallCount ,user_id, partner_status, createdAt,updatedAt) 
-                     VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$partner_overall_limit', '0', '$status',now(),now())";
+                     $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount,overallCount ,user_id, partner_status, createdAt,updatedAt,api_type) 
+                     VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$partner_overall_limit', '0', '$status',now(),now(),'$partner_subapi_info')";
                      
                      $partner_added = mysql_query($sql);
                   }
@@ -68,8 +68,8 @@
 
                         // $sql_external = "INSERT INTO pe_external_api_users (partnername, username, password, companyName, partner_status, createdAt) 
                         //             VALUES ('$partner_name', '$partner_email', '$password', '$partner_company', '$status', now())";
-                        $sql_external = "INSERT INTO pe_external_api_users ( username, password, companyName, partner_status, createdAt,updatedAt) 
-                                    VALUES ( '$partner_email', '$password', '$partner_company', '$status', now(), now())";
+                        $sql_external = "INSERT INTO pe_external_api_users ( username, password, companyName, partner_status,api_type, createdAt,updatedAt) 
+                                    VALUES ( '$partner_email', '$password', '$partner_company', '$status','$partner_subapi_info', now(), now())";
                         $partner_external_added = mysql_query($sql_external);
                         $external_partner_id = mysql_insert_id();
                      }
@@ -78,8 +78,8 @@
 
                         // $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, serachCount, apiCount, user_id, partner_status, createdAt) 
                         //          VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$external_partner_id', '$status', now())";
-                        $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount,overallCount , user_id , partner_status, createdAt,updatedAt) 
-                        VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$partner_overall_limit', '$external_partner_id', '$status', now(),now())";
+                        $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount,overallCount , user_id , partner_status, createdAt,updatedAt,api_type) 
+                        VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$partner_overall_limit', '$external_partner_id', '$status', now(),now(),'$partner_subapi_info')";
                        
                        $partner_added = mysql_query($sql);
 
@@ -99,6 +99,45 @@
                      echo 'not_valid_email';
                   }
                 }
+                else if($partner_info == "sub_api_partner"){
+
+                  if($valid_user == '0'){
+
+                  if($partner_name != '' && $partner_email != '' && $partner_company != '' && $partner_password != '' && $partner_duration_from != '' && $partner_duration_to != '' && $partner_search_limit != '' && $partner_api_limit != ''){
+
+                     // $sql_external = "INSERT INTO pe_external_api_users (partnername, username, password, companyName, partner_status, createdAt) 
+                     //             VALUES ('$partner_name', '$partner_email', '$password', '$partner_company', '$status', now())";
+                     $sql_external = "INSERT INTO pe_external_api_users ( username, password, companyName, partner_status,api_type, createdAt,updatedAt) 
+                                 VALUES ( '$partner_email', '$password', '$partner_company', '$status','$partner_subapi_info', now(), now())";
+                     $partner_external_added = mysql_query($sql_external);
+                     $external_partner_id = mysql_insert_id();
+                  }
+                  
+                  if($partner_external_added == TRUE) {
+
+                     // $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, serachCount, apiCount, user_id, partner_status, createdAt) 
+                     //          VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$external_partner_id', '$status', now())";
+                     $sql = "INSERT INTO pe_api_partner (partnerName, partner_company, partnerType, partnerToken, validityFrom, validityTo, dealCount, companyCount,overallCount , user_id , partner_status, createdAt,updatedAt,api_type) 
+                     VALUES ('$partner_name', '$partner_company', '$partner_type', '$partner_token', '$partner_duration_from', '$partner_duration_to', '$partner_search_limit', '$partner_api_limit', '$partner_overall_limit', '$external_partner_id', '$status', now(),now(),'$partner_subapi_info')";
+                    
+                    $partner_added = mysql_query($sql);
+
+                     if($partner_added == TRUE) {
+                        echo "1";
+                     }else{
+                        echo "0";
+                        die('Could not enter data: ' . mysql_error());
+                     }
+                  
+                  }else{
+                     echo "0";
+                     die('Could not enter data: ' . mysql_error());
+                  }
+
+               }else{
+                  echo 'not_valid_email';
+               }
+             }
                
 
             
