@@ -290,8 +290,10 @@ table th, table td {
                             <div class="col-md-6">
                               <select class="form-control" id="partner_type" name="partner_type" style="width: 260px;">
                                  <option id="type_internal" value="internal_partner" {if $partner_details.partnerType == "internal_partner"} selected="selected"{/if}>internal_partner</option>
-                                 <option id="type_external" value="external_partner" {if $partner_details.partnerType == "external_partner"} selected="selected"{/if}>external_partner</option>
+                                 <option id="type_external" value="external_partner" {if $partner_details.partnerType == "external_partner" or $partner_details.partnerType == "SubAPI"} selected="selected"{/if}>external_partner</option>
+                                 {* <option id="type_subapi" value="sub_api_partner" {if $partner_details.partnerType == "sub_api_partner"} selected="selected"{/if}>sub_api_partner</option> *}
                               </select>
+                              <input type="hidden" name="sub_api_partner" id="sub_api_partner" {if $external_details.api_type == "1"}value="1"{else}value="0"{/if}>
                             </div>
                         </div>
                        
@@ -528,17 +530,38 @@ $(function() {
     });
     //End Partner Controls
 	var p_type = $("#partner_type").val();
+   var subapi = $("#sub_api_partner").val();
 	if(p_type == "internal_partner"){
       document.title = 'Create Internal Partner';
       $("#title_id").html("Edit Internal Partner");
 		$(".partner-external").hide();
       $("#type_external").hide();
+      //$("#type_subapi").hide();
       $(".r_email").hide();
       $(".r_pass").hide();
+      //$("#sub_api_partner").val("0");
 	}else if(p_type == "external_partner"){
-      $("#title_id").html("Edit External Partner");
+      if(subapi == 1){
+         $("#title_id").html("Edit Sub API Partner");
+      }else{
+         $("#title_id").html("Edit External Partner");
+      }
       document.title = 'Create External Partner';
       $("#type_internal").hide();
+      //$("#type_subapi").hide();
+     // $("#sub_api_partner").val("0");
+   }
+   else if(p_type == "SubAPI"){
+      $("#title_id").html("Edit Sub API Partner");
+      document.title = 'Create Sub API Partner';
+      $("#type_internal").hide();
+      //$("#type_subapi").hide();
+      //$("#sub_api_partner").val("0");
+      /* $("#title_id").html("Edit Sub API Partner");
+      document.title = 'Create Sub API Partner';
+      $("#sub_api_partner").val("1");
+      $("#type_internal").hide();
+      $("#type_external").hide(); */
    }
 
    //Partner Count Details
