@@ -27,7 +27,8 @@
                //  $partner_duration_to = date("Y-m-d", strtotime($date_2));
                
                 //$partner_duration_from->format('Y-m-d h:i');
-                
+               
+                $partner_duration_from = date('Y-m-d H:i:s', strtotime($partner_duration_from .' -1 day')); //needs to modify after api changes
                 $partner_search_limit = $_POST['partner_search_limit'];
                 $partner_api_limit = $_POST['partner_api_limit'];
                 $partner_overall_limit = $_POST['partner_overall_limit'];
