@@ -343,7 +343,15 @@ require("checkaccess.php");
                     $mobapp = 0;
                 }
                 
+                $custom_limit_enable=$_POST['limit_enable'];
+                if($_POST['limit_enable']){
+                    $custom_limit_enable=1;
+                }else{
+                    $custom_limit_enable = 0;
+                }
                 
+                $custom_export_limit=$_POST['exp_limit'];
+                    
                 $getcompNameSql = "select DCompId,DCompanyName from dealcompanies where DCompanyName LIKE '%".trim($comp)."%'";
                 $rscom = mysql_query($getcompNameSql);
                 $companynum_rows = mysql_num_rows($rscom);
@@ -362,8 +370,8 @@ require("checkaccess.php");
                 }else{
                 
                     $insSql= "insert into dealcompanies(DCompId,DCompanyName,Deleted,ExpiryDate,TrialLogin,Student,REInv,PEInv,VCInv,PEIpo,VCIpo,PEMa,VCMa,PEDir,VCDir,SPDir,MAMA,
-                    Inc,AngelInv,SVInv,IfTech,CTech,PE_backDir,VC_backDir,peindustries,maindustries,LPDir,mobile_access) values ($DCompId,'$comp',0,'$ExpiryDate',$trial,$student,$RElogin,$PEInv,$VCInv,$PEIpo,$VCIpo,$PEMa,$VCMa,
-                    $PEDir,$CODir,$SPDir,$MAlogin,$Inc,$angelInv,$sv,$itech,$ctech,$PE_back,$VC_back,'$PEindustry','$MAindustry',$LPDir,$mobapp)";
+                    Inc,AngelInv,SVInv,IfTech,CTech,PE_backDir,VC_backDir,peindustries,maindustries,LPDir,mobile_access,custom_limit_enable,custom_export_limit) values ($DCompId,'$comp',0,'$ExpiryDate',$trial,$student,$RElogin,$PEInv,$VCInv,$PEIpo,$VCIpo,$PEMa,$VCMa,
+                    $PEDir,$CODir,$SPDir,$MAlogin,$Inc,$angelInv,$sv,$itech,$ctech,$PE_back,$VC_back,'$PEindustry','$MAindustry',$LPDir,$mobapp,$custom_limit_enable,$custom_export_limit)";
                
                     //echo "<Br> Insert company-" .$insSql;
                     if ($rsinsert = mysql_query($insSql))
@@ -1097,7 +1105,14 @@ require("checkaccess.php");
                                         <p id="nameGroup" style="color: red;"></p>
 
                                          <input type=checkbox name="mobappaccess" id="applogin" class="applogincheckbox" value="1" <?php echo $mobapp; ?>> Mobile App access
-                                        <div style="margin-bottom: 15px;">
+                                            
+                                         <div class="row" style="border:2px solid black;    width: 300px;">
+                                            <h2>Custom Export Option</h2>
+                                            <input type="checkbox" id="limit_enable" name="limit_enable" value="1" <?php echo $custom_limit_enable; ?>><b>Enable</b><br><br>
+                                            <b>Export Limit</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="exp_limit" id="exp_limit" value="<?php echo $custom_export_limit; ?>"><br><br>
+                                        </div>
+                                       
+                                         <div style="margin-bottom: 15px;">
                                             <span style="font-size: 14px;font-weight:bold;">Add Members : </span> <Br />
                                         </div>
                                         

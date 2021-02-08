@@ -227,6 +227,16 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     <form name="adminFilter" id="adminFilter" method="post" action="" >
         <div id="containerproductproducts">
         <!-- Starting Left Panel -->
+        <?php
+			$keyword="";
+			$keyword=$_GET['id'];
+			
+				$nanoSql="SELECT * FROM `saved_filter` where id='".$keyword."' ";
+				if ($reportrs = mysql_query($nanoSql))
+				 {
+					$report_cnt = mysql_num_rows($reportrs);
+				 }
+		?>
         <?php include_once 'leftpanel.php'; ?>
         <!-- Ending Left Panel -->
         <div style="width:570px; float:right; background-color:#FFF; ">
@@ -239,17 +249,36 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                             </div>
                         </div>
                         <div id="formtextpro">
-                        <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" value="<?php echo ''.$_GET['filterName'].'' ?>">
-                        <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""><?php echo ''.$_GET['query'].'' ?></textarea>
-                        <input type="checkbox" id="filter_active"  value="active" <?php echo ($_GET['filter_active'] == 'active') ? 'checked' : ''; ?>><b>Active?</b>
-                        <input type="checkbox" id="admin_filter"  value="1" <?php echo ($_GET['vi_filter'] == '1') ? 'checked' : ''; ?>><b>VI Filter</b><br><br>
+                        <?php
+                        if ($report_cnt>0)
+                        {
+                            While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
+                            {	
+                        ?>
+                        <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" value="<?php echo $myrow["filter_name"] ?>">
+                        <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""><?php echo $myrow["query"] ?></textarea>
+                        <input type="checkbox" id="filter_active"  value="active" <?php echo ($myrow["filter_active"] == 'active') ? 'checked' : ''; ?>><b>Active?</b>
+                        <input type="checkbox" id="admin_filter"  value="1" <?php echo ($myrow["vi_filter"] == '1') ? 'checked' : ''; ?>><b>VI Filter</b><br><br>
                         <p>Filter Type:</p>
-                        <input type="radio" id="investments" name="filter_type" value="Investments" <?php echo ($_GET['filter_type'] == 'Investments') ? 'checked' : ''; ?>>
+                        <input type="radio" id="investments" name="filter_type" value="Investments" <?php echo ($myrow["filter_type"] == 'Investments') ? 'checked' : ''; ?>>
                         <label for="male">Investments</label><br>
-                        <input type="radio" id="exit" name="filter_type" value="Exit" <?php echo ($_GET['filter_type'] == 'Exit') ? 'checked' : ''; ?>>
+                        <input type="radio" id="exit" name="filter_type" value="Exit" <?php echo ($myrow["filter_type"] == 'Exit') ? 'checked' : ''; ?>>
                         <label for="male">Exit</label><br>
                         <input type="button" name="saveFilter" id="saveFilter" value="Save" onclick="saveAdminFilter()"><br><br>
-
+                                <?php } }
+                                else {?>
+                                     <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" >
+                        <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""></textarea>
+                        <input type="checkbox" id="filter_active"  value="active" ><b>Active?</b>
+                        <input type="checkbox" id="admin_filter"  value="1" ><b>VI Filter</b><br><br>
+                        <p>Filter Type:</p>
+                        <input type="radio" id="investments" name="filter_type" value="Investments" >
+                        <label for="male">Investments</label><br>
+                        <input type="radio" id="exit" name="filter_type" value="Exit" >
+                        <label for="male">Exit</label><br>
+                        <input type="button" name="saveFilter" id="saveFilter" value="Save" onclick="saveAdminFilter()"><br><br>
+                           
+                               <?php } ?>
 
                         </div>
                     </div>

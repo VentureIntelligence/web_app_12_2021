@@ -1,10 +1,7 @@
 <?php
-
-require_once "../dbconnectvi.php";
-$Db = new dbInvestments();
 //session_save_path("/tmp");
-session_start();
 include_once 'advExport_header.php';
+include_once 'checklogin.php';
 
 $dbtype=$_POST['dbtypeValue'];
   require_once('aws.php');    // load logins
