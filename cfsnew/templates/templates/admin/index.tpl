@@ -164,7 +164,7 @@ a.disable:hover {
 {/if}
 {/if}
 
-{if $GLOBAL_BASE_URL eq 'https://dev.vionweb.com/' or $GLOBAL_BASE_URL eq 'https://www.vionweb.com/'}
+{if $GLOBAL_BASE_URL eq 'https://dev.vionweb.com/' or $GLOBAL_BASE_URL eq 'https://www.vionweb.com/' or $GLOBAL_BASE_URL eq 'http://localhost/vi_webapp/'}
 {if $Usr_Type eq 1 or $Usr_Type eq 3}
      <div style="margin-top:20px;"> 
       <table>
@@ -173,8 +173,8 @@ a.disable:hover {
             <th colspan="2"style="text-align: center;"> {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h2 style="font-size:18px;">Partner API</h2>{/if}</th>
           </tr>
           <tr>
-            <th>CFS</th>
-            <th>PE</th>
+            <th style="width: 47%;">CFS</th>
+            <th style="width: 53%;">PE</th>
           </tr>
         </thead>
         <tbody>
@@ -192,6 +192,7 @@ a.disable:hover {
          {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="PE/partner-api-create.php">Create Partner</a></h3>{/if}
           {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="PE/partners-list.php">Manage Partners</a></h3>{/if}
           {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="PE/partner-api-tracker.php">Tracking Dashboard</a></h3>{/if}
+          {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="PE/sub-partner-api-tracker.php">Tracking Dashboard - SUB API</a></h3>{/if}
           {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="PE/partner-api-details.php">Details</a></h3>{/if} 
 
            {* {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="#" class="disable">Create Partner</a></h3>{/if}
