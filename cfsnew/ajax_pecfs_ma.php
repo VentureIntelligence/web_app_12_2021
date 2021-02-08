@@ -1,7 +1,8 @@
 <?php
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
-
+include "header.php";
+include "sessauth.php";
 $pe_data='';
 $month1=01; 
                         $year1 = 2004;

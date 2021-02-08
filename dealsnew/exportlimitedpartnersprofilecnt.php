@@ -4,7 +4,12 @@
 //session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
-
+if(!isset($_SESSION['UserNames']))
+{
+header('Location:../pelogin.php');
+}
+else
+{
 //Check Session Id 
 $sesID=session_id();
 $emailid=$_SESSION['UserEmail'];
@@ -1354,7 +1359,7 @@ function updateDownload($res){
 				//		}
 				//else
 				//	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;
-
+                }
    mysql_close();
     mysql_close($cnx);
     ?>

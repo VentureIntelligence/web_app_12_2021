@@ -3,7 +3,7 @@
 error_reporting(0);
 
 include "header.php";
-	
+include "sessauth.php";	
 		
                 if(isset($_POST['chargeholder_str']) && $_POST['chargeholder_str']!=''){
                         require_once MODULES_DIR."plstandard.php"; 

@@ -5,6 +5,7 @@ echo $ext;
 */
 require_once "../dbconnectvi.php";
 $Db = new dbInvestments();
+include ('machecklogin.php');
 //session_save_path("/tmp");
 session_start();
 $refUrl="../dealsnew/";

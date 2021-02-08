@@ -1,4 +1,12 @@
-
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {?>
 <script type="text/javascript">
     var demotour='';
     var vcdemotour='';
@@ -79,5 +87,5 @@ if($tour=='Allow'){ ?>
                 $(".vconly_tour").show();                
                 $(".peonly_tour").hide();
                 });
-   <?php } ?>
+   <?php } }?>
 </script> 

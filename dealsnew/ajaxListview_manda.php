@@ -22,6 +22,12 @@ $hide_pms=$_POST['hide_pms'];
 $orderby=$_POST['orderby'];
 $ordertype=$_POST['ordertype'];
 $searchallfieldFlag = $_POST[ 'searchField' ];
+if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
 //==============================junaid===========================
 if(!empty($_POST[ 'uncheckRows' ])){
     
@@ -246,6 +252,7 @@ else
 
                             }
                      }
+                    }
                                 ?>
         </tbody>
     </table>
@@ -270,11 +277,11 @@ else
             if( $( event.target ).prop('checked') ) {
                 $(event.target).parents('.details_link').removeClass('event_stop');
                 var strArray = cur_val.split(',');
-                 for( var i = 0; i < strArray.length; i++ ) {
-                    if ( strArray[i] === peuncheckCompdId ) {
+                ï¿½for( var i = 0; i < strArray.length; i++ ) {
+                ï¿½   if ( strArray[i] === peuncheckCompdId ) {
                         strArray.splice(i, 1);
-                    }
-                }
+            ï¿½       }
+             ï¿½  }
                 $('#pe_checkbox_disbale').val( strArray );
                 $('#txthidepe').val( strArray );
                 updateCountandAmount( peuncheckAmount, 'add', amountChnage, pehideFlag );
