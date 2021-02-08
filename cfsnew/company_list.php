@@ -1,6 +1,7 @@
 <?php 
     error_reporting(0);
     include "header.php";
+    include "sessauth.php";
 	require_once MODULES_DIR."plstandard.php"; 
     $plstandard = new plstandard();
     $companyname = $_POST['companyname'];
