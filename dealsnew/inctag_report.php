@@ -1,7 +1,13 @@
 <?php
 
-	require_once("../dbconnectvi.php");
-	$Db = new dbInvestments();
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
 	/*$query = "SELECT pec.tags, amount
                     FROM peinvestments AS pe, industry AS i, pecompanies AS pec,stage as s
                     WHERE dates between '2018-1-01' and '2018-2-28' AND pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.StageId and pe.Deleted=0 and pec.industry !=15   AND pe.PEId NOT IN (
@@ -270,5 +276,6 @@
                             <input type="hidden" value="1" name="tagsfield" id="tagsfield" />
                         </form>';
 
-   	echo $str;
+       echo $str;
+        }
 ?>

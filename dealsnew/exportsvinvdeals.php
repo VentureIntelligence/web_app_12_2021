@@ -1,9 +1,15 @@
 <?php
  //session_save_path("/tmp");
-    session_start();
+  //  session_start();
       
     require("../dbconnectvi.php");
     $Db = new dbInvestments();
+    if(!isset($_SESSION['UserNames']))
+        {
+        header('Location:../pelogin.php');
+        }
+        else
+        {
      $listallcompany = $_POST['listallcompanies'];   
         //Check Session Id 
         $sesID=session_id();
@@ -1834,7 +1840,7 @@ if(in_array("LinkforFinancials", $expval))
     echo ("$exportstatusdisplay");
     print("\n");
     print("\n");
-
+    }
   mysql_close();
     mysql_close($cnx);
     ?>

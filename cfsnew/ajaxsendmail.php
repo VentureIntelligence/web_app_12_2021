@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+include "sessauth.php";
 if( isset($_POST['toventure'])){
        
         $to=$_POST['to'];

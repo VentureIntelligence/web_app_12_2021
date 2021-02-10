@@ -100,6 +100,8 @@
     $ioc_fchargetodate = $_GET['chargetodate']; 
     $ioc_fchargefromamount = $_GET['chargefromamount']; 
     $ioc_fchargetoamount = $_GET['chargetoamount']; 
+    $stateid = $_GET['stateid']; 
+    $cityid = $_GET['cityid']; 
  }else{
     $ioc_fstatus = 0;
  }
@@ -138,6 +140,8 @@ if($_REQUEST['holderhidden'] !=""){
     $template->assign("ioc_fchargetodate",$ioc_fchargetodate);
     $template->assign("ioc_fchargefromamount",$ioc_fchargefromamount);
     $template->assign("ioc_fchargetoamount",$ioc_fchargetoamount);
+    $template->assign("stateid",$stateid);
+    $template->assign("cityid",$cityid);
     $template->assign('pageTitle',"CFS :: Company Search Or Charges Holder");
     $template->assign('pageDescription',"CFS - Company Search Or Charges Holder");
     $template->assign('pageKeyWords',"CFS - Company Search Or Charges Holder");

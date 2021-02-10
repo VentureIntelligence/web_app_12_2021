@@ -2,7 +2,7 @@
 $StateWhere = "state_CountryID_FK = 113";
 $order7="state_name asc";
 $template->assign("state" , $state->getState($StateWhere,$order7));
-
+$template->assign("iocstate" , $state->getiocState());
 //pr($authAdmin);
 
 //pr($_SESSION);
@@ -222,7 +222,7 @@ $StateWhere = "state_CountryID_FK = 113";
 
 $states=$state->getState($StateWhere,$order7);
 $template->assign("state" , $states);
-
+$template->assign("iocstate" , $state->getiocState());
  if ($_REQUEST['answer']['Region']!="" && $_REQUEST['answer']['State']=="") { 
             $region_where = '';
             foreach($_REQUEST['answer']['Region'] as $regions){
@@ -328,8 +328,15 @@ $fliterlist[$i++]=array('field'=>'ResultType','key'=>$_REQUEST['ResultType'],'va
 
 //left panel
 
-if ($_REQUEST['Crores']=="10000000")
-$fliterlist[$i++]=array('field'=>'Crores','key'=>$_REQUEST['Crores'],'value'=>"Fin.In Crores");
+if($currency=="INR")
+{
+    $fliterlist[$i++]=array('field'=>'Crores','key'=>$_REQUEST['Crores'],'value'=>"Fin.In Crores");
+} 
+if ($currency=="USD")
+{
+    $fliterlist[$i++]=array('field'=>'Million','key'=>$_REQUEST['Million'],'value'=>"Fin.In Million");
+}
+   
 
 if ($_REQUEST['arcossall']!="")
 $fliterlist[$i++]=array('field'=>'arcossall','key'=>$_REQUEST['arcossall'],'value'=>"Fin.".$_REQUEST['arcossall']);
@@ -354,6 +361,9 @@ if(isset($_REQUEST['auditorname']) && $_REQUEST['auditorname']!='' ){
 }
 if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){ 
     $fliterlist[$i++]=array('field'=>'#chargeaddress','key'=>'','value'=>'Charge Address');
+}
+if(isset($_REQUEST['answer']['City']) && $_REQUEST['answer']['City']!=''){ 
+    $fliterlist[$i++]=array('field'=>'#city','key'=>'','value'=>'City');
 }
 if(isset($_REQUEST['tagsearch_auto']) && $_REQUEST['tagsearch_auto']!=''){ 
     $tagsearch = "tag:" . trim($_REQUEST['tagsearch_auto']);

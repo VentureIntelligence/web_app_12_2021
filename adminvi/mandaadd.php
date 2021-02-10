@@ -356,10 +356,10 @@ function checkCompany()
 								<td >Link for Financials (LISTED FIRM ONLY)</td>
 								<td><textarea name="txtfinlink" rows="3" cols="40"></textarea> </td>
 								</tr>
-                                                                <tr>
+                                                                <!-- <tr>
 								<td >&nbsp;Financial</td>
 								<td valign=top><INPUT NAME="txtfilepath" TYPE="file" size=50>
-								</td> </tr>
+								</td> </tr> -->
 
 								<tr>
 								<td >&nbsp;Source</td>

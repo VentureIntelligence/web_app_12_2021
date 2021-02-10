@@ -1,6 +1,6 @@
 <?php
-
-    
+include "header.php";
+include "sessauth.php";
     $from=$_POST['from'];
     $to=$_POST['to'];
     

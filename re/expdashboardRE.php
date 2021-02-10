@@ -3,7 +3,7 @@
 	session_start();
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
-        
+    include ('checklogin.php');    
         
         //Check Session Id 
         $sesID=session_id();

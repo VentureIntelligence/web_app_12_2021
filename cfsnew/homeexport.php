@@ -19,7 +19,8 @@
     $city = new city();
     require_once MODULES_DIR."countries.php";
     $countries = new countries();
-    
+    include_once('conversionarray.php');
+    $currency=$_REQUEST['currency'];
     function updateDownload($res){
         //Added By JFR-KUTUNG - Download Limit
         $recCount = count($res);
@@ -409,8 +410,13 @@
 //                            }else{
 //                                $roundDigit = 2;                               
 //                            }
-                            $revenue=$total_income/10000000;
-                            $revenueincr=round($revenue, 2);
+                            if($currency == "INR"){
+                                $revenue=$total_income/10000000;
+                                $revenueincr=round($revenue, 2);
+                            }else if($currency == "USD"){
+                                $revenue=($total_income/$yearcurrency[$pl['FY']])/1000000;
+                                $revenueincr=round($revenue, 2);
+                            }
                           //  $revenueincr = ($revenueincr==0) ? "" : $revenueincr;
                             $schema_insert .= $revenueincr.$sep;
                         }
@@ -426,8 +432,13 @@
                         $schema_insert .= $sep;
                     }else{
                         $EBIDTA = $pl['EBITDA'];
-                        $EBIDTAdiv=$EBIDTA/10000000;
-                        $EBIDTAcr=round($EBIDTAdiv, 2);
+                        if($currency == "INR"){
+                            $EBIDTAdiv=$EBIDTA/10000000;
+                            $EBIDTAcr=round($EBIDTAdiv, 2);
+                        }else if($currency == "USD"){
+                            $EBIDTAdiv=($EBIDTA/$yearcurrency[$pl['FY']])/1000000;
+                            $EBIDTAcr=round($EBIDTAdiv, 2);
+                        }
                        // $EBIDTAcr = ($EBIDTAcr==0) ? "" : $EBIDTAcr;
                         $schema_insert .= $EBIDTAcr.$sep;
                     }
@@ -439,8 +450,13 @@
                     }else{
                        /*if($exportsql !='')
                        {*/
-                        $EBDTdiv=$EBDT/10000000;
-                        $EBDTcr=round($EBDTdiv, 2);
+                        if($currency == "INR"){
+                            $EBDTdiv=$EBDT/10000000;
+                            $EBDTcr=round($EBDTdiv, 2);
+                        }else if($currency == "USD"){
+                            $EBDTdiv=($EBDT/$yearcurrency[$pl['FY']])/1000000;
+                            $EBDTcr=round($EBDTdiv, 2);
+                        }
                        // $EBDTcr = ($EBDTcr==0) ? "" : $EBDTcr;
                         $schema_insert .= $EBDTcr.$sep;
                        /*}
@@ -457,8 +473,13 @@
                     }else{
                        /*if($exportsql !='')
                        {*/
-                        $EBTdiv = $EBT/10000000;
-                        $EBTcr = round($EBTdiv, 2);
+                        if($currency == "INR"){
+                            $EBTdiv = $EBT/10000000;
+                            $EBTcr = round($EBTdiv, 2);
+                        }else if($currency == "USD"){
+                            $EBTdiv = ($EBT/$yearcurrency[$pl['FY']])/1000000;
+                            $EBTcr = round($EBTdiv, 2);
+                        }
                       //  $EBTcr = ($EBTcr==0) ? "" : $EBTcr;
                         $schema_insert .= $EBTcr.$sep;
                        /*}
@@ -473,8 +494,13 @@
                     }else{
                        /*if($exportsql !='')
                        {*/
-                        $PATdiv=$PAT/10000000;
-                        $PATcr=round($PATdiv, 2);
+                        if($currency == "INR"){
+                            $PATdiv=$PAT/10000000;
+                            $PATcr=round($PATdiv, 2);
+                        }else if($currency == "USD"){
+                            $PATdiv=($PAT/$yearcurrency[$pl['FY']])/1000000;
+                            $PATcr=round($PATdiv, 2);
+                        }
                        // $PATcr = ($PATcr==0) ? "" : $PATcr;
                         $schema_insert .= $PATcr.$sep;
                        /*}
@@ -490,8 +516,13 @@
                     }else{
                        /*if($exportsql !='')
                        {*/
-                        $OptnlIncomediv = $OptnlIncome/10000000;
-                        $OptnlIncomecr = round($OptnlIncomediv, 2);
+                        if($currency == "INR"){
+                            $OptnlIncomediv = $OptnlIncome/10000000;
+                            $OptnlIncomecr = round($OptnlIncomediv, 2);
+                        }else if($currency == "USD"){
+                            $OptnlIncomediv = ($OptnlIncome/$yearcurrency[$pl['FY']])/1000000;
+                            $OptnlIncomecr = round($OptnlIncomediv, 2);
+                        }
                      //   $OptnlIncomecr = ($OptnlIncomecr==0) ? "" : $OptnlIncomecr;
                         $schema_insert .= $OptnlIncomecr.$sep;
                        /*}
@@ -508,8 +539,13 @@
                     }else{
                        /*if($exportsql !='')
                        {*/
-                        $Interestdiv = $Interest/10000000;
-                        $Interestcr = round($Interestdiv, 2);
+                        if($currency == "INR"){
+                            $Interestdiv = $Interest/10000000;
+                            $Interestcr = round($Interestdiv, 2);
+                        }else if($currency == "USD"){
+                            $Interestdiv = ($Interest/$yearcurrency[$pl['FY']])/1000000;
+                            $Interestcr = round($Interestdiv, 2);
+                        }
                       //  $Interestcr = ($Interestcr==0) ? "" : $Interestcr;
                         $schema_insert .= $Interestcr.$sep;
                        /*}
@@ -529,8 +565,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $ShareCapitaldiv=$ShareCapital/10000000;
-                    $ShareCapitalcr=round($ShareCapitaldiv, 2);
+                    if($currency == "INR"){
+                        $ShareCapitaldiv=$ShareCapital/10000000;
+                        $ShareCapitalcr=round($ShareCapitaldiv, 2);
+                    }else if($currency == "USD"){
+                        $ShareCapitaldiv=($ShareCapital/$yearcurrency[$pl['FY']])/1000000;
+                        $ShareCapitalcr=round($ShareCapitaldiv, 2);
+                    }
                  //   $ShareCapitalcr = ($ShareCapitalcr==0) ? "" : $ShareCapitalcr;
                     $schema_insert .= $ShareCapitalcr.$sep;
                    /*}
@@ -549,8 +590,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $ReSudiv=$ReSu/10000000;
-                    $ReSucr=round($ReSudiv, 2);
+                    if($currency == "INR"){
+                        $ReSudiv=$ReSu/10000000;
+                        $ReSucr=round($ReSudiv, 2);
+                    }else if($currency == "USD"){
+                        $ReSudiv=($ReSu/$yearcurrency[$pl['FY']])/1000000;
+                        $ReSucr=round($ReSudiv, 2);
+                    }
                    // $ReSucr = ($ReSucr==0) ? "" : $ReSucr;
                     $schema_insert .= $ReSucr.$sep;
                    /*}
@@ -568,8 +614,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $LTBdiv=$LTB/10000000;
-                    $LTBcr=round($LTBdiv, 2);
+                    if($currency == "INR"){
+                        $LTBdiv=$LTB/10000000;
+                        $LTBcr=round($LTBdiv, 2);
+                    }else if($currency == "USD"){
+                        $LTBdiv=($LTB/$yearcurrency[$pl['FY']])/1000000;
+                        $LTBcr=round($LTBdiv, 2);
+                    }
                 //    $LTBcr = ($LTBcr==0) ? "" : $LTBcr;
                     $schema_insert .= $LTBcr.$sep;
                    /*}
@@ -586,8 +637,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $STBdiv=$STB/10000000;
-                    $STBcr=round($STBdiv, 2);
+                    if($currency == "INR"){
+                        $STBdiv=$STB/10000000;
+                        $STBcr=round($STBdiv, 2);
+                    }else if($currency == "USD"){
+                        $STBdiv=($STB/$yearcurrency[$pl['FY']])/1000000;
+                        $STBcr=round($STBdiv, 2);
+                    }
                  //   $STBcr = ($STBcr==0) ? "" : $STBcr;
                     $schema_insert .= $STBcr.$sep;
                    /*}
@@ -605,8 +661,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $TCLdiv=$TCL/10000000;
-                    $TCLcr=round($TCLdiv, 2);
+                    if($currency == "INR"){
+                        $TCLdiv=$TCL/10000000;
+                        $TCLcr=round($TCLdiv, 2);
+                    }else if($currency == "USD"){
+                        $TCLdiv=($TCL/$yearcurrency[$pl['FY']])/1000000;
+                        $TCLcr=round($TCLdiv, 2);
+                    }
                    // $TCLcr = ($TCLcr==0) ? "" : $TCLcr;
                     $schema_insert .= $TCLcr.$sep;
                    /*}
@@ -625,8 +686,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $TFAdiv=$TFA/10000000;
-                    $TFAcr=round($TFAdiv, 2);
+                    if($currency == "INR"){
+                        $TFAdiv=$TFA/10000000;
+                        $TFAcr=round($TFAdiv, 2);
+                    }else if($currency == "USD"){
+                        $TFAdiv=($TFA/$yearcurrency[$pl['FY']])/1000000;
+                        $TFAcr=round($TFAdiv, 2);
+                    }
                  //   $TFAcr = ($TFAcr==0) ? "" : $TFAcr;
                     $schema_insert .= $TFAcr.$sep;
                    /*}
@@ -644,8 +710,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $CBBdiv=$CBB/10000000;
-                    $CBBcr=round($CBBdiv, 2);
+                    if($currency == "INR"){
+                        $CBBdiv=$CBB/10000000;
+                        $CBBcr=round($CBBdiv, 2);
+                    }else if($currency == "USD"){
+                        $CBBdiv=($CBB/$yearcurrency[$pl['FY']])/1000000;
+                        $CBBcr=round($CBBdiv, 2);
+                    }
                   //  $CBBcr = ($CBBcr==0) ? "" : $CBBcr;
                     $schema_insert .= $CBBcr.$sep;
                    /*}
@@ -663,8 +734,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $TCAdiv=$TCA/10000000;
-                    $TCAcr=round($TCAdiv, 2);
+                    if($currency == "INR"){
+                        $TCAdiv=$TCA/10000000;
+                        $TCAcr=round($TCAdiv, 2);
+                    }else if($currency == "USD"){
+                        $TCAdiv=($TCA/$yearcurrency[$pl['FY']])/1000000;
+                        $TCAcr=round($TCAdiv, 2);
+                    }
                  //   $TCAcr = ($TCAcr==0) ? "" : $TCAcr;
                     $schema_insert .= $TCAcr.$sep;
                    /*}
@@ -680,8 +756,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $Inventoriesdiv=$Inventories/10000000;
-                    $Inventoriescr=round($Inventoriesdiv, 2);
+                    if($currency == "INR"){
+                        $Inventoriesdiv=$Inventories/10000000;
+                        $Inventoriescr=round($Inventoriesdiv, 2);
+                    }else if($currency == "USD"){
+                        $Inventoriesdiv=($Inventories/$yearcurrency[$pl['FY']])/1000000;
+                        $Inventoriescr=round($Inventoriesdiv, 2);
+                    }
                   //  $Inventoriescr = ($Inventoriescr==0) ? "" : $Inventoriescr;
                     $schema_insert .= $Inventoriescr.$sep;
                    /*}
@@ -697,9 +778,14 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $TAdiv=$TA/10000000;
-                    $TAcr=round($TAdiv, 2);
-                  //  $TAcr = ($TAcr==0) ? "" : $TAcr;
+                    if($currency == "INR"){
+                        $TAdiv=$TA/10000000;
+                        $TAcr=round($TAdiv, 2);
+                    }else if($currency == "USD"){
+                        $TAdiv=($TA/$yearcurrency[$pl['FY']])/1000000;
+                        $TAcr=round($TAdiv, 2);
+                    }
+                    //  $TAcr = ($TAcr==0) ? "" : $TAcr;
                     $schema_insert .= $TAcr.$sep;
                    /*}
                    else{
@@ -714,8 +800,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $TRdiv=$TR/10000000;
-                    $TRcr=round($TRdiv, 2);
+                    if($currency == "INR"){
+                        $TRdiv=$TR/10000000;
+                        $TRcr=round($TRdiv, 2);
+                    }else if($currency == "USD"){
+                        $TRdiv=($TR/$yearcurrency[$pl['FY']])/1000000;
+                        $TRcr=round($TRdiv, 2);
+                    }
                 //    $TRcr = ($TRcr==0) ? "" : $TRcr;
                     $schema_insert .= $TRcr.$sep;
                    /*}
@@ -731,8 +822,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $TPdiv=$TP/10000000;
-                    $TPcr=round($TPdiv, 2);
+                    if($currency == "INR"){
+                        $TPdiv=$TP/10000000;
+                        $TPcr=round($TPdiv, 2);
+                    }else if($currency == "USD"){
+                        $TPdiv=($TP/$yearcurrency[$pl['FY']])/1000000;
+                        $TPcr=round($TPdiv, 2);
+                    }
                   //  $TPcr = ($TPcr==0) ? "" : $TPcr;
                     $schema_insert .= $TPcr.$sep;
                    /*}
@@ -748,8 +844,13 @@
                 }else{
                    /*if($exportsql !='')
                    {*/
-                    $TELdiv=$TEL/10000000;
-                    $TELcr=round($TELdiv, 2);
+                    if($currency == "INR"){
+                        $TELdiv=$TEL/10000000;
+                        $TELcr=round($TELdiv, 2);
+                    }else if($currency == "USD"){
+                        $TELdiv=($TEL/$yearcurrency[$pl['FY']])/1000000;
+                        $TELcr=round($TELdiv, 2);
+                    }
                   //  $TELcr = ($TELcr==0) ? "" : $TELcr;
                     $schema_insert .= $TELcr.$sep;
                    /*}
