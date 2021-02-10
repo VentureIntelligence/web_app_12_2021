@@ -221,9 +221,9 @@ background-color: #000;
   </div>
   
   {else}
-  <div style="padding:0px !important;font-size: 17px;position:relative;top: -30px;"><a href="javascript:void(0)" class="updateFinancialHome" >Click here to request for financials</a></div>
+  <div style="padding:0px !important;font-size: 17px;position:relative;top: -40px;"><a href="javascript:void(0)" class="updateFinancialHome" >Click here to request for financials</a></div>
 
-  <div style="padding:0px !important;font-size: 17px;position:relative;margin-top: 35px;">
+  <div style="padding:0px !important;font-size: 17px;position:relative;margin-top: 50px;">
 <a class="postlink" id="previous" href="indexofcharges.php?value=0" >&lt; Back</a>
   <h2 style="color: #9f7917;font-size: 20px;text-align: center;">{$Searchcompany}</h2>
   <div class="exportbutton" >
