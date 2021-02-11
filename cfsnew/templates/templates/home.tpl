@@ -271,7 +271,7 @@ padding:0px 10px; }
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if}    
              <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
-            <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value},{/section}"/>
+            <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
             <input type="hidden" name="currency" id="currency" value="{$currency}"/>     
