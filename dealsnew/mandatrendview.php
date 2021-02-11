@@ -1,3 +1,11 @@
+<?php include_once("../globalconfig.php"); require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{?>
 <?php
     
 /*echo $addedflagQry . $addhide_pms_qry . $addDelind;
@@ -909,3 +917,4 @@ else if($VCFlagValueString == '1-0')
   </table>
 </div>
 <div class=""></div>
+<?php } ?>

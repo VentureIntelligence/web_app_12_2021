@@ -3,6 +3,12 @@
 //error_reporting(0);
  require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+     {
+              header('Location:../pelogin.php');
+     }
+     else
+     {  
 $investor=$_POST['queryString']."%";
         
         $getInvestorSql="SELECT DISTINCT inv.InvestorId, inv.Investor
@@ -45,5 +51,5 @@ $investor=$_POST['queryString']."%";
                 mysql_free_result($invtypers);
                 echo json_encode($jsonarray);
             }
-
+        }
     ?>

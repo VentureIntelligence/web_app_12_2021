@@ -1,5 +1,6 @@
 <?php
 include "header.php";
+include "sessauth.php";
 if( isset( $_GET[ 'companyID' ] ) ) {
     if( $_GET[ 'excel_type' ] == 'pl' ) {
         if( $_GET[ 'format' ] == 's' ) {

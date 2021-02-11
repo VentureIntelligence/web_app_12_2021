@@ -3,6 +3,12 @@
 //error_reporting(0);
  require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+     {
+              header('Location:../pelogin.php');
+     }
+     else
+     {  
 $company=$_POST['queryString']."%";
         
         
@@ -89,5 +95,5 @@ $company=$_POST['queryString']."%";
                 mysql_free_result($invtypers);
                 echo json_encode($jsonarray);
             }
-
+        }
     ?>

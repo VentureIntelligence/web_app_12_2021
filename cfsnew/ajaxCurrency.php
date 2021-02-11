@@ -18,6 +18,7 @@
 }
 </style>
 <?php
+
 if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();
@@ -491,7 +492,7 @@ if(count($FinanceAnnual_cashflow) == 0){
               <?php } if($PLDETAILED_MEDIA_PATH){?>
                             <input  name="" type="button"  value="Detailed P&L EXPORT" onClick="window.open('<?php echo MEDIA_PATH?>pldetailed/PLDetailed_{$VCID}.xls?time={$smarty.now}','_blank')" />
                 <?php }?>
-                <div class="finance-filter-custom" style="padding-top: 70px;">
+                <div class="finance-filter-custom" <?php if($_SERVER['SERVER_NAME']=="www.ventureintelligence.com" || $_SERVER['SERVER_NAME']=="www.vionweb.com" ){ echo 'style="padding-top: 70px;"';} ?>>
                 <select class="currencyselection" onchange="javascript:currencyconvert(this.value,<?php echo $_GET['vcid']; ?>);" name="ccur" id="ccur">
                 
         <option value="INR" <?php if($_GET['queryString']=='INR'){ echo "selected";} ?>>INR</option>

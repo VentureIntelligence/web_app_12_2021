@@ -1,7 +1,7 @@
 <?php
     require_once("../dbconnectvi.php");
     $Db = new dbInvestments();
-    
+    include ('machecklogin.php'); 
     $section = isset($_POST['section']) ? $_POST['section'] : 1; // For Deals 1, for Directory 2.
      
     if($section==1){

@@ -4,6 +4,7 @@ session_start();
 //error_reporting(E_ALL);
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
+include ('checklogin.php');
 $dlogUserEmail = $_SESSION['REUserEmail'];
  //Get Current Downloads 
  $sqlSelCount = "SELECT sum(`recDownloaded`) as `recDownloaded` FROM `user_downloads` WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='RE' AND ( `downloadDate` = CURRENT_DATE || `downloadDate` = DATE_SUB(CURRENT_DATE,INTERVAL 1 DAY))";

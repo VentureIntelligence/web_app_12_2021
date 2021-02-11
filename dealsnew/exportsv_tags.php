@@ -1,6 +1,12 @@
 <?php
-	require_once("../dbconnectvi.php");
-	$Db = new dbInvestments();
+    require_once("../dbconnectvi.php");
+    $Db = new dbInvestments();
+    if(!isset($_SESSION['UserNames']))
+    {
+            header('Location:../pelogin.php');
+    }
+    else
+    {
 	if( isset( $_POST[ 'startDate' ] ) && isset( $_POST[ 'endDate' ] ) ) {
 		$dt1 = $_POST[ 'startDate' ];
 		$dt2 = $_POST[ 'endDate' ];
@@ -131,5 +137,6 @@
             }*/
 		
 	}
-	fclose($out);
+    fclose($out);
+}
 ?>

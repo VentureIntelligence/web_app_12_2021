@@ -9,6 +9,12 @@ $sql = $_POST['exporttablesql'];
 $sql = stripcslashes($sql);
 // $sql = stripcslashes($sql);
 //echo $sql;
+if(!isset($_SESSION['UserNames']))
+   {
+           header('Location:../pelogin.php');
+   }
+   else
+   {
 if ($sql != '') {
 
     $res = @mysql_query($sql) or die(mysql_error());
@@ -150,4 +156,5 @@ if ($sql != '') {
     $objWriter->save('php://output');
     exit;
 }
+   }
 ?>

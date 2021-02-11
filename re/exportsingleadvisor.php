@@ -5,6 +5,7 @@
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	include ('checklogin.php');     
 		//include('onlineaccount.php');
 		$displayMessage="";
 		$mailmessage="";

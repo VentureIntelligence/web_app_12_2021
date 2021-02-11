@@ -1,4 +1,12 @@
 <?php
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
         $type=isset($_REQUEST['type']) ? $_REQUEST['type'] :1; 
        
                $invtypesql = "select InvestorType,InvestorTypeName from investortype where Hide=0";
@@ -641,3 +649,4 @@ else if($vcflagValue==1)
 
 </div>
 <div class=""></div>
+<?php } ?>
