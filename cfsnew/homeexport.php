@@ -60,7 +60,32 @@
     elseif($exportsql2)
         $ExportResult = $cagr->ExporttoExcel($exportsql2);
     
-     // echo $exportsql; die;
+    $resultcount=count($ExportResult);
+    $filters=$_REQUEST['filters'];
+    $filtervalue=rtrim($filters,",");
+    
+       
+    $to    = 'krishna.s@praniontech.com';
+    $from 	= 'info@ventureintelligence.in';
+    $subject 	= "CFS bulk export"; // Subject of the email
+    //Message
+    $message 	= 'Please find the details below:';
+
+    $message 	.= "<p></p>";
+
+    $message 	.="<table style='border-spacing: 0px;'>
+    <tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>User Emailid </th>
+    <th style='padding: 3px 6px;border: 1px solid #cccfcf;'>No of rows</th>
+    <th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Filters used</th></tr>";
+    $message 	.="<tr><td style='border: 1px solid #cccfcf;'>".$_SESSION['UserEmail']."</td><td style='border: 1px solid #cccfcf;'>".$resultcount."</td><td style='border: 1px solid #cccfcf;'>".$filtervalue."</td></tr>";
+    $message 	.="</table>";
+       
+        if (@mail($to, $subject, $message, $headers)){
+        }else{
+        }
+    
+    
+    
     updateDownload($ExportResult);
     
     function movetabs($fytabs){

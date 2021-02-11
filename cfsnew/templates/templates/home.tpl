@@ -252,7 +252,8 @@ padding:0px 10px; }
     {else}
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if}    
-            <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
+             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
+            <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value},{/section}"/>
             <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
             <input type="hidden" id="exportexcel" name="exportexcel" value="{$searchexport}"/>
             <div class="btn-cnt p10" style="float:right;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
@@ -402,7 +403,7 @@ padding:0px 10px; }
                 $(".backdrop").hide();
             }
         })
-       
+        
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
