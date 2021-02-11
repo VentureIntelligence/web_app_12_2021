@@ -70,7 +70,7 @@
     $from 	= 'info@ventureintelligence.in';
     $subject 	= "CFS bulk export"; // Subject of the email
     //Message
-    $message 	= 'Please find the details below:';
+    $message .= 'Please find the details below:';
 
     $message 	.= "<p></p>";
 
@@ -80,7 +80,11 @@
     <th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Filters used</th></tr>";
     $message 	.="<tr><td style='border: 1px solid #cccfcf;'>".$_SESSION['UserEmail']."</td><td style='border: 1px solid #cccfcf;'>".$resultcount."</td><td style='border: 1px solid #cccfcf;'>".$filtervalue."</td></tr>";
     $message 	.="</table>";
-       
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+		    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		    $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
+		    $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
+		    $headers .= 'Cc:  vijayakumar.k@praniontech.com' . "\r\n";   
         if (@mail($to, $subject, $message, $headers)){
         }else{
         }
