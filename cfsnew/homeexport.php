@@ -66,7 +66,8 @@
     $filtervalue=rtrim($filters,",");
     
        
-    $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
+   // $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
+    $to    = 'krishna.s@praniontech.com';
     $from 	= 'info@ventureintelligence.in';
     $subject 	= "CFS bulk export"; // Subject of the email
     //Message
@@ -78,13 +79,14 @@
     <tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>User Emailid </th>
     <th style='padding: 3px 6px;border: 1px solid #cccfcf;'>No of rows</th>
     <th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Filters used</th></tr>";
-    $message 	.="<tr><td style='border: 1px solid #cccfcf;'>".$_SESSION['UserEmail']."</td><td style='border: 1px solid #cccfcf;'>".$resultcount."</td><td style='border: 1px solid #cccfcf;'>".$filtervalue."</td></tr>";
+    $message 	.="<tr><td style='padding:1px;border: 1px solid #cccfcf;'>".$_SESSION['UserEmail']."</td><td style='padding:1px;border: 1px solid #cccfcf;'>".$resultcount."</td><td style='padding:1px;border: 1px solid #cccfcf;'>".$filtervalue."</td></tr>";
     $message 	.="</table>";
     $headers  = 'MIME-Version: 1.0' . "\r\n";
 		    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		    $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
 		    $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
-		    $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";   
+		   // $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com' . "\r\n";   
+            
         if (@mail($to, $subject, $message, $headers)){
         }else{
         }
