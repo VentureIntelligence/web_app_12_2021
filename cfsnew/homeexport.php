@@ -67,7 +67,7 @@
     $filterarray=explode(", ",$filtervalue);
       
    // $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
-    $to    = 'krishna.s@praniontech.com';
+    $to    = 'arun@ventureintelligence.in';
     $from 	= 'info@ventureintelligence.in';
     $subject 	= "CFS bulk export"; // Subject of the email
     //Message
