@@ -2360,8 +2360,8 @@ function isNumber(evt) {
     
     <style type="text/css">
     li.token-input-token-facebook{
-          margin: 6px 3px !important;
-    padding:  3px !important;
+          margin: 6px 3px ;
+    padding:  3px ;
     }
     #lastrefine .acc_container_active
     {

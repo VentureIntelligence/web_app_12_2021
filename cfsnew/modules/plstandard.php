@@ -1119,8 +1119,8 @@ class plstandard extends database {
 	}
 
 	function getchargesholderList($field){	
-	$sql = "SELECT a1.companyName as company_name, a1.CIN as cin, a1.`Charge Holder` as chargeholder, a1.SRN, a1.`Charge ID` as chargeid, a1.Created_Date, a1.Modified_Date, a1.Address, a1.`Charge amount secured` as amount, a1.`Date_Of_Satisfaction` as dateofcharge FROM index_of_charges as a1 where
-		a1.CIN ='".$field."' group by chargeid";
+	$sql = "SELECT a1.companyName as company_name, a1.CIN as cin, a1.`Charge Holder` as chargeholder, a1.SRN, a1.`Charge ID` as chargeid, a1.Created_Date, a1.Modified_Date, a1.Address, a1.`Charge amount secured` as amount, a1.`Date_Of_Satisfaction` as dateofcharge, a1.`City` as city, a1.`State` as state FROM index_of_charges as a1 where
+		a1.CIN IN('".$field."') group by chargeid";
 	
 			$this->setFetchMode('ASSOC');
 			$this->execute($sql);
@@ -1182,13 +1182,18 @@ class plstandard extends database {
 		// 				LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id 
 		// 				WHERE a.CId_FK = b.Company_Id 
 		// 				GROUP BY b.Company_Id ) cp WHERE fcin.`CIN`=cp.`CIN`";
+		if($chargewhere != ''){
+			$chargewhere=" WHERE ".$chargewhere;
+		}else{
+			$chargewhere="";
+		}
 		if($order != ''){
 			$order=$order;
 		}else{
 			$order="order by company_name asc";
 		}
-		$sql = "SELECT `CIN` as cin,companyName as company_name FROM index_of_charges as a1 WHERE ".$chargewhere." GROUP BY `CIN` ".$order;
-					//	echo $sql; 
+		$sql = "SELECT `CIN` as cin,companyName as company_name FROM index_of_charges as a1 ".$chargewhere." GROUP BY `CIN` ".$order;
+		echo '<div style="display:none">';print_r( $sql ); echo'</div>';
 		 if($rows>0){
 			if((strlen($pageID)>0 || strlen($rows)>0) && $rows!="all" )
 	$sql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
@@ -1217,7 +1222,12 @@ class plstandard extends database {
 						// LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id 
 						// WHERE a.CId_FK = b.Company_Id 
 						// GROUP BY b.Company_Id ) cp WHERE fcin.`CIN`=cp.`CIN`";
-						$sql = "SELECT `CIN` as cin,companyName as company_name FROM index_of_charges as a1 WHERE ".$chargewhere." GROUP BY `CIN` ";
+						if($chargewhere != ''){
+							$chargewhere=" WHERE ".$chargewhere;
+						}else{
+							$chargewhere="";
+						}
+						$sql = "SELECT `CIN` as cin,companyName as company_name,`state` as state,`city` as city FROM index_of_charges as a1  ".$chargewhere." GROUP BY `CIN` ";
 						
 							$this->setFetchMode('ASSOC');
 							$this->execute($sql);
