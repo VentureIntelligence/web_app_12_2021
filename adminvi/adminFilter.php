@@ -270,7 +270,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                      <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" >
                         <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""></textarea>
                         <input type="checkbox" id="filter_active"  value="active" ><b>Active?</b>
-                        <input type="checkbox" id="admin_filter"  value="1" ><b>VI Filter</b><br><br>
+                        <input   type="hidden" id="admin_filter"  value="1" ><br>
                         <p>Filter Type:</p>
                         <input type="radio" id="investments" name="filter_type" value="Investments" >
                         <label for="male">Investments</label><br>
@@ -298,7 +298,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         var filterQuery=$('#filterQuery').val().trim()
         var filterType=$("input[name=filter_type]:checked").val()
         var filter_active=$('#filter_active:checked').val();
-        var vi_filter=$('#admin_filter:checked').val();
+        var vi_filter=$('#admin_filter').val();
 
 
         $.ajax({

@@ -9,24 +9,24 @@
    $username=$_SESSION['UserNames'];
    //echo $dlogUserEmail;
    //$username= $_SESSION[ 'name' ];	
-
+   
    $sqlQuery="SELECT dc.custom_export_limit as expplimit FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
    $sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
    while ($row = mysql_fetch_assoc($sqlSelResult)) {
-
-      $custom_export_limit= $row['expplimit']  ;
-     
-  }
-
-  $query="SELECT COUNT(name) as count FROM `advance_export_filter_log` where name='$username' ";
-  $queryRes = mysql_query($query) or die(mysql_error());
-  while ($row = mysql_fetch_assoc($queryRes)) {
-
+   
+   $custom_export_limit= $row['expplimit']  ;
+   
+   }
+   
+   $query="SELECT COUNT(name) as count FROM `advance_export_filter_log` where name='$username' ";
+   $queryRes = mysql_query($query) or die(mysql_error());
+   while ($row = mysql_fetch_assoc($queryRes)) {
+   
    $DownloadCount= $row['count']  ;
-  
-}
-//echo $custom_export_limit;
-
+   
+   }
+   //echo $custom_export_limit;
+   
    ?>
 <?php
    if(!$_POST)
@@ -179,17 +179,19 @@
          border: 2px solid grey;
          }
          .token-input-list-facebook{
-         border-radius: 20px;
+         border-radius: 5px;
          width: 40%;
          }
          ul.token-input-list-facebook {
          width:400px;
+         height: 34px !important;
          }
          ul.exportcolumn {
          -webkit-column-count: 4;
          -moz-column-count: 4;
          column-count: 4;
          font-size:12px;
+         color: #919BA2;;
          }
          .exportcolumn li,.copyright-body label{
          line-height:32px;
@@ -199,6 +201,7 @@
          -moz-column-count: 4;
          column-count: 4;
          font-size:12px;
+         color:#919BA2;
          }
          .exitexportcolumn li,.copyright-body label{
          line-height:32px;
@@ -277,7 +280,7 @@
          font-weight: bold!important;
          }
          .btn-circle{
-         border-radius:1.2rem!important;
+         border-radius: 5px!important;
          }
          .btn-color{
          border-color: rgb(163,119,46)!important;
@@ -290,6 +293,23 @@
          }
          .hide{
          display: none
+         }
+         .period-date select {
+         width: 85px!important;
+         font-size: 14px!important;;
+         }
+         li.token-input-token-facebook
+         {
+            border: 1px solid #a2753a!important;
+            background-color: #a2753a!important;
+            color: white!important;
+         }
+         li.token-input-token-facebook span {
+                color: white!important;
+         }
+         #header
+         {
+            border-bottom: 1px solid white!important;
          }
       </style>
    </head>
@@ -311,7 +331,7 @@
       <!-- <?php include_once('definitions.php');?>
          <?php include_once('refinedef.php');?> -->
       <!--Header-->
-      <?php if($vcflagValue=="0" || $vcflagValue=="1" || $vcflagValue=="2")
+      <!-- <?php if($vcflagValue=="0" || $vcflagValue=="1" || $vcflagValue=="2")
          {
          $actionlink="index.php?value=".$vcflagValue;
          }
@@ -319,209 +339,249 @@
          {
          $actionlink="svindex.php?value=".$vcflagValue;
          }
-         ?>
-      <!--<form name="searchall" action="<?php echo $actionlink; ?>" method="post" id="searchall">    -->
-      <ul class="navbar navbar-expand-sm  navbar-dark navigation">
-         <span class="navbar-brand dash">Dashboard >Advanced Filters</span>
-         <div class="button-group text-right  ml-auto">
-            <button class="btn  advanced" href="#">Advanced Filters</button>
-            <button class="btn  advanced " href="#">Trends Reports</button>
-         </div>
-      </ul>
-      <div class="container-fluid">
-         <div class="row ">
-            <div class="col-md-4 mb-2">
-               <div class="card cardfilter">
-                  <div class="card-header myfilter">
-                     <h4 class="text-center h4">My Filters</h4>
-                  </div>
+         ?> -->
+      <div id="header">
+         <table cellpadding="0" cellspacing="0">
+            <tr>
+               <td class="left-box">
+                  <div class="logo-img"> <a href="index.php"><img src="images/logo.gif" width="167" height="45" alt="Venture Intelligence" title="Venture Intelligence" border="0" /></a></div>
+               </td>
+               <td class="right-box">
+                  <?php include('top_export_submenu.php'); ?>
+                  <ul class="fr">
+                     <!-- <li class="classic-btn tour-lock"><a href="pefaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li> -->
+                     <!--    <li class="classic-btn tour-lock"><a href="http://www.ventureintelligence.com/deals/dealhome.php" >Classic View</a></li>-->
+                     <?php //include('TourStartbtn.php'); ?>
+                     <!-- <li ><div style="float:right;padding: 9px 15px" class="key-search"><b></b> <input type="text" id="searchallfield" name="searchallfield" placeholder="Search"
+                        value="<?php if($searchallfield!="") echo $searchallfield; ?>" style="padding:5px;"  /> 
+                        <input type="button" name="fliter_stage" id="fliter_stage" value="Go" style="padding: 5px;"/>
+                        </div></li> -->
+                     <input type="hidden" value="remove" name="searchallfieldHide" id="searchallfieldHide" />
+                     <?php if($_SESSION['student']!="1") { ?>   
+                     <li class="user-avt" id="accoutlist"><span class="example" data-dropdown="#myaccount"> Welcome  <?php echo $_SESSION['UserNames']; ?></span> 
+                        <?php } 
+                           else {
+                           ?>       
+                     <li class="user-avt">
+                        <span class="studentlogin" data-dropdown="#myaccount"> Welcome  <?php echo $_SESSION['UserNames']; ?></span> 
+                        <?php    
+                           }?>
+                        <div id="myaccount" class="dropdown" style="left:inherit !important; max-width: 250px !important;">
+                           <ul class="dropdown-menu">
+                              <li class="o_link"><a href="../relogin.php" target="_blank">PE in Real Estate Database</a></li>
+                              <li class="o_link"><a href="../malogin.php" target="_blank">M&A Deals Database</a></li>
+                              <li class="o_link"><a href="../cfsnew/login.php" target="_blank">Company Financials Database</a></li>
+                              <li><a href="changepassword.php?value=P">Change Password</a></li>
+                              <li id="logout"><a href="logoff.php?value=P">Logout</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <!--</form>
+         <form name="pesearch" action="<?php echo $actionlink; ?>" method="post" id="pesearch">  -->
+      <div id="sec-header" class="sec-header-fix dealsindex">
+         <ul class="navbar navbar-expand-sm  navbar-dark navigation">
+            <span class="navbar-brand dash">Dashboard >Advanced Filters</span>
+            <div class="button-group text-right  ml-auto">
+               <button class="btn  advanced" href="#">Advanced Filters</button>
+               <button class="btn  advanced " href="#" style="opacity:0.5">Trends Reports</button>
+            </div>
+         </ul>
+      </div>
+      <div class="container-fluid"  id="container" style="margin-top: 110px;">
+      <div class="row ">
+         <div class="col-md-4 mb-2">
+            <div class="card cardfilter">
+               <div class="card-header myfilter">
+                  <h4 class="text-center h4 mt-2">My Filters</h4>
                </div>
-               <div class="card">
-                  <div class="nav nav-pills myfilters mt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                     <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments>Investments Filters</a>
-                     <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit>Exit Filters</a>
-                  </div>
-                  <div class="tab-content" id="v-pills-tabContent">
+                           <div class="card navCard">
+               <div class="nav nav-pills myfilters mt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments>Investments Filters</a>
+                  <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit>Exit Filters</a>
+               </div>
+               <div class="tab-content" id="v-pills-tabContent">
                   <?php
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
-                        $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments'";
-                        if ($reportrs = mysql_query($nanoSql))
-                        {
-                           $report_cnt = mysql_num_rows($reportrs);
-                        }
-                  ?> 
-                     <div class="tab-pane fade show active" id="v-pills-investmentsfilter" role="tabpanel" aria-labelledby="v-pills-home-tab" >
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments'";
+                     if ($reportrs = mysql_query($nanoSql))
+                     {
+                     $report_cnt = mysql_num_rows($reportrs);
+                     }
+                     ?> 
+                  <div class="tab-pane fade show active" id="v-pills-investmentsfilter" role="tabpanel" aria-labelledby="v-pills-home-tab" >
                      <?php
-         if ($report_cnt>0)
-         {
-         	While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
-         	{	
-               if($myrow['filter_type'] == "Investments"){
-         ?> <div class="card invest">
-                           <div class="card-body">
-                              <div class="row">
-                                 <div class="col-md-10 col-10">
-                                    <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
-                                    <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
-                                    <p class="create">Created on 12 Jan 2020</p>
-                                 </div>
-                                 <div class="col-md-2 col-2">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['filter_name'] ?>')">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                 </div>
+                        if ($report_cnt>0)
+                        {
+                        While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
+                        {	
+                        if($myrow['filter_type'] == "Investments"){
+                        ?> 
+                     <div class="card invest">
+                        <div class="card-body">
+                           <div class="row">
+                              <div class="col-md-10 col-10">
+                                 <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
+                                 <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
+                                 <p class="create">Created on 12 Jan 2020</p>
                               </div>
-                           </div>
-                           <div class="btn-group" role="group" aria-label="Basic example">
-                           
-                             <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['filter_name'] ?>')">EDIT</button>
-                             <?php if($custom_export_limit <=  $DownloadCount){?>
-                                 <button type="button" class="btn  w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
-
-                             <?php }
-                             else {?>
-                              <button type="button" class="btn  w-100 text-center" onclick="exportfiltr('<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
-                             <?php } ?>
+                              <div class="col-md-2 col-2">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['filter_name'] ?>')">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
                            </div>
                         </div>
-                        <?php
-                               } } }
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['filter_name'] ?>')">EDIT</button>
+                           <?php if($custom_export_limit <=  $DownloadCount){?>
+                           <button type="button" class="btn exportFilt w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
+                           <?php }
                               else {?>
-                           <div class="card">
-                              <div class="card-body" style="text-align: center;">
-                                 No Data Found
-                              </div>
-                              </div>
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr('<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
                            <?php } ?>
+                        </div>
                      </div>
                      <?php
+                        } } }
+                        else {?>
+                     <div class="card data">
+                        <div class="card-body" style="text-align: center;font-size:12px;color:black">
+                           No Data Found
+                        </div>
+                     </div>
+                     <?php } ?>
+                  </div>
+                  <?php
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
-                        $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Exit'";
-                        if ($reportrs = mysql_query($nanoSql))
-                        {
-                           $report_cnt = mysql_num_rows($reportrs);
-                        }
-                  ?> 
-                     <div class="tab-pane fade show " id="v-pills-exitfilters" role="tabpanel" aria-labelledby="v-pills-profile-tab" >
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Exit'";
+                     if ($reportrs = mysql_query($nanoSql))
+                     {
+                     $report_cnt = mysql_num_rows($reportrs);
+                     }
+                     ?> 
+                  <div class="tab-pane fade show " id="v-pills-exitfilters" role="tabpanel" aria-labelledby="v-pills-profile-tab" >
                      <?php
-         if ($report_cnt>0)
-         {
-         	While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
-         	{	
-               if($myrow['filter_type'] == "Exit"){
-         ?> <div class="card invest">
-                           <div class="card-body">
-                              <div class="row">
-                                 <div class="col-md-10 col-10">
-                                    <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
-                                    <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
-                                    <p class="create">Created on 12 Jan 2020</p>
-                                 </div>
-                                 <div class="col-md-2 col-2">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['filter_name'] ?>')">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                 </div>
+                        if ($report_cnt>0)
+                        {
+                        While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
+                        {	
+                        if($myrow['filter_type'] == "Exit"){
+                        ?> 
+                     <div class="card invest">
+                        <div class="card-body">
+                           <div class="row">
+                              <div class="col-md-10 col-10">
+                                 <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
+                                 <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
+                                 <p class="create">Created on 12 Jan 2020</p>
                               </div>
-                           </div>
-                           <div class="btn-group" role="group" aria-label="Basic example">
-                              <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['filter_name'] ?>')">EDIT</button>
-                              <?php if($custom_export_limit <=  $DownloadCount){?>
-                                 <button type="button" class="btn  w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
-
-                             <?php }
-                             else {?>
-                              <button type="button" class="btn  w-100 text-center" onclick="exportfiltr('<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
-                             <?php } ?>
+                              <div class="col-md-2 col-2">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['filter_name'] ?>')">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
                            </div>
                         </div>
-                        <?php
-                             } } }
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['filter_name'] ?>')">EDIT</button>
+                           <?php if($custom_export_limit <=  $DownloadCount){?>
+                           <button type="button" class="btn exportFilt  w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
+                           <?php }
                               else {?>
-                           <div class="card">
-                              <div class="card-body" style="text-align: center;">
-                                 No Data Found
-                              </div>
-                              </div>
-                           <?php } ?>  
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr('<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
+                           <?php } ?>
+                        </div>
                      </div>
+                     <?php
+                        } } }
+                        else {?>
+                     <div class="card data">
+                        <div class="card-body" style="text-align: center;font-size:12px;color:black">
+                           No Data Found
+                        </div>
+                     </div>
+                     <?php } ?>  
                   </div>
                </div>
             </div>
-            <div class="col-md-8 mb-2">
-               <div class="nav  nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <a class="btn btn-primary filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
-                  <a class="btn btn-primary filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
-                  <a class="btn btn-primary filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
-                  <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
-               </div>
-               <div class="tab-content" id="v-pills-tabContent">      <?php
-                     $keyword="";
-                     $keyword=$_POST['repDBtype'];
-                     
-                        $nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 ORDER BY filter_order_no ASC";
-                        if ($reportrs = mysql_query($nanoSql))
-                        {
-                           $report_cnt = mysql_num_rows($reportrs);
-                        }
-                  ?> 
+            </div>
 
-                  <div class="tab-pane container fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">  
-                 
+         </div>
+         <div class="col-md-8 mb-2">
+            <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
+               <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
+               <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
+               <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
+               <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
+            </div>
+            <div class="tab-content" id="v-pills-tabContent">
+               <?php
+                  $keyword="";
+                  $keyword=$_POST['repDBtype'];
+                  
+                  $nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 ORDER BY filter_order_no ASC";
+                  if ($reportrs = mysql_query($nanoSql))
+                  {
+                  $report_cnt = mysql_num_rows($reportrs);
+                  }
+                  ?> 
+               <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                   <div class="card">
-   <div class="row mt-2">
-      <?php
-         if ($report_cnt>0)
-         {
-         	While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
-         	{	
-         ?> 
-                           <div class="col-md-6 mb-3">
-                              <div class="card invest">
-                                 <div class="card-body ">
-                                    <div class="row ">
-                                       <div class="col-md-10 col-10">
-                                          <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
-                                          <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
-                                          <p class="create">Created on 12 Jan 2020</p>
-                                       </div>
-                                       <div class="col-md-2 col-2">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                          </button>
-                                       </div>
+                     <div class="row mt-2">
+                        <?php
+                           if ($report_cnt>0)
+                           {
+                           While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
+                           {	
+                           ?> 
+                        <div class="col-md-6 mb-3">
+                           <div class="card invest">
+                              <div class="card-body ">
+                                 <div class="row ">
+                                    <div class="col-md-10 col-10">
+                                       <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
+                                       <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
+                                       <p class="create">Created on 12 Jan 2020</p>
                                     </div>
-                                 </div>
-                                 <div class="card-footer edit">
-                                    <h5 class="text-center ">Export</h5>
+                                    <!-- <div class="col-md-2 col-2">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                       </button>
+                                    </div> -->
                                  </div>
                               </div>
+                              <!-- <div class="card-footer edit"> -->
+                              <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $myrow['id'] ?>')">Export</button>
+                              <!-- <h5 class="text-center ">Export</h5> -->
+                              <!-- </div> -->
                            </div>
-                           <?php
-                              } }
-                              else {?>
-                          <div class="card">
-                              <div class="card-body" style="text-align: center;">
-                                 No Data Found
-                              </div>
-                              </div>
-                           <?php } ?>       
                         </div>
+                        <?php
+                           } }
+                           else {?>
+                        <p style="margin-left:350px;font-size:12px;color:black">No Data Found</p>
+                        <?php } ?>       
                      </div>
                   </div>
-                  <div class="tab-pane fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                     <div class="ml-3 mt-3">
-                        <h6>Search Investors</h6>
-                        <p style="font-size: 12px;">you are allowed to add up to 50 investors by typing (auto suggest)</p>
-                        <h6>Investor</h6>
-                        <div class="block">
-                           <ul style="display:flex">
+               </div>
+                    <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="card"> 
+                    <div class="ml-3 mt-3">
+                        <h6 class="invHeading">Input Investor Name</h6>
+                        <p style="font-size: 12px;color:#919BA2;    margin-left: 10px;">You are allowed to add up to 50 investors by typing (auto suggest)</p>
+                        <!-- <h6>Investor</h6> -->
+                      
                               <div class="row">
-                                 <div class="col-md-9">
+                                 <div class="col-md-6">
                                     <li class="ui-widget" style="position: relative">
                                        <div style="width:100%;">
                                           <span style="position: absolute;
@@ -552,30 +612,36 @@
                                           <div id="investorauto_load" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none;  width: 223px;"></div>
                                     </li>
                                     </div>
-                                    <div class="col-md-1">
-                                       <li>
+                                    <div class="col-md-1" style="padding: 10px 0px 0px 30px;">
+                                     
                                           <p style="font-size:12px;">OR</p>
-                                       </li>
+                                       
                                     </div>
-                                    <div class="col-md-2" >
-                                       <li> <span  class="one">
-                                          <button  class ="export_new btn bt btn-color btn-circle" style="    margin-top: -10px;" id="impshowdealsbt" name="showdealsimport">Import</button>
-                                          </span>
-                                       </li>
+                                    <div class="col-md-4" >
+                                      
+                                       <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="padding: 6px 10px 10px 10px;; height: 35px;width: 100px;"><span>Import</span></button>
+
+                                          <!-- <button  class ="export_new btn bt btn-color btn-circle" style="    margin-top: -10px;" id="impshowdealsbt" name="showdealsimport">Import</button> -->
+                                         
                                     </div>
                                  </div>
-                           </ul>
-                           </div>
+                          
                         </div>
                         <div class="row ml-3">
-                           <h6>Select Duration</h6>
+                           <h6 class="duration">Select Duration</h6>
                         </div>
-                        <div class="row ml-3">
-                           <div class="col-md-1"><label>From</label></div>
+                        <div class="row ml-4">
+                           <!-- <div class="col-md-1"><label>From</label></div> -->
                            <div  class="sort-by-date">
-                              <div class="period-date">
-                                 <label>To</label>
-                                 <SELECT NAME="month1" id="mon1" >
+                           <div class="row">
+                              
+                              <label class="label">From</label>
+                              <!-- <div class="col-md-5"> -->
+                              <div class="period-date pl-2">
+                                
+                                 <!-- <label>To</label> -->
+                                
+                                 <SELECT NAME="month1" id="mon1" class="form-control date" >
                                     <OPTION id=1 value="--"> Month </option>
                                     <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                     <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
@@ -590,7 +656,7 @@
                                     <OPTION VALUE='11' <?php echo ($month1 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
                                     <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                  </SELECT>
-                                 <SELECT NAME="year1" id="yr1"  id="year1">
+                                 <SELECT NAME="year1" id="yr1"  id="year1" class="form-control date">
                                     <OPTION id=2 value=""> Year </option>
                                     <?php 
                                        $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
@@ -627,9 +693,15 @@
                                        }
                                        ?> 
                                  </SELECT>
-                              </div>
-                              <div class="period-date">
-                                 <SELECT NAME="month2" id='mon2' >
+                                    </div>
+                              <!-- </div> -->
+                              <!-- <div class="col-md-1" style="padding-top: 10px;padding-left:0px"> -->
+                              <label style="margin-left:0px" class="label">To</label>
+                           <!-- </div>  -->
+
+                              <!-- <div class="col-md-5"> -->
+                              <div class="period-date pl-3">
+                                 <SELECT NAME="month2" id='mon2' class="form-control date">
                                     <OPTION id=1 value="--"> Month </option>
                                     <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                     <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
@@ -644,7 +716,7 @@
                                     <OPTION VALUE='11' <?php echo ($month2 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
                                     <option VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                  </SELECT>
-                                 <SELECT NAME="year2" id="yr2" id="year2">
+                                 <SELECT NAME="year2" id="yr2" id="year2" class="form-control date">
                                  <?php 
                                     $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                     if($_POST['year2']=='')
@@ -669,28 +741,14 @@
                                  </SELECT>
                                  <input type="hidden" value="<?php echo $listallcompany ?>" name="listhidden" class="listhidden">
                               </div>
-                           </div>
-                        </div>
+                           <!-- </div> -->
+                        </div></div>
+                     </div>
                         <span class="error" style="display:none" id="durationErr">Select the duration time</span>
                         <div class="copyright-body">
-                           <div class="row">
-                              <h6>Select fields for excel file export</h6>
-                           </div>
-                           <div style="float:right">
-                              <span class="one">
-                              <?php if($custom_export_limit <=  $DownloadCount){?>
-                                 <button  class ="export_new btn btn-circle btn-dark"   onclick="exportfiltrErr()" name="showdeals" >Export</button>
-
-                             <?php }
-                             else {?>
-                              <button  class ="export_new btn btn-circle btn-dark"  id="expshowdealsbt" name="showdeals">Export</button>
-                             <?php } ?>
-                              </span>
-                              <span class="one">
-                              <button class ="export_new btn btn-circle btn-secondary" id="saveshowdealsbt" name="showdeals">Save Filter</button>
-                              </span>
-                           </div>
-                           <label style="font-weight: 600;font-size: 14px;"><input type="checkbox" class="allexportcheck" id="allexportcheck" checked/> Select All</label>
+                              <h6 class="duration">Select fields for excel file export</h6>
+                          
+                           <label style="font-weight: 600;font-size: 14px;" ><input type="checkbox" class="allexportcheck duration" id="allexportcheck" checked/ > Select All</label>
                            <div class="row ml-1">
                               <ul class="exportcolumn">
                                  <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="Company" checked/> <span> Company</span></li> -->
@@ -698,7 +756,7 @@
                                  <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li> -->
                                  <li>
                                     <input type="checkbox" class="exportcheck" name="skills" value="Company Type" />
-                                    <select NAME="comptype" id="comptype" onChange="getcompanyType()">
+                                    <select NAME="comptype" id="comptype" onChange="getcompanyType()" >
                                        <option  value="" selected> Company Type </option>
                                        <option  value=""  > Both </option>
                                        <option value="L" > Listed </option>
@@ -989,8 +1047,24 @@
                                  <li><input type="checkbox" class="exportcheck" name="skills" value="Price Per Share" /> Price Per Share</li>
                                  <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li>
                               </ul>
+                           </div><br>
+                          
+                           <div style="float:left">
+                              <span class="one">
+                              <?php if($custom_export_limit <=  $DownloadCount){?>
+                                 <button  class ="export_new btn  btn-exp" onclick="exportfiltrErr()" name="showdeals">Export</button>
+
+                           <?php }
+                              else {?>
+                              <button  class ="export_new btn  btn-exp"  id="expshowdealsbt" name="showdeals">Export</button>
+                           <?php } ?>
+                              </span>
+                              <span class="one">
+                              <button class="export_new btn  btn-save" data-toggle="modal" data-target=".saveshowdealsbt" >Save Filter</button>
+
+                              <!-- <button class ="export_new btn btn-circle btn-secondary" id="saveshowdealsbt" name="showdeals">Save Filter</button> -->
+                              </span>
                            </div>
-                           <br><br><br>
                            <form name="pelistingexcel" id="pelistingexcel"  method="post" action="exportinvdealsExcel.php">
                               <input type="hidden" name="investorvalue" id="investorvalue" value="" >
                               <input type="hidden" name="companytype" id="companytype" value="">
@@ -1007,21 +1081,24 @@
                               <input type="hidden" name="stage" id="sltstage" value="">
                               <input type="hidden" name="investorType" id="investorType" value="">
                               <input type="hidden" class="resultarray" name="resultarray" value=""/>
+                              <input type="hidden" id="invquery" name="invquery"  value=""/>
+
                            </form>
                            <form name="pelistingexcelInv" id="pelistingexcelInv"  method="post" action="importexcelsheetbyname.php">
                               <input type="hidden" name="investorname" id="investorname" value="" >
                            </form>
                         </div>
-                     </div>
-                     <div class="tab-pane fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <div class="ml-3 mt-3">
-                           <h6>Search Investors</h6>
-                           <p style="font-size: 12px;">you are allowed to add up to 50 investors by typing (auto suggest)</p>
-                           <h6>Investor</h6>
-                           <div class="block">
-                              <ul style="display:flex">
+                        
+                     </div></div>
+                     <div class="tab-pane container fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                     <div class="card">   
+                     <div class="ml-3 mt-3">
+                           <h6 class="invHeading">Input Investor Name</h6>
+                           <p style="font-size: 12px;color:#919BA2;margin-left:10px">You are allowed to add up to 50 investors by typing (auto suggest)</p>
+                           <!-- <h6>Investor</h6> -->
+                         
                                  <div class="row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-6">
                                        <li class="ui-widget" style="position: relative">
                                           <div style="width:100%;">
                                              <span style="position: absolute;
@@ -1052,30 +1129,29 @@
                                              <div id="investorauto_load" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none;  width: 223px;"></div>
                                        </li>
                                        </div>
-                                       <div class="col-md-1">
-                                          <li>
+                                       <div class="col-md-1" style="padding: 10px 0px 0px 30px;">
+                                         
                                              <p style="font-size:12px;">OR</p>
-                                          </li>
+                                         
                                        </div>
-                                       <div class="col-md-2" >
-                                          <li> <span  class="one">
-                                             <button  class ="export_new btn bt btn-color btn-circle" style="    margin-top: -10px;" id="impshowdealsbt" name="showdealsimport">Import</button>
-                                             </span>
-                                          </li>
+                                       <div class="col-md-4" >
+                                          
+                                          <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="padding: 6px 10px 10px 10px;; height: 35px;width: 100px;">Import</button>
+                                            
                                        </div>
                                     </div>
-                              </ul>
-                              </div>
+                             
                            </div>
                            <div class="row ml-3">
-                              <h6>Select Duration</h6>
+                              <h6 class="duration">Select Duration</h6>
                            </div>
-                           <div class="row ml-3">
-                              <div class="col-md-1"><label>From</label></div>
+                           <div class="row ml-4">
                               <div  class="sort-by-date">
-                                 <div class="period-date">
-                                    <label>To</label>
-                                    <SELECT NAME="month1" id="exitmon1" >
+                              <div class="row">
+                              
+                              <label class="label">From</label> 
+                                 <div class="period-date pl-2">
+                                    <SELECT NAME="month1" id="exitmon1" class="form-control date">
                                        <OPTION id=1 value="--"> Month </option>
                                        <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                        <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
@@ -1090,7 +1166,7 @@
                                        <OPTION VALUE='11' <?php echo ($month1 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
                                        <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                     </SELECT>
-                                    <SELECT NAME="year1" id="exityr1"  >
+                                    <SELECT NAME="year1" id="exityr1" class="form-control date" >
                                        <OPTION id=2 value=""> Year </option>
                                        <?php 
                                           $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
@@ -1128,8 +1204,10 @@
                                           ?> 
                                     </SELECT>
                                  </div>
-                                 <div class="period-date">
-                                    <SELECT NAME="month2" id='exitmon2' >
+                              <label style="margin-left:0px" class="label">To</label>
+
+                                 <div class="period-date pl-3">
+                                    <SELECT NAME="month2" id='exitmon2'class="form-control date" >
                                        <OPTION id=1 value="--"> Month </option>
                                        <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                        <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
@@ -1144,7 +1222,7 @@
                                        <OPTION VALUE='11' <?php echo ($month2 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
                                        <option VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                     </SELECT>
-                                    <SELECT NAME="year2" id="exityr2" >
+                                    <SELECT NAME="year2" id="exityr2" class="form-control date">
                                     <?php 
                                        $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                        if($_POST['year2']=='')
@@ -1169,28 +1247,14 @@
                                     </SELECT>
                                     <input type="hidden" value="<?php echo $listallcompany ?>" name="listhidden" class="listhidden">
                                  </div>
-                              </div>
-                           </div>
+                           </div></div></div>
                            <span class="error" style="display:none" id="durationErr">Select the duration time</span>
                            <div class="copyright-body">
-                              <div class="row">
-                                 <h6>Select fields for excel file export</h6>
-                              </div>
-                              <div style="float:right">
-                                 <span class="one">
-                                 <?php if($custom_export_limit <=  $DownloadCount){?>
-                                    <button  class ="export_new btn btn-circle btn-dark" onclick="exportfiltrErr()" name="showdeals">Export</button>
-
-                             <?php }
-                             else {?>
-                                 <button  class ="export_new btn btn-circle btn-dark"  id="exitexpshowdealsbt" name="showdeals">Export</button>
-                             <?php } ?>
-                                 </span>
-                                 <span class="one">
-                                 <button class ="export_new btn btn-circle btn-secondary" id="exitsaveshowdealsbt" name="showdeals">Save Filter</button>
-                                 </span>
-                              </div>
-                              <label style="font-weight: 600;font-size: 14px;"><input type="checkbox" class="exitallexportcheck" id="exitallexportcheck" checked/> Select All</label>
+                              <!-- <div class="row"> -->
+                                 <h6 class="duration">Select fields for excel file export</h6>
+                              <!-- </div> -->
+                            
+                              <label style="font-weight: 600;font-size: 14px;"><input type="checkbox" class="exitallexportcheck duration" id="exitallexportcheck" checked/> Select All</label>
                               <div class="row ml-1">
                                  <ul class="exitexportcolumn">
                                     <li><input type="checkbox" class="exitexportcheck" name="skills" value="PortfolioCompany"/> <span>Portfolio Company</span></li>
@@ -1338,8 +1402,23 @@
                                     <li><input type="checkbox" class="exitexportcheck" name="skills" value="PricePerShare" /> Price Per Share</li>
                                     <li><input type="checkbox" class="exitexportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li>
                                  </ul>
-                              </div>
-                              <br><br><br>
+                              </div><br>
+                              <div style="float:left">
+                              <span class="one">
+                              <?php if($custom_export_limit <=  $DownloadCount){?>
+                                 <button  class ="export_new btn  btn-exp" onclick="exportfiltrErr()" name="showdeals">Export</button>
+
+                           <?php }
+                              else {?>
+                              <button  class ="export_new btn  btn-exp"  id="expshowdealsbt" name="showdeals">Export</button>
+                           <?php } ?>
+                              </span>
+                              <span class="one">
+                              <button class="export_new btn  btn-save" data-toggle="modal" data-target=".saveshowdealsbt" >Save Filter</button>
+
+                              <!-- <button class ="export_new btn btn-circle btn-secondary" id="saveshowdealsbt" name="showdeals">Save Filter</button> -->
+                              </span>
+                           </div>
                               <form name="exitpelistingexcel" id="exitpelistingexcel"  method="post" action="exportexitinExcel.php">
                                  <!-- <input type="hidden" name="investorvalue" id="investorvalue" value="" >
                                     <input type="hidden" name="companytype" id="companytype" value="">
@@ -1387,6 +1466,8 @@
                                  <input type="hidden" name="txthidepe" id="txthidepe" >
                                  <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" >
                                  <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag">
+                                 <input type="hidden" name="exitquery" id="exitquery">
+
                                  <!-- T960 -->
                                  <input type="hidden" class="exitresultarray" name="exitresultarray" value=""/>
                                  <!-- T960 end -->
@@ -1398,19 +1479,22 @@
                         </div>
                      </div>
                   </div>
+                                          </div>
                   <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                </div>
             </div>
          </div>
       </div>
-      <div class="lb" id="popup-box-copyrights-filter" style="width:650px !important;">
+      <!-- <div class="lb" id="popup-box-copyrights-filter" style="width:650px !important;">
          <span id="expcancelbtn-filter" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
          <form name="dealsupload" enctype="multipart/form-data" id="leaguefile" method="post" >
             <div class="accordian">
                <h3 class="acc-title" style="padding:10px;text-align:center;"><span>Upload excel File</span> <i class="zmdi zmdi-chevron-down"></i></h3>
                <div class="acc-content">
                   <div class="upload-sec" style="padding:10px"> 
-                     <input type="file" name="leaguefilepath" class="ip-file">
+                     <input type="file" name="leaguefilepath" class="ip-file"> 
+                     <input type="file" class="form-control" id="customFile" />
+
                   </div>
                   <div class="btn-sec text-right" style="padding:10px">
                      <input type="button" class="btn" value="Upload" onClick="getLeagueImport();">
@@ -1418,8 +1502,34 @@
                </div>
             </div>
          </form>
-      </div>
-      <div class="lb" id="popup-box-copyrights-savefilter" style="width:650px !important;">
+      </div> -->
+
+      <!-- Modal -->
+               <div  class="modal fade impshowdealsbt" role="dialog">
+               <div class="modal-dialog modal-dialog-centered">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                     <div class="modal-header">
+                     <h4 class="modal-title" style="font-size: 17px;">File upload form</h4>
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                     </div>
+                     <div class="modal-body">
+                     <!-- Form -->
+                     <form name="dealsupload" enctype="multipart/form-data" id="leaguefile" method="post" >
+                      <input type='file' name="leaguefilepath" id='file' class='form-control ip-file' style="font-size: 13px;"><br>
+                      <input type="button" class="btn" value="Upload" onClick="getLeagueImport();" style="    height: 30px; float: right;">
+
+                     </form>
+                     </div>
+               
+                  </div>
+
+               </div>
+               </div>
+
+      <!-- <div class="lb" id="popup-box-copyrights-savefilter" style="width:650px !important;">
          <span id="expcancelbtn-savefilter" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
          <form name="dealsupload" id="leaguefileFilter" method="post" >
             <div class="accordian">
@@ -1448,7 +1558,35 @@
                      <button type="button" class="btn btn-outline-dark btn-circle btn-sm" style="width: 100px;"  onClick="cancelFilterName();">Cancel</button>
                   </div>
                </div>
-            </div>
+            </div> -->
+            <div class="modal fade saveshowdealsbt"   tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header Header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Name for your Custom Filter</h5>
+      </div> -->
+      <div class="modal-body">
+      <div class="modal-header Header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Name for your Custom Filter</h5>
+      </div>
+      <div class="form-group">
+            <input type="text" class="form-control" name="filtername" id="filter_name" style="font-size:14px" placeholder="Enter Name for your Custom Filter">
+            <span class="error" style="display:none" id="filterErr" >Please Enter the Filter Name<span>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control " name="filterdesc" id="filter_desc" placeholder="Notes" style="font-size:14px"></textarea>
+            <span class="error" style="display:none" id="filterDescErr" >Please Enter the Filter Description<span>
+          </div>
+          <div class="Footer">
+      <button type="button" class="export_new btn  btn-exp mr-auto" onClick="saveFilterName();" >Save</button>
+        <button type="button" class="export_new btn  btn-save" style="margin-right: 110px;" data-dismiss="modal" onClick="cancelFilterName();">Close</button>
+      </div>
+        </form>
+      </div>
+   
+    </div>
+  </div>
+</div>
          </form>
       </div>
      <script>
@@ -1539,8 +1677,8 @@
          });
         });
         
- 
-
+        var globalfilterNameId='';
+        var globalfilterDescrip='';
          function EditFilter(filterNameId)
          {
          $('#investorauto_sug').tokenInput("clear");
@@ -1554,6 +1692,9 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
+         globalfilterDescrip=dataValue[0].filter_desc;
+         globalfilterNameId=dataValue[0].filter_name;
+
          if(dataValue[0].filter_type == "Exit")
          {
          $("#exitFlstatus").val(dataValue[0].exit_status)
@@ -1730,15 +1871,13 @@
          data: {filterName: filterNameId, mode: 'D'},
          success: function(data){
          
-         swal('Deleted successfully').then(okay => {
-               if (okay) {
-                  location.reload();
-            }
-            });
+         swal('Deleted successfully').then(function() {
+            location.reload();
+
+         });
          $('#maskscreen').fadeOut();
          $('#preloading').fadeOut();  
          $('#popup-box-copyrights-getfilter').fadeOut(); 
-         getfilterName();
          
          },
          });
@@ -1749,9 +1888,8 @@
 
          function exportfiltr(filterNameId)
          {
-           
        
-         var filterType= $("#v-pills-tab").find(".active").attr('value')       
+         var filterType= $(".myfilters").find(".active").attr('value')       
          if(filterType == "Exit")
          {
          if($('#exitdealtype').val() != null)
@@ -1875,15 +2013,17 @@
          $(".resultarray").val(dataValue[0].column_name);
          
          }
-         $('#investorvalue').val(div);
          
          if(dataValue[0].filter_type =="Exit")
          {
+            $('#txthideinvestor').val(div);
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
          $("#exitpelistingexcel").submit();
          }
          else{
+            $('#investorvalue').val(div);
+
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
          $("#pelistingexcel").submit();
@@ -1926,10 +2066,8 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
-         var filterType=$("#ueberTab").find(".active").attr('value')
-         $('#maskscreen').fadeOut();
-         $('#preloading').fadeOut();  
-         $('#popup-box-copyrights-filter').fadeOut();
+         var filterType=$(".rightpanel").find(".active").attr('value')
+        $('.impshowdealsbt').modal('hide')
          if(filterType == "Exit")
          {
          for(i=0;i<dataValue.length;i++)
@@ -1959,12 +2097,11 @@
          
          }
          var investornameArray=[];
-         var editFilterName=''
          function saveFilterName()
          {
          investornameArray=[];
          
-         var filterType=$(".nav").find(".active").attr('value')
+         var filterType=$(".rightpanel").find(".active").attr('value')
          
          var filtername=$('#filter_name').val()
          var filterDesc=$('#filter_desc').val().trim()
@@ -2035,15 +2172,20 @@
          type: "POST",
          data: {Intype:Intype,dealType:dealType,filterType:filterType,companytype:companytype,investorType:investorType,stage:stage,round:round,exitStatus:exitStatus,
          region:region,state:state,city:city,Industry:Industry, filtername: filtername,
-         EditFilter:editFilterName,
+         EditFilter:globalfilterNameId,
          filterDesc:filterDesc,
          checkboxName:checkboxName,
          investorval: JSON.stringify(investornameArray),mode: 'A'},
          success: function(data){
-      
+         swal({
+         title: "Saved Successfully!",
+         //text: "You clicked the button!",
+         icon: "success",
+         //button: "Aww yiss!",
+         }).then(function() {
+            location.reload();
 
-    
-         //swal( "saved successfully!", "success");
+         });
          $('#investorauto_sug').tokenInput("clear");
          $('.allexportcheck ').attr('checked', true); 
          
@@ -2053,16 +2195,7 @@
          jQuery('#maskscreen').fadeOut(1000);
          $('#preloading').fadeOut();
          
-         swal({
-         title: "Saved Successfully!",
-         //text: "You clicked the button!",
-         icon: "success",
-         //button: "Aww yiss!",
-         }).then(okay => {
-               if (okay) {
-                  location.reload();
-            }
-            });
+         
          
          },
          });
@@ -2099,8 +2232,8 @@
          }
          else
          {
-         $('#filter_name').val(editFilterName);
-         $('filter_desc').val(filterDescrip);
+         $('#filter_name').val(globalfilterNameId);
+         $('filter_desc').val(globalfilterDescrip);
          
          }
          }
@@ -2134,8 +2267,8 @@
          }
          else
          {
-         $('#filter_name').val(filterNameId);
-         $('filter_desc').val(filterDescrip);
+         $('#filter_name').val(globalfilterNameId);
+         $('filter_desc').val(globalfilterDescrip);
          
          }
          }
@@ -2254,6 +2387,7 @@
          });
          
          $('#exitexpshowdealsbt').click(function(){
+         exportfiltr(1);
          if($('#exitdealtype').val() != null)
          {
          var dealtype=$('#exitdealtype').val().toString();
@@ -2372,10 +2506,38 @@
          return false;
          }
 
+         function ExportAdminFilter(id)
+         {
+               $.ajax({
+                  url: 'saveFilter.php',
+                  type: "POST",
+                  data: {filterid: id, mode: 'adminExport'},
+               success: function(data){
+                  var dataval=data.replace(/[\u0000-\u0019]+/g,"")
+                  var dataset=JSON.parse(JSON.stringify(dataval))
+                  var dataValue=JSON.parse(dataset);
+
+                  if(dataValue[0].filter_type =="Exit")
+                     {
+                        $('#exitquery').val(dataValue[0].query)
+                     hrefval= 'exportexitinExcel.php';
+                     $("#exitpelistingexcel").attr("action", hrefval);
+                     $("#exitpelistingexcel").submit();
+                     }
+                     else{
+                        $('#invquery').val(dataValue[0].query)
+
+                     hrefval= 'exportinvdealsExcel.php';
+                     $("#pelistingexcel").attr("action", hrefval);
+                     $("#pelistingexcel").submit();
+                     }
+                           
+               },
+            });
+         }
          function exportfiltrErr()
          {
-            swal('Your Download Limit is Completed...Please Contact Your Admin');
-               return true;
+            swal('your export limt is expired..please contact your admin')
          }
      </script>
    </body>

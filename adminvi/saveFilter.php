@@ -67,8 +67,8 @@ $dlogUserEmail = $_SESSION['UserEmail'];
     }
     else
     {
-        $query = "INSERT INTO `saved_filter`(`id`, `investor_name`, `column_name`, `filter_name`,`filter_type`,`filter_desc`,`company_type`,`industry`,`city`,`state`,`region`,`exit_status`,`round`,`stage`,`investor_type`,`dealtype`,`intype`,`filter_active`,`query`,`vi_filter`,`created_by`, `created_on`) VALUES (default,'".$investorvalArray."','".$checkboxName."','".$filtername."','".$filterType."','".$filterDesc."','".$companytype."','".$industry."','".$city."','".$state."','".$region."','".$exitStatus."','".$round."','".$stage."','".$investorType."','".$dealType."','".$Intype."','".$filter_active."','".$filterQuery."','".$vi_filter."','".$dlogUserEmail."',CURDATE())";
- 
+        $query = 'INSERT INTO `saved_filter`(`id`, `investor_name`, `column_name`, `filter_name`,`filter_type`,`filter_desc`,`company_type`,`industry`,`city`,`state`,`region`,`exit_status`,`round`,`stage`,`investor_type`,`dealtype`,`intype`,`filter_active`,`query`,`vi_filter`,`created_by`, `created_on`) VALUES (default,"'.$investorvalArray.'","'.$checkboxName.'","'.$filtername.'","'.$filterType.'","'.$filterDesc.'","'.$companytype.'","'.$industry.'","'.$city.'","'.$state.'","'.$region.'","'.$exitStatus.'","'.$round.'","'.$stage.'","'.$investorType.'","'.$dealType.'","'.$Intype.'","'.$filter_active.'","'.$query.'","'.$vi_filter.'","'.$dlogUserEmail.'",CURDATE())';
+
     }
     //echo "query = $query";exit(); // for debugging purposes, remove this once it is working
     mysql_query($query) or die(mysql_error());
@@ -102,7 +102,6 @@ $dlogUserEmail = $_SESSION['UserEmail'];
 
         
     }
-   // echo 'haiii';
 
         $post_order = isset($_REQUEST["post_order_ids"]) ? $_REQUEST["post_order_ids"] : [];
 	if(count($post_order)>0){
@@ -112,7 +111,6 @@ $dlogUserEmail = $_SESSION['UserEmail'];
 	 $query = "UPDATE saved_filter SET filter_order_no = '".($order_no+1)."' WHERE id = '".$post_order[$order_no]."'";
 	mysql_query($query);
     }  
-    echo $query;exit();
 	echo true; 
 	
 	}else{

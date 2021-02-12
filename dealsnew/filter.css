@@ -1,12 +1,35 @@
+body{
+ background: #E9E9E9;;
+}
+.invHeading
+{
+    color:#413529;
+    font-size: 14px;
+}
+.duration
+{
+    font-size: 14px;
+}
+.card-header {
+    padding: 8px !important;
+}
 .cardfilter{
     background-color: #413529 ;
     color:white;
+    border-top-right-radius: 17px;
+    border-top-left-radius: 17px;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
 }
 .h4{
     color:white;
 }
 .dash{
-  font-size: 18px;
+    font-size: 14px;
+    /* font: normal normal normal 18px/21px Trebuchet MS; */
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
 }
 .navigation{
     background-color: #413529;
@@ -14,42 +37,106 @@
 .myfilters .nav-link.active, .myfilters .show>.nav-link {
    background-color:white;
     color:#413529;
+    /* font: normal normal normal 16px/18px Trebuchet MS; */
+    letter-spacing: 0px;
+    opacity: 1;
     
 }
 .myfilters .nav-link{
-    padding: 0 0 0 45px;
+    padding: 0 0 6px 45px;
 }
 .myfilters a{
     color:#413529;
+        font-size: 14px !important;
+        
 }
 .edit{
-    background-color: #A2753A;
+   
+    height: 45px;
+    /* font: normal normal bold 14px/18px Montserrat; */
+    letter-spacing: 0px;
+    font-size: 14px;
+
+
+}
+.exportFilt{
+     background-color: #A2753A;
     color: white;
+    height: 45px;
+    /* font: normal normal bold 14px/18px Montserrat; */
+    letter-spacing: 0px;
+    font-size: 14px;
+
+
 }
 .filter{
     color: black;
     background-color:#DCDAD9;
     border: none;
-    padding: 14px 36px;
+    padding: 10px 36px;
     border-top-right-radius: 17px;
     border-top-left-radius: 17px;
-    font-size: 20px;
+    /* font: normal normal normal 16px/18px Trebuchet MS; */
+    letter-spacing: 0px;
+    opacity: 1;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    text-decoration: none!important;
+    
 }
 .filter:not(:disabled):not(.disabled).active, .filter:not(:disabled):not(.disabled):active, .show>.filter.dropdown-toggle {
     color: #fff;
     background-color: black;
+
     
 }
 .q4{
-    font-size: 18px!important;
+    font-size: 16px!important;
+    /* font: normal normal bold 16px/19px Montserrat!important; */
+    letter-spacing: 0px;
+    color: black;
+
 }
+.btn-exp{
+    border-radius: 0px;
+    color:white;
+    background-color: #413529;
+    height: 35px;
+    width: 100px;
+    font-size: 14px;
+}
+.Header{
+         border-bottom: none !important;
+         margin-left: -14px!important;
+}
+.Footer{
+    border-top: none !important;
+}
+.btn-save
+{
+    border-radius: 5px;
+    background-color: white;
+    color: 857D76;
+    color: #857D76;
+    font-size: 16px;
+    border: 1px solid #857D76;
+    height: 35px;
+    width: 100px;
+    font-size: 14px;
+}
+
 .create{
     font-size: 14px;
+    /* font: normal normal bold 14px/23px Montserrat; */
+    letter-spacing: 0px;
+    color:black !important;
 }
 .redesign{
     font-size:12px;
     color: #2C2C2C;
     opacity: 1;
+    /* font: normal normal 300 12px/15px Montserrat; */
+letter-spacing: 0px;
 }
 .filter:hover{
     background-color: black;
@@ -57,9 +144,21 @@
     border: none;
 }
 .invest{
-    margin:20px 10px 14px 10px;
+    margin:10px;
     box-shadow: 0px 2px 8px #00000022;
+    margin-top: 30px!important;
+}
+.date
+{
+    height:30px!important;
+    max-width: 82px!important;
 
+}
+.navCard{
+    height:auto !important;
+}
+.card{
+    border:none!important;
 }
 .buttonbox{
     border: 1px solid grey;
@@ -69,15 +168,24 @@
     background-color: #A2753A;
 }
 .myfilters .nav-link.active, .myfilters .show>.nav-link {
-    border-bottom: 2px solid #413529;
+    border-bottom: 2px solid #A3772E;
+    color: #A3772E;
+    
+
     border-radius: unset;
 }
 .advanced{
     background-color: #A2753A;
     border: none;
     color: white;
-    font-size: 18px;
+    font-size: 14px;
+    /* font: normal normal normal 16px/19px Trebuchet MS; */
+    letter-spacing: 0px;
+    color: #FFFFFF;
     
+}
+.card{
+    box-shadow: 0px 2px 8px #00000022 !important;
 }
 @media only screen and (max-width:360px) {
     .filter{
@@ -86,5 +194,72 @@
         border: none;
         border-top-right-radius: 17px;
         border-top-left-radius: 17px;
-        padding:9px 9.6px;   
+        padding:9px 9.6px; 
+          
 }
+}
+
+#comptype,#invType,#exitinvType,#exitFlstatus,#exitInType{
+width: 168px;
+border: 1px solid #ced4da;
+    height: 23px;
+    color: #919BA2;
+}
+.ui-multiselect{
+width: 168px !important;
+position: relative;
+outline: 0px !important;
+border: 1px solid #ced4da  !important;
+    height: 23px;
+    color: #919BA2 !important;
+}
+.ui-multiselect span{
+position: absolute;
+}
+
+.ui-icon-triangle-2-n-s{
+right: 0;
+top: 2px;
+}
+.ui-multiselect span:nth-child(2){
+top: -5px;
+}
+.ui-multiselect-filter input{
+width: 145px !important;
+}
+.ui-multiselect-checkboxes label input{
+top: 3px;
+}
+.ui-multiselect-checkboxes label span{
+margin-left: 3px;
+}
+.ui-multiselect-header ul li {
+    float: left;
+    padding: 0 5px 0 0 !important;
+}
+
+.h4
+{
+font-size:16px !important;
+/* font: normal normal normal 20px/23px Trebuchet MS; */
+letter-spacing: 0px;
+opacity: 1;
+color:#fff;
+}
+
+h5{
+    font-size: 16px !important;
+}
+.copyright-body {
+    padding: 7px 10px 10px 14px
+}
+.label{
+    font-size: 14px;
+    margin-left: 20px;
+    /* margin-bottom: -8px; */
+    margin-top: 10px;
+}
+.data{
+    height:400px;
+}
+

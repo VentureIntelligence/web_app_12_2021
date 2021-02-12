@@ -150,19 +150,19 @@ require("../dbconnectvi.php");
 			$keyword="";
 			$keyword=$_POST['repDBtype'];
 			
-				$nanoSql="SELECT * FROM `saved_filter` GROUP BY `filter_name`";
+				$nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 order by filter_order_no asc";
 				if ($reportrs = mysql_query($nanoSql))
 				 {
 					$report_cnt = mysql_num_rows($reportrs);
 				 }
 		?>
         <div id="headingtextpro">
-				Select DB type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Drag and Re-order Your Filters &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div style=" overflow:auto;margin-top:10px;" class="content_container">
 																
 							<div class="alert icon-alert with-arrow alert-success form-alter" role="alert">
 							<i class="fa fa-fw fa-check-circle"></i>
-							<strong> Success ! </strong> <span class="success-message"> FAQ Order has been updated successfully </span>
+							<strong> Success ! </strong> <span class="success-message"> Filter Order has been updated successfully </span>
 							</div>
 							<div class="alert icon-alert with-arrow alert-danger form-alter" role="alert">
 							<i class="fa fa-fw fa-times-circle"></i>
@@ -195,7 +195,7 @@ require("../dbconnectvi.php");
 									?>
 
 									<a href="javascript:void(0)" class='deleteFaq'style='float:right'  data-faq-id=<?php echo $myrow["id"]; ?> > &nbsp; &nbsp; <i class="fa  fa-trash" aria-hidden="true"></i>  </a>
-									<a href="adminFilter.php?id=<?php echo $myrow["id"]; ?>" style='float:right'> <i class="fa fa-pencil-square-o"></i> </a>
+									<a href="adminFilter.php?id=<?php echo $myrow["id"]; ?>&filterName=<?php echo $myrow["filter_name"] ?>" style='float:right'> <i class="fa fa-pencil-square-o"></i> </a>
 									
 									</p>
 									</div>
@@ -256,9 +256,11 @@ require("../dbconnectvi.php");
 		success:function(data)
 		{
 		if(data){
-		
+			$(".alert-danger").hide();
+		$(".alert-success ").show();
 		}else{
-		
+			$(".alert-success").hide();
+			$(".alert-danger").show();
 		}
 		}
 		});

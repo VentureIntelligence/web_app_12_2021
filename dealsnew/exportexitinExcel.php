@@ -95,8 +95,9 @@ $expval=explode(",",$exportvalue);
 
     $hidetxtfrm=$_POST['txthideReturnMultipleFrm'];
     $hidetxtto=$_POST['txthideReturnMultipleTo'];
-
+    //echo 'hai';
     $keyword=$_POST['txthideinvestor'];
+    //echo $_POST['txthideinvestor'];exit();
     $investorString=$_POST['txthideInvestorString'];
     $txthidepe=$_POST['txthidepe'];
     $yearafter=$_POST['yearafter'];
@@ -697,9 +698,13 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             //  echo "<br>Query for company search";
             //echo "<br> Company search--" .$companysql;
         }
-    elseif ( ($$keyword != "") || ($invType != "--") || ($InTypes != "") || ($exitstatusvalue!="--") || ($dateValue!="---to---") || (($hidetxtfrm>=0) && ($hidetxtto>0)) || ($yearafter!="") || ($yearbefore!="") || ($investor_head != "--"))
+        elseif($_POST['exitQuery'] != "")
+        {
+            $companysql = $_POST['exitQuery'] ;
+        }
+    elseif ( ($keyword != "") || ($invType != "--") || ($InTypes != "") || ($exitstatusvalue!="--") || ($dateValue!="---to---") || (($hidetxtfrm>=0) && ($hidetxtto>0)) || ($yearafter!="") || ($yearbefore!="") || ($investor_head != "--"))
     {
-        //echo 'haiiii';exit();
+       // echo $keyword;exit();
         if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
             $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
@@ -792,11 +797,11 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
                 $wheredealtype=  ' ( '.$dealSql.' ) ';
                 //$whereRound="pe.round LIKE '".$round."'";
             }
-            $addhide_pms_qry=" and dt.hide_for_exit in (0)"; 
+            $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
         }
         if ($invType!= "--" && $invType!= "")
                { $whereInvType = " pe.InvestorType = '".$invType."'";
-            $addhide_pms_qry=" and dt.hide_for_exit in (0)"; 
+            $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
        }
         if ($investor_head != "--" && $investor_head != '') {
                    $whereInvhead = "inv.InvestorId=mandainv.InvestorId and inv.countryid = '" . $investor_head . "'";
@@ -1048,7 +1053,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
                 $submitpassword="";
         }
     }
-
+//echo $_POST['exitquery'];
  $sql=$companysql;
  /*echo $tagsearch;*/
 //echo "<br>---" .$sql;
