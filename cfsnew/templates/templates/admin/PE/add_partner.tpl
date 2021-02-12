@@ -10,15 +10,25 @@
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tools/1.2.7/jquery.tools.min.js"></script>
+{* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tools/1.2.7/jquery.tools.min.js"></script> *}
 {literal}
 <style type="text/css">
-.tooltip {
+/* .tooltip {
     background:#404040;
     color:#fff !important;
     top: 45% !important;
     padding:5px;
     border-radius:5px;
+    
+} */
+.tooltip {
+    background:#404040;
+    color:#fff !important;
+    top: 80% !important;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
     
 }
 #download_now{
@@ -343,7 +353,7 @@ $(document).ready(function(e){
                             <div class="col-md-6">
                                <label for="partner_api_limit">Overall Count</label>
                             </div>
-                            <div class="col-md-6 "  style="width: 65%;">
+                            <div class="col-md-6 "  style="width: 65%;position:relative;">
                              
                                 <input type="number" class="form-control" id="partner_overall_count" placeholder="Enter overall Count Limit" value="1000" name="partner_overall_limit" autocomplete="off"/>
                             <i class="fa fa-question-circle" aria-hidden="true" id="download_now"></i>
@@ -435,9 +445,12 @@ $(document).ready(function(e){
 <script>
 {literal}
 
-  $(document).ready(function() {
+  /* $(document).ready(function() {
       $("#download_now").tooltip({ effect: 'slide'});
-    });
+    }); */
+$( "#download_now" ).hover(function(){
+    $('.tooltip').toggle();
+});
 
 function myToken() {
   var copyText = document.getElementById("partner_token");

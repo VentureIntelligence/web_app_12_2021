@@ -11,15 +11,25 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tools/1.2.7/jquery.tools.min.js"></script>
+{* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tools/1.2.7/jquery.tools.min.js"></script> *}
 {literal}
 <style type="text/css">
-.tooltip {
+/* .tooltip {
     background:#404040;
     color:#fff !important;
     top: 47% !important;
     padding:5px;
     border-radius:5px;
+    
+} */
+.tooltip {
+    background:#404040;
+    color:#fff !important;
+    top: 80% !important;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
     
 }
 #download_now{
@@ -326,7 +336,7 @@ table th, table td {
                             <div class="col-md-6">
                                <label id="req_answer">Overall Count</label>
                             </div>
-                            <div class="col-md-6" style="width: 62%;">
+                            <div class="col-md-6" style="width: 62%;position:relative;">
                               <input type="number" class="used_search_count" id="o_count" readonly/>
                               <input type="number" class="total_search_count" id="partner_overall_count" name="partner_overall_count" value="{$partner_details.overallCount}" placeholder="Enter Overall Count"/>		
                               <i class="fa fa-question-circle" aria-hidden="true" id="download_now"></i>
@@ -408,9 +418,12 @@ table th, table td {
 </div>
 <script>
 {literal}
-$(document).ready(function() {
+/*$(document).ready(function() {
       $("#download_now").tooltip({ effect: 'slide'});
-    });
+    });*/
+$( "#download_now" ).hover(function(){
+    $('.tooltip').toggle();
+});
 function myToken() {
   var copyText = document.getElementById("partner_token");
   copyText.select();
