@@ -152,7 +152,7 @@ padding:0px 10px; }
 <div class="list-tab"  style="margin-top: 26px;">
 <ul>
 <li><a  href="home.php" class="active postlink"><i></i> LIST VIEW</a></li>
-<li><a class="postlink" href="{if count($SearchResults[List]) gt 0}details.php?vcid={$SearchResults[0].Company_Id}{else}#{/if}"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
+{* <li><a class="postlink" href="{if count($SearchResults[List]) gt 0}details.php?vcid={$SearchResults[0].Company_Id}{else}#{/if}"><i class="i-detail-view"></i> DETAIL VIEW</a></li> *}
 </ul><div class="page-no" style="position: initial;"><span>(in Rs. Cr) &nbsp;&nbsp;</span></div>
 </div>
 
