@@ -387,7 +387,7 @@
          <form name="pesearch" action="<?php echo $actionlink; ?>" method="post" id="pesearch">  -->
       <div id="sec-header" class="sec-header-fix dealsindex">
          <ul class="navbar navbar-expand-sm  navbar-dark navigation">
-            <span class="navbar-brand dash">Dashboard >Advanced Filters</span>
+            <span class="navbar-brand dashboard">Dashboard >Advanced Filters</span>
             <div class="button-group text-right  ml-auto">
                <button class="btn  advanced" href="#">Advanced Filters</button>
                <button class="btn  advanced " href="#" style="opacity:0.5">Trends Reports</button>
@@ -548,7 +548,7 @@
                            {	
                            ?> 
                         <div class="col-md-6 mb-3">
-                           <div class="card invest">
+                           <div class="card invest viadmin">
                               <div class="card-body ">
                                  <div class="row ">
                                     <div class="col-md-10 col-10">
