@@ -9,7 +9,7 @@
 ?>
 <style>
 #vertbgproproducts{
-    height: 900px;
+    height: 925px;
 } 
 </style>
 <div id="leftpanel">

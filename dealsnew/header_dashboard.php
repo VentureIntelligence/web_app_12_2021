@@ -26,7 +26,14 @@
 <script src="js/jquery.responsivetable.js"></script>
 
 <script src="TourStart.js"></script>  
-
+<style>
+  .btn-disabled,
+.btn-disabled[disabled] {
+  opacity: .4;
+  cursor: default !important;
+  pointer-events: none;
+}
+  </style>
 
 <script>
 $(document).ready(function() {
@@ -535,9 +542,30 @@ $(function () {
 <label><input class="typeoff-nav" name="typeoff" type="radio" value="6" <?php if($type==6) { ?> checked="checked" <?php } ?>/>Region</label> 
  <!--a style="float: right;font-size: 16px;font-weight: bold;" class="senddeal" href="https://www.ventureintelligence.com/dev/dealsnew/report.php" >Other Reports</a-->
  <a href='<?php echo BASE_URL; ?>dealsnew/otherreport.php'><input style="float: right;margin-right: 9px;" type="button" name="otherreport" value="Trend Reports" id="otherreport" class="senddeal"></a>
+    <?php
+   $dlogUserEmail = $_SESSION['UserEmail'];
 
- <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;" type="button" name="advExport" value="Advance Export" id="advExport" class="senddeal"></a>
+$sqlQuery="SELECT dc.custom_limit_enable as custom_limit_enable FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
+$sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
+while ($row = mysql_fetch_assoc($sqlSelResult)) {
 
+$custom_limit_enable= $row['custom_limit_enable']  ;
+
+}
+    ?> 
+    <?php
+        if ($custom_limit_enable == 1)
+        {
+        ?>
+        <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;" type="button"  name="advExport" value="Advance Export" id="advExport" ></a>
+        <?php 
+        }
+
+        else{
+        ?>
+        <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advance Export" id="advExport" ></a>
+        <?php  }?>
+                           
 </td>
 
 </tr>

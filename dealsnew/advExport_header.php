@@ -191,7 +191,7 @@
          -moz-column-count: 4;
          column-count: 4;
          font-size:12px;
-         color: #919BA2;;
+         color: #414141d6;
          }
          .exportcolumn li,.copyright-body label{
          line-height:32px;
@@ -201,7 +201,8 @@
          -moz-column-count: 4;
          column-count: 4;
          font-size:12px;
-         color:#919BA2;
+         color: #414141d6;
+    
          }
          .exitexportcolumn li,.copyright-body label{
          line-height:32px;
@@ -401,11 +402,13 @@
                <div class="card-header myfilter" style="height:45px">
                   <h4 class="text-center h4 mt-1">My Filters</h4>
                </div>
-                           <div class="card navCard">
+                         
+            </div>
+            <div class="card navCard">
                               <div class="container">
-               <div class="nav nav-pills myfilters mt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments style="padding: 0 37px 0 37px;">Investments Filters</a>
-                  <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit srtle="padding: 0 63px 0 63px;">Exit Filters</a>
+               <div class="nav nav-pills myfilters mt-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
+                  <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
                </div>
                         </div>
                <div class="tab-content" id="v-pills-tabContent">
@@ -418,6 +421,7 @@
                      {
                      $report_cnt = mysql_num_rows($reportrs);
                      }
+                     
                      ?> 
                   <div class="tab-pane fade show active" id="v-pills-investmentsfilter" role="tabpanel" aria-labelledby="v-pills-home-tab" >
                      <?php
@@ -433,7 +437,7 @@
                               <div class="col-md-10 col-10">
                                  <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
                                  <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
-                                 <p class="create">Created on 12 Jan 2020</p>
+                                 <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?></p>
                               </div>
                               <div class="col-md-2 col-2">
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['id'] ?>')">
@@ -486,7 +490,7 @@
                               <div class="col-md-10 col-10">
                                  <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
                                  <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
-                                 <p class="create">Created on 12 Jan 2020</p>
+                                 <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?></p>
                               </div>
                               <div class="col-md-2 col-2">
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['id'] ?>')">
@@ -517,8 +521,6 @@
                   </div>
                </div>
             </div>
-            </div>
-
          </div>
          <div class="col-md-8 mb-2" style="    padding-left: 0px;">
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
@@ -554,7 +556,7 @@
                                     <div class="col-md-10 col-10">
                                        <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
                                        <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
-                                       <p class="create">Created on 12 Jan 2020</p>
+                                       <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?></p>
                                     </div>
                                     <!-- <div class="col-md-2 col-2">
                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1091,7 +1093,7 @@
                            <form name="pelistingexcelInv" id="pelistingexcelInv"  method="post" action="importexcelsheetbyname.php">
                               <input type="hidden" name="investorname" id="investorname" value="" >
                            </form>
-                        </div>
+                        </div><br>
                         
                      </div></div>
                      <div class="tab-pane container fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
@@ -1479,7 +1481,7 @@
                               <form name="pelistingexcelInv" id="pelistingexcelInv"  method="post" action="importexcelsheetbyname.php">
                                  <input type="hidden" name="investorname" id="investorname" value="" >
                               </form>
-                           </div>
+                           </div><br>
                         </div>
                      </div>
                   </div>

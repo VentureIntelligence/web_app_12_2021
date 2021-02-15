@@ -1094,7 +1094,7 @@ $(document).ready(function(){
                                 <b>Reset Export Limit to</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/arrow.gif" /><input type="text" name="resetExp" id="resetExp"> <input type="button" name="limReset" value="Reset" onclick="resetExpLimit();">
                                 <br /><br />
 
-                                <div class="row" style="border:2px solid black;    width: 300px;">
+                                <div class="row" style="width: 300px;">
                                     <h2>Custom Export Option</h2>
                                     <input type="checkbox" id="limit_enable" name="limit_enable" <?php if($limit_enable==1) { echo "checked"; } else { }?>><b>Enable</b><br><br>
                                     <b>Export Limit</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="exp_limit" id="exp_limit" value="<?php echo $export_limit ?>"><br><br>

@@ -1106,7 +1106,7 @@ require("checkaccess.php");
 
                                          <input type=checkbox name="mobappaccess" id="applogin" class="applogincheckbox" value="1" <?php echo $mobapp; ?>> Mobile App access
                                             
-                                         <div class="row" style="border:2px solid black;    width: 300px;">
+                                         <div class="row" style="width: 300px;">
                                             <h2>Custom Export Option</h2>
                                             <input type="checkbox" id="limit_enable" name="limit_enable" value="1" <?php echo $custom_limit_enable; ?>><b>Enable</b><br><br>
                                             <b>Export Limit</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="exp_limit" id="exp_limit" value="<?php echo $custom_export_limit; ?>"><br><br>
