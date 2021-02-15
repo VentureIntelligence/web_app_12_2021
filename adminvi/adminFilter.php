@@ -258,7 +258,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" value="<?php echo $myrow["filter_name"] ?>">
                         <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""><?php echo $myrow["query"] ?></textarea>
                         <input type="checkbox" id="filter_active"  value="active" <?php echo ($myrow["filter_active"] == 'active') ? 'checked' : ''; ?>><b>Active?</b>
-                        <input type="checkbox" id="admin_filter"  value="1" <?php echo ($myrow["vi_filter"] == '1') ? 'checked' : ''; ?>><b>VI Filter</b><br><br>
+                        <input type="hidden" id="admin_filter"  value="1" <?php echo ($myrow["vi_filter"] == '1') ? 'checked' : ''; ?>><br><br>
                         <p>Filter Type:</p>
                         <input type="radio" id="investments" name="filter_type" value="Investments" <?php echo ($myrow["filter_type"] == 'Investments') ? 'checked' : ''; ?>>
                         <label for="male">Investments</label><br>
@@ -304,7 +304,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $.ajax({
          url: 'saveFilter.php',
          type: "POST",
-         data: {EditFilter:"<?php echo $_GET['filterName']?>",vi_filter:vi_filter,filtername: filtername,filterQuery:filterQuery,filterType:filterType,filter_active:filter_active,mode: 'A'},
+         data: {EditFilter:"<?php echo $_GET['id']?>",vi_filter:vi_filter,filtername: filtername,filterQuery:filterQuery,filterType:filterType,filter_active:filter_active,mode: 'A'},
          success: function(data){
             alert('saved successfully')
             $('#filter_name').val('')

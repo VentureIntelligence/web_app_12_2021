@@ -536,6 +536,8 @@ $(function () {
  <!--a style="float: right;font-size: 16px;font-weight: bold;" class="senddeal" href="https://www.ventureintelligence.com/dev/dealsnew/report.php" >Other Reports</a-->
  <a href='<?php echo BASE_URL; ?>dealsnew/otherreport.php'><input style="float: right;margin-right: 9px;" type="button" name="otherreport" value="Trend Reports" id="otherreport" class="senddeal"></a>
 
+ <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;" type="button" name="advExport" value="Advance Export" id="advExport" class="senddeal"></a>
+
 </td>
 
 </tr>

@@ -1056,8 +1056,8 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 //echo $_POST['exitquery'];
  $sql=$companysql;
  /*echo $tagsearch;*/
-//echo "<br>---" .$sql;
-//exit();
+// echo "<br>---" .$sql;
+// exit();
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");

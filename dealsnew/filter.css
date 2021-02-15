@@ -16,10 +16,7 @@ body{
 .cardfilter{
     background-color: #413529 ;
     color:white;
-    border-top-right-radius: 17px;
-    border-top-left-radius: 17px;
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
+    border-radius: 10px 10px 0px 0px;
 }
 .h4{
     color:white;
@@ -74,19 +71,18 @@ body{
     background-color:#DCDAD9;
     border: none;
     padding: 10px 36px;
-    border-top-right-radius: 17px;
-    border-top-left-radius: 17px;
+    border-radius: 10px 10px 0px 0px;
+
     /* font: normal normal normal 16px/18px Trebuchet MS; */
     letter-spacing: 0px;
     opacity: 1;
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
+   
     text-decoration: none!important;
     
 }
 .filter:not(:disabled):not(.disabled).active, .filter:not(:disabled):not(.disabled):active, .show>.filter.dropdown-toggle {
     color: #fff;
-    background-color: black;
+    background-color:#413529;
 
     
 }
@@ -139,7 +135,7 @@ body{
 letter-spacing: 0px;
 }
 .filter:hover{
-    background-color: black;
+    background-color :#413529;
     color: #fff;
     border: none;
 }

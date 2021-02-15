@@ -290,6 +290,8 @@
          .error
          {
          color:red;
+         font-size: 12px;
+         margin-left: 5px;
          }
          .hide{
          display: none
@@ -394,16 +396,18 @@
       </div>
       <div class="container-fluid"  id="container" style="margin-top: 110px;">
       <div class="row ">
-         <div class="col-md-4 mb-2">
+         <div class="col-md-4 mb-2" style="padding-right:0px">
             <div class="card cardfilter">
-               <div class="card-header myfilter">
-                  <h4 class="text-center h4 mt-2">My Filters</h4>
+               <div class="card-header myfilter" style="height:45px">
+                  <h4 class="text-center h4 mt-1">My Filters</h4>
                </div>
                            <div class="card navCard">
+                              <div class="container">
                <div class="nav nav-pills myfilters mt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments>Investments Filters</a>
-                  <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit>Exit Filters</a>
+                  <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments style="padding: 0 37px 0 37px;">Investments Filters</a>
+                  <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit srtle="padding: 0 63px 0 63px;">Exit Filters</a>
                </div>
+                        </div>
                <div class="tab-content" id="v-pills-tabContent">
                   <?php
                      $keyword="";
@@ -432,19 +436,19 @@
                                  <p class="create">Created on 12 Jan 2020</p>
                               </div>
                               <div class="col-md-2 col-2">
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['filter_name'] ?>')">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['id'] ?>')">
                                  <span aria-hidden="true">&times;</span>
                                  </button>
                               </div>
                            </div>
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['filter_name'] ?>')">EDIT</button>
+                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
                            <?php if($custom_export_limit <=  $DownloadCount){?>
                            <button type="button" class="btn exportFilt w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
                            <?php }
                               else {?>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr('<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
                            <?php } ?>
                         </div>
                      </div>
@@ -485,19 +489,19 @@
                                  <p class="create">Created on 12 Jan 2020</p>
                               </div>
                               <div class="col-md-2 col-2">
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['filter_name'] ?>')">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['id'] ?>')">
                                  <span aria-hidden="true">&times;</span>
                                  </button>
                               </div>
                            </div>
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['filter_name'] ?>')">EDIT</button>
+                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
                            <?php if($custom_export_limit <=  $DownloadCount){?>
                            <button type="button" class="btn exportFilt  w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
                            <?php }
                               else {?>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr('<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>')">EXPORT</button>
                            <?php } ?>
                         </div>
                      </div>
@@ -516,7 +520,7 @@
             </div>
 
          </div>
-         <div class="col-md-8 mb-2">
+         <div class="col-md-8 mb-2" style="    padding-left: 0px;">
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
                <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
                <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
@@ -528,7 +532,7 @@
                   $keyword="";
                   $keyword=$_POST['repDBtype'];
                   
-                  $nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 ORDER BY filter_order_no ASC";
+                  $nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 and filter_active='active' ORDER BY filter_order_no ASC";
                   if ($reportrs = mysql_query($nanoSql))
                   {
                   $report_cnt = mysql_num_rows($reportrs);
@@ -568,7 +572,7 @@
                         <?php
                            } }
                            else {?>
-                        <p style="margin-left:350px;font-size:12px;color:black">No Data Found</p>
+                        <p class="data" style="margin-left:350px;font-size:12px;color:black;padding-top:200px">No Data Found</p>
                         <?php } ?>       
                      </div>
                   </div>
@@ -915,7 +919,7 @@
                                  <li>
                                     <input type="checkbox" class="exportcheck" name="skills" value="Exit Status" />
                                     <SELECT NAME="exitstatus" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
-                                       <OPTION  value="--" selected> Select </option>
+                                       <OPTION  value="" selected> Select </option>
                                        <OPTION  value="0" <?php if($exitstatus=="0") echo "selected" ?>> Partial </option>
                                        <OPTION  value="1" <?php if($exitstatus=="1") echo "selected" ?>> Complete </option>
                                     </SELECT>
@@ -1060,7 +1064,7 @@
                            <?php } ?>
                               </span>
                               <span class="one">
-                              <button class="export_new btn  btn-save" data-toggle="modal" data-target=".saveshowdealsbt" >Save Filter</button>
+                              <button class="export_new btn  btn-save savevalidatefilter" >Save Filter</button>
 
                               <!-- <button class ="export_new btn btn-circle btn-secondary" id="saveshowdealsbt" name="showdeals">Save Filter</button> -->
                               </span>
@@ -1410,11 +1414,11 @@
 
                            <?php }
                               else {?>
-                              <button  class ="export_new btn  btn-exp"  id="expshowdealsbt" name="showdeals">Export</button>
+                              <button  class ="export_new btn  btn-exp"  id="exitexpshowdealsbt" name="showdeals">Export</button>
                            <?php } ?>
                               </span>
                               <span class="one">
-                              <button class="export_new btn  btn-save" data-toggle="modal" data-target=".saveshowdealsbt" >Save Filter</button>
+                              <button class="export_new btn  btn-save savevalidatefilter"  >Save Filter</button>
 
                               <!-- <button class ="export_new btn btn-circle btn-secondary" id="saveshowdealsbt" name="showdeals">Save Filter</button> -->
                               </span>
@@ -1678,7 +1682,11 @@
         });
         
         var globalfilterNameId='';
+        var globalfilterId='';
         var globalfilterDescrip='';
+        var exitglobalfilterNameId='';
+        var exitglobalfilterId='';
+        var exitglobalfilterDescrip='';
          function EditFilter(filterNameId)
          {
          $('#investorauto_sug').tokenInput("clear");
@@ -1692,11 +1700,14 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
-         globalfilterDescrip=dataValue[0].filter_desc;
-         globalfilterNameId=dataValue[0].filter_name;
+        
+
 
          if(dataValue[0].filter_type == "Exit")
          {
+            exitglobalfilterDescrip=dataValue[0].filter_desc;
+         exitglobalfilterNameId=dataValue[0].filter_name;
+         exitglobalfilterId=dataValue[0].id;
          $("#exitFlstatus").val(dataValue[0].exit_status)
          
          $("#exitsltindustry").val(dataValue[0].industry.split(','))
@@ -1707,8 +1718,19 @@
          
          $("#exitinvType").val(dataValue[0].investor_type);
          $("#exitInType").val(dataValue[0].intype);
+         $('#exitmon1').val(dataValue[0].start_date);
+            $('#exitmon2').val(dataValue[0].end_date);
+            $('#exityr1').val(dataValue[0].start_year);
+            $('#exityr2').val(dataValue[0].end_year)  
          }
          else{
+            globalfilterDescrip=dataValue[0].filter_desc;
+         globalfilterNameId=dataValue[0].filter_name;
+         globalfilterId=dataValue[0].id;
+            $('#mon1').val(dataValue[0].start_date);
+            $('#mon2').val(dataValue[0].end_date);
+            $('#yr1').val(dataValue[0].start_year);
+            $('#yr2').val(dataValue[0].end_year)  
          $("#sltindustry").val(dataValue[0].industry.split(','))
          $("#sltindustry").multiselect('refresh') 
          
@@ -1886,151 +1908,97 @@
          }
 
 
-         function exportfiltr(filterNameId)
+         function exportfiltr(value,filterType,filterNameId,filter_name)
          {
-       
-         var filterType= $(".myfilters").find(".active").attr('value')       
-         if(filterType == "Exit")
-         {
-         if($('#exitdealtype').val() != null)
-         {
-         var dealtype=$('#exitdealtype').val().toString();
-         $('#txthidedealtypeid').val(dealtype);
-         var selText ='';
-         $("#dealtype option:selected").each(function () {
-         var $this = $(this);
-         if ($this.length) {
-         selText += $this.text();
-         selText += ','
-         }
-         });
-         var strVal = $.trim(selText);
-         var lastChar = strVal.slice(-1);
-         if (lastChar == ',') {
-         strVal = strVal.slice(0, -1);
-         }
-         $('#txthidedealtype').val(strVal)
-         }
-         
-         if($('#exitinvType').val() != "")
-         {
-         var invType=$('#exitinvType').val().toString();
-         $('#txthideinvtypeid').val(invType);
-         $('#txthideinvtype').val($('#exitinvType').find(":selected").text());
-         
-         }
-         
-         
-         var InType=$('#exitInType').val();
-         $('#txthidetype').val(InType);
-         
-         if($('#exitsltindustry').val() != null)
-         {
-         $('#txthideindustryid').val($('#exitsltindustry').val().toString());
-         }
-         
-         var exitStatus=$('#exitFlstatus').val();
-         $('#txthideexitstatusvalue').val(exitStatus);
-         
-         
-         
-         var month1= $('#exitmon1').val()
-         var month2= $('#exitmon2').val()
-         var year1= $('#exityr1').val()
-         var year2= $('#exityr2').val()
-         var months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-         var betweenDateMonth1=months[month1-1]
-         var betweenDateMonth2=months[month2-1]
-         
-         var betweenDate=betweenDateMonth1+'-'+year1+'to'+betweenDateMonth2+'-'+year2
-         
-         $('#txthidedate').val(betweenDate)
-         var startDate=year1 +'-'+ month1 +'-'+ 01 
-         $('#txthidedateStartValue').val(startDate);
-         
-         var endDate=year2 +'-'+ month2 +'-'+ 31;
-         $('#txthidedateEndValue').val(endDate);
-         
-         $('#filter_name').val(' ');
-         $('#filter_desc').val(' ')
-         var investorval=$('#expinvestorauto_sug').val();
-         $('#txthideinvestor').val(investorval);
-         var investorvalStr= $('#expinvestorauto_sug').val() ; 
-         investorvalStr += '+';
-         $('#txthideInvestorString').val(investorvalStr);
-         }
-         else{
-         
-         var investorval=$('#investorauto_sug').val();
-         var month1= $('#mon1').val()
-         $('#month1').val(month1)
-         var month2= $('#mon2').val()
-         $('#month2').val(month2)
-         var year1= $('#yr1').val()
-         $('#year1').val(year1)
-         var year2= $('#yr2').val()
-         $('#year2').val(year2)   
-         $('#investorvalue').val(investorval);
-         var Industry=$('#sltindustry').val();
-         $('#industry').val(Industry);
-         var city=$('#citysearch').val();
-         $('#city').val(city);
-         var state=$('#sltstate').val();
-         $('#state').val(state);
-         var region=$('#txtregion').val();
-         $('#region').val(region);
-         var exitStatus=$('#exitstatus').val();
-         $('#sltexitStatus').val(exitStatus);
-         var round=$('#round').val();
-         $('#sltround').val(round);
-         var stage=$('#stage').val();
-         $('#sltstage').val(stage);
-         var investorType=$('#invType').val();
-         $('#investorType').val(investorType);
-         }
-         
-         $.ajax({
-         url: 'saveFilter.php',
-         type: "POST",
-         data: {filterType:filterType,filterName: filterNameId, mode: 'export'},
-         success: function(data){
-         var dataval=data.replace(/[\u0000-\u0019]+/g,"")
-         var dataset=JSON.parse(JSON.stringify(dataval))
-         var dataValue=JSON.parse(dataset);
-         if(dataValue.length != 0)
-         {
-         var div='';
-         for(i=0;i<dataValue.length;i++)
-         {
-         div +=dataValue[i].InvestorId
-         if(i<(dataValue.length-1))
-         {
-         div +=',' 
-         } 
-         }
-         if(dataValue[0].column_name)
-         {
-         $(".resultarray").val(dataValue[0].column_name);
-         
-         }
-         
-         if(dataValue[0].filter_type =="Exit")
-         {
-            $('#txthideinvestor').val(div);
-         hrefval= 'exportexitinExcel.php';
-         $("#exitpelistingexcel").attr("action", hrefval);
-         $("#exitpelistingexcel").submit();
-         }
-         else{
-            $('#investorvalue').val(div);
+            if(value == 1)
+            {
+               $.ajax({
+               url: 'saveFilter.php',
+               type: "POST",
+               data: {filterType:filterType,filterName:filter_name,filterNameId: filterNameId, mode: 'export'},
+               success: function(data){
+               var dataval=data.replace(/[\u0000-\u0019]+/g,"")
+               var dataset=JSON.parse(JSON.stringify(dataval))
+               var dataValue=JSON.parse(dataset);
+               var Type=dataValue[0].filter_type
+               if(Type == "Exit")
+               {
+                  $("#txthideexitstatusvalue").val(dataValue[0].exit_status)
+               
+               $("#txthideindustryid").val(dataValue[0].industry.split(','))
+               
+               $("#txthidedealtypeid").val(dataValue[0].dealtype.split(','))
+               
+               $("#txthideinvtypeid").val(dataValue[0].investor_type);
+               $("#txthidetype").val(dataValue[0].intype);  
+                  var month1= dataValue[0].start_date
+               var month2= dataValue[0].end_date
+               var year1= dataValue[0].start_year
+               var year2= dataValue[0].end_year
+               var months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+               var betweenDateMonth1=months[month1-1]
+               var betweenDateMonth2=months[month2-1]
+               
+               var betweenDate=betweenDateMonth1+'-'+year1+'to'+betweenDateMonth2+'-'+year2
+               
+               $('#txthidedate').val(betweenDate)
+               var startDate=year1 +'-'+ month1 +'-'+ 01 
+               $('#txthidedateStartValue').val(startDate);
+               
+               var endDate=year2 +'-'+ month2 +'-'+ 31;
+               $('#txthidedateEndValue').val(endDate);
+               }
+               else{
+                  $('#industry').val(dataValue[0].industry);
+                  $('#city').val(dataValue[0].city);
+                  $('#state').val(dataValue[0].state);
+                  $('#region').val(dataValue[0].region);
+                  $('#exitStatus').val(dataValue[0].exit_status);
+                  $('#round').val(dataValue[0].round);
+                  $('#stage').val(dataValue[0].stage);
+                  $('#investorType').val(dataValue[0].investor_type);
+                  $('#month1').val(dataValue[0].start_date);
+                  $('#month2').val(dataValue[0].end_date);
+                  $('#year1').val(dataValue[0].start_year);
+                  $('#year2').val(dataValue[0].end_year)   
+               }
 
-         hrefval= 'exportinvdealsExcel.php';
-         $("#pelistingexcel").attr("action", hrefval);
-         $("#pelistingexcel").submit();
-         }
-         }
-         },
-         });
+               if(dataValue.length != 0)
+               {
+               var div='';
+               for(i=0;i<dataValue.length;i++)
+               {
+               div +=dataValue[i].InvestorId
+               if(i<(dataValue.length-1))
+               {
+               div +=',' 
+               } 
+               }
+               if(dataValue[0].column_name)
+               {
+               $(".resultarray").val(dataValue[0].column_name);
+               
+               }
+               
+               if(dataValue[0].filter_type =="Exit")
+               {
+                  $('#txthideinvestor').val(div);
+               hrefval= 'exportexitinExcel.php';
+               $("#exitpelistingexcel").attr("action", hrefval);
+               $("#exitpelistingexcel").submit();
+               }
+               else{
+                  $('#investorvalue').val(div);
+
+               hrefval= 'exportinvdealsExcel.php';
+               $("#pelistingexcel").attr("action", hrefval);
+               $("#pelistingexcel").submit();
+               }
+               }
+               },
+               });
+            }
+         
          }
 
          $(document).on('click','#impshowdealsbt',function(){
@@ -2070,6 +2038,7 @@
         $('.impshowdealsbt').modal('hide')
          if(filterType == "Exit")
          {
+            $('#file').val('')
          for(i=0;i<dataValue.length;i++)
          {
          $("#expinvestorauto_sug").tokenInput("add",{id: dataValue[i]['InvestorId'], name: dataValue[i]['Investor']});
@@ -2077,6 +2046,7 @@
          }
          else
          {
+            $('#file').val('')
          for(i=0;i<dataValue.length;i++)
          {
          $("#investorauto_sug").tokenInput("add",{id: dataValue[i]['InvestorId'], name: dataValue[i]['Investor']});
@@ -2118,14 +2088,19 @@
          var companytype=$('#comptype').val();
          var checkboxName=$('.exportcheck:checked').map(function() {return this.value;}).get().join(',')
          var selectedValues = $('#investorauto_sug').tokenInput("get");
-         
+         var month1=$('#mon1').val();
+         var month2=$('#mon2').val();
+         var year1=$('#yr1').val();
+         var year2=$('#yr2').val();
          for(i=0;i<selectedValues.length;i++)
          {
          investornameArray.push(selectedValues[i]["name"])
          }
+         var editfilterId=globalfilterId;
          }
          else
          {
+          var editfilterId= exitglobalfilterId
          var checkboxName=$('.exitexportcheck:checked').map(function() {return this.value;}).get().join(',')
          var selectedValues = $('#expinvestorauto_sug').tokenInput("get");
          var exitStatus=$('#exitFlstatus').val();
@@ -2133,7 +2108,10 @@
          var Industry=$('#exitsltindustry').val();
          var Intype=$('#exitInType').val();
          var dealType=$('#exitdealtype').val();
-         
+         var month1=$('#exitmon1').val();
+         var month2=$('#exitmon2').val();
+         var year1=$('#exityr1').val();
+         var year2=$('#exityr2').val();
          for(i=0;i<selectedValues.length;i++)
          {
          investornameArray.push(selectedValues[i]["name"])
@@ -2152,12 +2130,7 @@
          $('#filterDescErr').show();
          
          }
-         else if($('#month1').val() && $('#month2').val() && $('#year1').val() && $('#year2').val() == '')
-         {
-         $('#durationErr').show()
-         
-         }
-         else if(parseInt($('#year1').val()) > parseInt($('#year2').val()))
+         else if(parseInt(year1) > parseInt(year2))
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
@@ -2170,13 +2143,15 @@
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
-         data: {Intype:Intype,dealType:dealType,filterType:filterType,companytype:companytype,investorType:investorType,stage:stage,round:round,exitStatus:exitStatus,
+         data: {start_date:month1,end_date:month2,start_year:year1,end_year:year2,Intype:Intype,dealType:dealType,filterType:filterType,companytype:companytype,investorType:investorType,stage:stage,round:round,exitStatus:exitStatus,
          region:region,state:state,city:city,Industry:Industry, filtername: filtername,
-         EditFilter:globalfilterNameId,
+         EditFilter:editfilterId,
          filterDesc:filterDesc,
          checkboxName:checkboxName,
          investorval: JSON.stringify(investornameArray),mode: 'A'},
          success: function(data){
+            $('.saveshowdealsbt').modal('hide')
+
          swal({
          title: "Saved Successfully!",
          //text: "You clicked the button!",
@@ -2191,88 +2166,77 @@
          
          $('.exportcolumn .exportcheck').attr('checked', true); 
          
-         jQuery('#popup-box-copyrights-savefilter').fadeOut();   
-         jQuery('#maskscreen').fadeOut(1000);
-         $('#preloading').fadeOut();
-         
-         
-         
          },
          });
          }
          
          }
 
-         $(document).on('click','#saveshowdealsbt',function(){
-         
-         if($('#investorauto_sug').tokenInput("get").length == 0)
-         {
-         $('#investorErr').show();
-         }
-         else if($('#month1').val() && $('#month2').val() && $('#year1').val() && $('#year2').val() == '')
-         {
-         $('#durationErr').show()
-         
-         }
-         else if(parseInt($('#year1').val()) > parseInt($('#year2').val()))
-         {
-         swal("Error: 'To' Year cannot be before 'From' Year");
-         }
-         else
-         {
-         $('#investorErr').hide();
-         
-         $('#maskscreen').fadeIn();
-         $('#preloading').fadeIn();  
-         $('#popup-box-copyrights-savefilter').fadeIn(); 
-         mode=$('#mode').val();
-         if(mode == 'A')
-         {
-         $('#filter_name').val('')
-         }
-         else
-         {
-         $('#filter_name').val(globalfilterNameId);
-         $('filter_desc').val(globalfilterDescrip);
-         
-         }
-         }
+         $(document).on('click','.savevalidatefilter',function(){
+
+            if($(".rightpanel").find(".active").attr('value') == "Investments")
+               {
+                  
+                  if($('#investorauto_sug').tokenInput("get").length == 0)
+                  {
+                  $('#investorErr').show();
+                  $('.saveshowdealsbt').modal('hide');
+                  }
+                  else if(parseInt($('#yr1').val()) > parseInt($('#yr2').val()))
+                  {
+                  swal("Error: 'To' Year cannot be before 'From' Year");
+                  }
+                  else
+                  {
+                  $('#investorErr').hide();
+                  
+                  $('.saveshowdealsbt').modal('show');
+
+                  mode=$('#mode').val();
+                  if(mode == 'A')
+                  {
+                  $('#filter_name').val('')
+                  }
+                  else
+                  {
+                  $('#filter_name').val(globalfilterNameId);
+                  $('filter_desc').val(globalfilterDescrip);
+               
+                  }
+                  }
+               }
+               else{
+                  if($('#expinvestorauto_sug').tokenInput("get").length == 0)
+                  {
+                  $('#exitinvestorErr').show();
+                  $('.saveshowdealsbt').modal('hide');
+                  }
+                  else if(parseInt($('#exityr1').val()) > parseInt($('#exityr2').val()))
+                  {
+                  swal("Error: 'To' Year cannot be before 'From' Year");
+                  }
+                  else
+                  {
+                  $('#exitinvestorErr').hide();
+                  
+                  $('.saveshowdealsbt').modal('show');
+
+                  mode=$('#mode').val();
+                  if(mode == 'A')
+                  {
+                  $('#filter_name').val('')
+                  }
+                  else
+                  {
+                  $('#filter_name').val(exitglobalfilterNameId);
+                  $('filter_desc').val(exitglobalfilterDescrip);
+               
+                  }
+                  }
+               }
          });
-         $(document).on('click','#exitsaveshowdealsbt',function(){
-         
-         if($('#expinvestorauto_sug').tokenInput("get").length == 0)
-         {
-         $('#exitinvestorErr').show();
-         }
-         else if($('#exitmon1').val() && $('#exitmon2').val() && $('#yearexityr11').val() && $('#exityr2').val() == '')
-         {
-         $('#durationErr').show()
-         
-         }
-         else if(parseInt($('#exityr1').val()) > parseInt($('#exityr2').val()))
-         {
-         swal("Error: 'To' Year cannot be before 'From' Year");
-         }
-         else
-         {
-         $('#exitinvestorErr').hide();
-         
-         $('#maskscreen').fadeIn();
-         $('#preloading').fadeIn();  
-         $('#popup-box-copyrights-savefilter').fadeIn(); 
-         mode=$('#mode').val();
-         if(mode == 'A')
-         {
-         $('#filter_name').val('')
-         }
-         else
-         {
-         $('#filter_name').val(globalfilterNameId);
-         $('filter_desc').val(globalfilterDescrip);
-         
-         }
-         }
-         });
+
+        
          $(document).on('click','#expcancelbtn-savefilter',function(){
          $('#filterErr').hide()
          $('#filterDescErr').hide()
@@ -2365,7 +2329,8 @@
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
-         
+         var filterType= $(".rightpanel").find(".active").attr('value')       
+         exportfiltr(1,filterType,globalfilterId,globalfilterNameId);
          if (currentRec < remLimit){
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
@@ -2387,7 +2352,6 @@
          });
          
          $('#exitexpshowdealsbt').click(function(){
-         exportfiltr(1);
          if($('#exitdealtype').val() != null)
          {
          var dealtype=$('#exitdealtype').val().toString();
@@ -2466,6 +2430,8 @@
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
          
+         var filterType= $(".rightpanel").find(".active").attr('value')       
+         exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId);
          if (currentRec < remLimit){
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
