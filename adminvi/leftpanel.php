@@ -9,7 +9,7 @@
 ?>
 <style>
 #vertbgproproducts{
-    height: 900px;
+    height: 980px;
 } 
 </style>
 <div id="leftpanel">
@@ -140,8 +140,21 @@
         </div>
         <?php } ?>
         <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/adminFilter.php">AddFilter</a><br /></div>
+        <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">EditFilter</a><br /></div>
+        
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;M&A</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/uploadCinno.php">Upload CIN Number</a><br /></div>
+
+
+        <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Exit</span></div>
         </div>
         <div id="linksnone"><a href="../adminlogoff.php">Logout</a><br /></div>
+       
     </div> <!-- end of vertbgproducts div-->
 </div>
