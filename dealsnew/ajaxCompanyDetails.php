@@ -11,6 +11,12 @@
 
         $searchString2="Others";
         $searchString2=strtolower($searchString2);
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
         if(($VCFlagValue=="0" || $VCFlagValue=="1") && trim(search)!="" )
         {
             
@@ -74,7 +80,7 @@
              
          }
         
-        
+        }
         
         
         function getPESql($VCFlagValue,$search)

@@ -1,3 +1,7 @@
+<?php
+        require_once("../dbconnectvi.php");
+        $Db = new dbInvestments();
+       include ('checklogin.php');?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -1210,4 +1214,12 @@ function setCurControl(control)
             }
         });
     });
+
+$(document).ready(function () {
+    
+    $('#searchallfield').keyup(function() {
+        var $th = $(this);
+        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+    });
+});
 </script>

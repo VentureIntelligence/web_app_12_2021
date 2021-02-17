@@ -1,3 +1,9 @@
+<?php
+        require_once("reconfig.php");
+	require_once("../dbconnectvi.php");
+	$Db = new dbInvestments();
+    include ('checklogin.php');
+    ?>
 <script>
     $(document).ready(function(){
         

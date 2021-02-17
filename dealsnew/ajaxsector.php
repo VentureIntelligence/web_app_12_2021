@@ -7,7 +7,12 @@ $jsonarray=array();
 $mainsector=$_REQUEST['sector'];
 $flag = $_REQUEST['vcflag'];
 $industry = $_REQUEST['industry'];
-
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
 if($flag == 'PE' || $flag == 4 || $flag == 5 || $flag == 3){
 	$tableName = 'peinvestments';
 } else if($flag == 'EXITS'){
@@ -64,6 +69,7 @@ if($mainsector!='')
 		}
 		
 		echo json_encode(utf8ize($jsonarray));//exit();
+}
 }
 function utf8ize( $mixed ) {
 	if (is_array($mixed)) {

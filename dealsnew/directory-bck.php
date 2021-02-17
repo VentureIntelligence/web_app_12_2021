@@ -1,7 +1,12 @@
 <?php
 	require_once("../dbconnectvi.php");
 	$Db = new dbInvestments();
-	
+	if(!isset($_SESSION['UserNames']))
+	{
+			header('Location:../pelogin.php');
+	}
+	else
+	{		
 	
 	//SEARCH ON SUBMIT
 	/*if(!$_POST){
@@ -1552,7 +1557,8 @@ Unlisted, FY 3yrs</li>
 </body>
 </html>
 
-<?php
+<?php 
+	}
 	function returnMonthname($mth)
 		{
 			if($mth==1)

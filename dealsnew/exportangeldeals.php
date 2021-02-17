@@ -1,8 +1,14 @@
 <?php
 
-session_start();
+//session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{
 $listallcompany = $_POST['listallcompanies'];
 if($listallcompany==1)
         {
@@ -688,7 +694,7 @@ $pe_inv = array();
     print("\n");
      $_SESSION['pe_inv'] = $pe_inv;
 
-
+    }
    mysql_close();
     mysql_close($cnx);
     ?>

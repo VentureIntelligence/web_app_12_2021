@@ -1,4 +1,12 @@
-
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {?>
 <SCRIPT LANGUAGE="JavaScript">
 function checkForAggregates()
 {
@@ -429,3 +437,4 @@ From <input type"text" name="txtmultipleReturnFrom" onkeypress="return isNumberK
     	<input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();">
     </li>
 </ul>
+<?php } ?>

@@ -1,3 +1,13 @@
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {
+     ?>
 <style>
 .showtextlarge {
     border: 0 none;
@@ -2315,3 +2325,4 @@ $(document).ready(function(){
 });
 
     </script>
+<?php } ?>

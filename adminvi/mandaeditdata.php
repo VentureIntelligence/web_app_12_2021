@@ -751,15 +751,16 @@ $currentyear = date("Y");
 								<td >Link for Financials (LISTED FIRM ONLY)</td>
 								<td><textarea name="txtfinlink" rows="3" cols="40"><?php echo $mycomprow["FinLink"]; ?></textarea> </td>
 								</tr>
-								<tr>
+								<!-- <tr>
 								<td >&nbsp;Financial <br>
 								</td>
-								<td valign=top><INPUT name="txtfilepath" TYPE="file" value="<?php echo $mycomprow["uploadfilename"]; ?>" size=50>
+								<td valign=top>
+								<INPUT name="txtfilepath" TYPE="file" value="<?php //echo $mycomprow["uploadfilename"]; ?>" size=50>
 								<input name="txtfile" type="text" size="22" value="<?php echo $mycomprow["uploadfilename"]; ?>" >
                                                               	<input type="button" value="Delete File" name="deletemandafile" onClick="delUploadFile();"  >
                                                          	</td>	</tr>
 
-								<tr>
+								<tr> -->
 								<td >&nbsp;Source</td>
 
 								<td><input name="txtsource" type="text" size="50" value="<?php echo $mycomprow["source"]; ?>" ></td>
