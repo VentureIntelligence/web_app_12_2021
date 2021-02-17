@@ -63,7 +63,7 @@ function generateExcelinCinNo($cinno)
     }
         $companyId=rtrim($PECompanyId , ',');
         $acompanyname=rtrim($cmpnyName,',');
-     //  echo $sqlRes;exit();
+
      if($acompanyname != '')
      {
          $acompanytype=explode(",",$acompanyname);
@@ -71,7 +71,11 @@ function generateExcelinCinNo($cinno)
          if (count($acompanytype) > 0) {
           $acompanytypeSql = '';
              foreach ($acompanytype as $company) {
-                 $acompanytypeSql .= " Acquirer LIKE '" . $company . "' or  ";
+                $company=str_replace("'", " ", $company);
+
+                $acompanytypeSql .= " Acquirer LIKE '" . $company . "' or  ";
+                // $acompanytypeSql .= ' Acquirer LIKE "' . $company . '" or  ';
+                
                 }
              if ($acompanytypeSql != '') {
                  $acompanytype = ' ' . trim($acompanytypeSql, ' or ') . '';
@@ -87,7 +91,7 @@ function generateExcelinCinNo($cinno)
          $AcquirerId .=$row['AcquirerId']. ',';
      }
      $AquireId=rtrim($AcquirerId , ',');
-     //echo $sqlQuery;exit();
+   //  echo $sqlQuery;exit();
 
      $sqlQueryResult="SELECT c.CINNo as cfs_companyName,c.companyname as companyname,sector_business AS sector_business,
       ac.acquirer,Date_format(dealdate, '%b-%Y') AS dates,peinv.amount
@@ -101,7 +105,7 @@ function generateExcelinCinNo($cinno)
 
      $generateSelResult = mysql_query($sqlQueryResult) or die(mysql_error());
 
-    // echo $sqlQueryResult;exit();
+     //echo $sqlQueryResult;exit();
 
 /** Error reporting */
         error_reporting(E_ALL);
@@ -196,10 +200,10 @@ function generateExcelinCinNo($cinno)
                     while($row = mysql_fetch_array($queryResult))
                         {
 
-                            $FCompanyName1 =$row['SCompanyName'];
+                            $FCmpName =$row['SCompanyName'];
                         }
 
-                         $DataList[] = $FCompanyName1;
+                         $DataList[] = $FCmpName;
                     }
                     else{
                     $DataList[] = $rows[3];
