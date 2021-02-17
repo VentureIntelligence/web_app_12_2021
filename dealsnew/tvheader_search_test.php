@@ -1,3 +1,12 @@
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ { ?>
 <?php include_once("../globalconfig.php"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -189,7 +198,7 @@ $(document).ready(function(){
 //	$("#myTable").tablesorter({widthFixed: true}); 
 //	$("div.holder").jPages({
 //	  containerID : "movies",
-//	  previous : "â†? Previous",
+//	  previous : "ï¿½? Previous",
 //	  next : "Next â†’",
 //	  perPage : 50,
 //	  delay : 20
@@ -1506,4 +1515,5 @@ else
                 $("#investmentsvc").show();
                 });
    <?php } ?>
-</script> 
+</script>  
+<?php } ?>

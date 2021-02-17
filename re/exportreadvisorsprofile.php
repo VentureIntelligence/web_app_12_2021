@@ -4,6 +4,7 @@
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	include ('checklogin.php');
 		//include('onlineaccount.php');
 		$displayMessage="";
 		$mailmessage="";
@@ -28,7 +29,7 @@
 					//echo "<br>End date-" .$hidedateEndValue;
 				//	echo "<br>Date value-" .$dateValue;
 
-					$tsjtitle="© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
+					$tsjtitle="ï¿½ TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 
 
 

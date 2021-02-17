@@ -5186,8 +5186,7 @@
         $defpage=$defvalue;
         $stagedef=1;
         $tour='Allow';
-        echo "<div style='display:none'>$showallsql</div>";
-        //echo 'flag='.$vcflagValue; exit;
+       
         $strvalue[1]='';
     include_once('dirnew_header.php');
 ?>
@@ -5354,7 +5353,7 @@
 .filter-area {
     float: left;
     margin-left: 20px;
-    margin-top: -18px;
+    margin-top: -16px;
 }
 .filter-area select {
     margin-right:15px;
@@ -6990,7 +6989,10 @@ if(tagsearchval == ''){
         console.log(year1);
         console.log(month2);
         console.log(year2);
-        if(year1>year2 || month1 > month2){
+        var startdate= new Date(year1,month1-1,01);
+        var enddate= new Date(year2,month2-1,01);
+        //if(year1>year2 || month1 > month2){
+        if(startdate>enddate ){
             alert("To date cannot be less than From date");
             $(this).removeAttr("onchange","this.form.submit();");
             search_filter=1
@@ -7010,7 +7012,10 @@ if(tagsearchval == ''){
         console.log(year1);
         console.log(month2);
         console.log(year2);
-        if(year1>year2 || month1 > month2){
+        var startdate= new Date(year1,month1-1,01);
+        var enddate= new Date(year2,month2-1,01);
+        //if(year1>year2 || month1 > month2){
+        if(startdate>enddate ){
             alert("To date cannot be less than From date");
             $(this).removeAttr("onchange","this.form.submit();");
             search_filter=1
@@ -7031,7 +7036,10 @@ if(tagsearchval == ''){
         console.log(year1);
         console.log(month2);
         console.log(year2);
-        if(year1>year2 || month1 > month2){
+        var startdate= new Date(year1,month1-1,01);
+        var enddate= new Date(year2,month2-1,01);
+        //if(year1>year2 || month1 > month2){
+        if(startdate>enddate ){
             alert("To date cannot be less than From date");
             $(this).removeAttr("onchange","this.form.submit();");
             search_filter=1
@@ -7054,8 +7062,8 @@ if(tagsearchval == ''){
             $(this).removeAttr("onchange","this.form.submit();");
             search_filter=1
         }else{
-        //$(this).attr("onchange","this.form.submit();");
-        //$("#pesearch").submit();
+        $(this).attr("onchange","this.form.submit();");
+        $("#pesearch").submit();
         search_filter="";
         }
         //alert("You have selected the country - " + selectedCountry);

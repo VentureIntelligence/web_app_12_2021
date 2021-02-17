@@ -1,3 +1,11 @@
+<?php require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,6 +28,10 @@
 <script src="js/showHide.js" type="text/javascript"></script>
 <script src="js/jquery.flexslider.js"></script>
 <script src="js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="js/jquery.multiselect.js"></script> 
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script> 
+<link rel="stylesheet" type="text/css" href="css/jquery.multiselect.filter.css" />
+<script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>
 <!--<script src="js/switch.min.js" type="text/javascript"></script>-->
 <!--<link href="css/switch.css" type="text/css" rel="stylesheet">-->
 <script type="text/javascript">
@@ -333,7 +345,10 @@ overflow: hidden;
   line-height: 18px !important;
 }
 .period-date label{
-  line-height: 32px !important;
+  line-height: 25px !important;
+  font-size: 13px;
+    font-weight: 600;
+    margin: 0px 5px;
 }
 .detailed-title-links h2{
   margin-bottom: -20px !important;
@@ -341,8 +356,76 @@ overflow: hidden;
 .result-title {
     margin-top: -20px !important;
     padding: 20px 0 15px !important;
+    position:inherit;
+}
+.datesubmit{
+    cursor: pointer;
+    float: left;
+    background: url(../dealsnew/images/icon-search.png) no-repeat center #a2753a !important;
+    border: 1px solid #a2753a;
+    width: 33px !important;
+    height: 25px;
+    min-width: 33px !important;
+}
+.investorfilter{
+    float:right;
+    width: 33%;
+}
+.investorfilter select{padding:3px;}
+.period-date select,.period-date+.search-btn,#expshowdeals{margin-top:0px !important;}
+.exportinvest {
+    border: 1px solid #a2733a;
 }
 
+.with-invs{
+    font-size: 13px;
+    padding: 5px;
+    border-bottom: 1px solid #a37535;
+    background-color: #fff;
+    text-align: center;
+    padding-top: 30px;
+    cursor: pointer;
+}
+.without-invs{
+    font-size: 13px;
+    padding: 5px;
+    border-bottom: 1px solid #a37535;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+ .profile-invs {
+    font-size: 13px;
+    padding: 5px;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+.title-links a{
+    margin-left:0px !important;
+}
+.export {
+    padding-left: 20px !important;
+}
+.result-title .title-links {
+    position: absolute !important;
+}
+.inves{
+    position: absolute;
+    right: 10%;
+}
+.result-title h2{
+    margin-bottom:5px;
+}
+.result-title li{
+    position:unset !important;
+}
+.result-select {
+    padding: 3px 3px 1px 2px !important;
+}
+.result-select-close a {
+    margin: -6px 0px 0px 0px !important;
+}
 </style>
 </head>
 <?php if($_SESSION['PE_TrialLogin']==1){ ?>
@@ -363,7 +446,15 @@ overflow: hidden;
         include_once('refinedef.php');?>
     <!--Header-->
     <?php
-       $actionlink="pedirview.php?value=".$vcflagValue;
+    if(basename($_SERVER['PHP_SELF'])=="pedirview.php"){
+        $actionlink="pedirview.php?value=".$vcflagValue;
+    }elseif(basename($_SERVER['PHP_SELF'])=="investorreport.php"){
+        $actionlink="investorreport.php";
+    }elseif(basename($_SERVER['PHP_SELF'])=="newinvestorreport.php"){
+        $actionlink="newinvestorreport.php";
+    }
+   
+       //$actionlink="investorreport.php?value=".$vcflagValue;
     ?>
 
 
@@ -375,12 +466,7 @@ overflow: hidden;
 <td class="left-box"> <div class="logo-img"> <a href="index.php"><img src="images/logo.gif" width="167" height="45" alt="Venture Intelligence" title="Venture Intelligence" border="0" /></a></div></td>
 
 <td class="right-box">
-<ul>
-<!-- <li <?php echo ($topNav=='Dashboard') ? 'class="active"' : '' ; ?>><a href="dashboard.php?type=1"><i class="i-dashboard"></i>Dashboard</a></li> -->
-<li <?php echo ($topNav=='Deals') ? 'class="active"' : '' ; ?>><a href="angelindex.php"><i class="i-data-deals"></i>Deals</a></li>
-<li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?>><a href="pedirview.php?value=<?php echo $vcflagValue; ?>"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
-</ul>
+<?php include('top_menu.php'); ?>
 <ul class="fr">
 <li ><div style="float:right;padding: 9px 15px" class="key-search"><b></b> <input  autofocus="autofocus" type="text" name="searchallfield" placeholder=" Keyword Search"
                                                                                       <?php if($searchallfield!="") echo "value=".$searchallfield ;?>
@@ -529,8 +615,7 @@ if($vcflagValue==0 || $vcflagValue==1 || $vcflagValue==3 || $vcflagValue==4 || $
     <?php
 }
 ?>
-</form>
-<form name="yearchange" id="yearchange" action="investorreport.php" method="post">
+
 
 <script>
     $(document).ready(function(){
@@ -725,4 +810,4 @@ $(".ttl3").click(function() {
      });
          
 </script>
-    
+<?php } ?>   

@@ -2,7 +2,7 @@
 
     require_once("../dbconnectvi.php");//including database connectivity file
     $Db = new dbInvestments();
-
+    include ('machecklogin.php');
     $searchTerm = $_REQUEST['queryString'];
     $jsonarray=array();
 

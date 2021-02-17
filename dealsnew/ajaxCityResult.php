@@ -5,7 +5,12 @@
     $VCFlagValue=$_REQUEST['vcflag'];
     $stateval=$_REQUEST['state'];
     //print_r($stateval);exit();
-    
+    if(!isset($_SESSION['UserNames']))
+    {
+            header('Location:../pelogin.php');
+    }
+    else
+    {
     if($VCFlagValue == 4){
         $dbtype="and peinvestments_dbtypes.DBTypeId='CT'";
     }elseif($VCFlagValue == 5){
@@ -54,6 +59,6 @@
     }
     
     echo json_encode($jsonarray);
-            
+}       
                
 ?>

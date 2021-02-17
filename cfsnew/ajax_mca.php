@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+include "sessauth.php";
 if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();

@@ -2,7 +2,12 @@
 <?php
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
-
+if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {	
 $financial_data='';
 
 if($_POST['cin']!='' && ($_POST['cin']!='0' || $_POST['cin']!=0)){
@@ -1308,4 +1313,5 @@ if($_POST['cin']!='' && ($_POST['cin']!='0' || $_POST['cin']!=0)){
     $financial_data .= '<div style="height:200px;font-size:16px;text-align:center;margin-top:200px;"><span display: inline-block;vertical-align: middle;line-height: normal;>Data not found. Please <a href="mailto:arun@ventureintelligence.in?subject=Request for financials linking&body='.GLOBAL_BASE_URL.'dealsnew/dealdetails.php?value=1829487383/0/&scr=EMAIL"  id="financial_data" style="font-weight:bold;cursor:pointer;text-decoration: underline;color: #624C34;">Click Here</a> to alert Venture Intelligence about this. Thanks.</span></div>'; //CIN number not found.
 }
 echo json_encode($financial_data);
+ }
 ?>

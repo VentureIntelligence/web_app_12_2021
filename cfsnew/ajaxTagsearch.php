@@ -1,5 +1,6 @@
 <?php
-
+include "header.php";
+include "sessauth.php";
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
         

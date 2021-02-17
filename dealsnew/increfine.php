@@ -1,4 +1,12 @@
 <?php 
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
  $showdealsbyflag=0; 
  
  if(($keyword!="" && $keyword!=" ") || ($companysearch!="" && $companysearch!=" "))
@@ -963,3 +971,4 @@ if($tagradio==0){
          });
 
     </script>
+    <?php } ?>
