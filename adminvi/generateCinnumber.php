@@ -43,26 +43,49 @@ function generateExcelinCinNo($cinno)
 {
     $cinId=explode(',',$cinno);
 
-     $sql='SELECT `SCompanyName`,`FCompanyName` FROM `cprofile` WHERE `CIN` In ("'. implode('","', $cinId) .'")' ;
-     //echo $sql;exit();
-     $sqlResult = mysql_query($sql) or die(mysql_error());
-     while($rows = mysql_fetch_array($sqlResult))
-    {
-        $FCompanyName .=$rows['SCompanyName']. ',';
-    }
-    $FcompanyId=rtrim($FCompanyName , ',');
-    $FcmpnyName=explode(',',$FcompanyId);
     
 
-     $sqlRes='select PECompanyId,companyname from pecompanies where CINNo In ("'. implode('","', $cinId) .'")' ;
+     $sqlRes='select PECompanyId,companyname,CINNo from pecompanies where CINNo In ("'. implode('","', $cinId) .'")' ;
      $sqlResResult = mysql_query($sqlRes) or die(mysql_error());
+     $sqlCount=mysql_num_rows($sqlResResult);
+     //echo $sqlCount;exit();
+     if($sqlCount == 0)
+     {
+        $sql='SELECT `SCompanyName`,`FCompanyName` FROM `cprofile` WHERE `CIN` In ("'. implode('","', $cinId) .'")' ;
+        //echo $sql;exit();
+        $sqlResult = mysql_query($sql) or die(mysql_error());
+        while($rows = mysql_fetch_array($sqlResult))
+       {
+           $cmpnyName .=$rows['SCompanyName']. ',';
+       }
+     }
+     else{
     while($rows = mysql_fetch_array($sqlResResult))
     {
         $PECompanyId .=$rows['PECompanyId']. ',';
-        $cmpnyName .=$rows['companyname']. ',';
-    }
+            if($PECompanyId == '')
+            {
+                $sql='SELECT `SCompanyName`,`FCompanyName` FROM `cprofile` WHERE `CIN` ='.$rows['CINNo'].'' ;
+                //echo $sql;exit();
+                $sqlResult = mysql_query($sql) or die(mysql_error());
+                while($rows = mysql_fetch_array($sqlResult))
+               {
+                   $cmpnyName .=$rows['SCompanyName']. ',';
+               }
+            //    $FcompanyId=rtrim($FCompanyName , ',');
+            //    $FcmpnyName=explode(',',$FcompanyId);
+            }
+            else
+            {
+                $cmpnyName .=$rows['companyname']. ',';
+            }
+         }
+        }
         $companyId=rtrim($PECompanyId , ',');
         $acompanyname=rtrim($cmpnyName,',');
+        //echo $acompanyname;exit();
+
+
 
      if($acompanyname != '')
      {
@@ -91,15 +114,18 @@ function generateExcelinCinNo($cinno)
          $AcquirerId .=$row['AcquirerId']. ',';
      }
      $AquireId=rtrim($AcquirerId , ',');
-   //  echo $sqlQuery;exit();
-
+     //echo $AquireId;exit();
+    //  if($AquireId != '' )
+    //  {
+    //      $aquireValue=' AND (ac.acquirerid IN ($AquireId))';
+    //  }
      $sqlQueryResult="SELECT c.CINNo as cfs_companyName,c.companyname as companyname,sector_business AS sector_business,
       ac.acquirer,Date_format(dealdate, '%b-%Y') AS dates,peinv.amount
      FROM acquirers AS ac, mama AS peinv,pecompanies AS c,industry AS i
      WHERE dealdate BETWEEN '2004-1-01' AND '2020-10-31' AND ac.acquirerid = peinv.acquirerid 
      AND c.industry = i.industryid AND c.pecompanyid = peinv.pecompanyid 
      AND peinv.deleted = 0  AND c.industry != 15 
-     AND (ac.acquirerid IN ($AquireId) or c.pecompanyid IN($companyId))
+     AND (ac.acquirerid IN ($AcquirerId) or c.pecompanyid IN($companyId))
      AND c.industry IN (49,14,9,25,24,7,4,16,17,23,3,21,1,2,10, 54, 18,11,66,106,8,12,22 )
     ORDER BY CASE WHEN c.pecompanyid IN($companyId) THEN 1 ELSE 2 END, dealdate DESC, companyname asc";
 
