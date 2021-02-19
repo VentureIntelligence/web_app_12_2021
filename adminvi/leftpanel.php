@@ -9,6 +9,7 @@
 ?>
 <style>
 #vertbgproproducts{
+   
     height: 925px;
 } 
 </style>
