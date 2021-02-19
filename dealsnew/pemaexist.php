@@ -10,7 +10,13 @@
         $hide_pms=$VCFlagValue_exit[1];
          echo $_POST['dealtype'];
         require_once("../dbconnectvi.php");
-	$Db = new dbInvestments();
+        $Db = new dbInvestments();
+        if(!isset($_SESSION['UserNames']))
+        {
+        header('Location:../pelogin.php');
+        }
+        else
+        {
           $notable=false;
         $vcflagValue=$_POST['txtvcFlagValue'];
         $hide_pms=$_POST['txthide_pms'];
@@ -924,6 +930,7 @@ if($industry >0)
 </html>
 
 <?php
+        }
 	function returnMonthname($mth)
 		{
 			if($mth==1)
@@ -990,5 +997,5 @@ function writeSql_for_no_records($sqlqry,$mailid)
 							         print "\n";
 
  }
-
+        
 ?>

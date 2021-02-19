@@ -6,7 +6,12 @@
             
         $getinvestorSql = geINVSql($search);
         $jsonarray=array();
-        
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
         if ($rsinvestors = mysql_query($getinvestorSql))
         {
                 While($myrow=mysql_fetch_array($rsinvestors, MYSQL_BOTH))
@@ -20,7 +25,7 @@
                 }
         }
         echo json_encode($jsonarray);
-        
+}
         function geINVSql($search)
         {
 

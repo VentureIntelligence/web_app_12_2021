@@ -3,6 +3,12 @@
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	if(!isset($_SESSION['UserNames']))
+	{
+			header('Location:../pelogin.php');
+	}
+	else
+	{
 session_save_path("/tmp");
 session_start();
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800))
@@ -564,7 +570,7 @@ if ((session_is_registered("UserNames")) )
  	}//if loop ends
  } //session registered loop ends
 
-
+	}
 
 function curPageURL() {
  $pageURL = 'http';
@@ -618,7 +624,7 @@ function curPageURL() {
 		$dbregionlink.close();
 	}
 
-
+	
 ?>
 
 

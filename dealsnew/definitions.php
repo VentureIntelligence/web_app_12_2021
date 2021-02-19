@@ -4,7 +4,14 @@
     top:170px !important;
 }</style>
 <?php
-
+require_once("../dbconnectvi.php");//including database connectivity file
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+         header('Location:../pelogin.php');
+}
+else
+{
 if($defpage == 0)
 {
 ?>
@@ -192,5 +199,6 @@ else if($defpage == 11)
     </ul>
     </div>
 <?php
+}
 }
 ?>

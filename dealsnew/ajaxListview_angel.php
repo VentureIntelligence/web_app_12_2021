@@ -5,7 +5,12 @@
  $searchString=strtolower($searchString);
  $searchString1="Unknown";
  $searchString1=strtolower($searchString1);
-
+if(!isset($_SESSION['UserNames']))
+    {
+            header('Location:../pelogin.php');
+    }
+    else
+    {
 //Company Sector
 $searchString="Undisclosed";
 $searchString=strtolower($searchString); 
@@ -254,6 +259,7 @@ else
 
                                     }
                             }
+                        }
                             ?>
                                               
         </tbody>

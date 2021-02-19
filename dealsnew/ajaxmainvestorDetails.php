@@ -3,7 +3,12 @@
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
         
-        
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {    
      
     $maVCFlagValue = $_GET['mavcf'];
     
@@ -47,7 +52,7 @@
        echo json_encode($response);
     } 
     
-
+        }
                         
 mysql_close();
     mysql_close($cnx);

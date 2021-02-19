@@ -1,11 +1,16 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
  //session_save_path("/tmp");
-	session_start();
+//	session_start();
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
-       
+	if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{  
         //Check Session Id 
         $sesID=session_id();
         $emailid=$_SESSION['UserEmail'];
@@ -550,7 +555,7 @@ $schema_insert .= $row[34].$sep; // year founded
 
 	 				}
 	 			}
-
+			}
   mysql_close();
     mysql_close($cnx);
     ?>

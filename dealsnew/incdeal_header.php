@@ -1,4 +1,12 @@
-<?php include_once("../globalconfig.php"); ?>
+<?php include_once("../globalconfig.php"); 
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{?>
 <?php $searchString1="Unknown";
                 $searchString1=strtolower($searchString1);
                 $totalDisplay="";
@@ -1203,3 +1211,4 @@ if($_POST['month1']!='' && $_POST['year1']!='' && $_POST['month2']!='' && $_POST
                   $(this).toggleClass('active').next('.frmDropDown').toggleClass("active");
                });
 </script> 
+<?php } ?>

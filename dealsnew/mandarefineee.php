@@ -1,3 +1,11 @@
+<?php include_once("../globalconfig.php"); require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{?>
 <script>
  // Company
  $(function() {
@@ -610,3 +618,4 @@
     
 </ul></div>
 	</div-->
+	<?php } ?>

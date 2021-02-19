@@ -1,7 +1,7 @@
 <?php
  require_once("../dbconnectvi.php");
  $Db = new dbInvestments();
-
+ include ('checklogin.php');
      $search = $_REQUEST['search'];
 
 if(isset($_REQUEST['getcompany'])){    

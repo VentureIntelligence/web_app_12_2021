@@ -1,4 +1,7 @@
 <?php
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('checklogin.php');
     function getReInvestorsByValue($flagvalue)
     {
         $searchString="Undisclosed";

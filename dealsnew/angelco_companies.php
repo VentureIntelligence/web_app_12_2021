@@ -4,7 +4,12 @@
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
 $company=$_POST['queryString']."%";
-        
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{       
         
     $getcompaniesSql="SELECT  DISTINCT  company_name FROM  angelco_fundraising_cos  WHERE company_name  like '%" .$company. "%'   ORDER BY company_name";
 
@@ -25,6 +30,7 @@ $company=$_POST['queryString']."%";
 
 mysql_close();
     mysql_close($cnx);
+}
     ?>
             
             

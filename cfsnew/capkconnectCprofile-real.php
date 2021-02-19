@@ -3,6 +3,8 @@ if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();
 }
+include "header.php";
+include "sessauth.php";
 include_once('simple_html_dom.php');
 include("etc/conf.php");
 include("path_Assign.php");

@@ -1,7 +1,12 @@
 <?php 
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
-      
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
        $searchallfield = $_REQUEST['search'];
        $section = $_REQUEST['section'];
        $filed_name = $_REQUEST['filed_name'];
@@ -199,7 +204,7 @@
              $Response['sections']['VC-Exits-IPO']['html'] = '<a href="ipoindex.php?value=1" class="other_db_link" data-search_val="'.$searchallfield.'">VC-Exits IPO</a>'; 
              }
          } 
-       
+        }
        // Start Investments        
        function PE_Inv($searchallfield,$filed_name='') {
            
@@ -3053,5 +3058,5 @@
         mysql_close($cnx);
    
         exit;
-        
+       
   ?>
