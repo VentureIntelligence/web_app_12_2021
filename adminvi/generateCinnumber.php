@@ -47,8 +47,13 @@ function generateExcelinCinNo($cinno)
     $exportvalue=rtrim($exportval,',');
     $expval=explode(",",$exportvalue);
     $rowArray = $expval;
-
+    $exportwithoutma='CompanyName,Cinno,Brandname';
+    //$exportval.='BrandName'.',';
+ 
+    $expvaluewithoutma=explode(",",$exportwithoutma);
+            $rowvaluewithoutma=$expvaluewithoutma;
     $arrayData = array();
+    $arrayDataVlaue=array();
     $flag =''; 
     foreach( $cinId as $cin){
         $companyidarr = array();
@@ -484,7 +489,36 @@ function generateExcelinCinNo($cinno)
                  }else{
                     
                     $cinlist[] .=$cin;
-             }
+                    $query= "SELECT `FCompanyName`,`CIN`,`SCompanyName` FROM `cprofile` WHERE `CIN`='".$cin."'";
+                    $pers=mysql_query($query);
+                    while ($rows = mysql_fetch_array($pers)) {
+              
+                        $DataList = array();  
+            
+                    if(in_array("CompanyName", $rowvaluewithoutma))
+                    {
+                   
+                        $DataList[] = $rows[0];
+                       
+                    }
+                    
+                    if(in_array("Cinno",$rowvaluewithoutma))
+                    {
+                        
+                        $DataList[] = $rows[1];
+                        
+                    }
+                        //$DataList[] = $rows[6]; 
+                    
+                    if(in_array("Brandname", $rowvaluewithoutma))
+                    {
+                     $DataList[] = $rows[2];
+                    }                  
+                    $arrayDataVlaue[] = $DataList;
+                    
+                    
+                    }
+                        }
                 }
             }
             
@@ -493,9 +527,9 @@ function generateExcelinCinNo($cinno)
             //echo $sql ."<br>";
         }            
        // exit();
-       $cinvalue=implode(",",$cinlist);
-       echo $cinvalue;
-       exit();
+    //    $cinvalue=implode(",",$cinlist);
+    //    echo $cinvalue;
+    //    exit();
 /** Error reporting */
         error_reporting(E_ALL);
         ini_set('display_errors', TRUE);
@@ -569,7 +603,7 @@ function generateExcelinCinNo($cinno)
                     );
 
                     // Rename worksheet
-                    $objPHPExcel->getActiveSheet()->setTitle('MA');
+                    $objPHPExcel->getActiveSheet()->setTitle('With M&A Value');
 
             
                     // T960 Changes
@@ -581,6 +615,48 @@ function generateExcelinCinNo($cinno)
                     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
                     $objPHPExcel->setActiveSheetIndex(0);
 
+                    $objPHPExcel->createSheet();
+                  
+
+                   $objPHPExcel->setActiveSheetIndex(1);
+                   //$objPHPExcel->getActiveSheet()->setCellValue('A1', 'More data');
+
+                  
+       
+                          // echo json_encode($rowvalue);exit();
+                            $objPHPExcel->getActiveSheet()
+                            ->fromArray(
+                                $rowvaluewithoutma,   // The data to set
+                                NULL,        // Array values with this value will not be set
+                                'A1'         // Top left coordinate of the worksheet range where
+                                            //    we want to set these values (default is A1)
+                            );
+                            $index = 2;
+            
+                            $peidcheck = '';
+                           
+                            
+                                
+                                $objPHPExcel->getActiveSheet()
+                                ->fromArray(
+                                    $arrayDataVlaue,  // The data to set
+                                    NULL,        // Array values with this value will not be set
+                                    'A2'         // Top left coordinate of the worksheet range where
+                                                //    we want to set these values (default is A1)
+                                );
+            
+                                // Rename worksheet
+                               // $objPHPExcel->getActiveSheet()->setTitle('MA');
+            
+                        
+                                // T960 Changes
+                                $objPHPExcel->getActiveSheet()
+                                    ->getStyle('A2:A2')
+                                    ->getAlignment()
+                                    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+               // // Rename 2nd sheet
+                $objPHPExcel->getActiveSheet()->setTitle('Without M&A Value');
 //                     $objPHPExcel->createSheet();
 
 
