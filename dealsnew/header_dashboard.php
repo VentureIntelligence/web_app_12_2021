@@ -557,13 +557,13 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
         if ($custom_limit_enable == 1)
         {
         ?>
-        <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;" type="button"  name="advExport" value="Advance Export" id="advExport" ></a>
+        <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;border-radius:5px;" type="button"  name="advExport" value="Advance Export" id="advExport" ></a>
         <?php 
         }
 
         else{
         ?>
-        <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advance Export" id="advExport" ></a>
+        <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;border-radius:5px;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advance Export" id="advExport" ></a>
         <?php  }?>
                            
 </td>

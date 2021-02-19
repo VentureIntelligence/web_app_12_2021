@@ -183,9 +183,17 @@
          width: 40%;
          }
          ul.token-input-list-facebook {
-         width:400px;
+         width:100%;
          height: 34px !important;
+         z-index: 1;
          }
+         ul.token-input-list-facebook{width:100% !important;border:none !important;}
+            ul.token-input-list-facebook li input{
+            margin: 5px 0 !important;
+            }
+            li.token-input-token-facebook{
+            margin: 6px 3px !important;
+            }
          ul.exportcolumn {
          -webkit-column-count: 4;
          -moz-column-count: 4;
@@ -219,6 +227,9 @@
          height: 30px;
          border: 1px solid gray;
          } */
+         .token-input-dropdown-facebook {
+            width: 27.5% !important;
+            }
          #preloading {
          background:url(images/linked-in.gif) no-repeat center center;
          height: 100px;
@@ -298,8 +309,11 @@
          display: none
          }
          .period-date select {
-         width: 85px!important;
-         font-size: 14px!important;;
+         /* width: 85px!important;
+         font-size: 14px!important;; */
+         width: 60px!important;
+         font-size: 14px!important;
+         padding: 0px 2px !important;
          }
          li.token-input-token-facebook
          {
@@ -314,6 +328,16 @@
          {
             border-bottom: 1px solid white!important;
          }
+         .dropdown{
+position:fixed !important;
+}
+.dropdown-menu{
+display: initial !important;
+position:relative !important;
+margin-top: 13px !important;
+border-radius:0rem !important;
+padding:0rem !important;
+}
       </style>
    </head>
    <?php if($_SESSION['PE_TrialLogin']==1){ ?>
@@ -449,7 +473,7 @@
                         <div class="btn-group" role="group" aria-label="Basic example">
                            <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
                            <?php if($custom_export_limit <=  $DownloadCount){?>
-                           <button type="button" class="btn exportFilt w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100 text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
                            <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
@@ -502,7 +526,7 @@
                         <div class="btn-group" role="group" aria-label="Basic example">
                            <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
                            <?php if($custom_export_limit <=  $DownloadCount){?>
-                           <button type="button" class="btn exportFilt  w-100 text-center"  onclick="exportfiltrErr()">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100  text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
                            <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>')">EXPORT</button>
@@ -582,14 +606,14 @@
                     <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <div class="card"> 
                     <div class="ml-3 mt-3">
-                        <h6 class="invHeading">Input Investor Name</h6>
-                        <p style="font-size: 12px;color:#919BA2;    margin-left: 10px;">You are allowed to add up to 50 investors by typing (auto suggest)</p>
+                        <h6 class="invHeading">Input Investor`s Name</h6>
+                        <p style="font-size: 12px;color:#919BA2;">You are allowed to add up to 50 investors by typing (auto suggest)</p>
                         <!-- <h6>Investor</h6> -->
                       
                               <div class="row">
                                  <div class="col-md-6">
                                     <li class="ui-widget" style="position: relative">
-                                       <div style="width:100%;">
+                                    <div style="width:100%;border: 1px solid #dad9d9;display:inline-flex;border-radius:5px;">
                                           <span style="position: absolute;
                                              right: 25px;">
                                           </span>
@@ -609,7 +633,9 @@
                                              // echo 'hai';
                                              //echo $isearch;
                                              
-                                             } ?>   
+                                             } ?>  
+                                             <i class="fa fa-search" aria-hidden="true" style="margin-top: 11px;margin-left: 15px;margin-right: 0px"></i>
+ 
                                           <input type="text" id="investorauto_sug" name="investorauto_sug" value="<?php if($iauto!='') echo  $iauto;  ?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($_POST['keywordsearch']!='') echo "readonly='readonly'";  ?>>
                                           <span class="error" style="display:none" id="investorErr">Enter the Investor Name</span>
                                           <input type="hidden" id="keywordsearch" name="keywordsearch" value="<?php if(isset($isearch)) echo  $isearch;  ?>" placeholder="" style="width:220px;">
@@ -625,7 +651,7 @@
                                     </div>
                                     <div class="col-md-4" >
                                       
-                                       <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="padding: 6px 10px 10px 10px;; height: 35px;width: 100px;"><span>Import</span></button>
+                                       <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="height: 35px;padding: 0px 45px;"><span>Import</span></button>
 
                                           <!-- <button  class ="export_new btn bt btn-color btn-circle" style="    margin-top: -10px;" id="impshowdealsbt" name="showdealsimport">Import</button> -->
                                          
@@ -1058,11 +1084,11 @@
                            <div style="float:left">
                               <span class="one">
                               <?php if($custom_export_limit <=  $DownloadCount){?>
-                                 <button  class ="export_new btn  btn-exp" onclick="exportfiltrErr()" name="showdeals">Export</button>
+                                 <button  class ="export_new btn btn-circle btn-exp" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
 
                            <?php }
                               else {?>
-                              <button  class ="export_new btn  btn-exp"  id="expshowdealsbt" name="showdeals">Export</button>
+                              <button  class ="export_new btn btn-circle btn-exp"  id="expshowdealsbt" name="showdeals">Export</button>
                            <?php } ?>
                               </span>
                               <span class="one">
@@ -1099,14 +1125,14 @@
                      <div class="tab-pane container fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                      <div class="card">   
                      <div class="ml-3 mt-3">
-                           <h6 class="invHeading">Input Investor Name</h6>
-                           <p style="font-size: 12px;color:#919BA2;margin-left:10px">You are allowed to add up to 50 investors by typing (auto suggest)</p>
+                           <h6 class="invHeading">Input Investor`s Name</h6>
+                           <p style="font-size: 12px;color:#919BA2;">You are allowed to add up to 50 investors by typing (auto suggest)</p>
                            <!-- <h6>Investor</h6> -->
                          
                                  <div class="row">
                                     <div class="col-md-6">
                                        <li class="ui-widget" style="position: relative">
-                                          <div style="width:100%;">
+                                       <div style="width:100%;border: 1px solid #dad9d9;display:inline-flex;border-radius:5px;">
                                              <span style="position: absolute;
                                                 right: 25px;">
                                              </span>
@@ -1127,6 +1153,8 @@
                                                 //echo $isearch;
                                                 
                                                 } ?>   
+                                             <i class="fa fa-search" aria-hidden="true" style="margin-top: 11px;margin-left: 7px;"></i>
+
                                              <input type="text" id="expinvestorauto_sug" name="expinvestorauto_sug" value="<?php if($iauto!='') echo  $iauto;  ?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($_POST['keywordsearch']!='') echo "readonly='readonly'";  ?>>
                                              <span class="error" style="display:none" id="exitinvestorErr">Enter the Investor Name</span>
                                              <input type="hidden" id="keywordsearch" name="keywordsearch" value="<?php if(isset($isearch)) echo  $isearch;  ?>" placeholder="" style="width:220px;">
@@ -1142,7 +1170,7 @@
                                        </div>
                                        <div class="col-md-4" >
                                           
-                                          <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="padding: 6px 10px 10px 10px;; height: 35px;width: 100px;">Import</button>
+                                          <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="height: 35px;padding: 0px 45px;">Import</button>
                                             
                                        </div>
                                     </div>
@@ -1412,7 +1440,7 @@
                               <div style="float:left">
                               <span class="one">
                               <?php if($custom_export_limit <=  $DownloadCount){?>
-                                 <button  class ="export_new btn  btn-exp" onclick="exportfiltrErr()" name="showdeals">Export</button>
+                                 <button  class ="export_new btn  btn-exp" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
 
                            <?php }
                               else {?>
@@ -1601,6 +1629,7 @@
          $(".resultarray").val('Select-All');
          $('.exitexportcolumn .exitexportcheck').attr('checked', true); 
          $(".exitresultarray").val('Select-All');
+         
          //getfilterName();
           // var currentURL=window.location.href;
          // //alert(currentURL);
@@ -1844,6 +1873,7 @@
          }
          },
          prePopulate : <?php if($investorsug_response!=''){echo   $investorsug_response; }else{ echo 'null'; } ?>
+
          });
 
          $(function(){
@@ -2503,9 +2533,9 @@
                },
             });
          }
-         function exportfiltrErr()
+         function exportfiltrErr(exportLimit)
          {
-            swal('your export limt is expired..please contact your admin')
+            swal("Currently your export action is crossing the limit of "+ exportLimit +" records.  To increase the limit please contact info@ventureintelligence.com");
          }
      </script>
    </body>

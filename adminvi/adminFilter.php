@@ -57,13 +57,15 @@
     }
 
     input[type=button] {
-        width: 20%;
+        /* width: 20%; */
     border-radius: 5px;
     height: 30px;
     background-color: 413529;
     color: white;
     border: 2px solid;
     font-size: 14px;
+    padding:0px 75px;
+    margin-top:15px;
 }
 
 
@@ -241,7 +243,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         <!-- Ending Left Panel -->
         <div style="width:570px; float:right; background-color:#FFF; ">
                 <div style="width:565px; float:left; padding-left:2px;">
-                    <div style="width:565px;">
+                    <div style="padding:0px 15px">
                         <div id="maintextpro">
                             <div id="headingtextpro">
                                 <h3 style="margin-bottom:15px;float:left;">Create New Filter</h3>
