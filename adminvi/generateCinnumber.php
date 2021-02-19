@@ -481,7 +481,10 @@ function generateExcelinCinNo($cinno)
                     }
             
             
-                 }
+                 }else{
+                    
+                    $cinlist[] .=$cin;
+             }
                 }
             }
             
@@ -490,7 +493,9 @@ function generateExcelinCinNo($cinno)
             //echo $sql ."<br>";
         }            
        // exit();
-
+       $cinvalue=implode(",",$cinlist);
+       echo $cinvalue;
+       exit();
 /** Error reporting */
         error_reporting(E_ALL);
         ini_set('display_errors', TRUE);
