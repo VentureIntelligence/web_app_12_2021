@@ -399,6 +399,121 @@ else if($vcflagValue==2){
                             exit;
                         }
                         ?>
+                        <div style="right: 140px;top: 99px;margin-bottom: 20px;position: fixed;z-index: 100;margin-top: 6px;">
+                        <label style="font-size: 13px;font-weight: 600;margin: 0px 5px;">From</label>
+                        <?php
+        $month1 = ($_POST['month1']=='') ? '1' : $_POST['month1'];
+    ?>  
+                                    <SELECT NAME=month1 id="tour_month1" style="font-family: Arial;color: #004646;font-size: 13px;padding: 3px;">
+             <OPTION id=1 value="--" selected> Month </option>
+             <OPTION VALUE=1 <?php echo ($month1=='1') ? 'Selected' : ''; ?>>Jan </OPTION>
+             <OPTION VALUE=2 <?php echo ($month1=='2') ? 'Selected' : ''; ?>>Feb</OPTION>
+             <OPTION VALUE=3 <?php echo ($month1=='3') ? 'Selected' : ''; ?>>Mar</OPTION>
+             <OPTION VALUE=4 <?php echo ($month1=='4') ? 'Selected' : ''; ?>>Apr</OPTION>
+             <OPTION VALUE=5 <?php echo ($month1=='5') ? 'Selected' : ''; ?>>May</OPTION>
+             <OPTION VALUE=6 <?php echo ($month1=='6') ? 'Selected' : ''; ?>>Jun</OPTION>
+             <OPTION VALUE=7 <?php echo ($month1=='7') ? 'Selected' : ''; ?>>Jul</OPTION>
+             <OPTION VALUE=8 <?php echo ($month1=='8') ? 'Selected' : ''; ?>>Aug</OPTION>
+             <OPTION VALUE=9 <?php echo ($month1=='9') ? 'Selected' : ''; ?>>Sep</OPTION>
+             <OPTION VALUE=10 <?php echo ($month1=='10') ? 'Selected' : ''; ?>>Oct</OPTION>
+             <OPTION VALUE=11 <?php echo ($month1=='11') ? 'Selected' : ''; ?>>Nov</OPTION>
+            <OPTION VALUE=12 <?php echo ($month1=='12') ? 'Selected' : ''; ?>>Dec</OPTION>
+            </SELECT>
+
+                <SELECT NAME=year1 id="tour_year1" style="font-family: Arial;color: #004646;font-size: 13px;padding: 3px;">
+                <OPTION id=2 value="--" > Year </option>
+                <?php
+                             $currentyear = date("Y");
+                             echo $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates asc";
+                             if($yearSql=mysql_query($yearsql))
+                             {
+                                             if($type == 1)  
+                                             {
+                                                 if($_POST['year1']=='')
+                                                 {
+                                                     $year1;
+                                                 }
+                                             }
+                                             else
+                                             {
+                                                 if($_POST['year1']=='')
+                                                 {
+                                                     $year1;
+                                                 }
+                                             }
+                                             
+                                             $currentyear = date("Y");
+                                             $i=$currentyear;
+                                             While($i>= 1998 )
+                                             {
+                                             $id = $i;
+                                             $name = $i;
+                                             $isselected = ($year1==$id) ? 'SELECTED' : '';
+                                             echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
+                                             $i--;
+                                             }
+                     
+                                 /*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
+                                 {
+                                     $id = $myrow["Year"];
+                                     $name = $myrow["Year"];
+                                     $isselected = ($year1==$id) ? 'SELECTED' : '';
+                                     echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
+                                 }*/		
+                             }
+                                              
+                      
+                ?> </SELECT>
+                 <label style="font-size: 13px;font-weight: 600;margin: 0px 5px;">To</label>
+            <SELECT NAME=month2 id="tour_month2" style="font-family: Arial;color: #004646;font-size: 13px;padding: 3px;">
+             <OPTION id=3 value="--" selected> Month </option>
+             <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
+            <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
+            <OPTION VALUE='3' <?php echo ($month2 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
+            <OPTION VALUE='4' <?php echo ($month2 == '4') ? 'SELECTED' : ''; ?>>Apr</OPTION>
+            <OPTION VALUE='5' <?php echo ($month2 == '5') ? 'SELECTED' : ''; ?>>May</OPTION>
+            <OPTION VALUE='6' <?php echo ($month2 == '6') ? 'SELECTED' : ''; ?>>Jun</OPTION>
+            <OPTION VALUE='7' <?php echo ($month2 == '7') ? 'SELECTED' : ''; ?>>Jul</OPTION>
+            <OPTION VALUE='8' <?php echo ($month2 == '8') ? 'SELECTED' : ''; ?>>Aug</OPTION>
+            <OPTION VALUE='9' <?php echo ($month2 == '9') ? 'SELECTED' : ''; ?>>Sep</OPTION>
+            <OPTION VALUE='10' <?php echo ($month2 == '10') ? 'SELECTED' : ''; ?>>Oct</OPTION>
+            <OPTION VALUE='11' <?php echo ($month2 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
+            <OPTION VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
+            </SELECT>
+            <SELECT name=year2 id="tour_year2" style="font-family: Arial;color: #004646;font-size: 13px;padding: 3px;" >
+            <OPTION id=4 value="--" > Year </option>
+
+            <?php
+                $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates asc";
+                if($_POST['year2']=='')
+               {
+                   $year2=date("Y");
+               }
+       if($yearSql=mysql_query($yearsql))
+       {
+           /*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
+           {
+               $id = $myrow["Year"];
+               $name = $myrow["Year"];
+               $isselcted = ($year2== $id) ? 'SELECTED' : '';
+               echo "<OPTION id=". $id. " value='". $id."' ".$isselcted.">".$name."</OPTION>\n";
+           }*/
+                       $currentyear = date("Y");
+                       $i=$currentyear;
+                       While($i>= 1998 )
+                       {
+                       $id = $i;
+                       $name = $i;
+                       $isselected = ($year2==$id) ? 'SELECTED' : '';
+                       echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
+                       $i--;
+                       }
+       }
+            ?> 
+                        </SELECT>
+                        <div class="search-btn" style="float:right;margin-left:10px;" > <input name="searchpe" type="submit" value="" class="datesubmit" id="datesubmit"/></div>
+
+                        </div>
                         <div class="result-title"> 
                             <h2>
                                 <span class="result-no" id="show-total-deal"> <?php echo $report_cntall; ?> Results found</span>
@@ -407,120 +522,17 @@ else if($vcflagValue==2){
                                   <div class="investorfilter" style="width:33%;margin-top: -3px;">
                                   <div class="inves">
                                   <div class="period-date">
-<label>To</label>
-<?php
-        $month1 = ($_POST['month1']=='') ? '1' : $_POST['month1'];
-    ?>  
-<SELECT NAME="month1" id="month1">
-     <OPTION id=1 value="--"> Month </option>
-     <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
-     <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
-     <OPTION VALUE='3' <?php echo ($month1 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
-     <OPTION VALUE='4' <?php echo ($month1 == '4') ? 'SELECTED' : ''; ?>>Apr</OPTION>
-     <OPTION VALUE='5' <?php echo ($month1 == '5') ? 'SELECTED' : ''; ?>>May</OPTION>
-     <OPTION VALUE='6' <?php echo ($month1 == '6') ? 'SELECTED' : ''; ?>>Jun</OPTION>
-     <OPTION VALUE='7' <?php echo ($month1 == '7') ? 'SELECTED' : ''; ?>>Jul</OPTION>
-     <OPTION VALUE='8' <?php echo ($month1 == '8') ? 'SELECTED' : ''; ?>>Aug</OPTION>
-     <OPTION VALUE='9' <?php echo ($month1 == '9') ? 'SELECTED' : ''; ?>>Sep</OPTION>
-     <OPTION VALUE='10' <?php echo ($month1 == '10') ? 'SELECTED' : ''; ?>>Oct</OPTION>
-     <OPTION VALUE='11' <?php echo ($month1 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
-    <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
-</SELECT>
 
-<SELECT NAME="year1" id="year1"  id="year1">
-    <OPTION id=2 value=""> Year </option>
-    <?php 
-                    echo    $currentyear = date("Y");
-		echo $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates asc";
-		if($yearSql=mysql_query($yearsql))
-		{
-                        if($type == 1)  
-                        {
-                            if($_POST['year1']=='')
-                            {
-                                $year1;
-                            }
-                        }
-                        else
-                        {
-                            if($_POST['year1']=='')
-                            {
-                                $year1;
-                            }
-                        }
-                        
-                        $currentyear = date("Y");
-                        $i=$currentyear;
-                        While($i>= 1998 )
-                        {
-                        $id = $i;
-                        $name = $i;
-                        $isselected = ($year1==$id) ? 'SELECTED' : '';
-                        echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                        $i--;
-                        }
 
-			/*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
-			{
-				$id = $myrow["Year"];
-				$name = $myrow["Year"];
-				$isselected = ($year1==$id) ? 'SELECTED' : '';
-				echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-			}*/		
-		}
-	?> 
-</SELECT>
+
+
 </div>
 <div class="period-date">
 
-<SELECT NAME="month2" id='month2'>
-      <OPTION id=1 value="--"> Month </option>
-     <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
-     <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
-     <OPTION VALUE='3' <?php echo ($month2 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
-     <OPTION VALUE='4' <?php echo ($month2 == '4') ? 'SELECTED' : ''; ?>>Apr</OPTION>
-     <OPTION VALUE='5' <?php echo ($month2 == '5') ? 'SELECTED' : ''; ?>>May</OPTION>
-     <OPTION VALUE='6' <?php echo ($month2 == '6') ? 'SELECTED' : ''; ?>>Jun</OPTION>
-     <OPTION VALUE='7' <?php echo ($month2 == '7') ? 'SELECTED' : ''; ?>>Jul</OPTION>
-     <OPTION VALUE='8' <?php echo ($month2 == '8') ? 'SELECTED' : ''; ?>>Aug</OPTION>
-     <OPTION VALUE='9' <?php echo ($month2 == '9') ? 'SELECTED' : ''; ?>>Sep</OPTION>
-     <OPTION VALUE='10' <?php echo ($month2 == '10') ? 'SELECTED' : ''; ?>>Oct</OPTION>
-     <OPTION VALUE='11' <?php echo ($month2 == '11') ? 'SELECTED' : ''; ?>>Nov</OPTION>
-    <OPTION VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
-</SELECT>
 
-<SELECT NAME="year2" id="year2" onchange="checkForDate();" id='year2'>
-    <OPTION id=2 value=""> Year </option>
-    <?php 
-		$yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates asc";
-                 if($_POST['year2']=='')
-                {
-                    $year2=date("Y");
-                }
-		if($yearSql=mysql_query($yearsql))
-		{
-			/*While($myrow=mysql_fetch_array($yearSql, MYSQL_BOTH))
-			{
-				$id = $myrow["Year"];
-				$name = $myrow["Year"];
-				$isselcted = ($year2== $id) ? 'SELECTED' : '';
-				echo "<OPTION id=". $id. " value='". $id."' ".$isselcted.">".$name."</OPTION>\n";
-			}*/
-                        $currentyear = date("Y");
-                        $i=$currentyear;
-                        While($i>= 1998 )
-                        {
-                        $id = $i;
-                        $name = $i;
-                        $isselected = ($year2==$id) ? 'SELECTED' : '';
-                        echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                        $i--;
-                        }
-		}
-	?> 
-</SELECT>
+
 </div>
-  <div class="search-btn"  > <input name="searchpe" type="submit" value="" class="datesubmit" id="datesubmit"/></div>
+  
   </div>
   <?php if($report_cnt>0){?><div class="title-links " id="exportbtn"></div><?php } ?>
   
