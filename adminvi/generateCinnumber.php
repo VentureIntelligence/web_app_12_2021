@@ -51,389 +51,442 @@ function generateExcelinCinNo($cinno)
     $arrayData = array();
     $flag =''; 
     foreach( $cinId as $cin){
-    //$pattern="^([L|U]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$";
-    $pattern="/^([L|U]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$/";
-
-      if(preg_match($pattern, $cin)){
-        $brandsql="SELECT `SCompanyName` FROM `cprofile` WHERE `CIN`='".$cin."'";
-        $companyrsbrand = mysql_query($brandsql);          
-        $mybrandname=mysql_fetch_array($companyrsbrand);
-        // get company by CIN
-        $getcompanysql = "select PECompanyId,companyname from pecompanies where CINNo ='".$cin."'";
-        $companyrs = mysql_query($getcompanysql);          
-        //$myrow=mysql_fetch_array($companyrs);
-        $num_rows = mysql_num_rows($companyrs);
-        if($num_rows > 0)
-        {
-           
-        while($myrow=mysql_fetch_array($companyrs)){
-            $companyidarr[]=$myrow['PECompanyId'];
-            $company=str_replace("'", " ", trim($myrow['companyname']));
-            $companyname .= "Acquirer LIKE '".$company."' or ";
+        $companyidarr = array();
+        $acqarr=array();
+        if( $cin!=''){
+            $brandsql="SELECT `SCompanyName` FROM `cprofile` WHERE `CIN`='". $cin."'";
+            $companyrsbrand = mysql_query($brandsql);          
+            $mybrandname=mysql_fetch_array($companyrsbrand);
+            // get company by CIN
+            $getcompanysql = "select PECompanyId,companyname from pecompanies where CINNo ='". $cin."'";
+            $companyrs = mysql_query($getcompanysql);          
+            //$myrow=mysql_fetch_array($companyrs);
+            while($myrow=mysql_fetch_array($companyrs)){
+                $companyidarr[]=$myrow['PECompanyId'];
+                $companyname .= "Acquirer LIKE '".trim($myrow['companyname'])."%' or ";
+                }
+                $companyname = trim($companyname,"or ");
+            $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
+            $acquirer= mysql_query($acquirersql);
+            
+            while($myacq=mysql_fetch_array($acquirer)){
+            $acqarr[]=$myacq['AcquirerId'];
             }
-            $companyname = trim($companyname,"or ");
-        $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
-        $acquirer= mysql_query($acquirersql);
-        while($myacq=mysql_fetch_array($acquirer)){
-        $acqarr[]=$myacq['AcquirerId'];
-        }
-        $companyid='';
-                $acqval='';
-               
-        $companyid=implode(",",$companyidarr);
-        $acqval=implode(",",$acqarr);
-       
-        $order = $order_status ? $order_status:'asc';
-        $query_orderby = $order_query?$order_query : 'companyname';
-                
-        // if(count($myrow) > 0 && $myrow['PECompanyId']!=''){
+            $companyid=implode(",",$companyidarr);
+            $acqval=implode(",",$acqarr);
            
-               if($companyid =='' ){
-                    $order1 ='ORDER  BY dealdate '.$order;
-                }else{
-                    $order1 ='ORDER  BY CASE WHEN c.pecompanyid IN ( '.$companyid.' ) THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
-                }
-                if($acqval !=""){
-                    $acqvar=" ac.acquirerid IN ( ".$acqval." )";
-                }else{
-                    $acqvar="";
-                }
-                if($acqval !="" && $companyid !=''){
-                    $orcond=" or ";
-                }else{
-                    $orcond="";
-                }
-                if($companyid !=''){
-                $companyvar="  c.pecompanyid IN ( ".$companyid." )";
-                }else{
-                    $companyvar="";
-                }
+            
+           
+        //     echo $order_query;
+            //echo $_POST['order'];
+            $order = $order_status ? $order_status:'asc';
+            $query_orderby = $order_query?$order_query : 'companyname';
+                    
+            // if(count($myrow) > 0 && $myrow['PECompanyId']!=''){
+               
+                    if($companyid =='' ){
+                        $order1 ='ORDER  BY dealdate '.$order;
+                    }else{
+                        $order1 ='ORDER  BY CASE WHEN c.pecompanyid IN ( '.$companyid.' ) THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
+                    }
+                    if($acqval !=""){
+                        $acqvar=" ac.acquirerid IN ( ".$acqval." )";
+                    }else{
+                        $acqvar="";
+                    }
+                    if($acqval !="" && $companyid !=''){
+                        $orcond=" or ";
+                    }else{
+                        $orcond="";
+                    }
+                    if($companyid !=''){
+                    $companyvar="  c.pecompanyid IN ( ".$companyid." )";
+                    }else{
+                        $companyvar="";
+                    }
+                $sql = "SELECT c.CINNo as companyName,c.CINNo as Cinno,c.companyname as BrandName,c.companyname as Target_company,sector_business AS sector_business,
+                ac.acquirer,Date_format(dealdate, '%b-%Y') AS dates,peinv.amount
+                FROM   acquirers AS ac, 
+                mama AS peinv, 
+                pecompanies AS c, 
+                industry AS i 
+         WHERE  dealdate BETWEEN '2004-1-01' AND CURDATE()
+                AND ac.acquirerid = peinv.acquirerid 
+                AND c.industry = i.industryid 
+                AND c.pecompanyid = peinv.pecompanyid 
+                AND peinv.deleted = 0 
+                AND c.industry != 15 
+                AND ( $acqvar $orcond $companyvar )
+                AND c.industry IN ( 49, 14, 9, 25, 
+                                    24, 7, 4, 16, 
+                                    17, 23, 3, 21, 
+                                    1, 2, 10, 54, 
+                                    18, 11, 66, 106, 
+                                    8, 12, 22 ) ".$order1;
+                ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
+               
+                $pers = mysql_query($sql);   
+               $count=mysql_num_rows($pers);
+              
+                //$FinanceAnnual = mysql_fetch_array($financialrs);
+                $cont=0;
+                // While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
+                // {
+                   
+                //     $pedata[$cont]=$myrow;
+                //     $cont++;
+                    
+                // }
+               
+        
              
-            $sql = "SELECT c.CINNo as companyName,c.CINNo as Cinno,c.companyname as BrandName,c.companyname as Target_company,sector_business AS sector_business,
-            ac.acquirer,Date_format(dealdate, '%b-%Y') AS dates,peinv.amount
-            FROM   acquirers AS ac, 
-            mama AS peinv, 
-            pecompanies AS c, 
-            industry AS i 
-            WHERE  dealdate BETWEEN '2004-1-01' AND CURDATE() 
-            AND ac.acquirerid = peinv.acquirerid 
-            AND c.industry = i.industryid 
-            AND c.pecompanyid = peinv.pecompanyid 
-            AND peinv.deleted = 0 
-            AND c.industry != 15 
-            AND ( $acqvar $orcond $companyvar )
-            AND c.industry IN ( 49, 14, 9, 25, 
-                                24, 7, 4, 16, 
-                                17, 23, 3, 21, 
-                                1, 2, 10, 54, 
-                                18, 11, 66, 106, 
-                                8, 12, 22 ) ".$order1;
-            ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
-           
-            $pers = mysql_query($sql);
-            $flag = 0; 
-            $companyidarr=array();
-            $acqarr=array();
-            $pedata=array();
-            $cont=0;
-            $number_rows = mysql_num_rows($pers);
-            if($number_rows==0){
-            while($rows1 = mysql_fetch_array($pers))
-            {
-                $pedata[$cont]=$rows1;
-                $cont++;
-            }  
-            //echo count($pedata);exit();
-            if(count($pedata) ==0)
-            {
-                $sql="SELECT `SCompanyName` as companyName ,`cin` as Cinno,`FCompanyName` FROM `cprofile` WHERE `CIN` ='".$cin."'";   
-                $pers = mysql_query($sql);  
-                $flag =1;
-                
-            }
-        }
-            }
-                
-            } else{
-                $getcompanysql = "select PECompanyId,companyname from pecompanies where companyname LIKE '".$cin."'";
-                $companyrs = mysql_query($getcompanysql);
-
-                $number_rows = mysql_num_rows($companyrs);
-
-                if($number_rows != 0)
-                {
-         
-                while($myrow=mysql_fetch_array($companyrs)){
-                    $companyidarr[]=$myrow['PECompanyId'];
-                    $company=str_replace("'", " ", trim($myrow['SCompanyName']));
-                    $companyname .= "Acquirer LIKE '".$company."' or ";
-                   // $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."%' or ";
-                }
-                $companyname = trim($companyname,"or ");
-                $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
-                $acquirer= mysql_query($acquirersql);
-                while($myacq=mysql_fetch_array($acquirer)){
-                    $acqarr[]=$myacq['AcquirerId'];
-                }
-                $companyid='';
-                $acqval='';
-                
-                $companyid=implode(",",$companyidarr);
-                $acqval=implode(",",$acqarr);
-                $order = $order_status ? $order_status:'asc';
-                $query_orderby = $order_query?$order_query : 'companyname';
-                if($companyid == "" ){
-                    $order1 ='ORDER  BY dealdate '.$order;
-                }else{
-                    $order1 ='ORDER  BY CASE WHEN c.pecompanyid IN ( '.$companyid.' ) THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
-                }
-                if($acqval !=""){
-                    $acqvar=" ac.acquirerid IN ( ".$acqval." )";
-                }else{
-                    $acqvar="";
-                }
-                if($acqval !="" && $companyid !=''){
-                    $orcond=" or ";
-                }else{
-                    $orcond="";
-                }
-                if($companyid !=''){
-                $companyvar="  c.pecompanyid IN ( ".$companyid." )";
-                }else{
-                    $companyvar="";
-                }
-                
-                $sql = "SELECT c.CINNo as companyName,c.CINNo as Cinno,c.companyname as BrandName,c.companyname as Target_company,sector_business AS sector_business,
-                ac.acquirer,Date_format(dealdate, '%b-%Y') AS dates,peinv.amount
-                 FROM   acquirers AS ac, 
-            mama AS peinv, 
-            pecompanies AS c, 
-            industry AS i 
-     WHERE  dealdate BETWEEN '2004-1-01' AND CURDATE() 
-            AND ac.acquirerid = peinv.acquirerid 
-            AND c.industry = i.industryid 
-            AND c.pecompanyid = peinv.pecompanyid 
-            AND peinv.deleted = 0 
-            AND c.industry != 15 
-            AND ( $acqvar $orcond $companyvar)
-            AND c.industry IN ( 49, 14, 9, 25, 
-                                24, 7, 4, 16, 
-                                17, 23, 3, 21, 
-                                1, 2, 10, 54, 
-                                18, 11, 66, 106, 
-                                8, 12, 22 ) ".$order1;
-            ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
-           
-            $pers = mysql_query($sql);  
-            $flag =0;  
-            $companyidarr=array();
-        $acqarr=array();
-        $cont=0; 
-        
-            }
-        }
-            if($num_rows == 0 ){
-                $getcompanysql = "select PECompanyId,companyname from pecompanies where companyname LIKE '".trim($mybrandname['SCompanyName'])."'";
-                $companyrs = mysql_query($getcompanysql);
-
-                $number_rows = mysql_num_rows($companyrs);
-
-                if($number_rows != 0)
-                {
-         
-                while($myrow=mysql_fetch_array($companyrs)){
-                    $companyidarr[]=$myrow['PECompanyId'];
-                    $company=str_replace("'", " ", trim($myrow['SCompanyName']));
-                    $companyname .= "Acquirer LIKE '".$company."' or ";
-                   // $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."%' or ";
-                }
-                $companyname = trim($companyname,"or ");
-                $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
-                $acquirer= mysql_query($acquirersql);
-                while($myacq=mysql_fetch_array($acquirer)){
-                    $acqarr[]=$myacq['AcquirerId'];
-                }
-                $companyid='';
-                $acqval='';
-                
-                $companyid=implode(",",$companyidarr);
-                $acqval=implode(",",$acqarr);
-                $order = $order_status ? $order_status:'asc';
-                $query_orderby = $order_query?$order_query : 'companyname';
-                if($companyid == "" ){
-                    $order1 ='ORDER  BY dealdate '.$order;
-                }else{
-                    $order1 ='ORDER  BY CASE WHEN c.pecompanyid IN ( '.$companyid.' ) THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
-                }
-                if($acqval !=""){
-                    $acqvar=" ac.acquirerid IN ( ".$acqval." )";
-                }else{
-                    $acqvar="";
-                }
-                if($acqval !="" && $companyid !=''){
-                    $orcond=" or ";
-                }else{
-                    $orcond="";
-                }
-                if($companyid !=''){
-                $companyvar="  c.pecompanyid IN ( ".$companyid." )";
-                }else{
-                    $companyvar="";
-                }
-                
-                $sql = "SELECT c.CINNo as companyName,c.CINNo as Cinno,c.companyname as BrandName,c.companyname as Target_company,sector_business AS sector_business,
-                ac.acquirer,Date_format(dealdate, '%b-%Y') AS dates,peinv.amount
-                 FROM   acquirers AS ac, 
-            mama AS peinv, 
-            pecompanies AS c, 
-            industry AS i 
-     WHERE  dealdate BETWEEN '2004-1-01' AND CURDATE() 
-            AND ac.acquirerid = peinv.acquirerid 
-            AND c.industry = i.industryid 
-            AND c.pecompanyid = peinv.pecompanyid 
-            AND peinv.deleted = 0 
-            AND c.industry != 15 
-            AND ( $acqvar $orcond $companyvar)
-            AND c.industry IN ( 49, 14, 9, 25, 
-                                24, 7, 4, 16, 
-                                17, 23, 3, 21, 
-                                1, 2, 10, 54, 
-                                18, 11, 66, 106, 
-                                8, 12, 22 ) ".$order1;
-            ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
-           
-            $pers = mysql_query($sql);  
-           
-            $flag =0;  
-            $companyidarr=array();
-        $acqarr=array();
-        $cont=0;
-            // while($rows1 = mysql_fetch_array($pers))
-            // {
-            //     $pedata[$cont]=$rows1;
-            //     $cont++;
-            // }  
-            // //echo count($pedata);exit();
-            // if(count($pedata) ==0)
-            // {
-            //     $sql="SELECT `SCompanyName` as companyName ,`cin` as Cinno,`FCompanyName` FROM `cprofile` WHERE `SCompanyName` LIKE '".trim($mybrandname['SCompanyName'])."'";   
-            //     $pers = mysql_query($sql);  
-            //     $flag =1;
-                
-            // }
-       
-            }
-           
-            }
-            if($number_rows == 0 && $num_rows == 0)
-            {
-                if(preg_match($pattern, $cin)){
-                $sql="SELECT `FCompanyName` as companyName ,`cin` as Cinno,`SCompanyName` FROM `cprofile` WHERE `CIN` ='".$cin."'";   
-                }else{
-                    $sql="SELECT `FCompanyName` as companyName ,`cin` as Cinno,`SCompanyName` FROM `cprofile` WHERE `SCompanyName` ='".$cin."'";  
-                }
-                $pers = mysql_query($sql);  
-                $flag =1; 
-            }
-          //  echo $sql."<br>";
-           
-            while ($rows = mysql_fetch_array($pers)) {
-                $DataList = array();  
-               
-                if(in_array("CompanyName", $rowArray))
-                {
-                       // echo $flag;
-
-                if($flag == 1){
+             
+                // Table to show the companies with count at the top
+                if($count > 0){
+                    
+                    while ($rows = mysql_fetch_array($pers)) {
+                      
+                        $DataList = array();  
+            
+                    if(in_array("CompanyName", $rowArray))
+                    {
+                   if($flag == 1){
                     $DataList[] = $rows[0];
-        
-                }
-                else{
-                if($rows[0] != null && $rows[0] != '')
-                {
-                $query='SELECT `FCompanyName` FROM `cprofile` WHERE `CIN` ="'.$rows[0].'"' ;
-                $queryResult = mysql_query($query) or die(mysql_error());
-                while($row = mysql_fetch_array($queryResult))
-                {
-                
-                $FCmpName =$row['FCompanyName'];
-                }
-                
-                $value = $FCmpName;
-                }
-                else{
-                $value = $rows[5];
-                }
-                $pefirm="PE Firm(s)";
-                if(strpos($value,$pefirm)!==false){
-                $DataList[] = $rows[3];
-                }else{
-                $DataList[] = $value;
-                }
-            }
-            }
-            if(in_array("Cinno",$rowArray))
-            {
-                if($flag == 1){
-                    $DataList[] = $rows[1];
-    
+            
                    }
                    else{
-                if($rows[1] == null && $rows[1] == '')
-                {
-                $query='SELECT `cin` FROM `cprofile` WHERE `SCompanyName` ="'.$rows[3].'"' ;
-                $queryResult = mysql_query($query) or die(mysql_error());
-                while($row = mysql_fetch_array($queryResult))
-                {
-                $cin =$row['cin'];
-                }
+                        if($rows[0] != null && $rows[0] != '')
+                        {
+                        $query='SELECT `SCompanyName` FROM `cprofile` WHERE `CIN` ="'.$rows[0].'"' ;
+                        $queryResult = mysql_query($query) or die(mysql_error());
+                        while($row = mysql_fetch_array($queryResult))
+                        {
+                        
+                        $FCmpName =$row['SCompanyName'];
+                        }
+                        
+                        $value = $FCmpName;
+                        }
+                        else{
+                        $value = $rows[5];
+                        }
+                        $pefirm="PE Firm(s)";
+                        if(strpos($value,$pefirm)!==false){
+                        $DataList[] = $rows[3];
+                        }else{
+                        $DataList[] = $value;
+                        }
+                    }
+                    }
+                    if(in_array("Cinno",$rowArray))
+                    {
+                        if($flag == 1){
+                            $DataList[] = $rows[1];
+            
+                           }
+                           else{
+                        if($rows[1] == null && $rows[1] == '')
+                        {
+                        $query='SELECT `cin` FROM `cprofile` WHERE `SCompanyName` ="'.$rows[3].'"' ;
+                        $queryResult = mysql_query($query) or die(mysql_error());
+                        while($row = mysql_fetch_array($queryResult))
+                        {
+                        $cin =$row['cin'];
+                        }
+                        
+                        $DataList[] = $cin;
+                        }
+                        else{
+                        $DataList[] = $rows[1];
+                        }
+                    }
+                        //$DataList[] = $rows[6]; 
+                    }
+                    if(in_array("Brandname", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                     $pefirm="PE Firm(s)";
+                     if(strpos($rows[3],$pefirm)!==false){
+                     $DataList[] = $rows[3];
+                     }else{
+                        $query='SELECT `SCompanyName` FROM `cprofile` WHERE `CIN` ="'.$rows[0].'"' ;
+                        $queryResult = mysql_query($query) or die(mysql_error());
+                        while($row = mysql_fetch_array($queryResult))
+                        {
+                        $SCompanyName =$row['SCompanyName'];
+                        }
+                        
+                        $DataList[] = $SCompanyName;
+                     //$DataList[] = $rows[5];
+                     }    
+                 }                  
+                    }
+                    if(in_array("Target_companyname", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[3];
+                        }
+                    }
+                    if(in_array("Sector", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[4];
+                        }
+                    }
+                    if(in_array("Acquirer", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[5];
+                        }
+                    }
+                    if(in_array("Dates", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[6];
+                        }
+                    }
+                    if(in_array("Amount", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[7];
+                        }
+                    }
+              
+                    $arrayData[] = $DataList;
+                    
+                    
+                    }
+            
+            //print_r($arrayData);
+                 
+        
                 
-                $DataList[] = $cin;
+                }else if($count==0 ){
+                    if($mybrandname['SCompanyName']!=""){
+                    $getcompanysql = "select PECompanyId,companyname from pecompanies where companyname LIKE '".trim($mybrandname['SCompanyName'])."'";
+                    $companyrs = mysql_query($getcompanysql);          
+                    while($myrow=mysql_fetch_array($companyrs)){
+                        $companyidarr[]=$myrow['PECompanyId'];
+                        $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."' or ";
+                    }
+                    $companyname = trim($companyname,"or ");
+                    $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
+                    $acquirer= mysql_query($acquirersql);
+                    
+                    while($myacq=mysql_fetch_array($acquirer)){
+                        $acqarr[]=$myacq['AcquirerId'];
+                    }
+                    $companyid=implode(",",$companyidarr);
+                    $acqval=implode(",",$acqarr);
+                   
+                    if($companyid =='' ){
+                        $order1 ='ORDER  BY dealdate '.$order;
+                    }else{
+                        $order1 ='ORDER  BY CASE WHEN c.pecompanyid IN ( '.$companyid.' ) THEN 1 ELSE 2 END,dealdate DESC,'.$query_orderby.' '.$order;
+                    }
+                    if($acqval !=""){
+                        $acqvar=" ac.acquirerid IN ( ".$acqval." )";
+                    }else{
+                        $acqvar="";
+                    }
+                    if($acqval !="" && $companyid !=''){
+                        $orcond=" or ";
+                    }else{
+                        $orcond="";
+                    }
+                    if($companyid !=''){
+                    $companyvar="  c.pecompanyid IN ( ".$companyid." )";
+                    }else{
+                        $companyvar="";
+                    }
+                    
+                    $sql = "SELECT c.CINNo as companyName,c.CINNo as Cinno,c.companyname as BrandName,c.companyname as Target_company,sector_business AS sector_business,
+                    ac.acquirer,Date_format(dealdate, '%b-%Y') AS dates,peinv.amount
+                    FROM   acquirers AS ac, 
+                mama AS peinv, 
+                pecompanies AS c, 
+                industry AS i 
+         WHERE  dealdate BETWEEN '2004-1-01' AND CURDATE()
+                AND ac.acquirerid = peinv.acquirerid 
+                AND c.industry = i.industryid 
+                AND c.pecompanyid = peinv.pecompanyid 
+                AND peinv.deleted = 0 
+                AND c.industry != 15 
+                AND ( $acqvar $orcond $companyvar)
+                AND c.industry IN ( 49, 14, 9, 25, 
+                                    24, 7, 4, 16, 
+                                    17, 23, 3, 21, 
+                                    1, 2, 10, 54, 
+                                    18, 11, 66, 106, 
+                                    8, 12, 22 ) ".$order1;
+                ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
+               
+                $pers = mysql_query($sql);   
+                $val=mysql_num_rows($pers);
+                //$FinanceAnnual = mysql_fetch_array($financialrs);
+                $cont=0;$pedata = array();
+                
+                if($val>0){
+                    while ($rows = mysql_fetch_array($pers)) {
+              
+                        $DataList = array();  
+            
+                    if(in_array("CompanyName", $rowArray))
+                    {
+                   if($flag == 1){
+                    $DataList[] = $rows[0];
+            
+                   }
+                   else{
+                        if($rows[0] != null && $rows[0] != '')
+                        {
+                        $query='SELECT `FCompanyName` FROM `cprofile` WHERE `CIN` ="'.$rows[0].'"' ;
+                        $queryResult = mysql_query($query) or die(mysql_error());
+                        while($row = mysql_fetch_array($queryResult))
+                        {
+                        
+                        $FCmpName =$row['FCompanyName'];
+                        }
+                        
+                        $value = $FCmpName;
+                        }
+                        else{
+                        $value = $rows[5];
+                        }
+                        $pefirm="PE Firm(s)";
+                        if(strpos($value,$pefirm)!==false){
+                        $DataList[] = $rows[3];
+                        }else{
+                        $DataList[] = $value;
+                        }
+                    }
+                    }
+                    if(in_array("Cinno",$rowArray))
+                    {
+                        if($flag == 1){
+                            $DataList[] = $rows[1];
+            
+                           }
+                           else{
+                        if($rows[1] == null && $rows[1] == '')
+                        {
+                        $query='SELECT `cin` FROM `cprofile` WHERE `SCompanyName` ="'.$rows[3].'"' ;
+                        $queryResult = mysql_query($query) or die(mysql_error());
+                        while($row = mysql_fetch_array($queryResult))
+                        {
+                        $cin =$row['cin'];
+                        }
+                        
+                        $DataList[] = $cin;
+                        }
+                        else{
+                        $DataList[] = $rows[1];
+                        }
+                    }
+                        //$DataList[] = $rows[6]; 
+                    }
+                    if(in_array("Brandname", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                     $pefirm="PE Firm(s)";
+                     if(strpos($rows[3],$pefirm)!==false){
+                     $DataList[] = $rows[3];
+                     }else{
+                     $DataList[] = $rows[5];
+                     }    
+                 }                  
+                    }
+                    if(in_array("Target_companyname", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[3];
+                        }
+                    }
+                    if(in_array("Sector", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[4];
+                        }
+                    }
+                    if(in_array("Acquirer", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[5];
+                        }
+                    }
+                    if(in_array("Dates", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[6];
+                        }
+                    }
+                    if(in_array("Amount", $rowArray))
+                    {
+                     if($flag == 1){
+                         $DataList[] = "";
+            
+                        }
+                        else{
+                    $DataList[] = $rows[7];
+                        }
+                    }
+              
+                    $arrayData[] = $DataList;
+                    
+                    
+                    }
+            
+            
+                 }
                 }
-                else{
-                $DataList[] = $rows[1];
-                }
-            }
-                //$DataList[] = $rows[6]; 
-            }
-            if(in_array("Brandname", $rowArray))
-            {
-             $pefirm="PE Firm(s)";
-             if(strpos($rows[3],$pefirm)!==false){
-             $DataList[] = $rows[3];
-             }else{
-             $DataList[] = $rows[5];
-             }                      
-            }
-            if(in_array("Target_companyname", $rowArray))
-            {
-            $DataList[] = $rows[3];
-            }
-            if(in_array("Sector", $rowArray))
-            {
-            $DataList[] = $rows[4];
-            }
-            if(in_array("Acquirer", $rowArray))
-            {
-            $DataList[] = $rows[5];
-            }
-            if(in_array("Dates", $rowArray))
-            {
-            $DataList[] = $rows[6];
-            }
-            if(in_array("Amount", $rowArray))
-            {
-            $DataList[] = $rows[7];
-            }
-      
-            $arrayData[] = $DataList;
-
-            
-            
             }
             
-            //$sql = ""; 
-            //$DataList=array();
+            }
+           
             //echo $sql ."<br>";
         }            
        // exit();
