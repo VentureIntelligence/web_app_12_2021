@@ -1,4 +1,11 @@
-
+<?php include_once("../globalconfig.php"); require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{?>
 <?php /*$showdealsbyflag=0;
 if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstring_legal!="" || $advisorsearchstring_trans!="")
 { 
@@ -391,6 +398,7 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
     
 </ul></div>
 	</div>
+    <?php } ?>
 
 
 

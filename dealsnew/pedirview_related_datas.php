@@ -1,7 +1,12 @@
 <?php
     require_once("../dbconnectvi.php");
     $Db = new dbInvestments();
-      
+    if(!isset($_SESSION['UserNames']))
+    {
+        header('Location:../pelogin.php');
+    }
+    else
+    {	  
        $searchallfield = $_POST['searchallfield'];
        $dirsearch = $_POST['dirsearch'];
        $search_valid=$_POST['search_valid'];
@@ -555,4 +560,5 @@
     else{
         echo "0";
     }
+}
 ?>

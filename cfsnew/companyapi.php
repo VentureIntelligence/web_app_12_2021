@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+include "sessauth.php";
 ob_start();
 //if(!isset($_SESSION)){
 //    //session_save_path("/tmp");
@@ -6,6 +8,7 @@ ob_start();
 //}
 include("etc/conf.php");
 include("path_Assign.php");
+
 require_once MAIN_PATH.APP_NAME."/aws.php";	// load logins
 require_once('aws.phar');
 

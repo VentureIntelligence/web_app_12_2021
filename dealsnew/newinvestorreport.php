@@ -20,15 +20,13 @@ if($vcflagValue==0){
 }
 
 if (!$_POST) {
-
-    
     if(date('m')=='01'){
         $month1=$month2=12;
         $year1=$year2=date('Y')-1;
 
     }else{
-    $month1=$month2=date('m') - 1;
-    $year1=$year2=date('Y');
+        $month1=$month2=date('m') - 1;
+        $year1=$year2=date('Y');
     }
     // $month1='01';
     // $month2='12';

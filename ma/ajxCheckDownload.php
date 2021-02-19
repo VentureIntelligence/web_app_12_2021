@@ -3,6 +3,7 @@ session_save_path("/tmp");
 session_start();
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
+include ('machecklogin.php');
 $dlogUserEmail = $_SESSION['MAUserEmail'];
  //Get Current Downloads 
  $sqlSelCount = "SELECT sum(`recDownloaded`) as `recDownloaded` FROM `user_downloads` WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='MA' AND ( `downloadDate` = CURRENT_DATE || `downloadDate` = DATE_SUB(CURRENT_DATE,INTERVAL 1 DAY))";

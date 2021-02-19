@@ -119,6 +119,7 @@ class state extends database {
 		$this->execute($sql);
 		$return_array = array();
 		$this->setFetchMode('num');
+		
 		$cont=0;
 			while ($rs = $this->fetch()) {
 				$return_array[$rs[0]]= $rs[1];
@@ -126,6 +127,36 @@ class state extends database {
 			}
 		return $return_array;
 	}	
+	function getiocState(){
+		$sql = "select State from index_of_charges Group by State order by State asc";
+		$this->execute($sql);
+		$return_array = array();
+		$this->setFetchMode('num');
+		
+	   $cont=0;
+		   while ($rs = $this->fetch()) {
+			
+			   $return_array[$rs[0]]= $rs[0];
+			   $cont++;
+		   }
+		   
+	   return $return_array;
+   }
+   function getiocCity(){
+	$sql = "select City from index_of_charges Group by City order by City asc";
+	$this->execute($sql);
+	$return_array = array();
+	$this->setFetchMode('num');
+	
+   $cont=0;
+	   while ($rs = $this->fetch()) {
+		
+		   $return_array[$rs[0]]= $rs[0];
+		   $cont++;
+	   }
+	   
+   return $return_array;
+}
         
         
            function getstatefilter($where,$order){

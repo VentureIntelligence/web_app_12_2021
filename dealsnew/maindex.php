@@ -1,5 +1,13 @@
 <?php include_once("../globalconfig.php"); ?>
   <?php
+  require_once("../dbconnectvi.php");
+  $Db = new dbInvestments();
+  if(!isset($_SESSION['UserNames']))
+  {
+          header('Location:../pelogin.php');
+  }
+  else
+  {
         $drilldownflag=1;
         $companyId=632270771;
         $compId=0;
@@ -1405,5 +1413,5 @@ function writeSql_for_no_records($sqlqry,$mailid)
 							         print "\n";
 
  }
-
+  }
 ?>

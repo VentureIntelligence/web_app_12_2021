@@ -1,6 +1,7 @@
 <?php
 
 include "header.php";
+include "sessauth.php";
 require_once MODULES_DIR."cprofile.php";
 $cprofile = new cprofile();
 require_once MODULES_DIR."plstandard.php";

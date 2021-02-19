@@ -56,7 +56,8 @@ class partners_details_list extends database {
 
 		$sql = "SELECT DISTINCT pe_api_partner.partner_id,
 								pe_api_partner.partnerName, 
-								pe_api_partner.partner_company, 
+								pe_api_partner.partner_company,
+								pe_api_partner.api_type, 
 								pe_api_partner.partnerType, 
 								pe_api_partner.validityFrom, 
 								pe_api_partner.validityTo, 
@@ -78,8 +79,8 @@ and apiName in ('/deals/investments/pe','/deals/investments/vc','/deals/investme
 		if(strlen($where)) $sql.= " WHERE ".$where;
 		if(strlen($order))   $sql.= " ORDER BY ".$order;
 		//$sql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
-        //echo $sql;
-        //exit();
+        // echo $sql;
+        // exit();
 		if($type=="partnerName")
 			$this->setFetchMode('ASSOC');
 		

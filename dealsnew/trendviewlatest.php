@@ -1,4 +1,12 @@
 <?php
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+    header('Location:../pelogin.php');
+}
+else
+{
 if($vcflagValue==0)
         {
             $addVCFlagqry = " and pec.industry !=15 ";
@@ -944,3 +952,4 @@ if($vcflagValue==0)
 	</tr>
 </table>
 <div class=""></div>
+<?php } ?>

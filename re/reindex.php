@@ -1458,8 +1458,7 @@
         $defpage=$vcflagValue;
         $investdef=1;
         $stagedef=1;
-       echo "<div style='display:none'>$companysql</div>";
-	include_once('reindex_search.php');
+      include_once('reindex_search.php');
 ?>
 
 <div id="container" >

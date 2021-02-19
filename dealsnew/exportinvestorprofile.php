@@ -1,9 +1,15 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php //session_save_path("/tmp");
 ini_set ( 'max_execution_time', 300);
-session_start();
+//session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{ 
 //print_r($_POST);
 //exit();
 //Check Session Id 
@@ -1220,11 +1226,12 @@ function updateDownload($res){
                                     
                                 $schema_insert .=rtrim($MgmtTeam['ExecutiveMgmt'],',').$sep;  //Management Team
                                 $firm_typeId      = $row[29];
+                                $firm_typename='';
                                 $firm_typesql      = "SELECT FirmType FROM firmtypes where FirmTypeId='$firm_typeId'";
                                 if ($rsfirm_type = mysql_query($firm_typesql)) {
                                     While ($myfirm_typerow = mysql_fetch_array($rsfirm_type, MYSQL_BOTH)) {
-                                        $firm_typename = $myfirm_typerow["FirmType"];
-                                    }
+                                         $firm_typename = $myfirm_typerow["FirmType"];
+                                       }
                                 }
                                 $schema_insert .= $firm_typename.$sep; //FirmType
                                 
@@ -1849,7 +1856,7 @@ function updateDownload($res){
                         }
                     }
                 /* mail sending area ends */
-
+                }
 
                 //      }
                 //else

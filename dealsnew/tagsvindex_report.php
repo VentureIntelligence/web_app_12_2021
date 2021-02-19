@@ -1,7 +1,12 @@
 <?php
 	require_once("../dbconnectvi.php");
 	$Db = new dbInvestments();
-	
+	if(!isset($_SESSION['UserNames']))
+    {
+        header('Location:../pelogin.php');
+    }
+    else
+    {
         if($vcflagValue==3)
         {
                 $addVCFlagqry = " and pec.industry!=15 ";
@@ -355,5 +360,6 @@
                             <input type="hidden" name="dbtype" value=' . $dbtype .'>
                         </form>';
 
-   	echo $str;
+       echo $str;
+        }
 ?>
