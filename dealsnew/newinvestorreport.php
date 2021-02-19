@@ -423,7 +423,7 @@ $actionUrl = "newinvestorreport.php?flag=1";
                             exit;
                         }
                         ?>
-                         <div style="right: 140px;top: 99px;margin-bottom: 20px;position: fixed;z-index: 100;margin-top: 6px;">
+                         <div style="right: 140px;top: 99px;margin-bottom: 20px;position: absolute;margin-top: 6px;">
                         <label style="font-size: 13px;font-weight: 600;margin: 0px 5px;">From</label>
                         <?php
         $month1 = ($_POST['month1']=='') ? '1' : $_POST['month1'];
