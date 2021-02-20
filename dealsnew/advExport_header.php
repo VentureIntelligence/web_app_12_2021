@@ -594,7 +594,7 @@ padding:0rem !important;
                                  <button  class ="btn exportFilt w-100 text-center" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
                             <?php }
                               else {?>
-                                 <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $myrow['id'] ?>')">Export</button>
+                                 <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['filter_type'] ?>')">Export</button>
                            <?php } ?>
                               <!-- <h5 class="text-center ">Export</h5> -->
                               <!-- </div> -->
@@ -2102,6 +2102,20 @@ padding:0rem !important;
          
          var filtername=$('#filter_name').val()
          var filterDesc=$('#filter_desc').val().trim()
+         $.ajax({
+                  url: 'saveFilter.php',
+                  type: "POST",
+                  data: {filtername:filtername,filterType:filterType, mode: 'getData'},
+               success: function(data){
+
+                  if(data == 'failure')
+                  {
+                     $('.saveshowdealsbt').modal('hide');
+
+                     swal("You are already enter the filter name in '"+filterType+"' Filter ")
+                     return false;
+                  }
+      else{
          if(filterType == "Investments")
          {
          var Industry=$('#sltindustry').val();
@@ -2119,6 +2133,7 @@ padding:0rem !important;
          var month2=$('#mon2').val();
          var year1=$('#yr1').val();
          var year2=$('#yr2').val();
+
          for(i=0;i<selectedValues.length;i++)
          {
          investornameArray.push(selectedValues[i]["name"])
@@ -2196,6 +2211,9 @@ padding:0rem !important;
          },
          });
          }
+      }
+   },
+            });
          
          }
 
@@ -2503,12 +2521,12 @@ padding:0rem !important;
          return false;
          }
 
-         function ExportAdminFilter(id)
+         function ExportAdminFilter(id,name,type)
          {
                $.ajax({
                   url: 'saveFilter.php',
                   type: "POST",
-                  data: {filterid: id, mode: 'adminExport'},
+                  data: {filterid: id,filterName:name,filterType:type, mode: 'adminExport'},
                success: function(data){
                   var dataval=data.replace(/[\u0000-\u0019]+/g,"")
                   var dataset=JSON.parse(JSON.stringify(dataval))
@@ -2536,6 +2554,26 @@ padding:0rem !important;
          {
             swal("Currently your export action is crossing the limit of "+ exportLimit +" records.  To increase the limit please contact info@ventureintelligence.com");
          }
+
+
+         // function checkfilterName(filtername)
+         // {
+         //    $.ajax({
+         //          url: 'saveFilter.php',
+         //          type: "POST",
+         //          data: {filtername:filtername, mode: 'getData'},
+         //       success: function(data){
+
+         //          if(data == 'failure')
+         //          {
+         //             swal("You are already enter the filter name")
+         //             return false;
+         //          }
+                
+
+         //       },
+         //    });
+         // }
      </script>
    </body>
 </html>

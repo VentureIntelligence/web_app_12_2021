@@ -3,6 +3,8 @@
    require("../dbconnectvi.php");
    $Db = new dbInvestments();
    $dlogUserEmail = $_SESSION['UserEmail'];
+   $username=$_SESSION['UserNames'];
+
    //echo $dlogUserEmail;exit();
    if($_POST['mode'] == 'saveFilter')
    {
@@ -134,12 +136,12 @@
    // echo $filterType;exit();
    if($filtername != "")
    {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'vijay','".$filtername."','".$filterType."',NOW())";
+   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."',NOW())";
    $queryResult = mysql_query($query) or die(mysql_error());
    }
    else
    {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'vijay','anonymous','".$filterType."',NOW())";
+   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."',NOW())";
    //echo $query;exit();
    $queryResult = mysql_query($query) or die(mysql_error());
    }
@@ -196,9 +198,24 @@
    
    else if($_POST['mode'] == 'adminExport')
    {
+        $filterNameId=$_POST['filterid'];
+     $filtername = $_POST['filterName'];
+     $filterType =$_POST['filterType'];
+     // echo $filterType;exit();
+     if($filtername != "")
+     {
+     $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."',NOW())";
+     $queryResult = mysql_query($query) or die(mysql_error());
+     }
+     else
+     {
+     $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."',NOW())";
+     //echo $query;exit();
+     $queryResult = mysql_query($query) or die(mysql_error());
+     }
     $InvestorArray=array();
 
-    $sqlquery='SELECT * FROM `saved_filter` WHERE id="'.$_POST['filterid'].'"';
+    $sqlquery='SELECT * FROM `saved_filter` WHERE id="'.$filterNameId.'"';
     //echo $sqlquery;exit();
     $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
 
@@ -208,6 +225,23 @@
         }
         echo json_encode($InvestorArray);exit();
         
+   }
+
+   elseif($_POST['mode'] == 'getData')
+   {
+     $filtername = $_POST['filtername'];
+        $sql="SELECT filter_name FROM `saved_filter` where filter_type='".$_POST['filterType']."'";
+        //echo $sql;exit();
+        $query = mysql_query($sql) or die(mysql_error());
+        while ($row = mysql_fetch_assoc($query)) {
+          if($row['filter_name'] == $filtername)
+          {
+               echo 'failure';
+               return;
+          }
+         
+        }
+
    }
    
    ?>
