@@ -42,7 +42,7 @@
             
             $filterQuery=$_POST['filterQuery'];
             $filter_active=$_POST['filter_active'];
-            $vi_filter=$_POST['vi_filter'];
+            $vi_filter=0;
 
             $startDate=$_POST['start_date'];
             $endDate=$_POST['end_date'];
@@ -73,6 +73,7 @@
             $query = "INSERT INTO `saved_filter`(`id`, `investor_name`, `column_name`, `filter_name`,`filter_type`,`filter_desc`,`company_type`,`industry`,`city`,`state`,`region`,`exit_status`,`round`,`stage`,`investor_type`,`dealtype`,`intype`,`filter_active`,`query`,`vi_filter`,`start_date`,`start_year`,`end_date`,`end_year`,`created_by`, `created_on`) VALUES (default,'".$investorvalArray."','".$checkboxName."','".$filtername."','".$filterType."','".$filterDesc."','".$companytype."','".$industry."','".$city."','".$state."','".$region."','".$exitStatus."','".$round."','".$stage."','".$investorType."','".$dealType."','".$Intype."','".$filter_active."','".$query."','".$vi_filter."','".$startDate."','".$startYear."','".$endDate."','".$endYear."','".$dlogUserEmail."',CURDATE())";
             
             }
+          
             //echo "query = $query";exit(); // for debugging purposes, remove this once it is working
             mysql_query($query) or die(mysql_error());
             

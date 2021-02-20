@@ -156,7 +156,7 @@ require("../dbconnectvi.php");
 					$report_cnt = mysql_num_rows($reportrs);
 				 }
 		?>
-        <div id="headingtextpro">
+        <div id="headingtextpro" style="margin:10px;">
 				Drag and Re-order Your Filters &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div style=" overflow:auto;margin-top:10px;" class="content_container">
 																

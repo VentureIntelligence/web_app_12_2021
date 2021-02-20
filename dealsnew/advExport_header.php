@@ -25,7 +25,7 @@
    $DownloadCount= $row['count']  ;
    
    }
-   //echo $custom_export_limit;
+ // echo $DownloadCount;
    
    ?>
 <?php
@@ -184,7 +184,7 @@
          }
          ul.token-input-list-facebook {
          width:100%;
-         height: 34px !important;
+         min-height: 34px !important;
          z-index: 1;
          }
          ul.token-input-list-facebook{width:100% !important;border:none !important;}
@@ -432,7 +432,7 @@ padding:0rem !important;
                               <div class="container">
                <div class="nav nav-pills myfilters mt-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                   <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
-                  <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
+                  <a class="nav-link col-6" id="v-pills-profiletab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
                </div>
                         </div>
                <div class="tab-content" id="v-pills-tabContent">
@@ -472,7 +472,7 @@ padding:0rem !important;
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                            <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <?php if($custom_export_limit <=  $DownloadCount){?>
+                           <?php if($DownloadCount  >=  $custom_export_limit){?>
                            <button type="button" class="btn exportFilt w-100 text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
@@ -525,11 +525,11 @@ padding:0rem !important;
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                            <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <?php if($custom_export_limit <=  $DownloadCount){?>
+                           <?php if($DownloadCount  >=  $custom_export_limit){?>
                            <button type="button" class="btn exportFilt w-100  text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>')">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
                            <?php } ?>
                         </div>
                      </div>
@@ -590,7 +590,12 @@ padding:0rem !important;
                                  </div>
                               </div>
                               <!-- <div class="card-footer edit"> -->
-                              <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $myrow['id'] ?>')">Export</button>
+                              <?php if($DownloadCount  >=  $custom_export_limit){?>
+                                 <button  class ="btn exportFilt w-100 text-center" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
+                            <?php }
+                              else {?>
+                                 <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $myrow['id'] ?>')">Export</button>
+                           <?php } ?>
                               <!-- <h5 class="text-center ">Export</h5> -->
                               <!-- </div> -->
                            </div>
@@ -659,7 +664,7 @@ padding:0rem !important;
                                  </div>
                           
                         </div>
-                        <div class="row ml-3">
+                        <div class="row ml-3 mt-2">
                            <h6 class="duration">Select Duration</h6>
                         </div>
                         <div class="row ml-4">
@@ -777,7 +782,7 @@ padding:0rem !important;
                         </div></div>
                      </div>
                         <span class="error" style="display:none" id="durationErr">Select the duration time</span>
-                        <div class="copyright-body">
+                        <div class="copyright-body mt-2">
                               <h6 class="duration">Select fields for excel file export</h6>
                           
                            <label style="font-weight: 600;font-size: 14px;" ><input type="checkbox" class="allexportcheck duration" id="allexportcheck" checked/ > Select All</label>
@@ -1083,7 +1088,7 @@ padding:0rem !important;
                           
                            <div style="float:left">
                               <span class="one">
-                              <?php if($custom_export_limit <=  $DownloadCount){?>
+                              <?php if($DownloadCount  >=  $custom_export_limit){?>
                                  <button  class ="export_new btn btn-circle btn-exp" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
 
                            <?php }
@@ -1176,7 +1181,7 @@ padding:0rem !important;
                                     </div>
                              
                            </div>
-                           <div class="row ml-3">
+                           <div class="row ml-3 mt-2">
                               <h6 class="duration">Select Duration</h6>
                            </div>
                            <div class="row ml-4">
@@ -1283,7 +1288,7 @@ padding:0rem !important;
                                  </div>
                            </div></div></div>
                            <span class="error" style="display:none" id="durationErr">Select the duration time</span>
-                           <div class="copyright-body">
+                           <div class="copyright-body mt-2">
                               <!-- <div class="row"> -->
                                  <h6 class="duration">Select fields for excel file export</h6>
                               <!-- </div> -->
@@ -1439,7 +1444,7 @@ padding:0rem !important;
                               </div><br>
                               <div style="float:left">
                               <span class="one">
-                              <?php if($custom_export_limit <=  $DownloadCount){?>
+                              <?php if($DownloadCount  >=  $custom_export_limit){?>
                                  <button  class ="export_new btn  btn-exp" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
 
                            <?php }
@@ -1519,24 +1524,7 @@ padding:0rem !important;
             </div>
          </div>
       </div>
-      <!-- <div class="lb" id="popup-box-copyrights-filter" style="width:650px !important;">
-         <span id="expcancelbtn-filter" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
-         <form name="dealsupload" enctype="multipart/form-data" id="leaguefile" method="post" >
-            <div class="accordian">
-               <h3 class="acc-title" style="padding:10px;text-align:center;"><span>Upload excel File</span> <i class="zmdi zmdi-chevron-down"></i></h3>
-               <div class="acc-content">
-                  <div class="upload-sec" style="padding:10px"> 
-                     <input type="file" name="leaguefilepath" class="ip-file"> 
-                     <input type="file" class="form-control" id="customFile" />
 
-                  </div>
-                  <div class="btn-sec text-right" style="padding:10px">
-                     <input type="button" class="btn" value="Upload" onClick="getLeagueImport();">
-                  </div>
-               </div>
-            </div>
-         </form>
-      </div> -->
 
       <!-- Modal -->
                <div  class="modal fade impshowdealsbt" role="dialog">
@@ -1720,6 +1708,7 @@ padding:0rem !important;
         var exitglobalfilterDescrip='';
          function EditFilter(filterNameId)
          {
+
          $('#investorauto_sug').tokenInput("clear");
          
          getFilterName=$('#mode').val('E');
@@ -1736,6 +1725,8 @@ padding:0rem !important;
 
          if(dataValue[0].filter_type == "Exit")
          {
+            $('#v-pills-messages-tab').trigger('click');
+
             exitglobalfilterDescrip=dataValue[0].filter_desc;
          exitglobalfilterNameId=dataValue[0].filter_name;
          exitglobalfilterId=dataValue[0].id;
@@ -1755,6 +1746,8 @@ padding:0rem !important;
             $('#exityr2').val(dataValue[0].end_year)  
          }
          else{
+            $('#v-pills-profile-tab').trigger('click');
+
             globalfilterDescrip=dataValue[0].filter_desc;
          globalfilterNameId=dataValue[0].filter_name;
          globalfilterId=dataValue[0].id;
@@ -2030,7 +2023,9 @@ padding:0rem !important;
                },
                });
             }
-         
+            setTimeout(function(){
+               window.location.reload(1);
+            }, 500);
          }
 
          $(document).on('click','#impshowdealsbt',function(){
@@ -2228,6 +2223,8 @@ padding:0rem !important;
                   if(mode == 'A')
                   {
                   $('#filter_name').val('')
+                  $('filter_desc').val('');
+
                   }
                   else
                   {
@@ -2257,6 +2254,8 @@ padding:0rem !important;
                   if(mode == 'A')
                   {
                   $('#filter_name').val('')
+                  $('filter_desc').val('');
+
                   }
                   else
                   {
@@ -2529,6 +2528,7 @@ padding:0rem !important;
                      $("#pelistingexcel").attr("action", hrefval);
                      $("#pelistingexcel").submit();
                      }
+                     header("Refresh: 0");
                            
                },
             });
