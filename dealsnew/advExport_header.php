@@ -2528,7 +2528,6 @@ padding:0rem !important;
                      $("#pelistingexcel").attr("action", hrefval);
                      $("#pelistingexcel").submit();
                      }
-                     header("Refresh: 0");
                            
                },
             });
