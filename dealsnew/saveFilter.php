@@ -43,7 +43,14 @@
             $filterType=$_POST['filterType'];
             
             $filterQuery=$_POST['filterQuery'];
+            if($dlogUserEmail == "vijayakumar.k@praniontech.com")
+            {
+               $filter_active='active';
+            }
+            else
+            {
             $filter_active=$_POST['filter_active'];
+            }
             $vi_filter=0;
 
             $startDate=$_POST['start_date'];

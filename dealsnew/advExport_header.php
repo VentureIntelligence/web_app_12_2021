@@ -441,7 +441,8 @@ padding:0rem !important;
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
-                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments'";
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments' and  created_by='".$dlogUserEmail."'";
+                    //echo $nanoSql;
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
@@ -495,7 +496,7 @@ padding:0rem !important;
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
-                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Exit'";
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Exit' and  created_by='".$dlogUserEmail."'";
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
@@ -547,24 +548,38 @@ padding:0rem !important;
                </div>
             </div>
          </div>
+         <?php if($dlogUserEmail == "vijayakumar.k@praniontech.com")
+         {?>
          <div class="col-md-8 mb-2" style="    padding-left: 0px;">
+            <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
+               <!-- <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a> -->
+               <a class="filter ml-3 active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
+               <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
+               <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
+            </div>
+            <?php }else{ ?>
+               <div class="col-md-8 mb-2" style="    padding-left: 0px;">
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
                <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
                <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
                <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
                <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
             </div>
+            <?php } ?>
+        
             <div class="tab-content" id="v-pills-tabContent">
                <?php
                   $keyword="";
                   $keyword=$_POST['repDBtype'];
                   
-                  $nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 and filter_active='active' ORDER BY filter_order_no ASC";
+                  $nanoSql="SELECT * FROM `saved_filter` where   created_by='vijayakumar.k@praniontech.com' and filter_active='active' ORDER BY filter_order_no ASC";
                   if ($reportrs = mysql_query($nanoSql))
                   {
                   $report_cnt = mysql_num_rows($reportrs);
                   }
                   ?> 
+                      <?php if($dlogUserEmail != "vijayakumar.k@praniontech.com")
+                 {?>
                <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                   <div class="card">
                      <div class="row mt-2">
@@ -608,8 +623,13 @@ padding:0rem !important;
                         <?php } ?>       
                      </div>
                   </div>
-               </div>
+               </div><?php } ?>
+               <?php if($dlogUserEmail != "vijayakumar.k@praniontech.com")
+                 {?>
                     <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                   <?php } else {?>
+                     <div class="tab-pane ml-3 show active" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                   <?php }?>
                     <div class="card"> 
                     <div class="ml-3 mt-3">
                         <h6 class="invHeading">Input Investor`s Name</h6>
@@ -1128,6 +1148,7 @@ padding:0rem !important;
                         </div><br>
                         
                      </div></div>
+
                      <div class="tab-pane container fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                      <div class="card">   
                      <div class="ml-3 mt-3">
