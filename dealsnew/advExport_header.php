@@ -10,11 +10,12 @@
    //echo $dlogUserEmail;
    //$username= $_SESSION[ 'name' ];	
    
-   $sqlQuery="SELECT dc.custom_export_limit as expplimit FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
+   $sqlQuery="SELECT dc.DCompanyName as companyName,dc.custom_export_limit as expplimit FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
    $sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
    while ($row = mysql_fetch_assoc($sqlSelResult)) {
    
    $custom_export_limit= $row['expplimit']  ;
+   $companyName=$row['companyName'];
    
    }
    
@@ -1940,7 +1941,7 @@ padding:0rem !important;
                $.ajax({
                url: 'saveFilter.php',
                type: "POST",
-               data: {filterType:filterType,filterName:filter_name,filterNameId: filterNameId, mode: 'export'},
+               data: {companyName:'<?php echo $companyName?>',filterType:filterType,filterName:filter_name,filterNameId: filterNameId, mode: 'export'},
                success: function(data){
                var dataval=data.replace(/[\u0000-\u0019]+/g,"")
                var dataset=JSON.parse(JSON.stringify(dataval))

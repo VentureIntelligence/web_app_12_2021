@@ -133,15 +133,16 @@
    $filterNameId = $_POST['filterNameId'];
    $filtername = $_POST['filterName'];
    $filterType =$_POST['filterType'];
+   $companyName=$_POST['companyName'];
    // echo $filterType;exit();
    if($filtername != "")
    {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."',NOW())";
+   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
    $queryResult = mysql_query($query) or die(mysql_error());
    }
    else
    {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."',NOW())";
+   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."','".$companyName."',NOW())";
    //echo $query;exit();
    $queryResult = mysql_query($query) or die(mysql_error());
    }
