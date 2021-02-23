@@ -663,12 +663,13 @@ padding:0rem !important;
                                              <i class="fa fa-search" aria-hidden="true" style="margin-top: 11px;margin-left: 15px;margin-right: 0px"></i>
  
                                           <input type="text" id="investorauto_sug" name="investorauto_sug" value="<?php if($iauto!='') echo  $iauto;  ?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($_POST['keywordsearch']!='') echo "readonly='readonly'";  ?>>
-                                          <span class="error" style="display:none" id="investorErr">Enter the Investor Name</span>
                                           <input type="hidden" id="keywordsearch" name="keywordsearch" value="<?php if(isset($isearch)) echo  $isearch;  ?>" placeholder="" style="width:220px;">
                                           <input type="hidden" id="invradio" name="invradio" value="<?php if($invandor!=''){echo $invandor;}else {echo 1;}?>" placeholder="" style="width:220px;"> 
                                           <!-- <span id="inv_clearall" title="Clear All" onclick="clear_keywordsearch();" style="<?php if($_POST['keywordsearch']=='') echo 'display:none;';  ?>background: #BFA074;  position: absolute;  top: 29px;  right: 30px;  padding: 3px;">(X)</span>-->
                                           <div id="investorauto_load" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none;  width: 223px;"></div>
-                                    </li>
+                                    </li> 
+                                    <span class="error" style="display:none" id="investorErr">Enter the Investor Name</span>
+
                                     </div>
                                     <div class="col-md-1" style="padding: 10px 0px 0px 30px;">
                                      
@@ -1183,12 +1184,13 @@ padding:0rem !important;
                                              <i class="fa fa-search" aria-hidden="true" style="margin-top: 11px;margin-left: 7px;"></i>
 
                                              <input type="text" id="expinvestorauto_sug" name="expinvestorauto_sug" value="<?php if($iauto!='') echo  $iauto;  ?>" placeholder="" style="width:220px;" autocomplete="off" <?php if($_POST['keywordsearch']!='') echo "readonly='readonly'";  ?>>
-                                             <span class="error" style="display:none" id="exitinvestorErr">Enter the Investor Name</span>
                                              <input type="hidden" id="keywordsearch" name="keywordsearch" value="<?php if(isset($isearch)) echo  $isearch;  ?>" placeholder="" style="width:220px;">
                                              <input type="hidden" id="invradio" name="invradio" value="<?php if($invandor!=''){echo $invandor;}else {echo 1;}?>" placeholder="" style="width:220px;"> 
                                              <!-- <span id="inv_clearall" title="Clear All" onclick="clear_keywordsearch();" style="<?php if($_POST['keywordsearch']=='') echo 'display:none;';  ?>background: #BFA074;  position: absolute;  top: 29px;  right: 30px;  padding: 3px;">(X)</span>-->
                                              <div id="investorauto_load" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none;  width: 223px;"></div>
                                        </li>
+                                       <span class="error" style="display:none" id="exitinvestorErr">Enter the Investor Name</span>
+
                                        </div>
                                        <div class="col-md-1" style="padding: 10px 0px 0px 30px;">
                                          
@@ -1632,6 +1634,7 @@ padding:0rem !important;
   </div>
 </div>
          </form>
+         <input type="hidden" id="mode" value="A">
       </div>
      <script>
         $(document).ready(function(){
@@ -1743,7 +1746,7 @@ padding:0rem !important;
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
         
-
+            $('#mode').val('E');
 
          if(dataValue[0].filter_type == "Exit")
          {
@@ -2118,6 +2121,7 @@ padding:0rem !important;
          var investornameArray=[];
          function saveFilterName()
          {
+             mode=$('#mode').val();
          investornameArray=[];
          
          var filterType=$(".rightpanel").find(".active").attr('value')
@@ -2127,7 +2131,7 @@ padding:0rem !important;
          $.ajax({
                   url: 'saveFilter.php',
                   type: "POST",
-                  data: {filtername:filtername,filterType:filterType, mode: 'getData'},
+                  data: {getTypeMode:mode,filtername:filtername,filterType:filterType, mode: 'getData'},
                success: function(data){
 
                   if(data == 'failure')
