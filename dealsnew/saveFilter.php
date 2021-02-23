@@ -238,6 +238,9 @@
    elseif($_POST['mode'] == 'getData')
    {
      $filtername = $_POST['filtername'];
+     $getTypeMode=$_POST['getTypeMode'];
+     if( $getTypeMode == 'A')
+     {
         $sql="SELECT filter_name FROM `saved_filter` where filter_type='".$_POST['filterType']."'";
         //echo $sql;exit();
         $query = mysql_query($sql) or die(mysql_error());
@@ -247,8 +250,14 @@
                echo 'failure';
                return;
           }
+
          
         }
+     }
+     else
+     {
+          echo 'success';
+     }
 
    }
    
