@@ -5,6 +5,7 @@ require("../dbconnectvi.php");
   checkaccess( 'admin_report' );
  session_save_path("/tmp");
 	session_start();
+	//print_r($_SESSION);
 	if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
  	{
 ?>
@@ -150,13 +151,13 @@ require("../dbconnectvi.php");
 			$keyword="";
 			$keyword=$_POST['repDBtype'];
 			
-				$nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 order by filter_order_no asc";
+				$nanoSql="SELECT * FROM `saved_filter`  order by filter_order_no asc";
 				if ($reportrs = mysql_query($nanoSql))
 				 {
 					$report_cnt = mysql_num_rows($reportrs);
 				 }
 		?>
-        <div id="headingtextpro">
+        <div id="headingtextpro" style="margin:10px;">
 				Drag and Re-order Your Filters &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div style=" overflow:auto;margin-top:10px;" class="content_container">
 																
@@ -177,7 +178,8 @@ require("../dbconnectvi.php");
 										if ($report_cnt>0)
 										{
 											While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
-											{	
+											{
+												if($myrow['vi_filter'] == 1 && $_SESSION['name'] == "Vijaya Kumar"){	
 									 ?>
 									<li data-post-id="<?php echo $myrow["id"]; ?>">
 									<div class="li-post-group">
@@ -202,7 +204,34 @@ require("../dbconnectvi.php");
 									</li>
 									
 									<?php
-										} }
+										} elseif($myrow['vi_filter'] == 0 && $myrow['created_by'] == "vijayakumar.k@praniontech.com"){?>
+										
+										<li data-post-id="<?php echo $myrow["id"]; ?>">
+									<div class="li-post-group">
+									<!-- <h5 class="li-post-title">
+									<?php echo $myrow["id"].' - '.$myrow["filter_name"]; ?> 
+									</h5> -->
+									<p class="li-post-desc"><?php 
+
+										if(strlen($myrow["filter_name"]) > 70)
+										echo  $myrow["id"].' - '.substr($myrow["filter_name"],0,70).'...'; 
+										else
+										echo  $myrow["id"].' - '.$myrow["filter_name"];  
+
+
+									?>
+
+									<a href="javascript:void(0)" class='deleteFaq'style='float:right'  data-faq-id=<?php echo $myrow["id"]; ?> > &nbsp; &nbsp; <i class="fa  fa-trash" aria-hidden="true"></i>  </a>
+									<!-- <a href="adminFilter.php?id=<?php echo $myrow["id"]; ?>&filterName=<?php echo $myrow["filter_name"] ?>" style='float:right'> <i class="fa fa-pencil-square-o"></i> </a> -->
+									
+									</p>
+									</div>
+									</li>
+										
+										<?php
+										}
+									
+									} }
 										else {?>
                                              <li style="font-family: Verdana; font-size: 8pt" > 
 												<td align=center colspan=5 >No data Found</td> 

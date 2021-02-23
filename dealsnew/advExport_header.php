@@ -10,11 +10,12 @@
    //echo $dlogUserEmail;
    //$username= $_SESSION[ 'name' ];	
    
-   $sqlQuery="SELECT dc.custom_export_limit as expplimit FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
+   $sqlQuery="SELECT dc.DCompanyName as companyName,dc.custom_export_limit as expplimit FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
    $sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
    while ($row = mysql_fetch_assoc($sqlSelResult)) {
    
    $custom_export_limit= $row['expplimit']  ;
+   $companyName=$row['companyName'];
    
    }
    
@@ -25,7 +26,7 @@
    $DownloadCount= $row['count']  ;
    
    }
-   //echo $custom_export_limit;
+ // echo $DownloadCount;
    
    ?>
 <?php
@@ -184,7 +185,7 @@
          }
          ul.token-input-list-facebook {
          width:100%;
-         height: 34px !important;
+         min-height: 34px !important;
          z-index: 1;
          }
          ul.token-input-list-facebook{width:100% !important;border:none !important;}
@@ -432,7 +433,7 @@ padding:0rem !important;
                               <div class="container">
                <div class="nav nav-pills myfilters mt-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                   <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
-                  <a class="nav-link col-6" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
+                  <a class="nav-link col-6" id="v-pills-profiletab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
                </div>
                         </div>
                <div class="tab-content" id="v-pills-tabContent">
@@ -440,7 +441,8 @@ padding:0rem !important;
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
-                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments'";
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments' and  created_by='".$dlogUserEmail."'";
+                    //echo $nanoSql;
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
@@ -472,7 +474,7 @@ padding:0rem !important;
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                            <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <?php if($custom_export_limit <=  $DownloadCount){?>
+                           <?php if($DownloadCount  >=  $custom_export_limit){?>
                            <button type="button" class="btn exportFilt w-100 text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
@@ -494,7 +496,7 @@ padding:0rem !important;
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
-                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Exit'";
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Exit' and  created_by='".$dlogUserEmail."'";
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
@@ -525,11 +527,11 @@ padding:0rem !important;
                         </div>
                         <div class="btn-group" role="group" aria-label="Basic example">
                            <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <?php if($custom_export_limit <=  $DownloadCount){?>
+                           <?php if($DownloadCount  >=  $custom_export_limit){?>
                            <button type="button" class="btn exportFilt w-100  text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>')">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
                            <?php } ?>
                         </div>
                      </div>
@@ -546,24 +548,38 @@ padding:0rem !important;
                </div>
             </div>
          </div>
+         <?php if($dlogUserEmail == "vijayakumar.k@praniontech.com")
+         {?>
          <div class="col-md-8 mb-2" style="    padding-left: 0px;">
+            <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
+               <!-- <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a> -->
+               <a class="filter ml-3 active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
+               <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
+               <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
+            </div>
+            <?php }else{ ?>
+               <div class="col-md-8 mb-2" style="    padding-left: 0px;">
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
                <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
                <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
                <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
                <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
             </div>
+            <?php } ?>
+        
             <div class="tab-content" id="v-pills-tabContent">
                <?php
                   $keyword="";
                   $keyword=$_POST['repDBtype'];
                   
-                  $nanoSql="SELECT * FROM `saved_filter` where vi_filter=1 and filter_active='active' ORDER BY filter_order_no ASC";
+                  $nanoSql="SELECT * FROM `saved_filter` where   created_by='vijayakumar.k@praniontech.com' and filter_active='active' ORDER BY filter_order_no ASC";
                   if ($reportrs = mysql_query($nanoSql))
                   {
                   $report_cnt = mysql_num_rows($reportrs);
                   }
                   ?> 
+                      <?php if($dlogUserEmail != "vijayakumar.k@praniontech.com")
+                 {?>
                <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                   <div class="card">
                      <div class="row mt-2">
@@ -590,7 +606,12 @@ padding:0rem !important;
                                  </div>
                               </div>
                               <!-- <div class="card-footer edit"> -->
-                              <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $myrow['id'] ?>')">Export</button>
+                              <?php if($DownloadCount  >=  $custom_export_limit){?>
+                                 <button  class ="btn exportFilt w-100 text-center" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
+                            <?php }
+                              else {?>
+                                 <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['filter_type'] ?>')">Export</button>
+                           <?php } ?>
                               <!-- <h5 class="text-center ">Export</h5> -->
                               <!-- </div> -->
                            </div>
@@ -602,8 +623,13 @@ padding:0rem !important;
                         <?php } ?>       
                      </div>
                   </div>
-               </div>
+               </div><?php } ?>
+               <?php if($dlogUserEmail != "vijayakumar.k@praniontech.com")
+                 {?>
                     <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                   <?php } else {?>
+                     <div class="tab-pane ml-3 show active" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                   <?php }?>
                     <div class="card"> 
                     <div class="ml-3 mt-3">
                         <h6 class="invHeading">Input Investor`s Name</h6>
@@ -659,7 +685,7 @@ padding:0rem !important;
                                  </div>
                           
                         </div>
-                        <div class="row ml-3">
+                        <div class="row ml-3 mt-2">
                            <h6 class="duration">Select Duration</h6>
                         </div>
                         <div class="row ml-4">
@@ -777,7 +803,7 @@ padding:0rem !important;
                         </div></div>
                      </div>
                         <span class="error" style="display:none" id="durationErr">Select the duration time</span>
-                        <div class="copyright-body">
+                        <div class="copyright-body mt-2">
                               <h6 class="duration">Select fields for excel file export</h6>
                           
                            <label style="font-weight: 600;font-size: 14px;" ><input type="checkbox" class="allexportcheck duration" id="allexportcheck" checked/ > Select All</label>
@@ -1083,7 +1109,7 @@ padding:0rem !important;
                           
                            <div style="float:left">
                               <span class="one">
-                              <?php if($custom_export_limit <=  $DownloadCount){?>
+                              <?php if($DownloadCount  >=  $custom_export_limit){?>
                                  <button  class ="export_new btn btn-circle btn-exp" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
 
                            <?php }
@@ -1122,6 +1148,7 @@ padding:0rem !important;
                         </div><br>
                         
                      </div></div>
+
                      <div class="tab-pane container fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                      <div class="card">   
                      <div class="ml-3 mt-3">
@@ -1176,7 +1203,7 @@ padding:0rem !important;
                                     </div>
                              
                            </div>
-                           <div class="row ml-3">
+                           <div class="row ml-3 mt-2">
                               <h6 class="duration">Select Duration</h6>
                            </div>
                            <div class="row ml-4">
@@ -1283,7 +1310,7 @@ padding:0rem !important;
                                  </div>
                            </div></div></div>
                            <span class="error" style="display:none" id="durationErr">Select the duration time</span>
-                           <div class="copyright-body">
+                           <div class="copyright-body mt-2">
                               <!-- <div class="row"> -->
                                  <h6 class="duration">Select fields for excel file export</h6>
                               <!-- </div> -->
@@ -1439,7 +1466,7 @@ padding:0rem !important;
                               </div><br>
                               <div style="float:left">
                               <span class="one">
-                              <?php if($custom_export_limit <=  $DownloadCount){?>
+                              <?php if($DownloadCount  >=  $custom_export_limit){?>
                                  <button  class ="export_new btn  btn-exp" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
 
                            <?php }
@@ -1519,24 +1546,7 @@ padding:0rem !important;
             </div>
          </div>
       </div>
-      <!-- <div class="lb" id="popup-box-copyrights-filter" style="width:650px !important;">
-         <span id="expcancelbtn-filter" class="expcancelbtn" style="position: relative;background: #ec4444;font-size: 18px;padding: 0px 4px 2px 5px;z-index: 9022;color: #fff;cursor: pointer;float: right;">x</span>
-         <form name="dealsupload" enctype="multipart/form-data" id="leaguefile" method="post" >
-            <div class="accordian">
-               <h3 class="acc-title" style="padding:10px;text-align:center;"><span>Upload excel File</span> <i class="zmdi zmdi-chevron-down"></i></h3>
-               <div class="acc-content">
-                  <div class="upload-sec" style="padding:10px"> 
-                     <input type="file" name="leaguefilepath" class="ip-file"> 
-                     <input type="file" class="form-control" id="customFile" />
 
-                  </div>
-                  <div class="btn-sec text-right" style="padding:10px">
-                     <input type="button" class="btn" value="Upload" onClick="getLeagueImport();">
-                  </div>
-               </div>
-            </div>
-         </form>
-      </div> -->
 
       <!-- Modal -->
                <div  class="modal fade impshowdealsbt" role="dialog">
@@ -1720,6 +1730,7 @@ padding:0rem !important;
         var exitglobalfilterDescrip='';
          function EditFilter(filterNameId)
          {
+
          $('#investorauto_sug').tokenInput("clear");
          
          getFilterName=$('#mode').val('E');
@@ -1736,6 +1747,8 @@ padding:0rem !important;
 
          if(dataValue[0].filter_type == "Exit")
          {
+            $('#v-pills-messages-tab').trigger('click');
+
             exitglobalfilterDescrip=dataValue[0].filter_desc;
          exitglobalfilterNameId=dataValue[0].filter_name;
          exitglobalfilterId=dataValue[0].id;
@@ -1755,6 +1768,8 @@ padding:0rem !important;
             $('#exityr2').val(dataValue[0].end_year)  
          }
          else{
+            $('#v-pills-profile-tab').trigger('click');
+
             globalfilterDescrip=dataValue[0].filter_desc;
          globalfilterNameId=dataValue[0].filter_name;
          globalfilterId=dataValue[0].id;
@@ -1947,7 +1962,7 @@ padding:0rem !important;
                $.ajax({
                url: 'saveFilter.php',
                type: "POST",
-               data: {filterType:filterType,filterName:filter_name,filterNameId: filterNameId, mode: 'export'},
+               data: {companyName:'<?php echo $companyName?>',filterType:filterType,filterName:filter_name,filterNameId: filterNameId, mode: 'export'},
                success: function(data){
                var dataval=data.replace(/[\u0000-\u0019]+/g,"")
                var dataset=JSON.parse(JSON.stringify(dataval))
@@ -2030,7 +2045,9 @@ padding:0rem !important;
                },
                });
             }
-         
+            setTimeout(function(){
+               window.location.reload(1);
+            }, 500);
          }
 
          $(document).on('click','#impshowdealsbt',function(){
@@ -2107,6 +2124,20 @@ padding:0rem !important;
          
          var filtername=$('#filter_name').val()
          var filterDesc=$('#filter_desc').val().trim()
+         $.ajax({
+                  url: 'saveFilter.php',
+                  type: "POST",
+                  data: {filtername:filtername,filterType:filterType, mode: 'getData'},
+               success: function(data){
+
+                  if(data == 'failure')
+                  {
+                     $('.saveshowdealsbt').modal('hide');
+
+                     swal("You are already enter the filter name in '"+filterType+"' Filter ")
+                     return false;
+                  }
+      else{
          if(filterType == "Investments")
          {
          var Industry=$('#sltindustry').val();
@@ -2124,6 +2155,7 @@ padding:0rem !important;
          var month2=$('#mon2').val();
          var year1=$('#yr1').val();
          var year2=$('#yr2').val();
+
          for(i=0;i<selectedValues.length;i++)
          {
          investornameArray.push(selectedValues[i]["name"])
@@ -2201,6 +2233,9 @@ padding:0rem !important;
          },
          });
          }
+      }
+   },
+            });
          
          }
 
@@ -2228,6 +2263,8 @@ padding:0rem !important;
                   if(mode == 'A')
                   {
                   $('#filter_name').val('')
+                  $('filter_desc').val('');
+
                   }
                   else
                   {
@@ -2257,6 +2294,8 @@ padding:0rem !important;
                   if(mode == 'A')
                   {
                   $('#filter_name').val('')
+                  $('filter_desc').val('');
+
                   }
                   else
                   {
@@ -2504,12 +2543,12 @@ padding:0rem !important;
          return false;
          }
 
-         function ExportAdminFilter(id)
+         function ExportAdminFilter(id,name,type)
          {
                $.ajax({
                   url: 'saveFilter.php',
                   type: "POST",
-                  data: {filterid: id, mode: 'adminExport'},
+                  data: {filterid: id,filterName:name,filterType:type, mode: 'adminExport'},
                success: function(data){
                   var dataval=data.replace(/[\u0000-\u0019]+/g,"")
                   var dataset=JSON.parse(JSON.stringify(dataval))
@@ -2537,6 +2576,26 @@ padding:0rem !important;
          {
             swal("Currently your export action is crossing the limit of "+ exportLimit +" records.  To increase the limit please contact info@ventureintelligence.com");
          }
+
+
+         // function checkfilterName(filtername)
+         // {
+         //    $.ajax({
+         //          url: 'saveFilter.php',
+         //          type: "POST",
+         //          data: {filtername:filtername, mode: 'getData'},
+         //       success: function(data){
+
+         //          if(data == 'failure')
+         //          {
+         //             swal("You are already enter the filter name")
+         //             return false;
+         //          }
+                
+
+         //       },
+         //    });
+         // }
      </script>
    </body>
 </html>
