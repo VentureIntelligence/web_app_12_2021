@@ -5,7 +5,6 @@
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 $dlogUserEmail = $_SESSION['UserEmail'];
-//echo $dlogUserEmail;exit();
     if($_POST['mode'] == 'saveFilter')
     {
         $sql="SELECT * FROM `saved_filter` GROUP BY `filter_name`";

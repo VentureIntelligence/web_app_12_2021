@@ -93,6 +93,7 @@ require("checkaccess.php");
     checkaccess( 'subscribers' );
 //session_save_path("/tmp");
 session_start();
+//print_r($_SESSION);
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
 {
     //	echo "<br>1--";
