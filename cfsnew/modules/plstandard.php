@@ -516,7 +516,7 @@ class plstandard extends database {
 		if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
                 
 		//print $sql;
- 	   echo '<div style="display:none" class="count">';print_r( $sql );echo'</div>';
+ 	   //echo '<div style="display:none" class="count">';print_r( $sql );echo'</div>';
 		$this->execute($sql);
 		
 		$return_array=$this->fetch();   
@@ -554,7 +554,7 @@ class plstandard extends database {
 		if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
 		
 		//print $sql;
-		echo '<div style="display:none" class="count1">';print_r( $sql );echo'</div>';
+		//echo '<div style="display:none" class="count1">';print_r( $sql );echo'</div>';
               
 		$this->execute($sql);
 		
@@ -1378,7 +1378,7 @@ class plstandard extends database {
 		$this->execute($sql);
 		
 		//print $this->execute($sql);
-		echo '<div style="display:none">';print_r( $sql ); echo'</div>';
+		//echo '<div style="display:none">';print_r( $sql ); echo'</div>';
 		$cont=0;
               
 		if($fields=="*")

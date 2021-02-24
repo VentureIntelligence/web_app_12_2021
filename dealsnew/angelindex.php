@@ -1149,7 +1149,6 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 $compId = 0;
 $currentyear = date("Y");
 
-echo "<div style='display:none'>" . $companysql . "</div>";
 $topNav = 'Deals';
 include_once 'angelheader_search.php';
 ?>
