@@ -175,7 +175,7 @@ class cprofile extends database {
 
 		$sql = "SELECT ".$fields." FROM ".$this->dbName." ";
 		$sql.= " LEFT JOIN industries b on(Industry = b.Industry_Id) ";
-		$sql.= " LEFT JOIN countries c on(Country = c.Country_Id) ";
+		$sql.= " LEFT JOIN countries c on(AddressCountry = c.Country_Id) ";
 		$sql.= " LEFT JOIN city d on(City = d.city_id) ";
 		$sql.= " LEFT JOIN state e on(	State = e.state_id) ";
 		$sql.= " LEFT JOIN sectors f on(Sector  = f.Sector_Id) ";
