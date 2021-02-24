@@ -572,7 +572,7 @@ padding:0rem !important;
                   $keyword="";
                   $keyword=$_POST['repDBtype'];
                   
-                  $nanoSql="SELECT * FROM `saved_filter` where   created_by='vijayakumar.k@praniontech.com' and filter_active='active' ORDER BY filter_order_no ASC";
+                  $nanoSql="SELECT * FROM `saved_filter` where   created_by='vijayakumar.k@praniontech.com' and filter_active='active' ORDER BY filter_order_no desc";
                   if ($reportrs = mysql_query($nanoSql))
                   {
                   $report_cnt = mysql_num_rows($reportrs);
