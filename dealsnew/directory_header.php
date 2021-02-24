@@ -1,4 +1,13 @@
-<?php  $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '0';
+<?php  
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+    header('Location:../pelogin.php');
+}
+else
+{	
+$value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '0';
         $strvalue = explode("/", $value);
         if(sizeof($strvalue)>1)
         {   
@@ -541,3 +550,4 @@ $(function(){
 </tr>
 </table>
 </div>
+<?php } ?>

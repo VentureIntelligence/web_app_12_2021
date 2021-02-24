@@ -1,4 +1,8 @@
-<?php include_once("../globalconfig.php"); ?>
+<?php include_once("../globalconfig.php");
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('machecklogin.php');
+?>
 <?php
 
 $_POST = array ("dealtype" => '1,2,3',"time" => "2016","datatype" => "1");
