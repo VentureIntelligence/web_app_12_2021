@@ -21,7 +21,7 @@ if($_POST['cin']!=''){
     //$myrow=mysql_fetch_array($companyrs);
     while($myrow=mysql_fetch_array($companyrs)){
         $companyidarr[]=$myrow['PECompanyId'];
-        $companyname .= "Acquirer LIKE '".trim($myrow['companyname'])."%' or ";
+        $companyname .= "Acquirer LIKE '".trim($myrow['companyname'])."' or ";
         }
         $companyname = trim($companyname,"or ");
     $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
@@ -376,17 +376,14 @@ if($_POST['cin']!=''){
         
         }else if(count($pedata)==0 ){
             $getcompanysql = "select PECompanyId,companyname from pecompanies where companyname LIKE '".trim($mybrandname['SCompanyName'])."'";
-            $companyrs = mysql_query($getcompanysql); 
-            
+            $companyrs = mysql_query($getcompanysql);          
             while($myrow=mysql_fetch_array($companyrs)){
                 $companyidarr[]=$myrow['PECompanyId'];
+                $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."' or ";
             }
             $companyname = trim($companyname,"or ");
-            $acqcompanyname = "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."'";
-
-            $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $acqcompanyname";
+            $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
             $acquirer= mysql_query($acquirersql);
-           
             while($myacq=mysql_fetch_array($acquirer)){
                 $acqarr[]=$myacq['AcquirerId'];
             }
