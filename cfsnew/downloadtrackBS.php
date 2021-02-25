@@ -181,6 +181,15 @@ if($_GET['template']!="old"){
 			  )
 		) 
 	);
+	$showminority_interest = false;$count = 0;
+                for($i=0;$i<count($FinanceAnnual);$i++){ 
+                    if($FinanceAnnual[$i][minority_interest] != 0 && $FinanceAnnual[$i][minority_interest] != ''){
+                        $count++;
+                        if($count > 1){
+                            $showminority_interest = true;
+                        }
+                    } 
+                }
 	//print_r($FinanceAnnual);
     //$excelIndex = $this->createColumnsArray( 'BZ' );
     // 1-based index
@@ -193,6 +202,48 @@ if($_GET['template']!="old"){
 			$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Reserves and surplus')->getStyle("A8") ->applyFromArray($headerArray);
 			$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Total shareholders funds')->getStyle("A9") ->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A10', 'Share application money pending allotment')->getStyle("A10")->applyFromArray($headerArray) ;
+			if($showminority_interest == 1){
+				$objPHPExcel->getActiveSheet()->setCellValue('A11', 'Minority Interest')->getStyle("A8") ->applyFromArray($headerArray);
+				$objPHPExcel->getActiveSheet()->setCellValue('A12', '')->getStyle("A11")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Non-current liabilities [Abstract]')->getStyle("A12") ->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A14', 'Long-term borrowings')->getStyle("A13")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A15', 'Deferred tax liabilities (net)')->getStyle("A14") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A16', 'Other long-term liabilities')->getStyle("A15")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Long-term provisions')->getStyle("A16")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A18', 'Total non-current liabilities')->getStyle("A17")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A19', '')->getStyle("A18")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A20', 'Current liabilities [Abstract]')->getStyle("A19")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A21', 'Short-term borrowings')->getStyle("A20")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A22', 'Trade payables')->getStyle("A21")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A23', 'Other current liabilities')->getStyle("A22")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A24', 'Short-term provisions')->getStyle("A23")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A25', 'Total current liabilities')->getStyle("A24")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A26', 'Total equity and liabilities')->getStyle("A25")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A27', '')->getStyle("A26")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A28', 'Assets [Abstract]')->getStyle("A27")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A29', '')->getStyle("A28")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A30', 'Non-current assets [Abstract]')->getStyle("A29")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A31', '')->getStyle("A30")->applyFromArray($headerArray) ;    
+			$objPHPExcel->getActiveSheet()->setCellValue('A32', 'Fixed assets [Abstract] ')->getStyle("A31")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A33', 'Tangible assets')->getStyle("A32")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A34', 'Intangible assets')->getStyle("A33")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A35', 'Total fixed assets')->getStyle("A34") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A36', 'Non-current investments')->getStyle("A35")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A37', 'Deferred tax assets (net)')->getStyle("A36")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A38', 'Long-term loans and advances')->getStyle("A37")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A39', 'Other non-current assets')->getStyle("A38")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A40', 'Total non-current assets')->getStyle("A39")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A41', '')->getStyle("A40")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A42', 'Current assets [Abstract]')->getStyle("A41")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A43', 'Current investments')->getStyle("A42")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A44', 'Inventories')->getStyle("A43")->applyFromArray($headerArray) ;    
+			$objPHPExcel->getActiveSheet()->setCellValue('A45', 'Trade receivables')->getStyle("A44")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A46', 'Cash and bank balances')->getStyle("A45")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A47', 'Short-term loans and advances')->getStyle("A46")->applyFromArray($headerArray) ;
+			$objPHPExcel->getActiveSheet()->setCellValue('A48', 'Other current assets')->getStyle("A47") ->applyFromArray($headerArray);
+			$objPHPExcel->getActiveSheet()->setCellValue('A49', 'Total current assets')->getStyle("A48")->applyFromArray($headerboldStyle);
+			$objPHPExcel->getActiveSheet()->setCellValue('A50', 'Total assets')->getStyle("A49")->applyFromArray($headerboldStyle);
+			}else{
 			$objPHPExcel->getActiveSheet()->setCellValue('A11', '')->getStyle("A11")->applyFromArray($headerArray) ;
 			$objPHPExcel->getActiveSheet()->setCellValue('A12', 'Non-current liabilities [Abstract]')->getStyle("A12") ->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Long-term borrowings')->getStyle("A13")->applyFromArray($headerArray) ;
@@ -232,6 +283,7 @@ if($_GET['template']!="old"){
 			$objPHPExcel->getActiveSheet()->setCellValue('A47', 'Other current assets')->getStyle("A47") ->applyFromArray($headerArray);
 			$objPHPExcel->getActiveSheet()->setCellValue('A48', 'Total current assets')->getStyle("A48")->applyFromArray($headerboldStyle);
 			$objPHPExcel->getActiveSheet()->setCellValue('A49', 'Total assets')->getStyle("A49")->applyFromArray($headerboldStyle);
+			}
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
 			$objPHPExcel->getActiveSheet()->setTitle('Consolidated');
 			for($i=0;$i<count($FinanceAnnual);$i++){
@@ -254,6 +306,7 @@ if($_GET['template']!="old"){
 					if($FinanceAnnual[$i][ReservesSurplus]==0){$ReservesSurplus ='0';}else{ $vale = $FinanceAnnual[$i][ReservesSurplus]/$usdconversion;$tot=$vale/$convalue;$ReservesSurplus = round($tot,2);  if($vale==''){$ReservesSurplus = '0';}} 
 					if($FinanceAnnual[$i][TotalFunds]==0){$TotalIncome ='0';}else{ $vale = $FinanceAnnual[$i][TotalFunds]/$usdconversion;$tot=$vale/$convalue;$TotalFunds = round($tot,2);  if($vale==''){$TotalFunds = '0';}}
 					if($FinanceAnnual[$i][ShareApplication]==0){$ShareApplication ='0';}else{ $vale = $FinanceAnnual[$i][ShareApplication]/$usdconversion;$tot=$vale/$convalue;$ShareApplication = round($tot,2);  if($vale==''){$ShareApplication = '0';}} 
+					if($FinanceAnnual[$i][minority_interest]==0){$minority_interest ='0';}else{ $vale = $FinanceAnnual[$i][minority_interest]/$usdconversion;$tot=$vale/$convalue;$minority_interest = round($tot,2);  if($vale==''){$minority_interest = '0';}} 
 					if($FinanceAnnual[$i][N_current_liabilities]==0){$N_current_liabilities ='';}else{ $vale = $FinanceAnnual[$i][N_current_liabilities]/$usdconversion;$tot=$vale/$convalue;$N_current_liabilities = round($tot,2);  if($vale==''){$N_current_liabilities = '';}}
 					if($FinanceAnnual[$i][L_term_borrowings]==0){$L_term_borrowings ='0';}else{ $vale = $FinanceAnnual[$i][L_term_borrowings]/$usdconversion;$tot=$vale/$convalue;$L_term_borrowings = round($tot,2);  if($vale==''){$L_term_borrowings = '0';}}
 					if($FinanceAnnual[$i][deferred_tax_liabilities]==0){$deferred_tax_liabilities ='0';}else{ $vale = $FinanceAnnual[$i][deferred_tax_liabilities]/$usdconversion;$tot=$vale/$convalue;$deferred_tax_liabilities = round($tot,2);  if($vale==''){$deferred_tax_liabilities = '0';}}
@@ -296,6 +349,7 @@ if($_GET['template']!="old"){
 				if($FinanceAnnual[$i][ReservesSurplus]==0){$ReservesSurplus ='0';}else{$tot=($FinanceAnnual[$i][ReservesSurplus]/$convalue);if($_GET['rconv'] =='r'){$ReservesSurplus =number_format("$tot");}else{$ReservesSurplus =round($tot,2);} } 
 				if($FinanceAnnual[$i][TotalFunds]==0){$TotalFunds ='0';}else{$tot=($FinanceAnnual[$i][TotalFunds]/$convalue);if($_GET['rconv'] =='r'){$TotalFunds =number_format("$tot");}else{$TotalFunds =round($tot,2);} }
 				if($FinanceAnnual[$i][ShareApplication]==0){$ShareApplication ='0';}else{$tot=($FinanceAnnual[$i][ShareApplication]/$convalue);if($_GET['rconv'] =='r'){$NetPLBefore =number_format("$tot");}else{$NetPLBefore =round($tot,2);}$ShareApplication =round($tot,2); }
+				if($FinanceAnnual[$i][minority_interest]==0){$minority_interest ='0';}else{$tot=($FinanceAnnual[$i][minority_interest]/$convalue);if($_GET['rconv'] =='r'){$minority_interest =number_format("$tot");}else{$minority_interest =round($tot,2);}$minority_interest =round($tot,2); }
 				if($FinanceAnnual[$i][N_current_liabilities]==0){$N_current_liabilities ='';}else{$tot=($FinanceAnnual[$i][N_current_liabilities]/$convalue);if($_GET['rconv'] =='r'){$N_current_liabilities =number_format("$tot");}else{$N_current_liabilities =round($tot,2);} }
 				if($FinanceAnnual[$i][L_term_borrowings]==0){$L_term_borrowings ='0';}else{$tot=($FinanceAnnual[$i][L_term_borrowings]/$convalue);if($_GET['rconv'] =='r'){$L_term_borrowings =number_format("$tot");}else{$L_term_borrowings =round($tot,2);} }
 				if($FinanceAnnual[$i][deferred_tax_liabilities]==0){$deferred_tax_liabilities ='0';}else{$tot=($FinanceAnnual[$i][deferred_tax_liabilities]/$convalue);if($_GET['rconv'] =='r'){$deferred_tax_liabilities =number_format("$tot");}else{$deferred_tax_liabilities =round($tot,2);}}
@@ -341,7 +395,13 @@ if($_GET['template']!="old"){
 			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$TotalFunds )->getStyleByColumnAndRow($col,$row)->applyFromArray($boldStyle)->getNumberFormat()->setFormatCode('##0.00');
 			   $row++;
 			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$ShareApplication )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
+			   if($showminority_interest == 1){
+				$row++;
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$minority_interest )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
+				$row=$row+2;
+			   }else{	  
 			   $row=$row+2;
+			   }
 			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,$row,$N_current_liabilities )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
 			   $row++;
 			   $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow( $col,$row,$L_term_borrowings )->getStyleByColumnAndRow($col,$row)->applyFromArray($styleArray)->getNumberFormat()->setFormatCode('##0.00');
