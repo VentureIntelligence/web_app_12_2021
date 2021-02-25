@@ -350,8 +350,12 @@ span.result-amount-no {
             return results[1] || 0;
         }
         var vcid=$.urlParam('vcid');
-        var ccur1 = 'INR';
-        var str = 'c';
+        var ccur1 = $('#currencyval').val();
+        if(ccur1=="USD"){
+            var str = 'm';
+        }else{
+            var str = 'c';
+        }
         $.get("ajaxmilliCurrency.php", {queryString: ""+ccur1+"",vcid:""+vcid+"",rconv:""+str+""}, function(data){
                 $('#profit_loss_parent').html(data);
                 $(".tab_menu_parent").hide();
@@ -923,6 +927,7 @@ p.textareanew:focus {
 }
     </style>
 {/literal}
+<input type="hidden" name="currencyval" id="currencyval" value="{$currencyval}">
 <input type="hidden" name="activeSubmenu" id="activeSubmenu" value="profit-loss" />
 <input type="hidden" name="countflag" value="{$countflag}"/>
  <div class="lb" id="popup-box">
@@ -983,7 +988,7 @@ p.textareanew:focus {
 
 <div class="list-tab cfsDeatilPage" style="clear: both;margin-top:15px;">
     <ul style="float:left;">
-    <li><a class="postlink" href="home.php{if $pageno}?page={$pageno}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
+    <li><a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
     <li><a  href="details.php?vcid={$VCID}" class="active postlink"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
     </ul>
     <ul style="float: right;" class="social">       

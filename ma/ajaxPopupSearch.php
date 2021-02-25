@@ -1,6 +1,7 @@
 <?php
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
+include ('machecklogin.php');
 $select_type = $_REQUEST['select_type'];
 $searchTerm=$_REQUEST['search'];
 $jsonarray=array();

@@ -60,10 +60,10 @@ $MediaDir = FOLDER_CREATE_PATH;
 $username = $_SESSION['username'];
 
 if($pagename!='Login') {
-    if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CFS Session Username Empty in header - Prev Page : '.$_SERVER['HTTP_REFERER'].'  ,- Current page :'.$_SERVER['PHP_SELF']); }
+    if(!isset($_SESSION['username']) || $_SESSION['username'] == "") {  error_log('CFS Session Username Empty in header - Prev Page : '.$_SERVER['HTTP_REFERER'].'  ,- Current page :'.$_SERVER['PHP_SELF']); }
     else {
         /*error_log('CFS Session Username Available in header -'.$_SESSION['username'].' - Prev Page : '.$_SERVER['HTTP_REFERER'].'  ,- Current page :'.$_SERVER['PHP_SELF']); */
-
+		
     }
 
 }

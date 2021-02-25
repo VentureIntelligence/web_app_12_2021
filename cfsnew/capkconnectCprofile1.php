@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+include "sessauth.php";
 ob_start();
 include("etc/conf.php");
 include("path_Assign.php");

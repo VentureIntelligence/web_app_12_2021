@@ -1,4 +1,10 @@
 <?php
+   if(!isset($_SESSION['UserNames']))
+   {
+           header('Location:../pelogin.php');
+   }
+   else
+   { 
    if( isset($_POST['toventure'])){
        
         $to=$_POST['to'];
@@ -65,5 +71,6 @@
         }
       
     }
+}
     
 ?>

@@ -4,7 +4,12 @@
         $Db = new dbInvestments();
         $VCFlagValue=$_REQUEST['vcflag'];
         $search=$_REQUEST['search'];
-        
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
         if(($VCFlagValue=="0" || $VCFlagValue=="1") && trim(search)!="" )
         {
         $searchString="Undisclosed";
@@ -90,7 +95,7 @@
             
             
         }       
-        
+}
         
         
         function getPESql($VCFlagValue,$search)

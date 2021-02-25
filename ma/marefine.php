@@ -1,5 +1,8 @@
 
 <?php 
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('machecklogin.php');
 if($acquirersearch!="" || $targetcompanysearch!="" || $targetsectorsearch!="" || $advisorsearchstring_legal!="" || $advisorsearchstring_trans!="")
 { 
     $disable_flag = "1";
