@@ -628,12 +628,14 @@ $(document).mouseup(function (e)
                 $("#old_balsheet").show();
                 $("#new_ratio").hide();
                 $("#old_ratio").show();
+                $('#new_temp').next().removeClass('checked');
             }
             else if(selectedValue==2){
                 $("#old_balsheet").hide();
                 $("#new_balsheet").show();
                 $("#old_ratio").hide();
                 $("#new_ratio").show();
+                $('#old_temp').next().removeClass('checked');
             }
       }
       function tabMenu(row){
