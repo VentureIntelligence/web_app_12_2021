@@ -5,7 +5,12 @@
         
         
         $VCFlagValue = $_GET['vcf'];
-        
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
         if($VCFlagValue==0)
         {
                 $addVCFlagqry="";
@@ -140,7 +145,7 @@
               echo json_encode($response);
 
     } 
-                        
+}                    
 mysql_close();
     mysql_close($cnx);
     ?>

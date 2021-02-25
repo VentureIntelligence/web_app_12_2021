@@ -14,6 +14,12 @@ $sql = stripcslashes($sql);
 // $sql = stripcslashes($sql);
 //echo $sql;
 //exit();
+if(!isset($_SESSION['UserNames']))
+   {
+           header('Location:../pelogin.php');
+   }
+   else
+   {
 if ($sql != '') {
 
     if ($vcflagValue == 0 || $hide_pms==1) {
@@ -339,4 +345,5 @@ if ($sql != '') {
 
 mysql_close();
     mysql_close($cnx);
+}
     ?>

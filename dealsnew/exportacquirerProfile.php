@@ -1,14 +1,21 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
- session_save_path("/home/users/web/b1284/ipw.ventureintelligence/phpsessions");
-	session_start();
+// session_save_path("/home/users/web/b1284/ipw.ventureintelligence/phpsessions");
+// 	session_start();
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	
+	if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{
 		$displayMessage="";
 		$mailmessage="";
 
-					$tsjtitle="© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
+					$tsjtitle="ï¿½ TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 
 					$submitemail=$_POST['txthideemail'];
 					//$submitemail1=$_POST['txthideemail1'];
@@ -238,8 +245,9 @@
 				//		}
 				//else
 				//	header( 'Location: '. GLOBAL_BASE_URL .'pelogin.php' ) ;
-
+				}
    mysql_close();
-    mysql_close($cnx);
+	mysql_close($cnx);
+				
     ?>
 

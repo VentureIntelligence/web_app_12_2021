@@ -1,5 +1,6 @@
 <?php 
-	include "header.php";
+    include "header.php";
+    include "sessauth.php";
 	require_once MODULES_DIR."/state.php";
 	$state = new state();
         

@@ -1,8 +1,10 @@
 <?php
-if(!isset($_SESSION)){
-    session_save_path("/tmp");
-    session_start();
-}
+include "header.php";
+include "sessauth.php";
+// if(!isset($_SESSION)){
+//     session_save_path("/tmp");
+//     session_start();
+// }
 $cin = $_REQUEST['cin'];
 include_once('simple_html_dom.php');
 //Data from MCA website 

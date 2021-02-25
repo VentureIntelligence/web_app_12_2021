@@ -1366,10 +1366,15 @@ mysql_close();
 ?>
 <?php
 //session_save_path("/tmp");
-session_start();
+//session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
-
+if(!isset($_SESSION['UserNames']))
+{
+header('Location:../pelogin.php');
+}
+else
+{ 
 function updateDownload($res) {
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
@@ -2176,7 +2181,7 @@ header ('Pragma: public'); // HTTP/1.0
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('php://output');
 exit();
-
+        }
 //		}
 //else
 //	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;

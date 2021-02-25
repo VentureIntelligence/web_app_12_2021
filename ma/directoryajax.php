@@ -1,6 +1,7 @@
 <?php
             require_once("../dbconnectvi.php");//including database connectivity file
             $Db = new dbInvestments();
+            include ('machecklogin.php');
             $jsonarray = array();
             $dealvalue = $_REQUEST['dealvalue'];
             $queryString = $_REQUEST['queryString'];

@@ -1,4 +1,8 @@
-<?php include_once("../globalconfig.php"); ?>
+<?php include_once("../globalconfig.php"); 
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('machecklogin.php');
+?>
 <?php               
     require_once("maconfig.php");
     $topNav = 'Report';

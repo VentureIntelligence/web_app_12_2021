@@ -1,7 +1,8 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
 	require("../dbconnectvi.php");
-	$Db = new dbInvestments();
+        $Db = new dbInvestments();
+        include ('checklogin.php');  
  session_save_path("/tmp");
 	session_start();
 	$username=$_SESSION['REUserNames'];
