@@ -351,6 +351,11 @@ span.result-amount-no {
         }
         var vcid=$.urlParam('vcid');
         var ccur1 = $('#currencyval').val();
+        if(ccur1!=""){
+            ccur1=$('#currencyval').val();
+        }else{
+            ccur1="INR";
+        }
         if(ccur1=="USD"){
             var str = 'm';
         }else{
