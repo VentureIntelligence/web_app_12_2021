@@ -10,12 +10,15 @@
    //echo $dlogUserEmail;
    //$username= $_SESSION[ 'name' ];	
    
-   $sqlQuery="SELECT dc.DCompanyName as companyName,dc.custom_export_limit as expplimit FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
+   $sqlQuery="SELECT dc.DCompanyName as companyName,dc.custom_export_limit as expplimit,dm.DCompId as companyId  FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
+  //echo $sqlQuery;exit();
    $sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
    while ($row = mysql_fetch_assoc($sqlSelResult)) {
    
    $custom_export_limit= $row['expplimit']  ;
    $companyName=$row['companyName'];
+
+   $companyId=$row['companyId'];
    
    }
    
@@ -478,7 +481,7 @@ padding:0rem !important;
                            <button type="button" class="btn exportFilt w-100 text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>',1)">EXPORT</button>
                            <?php } ?>
                         </div>
                      </div>
@@ -531,7 +534,7 @@ padding:0rem !important;
                            <button type="button" class="btn exportFilt w-100  text-center"  onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)">EXPORT</button>
                            <?php }
                               else {?>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>')">EXPORT</button>
+                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>',1)">EXPORT</button>
                            <?php } ?>
                         </div>
                      </div>
@@ -548,7 +551,7 @@ padding:0rem !important;
                </div>
             </div>
          </div>
-         <?php if($dlogUserEmail == "vijayakumar.k@praniontech.com")
+         <?php if($companyId == 948740559)
          {?>
          <div class="col-md-8 mb-2" style="    padding-left: 0px;">
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
@@ -572,13 +575,13 @@ padding:0rem !important;
                   $keyword="";
                   $keyword=$_POST['repDBtype'];
                   
-                  $nanoSql="SELECT * FROM `saved_filter` where   created_by='vijayakumar.k@praniontech.com' and filter_active='active' ORDER BY filter_order_no ASC";
+                  $nanoSql="SELECT * FROM `saved_filter`  order by filter_order_no asc";
                   if ($reportrs = mysql_query($nanoSql))
                   {
                   $report_cnt = mysql_num_rows($reportrs);
                   }
                   ?> 
-                      <?php if($dlogUserEmail != "vijayakumar.k@praniontech.com")
+                      <?php if($companyId != 948740559)
                  {?>
                <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                   <div class="card">
@@ -588,6 +591,7 @@ padding:0rem !important;
                            {
                            While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
                            {	
+                              if($myrow['vi_filter'] == 1 ){
                            ?> 
                         <div class="col-md-6 mb-3">
                            <div class="card invest viadmin">
@@ -617,14 +621,52 @@ padding:0rem !important;
                            </div>
                         </div>
                         <?php
-                           } }
+                           } } }
+                           if($myrow['vi_filter'] == 0 ){
+                                    
+                              $sqlQuery="SELECT dealmembers.DCompId,saved_filter.* FROM `saved_filter`,dealmembers WHERE saved_filter.created_by=dealmembers.EmailId and dealmembers.DCompId=948740559 order by filter_order_no asc";
+                              $reportrsql = mysql_query($sqlQuery);
+                              While($row=mysql_fetch_array($reportrsql, MYSQL_BOTH))
+                              {
+                              //print_r($row['filter_name']);
+                              ?>
+                                      <div class="col-md-6 mb-3">
+                           <div class="card invest viadmin">
+                              <div class="card-body ">
+                                 <div class="row ">
+                                    <div class="col-md-10 col-10">
+                                       <h6 class="card-title q4"><?php echo $row['filter_name'] ?></h6>
+                                       <p class="redesign"><?php echo $row['filter_desc'] ?></p>
+                                       <p class="create">Created on <?php echo date('d M y', strtotime($row['created_on']));?></p>
+                                    </div>
+                                    <!-- <div class="col-md-2 col-2">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                       </button>
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <!-- <div class="card-footer edit"> -->
+                              <?php if($DownloadCount  >=  $custom_export_limit){?>
+                                 <button  class ="btn exportFilt w-100 text-center" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
+                            <?php }
+                              else {?>
+                                 <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $row['id'] ?>','<?php echo $row['filter_name'] ?>','<?php echo $row['filter_type'] ?>')">Export</button>
+                           <?php } ?>
+                              <!-- <h5 class="text-center ">Export</h5> -->
+                              <!-- </div> -->
+                           </div>
+                        </div>
+                              <?php 
+                              }
+                           }
                            else {?>
                         <p class="data" style="margin-left:350px;font-size:12px;color:black;padding-top:200px">No Data Found</p>
                         <?php } ?>       
                      </div>
                   </div>
                </div><?php } ?>
-               <?php if($dlogUserEmail != "vijayakumar.k@praniontech.com")
+               <?php if($companyId != 948740559)
                  {?>
                     <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                    <?php } else {?>
@@ -972,13 +1014,13 @@ padding:0rem !important;
                                     <!-- </div> -->
                                  </li>
                                  <li>
-                                    <input type="checkbox" class="exportcheck" name="skills" value="Exit Status" />
-                                    <SELECT NAME="exitstatus" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
-                                       <OPTION  value="" selected> Select </option>
-                                       <OPTION  value="0" <?php if($exitstatus=="0") echo "selected" ?>> Partial </option>
-                                       <OPTION  value="1" <?php if($exitstatus=="1") echo "selected" ?>> Complete </option>
-                                    </SELECT>
-                                    <!-- </div> -->
+                                 <input type="checkbox" class="exportcheck" name="skills" value="Exit Status" />
+                                 <SELECT name="exitstatus[]" id="exitstatus" multiple="multiple" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+                                 <!-- <OPTION value="" selected> Select </option> -->
+                                 <OPTION value="0" <?php if($exitstatus=="0") echo "selected" ?>> Partial </option>
+                                 <OPTION value="1" <?php if($exitstatus=="1") echo "selected" ?>> Complete </option>
+                                 </SELECT>
+                                 <!-- </div> -->
                                  </li>
                                  <li>
                                     <input type="checkbox" class="exportcheck" name="skills" value="Round" /> 
@@ -1359,7 +1401,7 @@ padding:0rem !important;
                                     <li>
                                        <input type="checkbox" class="exitexportcheck" name="skills" value="ExitStatus" />
                                        <SELECT NAME="exitstatus" id="exitFlstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
-                                          <OPTION  value="--" selected> Exit Status </option>
+                                          <OPTION  value="--" > Exit Status </option>
                                           <OPTION  value="0" > Partial </option>
                                           <OPTION  value="1" > Complete </option>
                                        </SELECT>
@@ -1958,7 +2000,7 @@ padding:0rem !important;
          }
 
 
-         function exportfiltr(value,filterType,filterNameId,filter_name)
+         function exportfiltr(value,filterType,filterNameId,filter_name,checkedvalue)
          {
             if(value == 1)
             {
@@ -1973,6 +2015,7 @@ padding:0rem !important;
                var Type=dataValue[0].filter_type
                if(Type == "Exit")
                {
+
                   $("#txthideexitstatusvalue").val(dataValue[0].exit_status)
                
                $("#txthideindustryid").val(dataValue[0].industry.split(','))
@@ -1999,6 +2042,7 @@ padding:0rem !important;
                $('#txthidedateEndValue').val(endDate);
                }
                else{
+
                   $('#industry').val(dataValue[0].industry);
                   $('#city').val(dataValue[0].city);
                   $('#state').val(dataValue[0].state);
@@ -2024,22 +2068,39 @@ padding:0rem !important;
                div +=',' 
                } 
                }
-               if(dataValue[0].column_name)
-               {
-               $(".resultarray").val(dataValue[0].column_name);
-               
-               }
+         
                
                if(dataValue[0].filter_type =="Exit")
                {
+                  if(dataValue[0].column_name)
+                     {
+                     $(".exitresultarray").val(dataValue[0].column_name);
+                     
+                     }
+                     if(checkedvalue != 1)
+                     {
+                        var exitfiltr=$('.exitexportcheck:checked').map(function() {return this.value;}).get().join(',')
+                        $(".exitresultarray").val(exitfiltr)
+
+                     }
                   $('#txthideinvestor').val(div);
                hrefval= 'exportexitinExcel.php';
                $("#exitpelistingexcel").attr("action", hrefval);
                $("#exitpelistingexcel").submit();
                }
                else{
-                  $('#investorvalue').val(div);
+                  if(dataValue[0].column_name)
+               {
+               $(".resultarray").val(dataValue[0].column_name);
+               
+               }
+                   if(checkedvalue != 1)
+                     {
+                     var invfiltr=$('.exportcheck:checked').map(function() {return this.value;}).get().join(',')
+                     $(".resultarray").val(invfiltr)
 
+                     }
+                  $('#investorvalue').val(div);
                hrefval= 'exportinvdealsExcel.php';
                $("#pelistingexcel").attr("action", hrefval);
                $("#pelistingexcel").submit();
@@ -2144,6 +2205,7 @@ padding:0rem !important;
       else{
          if(filterType == "Investments")
          {
+            $(".resultarray").val()
          var Industry=$('#sltindustry').val();
          var city=$('#citysearch').val();
          var state=$('#sltstate').val();
@@ -2168,6 +2230,7 @@ padding:0rem !important;
          }
          else
          {
+            $(".exitresultarray").val()
           var editfilterId= exitglobalfilterId
          var checkboxName=$('.exitexportcheck:checked').map(function() {return this.value;}).get().join(',')
          var selectedValues = $('#expinvestorauto_sug').tokenInput("get");
@@ -2404,8 +2467,13 @@ padding:0rem !important;
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
+         if(globalfilterId != "")
+         {
          var filterType= $(".rightpanel").find(".active").attr('value')       
          exportfiltr(1,filterType,globalfilterId,globalfilterNameId);
+         }
+         else
+         {
          if (currentRec < remLimit){
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
@@ -2415,6 +2483,7 @@ padding:0rem !important;
          jQuery('#preloading').fadeOut();
          //alert("You have downloaded "+ downloaded +" records of allowed "+ exportLimit +" records(within 48 hours). You can download "+ remLimit +" more records.");
          alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+         }
          }
          },
          error:function(){
@@ -2504,9 +2573,12 @@ padding:0rem !important;
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
-         
+         if(exitglobalfilterId != ""){
          var filterType= $(".rightpanel").find(".active").attr('value')       
          exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId);
+         }
+         else
+         {
          if (currentRec < remLimit){
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
@@ -2516,6 +2588,7 @@ padding:0rem !important;
          jQuery('#preloading').fadeOut();
          //alert("You have downloaded "+ downloaded +" records of allowed "+ exportLimit +" records(within 48 hours). You can download "+ remLimit +" more records.");
          alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+         }
          }
          },
          error:function(){
@@ -2557,7 +2630,8 @@ padding:0rem !important;
                   var dataval=data.replace(/[\u0000-\u0019]+/g,"")
                   var dataset=JSON.parse(JSON.stringify(dataval))
                   var dataValue=JSON.parse(dataset);
-
+                  if(dataValue[0].query != "")
+                  {
                   if(dataValue[0].filter_type =="Exit")
                      {
                         $('#exitquery').val(dataValue[0].query)
@@ -2572,6 +2646,10 @@ padding:0rem !important;
                      $("#pelistingexcel").attr("action", hrefval);
                      $("#pelistingexcel").submit();
                      }
+                  }
+                  else{
+                     exportfiltr(1,dataValue[0].filter_type,dataValue[0].id,dataValue[0].filter_name)
+                  }
                            
                },
             });
@@ -2582,24 +2660,12 @@ padding:0rem !important;
          }
 
 
-         // function checkfilterName(filtername)
-         // {
-         //    $.ajax({
-         //          url: 'saveFilter.php',
-         //          type: "POST",
-         //          data: {filtername:filtername, mode: 'getData'},
-         //       success: function(data){
-
-         //          if(data == 'failure')
-         //          {
-         //             swal("You are already enter the filter name")
-         //             return false;
-         //          }
-                
-
-         //       },
-         //    });
-         // }
      </script>
    </body>
 </html>
+
+
+
+
+
+
