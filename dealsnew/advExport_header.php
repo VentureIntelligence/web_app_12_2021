@@ -2659,7 +2659,11 @@ padding:0rem !important;
             swal("Currently your export action is crossing the limit of "+ exportLimit +" records.  To increase the limit please contact info@ventureintelligence.com");
          }
 
+         $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+            $('#investorauto_sug').tokenInput("clear");
+            $('#expinvestorauto_sug').tokenInput("clear");
 
+            });
      </script>
    </body>
 </html>
