@@ -352,3 +352,6 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 else
 	header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
+
+
+
