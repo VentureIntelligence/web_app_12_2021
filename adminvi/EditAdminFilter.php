@@ -231,10 +231,7 @@
          <!--  <SCRIPT LANGUAGE="JavaScript1.2" SRC="../bottom1.js"></SCRIPT> -->
       </form>
       <script src="https://www.google-analytics.com/urchin.js" type="text/javascript"></script>
-      <!--   <script type="text/javascript">
-         _uacct = "UA-1492351-1";
-         urchinTracker();
-         </script> -->
+     
       <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
       <script>
          $( "#post_list" ).sortable({

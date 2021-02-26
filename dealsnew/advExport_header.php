@@ -2660,24 +2660,6 @@ padding:0rem !important;
          }
 
 
-         // function checkfilterName(filtername)
-         // {
-         //    $.ajax({
-         //          url: 'saveFilter.php',
-         //          type: "POST",
-         //          data: {filtername:filtername, mode: 'getData'},
-         //       success: function(data){
-
-         //          if(data == 'failure')
-         //          {
-         //             swal("You are already enter the filter name")
-         //             return false;
-         //          }
-                
-
-         //       },
-         //    });
-         // }
      </script>
    </body>
 </html>
