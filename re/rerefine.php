@@ -1,8 +1,4 @@
-<?php include_once("../globalconfig.php");
-// require_once("../dbconnectvi.php");
-// $Db = new dbInvestments();
-include ('checklogin.php');
-?>
+
 <SCRIPT  type="text/javascript">   
     $( "#searchallfield" ).keyup(function() {
             $("#searchallfieldHide").val('');     
