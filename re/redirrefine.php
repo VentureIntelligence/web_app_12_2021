@@ -1,5 +1,6 @@
-<?php require("../dbconnectvi.php");
-	$Db = new dbInvestments();
+<?php 
+// require("../dbconnectvi.php");
+// 	$Db = new dbInvestments();
     include ('checklogin.php');
     $dealtypesql = "select DealTypeId,DealType from dealtypes"; ?>
 
