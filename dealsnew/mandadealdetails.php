@@ -6266,6 +6266,44 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
  <input type="hidden" name="deal_date" value="<?php echo $myrow["dt"];?>" >
 </form>
  <script type="text/javascript">
+ function BseLinkLoop(DealDate) {
+    var CheckDate = new Date(DealDate);
+    var Tday = new Date();
+    if (((Tday - CheckDate) / (60 * 60 * 1000 * 24)) > 90) {
+        var BseLinks = document.getElementsByTagName('a');
+        for (var i = 0; i < BseLinks.length; i++) {
+            if (BseLinks[i].href.includes('/AttachLive/')) {
+                var newLink = BseLinks[i].href.replace('/AttachLive/', '/AttachHis/');
+                BseLinks[i].href = newLink;
+            }
+        }
+    }
+}
+
+
+function BseLinkUpdate() {
+    var PageURL = window.location.pathname;
+
+    if (PageURL == "/ma/madealdetails.php") {
+        var DealDate = document.getElementsByClassName('tablelistview3')[0].getElementsByTagName('td')[7].textContent;
+    }
+    else if (PageURL == "/dealsnew/dealdetails.php"){
+	var DealDate = document.getElementsByClassName('tablelistview3')[1].getElementsByTagName('td')[7].textContent;
+    }
+    else if (PageURL == "/dealsnew/mandadealdetails.php"){
+	var DealDate = document.getElementsByClassName('tablelistview3')[1].getElementsByTagName('td')[5].textContent;
+    }
+    else if (PageURL == "/dealsnew/ipodealdetails.php" || PageURL == "/dealsnew/angeldealdetails.php"){
+	var DealDate = document.getElementsByClassName('profiletable')[0].getElementsByTagName('li')[4].getElementsByTagName('p')[0].textContent
+    }
+
+    BseLinkLoop(DealDate);
+
+}
+
+
+window.onload = BseLinkUpdate()
+
       $('.tags_link').click(function(){ 
                     $("#searchTagsField").val($(this).html());
                     $('#tagForm').submit();
