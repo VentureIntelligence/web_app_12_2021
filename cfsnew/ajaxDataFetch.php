@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+include "sessauth.php";
 $din = $_POST['din'];
 //Data from MCA website 
 $urltopost = "http://www.mca.gov.in/mcafoportal/directorMasterDataPopup.do";

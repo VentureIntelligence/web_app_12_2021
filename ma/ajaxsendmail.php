@@ -1,5 +1,7 @@
 <?php
-    
+    require_once("../dbconnectvi.php");
+    $Db = new dbInvestments();
+    include ('machecklogin.php');
     $to=$_POST['to'];
     
     $subject=$_POST['subject'];

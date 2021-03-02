@@ -6,6 +6,12 @@
         $vcflagValue=$_POST['value'];
         $search =$_POST['search'];
         $dealvalue=102;
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
         if($vcflagValue==0)
         {
                 $addVCFlagqry="";
@@ -66,7 +72,7 @@
                                 
                     }
                     echo json_encode($jsonarray);
-                
+        }
 mysql_close();
     mysql_close($cnx);
     ?>

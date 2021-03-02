@@ -1,11 +1,16 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
- session_save_path("/tmp");
-	session_start();
+//  session_save_path("/tmp");
+// 	session_start();
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
-        
+    if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{ 
         //Check Session Id 
         $sesID=session_id();
         $emailid=$_SESSION['UserEmail'];
@@ -551,7 +556,7 @@ function updateDownload($res){
          print(trim($schema_insert));
          print "\n";
      }
-
+    }
 //		}
 //else
 //	header( 'Location: '. GLOBAL_BASE_URL .'pelogin.php' ) ;

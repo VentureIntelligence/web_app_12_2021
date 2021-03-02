@@ -503,7 +503,7 @@ if ($companyrs = mysql_query($getDatasql))
 
 
 										 			$i=2002;
-										 			While($i<=2020)
+										 			While($i<=date('Y'))
 										 			{
 										 			$id = $i;
 										 			$name = $i;

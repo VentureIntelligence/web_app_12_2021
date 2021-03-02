@@ -1,5 +1,6 @@
 <?php
-
+include "header.php";
+include "sessauth.php";
         $to=$_POST['to'];
        
         $subject=$_POST['subject'];

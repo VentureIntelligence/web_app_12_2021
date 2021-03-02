@@ -375,7 +375,7 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 
 
 										 			$i=2002;
-										 			While($i<=2020)
+										 			While($i<=date('Y'))
 										 			{
 										 			$id = $i;
 										 			$name = $i;

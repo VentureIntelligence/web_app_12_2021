@@ -3,6 +3,7 @@
         $compId=0;
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
+        include ('machecklogin.php');
        //print_r($_POST);
         $dealvalue = isset($_POST['showdeals']) ? $_POST['showdeals'] :102;
        // echo $dealvalue;

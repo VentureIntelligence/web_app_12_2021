@@ -1,3 +1,9 @@
+<?php
+
+    require_once("../dbconnectvi.php");//including database connectivity file
+    $Db = new dbInvestments();
+    include ('machecklogin.php');
+    ?>
  <div id="popup1" style="width:800px;display: none;" class="popup">
     <ul class="def-list">
         <li>Only transactions involving acquisition of 50% or higher stake are INCLUDED <li>

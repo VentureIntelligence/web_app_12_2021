@@ -5,6 +5,12 @@ require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
 $dlogUserEmail = $_SESSION['UserEmail'];
  //Get Current Downloads 
+ if(!isset($_SESSION['UserNames']))
+ {
+          header('Location:../pelogin.php');
+ }
+ else
+ {
  $sqlSelCount = "SELECT sum(`recDownloaded`) as `recDownloaded` FROM `user_downloads` WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='PE' AND ( `downloadDate` = CURRENT_DATE || `downloadDate` = DATE_SUB(CURRENT_DATE,INTERVAL 1 DAY))";
  $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());
  $rowSelCount = mysql_fetch_object($sqlSelResult);
@@ -23,4 +29,5 @@ $data['exportLimit'] = $downldLmt;
 echo json_encode($data);
 mysql_close();
     mysql_close($cnx);
+ }
 ?>

@@ -1,4 +1,7 @@
 <?php
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('checklogin.php');
            // print_r($_POST);
                         if(!$_POST){
                             //echo "not post";
