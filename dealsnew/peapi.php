@@ -2,7 +2,12 @@
 <?php
     require_once("../dbconnectvi.php");
     $Db = new dbInvestments();
-    
+    if(!isset($_SESSION['UserNames']))
+    {
+        header('Location:../pelogin.php');
+    }
+    else
+    {
     $typepost =    isset($_POST['dealtype']) ? $_POST['dealtype'] : 'INVESTMENTS';
     
     if(strtoupper($typepost) === 'INVESTMENTS'){ //1 for Investment and 2 for Exit (default will be 0/Investment)
@@ -4027,4 +4032,5 @@
     }else{
         echo 'No Data Found.';
     }
+}
 ?>

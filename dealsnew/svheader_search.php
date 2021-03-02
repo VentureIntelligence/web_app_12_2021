@@ -1,4 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {?>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="https://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -322,7 +331,7 @@ $(document).ready(function(){
 	$("#myTable").tablesorter({widthFixed: true}); 
 	$("div.holder").jPages({
 	  containerID : "movies",
-	  previous : "â†? Previous",
+	  previous : "ï¿½? Previous",
 	  next : "Next â†’",
 	  perPage : 50,
 	  delay : 20
@@ -333,7 +342,7 @@ $(document).ready(function(){
 	$("#myTable").tablesorter(); 
 	$("div.holder").jPages({
 	  containerID : "movies",
-	  previous : "â†? Previous",
+	  previous : "ï¿½? Previous",
 	  next : "Next â†’",
 	  perPage : 20,
 	  delay : 20
@@ -731,3 +740,4 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 </tr>
 </table>
 </div>
+<?php } ?>

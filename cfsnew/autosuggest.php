@@ -3,7 +3,7 @@
 error_reporting(0);
 
 include "header.php";
-	
+include "sessauth.php";	
 	$html .= '<ul>';
 		require_once MODULES_DIR."/cprofile.php";
 		$cprofile = new cprofile();

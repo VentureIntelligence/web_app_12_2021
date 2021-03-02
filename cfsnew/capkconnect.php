@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+include "sessauth.php";	
 include_once('simple_html_dom.php');
 $dbhost = "localhost";
 $dbuser = "venture_admin16";

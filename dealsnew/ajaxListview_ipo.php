@@ -20,6 +20,12 @@ $companysql=  urldecode($_POST['sql']);
 $vcflagValue=$_POST['vcflagvalue'];
 $orderby=$_POST['orderby'];
 $searchallfieldFlag = $_POST[ 'searchField' ];
+if(!isset($_SESSION['UserNames']))
+{
+    header('Location:../pelogin.php');
+}
+else
+{
 //==============================junaid===========================
 if(!empty($_POST[ 'uncheckRows' ])){
     
@@ -227,7 +233,9 @@ else
                           </tr>
                         <?php
                             }
-                         } ?>
+                         }
+                         }
+                          ?>
 
             </tbody>
     </table>

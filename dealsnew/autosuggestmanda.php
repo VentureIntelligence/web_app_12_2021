@@ -1,7 +1,12 @@
 <?php
     require_once("../dbconnectvi.php");//including database connectivity file
     $Db = new dbInvestments();
-
+    if(!isset($_SESSION['UserNames']))
+    {
+             header('Location:../pelogin.php');
+    }
+    else
+    {
     $searchTerm = $_REQUEST['queryString'];
     $searchopt = $_REQUEST['searchopt'];
     
@@ -716,4 +721,5 @@ function getallcompanies($value0,$searchTerm)
 //                echo "<Br>M&A---" .$advisorsql;
                 return $advisorsql;
     }
+}
     ?>

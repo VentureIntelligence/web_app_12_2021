@@ -1,6 +1,7 @@
 <?php
 	require_once("../dbconnectvi.php");
-        $Db = new dbInvestments();
+		$Db = new dbInvestments();
+		include ('machecklogin.php');	
 	$count =0;
 	$sql = $_POST['sql'];
        

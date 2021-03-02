@@ -9,6 +9,7 @@ invoked from: reipodealinfo.php
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	include ('checklogin.php');  
 		//include('onlineaccount.php');
 		//global $dbemailsto;
         //Check Session Id 

@@ -4,7 +4,7 @@
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
-        
+    include ('machecklogin.php');    
         //Check Session Id 
         $sesID=session_id();
         $emailid=$_SESSION['MAUserEmail'];
