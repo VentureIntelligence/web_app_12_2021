@@ -380,7 +380,7 @@ else if($vcflagValue==2){
                     else
                         $reportsqlwithlimit = $reportsql . " limit 0, 50";
 
-                     echo  $reportsqlwithlimit;
+                    // echo  $reportsqlwithlimit;
                     if ($reportrs = mysql_query($reportsqlwithlimit)) {
                         $report_cnt = mysql_num_rows($reportrs);
                     }
