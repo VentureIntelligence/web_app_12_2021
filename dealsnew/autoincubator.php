@@ -4,7 +4,12 @@
  require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
 $incubator=$_POST['queryString']."%";
-
+if(!isset($_SESSION['UserNames']))
+     {
+              header('Location:../pelogin.php');
+     }
+     else
+     {  
 $getIncubatorsSql="SELECT DISTINCT pe.IncubatorId, inc.Incubator
                     FROM incubatordeals AS pe,  incubators as inc
                     WHERE inc.IncubatorId=pe.IncubatorId and pe.Deleted=0 and inc.Incubator!=''
@@ -43,5 +48,5 @@ $getIncubatorsSql="SELECT DISTINCT pe.IncubatorId, inc.Incubator
                              mysql_free_result($invtypers);
                             echo json_encode($jsonarray);
                     }
-
+                }
     ?>

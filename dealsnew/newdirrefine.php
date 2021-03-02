@@ -1,4 +1,13 @@
- <?php if($vcflagValue==0 || $vcflagValue==3 || $vcflagValue==4 || $vcflagValue==5)
+ <?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {	
+ if($vcflagValue==0 || $vcflagValue==3 || $vcflagValue==4 || $vcflagValue==5)
         {
             $stagesql_search = "select StageId,Stage from stage ";
         }
@@ -244,3 +253,4 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
     	<input type="button" name="fliter_stage" value="Filter" onclick="document.pesearch.submit();">
     </li>
 </ul>
+<?php } ?>

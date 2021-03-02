@@ -3,7 +3,12 @@
 session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
-
+if(!isset($_SESSION['UserNames']))
+{
+header('Location:../pelogin.php');
+}
+else
+{
 //Check Session Id 
 $sesID=session_id();
 $emailid=$_SESSION['UserEmail'];
@@ -681,4 +686,5 @@ else if($type==6)
 
 mysql_close();
     mysql_close($cnx);
+}
     ?>

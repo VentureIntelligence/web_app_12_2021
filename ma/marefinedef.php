@@ -1,3 +1,8 @@
+<?php
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('machecklogin.php');
+?>
 <div id="popup3" style="width:800px;display: none;" class="popup">
 
     <ul class="def-list">

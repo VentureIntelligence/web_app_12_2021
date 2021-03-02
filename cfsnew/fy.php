@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+include "sessauth.php";
 $dbhost = "localhost";
 $dbuser = "venture_admin16";
 $dbpassword = "V@dm!n2016";

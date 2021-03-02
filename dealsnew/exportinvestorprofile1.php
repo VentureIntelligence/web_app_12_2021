@@ -1,10 +1,16 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
- session_save_path("/tmp");
-	session_start();
+//  session_save_path("/tmp");
+// 	session_start();
 
 	require("../dbconnectvi.php");
-	$Db = new dbInvestments();
+        $Db = new dbInvestments();
+        if(!isset($_SESSION['UserNames']))
+        {
+        header('Location:../pelogin.php');
+        }
+        else
+        {
 		//include('onlineaccount.php');
 		$displayMessage="";
 		$mailmessage="";
@@ -1012,7 +1018,7 @@
 					}
 				/* mail sending area ends */
 
-
+                                }
 				//		}
 				//else
 				//	header( 'Location: '. GLOBAL_BASE_URL .'pelogin.php' ) ;

@@ -1,4 +1,13 @@
-
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {	
+	 ?>
 <h2 class="acc_trigger"><a href="#">Refine Search</a></h2>
 	<div class="acc_container">
 		<div class="block">
@@ -223,3 +232,4 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
     <input type="submit" name="fliter_stage" value="Filter" > 
     </li>
 </ul>
+<?php } ?>

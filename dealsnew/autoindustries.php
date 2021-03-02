@@ -3,6 +3,12 @@
 //error_reporting(0);
  require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+     {
+              header('Location:../pelogin.php');
+     }
+     else
+     {  
 if($_POST['queryString']!='')
 {
 $industry=$_POST['queryString']."%";
@@ -49,5 +55,5 @@ $industry=$_POST['queryString1']."%";
                 echo json_encode($jsonarray);
         }
 }
-
+     }
     ?>
