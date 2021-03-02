@@ -9034,6 +9034,43 @@ $(document).ready(function(){
 mysql_close($cnx);
 ?>
 <script>
+function BseLinkLoop(DealDate) {
+    var CheckDate = new Date(DealDate);
+    var Tday = new Date();
+    if (((Tday - CheckDate) / (60 * 60 * 1000 * 24)) > 90) {
+        var BseLinks = document.getElementsByTagName('a');
+        for (var i = 0; i < BseLinks.length; i++) {
+            if (BseLinks[i].href.includes('/AttachLive/')) {
+                var newLink = BseLinks[i].href.replace('/AttachLive/', '/AttachHis/');
+                BseLinks[i].href = newLink;
+            }
+        }
+    }
+}
+
+
+function BseLinkUpdate() {
+    var PageURL = window.location.pathname;
+
+    if (PageURL == "/ma/madealdetails.php") {
+        var DealDate = document.getElementsByClassName('tablelistview3')[0].getElementsByTagName('td')[7].textContent;
+    }
+    else if (PageURL == "/dealsnew/dealdetails.php"){
+	var DealDate = document.getElementsByClassName('tablelistview3')[1].getElementsByTagName('td')[7].textContent;
+    }
+    else if (PageURL == "/dealsnew/mandadealdetails.php"){
+	var DealDate = document.getElementsByClassName('tablelistview3')[1].getElementsByTagName('td')[5].textContent;
+    }
+    else if (PageURL == "/dealsnew/ipodealdetails.php" || PageURL == "/dealsnew/angeldealdetails.php"){
+	var DealDate = document.getElementsByClassName('profiletable')[0].getElementsByTagName('li')[4].getElementsByTagName('p')[0].textContent
+    }
+
+    BseLinkLoop(DealDate);
+
+}
+
+
+window.onload = BseLinkUpdate()
       $("#panel").animate({width: 'toggle'}, 200); 
          $(".btn-slide").toggleClass("active"); 
 

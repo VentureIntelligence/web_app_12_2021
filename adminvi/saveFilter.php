@@ -5,7 +5,7 @@
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 $dlogUserEmail = $_SESSION['UserEmail'];
-//echo $dlogUserEmail;exit();
+
     if($_POST['mode'] == 'saveFilter')
     {
         $sql="SELECT * FROM `saved_filter` GROUP BY `filter_name`";
@@ -21,6 +21,7 @@ $dlogUserEmail = $_SESSION['UserEmail'];
     }
    else if($_POST['mode'] == 'A')
     {
+
     $investorval = json_decode(stripslashes($_POST['investorval']));
 
     $filtername = $_POST['filtername'];
@@ -41,7 +42,8 @@ $dlogUserEmail = $_SESSION['UserEmail'];
     $stage=implode(",",$_POST['stage']);
     $investorType=$_POST['investorType'];
     $filterType=$_POST['filterType'];
-
+    
+    
     $filterQuery=$_POST['filterQuery'];
     $filter_active=$_POST['filter_active'];
     $vi_filter=$_POST['vi_filter'];

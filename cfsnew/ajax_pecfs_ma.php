@@ -382,9 +382,8 @@ if($_POST['cin']!=''){
                 $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."' or ";
             }
             $companyname = trim($companyname,"or ");
-            $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $acqcompanyname";
+            $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
             $acquirer= mysql_query($acquirersql);
-           
             while($myacq=mysql_fetch_array($acquirer)){
                 $acqarr[]=$myacq['AcquirerId'];
             }

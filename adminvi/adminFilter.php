@@ -258,8 +258,16 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                             {	
                         ?>
                         <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" value="<?php echo $myrow["filter_name"] ?>">
+                        <span id="filternameErr"></span>
+                        <textarea name="filterdesc" rows="4" cols="50" id="filterdesc" placeholder="description" value=""><?php echo $myrow["filter_desc"] ?></textarea>
+                      <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
                         <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""><?php echo $myrow["query"] ?></textarea>
+                        <?php }
+                         else { ?>
+                            <input  type="hidden" name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value="<?php echo $myrow["query"] ?>">
+                            <?php }?>
                         <input type="checkbox" id="filter_active"  value="active" <?php echo ($myrow["filter_active"] == 'active') ? 'checked' : ''; ?>><b>Active?</b>
+                       
                         <input type="hidden" id="admin_filter"  value="1" <?php echo ($myrow["vi_filter"] == '1') ? 'checked' : ''; ?>><br><br>
                         <p>Filter Type:</p>
                         <input type="radio" id="investments" name="filter_type" value="Investments" <?php echo ($myrow["filter_type"] == 'Investments') ? 'checked' : ''; ?>>
@@ -270,7 +278,14 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 <?php } }
                                 else {?>
                                      <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" >
-                        <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""></textarea>
+                                     <span id="filternameErr"></span>
+                                     <textarea name="filterdesc" rows="4" cols="50" id="filterdesc" placeholder="description" value=""><?php echo $myrow["filter_desc"] ?></textarea>
+                                     <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
+                                        <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""></textarea>
+                        <?php }
+                         else { ?>
+                            <input  type="hidden" name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value="">
+                            <?php }?>
                         <input type="checkbox" id="filter_active"  value="active" ><b>Active?</b>
                         <input   type="hidden" id="admin_filter"  value="1" ><br>
                         <p>Filter Type:</p>
@@ -297,23 +312,33 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     function saveAdminFilter()
     {
         var filtername=$('#filter_name').val()
-        var filterQuery=$('#filterQuery').val().trim()
+        var filterdesc=$('#filterdesc').val()
+
+        var filterQuery=$('#filterQuery').val().trim();
+        
         var filterType=$("input[name=filter_type]:checked").val()
         var filter_active=$('#filter_active:checked').val();
         var vi_filter=$('#admin_filter').val();
 
-
+        if(filtername == '')
+        {
+            $("#filternameErr").text('Please Enter the filter name');
+            $("#filternameErr").css("color", "red");
+        }
+        else{
         $.ajax({
          url: 'saveFilter.php',
          type: "POST",
-         data: {EditFilter:"<?php echo $_GET['id']?>",vi_filter:vi_filter,filtername: filtername,filterQuery:filterQuery,filterType:filterType,filter_active:filter_active,mode: 'A'},
+         data: {filterDesc:filterdesc,EditFilter:"<?php echo $_GET['id']?>",vi_filter:vi_filter,filtername: filtername,filterQuery:filterQuery,filterType:filterType,filter_active:filter_active,mode: 'A'},
          success: function(data){
             alert('saved successfully')
+            window.location.href="../adminvi/EditAdminFilter.php"
             $('#filter_name').val('')
             $('#filterQuery').val('')
 
          },
          });
+        }
 
     }
 
@@ -327,3 +352,6 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 else
 	header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
+
+
+

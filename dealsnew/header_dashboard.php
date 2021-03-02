@@ -43,7 +43,16 @@ else
   pointer-events: none;
 }
   </style>
-
+ <div id="maskscreen" ></div>
+      <div id="preloading"></div>
+      <div id="preloadingInv"></div>
+      <script type="text/javascript" >
+         $('#maskscreen').css({ opacity: 0.7, 'width':$(document).width(),'height':$(document).height()});
+         jQuery(window).load(function(){
+         jQuery('#preloading').fadeOut(1000);
+         jQuery('#maskscreen').fadeOut(1000);
+         });
+      </script>
 <script>
 $(document).ready(function() {
 $('.testTable1').responsiveTable( {scrollRight: false, scrollHintEnabled: false} ); 
@@ -437,6 +446,55 @@ function isless()
                 }
 
            }
+           $('#maskscreen').css({ opacity: 0.7, 'width':$(document).width(),'height':$(document).height()});
+jQuery(window).load(function(){
+jQuery('#preloading').fadeOut(1000);
+jQuery('#maskscreen').fadeOut(1000);
+});
+           $(document).on('click','.request-for-lp,.request-lp',function(){
+            
+            jQuery('#maskscreen').fadeIn(1000);
+            jQuery('#ymessage').val('');
+            jQuery('#popup-box-lp').fadeIn();   
+            return false;
+           });
+           $(document).on('click','#cancelbtnhd-lp',function(){
+          
+            jQuery('#maskscreen').fadeOut();
+            jQuery('#popup-box-lp').fadeOut();   
+            return false;
+           });
+
+           $('#mailbtnhd-lp').click(function(e){ 
+                        e.preventDefault();
+                       // if(checkEmail())
+                       // {
+                        $.ajax({
+                            url: 'ajaxsendmailLP.php',
+                             type: "POST",
+                           /* data: { to : $("#toaddress").val(), ymessage : $("#ymessage").val() , userMail : $("#useremail").val() },*/
+                            data: { ymessage : $("#ymessage").val() , userMail : $("#useremail").val() },
+                            success: function(data){
+                                    if(data=="1"){
+                                         alert("Mail Sent Successfully");
+                                        jQuery('#popup-box-lp').fadeOut();   
+                                        jQuery('#maskscreen').fadeOut(1000);
+                                   
+                                }else{
+                                    jQuery('#popup-box-lp').fadeOut();   
+                                    jQuery('#maskscreen').fadeOut(1000);
+                                    alert("Try Again");
+                                }
+                            },
+                            error:function(){
+                                jQuery('#preloading').fadeOut();
+                                alert("There was some problem sending mail...");
+                            }
+
+                        });
+                       // }
+                        return false;
+                    });
 
 </script>
 
@@ -489,6 +547,7 @@ $(function () {
     include_once('../globalconfig.php');
     ?>
 <!--Header-->
+
 <form name="searchall" action="" method="post" id="searchall">
 <div id="header">
 <table cellpadding="0" cellspacing="0">
@@ -572,7 +631,12 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 
         else{
         ?>
-        <a href='<?php echo BASE_URL; ?>dealsnew/advance_export.php'><input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;border-radius:5px;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advance Export" id="advExport" ></a>
+        <span class="request-for-lp" style="margin-left: -30px;float: right;color:white;padding-top:7px"><i class="fa fa-lock" aria-hidden="true" style="
+    background-image: none;    font-size: 15px;
+"></i></span>
+        <input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;border-radius:5px;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advance Export" id="advExport" >
+       
+        
         <?php  }?>
                            
 </td>
@@ -582,3 +646,19 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 </div>
 
 <?php } ?>
+<div class="lb" id="popup-box-lp" style="width: 450px;">
+    <div class="title" style="font-size: 16px;"> Request for - Advance Export </div>
+        <form style="margin-bottom: 0px;">
+            <div class="entry">
+                    <h5>Add a note..</h5><span style='float:right;display: block;margin-top: -20px;'></span>
+                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="For example, enter your phone number and convenient time for a call" val=''></textarea>
+                    <input type="hidden" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"/>
+            </div>
+            <div class="entry">
+                <input type="button" value="Submit" id="mailbtnhd-lp" />
+                <input type="button" value="Cancel" id="cancelbtnhd-lp" />
+                <span style="padding: 3px 0px;">(Alternatively please call us at +91 44 42185180)</span>
+            </div>
+
+        </form>
+    </div>
