@@ -10,14 +10,13 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js" charset="UTF-8"></script>
+
+
 {literal}
 
 
 <style type="text/css">
 /* CSS Document */
-.container > .content{
-    margin: 0px -45px!important;
-    }
 .PLDPanel{
 display:none;
 cursor:pointer;
@@ -340,17 +339,14 @@ select.req_type {
 #containerChart {
 	margin-top: 25px ;
 }
-#partnersDetails_filter{
-   display:none;
+#partnerApi_filter{
+    display:none;
+}
+#partnerApi_length{
+    float:right;
 }
 .dataTables_length select{
-  width: 60px !important;
-}
-.dataTables_length{
-   float:right !important;
-}
-table.dataTable thead th, table.dataTable thead td{
-   padding:5px !important;
+    width:60px !important;
 }
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -362,126 +358,128 @@ table.dataTable thead th, table.dataTable thead td{
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script type="text/javascript">
 {/literal} 
-	//var mobileapi = {$apitrackinglist};
-	var partnersDetails = {$partnerlist};
-    console.log(partnersDetails);
+	var partnerapi = {$apitrackinglist};
+    console.log(partnerapi);
  {literal} 
 $( document ).ready( function() {
+        
 
-   $('.req_cin').keyup(function() {
+			  $.fn.dataTable.ext.search.push(
+					function (settings, data, dataIndex) {
+					//var min = $('#from_date').datepicker("getDate");
+					//var max = $('#to_date').datepicker("getDate");
+					var endTime = $('#to_date').val();
+					var min = $('#from_date').val();
+                    
+					if(endTime == '') {
+						var max = endTime;
+					}else {
+						var max = endTime +'23:59:59';
+					}
+					
+					var startDate = data[5];
+					if (min == '' && max == '') { return true; }
+					if (min == '' && startDate <= max) { return true;}
+					if(max == '' && startDate >= min) {return true;}
+					if (startDate <= max && startDate >= min) { return true; }
+					return false;
+			});
+			var table;
+			recreateTable();
+
+			function recreateTable() {
+				 table = $('#partnerApi').DataTable({
+				"autoWidth": true,
+                "order": [[ 4, "desc" ]],
+				 data: partnerapi,
+				"ordering": true,
+				"columns": [
+					{ "data": "apiName" },
+					{ "data": "user" },
+					{ "data": "companyName" },
+					{ "data": "createdAt",
+                        render: function(data, type, full) {
+                            if (data != '')
+                                return moment(new Date(data)).locale('el').format('DD/MM/YYYY HH:mm:ss');
+                            else
+                                return "No-Date";             
+                            } 
+                     },
+                    { "data": "createdAt",
+                        render: function(data, type, full) {
+                            if (data != '')
+                                return data;
+                            else
+                                return "No-Date";             
+                        } 
+                    }
+				],
+                "columnDefs": [
+                    {
+                         "targets": 3,
+                         "orderData": 4
+                     },
+                     {
+                         "targets": 4,
+                         "visible": false
+                     }
+                ]
+				});		
+			}		
+		$('#from_date, #to_date').on('change',function () {
+						table.clear().destroy();
+						$(".req_answer").val('');
+						recreateTable();
+		                table.draw();
+		});
+
+		var dateFormat = "yy-mm-dd",
+	      	from = $( "#from_date" ).datepicker({
+	          	//defaultDate: "+1w",
+	          	changeMonth: true,
+	          	maxDate: 0,
+	          	dateFormat: "yy-mm-dd ",
+	         	//numberOfMonths: 3
+	        }).on( "change", function() {
+	          	to.datepicker( "option", "minDate", getDate( this ) );
+	          	$( '.req_cin' ).val('');
+	        }),
+	     	to = $( "#to_date" ).datepicker({
+	       		changeMonth: true,
+	       		maxDate: 0,
+	       		dateFormat: "yy-mm-dd",
+	        	//numberOfMonths: 3
+	      	}).on( "change", function() {
+	        	from.datepicker( "option", "maxDate", getDate( this ) );
+	        	$( '.req_cin' ).val('');
+	      	});
+	 
+	    	function getDate( element ) {
+                var date;
+	      		try {
+	        		date = $.datepicker.parseDate( dateFormat, element.value );
+                   
+	      		} catch( error ) {
+	        		date = null;
+	      		}
+	      		return date;
+			}
+
+			$('.req_cin').on( 'keyup', function() {
+				$( '#from_date' ).val('');
+				$( '#to_date' ).val('');
+			});
+
+			$('.req_cin').keyup(function() {
 				var searchfilter =$('.req_cin').val();
-				 var table = $('#partnersDetails').DataTable();
+				 var table = $('#partnerApi').DataTable();
 				 var filtered = table.search(searchfilter).column().data().draw();
 			  });
 
-		table1 = $('#partnersDetails').DataTable({
-				"autoWidth": false,
-				 data: partnersDetails,
-                 "order": [7,"DESC"],
-				"ordering": true,
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-				"columns": [
-					{ "data": "partnerName" },
-					{ "data": "partner_company" },
-                    { "data": "api_type",
-                        render: function(data, type, full) {
-                            if (data == '1')
-                                return 'SubAPI';
-                            else
-                                return 'PE'       
-                            } 
-                    },
-					{ "data": "partnerType",
-                        render: function(data, type, full) {
-                            if (data == 'external_partner')
-                                return 'External';
-                            else if(data == 'internal_partner')
-                                return "Internal";
-                            else
-                                return 'error'       
-                            } 
-                    },
-					
-					{ "data": "validityFrom",
-                        render: function(data, type, full) {
-                            if (data != '')
-                                return moment(new Date(data)).locale('el').format('DD/MM/YYYY');
-                            else
-                                return "No-Date";             
-                            } 
-                    },
-					{ "data": "validityTo",
-                        render: function(data, type, full) {
-                            if (data != '')
-                                return moment(new Date(data)).locale('el').format('DD/MM/YYYY');
-                            else
-                                return "No-Date";             
-                            }
-                         },
-					{ "data": "dealCount",
-                     
-                        render: function(data, type, row) {
-                            if (data != '')
-                            return row.searchApi + ' / ' + row.dealCount;
-                              //  return row.dealCount;
-                            else
-                                return "-";             
-                            }
-                     },
-					{ "data": "companyCount",
-                        render: function(data, type, row) {
-                            if (data != '')
-                              return row.apiTotal + ' / ' + row.companyCount;
-                              // return row.companyCount;
-                            else
-                                return "-";             
-                            }
-                     }
-                     ,
-                     { "data": "overallCount",
-                        render: function(data, type, row) {
-                            if (data != '')
-                               return row.overallTotal + ' / ' + row.overallCount;
-                              // return row.overallCount;
-                            else
-                                return "-";             
-                            }
-                     },
-					/*{ "data": "partner_status",
-						render: function(data, type, full) {
-                            if (data == '1')
-                                return "Active";
-							else if(data == '0')
-                                return "Inactive";             
-                            else
-								return "No-status";
-						}
-							
-					},*/
-					/* { "data": "createdAt",
-                        render: function(data, type, full) {
-                            if (data != '')
-                                return moment(new Date(data)).locale('el').format('DD/MM/YYYY');
-                            else
-                                return "No-Date";             
-                            }
-                     },	 */ 
-                     
-                    { "data": "partner_id",
-                        
-                        render: function(data, type, full) {
-                            if (data != '')
-                                return '<a href="../viewpepartner.php?pid='+data+'"> <img src="../images/view.png" width="20" height="20" title="Click to View" alt="Click to Edit" style="cursor:pointer;" /></a>  <a href="../editpepartner.php?pid='+data+'" style="float: right;"> <img src="../images/edit.png" width="16" height="16" title="Click to Edit" alt="Click to Edit" style="cursor:pointer;" /></a>';
-                            else
-                                return "";             
-                            }
-                        
-                         }
-				]
-				});	
-           
-
+			   
 	});
+
+
 
 </script>
 {/literal}
@@ -490,57 +488,20 @@ $( document ).ready( function() {
 <div class="body-overlay">
    <div class="loader-text"></div>
 </div>
-
-<div class="body-overlay2">
-   <div class="popup-container" style="width: 500px; background: #fff; height: auto; margin: 135px auto; padding:10px; position: relative;">
-      <div style="position: absolute; top: 5px; right: 5px;"><a href="javascript:;" onclick="closeuserpopup();"><i><img src="../images/Close.png" width="15" height="15" /></i></a></div>
-      <table>
-         <tr>
-            <td style="border-top: 0px;">Date</td>
-            <td style="border-top: 0px;" class="rdate"></td>
-         </tr>
-         <tr>
-            <td>User name</td>
-            <td class="rname"></td>
-         </tr>
-         <tr>
-            <td>CIN</td>
-            <td class="rcin"></td>
-         </tr>
-         <tr>
-            <td>Log File</td>
-            <td class="rlogfile"></td>
-         </tr>
-         <tr>
-            <td>Folder</td>
-            <td class="rfolder"></td>
-         </tr>
-         <tr>
-            <td>Type</td>
-            <td class="rtype"></td>
-         </tr>
-      </table>
-   </div>
-</div>
-
-
 <div class="contentbg">
-
    <div class="breadcrumb">
       <div class="breadtext">&nbsp;</div>
    </div>
-
    <div class="container">
       <div class="content">
-         <div><span style="float:left; font-size: 13px; text-decoration: underline;"><a href="../index.php">Back to Home</a></span></div>
-		 
-		 <div class="adtitle" align="center">
-            Manage Partners
+         <div><span style="float:left; font-size: 13px; text-decoration: underline;"><a href="{$smarty.const.ADMIN_BASE_URL}index.php">Back to Home</a></span></div>
+         <div class="adtitle" align="center">
+            PE - SUB - Partner API TRACKING
          </div>
-         <form method="get" enctype="multipart/form-data">
+         <form name="Frm_AddRating" id="Frm_AddRating" action="xbrlparse_ajx.php" method="post" enctype="multipart/form-data">
             <div class="xbrlContainer">
                <div class="search_box">
-                  {* <span style="float: left;font-size: 16px; position: relative; top: 7px; font-weight: bold; margin-right: 15px;">Search</span>
+                  <span style="float: left;font-size: 16px; position: relative; top: 7px; font-weight: bold; margin-right: 15px;">Search</span>
                   <div class="from_date_box">
                      <label id="req_answer[from_date]">From:</label>
                      <input type="text" id="from_date" size="26" name="req_answer[from_date]" class="req_from_date" forerror="date">		
@@ -551,36 +512,37 @@ $( document ).ready( function() {
                      <input type="text" id="to_date" size="26" name="req_answer[to_date]" class="req_to_date" forerror="date">		
                      <div style="clear: both;"></div>
                   </div>
-                  <span class="search_sep">or</span> *}
+                  <span class="search_sep">or</span>
                   <div class="cin_box">
                      <label id="req_answer">Filter:</label>
                      <input type="text" id="req_answer" size="26" name="" class="req_cin" forerror="cin">		
                      <div style="clear: both;"></div>
                   </div>
-                  <a style="float:right;padding: 8px;font-size: 16px;" href="partner-api-create.php" >Create Partner</a>
                   <!-- <div class="search_box_submit">
                      <a class="btn-submit" name="btn-log-submit" id="btn-log-submit">Submit</a>		
                      </div> -->
-                  {* <span style="position: relative;top: 7px; left: 10px;"><a href="{$ADMIN_BASE_URL}mobile_api_tracker.php">Clear Search</a></span> *}
+                  <span style="position: relative;top: 7px; left: 10px;"><a href="{$ADMIN_BASE_URL}partner-api-tracker.php">Clear Search</a></span>
                   <div style="clear: both;"></div>
                </div>
-               {* <label style=" font: bold 13px &quot;Courier New&quot;, Courier, monospace;  margin: 10px 10px; color: #000;  position: absolute;">http://162.214.29.33:3000/</label> *}
-               <table class="maintable" id="partnersDetails">
+               <label style=" font: bold 13px &quot;Courier New&quot;, Courier, monospace;  margin: 10px 10px; color: #000;  position: absolute;">API URL https://api.vionweb.com/partnersubapi/pe/</label>
+               <table class="maintable" id="partnerApi">
                   <thead>
                      <tr>
-                        <th >Name</th>
-                        <th>Company</th>
-                        <th>APIType</th>
-                        <th>Type</th>
-                        {* <th >Token</th> *}
-                        <th >Validate From</th>
-                        <th >Validate To</th>
-                        <th >Deal Count</th>
-                        <th >Company Count</th>
-                        <th >Overall Count</th>
-						{* <th >Status</th> *}
-                         {* <th >Created At </th> *}
-                        <th style="width:7%;">Action</th>
+                        <th >
+                           API Name
+                        </th>
+                        <th >
+                           User
+                        </th>
+                        <th >
+                           Company Name
+                        </th>
+                        <th>
+                           Created Date
+                        </th>
+                        <th>
+                           Created Date
+                        </th>
                      </tr>
                   </thead>
                   <tbody class="xbrl-row"></tbody>
@@ -588,10 +550,6 @@ $( document ).ready( function() {
             </div>
             <br />	
          </form>
-         {* 
-         <div id="containerChart"></div>
-         <div id="results"></div>
-         *}
-	</div>
-    </div>
+      </div>
+   </div>
 </div>

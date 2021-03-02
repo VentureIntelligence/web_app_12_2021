@@ -119,7 +119,7 @@ class xbrl_insert extends database {
 					LEFT JOIN admin_user as au
 					ON au.Ident = lt.user_id
 					where ( DATE(lt.created_on) BETWEEN '" . $from_date . "' AND '" . $to_date . "' )".$groupby.$orderby;*/
-			$sql = "select *, cp.Company_Id from ".$this->dbName." as lt 
+			$sql = "select lt.*,cp.CIN, cp.Company_Id from ".$this->dbName." as lt 
 					LEFT JOIN cprofile as cp
 					ON cp.CIN =  lt.cin
 					where ( DATE(lt.created_on) BETWEEN '" . $from_date . "' AND '" . $to_date . "' )".$groupby.$orderby;
@@ -132,7 +132,7 @@ class xbrl_insert extends database {
 					LEFT JOIN admin_user as au
 					ON au.Ident = lt.user_id
 					where lt.cin='". $ID ."'".$groupby.$orderby;*/
-			$sql = "select *, cp.Company_Id from ".$this->dbName." as lt
+			$sql = "select lt.*,cp.CIN, cp.Company_Id from ".$this->dbName." as lt
 					LEFT JOIN cprofile as cp
 					ON cp.CIN =  lt.cin
 					where lt.cin='". $ID ."'".$groupby.$orderby;

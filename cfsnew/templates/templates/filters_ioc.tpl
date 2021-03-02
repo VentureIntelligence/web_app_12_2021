@@ -21,6 +21,9 @@
             <input type="hidden" name="chargefromamount" value="{$ioc_fchargefromamount}">
             <input type="hidden" name="chargetodate" value="{$ioc_fchargetodate}">
             <input type="hidden" id="ChargesholderName" name="ChargesholderName" value='{$ChargesholderName}'>
+            <input type="hidden" id="city" name="city" value="{$cityval}">
+            <input type="hidden" id="state" name="state" value="{$stateval}">
+            <input type="hidden" id="cityflag" name="cityflag" value="{$cityflag}">
             <div class="btn-cnt p10" style="float:right;padding: 5px!important;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>
         </div>
