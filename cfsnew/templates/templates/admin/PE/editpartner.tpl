@@ -8,11 +8,35 @@
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
 <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
-<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+{* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tools/1.2.7/jquery.tools.min.js"></script> *}
 {literal}
 <style type="text/css">
+/* .tooltip {
+    background:#404040;
+    color:#fff !important;
+    top: 47% !important;
+    padding:5px;
+    border-radius:5px;
+    
+} */
+.tooltip {
+    background:#404040;
+    color:#fff !important;
+    top: 80% !important;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    
+}
+#download_now{
+    font-size: 18px;
+    cursor: pointer;
+    margin: 6px 5px;
+}
 /* CSS Document */
 .error{
 color:#990000;
@@ -276,8 +300,10 @@ table th, table td {
                             <div class="col-md-6">
                               <select class="form-control" id="partner_type" name="partner_type" style="width: 260px;">
                                  <option id="type_internal" value="internal_partner" {if $partner_details.partnerType == "internal_partner"} selected="selected"{/if}>internal_partner</option>
-                                 <option id="type_external" value="external_partner" {if $partner_details.partnerType == "external_partner"} selected="selected"{/if}>external_partner</option>
+                                 <option id="type_external" value="external_partner" {if $partner_details.partnerType == "external_partner" or $partner_details.partnerType == "SubAPI"} selected="selected"{/if}>external_partner</option>
+                                 {* <option id="type_subapi" value="sub_api_partner" {if $partner_details.partnerType == "sub_api_partner"} selected="selected"{/if}>sub_api_partner</option> *}
                               </select>
+                              <input type="hidden" name="sub_api_partner" id="sub_api_partner" {if $external_details.api_type == "1"}value="1"{else}value="0"{/if}>
                             </div>
                         </div>
                        
@@ -312,9 +338,11 @@ table th, table td {
                             <div class="col-md-6">
                                <label id="req_answer">Overall Count</label>
                             </div>
-                            <div class="col-md-6" style="width: 53%;">
+                            <div class="col-md-6" style="width: 62%;position:relative;">
                               <input type="number" class="used_search_count" id="o_count" readonly/>
                               <input type="number" class="total_search_count" id="partner_overall_count" name="partner_overall_count" value="{$partner_details.overallCount}" placeholder="Enter Overall Count"/>		
+                              <i class="fa fa-question-circle" aria-hidden="true" id="download_now"></i>
+                            <span class="tooltip " style="display:none;">It is summation of dealcount and companycount should not exceeds the overall count</span>
                             </div>
                         </div>
                         <div class="row">
@@ -392,6 +420,12 @@ table th, table td {
 </div>
 <script>
 {literal}
+/*$(document).ready(function() {
+      $("#download_now").tooltip({ effect: 'slide'});
+    });*/
+$( "#download_now" ).hover(function(){
+    $('.tooltip').toggle();
+});
 function myToken() {
   var copyText = document.getElementById("partner_token");
   copyText.select();
@@ -509,17 +543,38 @@ $(function() {
     });
     //End Partner Controls
 	var p_type = $("#partner_type").val();
+   var subapi = $("#sub_api_partner").val();
 	if(p_type == "internal_partner"){
       document.title = 'Create Internal Partner';
       $("#title_id").html("Edit Internal Partner");
 		$(".partner-external").hide();
       $("#type_external").hide();
+      //$("#type_subapi").hide();
       $(".r_email").hide();
       $(".r_pass").hide();
+      //$("#sub_api_partner").val("0");
 	}else if(p_type == "external_partner"){
-      $("#title_id").html("Edit External Partner");
+      if(subapi == 1){
+         $("#title_id").html("Edit Sub API Partner");
+      }else{
+         $("#title_id").html("Edit External Partner");
+      }
       document.title = 'Create External Partner';
       $("#type_internal").hide();
+      //$("#type_subapi").hide();
+     // $("#sub_api_partner").val("0");
+   }
+   else if(p_type == "SubAPI"){
+      $("#title_id").html("Edit Sub API Partner");
+      document.title = 'Create Sub API Partner';
+      $("#type_internal").hide();
+      //$("#type_subapi").hide();
+      //$("#sub_api_partner").val("0");
+      /* $("#title_id").html("Edit Sub API Partner");
+      document.title = 'Create Sub API Partner';
+      $("#sub_api_partner").val("1");
+      $("#type_internal").hide();
+      $("#type_external").hide(); */
    }
 
    //Partner Count Details

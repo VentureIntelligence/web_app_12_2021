@@ -3,9 +3,21 @@
 
 <div class="container-right">
 <!-- {if $searchupperlimit gte $searchlowerlimit}   --> 
-
+<link rel="stylesheet" type="text/css" href="../dealsnew/css/token-input.css" />
+<link rel="stylesheet" type="text/css" href="../dealsnew/css/token-input-facebook.css" />
 {literal}
 <style>
+.token-input-list-facebook{
+      width:375px !important;
+      height: 42px !important;
+}
+#token-input-companyauto_sug{
+width:375px !important;
+    box-shadow: 0px 0px 0px 0px !important;
+    background: #fff;
+
+}
+
 .search-main li label,form.custom .custom.disabled{
     opacity:0.6
 }
@@ -58,7 +70,8 @@
   .form-control{
     font-family: calibri !important;
     font-size: 16px !important;
-    height: 42px !important;
+    /*height: 42px !important;*/
+    height: 39px !important;
     padding: 10px !important;
     border-width: 1.7px;
     width: 225px !important;
@@ -99,7 +112,7 @@
             background-color: #000;
         }
         .result-cnt{
-          padding: 2% 0% 8% 0% ;
+          padding: 2% 0% 12% 0% ;
         }
 #result_cc:hover{
   width: 100%;
@@ -119,7 +132,7 @@
   width:375px !important;
 }    
  #testcompany, #testholderval{
-    max-height: 195px !important;
+    max-height: 165px !important;
  }
  @media (min-width: 1025px) and (max-width: 1281px) {
    .company_name, #testcompany, #testholderval {
@@ -127,7 +140,7 @@
 }
 
 }
-.search{
+.search,.search:hover{
     background: #9A7249 !important;
     border-radius: 5px;
     font: normal 14px/16px "Trebuchet MS", Arial, Helvetica, sans-serif, calibri, Helvetica;
@@ -148,26 +161,32 @@
             <div style="word-break: break-all;">
                
                     
-                <div id="accordion" style="margin-top:6px;">
+                <div id="accordion" style="margin-top:6px;display:flex;">
                  <label id="search_by"  style="font-size:22px;float: left;padding: 12px 20px;font-weight: 600;">Search by:</label>
-                    <div style="float:left">
-                    <input typr="text" class="form-control company_name" id="companylist" autocomplete="off" placeholder="Company Name" style="border:1px solid #ccc;"/> 
+                    <div >
+                    {* <input typr="text" class="form-control company_name" id="companylist" autocomplete="off" placeholder="Company Name" style="border:1px solid #ccc;"/> *}
+                    <input type="hidden" id="companysearch" name="companysearch" value="<?php echo $csearch;  ?>" placeholder="" style="width:220px;">
+     <input type="text" id="companyauto_sug" name="companyauto_sug" value="<?php echo $cauto;  ?>" placeholder="" style="width:220px;" autocomplete="off">
+     <div id="companyauto_load" style="  overflow-y: scroll;  max-height: 110px;  background: #fff;display:none;  width: 223px;">
+        
+    </div>
+      
                     <div id="testcompany" style="  overflow-y: auto;  max-height: 118px;  background: #e6e6e6;display:none; width:225px;">
                     </div>
                     </div>
                     <div style="font-size: 18px;float: left;padding: 12px 20px;font-weight: 600;">
                       <label > or </label>
                     </div>
-                    <div style="float:left">
-                      <form method="post" action="chargesholderlist_suggest.php">
-                      <input type="hidden" name="holderhidden" class="holderhidden" value=''>
-                      <input typr="text"  class="form-control company_name" id="chargeholderlist" autocomplete="off" placeholder="Charge Holder Name" style="border:1px solid #ccc;" required/> 
-                      <input type="submit" class="search" value="GO >">
-                      <div id="testholderval" style="  overflow-y: auto;  max-height: 118px;  background: #e6e6e6;display:none; width:225px;">
+                    <div >
+                      <input typr="text"  class="form-control company_name" id="chargeholderlist" autocomplete="off" placeholder="Charge Holder Name" style="border:1px solid #ccc;" /> 
+                       <div id="testholderval" style="  overflow-y: auto;  max-height: 118px;  background: #e6e6e6;display:none; width:225px;">
                       </div>
-                      
+                     </div>
+                      <form class="chargesholderlist" name="chargesholderlist" method="post" action="chargesholderlist_suggest.php" style="margin-top:12px;">
+                      <input type="hidden" name="holderhidden" class="holderhidden" value=''>
+                      <input type="hidden" name="companyhiddenval" class="companyhiddenval" value=''>
+                      <a  class="search"  >GO ></a>
                       </form>
-                    </div>
                 </div>
                 
             </div>
@@ -216,12 +235,58 @@
     </form>
 </div>
 <div id="maskscreen"></div>
-
+<div id="maskscreen"></div>
+<div class="lb" id="export-popup" style="width: 650px; overflow: visible; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+<span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
+<div class="lookup-body" style="margin-bottom: 5px; padding: 15px;">
+<p>Note: The data will be downloaded to a spreadsheet. if you require it to be displayed on the browser,<br> kindly select companies individually.</p><br>
+&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.<br/><br/>
+<b><a href="javascript:;" class="agree-export">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> -->
+</div>
+</div>
 <!-- End of Container -->
 {literal}
 
- <script>
+<script>
+
+$( '.agree-export' ).on( 'click', function() {
+initExport();
+jQuery('#maskscreen').fadeOut(1000);
+$( '#export-popup' ).hide();
+return false;
+});
+$( '#export-popup' ).on( 'click', '.close-lookup', function() {
+$( '#export-popup' ).hide();
+jQuery('#maskscreen').fadeOut(1000);
+});
+function initExport(){
+$.ajax({
+url: 'ajxCheckDownload.php',
+dataType: 'json',
+success: function(data){
+var downloaded = data['recDownloaded'];
+var exportLimit = data.exportLimit;
+var currentRec = 123
+//alert(currentRec + downloaded);
+var remLimit = exportLimit-downloaded;
+$(".chargesholderlist").attr('action','ioc_companylist.php');
+$(".chargesholderlist").submit();
+if (currentRec < remLimit){
+$(".chargesholderlist").submit();
+}else{
+//alert("You have downloaded "+ downloaded +" records of allowed "+ exportLimit +" records(within 48 hours). You can download "+ remLimit +" more records.");
+alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+}
+},
+error:function(){
+alert("There was some problem exporting...");
+}
+
+});
+}
  $(document).ready(function () {
+   $('.token-input-dropdown-facebook').addClass("dropdowncheck");
+  
 $('#companylist,#chargeholderlist').on('keyup keypress', function(e) {
   var keyCode = e.keyCode || e.which;
   if (keyCode === 13) { 
@@ -229,7 +294,45 @@ $('#companylist,#chargeholderlist').on('keyup keypress', function(e) {
     return false;
   }
 });
+$("#token-input-companyauto_sug").attr("placeholder", "Company Name");
+$('.search').on('click',function(){
+var companyauto_sugval = $('#companyauto_sug').val(); 
+var chargeholderlistval=$('.holderhidden').val(); 
+if(companyauto_sugval=="" && chargeholderlistval=="")
+{
+  alert("Please choose company or charge holder name");
+}
+if(companyauto_sugval!=''){
+var companyauto_sug = companyauto_sugval.split(","); 
+var companyauto_sug_count=companyauto_sug.length; 
+}
+
+if(chargeholderlistval!=''){
+var chargeholderlist = chargeholderlistval.split(","); 
+var chargeholderlist_count=chargeholderlist.length; 
+}
+//alert(chargeholderlist_count);
+
+if(companyauto_sug_count!=''){
+  if(companyauto_sug_count > 1){
+    jQuery('#maskscreen').fadeIn(1000);
+    $( '#export-popup' ).show();
+  }
+  else if(companyauto_sug_count == 1)
+  {
+    $(this).attr('href','companylist_suggest.php?id='+companyauto_sugval);
+  }
+}
+if(chargeholderlist_count!=''){
+  if(chargeholderlist_count >= 1){
+    $(".chargesholderlist").attr('action','chargesholderlist_suggest.php');
+    $('.chargesholderlist').submit();
+  }
+}
+
+});
  });
+
 
         $(document).on('click','.faq-title',function () {
 $('.faq-answer').hide();
@@ -252,6 +355,8 @@ $(document).on('click','.faq-asset',function(){
 });
 
 $( "#chargeholderlist" ).keyup(function() {
+  $('#companyauto_sug').tokenInput("clear");
+  $("#chargeholderlist").focus();
   var chargeholder = $("#chargeholderlist").val();
     if(chargeholder.length > 3 ) {
     $.ajax({
@@ -263,11 +368,12 @@ $( "#chargeholderlist" ).keyup(function() {
       success: function(data) {
         $("#testholderval").fadeIn();
         $("#testholderval").html(data);
+        $('.companyhiddenval').val('');
         var drop = $('#testholderval').height();
         if(drop >= 150){
         $(".result-cnt").css("padding","2% 0% 0% 0%");
         }else{
-          $(".result-cnt").css("padding","2% 0% 8% 0%");
+          $(".result-cnt").css("padding","2% 0% 12% 0%");
         }
       }
     });
@@ -276,39 +382,46 @@ $( "#chargeholderlist" ).keyup(function() {
   
   $("#testholderval").fadeOut();
   $("#testholderval").empty();
-  $(".result-cnt").css("padding","2% 0% 8% 0%");
+  $(".result-cnt").css("padding","2% 0% 12% 0%");
 }
 
 });
+$("#companyauto_sug").tokenInput("company_list.php?",{
+  
+            theme: "facebook",
+            placeholder: 'Company Name',
+            minChars:2,
+            queryParam: "companyname",
+            hintText: "",
+            noResultsText: "No Result Found",
+            preventDuplicates: true,
+                onAdd: function (item) {
+                 
+                     // $("#companyauto_sug").tokenInput("clear");
+                      //clear_keywordsearch();
+                      //clear_sectorsearch();
+                      //clear_searchallfield();
+                      $('#chargeholderlist').val('');
+                      $("#testholderval").html('');
+                      $('.holderhidden').val('');
+                      $(".result-cnt").css("padding","2% 0% 12% 0%");
+                      var companycin=$('#companyauto_sug').val();
+                      $('.companyhiddenval').val(companycin);
+                     // disableFileds();
+                },
+                onDelete: function (item) {
+                    var selectedValues = $('#companyauto_sug').tokenInput("get");
+                    var inputCount = selectedValues.length;
+                    var companycin=$('#companyauto_sug').val();
+                      $('.companyhiddenval').val(companycin);
+                    if(inputCount==0){ 
+                       // reloadPage();
+                      // enableFileds();
+                    }
+                },
+           // prePopulate : {php} if($companysug_response!=''){echo   $companysug_response; }else{ echo 'null'; } {/php}
+        });
 
-$( "#companylist" ).keyup(function() {
-  var companyname = $("#companylist").val();
-  if(companyname.length > 3 ) {
-    $.ajax({
-      type: "post",
-      url: "company_list.php",
-      data: {
-        companyname: companyname
-      },
-      success: function(data) {
-        $("#testcompany").fadeIn();
-        $("#testcompany").html(data);
-         var drop = $('#testcompany').height();
-        if(drop >= 150){
-         $(".result-cnt").css("padding","2% 0% 0% 0%");
-        }else{
-          $(".result-cnt").css("padding","2% 0% 8% 0%");
-        }
-      }
-    });
-  }
-  else{
-  $("#testcompany").fadeOut();
-  $("#testcompany").empty();
-  $(".result-cnt").css("padding","2% 0% 8% 0%");
-}
-
-});
 $('.updateFinancialHome').click(function(){ 
                     jQuery('#maskscreen').fadeIn(1000);
                     jQuery('#popup-box').fadeIn();   
@@ -345,27 +458,7 @@ $('.updateFinancialHome').click(function(){
            }
        }
     
-        $('#testcompany #result_cc label').live("click", function() {  //on click 
-                      
-                       var sltholder='';
-                       var sltcount=0;
-                                                   
-                              var holder = $(this).text();                             
-                             
-                                 if(sltcount==0) { sltholder+=holder; }
-                                 else { sltholder+=","+holder; }
-                             
-                              $("#testcompany").show();
-                     $("#companylist").attr('readonly','readonly');  
-                     $("#companylist").val(sltholder); 
-                      $('#pgLoading').css('display', 'block');
-                       $('#pgLoading')
-  .delay(15000)
-  .queue(function (next) { 
-    $(this).css('display', 'none'); 
-    next(); 
-  });
-             });
+        
        
  
        $('.ch_holder input').live("click", function() {   
@@ -381,13 +474,13 @@ $('.updateFinancialHome').click(function(){
              $("#selectallval").removeAttr("checked");
           }
           
-if($optioncheck != ""){
-  $optionchecklist=$optioncheck;
-  $optionchecklist+=', '
-}else{
-          $optionchecklist="";
-  }
-$(".holderhidden").val($optionchecklist+$optchk);
+          if($optioncheck != ""){
+            $optionchecklist=$optioncheck;
+            $optionchecklist+=', '
+          }else{
+                    $optionchecklist="";
+            }
+          $(".holderhidden").val($optionchecklist+$optchk);
           //$('.holderhidden').val($optioncheck);
       });
       $('#selectallval').live("click", function() {   
@@ -463,8 +556,27 @@ $(".holderhidden").val($optionchecklist+$optchk);
            }
        }); 
       
- 
+  
 </script>
+<style>
+.dropdowncheck{
+  height:150px;
+  overflow-y:scroll !important;
+}
+.token-input-list-facebook,.companytest{
+  height:40px !important;
+}
+.token-input-dropdown-facebook{
+  width:375px !important;
+  /*height:100px;
+  overflow-y:scroll !important;*/
+}
+.search{
+  margin-left: 5px;
+    margin-top: 3px;
+}
+</style>
+
 {/literal}
 
 

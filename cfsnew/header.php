@@ -10,7 +10,8 @@ if(!isset($_SESSION)){
 include("etc/conf.php");
 include("path_Assign.php");
 //include("breadcrumbs.php");
-
+require_once MODULES_DIR."state.php";
+$state = new state();
 require_once MODULES_DIR."city.php";
 $city = new city();
 require_once MODULES_DIR."users.php";
@@ -209,7 +210,9 @@ $template->assign('pageKeyWords',"Deals List");
 $city->select($_SESSION["ConfirmCityId]"]);
 $cityWhere  = "city_CountryID_FK = '".$city->elements["city_CountryID_FK"]."'";
 $cityOrder  = "city_name asc ";
-
+$StateWhere = "state_CountryID_FK = 113";
+$order7="state_name asc";
+$template->assign("state" , $state->getState($StateWhere,$order7));
 $template->assign("cityList" , $city->getCityList($cityWhere,$cityOrder));
 
 $template->assign("MEDIA_PATH",MEDIA_PATH);
@@ -219,6 +222,8 @@ $template->assign("ipuser",$ipuser);
 $template->assign("authAdminListId",$listid);
 $template->assign("isAuth",$isAuth);
 $template->assign("city" , $city->getCity());
+$template->assign("iocstate" , $state->getiocState());
+$template->assign("ioccity" , $state->getiocCity());
 /*Smarty Assign Ends*/
 
 

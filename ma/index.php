@@ -1475,11 +1475,6 @@
     
     //Stage
     $stagesql = "select StageId,Stage from stage ";
-
-        echo "<div style='display:none'>$companysqlFinal</div>";
-      
-                    //  mysql_query($companysqlFinal) or die( mysql_error());
-        
     $topNav = 'Deals';
         $defpage=$vcflagValue;
         $investdef=1;

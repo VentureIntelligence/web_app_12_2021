@@ -1526,6 +1526,13 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
                 event.preventDefault();
             }
         });
+  $(document).ready(function () {
+    $('#country').keyup(function() {
+        var $th = $(this);
+        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+    });
+    
+});
   </script>  
     
     <link rel="stylesheet" type="text/css" href="css/token-input.css" />
@@ -2360,8 +2367,8 @@ function isNumber(evt) {
     
     <style type="text/css">
     li.token-input-token-facebook{
-          margin: 6px 3px !important;
-    padding:  3px !important;
+          margin: 6px 3px ;
+    padding:  3px ;
     }
     #lastrefine .acc_container_active
     {
