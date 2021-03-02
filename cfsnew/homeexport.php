@@ -158,7 +158,7 @@
         
         $sep = "\t"; //tabbed character
         //print("\n");
-        $currFY = Date('y');
+        $currFY = Date('y')-1;
 	echo "Company Name"."\t";
     echo "CIN Number"."\t";
         echo "Brand Name"."\t";
@@ -387,7 +387,7 @@
                 // $q= mysql_query("SELECT EBITDA,PAT,TotalIncome,FY FROM `plstandard` WHERE `CId_FK` ='$compid' ORDER BY FY DESC LIMIT 9");
                   $q= mysql_query("SELECT p.EBITDA,p.PAT,p.TotalIncome,p.FY, b.ShareCapital,b.ReservesSurplus,b.L_term_borrowings,b.S_term_borrowings,b.T_current_liabilities,b.T_fixed_assets,b.Cash_bank_balances,b.T_current_assets,p.EBDT,p.EBT,p.OptnlIncome,p.Interest,b.Inventories,b.Total_assets,b.Trade_receivables,b.Trade_payables,b.T_equity_liabilities FROM plstandard p  LEFT JOIN balancesheet_new b  ON b.CID_FK=p.CID_FK  WHERE p.FY = b.FY and p.CId_FK ='$compid' and p.ResultType='$resultType' group BY p.FY ORDER BY p.FY DESC LIMIT 9");
 
-                 $currentFYr = Date('y');
+                 $currentFYr = Date('y')-1;
                  $a=1;
                  $currentFormatedYear=0;
                  $skipnextyear = false;
