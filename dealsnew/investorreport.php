@@ -20,9 +20,10 @@ if($vcflagValue==0 || $vcflagValue==3 || $vcflagValue==4 || $vcflagValue==5){
 }
 if (!$_POST) {
 
-    $year1=$year2=date('Y');
-    $month1='01';
-    $month2='12';
+    $year1=date('Y')-1;
+    $year2=date('Y');
+    //$month1='01';
+    $month1=$month2=date('m');
     $dt1 = $year1.'-'.$month1.'-01';
     $dt2 = $year2.'-'.$month2.'-31';
     //echo "<br>all records" .$reportsql;
