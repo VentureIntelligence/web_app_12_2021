@@ -1,4 +1,13 @@
-
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {	
+   ?>
 <script>
   $(function() {
     $( "#investorauto" ).autocomplete({
@@ -547,6 +556,7 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
     
 </ul></div>
 	</div>
+  <?php } ?>
 
 
 

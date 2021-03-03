@@ -1,11 +1,16 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
 //session_save_path("/tmp");
-session_start();
+//session_start();
 
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
-
+if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{
 //Check Session Id 
 $sesID=session_id();
 $emailid=$_SESSION['UserEmail'];
@@ -1303,7 +1308,7 @@ if(in_array("PortfolioCompany", $expval))
     echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
     print("\n");
-
+    }
    mysql_close();
     mysql_close($cnx);
     ?>

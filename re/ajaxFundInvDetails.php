@@ -2,6 +2,7 @@
 
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
+        include ('checklogin.php');
         $search=$_REQUEST['search'];
             
         $getinvestorSql = geINVSql($search);

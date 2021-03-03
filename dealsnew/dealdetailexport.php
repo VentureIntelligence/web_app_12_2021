@@ -1,6 +1,12 @@
 <?php
 	require("../dbconnectvi.php");
-	$Db = new dbInvestments();
+    $Db = new dbInvestments();
+    if(!isset($_SESSION['UserNames']))
+{
+         header('Location:../pelogin.php');
+}
+else
+{
 require_once '../PHPExcel_1.8.0_doc/Classes/PHPExcel.php';
  
 require_once '../PHPExcel_1.8.0_doc/Classes/PHPExcel/IOFactory.php';
@@ -947,4 +953,5 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('php://output');
         //Check Session Id 
         /**/
+}
     ?>

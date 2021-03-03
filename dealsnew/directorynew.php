@@ -4,6 +4,12 @@
         $compId=0;
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
+        if(!isset($_SESSION['UserNames']))
+        {
+        header('Location:../pelogin.php');
+        }
+        else
+        {	
        // print_r($_POST);
         $vcflagValue = isset($_REQUEST['value']) ? $_REQUEST['value'] :0;
         //$dealvalue = isset($_POST['showdeals']) ? $_POST['showdeals'] :101;
@@ -1798,7 +1804,7 @@ $( "#autocomplete" ).autocomplete({
                                                         $querystrvalue= $myrow["CIAId"]."/".$vcflagValue;
                                          ?>
                                                         <tr><td>
-                                                        <a style="text-decoration: none" href='diradvisor.php?value=<?php echo $querystrvalue;?>/<?php echo $vcflagValue;?>/<?php echo $dealvalue;' >
+                                                        <a style="text-decoration: none" href='diradvisor.php?value=<?php echo $querystrvalue;?>/<?php echo $vcflagValue;?>/<?php echo $dealvalue;?>' >
                                                         <?php echo $myrow["Cianame"]; ?></a></td></tr>
                                                 <?php
                                                         $totalCount=$totalCount+1;
@@ -1907,6 +1913,7 @@ $( "#autocomplete" ).autocomplete({
 </html>
 
 <?php
+        }
 	function returnMonthname($mth)
 		{
 			if($mth==1)
