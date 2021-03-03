@@ -36,11 +36,22 @@ else
 
 <script src="TourStart.js"></script>  
 <style>
-  .btn-disabled,
+  /* .btn-disabled,
 .btn-disabled[disabled] {
   opacity: .4;
   cursor: default !important;
   pointer-events: none;
+} */
+.request-for-lp{
+  position: absolute;
+    background: #41352999;
+    right: 205px;
+    padding: 10px 75px;
+    background-image: none !important;
+    cursor: pointer;
+    top: 4px;
+    margin-right: 0px !important;
+    width:15px;
 }
   </style>
  <div id="maskscreen" ></div>
@@ -631,7 +642,7 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 
         else{
         ?>
-        <span class="request-for-lp" style="margin-left: -30px;float: right;color:white;padding-top:7px"><i class="fa fa-lock" aria-hidden="true" style="
+        <span class="request-for-lp" style=""><i class="fa fa-lock" aria-hidden="true" style="
     background-image: none;    font-size: 15px;
 "></i></span>
         <input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;border-radius:5px;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advance Export" id="advExport" >
@@ -651,7 +662,7 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
         <form style="margin-bottom: 0px;">
             <div class="entry">
                     <h5>Add a note..</h5><span style='float:right;display: block;margin-top: -20px;'></span>
-                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="For example, enter your phone number and convenient time for a call" val=''></textarea>
+                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="Need access for advance filter" val=''></textarea>
                     <input type="hidden" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"/>
             </div>
             <div class="entry">

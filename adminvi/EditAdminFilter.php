@@ -200,7 +200,7 @@
                                              
                                              
                                              ?>
-                                          <a href="javascript:void(0)" class='deleteFaq'style='float:right'  data-faq-id=<?php echo $myrow["id"]; ?> > &nbsp; &nbsp; <i class="fa  fa-trash" aria-hidden="true"></i>  </a>
+                                          <a href="javascript:void(0)" class='deleteFaq'style='float:right'  data-faq-id=<?php echo $row["id"]; ?> > &nbsp; &nbsp; <i class="fa  fa-trash" aria-hidden="true"></i>  </a>
                                           <!-- <a href="adminFilter.php?id=<?php echo $row["id"]; ?>&filterName=<?php echo $myrow["filter_name"] ?>" style='float:right'> <i class="fa fa-pencil-square-o"></i> </a> -->
                                        </p>
                                     </div>
