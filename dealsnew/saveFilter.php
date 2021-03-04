@@ -41,8 +41,9 @@
             $stage=implode(",",$_POST['stage']);
             $investorType=$_POST['investorType'];
             $filterType=$_POST['filterType'];
-            
+            $companyName=$_POST['companyName'];
             $filterQuery=$_POST['filterQuery'];
+            
             if($dlogUserEmail == "vijayakumar.k@praniontech.com")
             {
                $filter_active='active';
@@ -74,16 +75,16 @@
             //echo $rowSelCount;exit();
             if($rowSelCount > 0)
             {
-            $query = "UPDATE `saved_filter` SET `start_date`='".$startDate."',`end_date`='".$endDate."',`start_year`='".$startYear."',`end_year`='".$endYear."', `filter_active`='".$filter_active."',`query`='".$filterQuery."',`vi_filter`='".$vi_filter."',`dealtype`='".$dealType."',`intype`='".$Intype."',`company_type`='".$companytype."',`industry`='".$industry."',`city`='".$city."',`state` ='".$state."',`region` ='".$region."',`exit_status` ='".$exitStatus."',`round`='".$round."',`stage`='".$stage."',`investor_type`='".$investorType."',`filter_name`='".$filtername."',`filter_desc`='".$filterDesc."',`investor_name`='" . $investorvalArray . "',`column_name`='" . $checkboxName . "',`modefied_by`='" . $dlogUserEmail . "',`modefied_on`=CURDATE()  WHERE `id` = '" . $EditFilter . "' ";
+            $query = "UPDATE `saved_filter` SET `company_name`='".$companyName."',`start_date`='".$startDate."',`end_date`='".$endDate."',`start_year`='".$startYear."',`end_year`='".$endYear."', `filter_active`='".$filter_active."',`query`='".$filterQuery."',`vi_filter`='".$vi_filter."',`dealtype`='".$dealType."',`intype`='".$Intype."',`company_type`='".$companytype."',`industry`='".$industry."',`city`='".$city."',`state` ='".$state."',`region` ='".$region."',`exit_status` ='".$exitStatus."',`round`='".$round."',`stage`='".$stage."',`investor_type`='".$investorType."',`filter_name`='".$filtername."',`filter_desc`='".$filterDesc."',`investor_name`='" . $investorvalArray . "',`column_name`='" . $checkboxName . "',`modefied_by`='" . $dlogUserEmail . "',`modefied_on`=CURDATE()  WHERE `id` = '" . $EditFilter . "' ";
             // echo $filtername;
             }
             else
             {
-            $query = "INSERT INTO `saved_filter`(`id`, `investor_name`, `column_name`, `filter_name`,`filter_type`,`filter_desc`,`company_type`,`industry`,`city`,`state`,`region`,`exit_status`,`round`,`stage`,`investor_type`,`dealtype`,`intype`,`filter_active`,`query`,`vi_filter`,`start_date`,`start_year`,`end_date`,`end_year`,`created_by`, `created_on`) VALUES (default,'".$investorvalArray."','".$checkboxName."','".$filtername."','".$filterType."','".$filterDesc."','".$companytype."','".$industry."','".$city."','".$state."','".$region."','".$exitStatus."','".$round."','".$stage."','".$investorType."','".$dealType."','".$Intype."','".$filter_active."','".$query."','".$vi_filter."','".$startDate."','".$startYear."','".$endDate."','".$endYear."','".$dlogUserEmail."',CURDATE())";
+            $query = "INSERT INTO `saved_filter`(`id`, `investor_name`, `column_name`, `filter_name`,`filter_type`,`filter_desc`,`company_type`,`company_name`,`industry`,`city`,`state`,`region`,`exit_status`,`round`,`stage`,`investor_type`,`dealtype`,`intype`,`filter_active`,`query`,`vi_filter`,`start_date`,`start_year`,`end_date`,`end_year`,`created_by`, `created_on`) VALUES (default,'".$investorvalArray."','".$checkboxName."','".$filtername."','".$filterType."','".$filterDesc."','".$companytype."','".$companyName."','".$industry."','".$city."','".$state."','".$region."','".$exitStatus."','".$round."','".$stage."','".$investorType."','".$dealType."','".$Intype."','".$filter_active."','".$query."','".$vi_filter."','".$startDate."','".$startYear."','".$endDate."','".$endYear."','".$dlogUserEmail."',CURDATE())";
             
             }
           
-            //echo "query = $query";exit(); // for debugging purposes, remove this once it is working
+           //echo "query = $query";exit(); // for debugging purposes, remove this once it is working
             mysql_query($query) or die(mysql_error());
             
    }
