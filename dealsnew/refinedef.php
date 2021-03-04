@@ -1,3 +1,13 @@
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {	
+     ?>
 <style>
     /* .tagSearch{
         padding: 5px 15px;
@@ -415,3 +425,4 @@ if(($defpage ==31 && $dealdef == 1)|| ($defpage ==32 && $dealdef == 1) || ($defp
 </div>
 </div>
 </div>
+<?php } ?>

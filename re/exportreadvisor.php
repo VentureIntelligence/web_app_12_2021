@@ -2,7 +2,8 @@
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
  session_save_path("/tmp");
-	session_start();
+        session_start();
+        include ('checklogin.php');  
 	$username=$_SESSION['REUserNames'];
 	$emailid=$_SESSION['REUserEmail'];
 	if(session_is_registered("REUserNames"))

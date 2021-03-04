@@ -1,9 +1,15 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php //session_save_path("/tmp");
 ini_set ( 'max_execution_time', 300);
-session_start();
+//session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{ 
 //print_r($_POST);
 //exit();
 //Check Session Id 
@@ -1822,7 +1828,7 @@ function updateDownload($res){
                         }
                     }
                 /* mail sending area ends */
-
+                }
 
                 //      }
                 //else

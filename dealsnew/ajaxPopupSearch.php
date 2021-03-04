@@ -4,6 +4,12 @@ $Db = new dbInvestments();
 $select_type = $_REQUEST['select_type'];
 $VCFlagValue=$_REQUEST['vcflag'];
 $search=$_REQUEST['search'];
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
 if($select_type == 'investor'){
         
         if(($VCFlagValue=="0" || $VCFlagValue=="1") && trim(search)!="" )
@@ -332,6 +338,7 @@ if($select_type == 'investor'){
 
           }
       
+}
 }
 
         

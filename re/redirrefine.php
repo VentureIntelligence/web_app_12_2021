@@ -1,4 +1,8 @@
-<?php $dealtypesql = "select DealTypeId,DealType from dealtypes"; ?>
+<?php 
+// require("../dbconnectvi.php");
+// 	$Db = new dbInvestments();
+    include ('checklogin.php');
+    $dealtypesql = "select DealTypeId,DealType from dealtypes"; ?>
 
 <h2 class="acc_trigger" <?php if($vcflagValue==1){ echo "style='display:none;'";}?>><a href="#">Refine Search</a></h2>
     <div class="acc_container">

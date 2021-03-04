@@ -1,5 +1,14 @@
 
-<?php $showdealsbyflag=0;
+<?php 
+require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {
+	 $showdealsbyflag=0;
 if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstring_legal!="" || $advisorsearchstring_trans!="")
 { 
     $showdealsbyflag=1; }  ?>
@@ -584,6 +593,6 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
     
 </ul></div>
 	</div>
-
+<?php } ?>
 
 

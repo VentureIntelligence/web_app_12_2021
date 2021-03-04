@@ -1,4 +1,13 @@
-<script>
+<?php include_once("../globalconfig.php");
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
+?><script>
     $(document).ready(function(){
         
          if($('.status2').is(":checked")) { 
@@ -252,3 +261,4 @@
 <script>
   
     </script>
+    <?php } ?>

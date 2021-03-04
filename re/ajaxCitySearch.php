@@ -2,6 +2,7 @@
 
     require_once("../dbconnectvi.php");
     $Db = new dbInvestments();
+    include ('checklogin.php');
     $VCFlagValue=$_REQUEST['vcflag'];
     $search=trim($_REQUEST['search']);
     //echo $search;exit;

@@ -1,10 +1,16 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
- session_save_path("/home/users/web/b1284/ipw.ventureintelligence/phpsessions");
-	session_start();
+//  session_save_path("/home/users/web/b1284/ipw.ventureintelligence/phpsessions");
+// 	session_start();
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	if(!isset($_SESSION['UserNames']))
+        {
+        header('Location:../pelogin.php');
+        }
+        else
+        {
 		//include('onlineaccount.php');
 		$displayMessage="";
 		$mailmessage="";
@@ -82,7 +88,7 @@
                                         $target_comptype=$_POST['txthidetargetcomptype'];
                                         $acquirer_comptype=$_POST['txthideacquirercomptype'];
 
-					$tsjtitle="© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
+					$tsjtitle="ï¿½ TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 
 
 				/*echo "<br>Industry Id-----------------**".$hideindustryid;
@@ -848,7 +854,7 @@
          print(trim($schema_insert));
          print "\n";
      }
-
+	}
 mysql_close();
     mysql_close($cnx);
     ?>

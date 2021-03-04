@@ -3,7 +3,12 @@ require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
 
 $pe_data='';
-
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
 if($_POST['cin']!=''){
     
     // get company by CIN
@@ -390,4 +395,5 @@ if($_POST['cin']!=''){
             
 }
 echo json_encode(array( 'count'=> count($pedata), 'html' => $pe_data ,'sql'=> $sql) );
+}
 ?>

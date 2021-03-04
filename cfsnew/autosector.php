@@ -1,5 +1,6 @@
 <?php 
 	include "header.php";
+	include "sessauth.php";
 	require_once MODULES_DIR."/sectors.php";
 	$sectors = new sectors();
         if($_REQUEST['queryString1']!='null')

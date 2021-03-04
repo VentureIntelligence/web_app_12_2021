@@ -1,4 +1,13 @@
-<?php include_once("../globalconfig.php"); ?>
+<?php include_once("../globalconfig.php"); 
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+if(!isset($_SESSION['UserNames']))
+{
+        header('Location:../pelogin.php');
+}
+else
+{
+?>
 <?php $searchString1="Unknown";
                 $searchString1=strtolower($searchString1);
                 $totalDisplay="";
@@ -1169,3 +1178,4 @@ jQuery('#maskscreen').fadeOut(1000);
         $(this).toggleClass('active').next('.frmDropDown').toggleClass("active");
      });
 </script> 
+<?php } ?>
