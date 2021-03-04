@@ -39,6 +39,12 @@ $legalAdvisorflag=$_POST['legalAdvisor'];
 $transactionAdvisorflag=$_POST['transactionAdvisor'];
 $tagsearchflag=$_POST['tagsearch'];
 $listallcompany = $_POST['listallcompany'];
+if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
 //==============================junaid===========================
 if(!empty($_POST[ 'uncheckRows' ])){
     
@@ -330,7 +336,8 @@ else
                                                     <?php
 
                                                     }
-						}
+                        }
+                    }
 						?>
                         </tbody>
                   </table>

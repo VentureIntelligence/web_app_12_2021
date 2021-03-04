@@ -3,7 +3,8 @@
 	session_start();
 
 	require("../dbconnectvi.php");
-	$Db = new dbInvestments();
+        $Db = new dbInvestments();
+        include ('machecklogin.php'); 
 		$displayMessage="";
 		$mailmessage="";
 

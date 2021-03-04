@@ -3,6 +3,7 @@
 	session_start();
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	include ('machecklogin.php'); 
 		//include('onlineaccount.php');
 		$displayMessage="";
 		$mailmessage="";
@@ -21,7 +22,7 @@
 					$isShowAll=$_POST['hideShowAll'];
 					$submitemail=$_POST['txthideemail'];
                                         
-					$tsjtitle="©  TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
+					$tsjtitle="ï¿½  TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 
                                 if($isShowAll!="")
                                 {

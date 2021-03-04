@@ -1,3 +1,8 @@
+<?php include_once("../globalconfig.php");
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
+include ('checklogin.php');
+?>
  <style>
 	/*Added due to the dashboard*/
   .acc_main{
