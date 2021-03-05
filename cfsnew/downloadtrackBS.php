@@ -137,7 +137,7 @@ if($_GET['template']!="old"){
   if(isset($_GET['type']) && $_GET['type']=='consolidated'){
     //$fields = array("PLStandard_Id","CId_FK","IndustryId_FK","OptnlIncome","OtherIncome","OptnlAdminandOthrExp","OptnlProfit","EBITDA","Interest","EBDT","Depreciation","EBT","Tax","PAT","FY","TotalIncome","BINR","DINR","EmployeeRelatedExpenses","ForeignExchangeEarningandOutgo","EarninginForeignExchange","OutgoinForeignExchange","EBT_before_Priod_period","Priod_period","CostOfMaterialsConsumed","PurchasesOfStockInTrade","ChangesInInventories","CSRExpenditure","OtherExpenses","CurrentTax","DeferredTax","total_profit_loss_for_period","profit_loss_of_minority_interest");
 	$fields1 = array("*");
-	$wherebs_new = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='1' and a.ResultType='1'";
+	$wherebs_new = "a.CID_FK = ".$_GET['vcid']."  and a.ResultType='1'";
 	$group1 = "a.FY";
 	$order1 = "a.FY DESC";
     $FinanceAnnual= $balancesheet_new->getFullList(1,100,$fields1,$wherebs_new,$order1,"name",$group1);
@@ -478,7 +478,7 @@ if($_GET['template']!="old"){
 
 }else{
     $fields1 = array("*");
-	$wherebs_new = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='0' and a.ResultType='0'";
+	$wherebs_new = "a.CID_FK = ".$_GET['vcid']." and a.ResultType='0'";
 	$group1 = "a.FY";
 	$order1 = "a.FY DESC";
     $FinanceAnnual= $balancesheet_new->getFullList(1,100,$fields1,$wherebs_new,$order1,"name",$group1);
@@ -762,7 +762,7 @@ if($_GET['template']!="old"){
 	
 	if(isset($_GET['type']) && $_GET['type']=='consolidated'){
 		$fields1 = array("*");
-		$where1 = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='1' and a.ResultType='1'";
+		$where1 = "a.CID_FK = ".$_GET['vcid']."  and a.ResultType='1'";
 		$where_withoutPL = "a.CID_FK = ".$_GET['vcid']." and a.ResultType='1'";
 		$order1 = "a.FY DESC";
         $group1 = "a.FY";
@@ -1023,7 +1023,7 @@ if($_GET['template']!="old"){
 					
 			}else{
 				$fields1 = array("*");
-				$where1 = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='0' and a.ResultType='0'";
+				$where1 = "a.CID_FK = ".$_GET['vcid']."  and a.ResultType='0'";
 				$where_withoutPL = "a.CID_FK = ".$_GET['vcid']." and a.ResultType='0'";
 				$order1 = "a.FY DESC";
 				$group1 = "a.FY";
