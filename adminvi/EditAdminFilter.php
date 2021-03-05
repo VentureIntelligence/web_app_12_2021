@@ -130,7 +130,7 @@
                            $keyword="";
                            $keyword=$_POST['repDBtype'];
                            
-                           $nanoSql="SELECT * FROM `saved_filter`  order by filter_order_no asc";
+                           $nanoSql="SELECT * FROM `saved_filter` where company_name IN('Pranion','Venture')  order by filter_order_no asc,id desc";
                            if ($reportrs = mysql_query($nanoSql))
                            {
                            $report_cnt = mysql_num_rows($reportrs);
@@ -154,7 +154,7 @@
                                     {
                                     While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
                                     {
-                                    if($myrow['vi_filter'] == 1 ){	
+                                   // if($myrow['vi_filter'] == 1 ){	
                                     ?>
                                  <li data-post-id="<?php echo $myrow["id"]; ?>">
                                     <div class="li-post-group">
@@ -167,48 +167,19 @@
                                           else
                                           echo  $myrow["id"].' - '.$myrow["filter_name"];  
                                           
-                                          
                                           ?>
                                           <a href="javascript:void(0)" class='deleteFaq'style='float:right'  data-faq-id=<?php echo $myrow["id"]; ?> > &nbsp; &nbsp; <i class="fa  fa-trash" aria-hidden="true"></i>  </a>
+                                          <?php if($myrow['vi_filter'] == 1 ){	?>
                                           <a href="adminFilter.php?id=<?php echo $myrow["id"]; ?>&filterName=<?php echo $myrow["filter_name"] ?>" style='float:right'> <i class="fa fa-pencil-square-o"></i> </a>
+                                          <?php } ?>
                                        </p>
                                     </div>
                                  </li>
                                  <?php
-                                    } 
+                                   // } 
 								}
 							}
-                                    if($myrow['vi_filter'] == 0 ){
                                     
-                                    $sqlQuery="SELECT dealmembers.DCompId,saved_filter.* FROM `saved_filter`,dealmembers WHERE saved_filter.created_by=dealmembers.EmailId and dealmembers.DCompId=948740559 order by filter_order_no asc";
-                                    $reportrsql = mysql_query($sqlQuery);
-                                    While($row=mysql_fetch_array($reportrsql, MYSQL_BOTH))
-                                    {
-                                    //print_r($row['filter_name']);
-                                    ?>
-                                 <li data-post-id="<?php echo $row["id"]; ?>">
-                                    <div class="li-post-group">
-                                       <!-- <h5 class="li-post-title">
-                                          <?php echo $row["id"].' - '.$row["filter_name"]; ?> 
-                                          </h5> -->
-                                       <p class="li-post-desc">
-                                          <?php 
-                                             if(strlen($row["filter_name"]) > 70)
-                                             echo  $row["id"].' - '.substr($row["filter_name"],0,70).'...'; 
-                                             else
-                                             echo  $row["id"].' - '.$row["filter_name"];  
-                                             
-                                             
-                                             ?>
-                                          <a href="javascript:void(0)" class='deleteFaq'style='float:right'  data-faq-id=<?php echo $myrow["id"]; ?> > &nbsp; &nbsp; <i class="fa  fa-trash" aria-hidden="true"></i>  </a>
-                                          <!-- <a href="adminFilter.php?id=<?php echo $row["id"]; ?>&filterName=<?php echo $myrow["filter_name"] ?>" style='float:right'> <i class="fa fa-pencil-square-o"></i> </a> -->
-                                       </p>
-                                    </div>
-                                 </li>
-                                 <?php
-                                    }	
-                                    
-									} 
 								
                                     else {?>
                                  <li style="font-family: Verdana; font-size: 8pt" >

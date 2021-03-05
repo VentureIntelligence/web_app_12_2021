@@ -575,7 +575,7 @@ padding:0rem !important;
                   $keyword="";
                   $keyword=$_POST['repDBtype'];
                   
-                  $nanoSql="SELECT * FROM `saved_filter`  order by filter_order_no asc";
+                  $nanoSql="SELECT * FROM `saved_filter` where company_name IN ('Pranion','Venture') and filter_active ='active' order by filter_order_no asc,id desc";
                   if ($reportrs = mysql_query($nanoSql))
                   {
                   $report_cnt = mysql_num_rows($reportrs);
@@ -591,7 +591,7 @@ padding:0rem !important;
                            {
                            While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
                            {	
-                              if($myrow['vi_filter'] == 1 ){
+                             // if($myrow['vi_filter'] == 1 ){
                            ?> 
                         <div class="col-md-6 mb-3">
                            <div class="card invest viadmin">
@@ -621,45 +621,9 @@ padding:0rem !important;
                            </div>
                         </div>
                         <?php
-                           } } }
-                           if($myrow['vi_filter'] == 0 ){
-                                    
-                              $sqlQuery="SELECT dealmembers.DCompId,saved_filter.* FROM `saved_filter`,dealmembers WHERE saved_filter.created_by=dealmembers.EmailId and dealmembers.DCompId=948740559 order by filter_order_no asc";
-                              $reportrsql = mysql_query($sqlQuery);
-                              While($row=mysql_fetch_array($reportrsql, MYSQL_BOTH))
-                              {
-                              //print_r($row['filter_name']);
-                              ?>
-                                      <div class="col-md-6 mb-3">
-                           <div class="card invest viadmin">
-                              <div class="card-body ">
-                                 <div class="row ">
-                                    <div class="col-md-10 col-10">
-                                       <h6 class="card-title q4"><?php echo $row['filter_name'] ?></h6>
-                                       <p class="redesign"><?php echo $row['filter_desc'] ?></p>
-                                       <p class="create">Created on <?php echo date('d M y', strtotime($row['created_on']));?></p>
-                                    </div>
-                                    <!-- <div class="col-md-2 col-2">
-                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
-                                       </button>
-                                    </div> -->
-                                 </div>
-                              </div>
-                              <!-- <div class="card-footer edit"> -->
-                              <?php if($DownloadCount  >=  $custom_export_limit){?>
-                                 <button  class ="btn exportFilt w-100 text-center" onclick="exportfiltrErr(<?php echo $custom_export_limit ?>)" name="showdeals">Export</button>
-                            <?php }
-                              else {?>
-                                 <button type="button" class="btn exportFilt w-100 text-center" onclick="ExportAdminFilter('<?php echo $row['id'] ?>','<?php echo $row['filter_name'] ?>','<?php echo $row['filter_type'] ?>')">Export</button>
-                           <?php } ?>
-                              <!-- <h5 class="text-center ">Export</h5> -->
-                              <!-- </div> -->
-                           </div>
-                        </div>
-                              <?php 
-                              }
-                           }
+                          // }
+                         } }
+                          
                            else {?>
                         <p class="data" style="margin-left:350px;font-size:12px;color:black;padding-top:200px">No Data Found</p>
                         <?php } ?>       
@@ -669,15 +633,18 @@ padding:0rem !important;
                <?php if($companyId != 948740559)
                  {?>
                     <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <input type="hidden" name="companyName" id="companyName" value="<?php echo $companyName;?>">
                    <?php } else {?>
                      <div class="tab-pane ml-3 show active" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                     <input type="hidden" name="companyName" id="companyName" value="Venture">
+                     <input type="hidden" name="companyId" id="companyId" value="<?php echo $companyId; ?>">
                    <?php }?>
                     <div class="card"> 
                     <div class="ml-3 mt-3">
                         <h6 class="invHeading">Input Investor`s Name</h6>
                         <p style="font-size: 12px;color:#919BA2;">You are allowed to add up to 50 investors by typing (auto suggest)</p>
                         <!-- <h6>Investor</h6> -->
-                      
+                        
                               <div class="row">
                                  <div class="col-md-6">
                                     <li class="ui-widget" style="position: relative">
@@ -2188,7 +2155,8 @@ padding:0rem !important;
          var filterType=$(".rightpanel").find(".active").attr('value')
          
          var filtername=$('#filter_name').val()
-         var filterDesc=$('#filter_desc').val().trim()
+         var filterDesc=$('#filter_desc').val().trim();
+         
          $.ajax({
                   url: 'saveFilter.php',
                   type: "POST",
@@ -2221,7 +2189,8 @@ padding:0rem !important;
          var month2=$('#mon2').val();
          var year1=$('#yr1').val();
          var year2=$('#yr2').val();
-
+         var companyName=$('#companyName').val();
+         var companyId=$('#companyId').val();
          for(i=0;i<selectedValues.length;i++)
          {
          investornameArray.push(selectedValues[i]["name"])
@@ -2243,6 +2212,9 @@ padding:0rem !important;
          var month2=$('#exitmon2').val();
          var year1=$('#exityr1').val();
          var year2=$('#exityr2').val();
+         var companyName=$('#companyName').val();
+         var companyId=$('#companyId').val();
+
          for(i=0;i<selectedValues.length;i++)
          {
          investornameArray.push(selectedValues[i]["name"])
@@ -2274,7 +2246,7 @@ padding:0rem !important;
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
-         data: {start_date:month1,end_date:month2,start_year:year1,end_year:year2,Intype:Intype,dealType:dealType,filterType:filterType,companytype:companytype,investorType:investorType,stage:stage,round:round,exitStatus:exitStatus,
+         data: {companyId:companyId,companyName: companyName,start_date:month1,end_date:month2,start_year:year1,end_year:year2,Intype:Intype,dealType:dealType,filterType:filterType,companytype:companytype,investorType:investorType,stage:stage,round:round,exitStatus:exitStatus,
          region:region,state:state,city:city,Industry:Industry, filtername: filtername,
          EditFilter:editfilterId,
          filterDesc:filterDesc,
@@ -2622,10 +2594,11 @@ padding:0rem !important;
 
          function ExportAdminFilter(id,name,type)
          {
+            var companyName=$('#companyName').val();
                $.ajax({
                   url: 'saveFilter.php',
                   type: "POST",
-                  data: {filterid: id,filterName:name,filterType:type, mode: 'adminExport'},
+                  data: {companyName:companyName,filterid: id,filterName:name,filterType:type, mode: 'adminExport'},
                success: function(data){
                   var dataval=data.replace(/[\u0000-\u0019]+/g,"")
                   var dataset=JSON.parse(JSON.stringify(dataval))
@@ -2663,6 +2636,12 @@ padding:0rem !important;
             $('#investorauto_sug').tokenInput("clear");
             $('#expinvestorauto_sug').tokenInput("clear");
 
+            });
+            $('#v-pills-profile-tab').on('click',function(e){
+               $('.exitexportcolumn .exitexportcheck').attr('checked', true); 
+            });
+            $('#v-pills-messages-tab').on('click',function(e){
+               $('.exportcolumn .exportcheck').attr('checked', true);
             });
      </script>
    </body>
