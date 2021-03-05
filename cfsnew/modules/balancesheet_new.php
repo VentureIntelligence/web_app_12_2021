@@ -120,7 +120,8 @@ class balancesheet_new extends database {
 		if($fields != '*')
 			$fields = implode(",", $fields);
 
-		$sql = "SELECT ".$fields." FROM ".$this->dbName." a INNER JOIN plstandard b ON a.FY = b.FY AND a.CID_FK = b.CID_FK ";
+		//$sql = "SELECT ".$fields." FROM ".$this->dbName." a INNER JOIN plstandard b ON a.FY = b.FY AND a.CID_FK = b.CID_FK "; //commented on 1125changes
+		$sql = "SELECT ".$fields." FROM ".$this->dbName." a ";
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		if(strlen($where)) $sql.= "WHERE ".$where;
 		if(strlen($groupby))   $sql.= " GROUP BY ".$groupby;
