@@ -2,6 +2,7 @@
 <?php
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	include ('checklogin.php');     
  session_save_path("/tmp");
 	session_start();
 

@@ -95,6 +95,28 @@ class plstandard extends database {
 		}
 		return $result;
 	}
+	function getyear(){
+		
+		$sql = "SELECT LEFT(FY,2) FROM ".$this->dbName." WHERE FY!='' and FY NOT IN(8,9,912,913,2120061620) group by FY order by FY desc LIMIT 1 ";
+		
+
+		if($type=="name")
+			$this->setFetchMode('ASSOC');
+               // print $sql;exit();
+		$this->execute($sql);
+
+		$result = array();
+		$cont=0;
+		if($fields=="*")
+			$result=$this->fetch();
+		else{
+			while ($rs = $this->fetch()) {
+				$result[$cont]=$rs;
+				$cont++;
+			}
+		}
+		return $result;
+	}
 
 	function getFullList($pageID=1,$rows=300,$fields,$where="",$order="",$type="num"){
 

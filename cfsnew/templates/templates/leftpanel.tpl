@@ -143,7 +143,7 @@
 <li>
  
 <div class="growth-yr"> 
-    <label for="Crores"><input type="checkbox" name="Crores" id="Crores" value="10000000" checked />  In Cr <span style="margin-left:10px;">Year:</span> </label>
+    <label for="Crores">{if $currency eq "INR"}<input type="checkbox" name="Crores" id="Crores" value="10000000" checked />  In Cr {/if}{if $currency eq "USD"}<input type="checkbox" name="Million" id="Million" value="1" checked />  In $ M {/if}<span style="margin-left:10px;">Year:</span> </label>
 <label for="anyof"><input type="radio" name="arcossall" id="anyof" value="AnyOf" {if $REQUEST.arcossall eq ("AnyOf")} checked {/if}/>  Any Of  </label>
 <label for="acrossall"><input type="radio" name="arcossall" id="acrossall" value="across" {if $REQUEST.arcossall eq ("across")} checked {/if}/> Across All </label>
 </div>
@@ -195,13 +195,12 @@
 		</div>
 
   
- <div class="btn-cnt"> <div class="switch-and-or" style="margin-bottom:10px;"> 
-    <input type="radio"  name="Commonandor" id="fand"  value="and"  checked="checked"/>
-   <input type="radio"  name="Commonandor" id="for"   value="or"/>
+ <div class="btn-cnt"> <div class="switch-and-or" style="margin-bottom:10px;">
+     <input type="radio"  name="Commonandor" id="fand"  value="and"   {if $REQUEST.Commonandor=="and" }checked="checked"{elseif $REQUEST.Commonandor==""}checked="checked"{/if} />
+   <input type="radio"  name="Commonandor" id="for"   value="or" {if $REQUEST.Commonandor=="or" }checked="checked"{/if} />
     <label for="fand" class="{if $REQUEST.Commonandor=="and" } cb-enable selected {elseif $REQUEST.Commonandor==""}cb-enable selected  {else}cb-disable{/if}"><span>AND</span></label>
     <label for="for" class="{if $REQUEST.Commonandor=="or" } cb-enable selected {else}cb-disable{/if}"><span>OR</span></label>
- 
-
+  
 </div> 
 
 <input name="refine" type="submit" value="Refine" class="refine"/>  <input name="cancel" type="button" value="Cancel" />

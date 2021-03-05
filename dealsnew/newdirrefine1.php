@@ -1,3 +1,13 @@
+<?php 
+ require_once("../dbconnectvi.php");
+ $Db = new dbInvestments();
+ if(!isset($_SESSION['UserNames']))
+ {
+     header('Location:../pelogin.php');
+ }
+ else
+ {	
+   ?>
  <script>
     $(function(){
         $("#city, #countryNIN").multiselect({ noneSelectedText: 'Select options', selectedList: 0}).multiselectfilter();
@@ -532,7 +542,7 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
                         
                         ?>
                         
-                        <option value="<?php echo $id; ?>" id="country_<?php echo $id; ?>" <?php echo $indSel; ?>><?php echo $name; ?></option>
+                        <option value="<?php echo $id; ?>" id="country_<?php echo $id; ?>" <?php echo $indSel; ?>><?php echo $name; ?> </option>
                     <?php } else { ?>
                         
                     <?php } 
@@ -1198,6 +1208,7 @@ if($dealvalue!=103){?>
 
 </ul></div>
   </div>
+  <?php } ?>
    <!-- <h2 class="acc_trigger helptag" ><a href="#" style="display: inline-block;">Tag Search</a>
                <span class="helplineTag helplinetagicon" style=""> 
                         <a href="#popup6" class="help-icon1 tooltip tagpopup"><i class="far fa-question-circle" style="color: #fff;background-image: none;"></i>

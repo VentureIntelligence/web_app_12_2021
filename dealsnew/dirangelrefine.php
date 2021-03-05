@@ -1,3 +1,13 @@
+<?php
+	// require("../dbconnectvi.php");
+    // $Db = new dbInvestments();
+    if(!isset($_SESSION['UserNames']))
+{
+         header('Location:../pelogin.php');
+}
+else
+{
+?>
 <script>
   $(function() {
     
@@ -710,4 +720,4 @@ function enableFileds(){
             $("#companyauto").val('');
     });
      </script>
-	
+<?php } ?>	

@@ -3,7 +3,12 @@
 	session_start();       
         require_once("../dbconnectvi.php");
         $Db = new dbInvestments();
-        
+        if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
          //Check Session Id 
         $sesID=session_id();
         $emailid=$_SESSION['UserEmail'];
@@ -17,7 +22,7 @@
                 header( 'Location: logoff.php?value=caccess' ) ;
             }
         }
-        
+    }
         function updateDownload($res){
             //Added By JFR-KUTUNG - Download Limit
            
