@@ -68,6 +68,11 @@ td {
   text-align: left;
   padding: 10px 0px;
 }
+.main_content_container {
+    height: 1080px !important;
+    margin-bottom: 10px;
+}
+
       </style>
    </head>
    <body>
@@ -86,7 +91,55 @@ td {
                           <h4 class="headingFiltr" style="    padding-top: 10px;"> Log table </h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           
                <div class="row">
-  <div class="column">
+               <div style=" overflow:auto;margin-top:10px;" class="content_container">
+                           <?php
+                           $keyword="";
+                           $keyword=$_POST['repDBtype'];
+                           
+                           $nanoSql="SELECT * FROM `advance_export_filter_log` ";
+                           if ($reportrs = mysql_query($nanoSql))
+                           {
+                           $report_cnt = mysql_num_rows($reportrs);
+                           }
+                           ?>
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTable">
+                              <thead>
+                                 <tr>
+                                    <th>Name</th>
+                                    <th>Filter Name</th>
+                                    <th>Filter Type</th>
+                                    <th>Company Name</th>
+                                    <th>Created Date</th>
+                                    <th style="display:none">Date</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <?php
+                                    if ($report_cnt>0)
+                                    {
+                                    
+                                    While($myrow=mysql_fetch_array($reportrs))
+                                    {
+                                    // print_r($myrow);
+                                    
+                                    ?>
+                                 <tr>
+                                    <td><?php echo $myrow['name'] ?></td>
+                                    <td><?php echo $myrow['filter_name'] ?></td>
+                                    <td><?php echo $myrow['filter_type'] ?></td>
+                                    <td><?php echo $myrow['company_name'] ?></td>
+                                    <td><?php echo date('d-M-y', strtotime($myrow['created_date']));?></td>
+                                    <td style="display:none"><?php echo date('yyyy-mm-dd', strtotime($myrow['created_date']));?></td>
+                                 </tr>
+                                 <?php } } else {?>
+                                 <tr>
+                                    <td>No Records Found</td>
+                                 </tr>
+                                 <?php } ?>
+                              </tbody>
+                              </table>
+                           </div>
+  <div class="companylist">
   <h4 class="headingFiltr">Top Five Company List</h4>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                               <thead>
@@ -126,7 +179,7 @@ td {
                                  <?php } ?>
                               </tbody></table>
   </div>
-  <div class="column">
+  <div class="filterlist">
   <h4 class="headingFiltr" >Top Five Filter List</h4>
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
                               <thead>
@@ -169,51 +222,7 @@ td {
   </div>
 </div>
 
-<div style=" overflow:auto;margin-top:10px;" class="content_container">
-                           <?php
-                           $keyword="";
-                           $keyword=$_POST['repDBtype'];
-                           
-                           $nanoSql="SELECT * FROM `advance_export_filter_log` ";
-                           if ($reportrs = mysql_query($nanoSql))
-                           {
-                           $report_cnt = mysql_num_rows($reportrs);
-                           }
-                           ?>
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTable">
-                              <thead>
-                                 <tr>
-                                    <th>Name</th>
-                                    <th>Filter Name</th>
-                                    <th>Filter Type</th>
-                                    <th>Company Name</th>
-                                    <th>Created Date</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <?php
-                                    if ($report_cnt>0)
-                                    {
-                                    
-                                    While($myrow=mysql_fetch_array($reportrs))
-                                    {
-                                    // print_r($myrow);
-                                    
-                                    ?>
-                                 <tr>
-                                    <td><?php echo $myrow['name'] ?></td>
-                                    <td><?php echo $myrow['filter_name'] ?></td>
-                                    <td><?php echo $myrow['filter_type'] ?></td>
-                                    <td><?php echo $myrow['company_name'] ?></td>
-                                    <td><?php echo date('d-M-y', strtotime($myrow['created_date']));?></td>
-                                 </tr>
-                                 <?php } } else {?>
-                                 <tr>
-                                    <td>No Records Found</td>
-                                 </tr>
-                                 <?php } ?>
-                              </tbody>
-                           </div>
+
                            <br>
                         </div>
 
@@ -228,7 +237,10 @@ td {
       <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
       <script>
          $(document).ready(function() {
-         $('#myTable').DataTable();
+         $('#myTable').DataTable({
+            columnDefs: [ { type: 'date', 'targets': [4] } ],
+            order: [[ 4, 'desc' ], [ 0, 'asc' ]]
+         } );
          } );
 
       </script>

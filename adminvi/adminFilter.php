@@ -276,6 +276,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         <label for="male">Investments</label><br>
                         <input type="radio" id="exit" name="filter_type" value="Exit" <?php echo ($myrow["filter_type"] == 'Exit') ? 'checked' : ''; ?>>
                         <label for="male">Exit</label><br>
+                        <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
+                            <input type="hidden" name="companyName" id="companyName" value="Pranion">
+                            <?php } else {?> <input type="hidden" name="companyName" id="companyName" value="Venture">
+                            <?php }?>
                         <input type="button" name="saveFilter" id="saveFilter" value="Save" onclick="saveAdminFilter()"><br><br>
                                 <?php } }
                                 else {?>
@@ -284,7 +288,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                      <textarea name="filterdesc" rows="4" cols="50" id="filterdesc" placeholder="description" value=""><?php echo $myrow["filter_desc"] ?></textarea>
                                      <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
                                         <textarea name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value=""></textarea>
-                                        <input type="hidden" name="companyName" id="companyName" value="Praniontech">
+                                        <input type="hidden" name="companyName" id="companyName" value="Pranion">
                         <?php }
                          else { ?>
                             <input  type="hidden" name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value="">
@@ -338,6 +342,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
          type: "POST",
          data: {companyName:companyName,filterDesc:filterdesc,EditFilter:"<?php echo $_GET['id']?>",vi_filter:vi_filter,filtername: filtername,filterQuery:filterQuery,filterType:filterType,filter_active:filter_active,mode: 'A'},
          success: function(data){
+           //  alert(data);
             alert('saved successfully')
             window.location.href="../adminvi/EditAdminFilter.php"
             $('#filter_name').val('')

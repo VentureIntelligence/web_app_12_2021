@@ -43,8 +43,9 @@
             $filterType=$_POST['filterType'];
             $companyName=$_POST['companyName'];
             $filterQuery=$_POST['filterQuery'];
+            $companyId=$_POST['companyId'];
             
-            if($dlogUserEmail == "vijayakumar.k@praniontech.com")
+            if($companyId == 948740559)
             {
                $filter_active='active';
             }
@@ -85,7 +86,7 @@
             }
           
            //echo "query = $query";exit(); // for debugging purposes, remove this once it is working
-            mysql_query($query) or die(mysql_error());
+           mysql_query($query) or die(mysql_error());
             
    }
    else if($_POST['mode'] == 'D')
@@ -143,6 +144,7 @@
    $filterType =$_POST['filterType'];
    $companyName=$_POST['companyName'];
    // echo $filterType;exit();
+   
    if($filtername != "")
    {
    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
@@ -210,6 +212,7 @@
         $filterNameId=$_POST['filterid'];
      $filtername = $_POST['filterName'];
      $filterType =$_POST['filterType'];
+     
      // echo $filterType;exit();
      if($filtername != "")
      {
