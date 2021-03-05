@@ -92,7 +92,7 @@ $expval=explode(",",$exportvalue);
     $hidedateEndValue=$_POST['txthidedateEndValue'];
     $dateValue=$_POST['txthidedate'];
     $tagsearch=$_POST['tagsearchval'];
-
+   // echo $_POST['exitQuery'];exit();
     $hidetxtfrm=$_POST['txthideReturnMultipleFrm'];
     $hidetxtto=$_POST['txthideReturnMultipleTo'];
     //echo 'hai';
@@ -698,9 +698,10 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             //  echo "<br>Query for company search";
             //echo "<br> Company search--" .$companysql;
         }
-        elseif($_POST['exitQuery'] != "")
+        elseif($_POST['exitquery'] != "")
         {
-            $companysql = $_POST['exitQuery'] ;
+            $companysql = $_POST['exitquery'] ;
+           // echo $_POST['exitQuery'];exit();
         }
     elseif ( ($keyword != "") || ($invType != "--") || ($InTypes != "") || ($exitstatusvalue!="--") || ($dateValue!="---to---") || (($hidetxtfrm>=0) && ($hidetxtto>0)) || ($yearafter!="") || ($yearbefore!="") || ($investor_head != "--"))
     {
@@ -1056,8 +1057,8 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 //echo $_POST['exitquery'];
  $sql=$companysql;
  /*echo $tagsearch;*/
-// echo "<br>---" .$sql;
-// exit();
+ //echo "<br>---" .$sql;
+ //exit();
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");
@@ -1250,9 +1251,8 @@ if(in_array("DealType", $expval))
 }
 if(in_array("Type", $expval))
 {
-    if($hide_pms==1){
         echo "Type"."\t";
-    }
+    
 }
 if(in_array("Acquirer", $expval))
 {
@@ -1550,10 +1550,10 @@ if(in_array("LinkforFinancials", $expval))
         {          
             //Type
             $type_val = '';
-            if($hide_pms==1){
+            
                 if($row[5] == 4){
                     if($row[36] == 1){ $type_val = "IPO"; } else if($row[36] == 2){ $type_val = "Open Market Transaction"; }else if($row[36] == 3){ $type_val = "Reverse Merger";}else {$type_val = "Open Market Transaction";}
-                }
+                
                 $schema_insert .= $type_val.$sep;
             }
         }

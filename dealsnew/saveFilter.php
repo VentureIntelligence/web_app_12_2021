@@ -4,8 +4,8 @@
    $Db = new dbInvestments();
    $dlogUserEmail = $_SESSION['UserEmail'];
    $username=$_SESSION['UserNames'];
-
-   //echo $dlogUserEmail;exit();
+     $companyIdsession=$_SESSION['DcompanyId'];
+   //print_r($_SESSION);
    if($_POST['mode'] == 'saveFilter')
    {
         $sql="SELECT * FROM `saved_filter` ";
@@ -43,9 +43,8 @@
             $filterType=$_POST['filterType'];
             $companyName=$_POST['companyName'];
             $filterQuery=$_POST['filterQuery'];
-            $companyId=$_POST['companyId'];
             
-            if($companyId == 948740559)
+            if($companyIdsession == 948740559)
             {
                $filter_active='active';
             }
@@ -144,7 +143,6 @@
    $filterType =$_POST['filterType'];
    $companyName=$_POST['companyName'];
    // echo $filterType;exit();
-   
    if($filtername != "")
    {
    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
@@ -212,7 +210,6 @@
         $filterNameId=$_POST['filterid'];
      $filtername = $_POST['filterName'];
      $filterType =$_POST['filterType'];
-     
      // echo $filterType;exit();
      if($filtername != "")
      {
@@ -263,6 +260,31 @@
           echo 'success';
      }
 
+   }
+   elseif($mode ='getTotalcount')
+   {
+        $data=array();
+     $sqlQuery="SELECT dc.DCompanyName as companyName,dc.custom_export_limit as expplimit,dm.DCompId as companyId  FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
+     //echo $sqlQuery;exit();
+      $sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
+      while ($row = mysql_fetch_assoc($sqlSelResult)) {
+      
+      $custom_export_limit= $row['expplimit']  ;
+      array_push($data,$custom_export_limit);
+
+      }
+      
+     $query="SELECT COUNT(name) as count FROM `advance_export_filter_log` where name='$username' ";
+     $queryRes = mysql_query($query) or die(mysql_error());
+     while ($row = mysql_fetch_assoc($queryRes)) {
+     
+     $DownloadCount= $row['count']  ;
+     array_push($data,$DownloadCount);
+
+     
+     }
+
+     echo json_encode($data);
    }
    
    ?>
