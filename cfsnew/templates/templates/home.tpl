@@ -168,7 +168,7 @@ padding:0px 10px; }
     <option value="USD" {if $currency eq "USD"}selected{/if}>USD</option>
   </select>
   {if $currency eq "INR"}<span>(in Rs. Cr) &nbsp;&nbsp;</span>{/if}
-  {if $currency eq "USD"}<span>(in $. M) &nbsp;&nbsp;</span>{/if}
+  {if $currency eq "USD"}<span>(in $ M) &nbsp;&nbsp;</span>{/if}
   </div>
 </div>
 

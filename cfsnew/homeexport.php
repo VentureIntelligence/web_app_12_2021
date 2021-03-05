@@ -184,15 +184,23 @@
             
             echo "FY".$i."\t";
              
-             
-            echo "Revenue (cr)"."\t";
-            echo "EBIDTA(cr)"."\t";
-            echo "EBDT(cr)"."\t";
-            echo "EBT(cr)"."\t";
-            echo "PAT(cr)"."\t";
-             echo "Opertnl Income(cr)"."\t";
-            echo "Interest(cr)"."\t";
-            
+            if($currency=="INR"){ 
+                echo "Revenue (cr)"."\t";
+                echo "EBIDTA(cr)"."\t";
+                echo "EBDT(cr)"."\t";
+                echo "EBT(cr)"."\t";
+                echo "PAT(cr)"."\t";
+                echo "Opertnl Income(cr)"."\t";
+                echo "Interest(cr)"."\t";
+            }else{
+                echo "Revenue ($ M)"."\t";
+                echo "EBIDTA($ M)"."\t";
+                echo "EBDT($ M)"."\t";
+                echo "EBT($ M)"."\t";
+                echo "PAT($ M)"."\t";
+                echo "Opertnl Income($ M)"."\t";
+                echo "Interest($ M)"."\t";
+            }
             echo 'Share Capital'."\t";
             echo 'Reserves & Surplus'."\t";
             echo 'Long-Term Borrowing'."\t";
@@ -207,6 +215,8 @@
             echo 'Trade payables'."\t";
             echo 'Total Liabilities'."\t";
             
+            
+          
             
             
         }
