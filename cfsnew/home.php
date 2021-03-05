@@ -120,12 +120,13 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
     else{
         $currency="INR";
     }
+    $usdjoinCondition = " INNER JOIN currencyrates as c on a.FY = c.FY";
     if($currency != 'INR')
     {
-        $usdjoinCondition = " INNER JOIN currencyrates as c on a.FY = c.FY";
+        
         $usdfield =", c.currency";
     }else{
-        $usdjoinCondition ="";
+      //  $usdjoinCondition ="";
         $usdfield ="";
     }
 
