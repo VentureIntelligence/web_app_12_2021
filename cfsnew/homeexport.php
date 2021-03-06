@@ -19,7 +19,8 @@
     $city = new city();
     require_once MODULES_DIR."countries.php";
     $countries = new countries();
-    
+    include_once('conversionarray.php');
+    $currency=$_REQUEST['currency'];
     function updateDownload($res){
         //Added By JFR-KUTUNG - Download Limit
         $recCount = count($res);
@@ -59,7 +60,52 @@
         $ExportResult = $growthpercentage->ExporttoExcel($exportsql1);
     elseif($exportsql2)
         $ExportResult = $cagr->ExporttoExcel($exportsql2);
+
+        $resultcount=count($ExportResult);
+        $filters=$_REQUEST['filters'];
+        $filtervalue=rtrim($filters,", ");
+        $filterarray=explode(", ",$filtervalue);
+          
+       // $to    = 'arun@ventureintelligence.in, sales@ventureintelligence.com';
+        $to    = 'arun@ventureintelligence.in';
+        $from 	= 'info@ventureintelligence.in';
+        $subject 	= "CFS bulk export"; // Subject of the email
+        //Message
+        $message .= 'Please find the details below:';
     
+        $message 	.= "<p></p>";
+    
+        $message 	.="<table style='border-spacing: 0px;'>
+        <tr><th style='padding: 3px 6px;border: 1px solid #cccfcf;'>User Emailid </th>
+        <th style='padding: 3px 6px;border: 1px solid #cccfcf;'>No of rows</th>
+        <th style='padding: 3px 6px;border: 1px solid #cccfcf;'>Filters used</th></tr>";
+        $message 	.="<tr><td style='padding: 3px 6px;border: 1px solid #cccfcf;text-align:center;'>".$_SESSION['UserEmail']."</td><td style='padding: 3px 6px;text-align:center;border: 1px solid #cccfcf;'>".$resultcount."</td>";
+        $message .="<td style='padding: 3px 6px;border: 1px solid #cccfcf;'>";
+        
+        
+        for($i=0;$i<count($filterarray);$i++){
+            if($i!=count($filterarray)-1)
+            {   if($i%6==0){
+                $message .="<span>".$filterarray[$i].", </span>";
+                }else{
+                    $message .="<span>".$filterarray[$i].", </span><br>";
+                }
+            }else{
+                $message .="<span>".$filterarray[$i]." </span>";
+            }
+        }
+        $message 	.="</td></tr></table>";
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                $headers .= 'From: VI Admin <info@ventureintelligence.in>' . "\r\n";
+                $headers .= "Reply-To: no-reply@ventureintelligence.com\r\n";
+               // $headers .= 'Cc: heyram.vi@gmail.com, vijayakumar.k@praniontech.com,krishna.s@praniontech.com' . "\r\n";   
+            
+            if (@mail($to, $subject, $message, $headers)){
+            }else{
+            }
+        
+        
      // echo $exportsql; die;
     updateDownload($ExportResult);
     
