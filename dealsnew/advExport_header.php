@@ -803,7 +803,7 @@
                                              <input type="checkbox" class="exportcheck" name="skills" value="Company Type" />
                                              <select NAME="comptype" id="comptype" onChange="getcompanyType()" >
                                                 <option  value="" selected> Company Type </option>
-                                                <option  value=""  > Both </option>
+                                                <option  value="--"  > Both </option>
                                                 <option value="L" > Listed </option>
                                                 <option  value="U"> Unlisted </option>
                                              </select>
@@ -2404,7 +2404,7 @@
          });
          
          
-         $('#expshowdealsbt').click(function(){
+         $('#expshowdealsbt').click(function(){debugger;
          var checkboxname=$('.allexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2439,8 +2439,8 @@
          $('#sltround').val(round);
          var stage=$('#stage').val();
          $('#sltstage').val(stage);
-         var investorType=$('#invType').val();
-         $('#investorType').val(investorType);
+         var investor=$('#invType').val();
+         $('#investorType').val(investor);
          if($('#investorauto_sug').tokenInput("get").length == 0)
          {
          $('#investorErr').show();
@@ -2486,13 +2486,13 @@
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
-         if(globalfilterId != "")
-         {
-         var filterType= $(".rightpanel").find(".active").attr('value')       
-         exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
-         }
-         else
-         {
+         // if(globalfilterId != "")
+         // {
+         // var filterType= $(".rightpanel").find(".active").attr('value')       
+         // exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
+         // }
+         // else
+         // {
          if (currentRec < remLimit){
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
@@ -2504,7 +2504,7 @@
          alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
          }
          
-         }
+         //}
          },
          error:function(){
          jQuery('#preloading').fadeOut();
@@ -2619,12 +2619,12 @@
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
-         if(exitglobalfilterId != ""){
-         var filterType= $(".rightpanel").find(".active").attr('value')       
-         exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
-         }
-         else
-         {
+         // if(exitglobalfilterId != ""){
+         // var filterType= $(".rightpanel").find(".active").attr('value')       
+         // exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
+         // }
+         // else
+         // {
          if (currentRec < remLimit){
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
@@ -2636,7 +2636,7 @@
          alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
          }
          
-         }
+         //}
          },
          error:function(){
          jQuery('#preloading').fadeOut();
@@ -2762,7 +2762,41 @@
          $('#exityr2').val(currentYear); 
          }
           $('#mode').val('A');
-      }
+          $('#comptype').val("")
+
+          $('#invType').val("")
+          $("#sltindustry option:selected").prop("selected", false);
+          $("#sltindustry").multiselect( 'refresh' );
+
+          $("#citysearch option:selected").prop("selected", false);
+          $("#citysearch").multiselect( 'refresh' );
+
+          $("#sltstate option:selected").prop("selected", false);
+          $("#sltstate").multiselect( 'refresh' );
+
+          $("#txtregion option:selected").prop("selected", false);
+          $("#txtregion").multiselect( 'refresh' );
+
+          $("#exitstatus option:selected").prop("selected", false);
+          $("#exitstatus").multiselect( 'refresh' );
+
+          $("#round option:selected").prop("selected", false);
+          $("#round").multiselect( 'refresh' );
+
+          $("#stage option:selected").prop("selected", false);
+          $("#stage").multiselect( 'refresh' );
+
+          $("#exitsltindustry option:selected").prop("selected", false);
+          $("#exitsltindustry").multiselect( 'refresh' );
+
+          $("#exitdealtype option:selected").prop("selected", false);
+          $("#exitdealtype").multiselect( 'refresh' );
+          $('#exitinvType').val("")
+          $('#exitFlstatus').val("")
+          $('#exitInType').val("")
+
+
+         }
 
          });
          // $('.rightpanel').click(function(e) {debugger;

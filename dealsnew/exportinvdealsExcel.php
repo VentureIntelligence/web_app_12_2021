@@ -1465,9 +1465,10 @@ $stage=$_POST['stage'];
 $investorType=$_POST['investorType'];
 //echo json_encode(explode(",",$industry));exit();
 
-//echo $companytype;exit();
-if($companytype != '')
+//echo $_POST['companytype'];exit();
+if($companytype != '' && $companytype != '--')
 {
+   // echo 'hai';exit();
 $companyTypeStatus="and pe.listing_status='".$companytype."'";
 }
 //echo $companyTypeStatus;exit();
@@ -1517,7 +1518,7 @@ if($stage != '')
 {
 $StageId="and pe.StageId IN (".$stage.")";
 }
-if($investorType != '')
+if($investorType != ''  && $investorType != '--')
 {
 $InvestorType="and pe.InvestorType='".$investorType."'";
 }
