@@ -2227,6 +2227,8 @@
          {
          //$('.error').html('Enter the filter Name')
          $('#filterDescErr').show();
+         $('#filterErr').hide();
+
          
          }
          else if(parseInt(year1) > parseInt(year2))
@@ -2282,12 +2284,15 @@
          if($('#investorauto_sug').tokenInput("get").length == 0)
          {
          $('#investorErr').show();
+         $('#columnnameErr').hide();
          $('.saveshowdealsbt').modal('hide');
          }
          
          else if($(":input.exportcheck[checked='checked']").length == 0)
          {
          $('#columnnameErr').show();
+         $('#investorErr').hide();
+
          }
          else if(parseInt($('#yr1').val()) > parseInt($('#yr2').val()))
          {
@@ -2324,10 +2329,13 @@
          if($('#expinvestorauto_sug').tokenInput("get").length == 0)
          {
          $('#exitinvestorErr').show();
+         $('#exitcolumnnameErr').hide();
          $('.saveshowdealsbt').modal('hide');
          }
          else if($(":input.exitexportcheck[checked='checked']").length == 0)
          {
+            $('#exitinvestorErr').hide();
+
          $('#exitcolumnnameErr').show();
          }
          else if(parseInt($('#exityr1').val()) > parseInt($('#exityr2').val()))
@@ -2404,7 +2412,7 @@
          });
          
          
-         $('#expshowdealsbt').click(function(){debugger;
+         $('#expshowdealsbt').click(function(){
          var checkboxname=$('.allexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2444,6 +2452,8 @@
          if($('#investorauto_sug').tokenInput("get").length == 0)
          {
          $('#investorErr').show();
+         $('#columnnameErr').hide();
+
          }
          else if(($('#mon1').val() && $('#mon2').val() && $('#yr1').val() && $('#yr2').val()) == '')
          {
@@ -2452,6 +2462,8 @@
          }
          else if($(":input.exportcheck[checked='checked']").length == 0)
          {
+            $('#investorErr').hide();
+
          $('#columnnameErr').show();
          }
          else if(parseInt(year1) > parseInt(year2))
@@ -2577,6 +2589,8 @@
          if($('#expinvestorauto_sug').tokenInput("get").length == 0)
          {
          $('#exitinvestorErr').show();
+         $('#exitcolumnnameErr').hide();
+
          }
          else if(($('#exitmon1').val() && $('#exitmon1').val() && $('#exityr1').val() && $('#exityr2').val()) == '')
          {
@@ -2585,6 +2599,8 @@
          }
          else if($(":input.exitexportcheck[checked='checked']").length == 0)
          {
+            $('#exitinvestorErr').hide();
+
          $('#exitcolumnnameErr').show();
          }
          else if(parseInt(year1) > parseInt(year2))
