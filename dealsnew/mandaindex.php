@@ -3439,7 +3439,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                    include_once("mandatrendview.php");
+                     include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
