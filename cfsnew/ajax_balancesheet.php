@@ -204,7 +204,8 @@ $fields1 = array("*");
 $where1 = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='0' and a.ResultType='0'";
 //Changes done for xbrl2 
 /*$wherebs_new = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='".$resulttype[0][ResultType]."' and a.ResultType='".$resulttype[0][ResultType]."'";*/
-$wherebs_new = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='".$resulttypebalsheet[0][ResultType]."' and a.ResultType='".$resulttypebalsheet[0][ResultType]."'";
+//$wherebs_new = "a.CID_FK = ".$_GET['vcid']." and b.ResultType='".$resulttypebalsheet[0][ResultType]."' and a.ResultType='".$resulttypebalsheet[0][ResultType]."'";
+$wherebs_new = "a.CID_FK = ".$_GET['vcid']." and a.ResultType='".$resulttypebalsheet[0][ResultType]."'";
 $where_withoutPL = "a.CID_FK = ".$_GET['vcid']." and a.ResultType='0'";
 //Changes done for xbrl2
 /*$wherebs_new_withoutPL = "a.CID_FK = ".$_GET['vcid']." and a.ResultType='".$resulttype[0][ResultType]."'";
