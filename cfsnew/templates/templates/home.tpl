@@ -273,6 +273,7 @@ padding:0px 10px; }
              <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
+             <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
             <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
             <input type="hidden" name="currency" id="currency" value="{$currency}"/>     
             <input type="hidden" id="exportexcel" name="exportexcel" value="{$searchexport}"/>

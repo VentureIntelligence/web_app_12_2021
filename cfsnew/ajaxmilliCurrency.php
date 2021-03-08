@@ -23,6 +23,7 @@ if(!isset($_SESSION)){
 }
 include "header.php";
 include "sessauth.php";
+
 require_once MODULES_DIR."industries.php";
 $industries = new industries();
 require_once MODULES_DIR."plstandard.php";
@@ -2073,4 +2074,4 @@ $(document).ready(function(){
 
 
     </script>
-<?php mysql_close(); ?>
+<?php mysql_close();  ?>
