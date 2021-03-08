@@ -1,8 +1,17 @@
 <?php
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
-include "header.php";
-include "sessauth.php";
+if(!isset($_SESSION['username']))
+
+        {
+
+            header('Location:../cfsnew/login.php');
+
+    }
+
+    else
+
+    {
 $pe_data='';
 $month1=01; 
                         $year1 = 2004;
@@ -681,5 +690,6 @@ if($_POST['cin']!=''){
             
 // }
 echo $pe_data;
+    }
 // echo json_encode(array( 'count'=> count($pedata), 'html' => $pe_data ,'sql'=> $sql) );
 ?>
