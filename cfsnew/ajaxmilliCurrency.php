@@ -21,19 +21,9 @@ if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();
 }
-// include "header.php";
-// include "sessauth.php";
-if(!isset($_SESSION['username']))
+include "header.php";
+include "sessauth.php";
 
-        {
-
-            header('Location:../cfsnew/login.php');
-
-    }
-
-    else
-
-    {
 require_once MODULES_DIR."industries.php";
 $industries = new industries();
 require_once MODULES_DIR."plstandard.php";
@@ -2084,4 +2074,4 @@ $(document).ready(function(){
 
 
     </script>
-<?php mysql_close(); } ?>
+<?php mysql_close();  ?>
