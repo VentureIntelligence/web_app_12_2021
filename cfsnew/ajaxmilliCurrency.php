@@ -1932,7 +1932,7 @@ if(count($FinanceAnnual_cashflow) == 0){
               else
               {
                   ?>      
-                   <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); echo round($tot,2); } ?></td>
+                   <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); echo numberFormat(round($tot,2)); } ?></td>
            <?php
   }
                 
