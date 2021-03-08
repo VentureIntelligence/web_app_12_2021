@@ -86,7 +86,7 @@ td {
                <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
                <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
                <div style="width:565px; float:left; padding-left:2px;">
-               <div style="background-color:#FFF; width:565px; /*height:622px;*/ margin-top:5px;" class="main_content_container">
+               <div style="background-color:#FFF; width:565px; /*height:622px;*/ margin-top:5px;" class="main_content_containerFl">
                <div id="headingtextpro" style="margin:10px;">
                           <h4 class="headingFiltr" style="    padding-top: 10px;"> Log table </h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           
@@ -153,7 +153,7 @@ td {
                            $keyword="";
                            $keyword=$_POST['repDBtype'];
                            
-                           $nanoSql="SELECT company_name,count(id) as totalcount FROM `advance_export_filter_log` GROUP BY company_name limit 5";
+                           $nanoSql="SELECT company_name,count(id) as totalcount FROM `advance_export_filter_log` GROUP BY company_name ORDER by totalcount DESC limit 5";
                            if ($reportrs = mysql_query($nanoSql))
                            {
                            $report_cnt = mysql_num_rows($reportrs);
@@ -193,7 +193,7 @@ td {
                            $keyword="";
                            $keyword=$_POST['repDBtype'];
                            
-                           $nanoSql="SELECT filter_name,count(id) as totalcount FROM `advance_export_filter_log` GROUP BY filter_name limit 5";
+                           $nanoSql="SELECT filter_name,count(id) as totalcount FROM `advance_export_filter_log` GROUP BY filter_name ORDER by totalcount DESC limit 5";
                            if ($reportrs = mysql_query($nanoSql))
                            {
                            $report_cnt = mysql_num_rows($reportrs);
