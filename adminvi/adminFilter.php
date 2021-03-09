@@ -276,6 +276,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         <label for="male">Investments</label><br>
                         <input type="radio" id="exit" name="filter_type" value="Exit" <?php echo ($myrow["filter_type"] == 'Exit') ? 'checked' : ''; ?>>
                         <label for="male">Exit</label><br>
+                        <span id="filterTypeErr"></span><br>
                         <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
                             <input type="hidden" name="companyName" id="companyName" value="Pranion">
                             <?php } else {?> <input type="hidden" name="companyName" id="companyName" value="Venture">
@@ -301,7 +302,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         <label for="male">Investments</label><br>
                         <input type="radio" id="exit" name="filter_type" value="Exit" >
                         <label for="male">Exit</label><br>
-                        
+                        <span id="filterTypeErr"></span><br>
+
                         <input type="button" name="saveFilter" id="saveFilter" value="Save" onclick="saveAdminFilter()"><br><br>
                            
                                <?php } ?>
@@ -319,7 +321,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 <script>
 
     function saveAdminFilter()
-    {
+    {debugger;
         var filtername=$('#filter_name').val()
         var filterdesc=$('#filterdesc').val()
 
@@ -335,6 +337,12 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         {
             $("#filternameErr").text('Please Enter the filter name');
             $("#filternameErr").css("color", "red");
+        }
+        else if(filterType == undefined)
+        {
+            $("#filternameErr").hide();
+            $("#filterTypeErr").text('Please Enter the filter type');
+            $("#filterTypeErr").css("color", "red");
         }
         else{
         $.ajax({
