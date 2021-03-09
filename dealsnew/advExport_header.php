@@ -670,7 +670,7 @@
                                           <p style="font-size:12px;">OR</p>
                                        </div>
                                        <div class="col-md-4" >
-                                          <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="height: 35px;padding: 0px 45px;"><span>Import</span></button>
+                                       <button type="button" class="btn exportFilt text-center exportimpshowdealsbt"  style="height: 35px;padding: 0px 45px;">Import</button>
                                           <!-- <button  class ="export_new btn bt btn-color btn-circle" style="    margin-top: -10px;" id="impshowdealsbt" name="showdealsimport">Import</button> -->
                                        </div>
                                     </div>
@@ -1195,7 +1195,8 @@
                                           <p style="font-size:12px;">OR</p>
                                        </div>
                                        <div class="col-md-4" >
-                                          <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="height: 35px;padding: 0px 45px;">Import</button>
+
+                                          <button type="button" class="btn exportFilt text-center exportimpshowdealsbt"  style="height: 35px;padding: 0px 45px;">Import</button>
                                        </div>
                                     </div>
                                  </div>
@@ -1538,16 +1539,14 @@
             </div>
          </div>
          <!-- Modal -->
-         <div  class="modal fade impshowdealsbt" role="dialog">
+         <div  class="modal fade impshowdealsbt"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-               <!-- Modal content-->
                <div class="modal-content">
                   <div class="modal-header">
                      <h4 class="modal-title" style="font-size: 17px;">File upload form</h4>
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                     <!-- Form -->
                      <form name="dealsupload" enctype="multipart/form-data" id="leaguefile" method="post" >
                         <input type='file' name="leaguefilepath" id='file' class='form-control ip-file' style="font-size: 13px;"><br>
                         <input type="button" class="btn" value="Upload" onClick="getLeagueImport();" style="    height: 30px; float: right;">
@@ -2070,18 +2069,7 @@
          //    window.location.reload(1);
          // }, 500);
          }
-         
-         
-         $(document).on('click','#impshowdealsbt',function(){
-         
-         //$('#popup-box-copyrights').fadeOut();   
-         $('#maskscreen').fadeIn();
-         $('#preloading').fadeIn();  
-         $('#popup-box-copyrights-filter').fadeIn(); 
-         
-         });
-         
-         
+                  
          function getLeagueImport()
          {
          //$('#file').val('');
@@ -2153,7 +2141,7 @@
          
          var filterType=$(".rightpanel").find(".active").attr('value')
          
-         var filtername=$('#filter_name').val()
+         var filtername=$('#filter_name').val().trim();
          var filterDesc=$('#filter_desc').val().trim();
          
          $.ajax({
@@ -2275,6 +2263,12 @@
          });
          
          }
+         $(document).on('click','.exportimpshowdealsbt',function(){
+
+            $('#file').val('')
+            $('.impshowdealsbt').modal('show');
+
+         });
          
          $(document).on('click','.savevalidatefilter',function(){
          
@@ -2287,6 +2281,7 @@
          $('#columnnameErr').hide();
          $('.saveshowdealsbt').modal('hide');
          }
+         
          
          else if($(":input.exportcheck[checked='checked']").length == 0)
          {
@@ -2412,7 +2407,7 @@
          });
          
          
-         $('#expshowdealsbt').click(function(){
+         $('#expshowdealsbt').click(function(){debugger;
          var checkboxname=$('.allexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2460,6 +2455,10 @@
          $('#durationErr').show()
          
          }
+         else if($('#investorauto_sug').tokenInput("get").length > 50)
+         {
+         swal('You are allowed to add up to 50 investors only')
+         }
          else if($(":input.exportcheck[checked='checked']").length == 0)
          {
             $('#investorErr').hide();
@@ -2505,6 +2504,8 @@
          // }
          // else
          // {
+            var filterType= $(".rightpanel").find(".active").attr('value')       
+          exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
          if (currentRec < remLimit){
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
@@ -2592,6 +2593,10 @@
          $('#exitcolumnnameErr').hide();
 
          }
+         else if($('#expinvestorauto_sug').tokenInput("get").length > 50)
+         {
+         swal('You are allowed to add up to 50 investors only')
+         }
          else if(($('#exitmon1').val() && $('#exitmon1').val() && $('#exityr1').val() && $('#exityr2').val()) == '')
          {
          $('#durationErr').show()
@@ -2641,6 +2646,8 @@
          // }
          // else
          // {
+            var filterType= $(".rightpanel").find(".active").attr('value')       
+          exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
          if (currentRec < remLimit){
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
@@ -2666,14 +2673,7 @@
          }
          });
          
-         $(document).on('click','#impshowdealsbt',function(){
-         
-         //$('#popup-box-copyrights').fadeOut();   
-         $('#maskscreen').fadeIn();
-         $('#preloading').fadeIn();  
-         $('#popup-box-copyrights-filter').fadeIn(); 
-         
-         }); 
+    
          
          function cancelFilterName()
          {
@@ -2810,6 +2810,10 @@
           $('#exitinvType').val("")
           $('#exitFlstatus').val("")
           $('#exitInType').val("")
+          $('#exitinvestorErr').hide();
+         $('#exitcolumnnameErr').hide();
+         $('#investorErr').hide();
+         $('#columnnameErr').hide();
 
 
          }
