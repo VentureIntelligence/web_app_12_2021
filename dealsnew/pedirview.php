@@ -7090,8 +7090,8 @@ if(tagsearchval == ''){
             $(this).removeAttr("onChange","this.form.submit();");
             search_filter=1
         }else{
-        //$(this).attr("onchange","this.form.submit();");
-        //$("#pesearch").submit();
+        $(this).attr("onchange","this.form.submit();");
+        $("#pesearch").submit();
         search_filter="";
         }
         //alert("You have selected the country - " + selectedCountry);
