@@ -304,7 +304,7 @@ if (isset($_POST['popup_select'])) {
 //                        echo "ddddddddddd"
             //                       print_r($_POST);
            // echo $period_flag;
-            if ($_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
+            if (($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || $_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
 
                 $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
                 $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
