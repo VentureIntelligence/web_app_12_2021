@@ -265,15 +265,14 @@
              $_POST['searchallfield']="";
             }
             else if(trim($_POST['searchallfield'])!="" || trim($_POST['searchTagsField'])!="" || trim($_POST['investorauto_sug'])!="" || trim($_POST['companyauto_sug'])!="" || trim($_POST['sectorsearch'])!="" || trim($_POST['advisorsearch_legal'])!="" || trim($_POST['advisorsearch_trans'])!="" ){
-//             $month1=01; 
+
+                //             $month1=01; 
 //             $year1 = date('Y', strtotime(date('Y')." -1  Year"));
 //             $month2= date('n');
 //             $year2 = date('Y');
              //   if(trim($_POST['searchallfield'])!=""){
-                    if(($_POST['month1']==date('n')) && $_POST['year1']==date('Y', strtotime(date('Y')." -1  Year")) && $_POST['month2']==date('n') && $_POST['year2']==date('Y')){
-                        
-                        if ($_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
-                            
+                    if(($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || ($_POST['month1']==date('n')) && $_POST['year1']==date('Y', strtotime(date('Y')." -1  Year")) && $_POST['month2']==date('n') && $_POST['year2']==date('Y')){
+                        if (($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || $_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
                                 $month1=($_POST['month1'] || ($_POST['month1']!="")) ?  $_POST['month1'] : date('n');
                                 $year1 = ($_POST['year1'] || ($_POST['year1']!="")) ?  $_POST['year1'] : date('Y', strtotime(date('Y')." -1  Year"));
                                 $month2=($_POST['month2'] || ($_POST['month2']!="")) ?  $_POST['month2'] : date('n');
