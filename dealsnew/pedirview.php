@@ -6980,21 +6980,28 @@ if(tagsearchval == ''){
 
 
         var search_filter="";
-    $("select#tour_month2").change(function(){
-        var year1 = $("select#tour_year1").children("option:selected").val();
-        var year2 = $("select#tour_year2").children("option:selected").val();
+
+        $("select#tour_month2").change(function(){
+        var year1 = $("select#tour_year1").children('option:selected').val();
+        var year2 = $("select#tour_year2").children('option:selected').val();
         var month1 = $("select#tour_month1").children("option:selected").val();
         var month2 = $(this).children("option:selected").val();
          console.log(month1);
         console.log(year1);
         console.log(month2);
         console.log(year2);
+        $("select#tour_month2").children('option').removeAttr('selected');
+        if(month2 !=""){
+            $('select#tour_month2 option[value="' + month2 + '"]').attr("selected",true);
+        //$('select#tour_month2 option[value="' + month2 + '"]').attr("selected",true);
+
+        }
         var startdate= new Date(year1,month1-1,01);
         var enddate= new Date(year2,month2-1,01);
         //if(year1>year2 || month1 > month2){
         if(startdate>enddate ){
             alert("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
+            $(this).removeAttr("onChange","this.form.submit();");
             search_filter=1
         }else{
         //$(this).attr("onchange","this.form.submit();");
@@ -7003,21 +7010,33 @@ if(tagsearchval == ''){
         }
         //alert("You have selected the country - " + selectedCountry);
     });
+    
     $("select#tour_month1").change(function(){
-        var year1 = $("select#tour_year1").children("option:selected").val();
-        var year2 = $("select#tour_year2").children("option:selected").val();
+        var year1 = $("select#tour_year1").children('option:selected').val();
+        var year2 = $("select#tour_year2").children('option:selected').val();
+        if(year2 == "--")
+        {
+            year2= $("select#tour_year2").find('option[selected="selected"]').val()
+
+        }
         var month1 = $(this).children("option:selected").val();
-        var month2 = $("select#tour_month2").children("option:selected").val();
+        var month2 = $("select#tour_month2").children('option:selected').val();
          console.log(month1);
         console.log(year1);
         console.log(month2);
         console.log(year2);
+        $("select#tour_month1").children('option').removeAttr('selected');
+        if(month1 !=""){
+            $('select#tour_month1 option[value="' + month1 + '"]').attr("selected",true);
+       // $('select#tour_month1 option[value="' + month1 + '"]').attr("selected",true);
+
+        }
         var startdate= new Date(year1,month1-1,01);
         var enddate= new Date(year2,month2-1,01);
         //if(year1>year2 || month1 > month2){
         if(startdate>enddate ){
             alert("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
+            $(this).removeAttr("onChange","this.form.submit();");
             search_filter=1
         }else{
         //$(this).attr("onchange","this.form.submit();");
@@ -7026,22 +7045,31 @@ if(tagsearchval == ''){
         }
         //alert("You have selected the country - " + selectedCountry);
     });
+
     $("select#tour_year2").change(function(){
         var year2 = $(this).children("option:selected").val();
         var year1 = $("select#tour_year1").children("option:selected").val();
         var month1 = $("select#tour_month1").children("option:selected").val();
         var month2 = $("select#tour_month2").children("option:selected").val();
-        
-        console.log(month1);
-        console.log(year1);
-        console.log(month2);
+        if(year2 == "--")
+        {
+            year2= $("select#tour_year2").find('option[selected="selected"]').val()
+
+        }
         console.log(year2);
+        console.log(year1);
+        $("select#tour_year2").children('option').removeAttr('selected');
+        if(year2 !=""){
+        $('select#tour_year2 option[value="' + year2 + '"]').attr("selected",true);
+        //$('select#tour_year1 option[value="' + year1 + '"]').attr("selected",true);
+        }
+
         var startdate= new Date(year1,month1-1,01);
         var enddate= new Date(year2,month2-1,01);
         //if(year1>year2 || month1 > month2){
         if(startdate>enddate ){
             alert("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
+            $(this).removeAttr("onChange","this.form.submit();");
             search_filter=1
         }else{
         //$(this).attr("onchange","this.form.submit();");
@@ -7050,18 +7078,62 @@ if(tagsearchval == ''){
         }
         //alert("You have selected the country - " + selectedCountry);
     });
+
+    // $("select#tour_year2").change(function(){
+    //     var year2 = $(this).children("option:selected").val();
+    //     var year1 = $("select#tour_year1").children("option:selected").val();
+    //     var month1 = $("select#tour_month1").children("option:selected").val();
+    //     var month2 = $("select#tour_month2").children("option:selected").val();
+        
+    //     console.log(month1);
+    //     console.log(year1);
+    //     console.log(month2);
+    //     console.log(year2);
+    //     $("select#tour_year2").children('option').removeAttr('selected');
+    //     if(year2 !=""){
+    //         $('select#tour_year2 option[value="' + year2 + '"]').attr("selected",true);
+    //     //$('select#tour_year2 option[value="' + year2 + '"]').attr("selected",true);
+
+    //     }
+
+    //     var startdate= new Date(year1,month1-1,01);
+    //     var enddate= new Date(year2,month2-1,01);
+    //     //if(year1>year2 || month1 > month2){
+    //     if(startdate>enddate ){
+    //         alert("To date cannot be less than From date");
+    //         $(this).removeAttr("onChange","this.form.submit();");
+    //         search_filter=1
+    //     }else{
+    //     //$(this).attr("onchange","this.form.submit();");
+    //     //$("#pesearch").submit();
+    //     search_filter="";
+    //     }
+    //     //alert("You have selected the country - " + selectedCountry);
+    // });
     $("select#tour_year1").change(function(){
         var year1 = $(this).children("option:selected").val();
         var year2 = $("select#tour_year2").children("option:selected").val();
+        if(year2 == "--")
+        {
+            year2= $("select#tour_year2").find('option[selected="selected"]').val()
+
+        }
         var month1 = $("select#tour_month1").children("option:selected").val();
         var month2 = $("select#tour_month2").children("option:selected").val();
         console.log(year2);
         console.log(year1);
+        $("select#tour_year1").children('option').removeAttr('selected');
+        if(year1 !=""){
+            $('select#tour_year1 option[value="' + year1 + '"]').attr("selected",true);
+        //$('select#tour_year1 option[value="' + year1 + '"]').attr("selected",true);
+        }
+
         var startdate= new Date(year1,month1-1,01);
         var enddate= new Date(year2,month2-1,01);
+        //if(year1>year2 || month1 > month2){
         if(startdate>enddate ){
             alert("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
+            $(this).removeAttr("onChange","this.form.submit();");
             search_filter=1
         }else{
         //$(this).attr("onchange","this.form.submit();");
@@ -7070,6 +7142,8 @@ if(tagsearchval == ''){
         }
         //alert("You have selected the country - " + selectedCountry);
     });
+
+
     $("input#searchsub").click(function(){
        // console.log("check");
         if(search_filter!=1)
@@ -7081,7 +7155,7 @@ if(tagsearchval == ''){
             else{
               //  console.log("check2");
                 alert("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
+            $(this).removeAttr("onChange","this.form.submit();");
             search_filter=1;
             }
        
