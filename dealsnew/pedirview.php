@@ -6990,6 +6990,13 @@ if(tagsearchval == ''){
         console.log(year1);
         console.log(month2);
         console.log(year2);
+
+        if(year2 == "--")
+        {
+            year2= $("select#tour_year2").find('option[selected="selected"]').val()
+
+        }
+
         $("select#tour_month2").children('option').removeAttr('selected');
         if(month2 !=""){
             $('select#tour_month2 option[value="' + month2 + '"]').attr("selected",true);
