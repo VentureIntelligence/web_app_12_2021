@@ -547,7 +547,7 @@
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
                <!-- <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a> -->
                <a class="filter ml-3 active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
-               <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
+               <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"  value=Exit>Exits</a>
                <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
             </div>
             <?php }else{ ?>
@@ -555,7 +555,7 @@
                <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
                   <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
                   <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
-                  <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
+                  <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"   value=Exit>Exits</a>
                   <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
                </div>
                <?php } ?>
@@ -1820,12 +1820,16 @@
          hintText: "",
          noResultsText: "No Result Found",
          preventDuplicates: true,
+         default: 50,
          onAdd: function (item) {
          $('#keywordsearch,#sectorsearch,#advisorsearch_trans,#searchallfield,#advisorsearch_legal,#tagsearch').val("");
          $('#investorauto,#sectorsearchauto,#advisorsearch_transauto,#advisorsearch_legalauto,#tagsearch_auto').val("");
          var selectedValues = $('#investorauto_sug').tokenInput("get");
          var inputCount = selectedValues.length;
+
          if(inputCount>50){ 
+            $('#investorauto_sug').tokenInput("remove", {name: item["name"]});
+
          swal('You are allowed to add up to 50 investors')
          }
          },
@@ -2135,7 +2139,7 @@
          }
          var investornameArray=[];
          function saveFilterName()
-         {
+         {debugger;
          mode=$('#mode').val();
          investornameArray=[];
          
@@ -2147,14 +2151,14 @@
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
-         data: {getTypeMode:mode,filtername:filtername,filterType:filterType, mode: 'getData'},
+         data: {getTypeMode:mode,editfiltername:globalfilterNameId,filtername:filtername,filterType:filterType, mode: 'getData'},
          success: function(data){
          
          if(data == 'failure')
          {
          $('.saveshowdealsbt').modal('hide');
          
-         swal("You are already enter the filter name in '"+filterType+"' Filter ")
+         swal("Filter name already exists...kindly enter new filter name")
          return false;
          }
          else{
@@ -2504,6 +2508,7 @@
          // }
          // else
          // {
+            $("input[type='search']").val('');
             var filterType= $(".rightpanel").find(".active").attr('value')       
           exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
          if (currentRec < remLimit){
@@ -2742,17 +2747,13 @@
          });
          }
          
-         
-         //$('a[data-toggle="pill"]').on('shown.bs.tab', function (e,string) {
+      
          $('a[data-toggle="pill"]').on('click', function (e,string) {
-            // debugger;
-
-            // alert(string);
-
-            // parameter is stocked in json.data here.
+             debugger;
             console.log(e,string);
             if(string !=  "from-outside")
             {
+               
              mode=$('#mode').val();
          if(mode == 'A')
          {
@@ -2814,16 +2815,108 @@
          $('#exitcolumnnameErr').hide();
          $('#investorErr').hide();
          $('#columnnameErr').hide();
-
-
+         $("input[type='search']").val('');
          }
+         $(window).scrollTop($('#v-pills-tab').position().top); 
+
 
          });
          // $('.rightpanel').click(function(e) {debugger;
          // e.preventDefault();
          // navbarTrigger=0;
          // });
-                  
+
+         $("select#mon2").change(function(){
+        var year1 = $("select#yr1").children("option:selected").val();
+        var year2 = $("select#yr2").children("option:selected").val();
+        var month1 = $("select#mon1").children("option:selected").val();
+        var month2 = $(this).children("option:selected").val();
+         console.log(month1);
+        console.log(year1);
+        console.log(month2);
+        console.log(year2);
+        var startdate= new Date(year1,month1-1,01);
+        var enddate= new Date(year2,month2-1,01);
+        //if(year1>year2 || month1 > month2){
+        if(startdate>enddate ){
+         swal("To date cannot be less than From date");
+            $(this).removeAttr("onchange","this.form.submit();");
+            search_filter=1
+        }else{
+        //$(this).attr("onchange","this.form.submit();");
+        //$("#pesearch").submit();
+        search_filter="";
+        }
+        //alert("You have selected the country - " + selectedCountry);
+    });
+    $("select#mon1").change(function(){
+        var year1 = $("select#yr1").children("option:selected").val();
+        var year2 = $("select#yr2").children("option:selected").val();
+        var month1 = $(this).children("option:selected").val();
+        var month2 = $("select#mon2").children("option:selected").val();
+         console.log(month1);
+        console.log(year1);
+        console.log(month2);
+        console.log(year2);
+        var startdate= new Date(year1,month1-1,01);
+        var enddate= new Date(year2,month2-1,01);
+        //if(year1>year2 || month1 > month2){
+        if(startdate>enddate ){
+         swal("To date cannot be less than From date");
+            $(this).removeAttr("onchange","this.form.submit();");
+            search_filter=1
+        }else{
+        //$(this).attr("onchange","this.form.submit();");
+        //$("#pesearch").submit();
+        search_filter="";
+        }
+        //alert("You have selected the country - " + selectedCountry);
+    });
+    $("select#yr2").change(function(){
+        var year2 = $(this).children("option:selected").val();
+        var year1 = $("select#yr1").children("option:selected").val();
+        var month1 = $("select#mon1").children("option:selected").val();
+        var month2 = $("select#mon2").children("option:selected").val();
+        
+        console.log(month1);
+        console.log(year1);
+        console.log(month2);
+        console.log(year2);
+        var startdate= new Date(year1,month1-1,01);
+        var enddate= new Date(year2,month2-1,01);
+        //if(year1>year2 || month1 > month2){
+        if(startdate>enddate ){
+         swal("To date cannot be less than From date");
+            $(this).removeAttr("onchange","this.form.submit();");
+            search_filter=1
+        }else{
+        $(this).attr("onchange","this.form.submit();");
+        $("#pesearch").submit();
+        search_filter="";
+        }
+        //alert("You have selected the country - " + selectedCountry);
+    });
+    $("select#yr1").change(function(){
+        var year1 = $(this).children("option:selected").val();
+        var year2 = $("select#yr2").children("option:selected").val();
+        var month1 = $("select#mon1").children("option:selected").val();
+        var month2 = $("select#mon2").children("option:selected").val();
+        console.log(year2);
+        console.log(year1);
+        if(year1>year2 || month1 > month2){
+            swal("To date cannot be less than From date");
+            $(this).removeAttr("onchange","this.form.submit();");
+            search_filter=1
+        }else{
+        $(this).attr("onchange","this.form.submit();");
+        $("#pesearch").submit();
+        search_filter="";
+        }
+        //alert("You have selected the country - " + selectedCountry);
+    });
+     
+
+
       </script>
    </body>
 </html>

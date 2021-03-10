@@ -96,7 +96,7 @@ td {
                            $keyword="";
                            $keyword=$_POST['repDBtype'];
                            
-                           $nanoSql="SELECT * FROM `advance_export_filter_log` ";
+                           $nanoSql="SELECT * FROM `advance_export_filter_log` order by id desc";
                            if ($reportrs = mysql_query($nanoSql))
                            {
                            $report_cnt = mysql_num_rows($reportrs);
@@ -239,10 +239,10 @@ td {
          $(document).ready(function() {
          $('#myTable').DataTable({
             columnDefs: [ { type: 'date', 'targets': [4] } ],
-            order: [[ 4, 'desc' ], [ 0, 'asc' ]]
+            order: [[ 4, 'desc' ]]
          } );
          } );
-
+      
       </script>
    </body>
 </html>

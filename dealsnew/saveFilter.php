@@ -240,9 +240,10 @@
    {
      $filtername = $_POST['filtername'];
      $getTypeMode=$_POST['getTypeMode'];
+     $editfiltername=$_POST['editfiltername'];
      if( $getTypeMode == 'A')
      {
-        $sql="SELECT filter_name FROM `saved_filter` where filter_type='".$_POST['filterType']."'";
+        $sql="SELECT filter_name FROM `saved_filter` ";
         //echo $sql;exit();
         $query = mysql_query($sql) or die(mysql_error());
         while ($row = mysql_fetch_assoc($query)) {
@@ -254,6 +255,17 @@
 
          
         }
+     }
+     elseif( $getTypeMode == 'E')
+     {
+          if($filtername != $editfiltername)
+          {
+               echo 'failure';
+          }
+          else
+          {
+               echo 'success';
+          }
      }
      else
      {
