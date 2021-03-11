@@ -168,7 +168,7 @@ padding:0px 10px; }
     <option value="USD" {if $currency eq "USD"}selected{/if}>USD</option>
   </select>
   {if $currency eq "INR"}<span>(in Rs. Cr) &nbsp;&nbsp;</span>{/if}
-  {if $currency eq "USD"}<span>(in $. M) &nbsp;&nbsp;</span>{/if}
+  {if $currency eq "USD"}<span>(in $ M) &nbsp;&nbsp;</span>{/if}
   </div>
 </div>
 
@@ -273,6 +273,7 @@ padding:0px 10px; }
              <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
+             <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
             <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
             <input type="hidden" name="currency" id="currency" value="{$currency}"/>     
             <input type="hidden" id="exportexcel" name="exportexcel" value="{$searchexport}"/>

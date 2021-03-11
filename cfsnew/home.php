@@ -110,9 +110,9 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
     }
 
     if($search_export_value != '' || $countflagvalue == 1){
-        $addFYCondition = " and a.FY = aa.MFY ";
-    } else {
-        $addFYCondition = " and a.FY = aa.MFY";
+        $addFYCondition = " and a.FY = aa.MFY and a.FY !='' ";
+    } else { 
+        $addFYCondition = " and a.FY = aa.MFY and a.FY !='' ";
     }
     if($_REQUEST['currency']!='' || $_REQUEST['currency']=="INR"){
         $currency=$_REQUEST['currency'];
@@ -120,12 +120,13 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
     else{
         $currency="INR";
     }
+    $usdjoinCondition = " INNER JOIN currencyrates as c on a.FY = c.FY";
     if($currency != 'INR')
     {
-        $usdjoinCondition = " INNER JOIN currencyrates as c on a.FY = c.FY";
+        
         $usdfield =", c.currency";
     }else{
-        $usdjoinCondition ="";
+      //  $usdjoinCondition ="";
         $usdfield ="";
     }
 

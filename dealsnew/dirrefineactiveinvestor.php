@@ -371,9 +371,7 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
   
  ?>
 </select> </div>
-<?php
-}
-?>
+
 </li>
 
 <li><h4>Firm Type</h4>
@@ -407,7 +405,9 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
         ?>
     </select></div>
   </li>
-
+  <?php
+}
+?>
 <li>
 
 <input type="button" name="fliter_stage" value="Filter" onclick="document.pesearch.submit();">
