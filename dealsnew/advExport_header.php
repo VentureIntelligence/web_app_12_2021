@@ -2907,6 +2907,8 @@
 
 
          });
+
+         
          // $('.rightpanel').click(function(e) {debugger;
          // e.preventDefault();
          // navbarTrigger=0;
