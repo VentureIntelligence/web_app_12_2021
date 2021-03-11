@@ -258,18 +258,27 @@
      }
      elseif( $getTypeMode == 'E')
      {
+
           if($filtername != $editfiltername)
           {
-               echo 'failure';
+               $sql="SELECT filter_name FROM `saved_filter` where filter_name='".$filtername."'";
+               //echo $sql;exit();
+               $query = mysql_query($sql) or die(mysql_error());
+               while ($row = mysql_fetch_assoc($query)) {
+                 if($row['filter_name'] == $filtername)
+                 {
+                      echo 'failure';
+                      return;
+                 }
+                 else{
+                     echo 'success';
+                 }
+               }
           }
           else
           {
                echo 'success';
           }
-     }
-     else
-     {
-          echo 'success';
      }
 
    }

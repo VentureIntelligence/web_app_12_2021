@@ -1947,7 +1947,7 @@
          
          
          function exportfiltr(value,filterType,filterNameId,filter_name,columname)
-         {debugger;
+         {
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
@@ -2154,14 +2154,14 @@
          }
          var investornameArray=[];
          function saveFilterName()
-         {debugger;
+         {
          mode=$('#mode').val();
          investornameArray=[];
          
          var filterType=$(".rightpanel").find(".active").attr('value')
          
-         var filtername=$('#filter_name').val().trim();
-         var filterDesc=$('#filter_desc').val().trim();
+         var filtername=$('#filter_name').val().trim().toLowerCase();
+         var filterDesc=$('#filter_desc').val().trim().toLowerCase();
          
          $.ajax({
          url: 'saveFilter.php',
@@ -2299,7 +2299,7 @@
          });
          
          $(document).on('click','.savevalidatefilter',function(){
-         debugger;
+         
          if($(".rightpanel").find(".active").attr('value') == "Investments")
          {
          
@@ -2453,7 +2453,7 @@
          });
          
          
-         $('#expshowdealsbt').click(function(){debugger;
+         $('#expshowdealsbt').click(function(){
          var checkboxname=$('.allexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2587,7 +2587,7 @@
          }
          });
          
-         $('#exitexpshowdealsbt').click(function(){debugger;
+         $('#exitexpshowdealsbt').click(function(){
          var checkboxname=$('.exitallexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2809,7 +2809,7 @@
          
       
          $('a[data-toggle="pill"]').on('click', function (e,string) {
-             debugger;
+             
             console.log(e,string);
             if(string !=  "from-outside")
             {
