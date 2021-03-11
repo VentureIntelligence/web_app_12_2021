@@ -265,15 +265,14 @@
              $_POST['searchallfield']="";
             }
             else if(trim($_POST['searchallfield'])!="" || trim($_POST['searchTagsField'])!="" || trim($_POST['investorauto_sug'])!="" || trim($_POST['companyauto_sug'])!="" || trim($_POST['sectorsearch'])!="" || trim($_POST['advisorsearch_legal'])!="" || trim($_POST['advisorsearch_trans'])!="" ){
-//             $month1=01; 
+
+                //             $month1=01; 
 //             $year1 = date('Y', strtotime(date('Y')." -1  Year"));
 //             $month2= date('n');
 //             $year2 = date('Y');
              //   if(trim($_POST['searchallfield'])!=""){
-                    if(($_POST['month1']==date('n')) && $_POST['year1']==date('Y', strtotime(date('Y')." -1  Year")) && $_POST['month2']==date('n') && $_POST['year2']==date('Y')){
-                        
-                        if ($_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
-                            
+                    if(($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || ($_POST['month1']==date('n')) && $_POST['year1']==date('Y', strtotime(date('Y')." -1  Year")) && $_POST['month2']==date('n') && $_POST['year2']==date('Y')){
+                        if (($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || $_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
                                 $month1=($_POST['month1'] || ($_POST['month1']!="")) ?  $_POST['month1'] : date('n');
                                 $year1 = ($_POST['year1'] || ($_POST['year1']!="")) ?  $_POST['year1'] : date('Y', strtotime(date('Y')." -1  Year"));
                                 $month2=($_POST['month2'] || ($_POST['month2']!="")) ?  $_POST['month2'] : date('n');
@@ -1481,29 +1480,34 @@
         $datevalueDisplay1= $sdatevalueDisplay1;
         $datevalueDisplay2= $edatevalueDisplay2;
         $whereaddHideamount="";
-
-        if(count($industry) >0)
-        {
-            $indusSql = $industryvalue = '';
-            foreach($industry as $industrys)
+        
+            if($industry != '' && (count($industry) >0))
             {
-                $indusSql .= " IndustryId=$industrys or ";
-            }
-            $indusSql = trim($indusSql,' or ');
-            $industrysql= "select industry,industryid from industry where $indusSql";
-
-                if ($industryrs = mysql_query($industrysql))
-                {
-                        While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
-                        {
-                        $industryvalue.=$myrow["industry"].',';
-                        $industryvalueid .= $myrow["industryid"] . ',';
-                        }
+                $indusSql = $industryvalue = '';
+                if(gettype($industry)!="string"){
+                    foreach($industry as $industrys)
+                    {
+                        $indusSql .= " IndustryId=$industrys or ";
+                    }
+                    $indusSql = trim($indusSql,' or ');
+                }else{
+                    $indusSql .= " IndustryId=$industry";
                 }
-            $industryvalue=  trim($industryvalue,',');
-            $industryvalueid = trim($industryvalueid, ',');
-            $industry_hide = implode($industry,',');
-        }
+                $industrysql= "select industry,industryid from industry where $indusSql";
+
+                    if ($industryrs = mysql_query($industrysql))
+                    {
+                            While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
+                            {
+                            $industryvalue.=$myrow["industry"].',';
+                            $industryvalueid .= $myrow["industryid"] . ',';
+                            }
+                    }
+                $industryvalue=  trim($industryvalue,',');
+                $industryvalueid = trim($industryvalueid, ',');
+                $industry_hide = implode($industry,',');
+            }
+        
         if ($state != '' && (count($state) > 0)) {
             $indusSql = $statevalue = '';$statevalueid = '';
             foreach ($state as $states) {
@@ -2321,7 +2325,7 @@
                                         //      }
 //                          echo "<br>-".$companysql;
             }
-            elseif ((count($industry) > 0) || count($state)>0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || (count($round) > 0) || (count($city) > 0) || ($yearafter != "") || ($yearbefore != "") || ($debt_equity!="--") || ($investorType != "--") || ($syndication!="--") || (count($regionId)>0)  || ($startRangeValue == "--") || ($endRangeValue == "--") || ( ($exitstatusValue!='' && count($exitstatusValue) > 0)) || (count($dealsinvolvingvalue) > 0) || (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--")) .$checkForStageValue)
+            elseif (gettype($industry)=="string" || (count($industry) > 0) || count($state)>0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || (count($round) > 0) || (count($city) > 0) || ($yearafter != "") || ($yearbefore != "") || ($debt_equity!="--") || ($investorType != "--") || ($syndication!="--") || (count($regionId)>0)  || ($startRangeValue == "--") || ($endRangeValue == "--") || ( ($exitstatusValue!='' && count($exitstatusValue) > 0)) || (count($dealsinvolvingvalue) > 0) || (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--")) .$checkForStageValue)
             {
                                 $yourquery=1;
 
@@ -2396,6 +2400,12 @@
                                     }
                                        $qryIndTitle="Industry - ";
                                }
+                               if($industry !="" && gettype($industry)=="string"){
+                                $indusSql .= " pec.industry=$industry ";
+                                if ($indusSql != '') {
+                                    $whereind = ' ( ' . $indusSql . ' ) ';
+                                }
+                                }
                                if (count($state) > 0) {
                                     $stateSql = '';
                                     foreach ($state as $states) {

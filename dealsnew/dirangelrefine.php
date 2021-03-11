@@ -1,6 +1,6 @@
 <?php
-	require("../dbconnectvi.php");
-    $Db = new dbInvestments();
+	// require("../dbconnectvi.php");
+    // $Db = new dbInvestments();
     if(!isset($_SESSION['UserNames']))
 {
          header('Location:../pelogin.php');

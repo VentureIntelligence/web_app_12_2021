@@ -19,10 +19,11 @@ if($vcflagValue==0 || $vcflagValue==3 || $vcflagValue==4 || $vcflagValue==5){
     $view_table = 'VCnew_portfolio_cos';
 }
 if (!$_POST) {
+
     $year1=date('Y')-1;
     $year2=date('Y');
-    $month1='01';
-    $month2=date('m');
+    //$month1='01';
+    $month1=$month2=date('m');
     $dt1 = $year1.'-'.$month1.'-01';
     $dt2 = $year2.'-'.$month2.'-31';
     //echo "<br>all records" .$reportsql;
@@ -234,47 +235,47 @@ if($_POST['industry']!=''){
 }
     if($vcflagValue==0){
         
-        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
+        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(DISTINCT $view_table.PECompanyId) as newCos from $view_table,`pecompanies`,`peinvestments` where $view_table.deal_date between '" . $dt1 . "' and '" . $dt2 . "' and $view_table.InvestorId=`peinvestors`.`InvestorId` and $view_table.PECompanyId=pecompanies.PECompanyId and `peinvestments`.`PECompanyId`=$view_table.`PECompanyId`  $comp_industry_id_where $wherestage $wherefirmtypetxt) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
         and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' AND hide_pevc_flag =1 )  $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==1){
 
-        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PEcompanyID`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from 
+        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PEcompanyID`) as cos,(Select count(DISTINCT $view_table.PECompanyId) as newCos from $view_table,`pecompanies`,`peinvestments` where $view_table.deal_date between '" . $dt1 . "' and '" . $dt2 . "' and $view_table.InvestorId=`peinvestors`.`InvestorId` and $view_table.PECompanyId=pecompanies.PECompanyId and `peinvestments`.`PECompanyId`=$view_table.`PECompanyId` $comp_industry_id_where $wherestage $wherefirmtypetxt) as newPCos from 
             `peinvestments_investors`,`peinvestments`,`peinvestors` ,`pecompanies`,`industry`,`stage` where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` 
             and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `pecompanies`.`PEcompanyID` = `peinvestments`.`PECompanyID` 
             and `pecompanies`.`industry` = `industry`.`industryid` and `peinvestments`.`StageId` = `stage`.StageId and `peinvestments`.`dates` between '" . $dt1 . "' 
             and '" . $dt2 . "' and `peinvestments`.`amount` <=20 and `stage`.`VCview`=1 and `pecompanies`.`industry` !=15 and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' AND hide_pevc_flag =1 ) $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==3){
         
-        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
+        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(DISTINCT $view_table.PECompanyId) as newCos from $view_table,`pecompanies`,`peinvestments` where $view_table.deal_date between '" . $dt1 . "' and '" . $dt2 . "' and $view_table.InvestorId=`peinvestors`.`InvestorId` and $view_table.PECompanyId=pecompanies.PECompanyId and `peinvestments`.`PECompanyId`=$view_table.`PECompanyId` AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' ) $comp_industry_id_where $wherestage $wherefirmtypetxt) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
         and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'SV' )  $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==4){
         
-        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
+        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(DISTINCT $view_table.PECompanyId) as newCos from $view_table,`pecompanies`,`peinvestments` where $view_table.deal_date between '" . $dt1 . "' and '" . $dt2 . "' and $view_table.InvestorId=`peinvestors`.`InvestorId` and $view_table.PECompanyId=pecompanies.PECompanyId and `peinvestments`.`PECompanyId`=$view_table.`PECompanyId` AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT' ) $comp_industry_id_where $wherestage $wherefirmtypetxt) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
         and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'CT'  )  $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==5){
         
-        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(PECompanyId) as newCos from $view_table where deal_date between '" . $dt1 . "' and '" . $dt2 . "' and InvestorId=`peinvestors`.`InvestorId`) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
+        $reportsql = "SELECT count(`peinvestments_investors`.`PEId`) as deals,`peinvestors`.`Investor` as investor,`peinvestors`.`InvestorId` as id, count(DISTINCT `pecompanies`.`PECompanyId`) as cos,(Select count(DISTINCT $view_table.PECompanyId) as newCos from $view_table,`pecompanies`,`peinvestments` where $view_table.deal_date between '" . $dt1 . "' and '" . $dt2 . "' and $view_table.InvestorId=`peinvestors`.`InvestorId` and $view_table.PECompanyId=pecompanies.PECompanyId and `peinvestments`.`PECompanyId`=$view_table.`PECompanyId` AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF' ) $comp_industry_id_where $wherestage $wherefirmtypetxt) as newPCos from `peinvestments_investors`,`peinvestments`,`peinvestors`,`pecompanies`
         where `peinvestments_investors`.`PEId` =`peinvestments`.`PEId` and `peinvestments_investors`.`InvestorId` =`peinvestors`.`InvestorId` and `peinvestments`.`PECompanyId`=`pecompanies`.`PECompanyId`
         and `peinvestments`.`dates` between '" . $dt1 . "' and '" . $dt2 . "' and `peinvestments_investors`.`InvestorId`!=9 and `peinvestments`.AggHide='0' and `peinvestments`.SPV='0' and peinvestments.Deleted =0 AND peinvestments.PEId IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId =  'IF'  ) $comp_industry_id_where $wherestage $wherefirmtypetxt group by `peinvestments_investors`.`InvestorId`";
     }else if($vcflagValue==2){
         
-        $reportsql = "SELECT count(peinv_inv.AngelDealId) as deals, inv.Investor as investor, inv.InvestorId as id, count(peinv.InvesteeId) as cos
-FROM angel_investors AS peinv_inv, peinvestors AS inv, angelinvdeals AS peinv, pecompanies AS c
-WHERE inv.InvestorId = peinv_inv.InvestorId
+        $reportsql = "SELECT count(peinv_inv.AngelDealId) as deals, peinvestors.Investor as investor, peinvestors.InvestorId as id, count(peinv.InvesteeId) as cos
+FROM angel_investors AS peinv_inv, peinvestors, angelinvdeals AS peinv, pecompanies 
+WHERE peinvestors.InvestorId = peinv_inv.InvestorId
 AND peinv.AngelDealId = peinv_inv.AngelDealId
-AND c.PECompanyId = peinv.InvesteeId
-AND peinv.Deleted =0 and inv.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "' $comp_industry_id_where $wherestage $wherefirmtypetxt
-Group by inv.InvestorId"; 
+AND pecompanies.PECompanyId = peinv.InvesteeId
+AND peinv.Deleted =0 and peinvestors.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "' $comp_industry_id_where $wherestage $wherefirmtypetxt
+Group by peinvestors.InvestorId"; 
 }
     $totalreportsql = $reportsql;
 $order = " order by deals desc";
 $ajaxcompanysql = urlencode($reportsql);
 
  $reportsql .= $order;
- echo "<div style='display:none'>$reportsql</div>";
+ //echo "<div style='display:none'>$reportsql</div>";
 
 $topNav='Directory';
 include_once('investor_search.php');
@@ -402,7 +403,7 @@ else if($vcflagValue==2){
                         <div style="right: 140px;top: 99px;margin-bottom: 20px;position: absolute;margin-top: 6px;">
                         <label style="font-size: 13px;font-weight: 600;margin: 0px 5px;">From</label>
                         <?php
-        $month1 = ($_POST['month1']=='') ? '1' : $_POST['month1'];
+        $month1 = ($_POST['month1']=='') ? date('m') : $_POST['month1'];
     ?>  
                                     <SELECT NAME=month1 id="tour_month1" style="font-family: Arial;color: #004646;font-size: 13px;padding: 3px;">
              <OPTION id=1 value="--" selected> Month </option>
@@ -624,9 +625,9 @@ else if($vcflagValue==2){
                                                             <?php if($usrRgs['PEInv'] == 0 || $usrRgs['VCInv'] == 0) { ?>
                                                                 <tr>
                                                                     <td ><a class="postlink" href="dirdetails.php?value=<?php echo $myrow["id"];?>/<?php echo $vcflagValue;?>/<?php echo $dealshow;?> " ><?php echo $myrow["investor"]; ?></a></td>
-                                                                    <td style="padding-left:5%"><a data-investorid="<?php echo $myrow["id"]; ?>"><?php echo $myrow["deals"]; ?></a></td>
-                                                                    <td style="padding-left:5%"><a data-investorid="<?php echo $myrow["id"]; ?>"><?php echo $myrow["cos"]; ?></a></td>
-                                                                    <?php if($vcflagValue!=2){?><td style="padding-left:5%"><a data-investorid="<?php echo $myrow["id"]; ?>"><?php echo $myrow["newPCos"]; ?></a></td><?php }?>  
+                                                                    <td style="padding-left:5%"><a data-investorid="<?php echo $myrow["id"]; ?>" data-industry="<?php echo $industry; ?>"><?php echo $myrow["deals"]; ?></a></td>
+                                                                    <td style="padding-left:5%"><a data-investorid="<?php echo $myrow["id"]; ?>" data-industry="<?php echo $industry; ?>"><?php echo $myrow["cos"]; ?></a></td>
+                                                                    <?php if($vcflagValue!=2){?><td style="padding-left:5%"><a data-investorid="<?php echo $myrow["id"]; ?>" data-industry="<?php echo $industry; ?>"><?php echo $myrow["newPCos"]; ?></a></td><?php }?>  
                                                                 </tr>
                                                             <?php } else { ?>
                                                                 <tr>
@@ -636,18 +637,18 @@ else if($vcflagValue==2){
                                                                     <td style="padding-left:5%"><a class="postlink" href="index.php?value=<?php echo $vcflagValue; ?>&newCos=<?php echo $vcflagValue; ?>" data-investorid="<?php echo $myrow["id"]; ?>"><?php echo $myrow["newPCos"]; ?></a></td> -->
                                                                     <td style="padding-left:5%">
                                                                         
-                                                                        <a class="postlink" href="<?php echo $redirecturl;?>?value=<?php echo $vcflagValue; ?>" data-investorid="<?php echo $myrow["id"]; ?>"><?php echo $myrow["deals"]; ?></a>
+                                                                        <a class="postlink" href="<?php echo $redirecturl;?>?value=<?php echo $vcflagValue; ?>" data-investorid="<?php echo $myrow["id"]; ?>" data-industry="<?php echo $industry; ?>"><?php echo $myrow["deals"]; ?></a>
                                                                         
                                                                     </td>
                                                                     <td style="padding-left:5%">
                                                                         
-                                                                        <a class="postlink" href="<?php echo $redirecturl;?>?value=<?php echo $vcflagValue; ?>" data-investorid="<?php echo $myrow["id"]; ?>"><?php echo $myrow["cos"]; ?></a>
+                                                                        <a class="postlink" href="<?php echo $redirecturl;?>?value=<?php echo $vcflagValue; ?>" data-investorid="<?php echo $myrow["id"]; ?>" data-industry="<?php echo $industry; ?>"><?php echo $myrow["cos"]; ?></a>
                                                                        
                                                                     </td>
                                                                   <?php if($vcflagValue!=2){?>  
                                                                     <td style="padding-left:5%">
                                                                         
-                                                                        <a class="postlink" href="<?php echo $redirecturl;?>?value=<?php echo $vcflagValue; ?>&newCos=<?php echo $vcflagValue; ?>" data-investorid="<?php echo $myrow["id"]; ?>"><?php echo $myrow["newPCos"]; ?></a>
+                                                                        <a class="postlink" href="<?php echo $redirecturl;?>?value=<?php echo $vcflagValue; ?>&newCos=<?php echo $vcflagValue; ?>" data-investorid="<?php echo $myrow["id"]; ?>" data-industry="<?php echo $industry; ?>"><?php echo $myrow["newPCos"]; ?></a>
                                                                        
                                                                     </td>
                                                                 <?php }?>
@@ -844,11 +845,18 @@ else if($vcflagValue==2){
                                     }
                                     $("a.postlink").live('click', function() {
                                         investorid = $(this).attr("data-investorid");
+                                        industryid = $(this).attr("data-industry");
                                         $('<input>').attr({
                                             type: 'hidden',
                                             id: 'foo',
                                             name: 'investorauto_sug',
                                             value: investorid
+                                        }).appendTo('#pesearch');
+                                        $('<input>').attr({
+                                            type: 'hidden',
+                                            id: 'foo',
+                                            name: 'industry',
+                                            value: industryid
                                         }).appendTo('#pesearch');
 
                                         $('<input>').attr({
