@@ -2318,7 +2318,8 @@
          
          }
          $(document).on('click','.exportimpshowdealsbt',function(){
-
+            $('#investorauto_sug').tokenInput("clear");
+         $('#expinvestorauto_sug').tokenInput("clear");
             $('#file').val('')
             $('.impshowdealsbt').modal('show');
 
@@ -2834,7 +2835,7 @@
          }
          
       
-         $('a[data-toggle="pill"]').on('click', function (e,string) {
+         $('.rightpanel a[data-toggle="pill"]').on('click', function (e,string) {
              
             console.log(e,string);
             if(string !=  "from-outside")
