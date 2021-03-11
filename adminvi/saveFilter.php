@@ -76,10 +76,46 @@ $dlogUserEmail = $_SESSION['UserEmail'];
    // echo "query = $query";exit(); // for debugging purposes, remove this once it is working
     mysql_query($query) or die(mysql_error());
 
-   
+   echo 'success';
 
     }
-
+    elseif($_POST['mode'] == 'getData')
+    {
+      $filtername = $_POST['filtername'];
+      $getTypeMode=$_POST['getTypeMode'];
+      $editfiltername=$_POST['editfiltername'];
+      if( $getTypeMode == 'A')
+      {
+         $sql="SELECT filter_name FROM `saved_filter` ";
+         //echo $sql;exit();
+         $query = mysql_query($sql) or die(mysql_error());
+         while ($row = mysql_fetch_assoc($query)) {
+           if($row['filter_name'] == $filtername)
+           {
+                echo 'failure';
+                return;
+           }
+ 
+          
+         }
+      }
+      elseif( $getTypeMode == 'E')
+      {
+           if($filtername != $editfiltername)
+           {
+                echo 'failure';
+           }
+           else
+           {
+                echo 'success';
+           }
+      }
+      else
+      {
+           echo 'success';
+      }
+ 
+    }
 
     else if($_POST['mode'] == 'E')
     {

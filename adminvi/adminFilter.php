@@ -259,6 +259,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                             While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
                             {	
                         ?>
+                                                   <input type="hidden" id="mode" value="E">
+
                         <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" value="<?php echo $myrow["filter_name"] ?>">
                         <span id="filternameErr"></span>
                         <textarea name="filterdesc" rows="4" cols="50" id="filterdesc" placeholder="description" value=""><?php echo $myrow["filter_desc"] ?></textarea>
@@ -284,6 +286,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         <input type="button" name="saveFilter" id="saveFilter" value="Save" onclick="saveAdminFilter()"><br><br>
                                 <?php } }
                                 else {?>
+                                                           <input type="hidden" id="mode" value="A">
+
                                      <input type="text" id="filter_name" placeholder="Enter Name For Your Customer Filter" >
                                      <span id="filternameErr"></span>
                                      <textarea name="filterdesc" rows="4" cols="50" id="filterdesc" placeholder="description" value=""><?php echo $myrow["filter_desc"] ?></textarea>
@@ -305,7 +309,6 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         <span id="filterTypeErr"></span><br>
 
                         <input type="button" name="saveFilter" id="saveFilter" value="Save" onclick="saveAdminFilter()"><br><br>
-                           
                                <?php } ?>
 
                         </div>
@@ -331,8 +334,20 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         var filter_active=$('#filter_active:checked').val();
         var vi_filter=$('#admin_filter').val();
         var companyName=$('#companyName').val();
+        var mode=$('#mode').val();
         //alert(companyName);
-
+        $.ajax({
+         url: 'saveFilter.php',
+         type: "POST",
+         data: {getTypeMode:mode,editfiltername:'<?php echo $_GET['filterName']?>',filtername:filtername,filterType:filterType, mode: 'getData'},
+         success: function(data){
+         
+         if(data.trim() == 'failure')
+         {         
+         alert("Filter name already exists...kindly enter new filter name")
+         return false;
+         }
+         else{
         if(filtername == '')
         {
             $("#filternameErr").text('Please Enter the filter name');
@@ -351,14 +366,20 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
          data: {companyName:companyName,filterDesc:filterdesc,EditFilter:"<?php echo $_GET['id']?>",vi_filter:vi_filter,filtername: filtername,filterQuery:filterQuery,filterType:filterType,filter_active:filter_active,mode: 'A'},
          success: function(data){
            //  alert(data);
+           if(data.trim() == "success")
+           {
             alert('saved successfully')
             window.location.href="../adminvi/EditAdminFilter.php"
             $('#filter_name').val('')
             $('#filterQuery').val('')
+           }
+          
 
          },
          });
         }
+         }
+         },});
 
     }
 

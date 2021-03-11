@@ -343,6 +343,10 @@
          border-radius:0rem !important;
          padding:0rem !important;
          }
+         input[type='search']
+         {
+            display:none;
+         }
       </style>
    </head>
    <?php if($_SESSION['PE_TrialLogin']==1){ ?>
@@ -687,7 +691,7 @@
                                           <div class="period-date pl-2">
                                              <!-- <label>To</label> -->
                                              <SELECT NAME="month1" id="mon1" class="form-control date" >
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled> Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month1 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -702,7 +706,7 @@
                                                 <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year1" id="yr1"  id="year1" class="form-control date">
-                                                <OPTION id=2 value=""> Year </option>
+                                                <OPTION id=2 value="" disabled> Year </option>
                                                 <?php 
                                                    $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                    
@@ -746,7 +750,7 @@
                                           <!-- <div class="col-md-5"> -->
                                           <div class="period-date pl-3">
                                              <SELECT NAME="month2" id='mon2' class="form-control date">
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled> Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month2 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -761,6 +765,8 @@
                                                 <option VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year2" id="yr2" id="year2" class="form-control date">
+                                             <OPTION id=2 value="" disabled> Year </option>
+
                                              <?php 
                                                 $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                 if($_POST['year2']=='')
@@ -1209,7 +1215,7 @@
                                           <label class="label">From</label> 
                                           <div class="period-date pl-2">
                                              <SELECT NAME="month1" id="exitmon1" class="form-control date">
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled>  Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month1 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -1224,7 +1230,7 @@
                                                 <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year1" id="exityr1" class="form-control date" >
-                                                <OPTION id=2 value=""> Year </option>
+                                                <OPTION id=2 value="" disabled> Year </option>
                                                 <?php 
                                                    $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                    
@@ -1264,7 +1270,7 @@
                                           <label style="margin-left:0px" class="label">To</label>
                                           <div class="period-date pl-3">
                                              <SELECT NAME="month2" id='exitmon2'class="form-control date" >
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled> Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month2 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -1279,6 +1285,8 @@
                                                 <option VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year2" id="exityr2" class="form-control date">
+                                             <OPTION id=2 value="" disabled> Year </option>
+
                                              <?php 
                                                 $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                 if($_POST['year2']=='')
@@ -1592,8 +1600,10 @@
          $(".resultarray").val('Select-All');
          $('.exitexportcolumn .exitexportcheck').attr('checked', true); 
          $(".exitresultarray").val('Select-All');
-         
-         //getfilterName();
+         $('body').scrollTop()
+
+         //$(window).scrollTop(position().top); 
+                //getfilterName();
          // var currentURL=window.location.href;
          // //alert(currentURL);
          // if(currentURL)
@@ -1857,6 +1867,7 @@
          var selectedValues = $('#expinvestorauto_sug').tokenInput("get");
          var inputCount = selectedValues.length;
          if(inputCount>50){ 
+            $('#expinvestorauto_sug').tokenInput("remove", {name: item["name"]});
          swal('You are allowed to add up to 50 investors')
          }
          },
@@ -1936,13 +1947,13 @@
          
          
          function exportfiltr(value,filterType,filterNameId,filter_name,columname)
-         {
+         {debugger;
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
          data:{mode:'getTotalcount'},
-         success: function(data){
-         var dataval=JSON.parse(data)
+         success: function(dataVal){
+         var dataval=JSON.parse(dataVal)
          if(parseInt(dataval[0]) <= parseInt(dataval[1]))
          {
          swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
@@ -1959,8 +1970,11 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
+         console.log(dataValue);
+         if(dataValue.length != 0)
+         {
          var Type=dataValue[0].filter_type
-         if(Type == "Exit")
+         if(filterType == "Exit")
          {
          
          $("#txthideexitstatusvalue").val(dataValue[0].exit_status)
@@ -2062,8 +2076,9 @@
          $("#pelistingexcel").submit();
          }
          }
-         
+         }
          },
+         
          });
          }
          }
@@ -2227,8 +2242,17 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+    
          else
          {
+             if(parseInt(year1) == parseInt(year2))
+        {
+            if(parseInt(month1) > parseInt(month2))
+            {
+                swal("Error: 'To' Month cannot be before 'From' Month");
+                return false;
+            } 
+        }
          $('#filterErr').hide();
          $('#filterDescErr').hide();
          $('#durationErr').hide()
@@ -2275,7 +2299,7 @@
          });
          
          $(document).on('click','.savevalidatefilter',function(){
-         
+         debugger;
          if($(".rightpanel").find(".active").attr('value') == "Investments")
          {
          
@@ -2297,12 +2321,21 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+        
          else if($('#investorauto_sug').tokenInput("get").length > 50)
          {
          swal('You are allowed to add up to 50 investors only')
          }
          else
          {
+             if(parseInt($('#yr1').val()) == parseInt($('#yr2').val()))
+               {
+                     if(parseInt($('#mon1').val()) > parseInt($('#mon2').val()))
+                     {
+                        swal("Error: 'To' Month cannot be before 'From' Month");
+                        return false;
+                     } 
+               }
          $('#investorErr').hide();
          $('#columnnameErr').hide();
          
@@ -2341,12 +2374,21 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+ 
          else if($('#expinvestorauto_sug').tokenInput("get").length > 50)
          {
          swal('You are allowed to add up to 50 investors only')
          }
          else
          {
+             if(parseInt($('#exityr1').val()) == parseInt($('#exityr1').val()))
+               {
+                     if(parseInt($('#exitmon1').val()) > parseInt($('#exitmon2').val()))
+                     {
+                        swal("Error: 'To' Month cannot be before 'From' Month");
+                        return false;
+                     } 
+               }
          $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
          
@@ -2473,8 +2515,17 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+       
          else
          {
+             if(parseInt(year1) == parseInt(year2))
+               {
+            if(parseInt(month1) > parseInt(month2))
+            {
+                swal("Error: 'To' Month cannot be before 'From' Month");
+                return false;
+               } 
+        }
          $('#investorErr').hide();
          $('#columnnameErr').hide();
          $.ajax({
@@ -2503,14 +2554,14 @@
          //alert(remLimit);
          // if(globalfilterId != "")
          // {
-         // var filterType= $(".rightpanel").find(".active").attr('value')       
-         // exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
-         // }
+         var filterType= $(".rightpanel").find(".active").attr('value')       
+         exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
+         //}
          // else
          // {
             $("input[type='search']").val('');
-            var filterType= $(".rightpanel").find(".active").attr('value')       
-          exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
+            //var filterType= $(".rightpanel").find(".active").attr('value')       
+         // exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
          if (currentRec < remLimit){
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
@@ -2536,7 +2587,7 @@
          }
          });
          
-         $('#exitexpshowdealsbt').click(function(){
+         $('#exitexpshowdealsbt').click(function(){debugger;
          var checkboxname=$('.exitallexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2617,8 +2668,17 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+       
          else
          {
+          if(parseInt(year1) == parseInt(year2))
+            {
+               if(parseInt(month1) > parseInt(month2))
+               {
+                  swal("Error: 'To' Month cannot be before 'From' Month");
+                  return false;
+               } 
+            }
          $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
          $.ajax({
@@ -2646,13 +2706,13 @@
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
          // if(exitglobalfilterId != ""){
-         // var filterType= $(".rightpanel").find(".active").attr('value')       
-         // exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
+         var filterType= $(".rightpanel").find(".active").attr('value')       
+         exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
          // }
          // else
          // {
-            var filterType= $(".rightpanel").find(".active").attr('value')       
-          exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
+            //var filterType= $(".rightpanel").find(".active").attr('value')       
+          //exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
          if (currentRec < remLimit){
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
@@ -2825,98 +2885,6 @@
          // e.preventDefault();
          // navbarTrigger=0;
          // });
-
-         $("select#mon2").change(function(){
-        var year1 = $("select#yr1").children("option:selected").val();
-        var year2 = $("select#yr2").children("option:selected").val();
-        var month1 = $("select#mon1").children("option:selected").val();
-        var month2 = $(this).children("option:selected").val();
-         console.log(month1);
-        console.log(year1);
-        console.log(month2);
-        console.log(year2);
-        var startdate= new Date(year1,month1-1,01);
-        var enddate= new Date(year2,month2-1,01);
-        //if(year1>year2 || month1 > month2){
-        if(startdate>enddate ){
-         swal("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
-            search_filter=1
-        }else{
-        //$(this).attr("onchange","this.form.submit();");
-        //$("#pesearch").submit();
-        search_filter="";
-        }
-        //alert("You have selected the country - " + selectedCountry);
-    });
-    $("select#mon1").change(function(){
-        var year1 = $("select#yr1").children("option:selected").val();
-        var year2 = $("select#yr2").children("option:selected").val();
-        var month1 = $(this).children("option:selected").val();
-        var month2 = $("select#mon2").children("option:selected").val();
-         console.log(month1);
-        console.log(year1);
-        console.log(month2);
-        console.log(year2);
-        var startdate= new Date(year1,month1-1,01);
-        var enddate= new Date(year2,month2-1,01);
-        //if(year1>year2 || month1 > month2){
-        if(startdate>enddate ){
-         swal("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
-            search_filter=1
-        }else{
-        //$(this).attr("onchange","this.form.submit();");
-        //$("#pesearch").submit();
-        search_filter="";
-        }
-        //alert("You have selected the country - " + selectedCountry);
-    });
-    $("select#yr2").change(function(){
-        var year2 = $(this).children("option:selected").val();
-        var year1 = $("select#yr1").children("option:selected").val();
-        var month1 = $("select#mon1").children("option:selected").val();
-        var month2 = $("select#mon2").children("option:selected").val();
-        
-        console.log(month1);
-        console.log(year1);
-        console.log(month2);
-        console.log(year2);
-        var startdate= new Date(year1,month1-1,01);
-        var enddate= new Date(year2,month2-1,01);
-        //if(year1>year2 || month1 > month2){
-        if(startdate>enddate ){
-         swal("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
-            search_filter=1
-        }else{
-        $(this).attr("onchange","this.form.submit();");
-        $("#pesearch").submit();
-        search_filter="";
-        }
-        //alert("You have selected the country - " + selectedCountry);
-    });
-    $("select#yr1").change(function(){
-        var year1 = $(this).children("option:selected").val();
-        var year2 = $("select#yr2").children("option:selected").val();
-        var month1 = $("select#mon1").children("option:selected").val();
-        var month2 = $("select#mon2").children("option:selected").val();
-        console.log(year2);
-        console.log(year1);
-        if(year1>year2 || month1 > month2){
-            swal("To date cannot be less than From date");
-            $(this).removeAttr("onchange","this.form.submit();");
-            search_filter=1
-        }else{
-        $(this).attr("onchange","this.form.submit();");
-        $("#pesearch").submit();
-        search_filter="";
-        }
-        //alert("You have selected the country - " + selectedCountry);
-    });
-     
-
-
       </script>
    </body>
 </html>
