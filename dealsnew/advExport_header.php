@@ -1646,7 +1646,7 @@
          
          })
          var mode='';
-         $(document).on("change",".exportcheck",function() {debugger;
+         $(document).on("change",".exportcheck",function() {
          var result = $('.exportcolumn input[type="checkbox"]:checked'); // this return collection of items checked
          var totalcheckbox = $('.exportcolumn input[type="checkbox"]');
          if (result.length > 0) {
@@ -2171,7 +2171,7 @@
          }
          var investornameArray=[];
          function saveFilterName()
-         {debugger;
+         {
          mode=$('#mode').val();
          investornameArray=[];
          
@@ -2908,7 +2908,7 @@
 
          });
 
-         
+
          // $('.rightpanel').click(function(e) {debugger;
          // e.preventDefault();
          // navbarTrigger=0;
