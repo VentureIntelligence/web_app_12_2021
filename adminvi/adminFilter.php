@@ -324,7 +324,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 <script>
 
     function saveAdminFilter()
-    {
+    {debugger;
         var filtername=$('#filter_name').val().trim().toLowerCase();
         var filterdesc=$('#filterdesc').val().trim().toLowerCase();
 
@@ -344,7 +344,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
          
          if(data.trim() == 'failure')
          {         
-         alert("Filter name already exists...kindly enter new filter name")
+         alert("Filter name already exists, Kindly enter new filter name")
          return false;
          }
          else{

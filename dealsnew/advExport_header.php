@@ -1696,6 +1696,7 @@
          {
          
          $('#investorauto_sug').tokenInput("clear");
+         $('#expinvestorauto_sug').tokenInput("clear");
          
          getFilterName=$('#mode').val('E');
          $.ajax({
@@ -2154,7 +2155,7 @@
          }
          var investornameArray=[];
          function saveFilterName()
-         {
+         {debugger;
          mode=$('#mode').val();
          investornameArray=[];
          
@@ -2162,18 +2163,27 @@
          
          var filtername=$('#filter_name').val().trim().toLowerCase();
          var filterDesc=$('#filter_desc').val().trim().toLowerCase();
+
+         if(filterType == "Exit")
+         {
+            editfiltername=exitglobalfilterNameId
+         }
+         else
+         {
+            editfiltername=globalfilterNameId
+         }
          
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
-         data: {getTypeMode:mode,editfiltername:globalfilterNameId,filtername:filtername,filterType:filterType, mode: 'getData'},
+         data: {getTypeMode:mode,editfiltername:editfiltername,filtername:filtername,filterType:filterType, mode: 'getData'},
          success: function(data){
          
          if(data == 'failure')
          {
          $('.saveshowdealsbt').modal('hide');
          
-         swal("Filter name already exists...kindly enter new filter name")
+         swal("Filter name already exists, Kindly enter new filter name")
          return false;
          }
          else{

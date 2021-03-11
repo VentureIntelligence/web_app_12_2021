@@ -144,7 +144,7 @@ td {
     <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                               <thead>
                                  <tr>
-                                    <th style="width: 62%;">Company Name</th>
+                                    <th style="width: 50%;">Company Name</th>
                                     <th>Overall Filter Count</th>
                                  </tr>
                               </thead>
@@ -184,7 +184,7 @@ td {
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
                               <thead>
                                  <tr>
-                                    <th>Filter Name</th>
+                                    <th style="width: 50%;">Filter Name</th>
                                     <th>Overall Filter Count</th>
                                  </tr>
                               </thead>
