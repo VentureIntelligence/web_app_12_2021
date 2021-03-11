@@ -343,6 +343,10 @@
          border-radius:0rem !important;
          padding:0rem !important;
          }
+         input[type='search']
+         {
+            display:none;
+         }
       </style>
    </head>
    <?php if($_SESSION['PE_TrialLogin']==1){ ?>
@@ -547,7 +551,7 @@
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
                <!-- <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a> -->
                <a class="filter ml-3 active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
-               <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
+               <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"  value=Exit>Exits</a>
                <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
             </div>
             <?php }else{ ?>
@@ -555,7 +559,7 @@
                <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
                   <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
                   <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
-                  <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false" value=Exit>Exits</a>
+                  <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"   value=Exit>Exits</a>
                   <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
                </div>
                <?php } ?>
@@ -670,7 +674,7 @@
                                           <p style="font-size:12px;">OR</p>
                                        </div>
                                        <div class="col-md-4" >
-                                          <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="height: 35px;padding: 0px 45px;"><span>Import</span></button>
+                                       <button type="button" class="btn exportFilt text-center exportimpshowdealsbt"  style="height: 35px;padding: 0px 45px;">Import</button>
                                           <!-- <button  class ="export_new btn bt btn-color btn-circle" style="    margin-top: -10px;" id="impshowdealsbt" name="showdealsimport">Import</button> -->
                                        </div>
                                     </div>
@@ -687,7 +691,7 @@
                                           <div class="period-date pl-2">
                                              <!-- <label>To</label> -->
                                              <SELECT NAME="month1" id="mon1" class="form-control date" >
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled> Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month1 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -702,7 +706,7 @@
                                                 <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year1" id="yr1"  id="year1" class="form-control date">
-                                                <OPTION id=2 value=""> Year </option>
+                                                <OPTION id=2 value="" disabled> Year </option>
                                                 <?php 
                                                    $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                    
@@ -746,7 +750,7 @@
                                           <!-- <div class="col-md-5"> -->
                                           <div class="period-date pl-3">
                                              <SELECT NAME="month2" id='mon2' class="form-control date">
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled> Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month2 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -761,6 +765,8 @@
                                                 <option VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year2" id="yr2" id="year2" class="form-control date">
+                                             <OPTION id=2 value="" disabled> Year </option>
+
                                              <?php 
                                                 $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                 if($_POST['year2']=='')
@@ -1195,7 +1201,8 @@
                                           <p style="font-size:12px;">OR</p>
                                        </div>
                                        <div class="col-md-4" >
-                                          <button type="button" class="btn exportFilt text-center" data-toggle="modal" data-target=".impshowdealsbt" style="height: 35px;padding: 0px 45px;">Import</button>
+
+                                          <button type="button" class="btn exportFilt text-center exportimpshowdealsbt"  style="height: 35px;padding: 0px 45px;">Import</button>
                                        </div>
                                     </div>
                                  </div>
@@ -1208,7 +1215,7 @@
                                           <label class="label">From</label> 
                                           <div class="period-date pl-2">
                                              <SELECT NAME="month1" id="exitmon1" class="form-control date">
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled>  Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month1 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month1 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month1 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -1223,7 +1230,7 @@
                                                 <OPTION VALUE='12' <?php echo ($month1 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year1" id="exityr1" class="form-control date" >
-                                                <OPTION id=2 value=""> Year </option>
+                                                <OPTION id=2 value="" disabled> Year </option>
                                                 <?php 
                                                    $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                    
@@ -1263,7 +1270,7 @@
                                           <label style="margin-left:0px" class="label">To</label>
                                           <div class="period-date pl-3">
                                              <SELECT NAME="month2" id='exitmon2'class="form-control date" >
-                                                <OPTION id=1 value="--"> Month </option>
+                                                <OPTION id=1 value="--" disabled> Month </option>
                                                 <OPTION VALUE='1' <?php echo ($month2 == '1') ? 'SELECTED' : ''; ?> >Jan</OPTION>
                                                 <OPTION VALUE='2' <?php echo ($month2 == '2') ? 'SELECTED' : ''; ?>>Feb</OPTION>
                                                 <OPTION VALUE='3' <?php echo ($month2 == '3') ? 'SELECTED' : ''; ?>>Mar</OPTION>
@@ -1278,6 +1285,8 @@
                                                 <option VALUE='12' <?php echo ($month2 == '12') ? 'SELECTED' : ''; ?>>Dec</OPTION>
                                              </SELECT>
                                              <SELECT NAME="year2" id="exityr2" class="form-control date">
+                                             <OPTION id=2 value="" disabled> Year </option>
+
                                              <?php 
                                                 $yearsql="select distinct DATE_FORMAT( dates, '%Y') as Year from peinvestments order by dates desc";
                                                 if($_POST['year2']=='')
@@ -1538,16 +1547,14 @@
             </div>
          </div>
          <!-- Modal -->
-         <div  class="modal fade impshowdealsbt" role="dialog">
+         <div  class="modal fade impshowdealsbt"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-               <!-- Modal content-->
                <div class="modal-content">
                   <div class="modal-header">
                      <h4 class="modal-title" style="font-size: 17px;">File upload form</h4>
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                     <!-- Form -->
                      <form name="dealsupload" enctype="multipart/form-data" id="leaguefile" method="post" >
                         <input type='file' name="leaguefilepath" id='file' class='form-control ip-file' style="font-size: 13px;"><br>
                         <input type="button" class="btn" value="Upload" onClick="getLeagueImport();" style="    height: 30px; float: right;">
@@ -1593,8 +1600,10 @@
          $(".resultarray").val('Select-All');
          $('.exitexportcolumn .exitexportcheck').attr('checked', true); 
          $(".exitresultarray").val('Select-All');
-         
-         //getfilterName();
+         $('body').scrollTop()
+
+         //$(window).scrollTop(position().top); 
+                //getfilterName();
          // var currentURL=window.location.href;
          // //alert(currentURL);
          // if(currentURL)
@@ -1821,12 +1830,16 @@
          hintText: "",
          noResultsText: "No Result Found",
          preventDuplicates: true,
+         default: 50,
          onAdd: function (item) {
          $('#keywordsearch,#sectorsearch,#advisorsearch_trans,#searchallfield,#advisorsearch_legal,#tagsearch').val("");
          $('#investorauto,#sectorsearchauto,#advisorsearch_transauto,#advisorsearch_legalauto,#tagsearch_auto').val("");
          var selectedValues = $('#investorauto_sug').tokenInput("get");
          var inputCount = selectedValues.length;
+
          if(inputCount>50){ 
+            $('#investorauto_sug').tokenInput("remove", {name: item["name"]});
+
          swal('You are allowed to add up to 50 investors')
          }
          },
@@ -1854,6 +1867,7 @@
          var selectedValues = $('#expinvestorauto_sug').tokenInput("get");
          var inputCount = selectedValues.length;
          if(inputCount>50){ 
+            $('#expinvestorauto_sug').tokenInput("remove", {name: item["name"]});
          swal('You are allowed to add up to 50 investors')
          }
          },
@@ -1938,8 +1952,8 @@
          url: 'saveFilter.php',
          type: "POST",
          data:{mode:'getTotalcount'},
-         success: function(data){
-         var dataval=JSON.parse(data)
+         success: function(dataVal){
+         var dataval=JSON.parse(dataVal)
          if(parseInt(dataval[0]) <= parseInt(dataval[1]))
          {
          swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
@@ -1956,8 +1970,11 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
+         console.log(dataValue);
+         if(dataValue.length != 0)
+         {
          var Type=dataValue[0].filter_type
-         if(Type == "Exit")
+         if(filterType == "Exit")
          {
          
          $("#txthideexitstatusvalue").val(dataValue[0].exit_status)
@@ -2059,8 +2076,9 @@
          $("#pelistingexcel").submit();
          }
          }
-         
+         }
          },
+         
          });
          }
          }
@@ -2070,18 +2088,7 @@
          //    window.location.reload(1);
          // }, 500);
          }
-         
-         
-         $(document).on('click','#impshowdealsbt',function(){
-         
-         //$('#popup-box-copyrights').fadeOut();   
-         $('#maskscreen').fadeIn();
-         $('#preloading').fadeIn();  
-         $('#popup-box-copyrights-filter').fadeIn(); 
-         
-         });
-         
-         
+                  
          function getLeagueImport()
          {
          //$('#file').val('');
@@ -2153,20 +2160,20 @@
          
          var filterType=$(".rightpanel").find(".active").attr('value')
          
-         var filtername=$('#filter_name').val()
-         var filterDesc=$('#filter_desc').val().trim();
+         var filtername=$('#filter_name').val().trim().toLowerCase();
+         var filterDesc=$('#filter_desc').val().trim().toLowerCase();
          
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
-         data: {getTypeMode:mode,filtername:filtername,filterType:filterType, mode: 'getData'},
+         data: {getTypeMode:mode,editfiltername:globalfilterNameId,filtername:filtername,filterType:filterType, mode: 'getData'},
          success: function(data){
          
          if(data == 'failure')
          {
          $('.saveshowdealsbt').modal('hide');
          
-         swal("You are already enter the filter name in '"+filterType+"' Filter ")
+         swal("Filter name already exists...kindly enter new filter name")
          return false;
          }
          else{
@@ -2235,8 +2242,17 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+    
          else
          {
+             if(parseInt(year1) == parseInt(year2))
+        {
+            if(parseInt(month1) > parseInt(month2))
+            {
+                swal("Error: 'To' Month cannot be before 'From' Month");
+                return false;
+            } 
+        }
          $('#filterErr').hide();
          $('#filterDescErr').hide();
          $('#durationErr').hide()
@@ -2275,6 +2291,12 @@
          });
          
          }
+         $(document).on('click','.exportimpshowdealsbt',function(){
+
+            $('#file').val('')
+            $('.impshowdealsbt').modal('show');
+
+         });
          
          $(document).on('click','.savevalidatefilter',function(){
          
@@ -2288,6 +2310,7 @@
          $('.saveshowdealsbt').modal('hide');
          }
          
+         
          else if($(":input.exportcheck[checked='checked']").length == 0)
          {
          $('#columnnameErr').show();
@@ -2298,12 +2321,21 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+        
          else if($('#investorauto_sug').tokenInput("get").length > 50)
          {
          swal('You are allowed to add up to 50 investors only')
          }
          else
          {
+             if(parseInt($('#yr1').val()) == parseInt($('#yr2').val()))
+               {
+                     if(parseInt($('#mon1').val()) > parseInt($('#mon2').val()))
+                     {
+                        swal("Error: 'To' Month cannot be before 'From' Month");
+                        return false;
+                     } 
+               }
          $('#investorErr').hide();
          $('#columnnameErr').hide();
          
@@ -2342,12 +2374,21 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+ 
          else if($('#expinvestorauto_sug').tokenInput("get").length > 50)
          {
          swal('You are allowed to add up to 50 investors only')
          }
          else
          {
+             if(parseInt($('#exityr1').val()) == parseInt($('#exityr1').val()))
+               {
+                     if(parseInt($('#exitmon1').val()) > parseInt($('#exitmon2').val()))
+                     {
+                        swal("Error: 'To' Month cannot be before 'From' Month");
+                        return false;
+                     } 
+               }
          $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
          
@@ -2460,6 +2501,10 @@
          $('#durationErr').show()
          
          }
+         else if($('#investorauto_sug').tokenInput("get").length > 50)
+         {
+         swal('You are allowed to add up to 50 investors only')
+         }
          else if($(":input.exportcheck[checked='checked']").length == 0)
          {
             $('#investorErr').hide();
@@ -2470,8 +2515,17 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+       
          else
          {
+             if(parseInt(year1) == parseInt(year2))
+               {
+            if(parseInt(month1) > parseInt(month2))
+            {
+                swal("Error: 'To' Month cannot be before 'From' Month");
+                return false;
+               } 
+        }
          $('#investorErr').hide();
          $('#columnnameErr').hide();
          $.ajax({
@@ -2500,11 +2554,14 @@
          //alert(remLimit);
          // if(globalfilterId != "")
          // {
-         // var filterType= $(".rightpanel").find(".active").attr('value')       
-         // exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
-         // }
+         var filterType= $(".rightpanel").find(".active").attr('value')       
+         exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
+         //}
          // else
          // {
+            $("input[type='search']").val('');
+            //var filterType= $(".rightpanel").find(".active").attr('value')       
+         // exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
          if (currentRec < remLimit){
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
@@ -2592,6 +2649,10 @@
          $('#exitcolumnnameErr').hide();
 
          }
+         else if($('#expinvestorauto_sug').tokenInput("get").length > 50)
+         {
+         swal('You are allowed to add up to 50 investors only')
+         }
          else if(($('#exitmon1').val() && $('#exitmon1').val() && $('#exityr1').val() && $('#exityr2').val()) == '')
          {
          $('#durationErr').show()
@@ -2607,8 +2668,17 @@
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
          }
+       
          else
          {
+          if(parseInt(year1) == parseInt(year2))
+            {
+               if(parseInt(month1) > parseInt(month2))
+               {
+                  swal("Error: 'To' Month cannot be before 'From' Month");
+                  return false;
+               } 
+            }
          $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
          $.ajax({
@@ -2636,11 +2706,13 @@
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
          // if(exitglobalfilterId != ""){
-         // var filterType= $(".rightpanel").find(".active").attr('value')       
-         // exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
+         var filterType= $(".rightpanel").find(".active").attr('value')       
+         exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
          // }
          // else
          // {
+            //var filterType= $(".rightpanel").find(".active").attr('value')       
+          //exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
          if (currentRec < remLimit){
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
@@ -2666,14 +2738,7 @@
          }
          });
          
-         $(document).on('click','#impshowdealsbt',function(){
-         
-         //$('#popup-box-copyrights').fadeOut();   
-         $('#maskscreen').fadeIn();
-         $('#preloading').fadeIn();  
-         $('#popup-box-copyrights-filter').fadeIn(); 
-         
-         }); 
+    
          
          function cancelFilterName()
          {
@@ -2742,17 +2807,13 @@
          });
          }
          
-         
-         //$('a[data-toggle="pill"]').on('shown.bs.tab', function (e,string) {
+      
          $('a[data-toggle="pill"]').on('click', function (e,string) {
-            // debugger;
-
-            // alert(string);
-
-            // parameter is stocked in json.data here.
+             
             console.log(e,string);
             if(string !=  "from-outside")
             {
+               
              mode=$('#mode').val();
          if(mode == 'A')
          {
@@ -2810,16 +2871,20 @@
           $('#exitinvType').val("")
           $('#exitFlstatus').val("")
           $('#exitInType').val("")
-
-
+          $('#exitinvestorErr').hide();
+         $('#exitcolumnnameErr').hide();
+         $('#investorErr').hide();
+         $('#columnnameErr').hide();
+         $("input[type='search']").val('');
          }
+         $(window).scrollTop($('#v-pills-tab').position().top); 
+
 
          });
          // $('.rightpanel').click(function(e) {debugger;
          // e.preventDefault();
          // navbarTrigger=0;
          // });
-                  
       </script>
    </body>
 </html>

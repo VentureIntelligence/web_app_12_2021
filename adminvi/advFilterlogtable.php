@@ -96,7 +96,7 @@ td {
                            $keyword="";
                            $keyword=$_POST['repDBtype'];
                            
-                           $nanoSql="SELECT * FROM `advance_export_filter_log` ";
+                           $nanoSql="SELECT * FROM `advance_export_filter_log` order by id desc";
                            if ($reportrs = mysql_query($nanoSql))
                            {
                            $report_cnt = mysql_num_rows($reportrs);
@@ -133,7 +133,7 @@ td {
                                  </tr>
                                  <?php } } else {?>
                                  <tr>
-                                    <td>No Records Found</td>
+                                    <td colspan="2">No Records Found</td>
                                  </tr>
                                  <?php } ?>
                               </tbody>
@@ -144,7 +144,7 @@ td {
     <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                               <thead>
                                  <tr>
-                                    <th>Company Name</th>
+                                    <th style="width: 62%;">Company Name</th>
                                     <th>Overall Filter Count</th>
                                  </tr>
                               </thead>
@@ -174,7 +174,7 @@ td {
                                  </tr>
                                  <?php } } else {?>
                                  <tr>
-                                    <td>No Records Found</td>
+                                    <td colspan="2">No Records Found</td>
                                  </tr>
                                  <?php } ?>
                               </tbody></table>
@@ -214,7 +214,7 @@ td {
                                  </tr>
                                  <?php } } else {?>
                                  <tr>
-                                    <td>No Records Found</td>
+                                    <td colspan="2">No Records Found</td>
                                  </tr>
                                  <?php } ?>
                               </tbody>
@@ -239,10 +239,10 @@ td {
          $(document).ready(function() {
          $('#myTable').DataTable({
             columnDefs: [ { type: 'date', 'targets': [4] } ],
-            order: [[ 4, 'desc' ], [ 0, 'asc' ]]
+            order: [[ 4, 'desc' ]]
          } );
          } );
-
+      
       </script>
    </body>
 </html>
