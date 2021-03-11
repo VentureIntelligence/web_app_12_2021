@@ -64,9 +64,10 @@ $dlogUserEmail = $_SESSION['UserEmail'];
        // echo $query;exit();
     if($rowSelCount > 0)
     {
-        $query = 'UPDATE `saved_filter` SET `filter_active` = "'.$filter_active.'", `query` = "'.$filterQuery.'", `vi_filter` = "'.$vi_filter.'", `dealtype` = "'.$dealType.'", `intype` = "'.$Intype.'", `company_type` = "'.$companytype.'", `industry` = "'.$industry.'", `city` = "'.$city.'", `state` = "'.$state.'", `region` = "'.$region.'", `exit_status` = "'.$exitStatus.'", `round` = "'.$round.'", `stage` = "'.$stage.'", `investor_type` = "'.$investorType.'", `filter_name` = "'.$filtername.'", `filter_desc` = "'.$filterDesc.'", `investor_name` = "' . $investorvalArray . '", `column_name` = "' . $checkboxName . '", `modefied_by` = "' . $dlogUserEmail . '", `modefied_on` = CURDATE() ,`company_name`="'.$companyName.'"
+        $query = 'UPDATE `saved_filter` SET `filter_type` = "'.$filterType.'",`filter_active` = "'.$filter_active.'", `query` = "'.$filterQuery.'", `vi_filter` = "'.$vi_filter.'", `dealtype` = "'.$dealType.'", `intype` = "'.$Intype.'", `company_type` = "'.$companytype.'", `industry` = "'.$industry.'", `city` = "'.$city.'", `state` = "'.$state.'", `region` = "'.$region.'", `exit_status` = "'.$exitStatus.'", `round` = "'.$round.'", `stage` = "'.$stage.'", `investor_type` = "'.$investorType.'", `filter_name` = "'.$filtername.'", `filter_desc` = "'.$filterDesc.'", `investor_name` = "' . $investorvalArray . '", `column_name` = "' . $checkboxName . '", `modefied_by` = "' . $dlogUserEmail . '", `modefied_on` = CURDATE() ,`company_name`="'.$companyName.'"
      WHERE
         `id` = "' . $EditFilter . '"';
+        //echo $query;exit();
     }
     else
     {
