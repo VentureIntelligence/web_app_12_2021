@@ -1620,7 +1620,9 @@
          $('#allexportcheck').click(function(){
          if(this.checked)
          {
-         $('.exportcolumn .exportcheck').attr('checked', true); 
+         $('.exportcolumn .exportcheck').attr('checked', true);
+         $('#columnnameErr').hide();
+ 
          }
          else
          {
@@ -1632,6 +1634,8 @@
          if(this.checked)
          {
          $('.exitexportcolumn .exitexportcheck').attr('checked', true); 
+         $('#exitcolumnnameErr').hide();
+
          
          }
          else
@@ -1642,7 +1646,7 @@
          
          })
          var mode='';
-         $(document).on("change",".exportcheck",function() {
+         $(document).on("change",".exportcheck",function() {debugger;
          var result = $('.exportcolumn input[type="checkbox"]:checked'); // this return collection of items checked
          var totalcheckbox = $('.exportcolumn input[type="checkbox"]');
          if (result.length > 0) {
@@ -1653,6 +1657,10 @@
          });
          resultString =  resultString.replace(/,\s*$/, "");
          $(".resultarray").val(resultString);
+         }
+         if(result.length == 1)
+         {
+            $('#columnnameErr').hide();
          }
          if(result.length==totalcheckbox.length)
          {
@@ -1674,6 +1682,10 @@
          });
          resultString =  resultString.replace(/,\s*$/, "");
          $(".exitresultarray").val(resultString);
+         }
+         if(result.length == 1)
+         {
+            $('#exitcolumnnameErr').hide();
          }
          if(result.length==totalcheckbox.length)
          {
@@ -1833,6 +1845,8 @@
          preventDuplicates: true,
          default: 50,
          onAdd: function (item) {
+            $('#investorErr').hide()
+
          $('#keywordsearch,#sectorsearch,#advisorsearch_trans,#searchallfield,#advisorsearch_legal,#tagsearch').val("");
          $('#investorauto,#sectorsearchauto,#advisorsearch_transauto,#advisorsearch_legalauto,#tagsearch_auto').val("");
          var selectedValues = $('#investorauto_sug').tokenInput("get");
@@ -1863,6 +1877,8 @@
          noResultsText: "No Result Found",
          preventDuplicates: true,
          onAdd: function (item) {
+            $('#exitinvestorErr').hide()
+
          $('#keywordsearch,#sectorsearch,#advisorsearch_trans,#searchallfield,#advisorsearch_legal,#tagsearch').val("");
          $('#investorauto,#sectorsearchauto,#advisorsearch_transauto,#advisorsearch_legalauto,#tagsearch_auto').val("");
          var selectedValues = $('#expinvestorauto_sug').tokenInput("get");
