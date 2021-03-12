@@ -399,7 +399,6 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
          },});
 
     }
-
 </script>
 
 </body>
