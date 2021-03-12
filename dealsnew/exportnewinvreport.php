@@ -91,7 +91,23 @@ if ($_POST['date_year1']=='') {
     $endDate= date('Y-m', strtotime($dt1." -1 month")).'-31';
     
 }
-
+$industry=$_POST['txthideindustryid'];
+    $stageval=$_POST['txthidestageid'];
+    $firmtypeid=$_POST['txthidefirmtypeid'];
+    
+    
+    if($industry!='')
+    {
+        $whereindustry=" and pec.industry= $industry";
+    }
+    if($stageval!='')
+    {
+        $wherestage =" and pe.StageId IN(" .$stageval.")";
+    }
+    if($firmtypeid!='')
+    {
+        $wherefirmtypetxt = " and inv.FirmTypeId IN (".$firmtypeid.")";
+    }
 if($vcflagValue==0){
         
    $reportsql = "SELECT count(peinv_inv.PEId) as deals,inv.Investor as investor,inv.InvestorId as id, count(DISTINCT pec.PECompanyId) as cos,pe.dates
@@ -100,7 +116,7 @@ if($vcflagValue==0){
     JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
     and pe.dates between '" . $dt1 . "' and '" . $dt2 . "' and peinv_inv.InvestorId !=9 and pe.Deleted = 0 and pec.industry !=15
     and peinv_inv.InvestorId NOT IN (SELECT peinv_inv.InvestorId from peinvestments_investors AS peinv_inv, peinvestments as pe  
-           where pe.PEId = peinv_inv.PEId and pe.dates between  '" . $defaultday . "'  and  '" . $endDate . "' )
+           where pe.PEId = peinv_inv.PEId and pe.dates between  '" . $defaultday . "'  and  '" . $endDate . "' ) $wherefirmtypetxt $wherestage $whereindustry
     group by peinv_inv.InvestorId order by investor asc";
 }else{
 
@@ -112,7 +128,7 @@ if($vcflagValue==0){
     JOIN stage AS s ON pe.StageId = s.StageId
     and pe.dates between '" . $dt1 . "' and '" . $dt2 . "' and peinv_inv.InvestorId !=9 and pe.Deleted = 0 and s.VCview=1 and pe.amount <=20  and pec.industry !=15  
     and peinv_inv.InvestorId NOT IN (SELECT peinv_inv.InvestorId from peinvestments_investors AS peinv_inv, peinvestments as pe  
-           where pe.PEId = peinv_inv.PEId and pe.dates between  '" . $defaultday . "'  and  '" . $endDate . "' )
+           where pe.PEId = peinv_inv.PEId and pe.dates between  '" . $defaultday . "'  and  '" . $endDate . "' ) $wherefirmtypetxt $wherestage $whereindustry
     group by peinv_inv.InvestorId order by investor asc";
 
 }
