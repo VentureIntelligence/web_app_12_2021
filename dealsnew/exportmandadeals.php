@@ -28,7 +28,7 @@
 // Start T960
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
-    $exportvalue = "PortfolioCompany,CIN,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
+    $exportvalue = "PortfolioCompany,CIN,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare";    
 }
 $expval=explode(",",$exportvalue);
 // end T960
@@ -1313,10 +1313,10 @@ if(in_array("PricePerShare", $expval))
 {
     echo "Price Per Share"."\t";
 }
-if(in_array("LinkforFinancials", $expval))
-{
-    echo "Link for Financials"."\t";
-}
+// if(in_array("LinkforFinancials", $expval))
+// {
+//     echo "Link for Financials"."\t";
+// }
        
  print("\n");
 
@@ -1707,10 +1707,10 @@ if(in_array("LinkforFinancials", $expval))
                              {
                                  $schema_insert .= $price_per_share.$sep;  //price_per_share
                              }
-                             if(in_array("LinkforFinancials", $expval))
-                             {
-                                 $schema_insert .= $row[24].$sep;  //Financial link
-                             }
+                            //  if(in_array("LinkforFinancials", $expval))
+                            //  {
+                            //      $schema_insert .= $row[24].$sep;  //Financial link
+                            //  }
                    
 
 
