@@ -28,7 +28,7 @@
 // Start T960
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
-    $exportvalue = "PortfolioCompany,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
+    $exportvalue = "PortfolioCompany,CIN,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
 }
 $expval=explode(",",$exportvalue);
 // end T960
@@ -245,7 +245,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, pec.sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         DealAmount, website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it
         WHERE pec.industry = i.industryid and dt.DealTypeId=pe.DealTypeId and it.InvestorType=pe.InvestorType
@@ -279,7 +279,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pec.industry = i.industryid AND dt.DealTypeId=pe.DealTypeId and  it.InvestorType=pe.InvestorType
@@ -360,7 +360,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it".$joinsectortable."
         WHERE".$whereind." DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pec.industry = i.industryid AND dt.DealTypeId=pe.DealTypeId and  it.InvestorType=pe.InvestorType
@@ -399,7 +399,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname,i.industry,sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,pec.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,
-        EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
+        EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
         FROM
         manda_investors as peinv_inv,
         peinvestors as inv,
@@ -439,7 +439,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         c.companyname,i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor, ac.Acquirer,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,c.CINNo
         FROM
         acquirers AS ac, manda AS pe, pecompanies AS c, industry AS i,dealtypes as dt ,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  ac.AcquirerId = pe.AcquirerId and dt.DealTypeId=pe.DealTypeId
@@ -519,7 +519,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
         FROM
         manda AS pe,
         industry AS i,
@@ -562,7 +562,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             c.companyname,i.industry,c.sector_business,
             dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
             pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,cia.cianame,pe.InvestmentDeals,Link,
-            EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
+            EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,c.CINNo
             from manda AS pe, pecompanies AS c, industry AS i,advisor_cias AS cia,
             peinvestments_advisoracquirer AS adac,acquirers as ac,dealtypes as dt,investortype as it
             where DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and pe.Deleted=0 and
@@ -614,7 +614,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         c.companyname,i.industry,c.sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,cia.cianame,pe.InvestmentDeals,Link,
-        EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
+        EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,c.CINNo
         from manda AS pe, pecompanies AS c, industry AS i,advisor_cias AS cia,
         peinvestments_advisoracquirer AS adac,acquirers as ac,dealtypes as dt,investortype as it
         where pe.Deleted=0 and
@@ -629,7 +629,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,
         cia.cianame,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,
-        Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
+        Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,,c.CINNo
         FROM manda AS pe, pecompanies AS c, industry AS i, advisor_cias AS cia,
         peinvestments_advisorcompanies AS adcomp, acquirers AS ac,dealtypes as dt,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pe.Deleted=0 and
@@ -685,7 +685,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pec.industry = i.industryid AND dt.DealTypeId=pe.DealTypeId and  it.InvestorType=pe.InvestorType
@@ -724,7 +724,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname,i.industry,pec.sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate, pe.DealAmount,pec.website,
         pe.MoreInfor,pe.hideamount,pe.hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
         FROM manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it,manda_investors as mandainv,peinvestors as inv where";
         $whereind="";
         $wheredates="";
@@ -1017,8 +1017,8 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 
  $sql=$companysql;
  /*echo $tagsearch;*/
-/*echo "<br>---" .$sql;
-exit();*/
+// echo "<br>---" .$sql;
+// exit();
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");
@@ -1180,6 +1180,10 @@ exit();*/
 if(in_array("PortfolioCompany", $expval))
 {
     echo "Portfolio Company"."\t";
+}
+if(in_array("CIN", $expval))
+{
+    echo "CIN"."\t";
 }
 if(in_array("YearFounded", $expval))
 {
@@ -1349,6 +1353,10 @@ if(in_array("LinkforFinancials", $expval))
          if(in_array("PortfolioCompany", $expval))
          {
              $schema_insert .= $row[7].$sep;
+         }
+         if(in_array("CIN", $expval))
+         {
+             $schema_insert .= $row[38].$sep;
          }
          if(in_array("YearFounded", $expval))
          {

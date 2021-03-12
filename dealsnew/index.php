@@ -5608,6 +5608,7 @@ if ($type != 1) {
             <ul class="exportcolumn">
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="Company" checked/> <span> Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company"/> <span> Company</span></li>
+                <li><input type="checkbox" class="exportcheck" name="skills" value="Cinno"/> <span> Cin No</span></li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Industry" /> Industry</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Sector" /> Sector</li>
@@ -5650,7 +5651,7 @@ if ($type != 1) {
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Cash & Cash Equ. (INR Cr)" /> Cash & Cash Equ. (INR Cr)</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Book Value Per Share" /> Book Value Per Share</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Price Per Share" /> Price Per Share</li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li>
+                <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li> -->
             </ul>
         </div>
         <div class="cr_entry" style="text-align:center;margin-top:25px;">
