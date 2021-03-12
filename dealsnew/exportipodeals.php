@@ -28,11 +28,11 @@ if ($cntUserLogSel > 0){
 // Start T960
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
-    $exportvalue = "PortfolioCompany,YearFounded,PEFirm,InvestorType,ExitStatus,InvestorSale,Industry,SectorBusinessDescription,Website,Date,IPOSize,Price,IPOValuation,SellingInvestors,AddlnInfo,InvestmentDetails,ReturnMultiple,IRR,MoreInfoReturns,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,ValuationMoreInfo,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
+    $exportvalue = "PortfolioCompany,CIN,YearFounded,PEFirm,InvestorType,ExitStatus,InvestorSale,Industry,SectorBusinessDescription,Website,Date,IPOSize,Price,IPOValuation,SellingInvestors,AddlnInfo,InvestmentDetails,ReturnMultiple,IRR,MoreInfoReturns,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,ValuationMoreInfo,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
 }
 $expval=explode(",",$exportvalue);
 // end T960
-
+//print_r($expval);exit();
 function updateDownload($res){
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
@@ -212,7 +212,7 @@ function updateDownload($res){
                             pec.website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns,
                             it.InvestorTypeName,
                             Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-                            Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded
+                            Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded,pec.CINNo
                             FROM ipos AS pe, industry AS i, pecompanies AS pec ,investortype as it
                              WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID  and it.InvestorType=pe.InvestorType " .$wheredates1. "
                             and pe.Deleted=0" .$addVCFlagqry.$addDelind.$hideWhere.$comp_industry_id_where.
@@ -247,7 +247,7 @@ function updateDownload($res){
                             pec.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns ,
                             it.InvestorTypeName,
                             Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-                            Valuation,FinLink ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded
+                            Valuation,FinLink ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded,pec.CINNo
                             FROM ipos AS pe, industry AS i,	pecompanies AS pec ,investortype as it
                             WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and it.InvestorType=pe.InvestorType " .$wheredates1. " 
                             AND pe.Deleted =0 " .$addVCFlagqry.$addDelind.$hideWhere.$comp_industry_id_where. " AND ( pec.PECompanyId IN ($companysearch))
@@ -284,7 +284,7 @@ function updateDownload($res){
                                 c.website,MoreInfor,hideamount,hidemoreinfor,peinv.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns ,
                                 it.InvestorTypeName,
                                 Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,c.yearfounded
+                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,c.yearfounded,pec.CINNo
                                 from ipo_investors as peinv_inv,peinvestors as inv, ipos as peinv,pecompanies as c,industry as i,investortype as it
                                 where inv.InvestorId=peinv_inv.InvestorId " .$wheredates1. "  and c.industry = i.industryid
                                 and peinv.IPOId=peinv_inv.IPOId and c.PECompanyId=peinv.PECompanyId and it.InvestorType=peinv.InvestorType " .$addVCFlagqry.$addDelind.$hideWhere.
@@ -320,7 +320,7 @@ function updateDownload($res){
                                 c.sector_business,DATE_FORMAT( peinv.IPODate, '%M-%Y' )as IPODate,peinv.IPOSize,peinv.IPOAmount,peinv.IPOValuation,
                                 peinv.website,MoreInfor,hideamount,hidemoreinfor,peinv.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns ,it.InvestorTypeName,
                                 Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,c.yearfounded
+                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,c.yearfounded,pec.CINNo
                                 FROM advisor_cias AS cia, IPOs AS peinv, pecompanies AS c, industry AS i,
                                 peinvestments_advisorcompanies AS adcomp ,investortype as it
                                 WHERE c.industry = i.industryid and cia.CIAId=adcomp.CIAId  and it.InvestorType=peinv.InvestorType " .$wheredates1. " 
@@ -366,7 +366,7 @@ function updateDownload($res){
                             pec.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns ,
                             it.InvestorTypeName,
                             Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-                            Valuation,FinLink ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded
+                            Valuation,FinLink ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded,pec.CINNo
                             FROM ipos AS pe, industry AS i, pecompanies AS pec ,investortype as it
                             WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and it.InvestorType=pe.InvestorType " .$wheredates1. " 
                             AND pe.Deleted =0 and (". $tagsval." )" .$addVCFlagqry.$addDelind.$comp_industry_id_where. " order by companyname";     //  echo
@@ -417,7 +417,7 @@ function updateDownload($res){
                                  DATE_FORMAT( IPODate, '%M-%Y' ) as IPODate,pe.IPOSize,pe.IPOAmount, pe.IPOValuation,
                                 pec.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns ,it.InvestorTypeName,
                                 Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded
+                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded,pec.CINNo
                                 FROM ipos AS pe, industry AS i,	pecompanies AS pec,investortype as it
                                 WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID   and it.InvestorType=pe.InvestorType " .$wheredates1. " 
                                 AND pe.Deleted =0 " .$addVCFlagqry.$addDelind.$hideWhere.$comp_industry_id_where. " AND ( $tagsval )
@@ -453,7 +453,7 @@ function updateDownload($res){
                                 pec.sector_business,DATE_FORMAT(IPODate,'%M-%Y') as IPODate,pe.IPOSize,IPOAmount,IPOValuation,
                                 pec.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,
                                 Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded
+                                Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pec.yearfounded,pec.CINNo
                                 from ipos as pe, industry as i,pecompanies as pec,investortype as it,ipo_investors as ipoinv,peinvestors as inv where";
                                 $whereind="";
                                 $wheredates="";
@@ -819,10 +819,13 @@ function updateDownload($res){
 // 			echo "Book Value Per Share"."\t";
 // 			echo "Price Per Share"."\t";
 // 	echo "Link for Financials"."\t";
-
 if(in_array("PortfolioCompany", $expval))
     {
         echo "Portfolio Company"."\t";
+    }
+    if(in_array("CIN", $expval))
+    {
+        echo "CIN"."\t";
     }
     if(in_array("YearFounded", $expval))
     {
@@ -987,6 +990,10 @@ if(in_array("PortfolioCompany", $expval))
             $schema_insert .= $searchStringDisplay.$sep;
             $webdisplay="";
         }
+    }
+    if(in_array("CIN", $expval))
+    {
+        $schema_insert .= $row[39].$sep;//year founded
     }
     if(in_array("YearFounded", $expval))
     {
