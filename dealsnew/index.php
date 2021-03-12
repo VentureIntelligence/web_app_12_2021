@@ -5608,7 +5608,7 @@ if ($type != 1) {
             <ul class="exportcolumn">
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="Company" checked/> <span> Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company"/> <span> Company</span></li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="Cinno"/> <span> Cin No</span></li>
+                <li><input type="checkbox" class="exportcheck" name="skills" value="Cinno"/> <span> CIN</span></li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Industry" /> Industry</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Sector" /> Sector</li>
