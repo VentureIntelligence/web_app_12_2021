@@ -28,7 +28,7 @@ if ($cntUserLogSel > 0){
 // Start T960
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
-    $exportvalue = "PortfolioCompany,CIN,YearFounded,PEFirm,InvestorType,ExitStatus,InvestorSale,Industry,SectorBusinessDescription,Website,Date,IPOSize,Price,IPOValuation,SellingInvestors,AddlnInfo,InvestmentDetails,ReturnMultiple,IRR,MoreInfoReturns,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,ValuationMoreInfo,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
+    $exportvalue = "PortfolioCompany,CIN,YearFounded,PEFirm,InvestorType,ExitStatus,InvestorSale,Industry,SectorBusinessDescription,Website,Date,IPOSize,Price,IPOValuation,SellingInvestors,AddlnInfo,InvestmentDetails,ReturnMultiple,IRR,MoreInfoReturns,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,ValuationMoreInfo,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare";    
 }
 $expval=explode(",",$exportvalue);
 // end T960
@@ -943,10 +943,10 @@ if(in_array("PortfolioCompany", $expval))
     {
         echo "Price Per Share"."\t";
     }
-    if(in_array("LinkforFinancials", $expval))
-    {
-        echo "Link for Financials"."\t";
-    }
+    // if(in_array("LinkforFinancials", $expval))
+    // {
+    //     echo "Link for Financials"."\t";
+    // }
 
  print("\n");
 
@@ -1292,10 +1292,10 @@ if(in_array("PortfolioCompany", $expval))
             {
                 $schema_insert .= $price_per_share.$sep;  //price_per_share
             }
-            if(in_array("LinkforFinancials", $expval))
-            {    
-                $schema_insert .= $row[30].$sep; //finlink
-            }
+            // if(in_array("LinkforFinancials", $expval))
+            // {    
+            //     $schema_insert .= $row[30].$sep; //finlink
+            // }
 	     $schema_insert = str_replace($sep."$", "", $schema_insert);
             $schema_insert .= ""."\n";
  		//following fix suggested by Josue (thanks, Josue!)

@@ -3106,7 +3106,7 @@
         <li><input type="checkbox" class="exportcheck" name="skills" value="PAT" /> PAT</li>
         <li><input type="checkbox" class="exportcheck" name="skills" value="BookValuePerShare" /> Book Value Per Share</li>
         <li><input type="checkbox" class="exportcheck" name="skills" value="PricePerShare" /> Price Per Share</li>
-        <li><input type="checkbox" class="exportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li>
+        <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li> -->
 
 </ul>
     
