@@ -83,8 +83,17 @@ input[type=text], textarea {
 input[type="radio"],input[type="checkbox"]
 {
     font-size: 14px;
+    float: left;
+      clear: none;
+      margin: 0px 0 0 2px;
 }
-        
+label {
+      /* float: left; */
+      clear: none;
+      display: block;
+      padding: 0px 1em 0px 20px;
+    }
+    
 </style>
 <?php
 require("../dbconnectvi.php");
@@ -270,14 +279,18 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                          else { ?>
                             <input  type="hidden" name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value="<?php echo $myrow["query"] ?>">
                             <?php }?>
-                        <input type="checkbox" id="filter_active"  value="active" <?php echo ($myrow["filter_active"] == 'active') ? 'checked' : ''; ?>><b>Active?</b>
+                            <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
+                                <input type="checkbox" id="filter_active"  value="active" <?php echo ($myrow["filter_active"] == 'active') ? 'checked' : ''; ?>><b style="padding: 8px;">Active?</b>
+                            <?php } else {?> 
+                                <input type="hidden" id="filter_active"  value="" >
+                            <?php }?>
                        
                         <input type="hidden" id="admin_filter"  value="1" <?php echo ($myrow["vi_filter"] == '1') ? 'checked' : ''; ?>><br><br>
                         <p>Filter Type:</p>
                         <input type="radio" id="investments" name="filter_type" value="Investments" <?php echo ($myrow["filter_type"] == 'Investments') ? 'checked' : ''; ?>>
-                        <label for="male">Investments</label><br>
+                        <label for="Investments">Investments</label><br>
                         <input type="radio" id="exit" name="filter_type" value="Exit" <?php echo ($myrow["filter_type"] == 'Exit') ? 'checked' : ''; ?>>
-                        <label for="male">Exit</label><br>
+                        <label for="exit">Exit</label><br>
                         <span id="filterTypeErr"></span><br>
                         <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
                             <input type="hidden" name="companyName" id="companyName" value="Pranion">
@@ -299,13 +312,17 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                             <input  type="hidden" name="filterQuery" rows="4" cols="50" id="filterQuery" placeholder="query" value="">
                             <input type="hidden" name="companyName" id="companyName" value="Venture">
                             <?php }?>
-                        <input type="checkbox" id="filter_active"  value="active" ><b>Active?</b>
+                            <?php if( $_SESSION['name'] == "Vijaya Kumar") {?>
+                                <input type="checkbox" id="filter_active"  value="active" ><b style="padding: 8px;">Active?</b>
+                            <?php } else {?> 
+                                <input type="hidden" id="filter_active"  value="" >
+                            <?php }?>
                         <input   type="hidden" id="admin_filter"  value="1" ><br>
                         <p>Filter Type:</p>
-                        <input type="radio" id="investments" name="filter_type" value="Investments" >
-                        <label for="male">Investments</label><br>
-                        <input type="radio" id="exit" name="filter_type" value="Exit" >
-                        <label for="male">Exit</label><br>
+                        <input type="radio" id="investments" name="filter_type" value="Investments" <?php echo ($myrow["filter_type"] == 'Investments') ? 'checked' : ''; ?>>
+                        <label for="Investments">Investments</label><br>
+                        <input type="radio" id="exit" name="filter_type" value="Exit" <?php echo ($myrow["filter_type"] == 'Exit') ? 'checked' : ''; ?>>
+                        <label for="exit">Exit</label><br>
                         <span id="filterTypeErr"></span><br>
 
                         <input type="button" name="saveFilter" id="saveFilter" value="Save" onclick="saveAdminFilter()"><br><br>
