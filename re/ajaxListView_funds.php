@@ -1,7 +1,7 @@
 <?php
  require_once("../dbconnectvi.php");
  $Db = new dbInvestments();
-
+ include ('checklogin.php');
 $company_cntall=$_POST['totalrecords'];
 $companysql=  urldecode($_POST['sql']);
 $orderby=$_POST['orderby'];

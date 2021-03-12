@@ -4,7 +4,12 @@
         $Db = new dbInvestments();
         
         $search_tag=$_REQUEST['pe_cq'];
- 
+        if(!isset($_SESSION['UserNames']))
+         {
+                  header('Location:../pelogin.php');
+         }
+         else
+         {
      // $tagsql = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$search_tag."%' and tag_type!='Competitor Tags' and tag_type!=''";
         $tagsql = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$search_tag."%' and tag_type!=''";
 
@@ -19,5 +24,5 @@
            }
         }
         echo json_encode($jsonarray);
-
+      }
 ?>

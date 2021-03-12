@@ -2,11 +2,16 @@
 <?php
 
     //session_save_path("/tmp");
-    session_start();
+    //session_start();
 
     require("../dbconnectvi.php");
     $Db = new dbInvestments();
-       
+    if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{    
     //Check Session Id 
     $sesID=session_id();
     $emailid=$_SESSION['UserEmail'];
@@ -390,24 +395,24 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
              $hideWhere = " ";
         }
 
-        $companysql="select pe.MandAId,pe.MandAId,pe.PECompanyId,c.industry,pe.DealTypeId,pe.AcquirerID,peinv_inv.InvestorId,
-        c.companyname,i.industry,sector_business,
+        $companysql="select pe.MandAId,pe.MandAId,pe.PECompanyId,pec.industry,pe.DealTypeId,pe.AcquirerID,peinv_inv.InvestorId,
+        pec.companyname,i.industry,sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
-        pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,
-        EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
+        pe.DealAmount,pec.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,
+        EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
         FROM
         manda_investors as peinv_inv,
         peinvestors as inv,
         manda as pe,dealtypes as dt,
-        pecompanies as c,industry as i,investortype as it
+        pecompanies as pec,industry as i,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'  and  
         pe.Deleted=0 and
         peinv_inv.MandAId=pe.MandAId and dt.DealTypeId=pe.DealTypeId and
-        inv.InvestorId=peinv_inv.InvestorId and c.industry = i.industryid and it.InvestorType=pe.InvestorType
-        and c.PECompanyId=pe.PECompanyId and c.industry != 15 " .$addVCFlagqry.$addhide_pms_qry  .$addDelind.$hideWhere.$comp_industry_id_where.
+        inv.InvestorId=peinv_inv.InvestorId and pec.industry = i.industryid and it.InvestorType=pe.InvestorType
+        and pec.PECompanyId=pe.PECompanyId and pec.industry != 15 " .$addVCFlagqry.$addhide_pms_qry  .$addDelind.$hideWhere.$comp_industry_id_where.
         " AND inv.InvestorId IN($keyword)  order by companyname";
 
-        //echo "<br> Investor search- ".$companysql;
+       // echo "<br> Investor search- ".$companysql;
     }
     elseif($acquirersearch!="")
     {
@@ -1724,7 +1729,7 @@ if(in_array("LinkforFinancials", $expval))
     echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
     print("\n");
-
+    }
 mysql_close();
     mysql_close($cnx);
     ?>

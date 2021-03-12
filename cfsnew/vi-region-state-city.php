@@ -1,5 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
+include "header.php";
+include "sessauth.php";
 //https://www.ventureintelligence.com/cfsnew/vi-region-state-city.php
 error_reporting(0);
 //live

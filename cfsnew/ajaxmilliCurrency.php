@@ -23,6 +23,7 @@ if(!isset($_SESSION)){
 }
 include "header.php";
 include "sessauth.php";
+
 require_once MODULES_DIR."industries.php";
 $industries = new industries();
 require_once MODULES_DIR."plstandard.php";
@@ -1931,7 +1932,7 @@ if(count($FinanceAnnual_cashflow) == 0){
               else
               {
                   ?>      
-                   <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); echo round($tot,2); } ?></td>
+                   <td><?php if($FinanceAnnual[$i][EarninginForeignExchange]==0){echo '-';}else{ $tot=($FinanceAnnual[$i][EarninginForeignExchange]/$convalue); echo numberFormat(round($tot,2)); } ?></td>
            <?php
   }
                 
@@ -2073,4 +2074,4 @@ $(document).ready(function(){
 
 
     </script>
-<?php mysql_close(); ?>
+<?php mysql_close();  ?>

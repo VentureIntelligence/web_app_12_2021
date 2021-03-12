@@ -319,11 +319,10 @@ function checkCompany()
 								<td><textarea name="txtfinlink" rows="3" cols="40"></textarea> </td>
 								</tr>
 
-                                                                <tr>
+                                                                <!-- <tr>
 								<td >&nbsp;Valuation Working</td>
 								<td valign=top><INPUT NAME="txtvaluationworkingpath" TYPE="file" size=50>
-								</td> </tr>
-
+								</td> </tr> -->
 
 
 

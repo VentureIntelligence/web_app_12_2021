@@ -6,6 +6,7 @@ require("checkaccess.php");
   checkaccess( 'upload_league' );
   session_save_path("/tmp");
 session_start();
+$username= $_SESSION[ 'name' ];	
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
 {
 ?>
@@ -74,6 +75,7 @@ function getLeagueImport()
                 $("#popup_main").show();
                 if(data == "File exists"){
                     $('#fileexists').show();
+                    $('#textsucess').html('');
                 } 
                 if(data == "File Format"){
                     $('#fileexists').hide();
@@ -148,6 +150,7 @@ function getLeagueTestImport()
                 $("#popup_main_test").show();
                 if(data == "File exists"){
                     $('#fileexiststest').show();
+                    $('#textsucesstest').html('');
                 } 
                 if(data == "File Format"){
                     $('#fileexiststest').hide();
@@ -297,7 +300,7 @@ function getLeagueTestImport()
         <span class="popup_close"><a href="javascript: void(0);" onClick="closepopup();">X</a></span>
         <div class="popup_content" id="popup_content">
           <p id="textsucess"></p>
-          <div id="fileexists">
+          <div id="fileexists" style="display:none;">
               <p>Filename already exists is the server . Do you want to override the same file.</p> 
               <input type="button" class="btn" value="Yes" onClick="overrideImport(this.value);">
               <input type="button" class="btn" value="No" onClick="overrideImport(this.value);">
@@ -311,7 +314,7 @@ function getLeagueTestImport()
         <span class="popup_close"><a href="javascript: void(0);" onClick="closepopup();">X</a></span>
         <div class="popup_content" id="popup_content">
           <p id="textsucesstest"></p>
-          <div id="fileexiststest">
+          <div id="fileexiststest" style="display:none;">
               <p>Filename already exists is the server . Do you want to override the same file.</p> 
               <input type="button" class="btn" value="Yes" onClick="overrideTestImport(this.value);">
               <input type="button" class="btn" value="No" onClick="overrideTestImport(this.value);">
@@ -343,6 +346,7 @@ function getLeagueTestImport()
                                                     <p>Upload and .xlsx file through the window:</p>
                                                     <div class="upload-sec">
                                                         <input type="file" name="leaguefilepath" class="ip-file">
+                                                        <input type="hidden" name="username" value="<?php echo $username; ?>">
                                                     </div>
                                                     <div class="btn-sec text-right">
                                                         <input type="button" class="btn" value="Upload" onClick="getLeagueImport();">
@@ -357,6 +361,7 @@ function getLeagueTestImport()
                                                     <p>Upload and .xlsx file through the window:</p>
                                                     <div class="upload-sec">
                                                         <input type="file" name="leaguefilepathtest" class="ip-file-test">
+                                                        <input type="hidden" name="username" value="<?php echo $username; ?>">
                                                     </div>
                                                     <div class="btn-sec text-right">
                                                         <input type="button" class="btn" value="Upload" onClick="getLeagueTestImport();">

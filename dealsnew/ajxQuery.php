@@ -10,6 +10,12 @@
 	
 	//$rng = '0-5#5-10#10-15#15-25#25-50#50-100#100-200#200';
 	//$_POST['typ']=4;
+	if(!isset($_SESSION['UserNames']))
+   {
+           header('Location:../pelogin.php');
+   }
+   else
+   {
 	if (@$_POST['typ']==4){
 		$data = array();
 		$sqlarr = explode('#',$sql);
@@ -55,5 +61,6 @@
 	
 	echo json_encode($data);
 	mysql_close();
-    mysql_close($cnx);
+	mysql_close($cnx);
+}
 ?>

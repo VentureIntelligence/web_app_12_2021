@@ -1,7 +1,17 @@
 <?php
 require_once("../dbconnectvi.php");
 $Db = new dbInvestments();
+if(!isset($_SESSION['username']))
 
+        {
+
+                header('Location:../cfsnew/login.php');
+
+        }
+
+        else
+
+        {
 $pe_data='';
 
 if($_POST['cin']!=''){
@@ -354,4 +364,5 @@ if($_POST['cin']!=''){
             }
 }
 echo json_encode(array( 'count'=> count($pedata), 'html' => $pe_data ) );
+        }
 ?>

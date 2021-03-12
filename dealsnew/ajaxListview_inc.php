@@ -31,7 +31,12 @@ $investorFlag = $_POST[ 'investor' ];
 $companyFlag = $_POST[ 'company' ];
 $tagsearchFlag = $_POST[ 'tagsearch' ];
 
-
+if(!isset($_SESSION['UserNames']))
+        {
+                header('Location:../pelogin.php');
+        }
+        else
+        {
 //==============================junaid===========================
 if(!empty($_POST[ 'uncheckRows' ])){
     
@@ -256,6 +261,7 @@ else
                                         <?php
                                         }
                                 }
+                            }
                                 ?>
         </tbody>
     </table>

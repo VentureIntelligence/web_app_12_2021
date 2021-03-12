@@ -125,6 +125,21 @@
         margin: 10px;
         font-weight: 600;
     }
+    .sub_api_partners_btn{
+        color: #fff;
+        background: #6e5d51;
+        padding: 15px 70px;
+        margin: 10px;
+        font-weight: 600;
+    }
+    .sub_api_partners_btn:hover{
+        color: #fff;
+        background: #6e5d51;
+        padding: 15px 70px;
+        margin: 10px;
+        font-weight: 600;
+        text-decoration: none;
+    }
     .partners_type{
         margin-top:50px;
     }
@@ -164,6 +179,7 @@
         <div class="partners_type">
             <a href="create-partner.php?type=internal_partner" class="internal_partners_btn"> Internel Partners <i class="fa fa-sign-in" aria-hidden="true"></i></a>
             <a href="create-partner.php?type=external_partner" class="external_partners_btn"> External Partners <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+            <a href="create-partner.php?type=sub_api_partner" class="sub_api_partners_btn"> Sub API Partners <i class="fa fa-sign-in" aria-hidden="true"></i></a>
         </div>
         {* <div class="external_partners">
             <a href="#" class="external_partners_btn"> Internel Partners</a>

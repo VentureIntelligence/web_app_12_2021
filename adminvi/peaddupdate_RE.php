@@ -207,7 +207,7 @@
 										//	echo "<br>Insert RE investment :".$insertcompanysql;
 											if ($rsinsert = mysql_query($insertcompanysql))
 											{
-												//echo "<br>Insert PE-" .$insertcompanysql;
+												//echo " Deal inserted ";
 												 foreach ($investorString as $inv)
 													{
 														if(trim($inv)!=="")
@@ -250,7 +250,7 @@
 												$datedisplay =  $fullDateAfter; //(date("Y F", $fullDateAfter));
 											?>
 											<Br>
-											<tr bgcolor="#00CC66"> <td width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $datedisplay . " - " .$portfoliocompany ; ?>&nbsp; --> Inserted</td> </tr>
+											<tr bgcolor="#00CC66"> <td width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $datedisplay . " - " .$portfoliocompany ; ?>&nbsp; --> Deal Inserted</td> </tr>
 											<?php
 											}
 											else
@@ -264,7 +264,7 @@
 									elseif($investment_cnt>= 1)
 									{
 									?>
-									<tr bgcolor="C0C0C0"> <td width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp; -->PE Deal already exists</td> </tr>
+									<tr bgcolor="C0C0C0"> <td width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp; -->RE Deal already exists</td> </tr>
 									<?php
 									}
 								}//if companyid >0 loop ends
@@ -325,7 +325,7 @@ function returnDate($mth,$yr)
 	function insert_company($companyname,$industryId,$web,$regionId)
 	{
 		$dbpecomp = new dbInvestments();
-		$getPECompanySql = "select PECompanyId from REcompanies where companyname= '$companyname'";
+		$getPECompanySql = "select PECompanyId from REcompanies where companyname = '$companyname'";
 		//echo "<br>select--" .$getPECompanySql;
 		if ($rsgetPECompanyId = mysql_query($getPECompanySql))
 		{

@@ -1,11 +1,16 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
- session_save_path("/home/users/web/b1284/ipw.ventureintelligence/phpsessions");
-	session_start();
+//  session_save_path("/home/users/web/b1284/ipw.ventureintelligence/phpsessions");
+// 	session_start();
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
-
+	if(!isset($_SESSION['UserNames']))
+	{
+	header('Location:../pelogin.php');
+	}
+	else
+	{ 
 		//include('onlineaccount.php');
 		$displayMessage="";
 		$mailmessage="";
@@ -294,7 +299,7 @@
 				//		}
 				//else
 				//	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;
-
+				}
 mysql_close();
     mysql_close($cnx);
     ?>

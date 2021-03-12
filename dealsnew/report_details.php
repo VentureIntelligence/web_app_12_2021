@@ -3,6 +3,12 @@
     $topNav = 'Report';
     require_once("../dbconnectvi.php");
     $Db = new dbInvestments();
+    if(!isset($_SESSION['UserNames']))
+    {
+        header('Location:../pelogin.php');
+    }
+    else
+    {	
     include ('access_right.php');
     include_once('report_search.php');
     $id = $_GET['id'];
@@ -40,4 +46,4 @@
                     return  false;
                 }); 
     </script>
-   
+<?php } ?>   
