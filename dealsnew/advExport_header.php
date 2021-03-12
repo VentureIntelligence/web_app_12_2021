@@ -804,7 +804,7 @@
                                        <ul class="exportcolumn">
                                           <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="Company" checked/> <span> Company</span></li> -->
                                           <li><input type="checkbox" class="exportcheck" name="skills" value="Company"/> <span> Company</span></li>
-                                          <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li> -->
+                                          <li><input type="checkbox" class="exportcheck" name="skills" value="CIN" /> CIN</li>
                                           <li>
                                              <input type="checkbox" class="exportcheck" name="skills" value="Company Type" />
                                              <select NAME="comptype" id="comptype" onChange="getcompanyType()" >
@@ -1119,7 +1119,7 @@
                                           <li><input type="checkbox" class="exportcheck" name="skills" value="Cash & Cash Equ. (INR Cr)" /> Cash & Cash Equ. (INR Cr)</li>
                                           <li><input type="checkbox" class="exportcheck" name="skills" value="Book Value Per Share" /> Book Value Per Share</li>
                                           <li><input type="checkbox" class="exportcheck" name="skills" value="Price Per Share" /> Price Per Share</li>
-                                          <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li>
+                                          <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li> -->
                                        </ul>
                                     </div>
                                     <br>
@@ -1325,6 +1325,7 @@
                                     <div class="row ml-1">
                                        <ul class="exitexportcolumn">
                                           <li><input type="checkbox" class="exitexportcheck" name="skills" value="PortfolioCompany"/> <span>Portfolio Company</span></li>
+                                          <li><input type="checkbox" class="exitexportcheck" name="skills" value="CIN"/> <span>CIN</span></li>
                                           <li><input type="checkbox" class="exitexportcheck" name="skills" value="YearFounded" /> Year Founded</li>
                                           <li><input type="checkbox" class="exitexportcheck" name="skills" value="ExitingInvestors" /> Exiting Investors</li>
                                           <li>
@@ -1467,7 +1468,7 @@
                                           <li><input type="checkbox" class="exitexportcheck" name="skills" value="PAT" /> PAT (INR Cr)</li>
                                           <li><input type="checkbox" class="exitexportcheck" name="skills" value="BookValuePerShare" /> Book Value Per Share</li>
                                           <li><input type="checkbox" class="exitexportcheck" name="skills" value="PricePerShare" /> Price Per Share</li>
-                                          <li><input type="checkbox" class="exitexportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li>
+                                          <!-- <li><input type="checkbox" class="exitexportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li> -->
                                        </ul>
                                     </div>
                                     <br>
