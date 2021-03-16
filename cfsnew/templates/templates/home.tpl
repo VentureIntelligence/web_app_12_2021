@@ -146,14 +146,30 @@ padding:0px 10px; }
         .btn:focus {
             outline: none;
         }
+        .list-tab{
+            height:39px;
+            overflow: initial;
+        }
+        .limit{
+            width: 62px !important;
+        }
     </style>
 {/literal}
 <div class="backdrop"></div>
+ 
 <div class="list-tab"  style="margin-top: 26px;">
+
 <ul>
 <li><a  href="home.php" class="active postlink"><i></i> LIST VIEW</a></li>
 {* <li><a class="postlink" href="{if count($SearchResults[List]) gt 0}details.php?vcid={$SearchResults[0].Company_Id}{else}#{/if}"><i class="i-detail-view"></i> DETAIL VIEW</a></li> *}
-</ul><div class="page-no" style="position: initial;"><span>(in Rs. Cr) &nbsp;&nbsp;</span></div>
+</ul><div class="page-no" style="position: initial;width">
+<select name="currency" class="limit currency"  onchange="this.form.submit();">
+    <option value="INR" {if $currency eq "INR"}selected{/if}>INR</option>
+    <option value="USD" {if $currency eq "USD"}selected{/if}>USD</option>
+  </select>
+  {if $currency eq "INR"}<span>(in Rs. Cr) &nbsp;&nbsp;</span>{/if}
+  {if $currency eq "USD"}<span>(in $ M) &nbsp;&nbsp;</span>{/if}
+  </div>
 </div>
 
 <div class="companies-list">
@@ -178,34 +194,36 @@ padding:0px 10px; }
 <tbody>  
   
   {section name=List loop=$SearchResults}  
+    {assign var=foo value=$SearchResults[List].FY|replace:' ':'_'}
+   
     
       <tr><td class="name-list" style="text-transform: uppercase"> <span class="has-tip" data-tooltip="" title="{if $SearchResults[List].ListingStatus eq '0'}Both{elseif $SearchResults[List].ListingStatus eq '1'} Listed{elseif $SearchResults[List].ListingStatus eq '2'} Privately held(Ltd){elseif $SearchResults[List].ListingStatus eq '3'} Partnership {elseif $SearchResults[List].ListingStatus eq '4'} Proprietorship{/if}">{if $SearchResults[List].ListingStatus eq '0'}Both{elseif $SearchResults[List].ListingStatus eq '1'} L{elseif $SearchResults[List].ListingStatus eq '2'} PVT{elseif $SearchResults[List].ListingStatus eq '3'} PART {elseif $SearchResults[List].ListingStatus eq '4'} PROP{/if}</span>
               {if $SearchResults[List].COMPANYNAME}
-            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}" title="Click here to view Annual Report" 
+            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}&currencyval={$currency}" title="Click here to view Annual Report" 
          
         >{$SearchResults[List].SCompanyName|lower|capitalize}</a>	
 
         {else}
-        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}" title="Click here to view Annual Report" 
+        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&currencyval={$currency}" title="Click here to view Annual Report" 
        
         >{$SearchResults[List].SCompanyName|lower|capitalize}</a>
 
         {/if}
               </td>
-    <td>{if $SearchResults[List].TotalIncome eq 0}&nbsp;{elseif $SearchResults[List].GrowthPerc_Id or $SearchResults[List].CAGR_Id}{$SearchResults[List].TotalIncome}{else}{math equation="x / y" x=$SearchResults[List].TotalIncome y=10000000 format="%.2f"}{/if}</td>
-    <td>{if $SearchResults[List].EBITDA eq 0}&nbsp;{elseif $SearchResults[List].GrowthPerc_Id or $SearchResults[List].CAGR_Id}{$SearchResults[List].EBITDA}{else}{math equation="x / y" x=$SearchResults[List].EBITDA y=10000000 format="%.2f"}{/if}</td>
-    <td>{if $SearchResults[List].PAT eq 0}&nbsp;{elseif $SearchResults[List].GrowthPerc_Id or $SearchResults[List].CAGR_Id}{$SearchResults[List].PAT}{else}{math equation="x / y" x=$SearchResults[List].PAT y=10000000 format="%.2f"}{/if}</td>
+    <td>{if $SearchResults[List].TotalIncome eq 0}&nbsp;{elseif $SearchResults[List].GrowthPerc_Id or $SearchResults[List].CAGR_Id}{$SearchResults[List].TotalIncome}{elseif $currency eq "INR"}{math equation="x / y" x=$SearchResults[List].TotalIncome y=10000000 format="%.2f"}{elseif $currency eq "USD"}{math equation="(x / z)/y" x=$SearchResults[List].TotalIncome y=1000000 z=$yearcurrency.$foo format="%.2f"}{/if}</td>
+    <td>{if $SearchResults[List].EBITDA eq 0}&nbsp;{elseif $SearchResults[List].GrowthPerc_Id or $SearchResults[List].CAGR_Id}{$SearchResults[List].EBITDA}{elseif $currency eq "INR"}{math equation="x / y" x=$SearchResults[List].EBITDA y=10000000 format="%.2f"}{elseif $currency eq "USD"}{math equation="(x / z)/y" x=$SearchResults[List].EBITDA y=1000000 z=$yearcurrency.$foo format="%.2f"}{/if}</td>
+    <td>{if $SearchResults[List].PAT eq 0}&nbsp;{elseif $SearchResults[List].GrowthPerc_Id or $SearchResults[List].CAGR_Id}{$SearchResults[List].PAT}{elseif $currency eq "INR"}{math equation="x / y" x=$SearchResults[List].PAT y=10000000 format="%.2f"}{elseif $currency eq "USD"}{math equation="(x / z)/y" x=$SearchResults[List].PAT y=1000000 z=$yearcurrency.$foo format="%.2f"}{/if}</td>
     {if $SearchResults[List].FY gt 0}
     <td>
         {assign var="FY" value=" "|explode:$SearchResults[List].FY}
         {if $SearchResults[List].COMPANYNAME}
-            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}" title="Click here to view Annual Report" 
+            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}&currencyval={$currency}" title="Click here to view Annual Report" 
          
         >FY{$FY[0]} </a>	(upto {if $SearchResults[List].FYValue eq 1} {$SearchResults[List].FYValue} Year {elseif $SearchResults[List].FYValue neq ''} {$SearchResults[List].FYValue} Years{/if} {if $SearchResults[List].GFY eq 1} {$SearchResults[List].GFY} Year {elseif $SearchResults[List].GFY neq ''} {$SearchResults[List].GFY} Years{/if} )	
 
         {else}
         
-        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}" title="Click here to view Annual Report" 
+        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&currencyval={$currency}" title="Click here to view Annual Report" 
        
         >FY{$FY[0]} </a>	(upto {if $SearchResults[List].FYValue eq 1} {$SearchResults[List].FYValue} Year {elseif $SearchResults[List].FYValue neq ''} {$SearchResults[List].FYValue} Years{/if} {if $SearchResults[List].GFY eq 1} {$SearchResults[List].GFY} Year {elseif $SearchResults[List].GFY neq ''} {$SearchResults[List].GFY} Years{/if} )	
         {/if}
@@ -252,9 +270,12 @@ padding:0px 10px; }
     {else}
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if}    
+             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
+            <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
              <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
-            <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
+            <input type="hidden" name="currency" id="currency" value="{$currency}"/>     
             <input type="hidden" id="exportexcel" name="exportexcel" value="{$searchexport}"/>
             <div class="btn-cnt p10" style="float:right;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>
@@ -267,7 +288,8 @@ padding:0px 10px; }
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if} 
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
-            <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="exportenable" id="exportenable" value="0"/>   
+            <input type="hidden" name="currency" id="currency" value="{$currency}"/>  
             <input type="hidden" id="exportexcel" name="exportexcel1" value="{$searchexport2}"/>
             <div class="btn-cnt p10" style="float:right;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>
@@ -281,6 +303,7 @@ padding:0px 10px; }
     {/if} 
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="currency" id="currency" value="{$currency}"/> 
             <input type="hidden" id="exportexcel" name="exportexcel2" value="{$searchexport3}"/>
             <div class="btn-cnt p10" style="float:right;"><input  class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
     </form>
@@ -403,7 +426,7 @@ padding:0px 10px; }
                 $(".backdrop").hide();
             }
         })
-       
+        
         function setCookie(cname, cvalue, exdays) {
             var d = new Date();
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

@@ -1366,15 +1366,10 @@ mysql_close();
 ?>
 <?php
 //session_save_path("/tmp");
-//session_start();
+session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
-if(!isset($_SESSION['UserNames']))
-{
-header('Location:../pelogin.php');
-}
-else
-{ 
+
 function updateDownload($res) {
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
@@ -1452,24 +1447,99 @@ if( !empty( $_POST[ 'split_sql1' ] ) ) {
     
 }
 
-$keyword = $_POST['txthideinvestor'];
+$keyword = $_POST['investorvalue'];
+$companytype = $_POST['companytype'];
+$month1=$_POST['month1'];
+$month2=$_POST['month2'];
+$year1=$_POST['year1'];
+$year2=$_POST['year2'];
+$startDate=$year1.'-'.$month1.'-01';
+$endYear=$year2.'-'.$month2.'-31';
+$industry=$_POST['industry'];
+$city=$_POST['city'];
+$state=$_POST['state'];
+$region=$_POST['region'];
+$exitStatus=$_POST['exitStatus'];
+$round=$_POST['round'];
+$stage=$_POST['stage'];
+$investorType=$_POST['investorType'];
+//echo json_encode(explode(",",$industry));exit();
 
-if($keyword!=''){
-    $sql = str_replace('GROUP BY pe.PEId', "", $sql);
-}else{
-    $sql = $sql;
+//echo $_POST['companytype'];exit();
+if($companytype != '' && $companytype != '--')
+{
+   // echo 'hai';exit();
+$companyTypeStatus="and pe.listing_status='".$companytype."'";
 }
-/*
-echo $sql;
-exit();*/
+//echo $companyTypeStatus;exit();
+if($industry != '')
+{
+   $industryType="and pec.industry IN (".$industry.")";
+}
+if($city != '')
+{
+    $query="select * from city where city_id IN (".$city.")";
+    $sqlSelResult = mysql_query($query) or die(mysql_error());
+
+    while ($row = mysql_fetch_assoc($sqlSelResult)) {
+    $geti .= $row['city_name'] ."," ;;
+    }
+    $investorvalArray = explode (",", $geti);
+
+    $cityType='and pec.city IN ("'. implode('","', $investorvalArray) .'")';
+}
+if($state)
+{
+    $stateId="and pec.stateid IN (".$state.")";
+
+}
+if($region != '')
+{
+    $RegionId="and pec.RegionId IN (".$region.")";
+}
+if($exitStatus != '')
+{
+    $Exit_Status="and Exit_Status IN (".$exitStatus.")";
+}
+if($round != '')
+{
+    $roundtype=explode(",",$round);
+    if (count($roundtype) > 0) {
+     $roundSql = '';
+        foreach ($roundtype as $rounds) {
+            $roundSql .= " pe.round LIKE '" . $rounds . "' or  pe.round LIKE '" . $rounds . "%' or pe.round LIKE '%" . $rounds . "%' or";
+        }
+        if ($roundSql != '') {
+            $roundtype = 'and (' . trim($roundSql, ' or ') . ')';
+        }
+    }
+}
+if($stage != '')
+{
+$StageId="and pe.StageId IN (".$stage.")";
+}
+if($investorType != ''  && $investorType != '--')
+{
+$InvestorType="and pe.InvestorType='".$investorType."'";
+}
+//echo $_POST['exitStatus'];exit();
+if($_POST['invquery'] != "")
+{
+    $sql= $_POST['invquery'];
+}
+else{
+$sql="SELECT pe.PECompanyID as PECompanyId,pec.companyname,pec.industry,pe.dates as dates,i.industry as industry, pec.sector_business as sector_business,amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%b-%Y') as dealperiod, pec.website,pec.city,pec.region,pe.PEId,pe.comment,pe.MoreInfor,hideamount,hidestake,pe.StageId,SPV,pec.RegionId,AggHide,pe.Exit_Status, (SELECT GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor, (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId JOIN industry AS i ON pec.industry = i.industryid JOIN stage AS s ON s.StageId=pe.StageId WHERE peinv_inv.InvestorId IN(".$keyword.")  and dates between '".$startDate."' and '".$endYear."' ".$companyTypeStatus." ".$industryType." ".$cityType." ".$stateId." ".$RegionId." ".$Exit_Status." ".$roundtype." ".$StageId." ".$InvestorType." and pe.Deleted=0 AND pe.SPV=0 and pe.AggHide=0 and pec.industry !=15 AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) order by dates desc,companyname asc";
+}
+//echo $sql;exit();
 //execute query
 $result = mysql_query($sql) or die(mysql_error());
 
 // Start T960
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
-    $exportvalue = "Company,CIN,Company Type,Industry,Sector,Amount(US".'$M'."),Amount(INR Cr),Round,Stage,Investors,Investor Type,Stake (%),Date,Exit Status,Website,Year Founded,City,State,Region,Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share";    
-    //$exportvalue = "Company,Company Type,Industry,Sector,Amount(US".'$M'."),Amount(INR Cr),Round,Stage,Investors,Investor Type,Stake (%),Date,Exit Status,Website,Year Founded,City,State,Region,Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share,Link for Financials";    
+    $exportvalue = "Company,CIN,Company Type,Industry,City,State,Region,Exit Status,Round,Stage,Investor Type,Stake (%),Investors,Date,Website,Year Founded,Sector,Amount(US".'$M'."),Amount(INR Cr),Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share";    
+    //$exportvalue = "Company,Company Type,Industry,City,State,Region,Exit Status,Round,Stage,Investor Type,Stake (%),Investors,Date,Website,Year Founded,Sector,Amount(US".'$M'."),Amount(INR Cr),Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share,Link for Financials";    
+
 }
 $expval=explode(",",$exportvalue);
 
@@ -1900,186 +1970,192 @@ $col = 0;
 
 
     // T960
+    
+
     if(in_array("Company", $rowArray))
-    {
-        $DataList[] = $companyName;
-    }
-    if(in_array("CIN", $rowArray))
-    {
-        $DataList[] = $row[55];
-    }
-    if(in_array("Company Type", $rowArray))
-    {
-        $DataList[] = $listing_status_display;
-    }
-    if(in_array("Industry", $rowArray))
-    {
-        $DataList[] = $row[8];
-    }
-    if(in_array("Sector", $rowArray))
-    {
-        $DataList[] = $row[9];
-    }
-    if(in_array("Amount(US".'$M'.")", $rowArray))
-    {
-        $DataList[] = $hideamount;
-    }
-    if(in_array("Amount(INR Cr)", $rowArray))
-    {
-        $DataList[] = $hideamount_INR;
-    }
-    if(in_array("Round", $rowArray))
-    {
-        $DataList[] = $row[11];
-    }
-    if(in_array("Stage", $rowArray))
-    {
-        $DataList[] = $row[12];
-    }
-    if(in_array("Investors", $rowArray))
-    {
-        $DataList[] = $investorString;
-    }
-    if(in_array("Investor Type", $rowArray))
-    {
-        $DataList[] = $row[13];
-    }
-    if(in_array("Stake (%)", $rowArray))
-    {
-        $DataList[] = $hidestake;
-    }
-    if(in_array("Date", $rowArray))
-    {
-        $DataList[] = $row[15];
-    }
-    if(in_array("Exit Status", $rowArray))
-    {
-        $DataList[] = $exitstatusis;
-    }
-    if(in_array("Website", $rowArray))
-    {
-        $DataList[] = $webdisplay;
-    }
-    if(in_array("Year Founded", $rowArray))
-    {
-        $DataList[] = $yearfounded;
-    }
-    if(in_array("City", $rowArray))
-    {
-        $DataList[] = $row[17];
-    }
-    if(in_array("State", $rowArray))
-    {
-        $DataList[] = $row[54];
-    }
-    if(in_array("Region", $rowArray))
-    {
-        $DataList[] = $row[18];
-    }
-    if(in_array("Advisor-Company", $rowArray))
-    {
-        $DataList[] = $advisorCompanyString;
-    }
-    if(in_array("Advisor-Investors", $rowArray))
-    {
-        $DataList[] = $advisorInvestorString;
-    }
-    if(in_array("More Details", $rowArray))
-    {
-        $DataList[] = $resmoreinfo;
-    }
-    if(in_array("Link", $rowArray))
-    {
-        $DataList[] = trim($row[24]);
-    }
-    if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
-    {
-        $DataList[] = $pre_company_valuation;
-    }
-    if(in_array("Revenue Multiple (Pre)", $rowArray))
-    {
-        $DataList[] = $pre_revenue_multiple;
-    }
-    if(in_array("EBITDA Multiple (Pre)", $rowArray))
-    {
-        $DataList[] = $pre_ebitda_multiple;
-    }
-    if(in_array("PAT Multiple (Pre)", $rowArray))
-    {
-        $DataList[] = $pre_pat_multiple;
-    }
-    if(in_array("Post Money Valuation (INR Cr)", $rowArray))
-    {
-        $DataList[] = $dec_company_valuation;
-    }
-    if(in_array("Revenue Multiple (Post)", $rowArray))
-    {
-        $DataList[]= $dec_revenue_multiple;
-    }
-    if(in_array("EBITDA Multiple (Post)", $rowArray))
-    {
-        $DataList[]= $dec_ebitda_multiple;
-    }
-    if(in_array("PAT Multiple (Post)", $rowArray))
-    {
-        $DataList[] = $dec_pat_multiple;
-    }
-    if(in_array("Enterprise Valuation (INR Cr)", $rowArray))
-    {
-        $DataList[]= $ev_company_valuation;
-    }
-    if(in_array("Revenue Multiple (EV)", $rowArray))
-    {
-        $DataList[]= $ev_revenue_multiple;
-    }
-    if(in_array("EBITDA Multiple (EV)", $rowArray))
-    {
-        $DataList[]= $ev_ebitda_multiple;
-    }
-    if(in_array("PAT Multiple (EV)", $rowArray))
-    {
-        $DataList[]= $ev_pat_multiple;
-    }
-    if(in_array("Price to Book", $rowArray))
-    {
-        $DataList[] = $price_to_book;
-    }
-    if(in_array("Valuation", $rowArray))
-    {
-        $DataList[]= trim($row[26]);
-    }
-    if(in_array("Revenue (INR Cr)", $rowArray))
-    {
-        $DataList[]= $dec_revenue;
-    }
-    if(in_array("EBITDA (INR Cr)", $rowArray))
-    {
-        $DataList[] = $dec_ebitda;
-    }
-    if(in_array("PAT (INR Cr)", $rowArray))
-    {
-        $DataList[]= $dec_pat;
-    }
-    if(in_array("Total Debt (INR Cr)", $rowArray))
-    {
-        $DataList[]= $Total_Debt;
-    }
-    if(in_array("Cash & Cash Equ. (INR Cr)", $rowArray))
-    {
-        $DataList[]= $Cash_Equ;
-    }
-    if(in_array("Book Value Per Share", $rowArray))
-    {
-        $DataList[]= $book_value_per_share;
-    }
-    if(in_array("Price Per Share", $rowArray))
-    {
-        $DataList[]= $price_per_share;
-    }
-    // if(in_array("Link for Financials", $rowArray))
-    // {
-    //     $DataList[]= $row[27];
-    // }
+        {
+            $DataList[] = $companyName;
+        }
+        if(in_array("CIN", $rowArray))
+        {
+            $DataList[] = $row[55];
+        }
+        if(in_array("Company Type", $rowArray))
+        {
+            $DataList[] = $listing_status_display;
+        }
+        if(in_array("Industry", $rowArray))
+        {
+            $DataList[] = $row[8];
+        }
+        if(in_array("City", $rowArray))
+        {
+            $DataList[] = $row[17];
+        }
+        if(in_array("State", $rowArray))
+        {
+            $DataList[] = $row[54];
+        }
+        if(in_array("Region", $rowArray))
+        {
+            $DataList[] = $row[18];
+        }
+        if(in_array("Exit Status", $rowArray))
+        {
+            $DataList[] = $exitstatusis;
+        }
+       if(in_array("Round", $rowArray))
+        {
+            $DataList[] = $row[11];
+        }
+        if(in_array("Stage", $rowArray))
+        {
+            $DataList[] = $row[12];
+        }
+       if(in_array("Investor Type", $rowArray))
+        {
+            $DataList[] = $row[13];
+        }
+     if(in_array("Stake (%)", $rowArray))
+        {
+            $DataList[] = $hidestake;
+        }
+     if(in_array("Investors", $rowArray))
+        {
+            $DataList[] = $investorString;
+        }
+        if(in_array("Date", $rowArray))
+        {
+            $DataList[] = $row[15];
+        }
+    
+        if(in_array("Website", $rowArray))
+        {
+            $DataList[] = $webdisplay;
+        }
+        if(in_array("Year Founded", $rowArray))
+        {
+            $DataList[] = $yearfounded;
+        }
+        if(in_array("Sector", $rowArray))
+        {
+            $DataList[] = $row[9];
+        }
+        if(in_array("Amount(US".'$M'.")", $rowArray))
+        {
+            $DataList[] = $hideamount;
+        }
+        if(in_array("Amount(INR Cr)", $rowArray))
+        {
+            $DataList[] = $hideamount_INR;
+        }
+     
+    
+    
+        if(in_array("Advisor-Company", $rowArray))
+        {
+            $DataList[] = $advisorCompanyString;
+        }
+        if(in_array("Advisor-Investors", $rowArray))
+        {
+            $DataList[] = $advisorInvestorString;
+        }
+        if(in_array("More Details", $rowArray))
+        {
+            $DataList[] = $resmoreinfo;
+        }
+        if(in_array("Link", $rowArray))
+        {
+            $DataList[] = trim($row[24]);
+        }
+        if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
+        {
+            $DataList[] = $pre_company_valuation;
+        }
+        if(in_array("Revenue Multiple (Pre)", $rowArray))
+        {
+            $DataList[] = $pre_revenue_multiple;
+        }
+        if(in_array("EBITDA Multiple (Pre)", $rowArray))
+        {
+            $DataList[] = $pre_ebitda_multiple;
+        }
+        if(in_array("PAT Multiple (Pre)", $rowArray))
+        {
+            $DataList[] = $pre_pat_multiple;
+        }
+        if(in_array("Post Money Valuation (INR Cr)", $rowArray))
+        {
+            $DataList[] = $dec_company_valuation;
+        }
+        if(in_array("Revenue Multiple (Post)", $rowArray))
+        {
+            $DataList[]= $dec_revenue_multiple;
+        }
+        if(in_array("EBITDA Multiple (Post)", $rowArray))
+        {
+            $DataList[]= $dec_ebitda_multiple;
+        }
+        if(in_array("PAT Multiple (Post)", $rowArray))
+        {
+            $DataList[] = $dec_pat_multiple;
+        }
+        if(in_array("Enterprise Valuation (INR Cr)", $rowArray))
+        {
+            $DataList[]= $ev_company_valuation;
+        }
+        if(in_array("Revenue Multiple (EV)", $rowArray))
+        {
+            $DataList[]= $ev_revenue_multiple;
+        }
+        if(in_array("EBITDA Multiple (EV)", $rowArray))
+        {
+            $DataList[]= $ev_ebitda_multiple;
+        }
+        if(in_array("PAT Multiple (EV)", $rowArray))
+        {
+            $DataList[]= $ev_pat_multiple;
+        }
+        if(in_array("Price to Book", $rowArray))
+        {
+            $DataList[] = $price_to_book;
+        }
+        if(in_array("Valuation", $rowArray))
+        {
+            $DataList[]= trim($row[26]);
+        }
+        if(in_array("Revenue (INR Cr)", $rowArray))
+        {
+            $DataList[]= $dec_revenue;
+        }
+        if(in_array("EBITDA (INR Cr)", $rowArray))
+        {
+            $DataList[] = $dec_ebitda;
+        }
+        if(in_array("PAT (INR Cr)", $rowArray))
+        {
+            $DataList[]= $dec_pat;
+        }
+        if(in_array("Total Debt (INR Cr)", $rowArray))
+        {
+            $DataList[]= $Total_Debt;
+        }
+        if(in_array("Cash & Cash Equ. (INR Cr)", $rowArray))
+        {
+            $DataList[]= $Cash_Equ;
+        }
+        if(in_array("Book Value Per Share", $rowArray))
+        {
+            $DataList[]= $book_value_per_share;
+        }
+        if(in_array("Price Per Share", $rowArray))
+        {
+            $DataList[]= $price_per_share;
+        }
+        // if(in_array("Link for Financials", $rowArray))
+        // {
+        //     $DataList[]= $row[27];
+        // }
     
     $arrayData[] = $DataList;
 
@@ -2186,7 +2262,7 @@ header ('Pragma: public'); // HTTP/1.0
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('php://output');
 exit();
-        }
+
 //		}
 //else
 //	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;

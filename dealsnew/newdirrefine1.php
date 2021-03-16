@@ -542,7 +542,7 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
                         
                         ?>
                         
-                        <option value="<?php echo $id; ?>" id="country_<?php echo $id; ?>" <?php echo $indSel; ?>><?php echo $name; ?></option>
+                        <option value="<?php echo $id; ?>" id="country_<?php echo $id; ?>" <?php echo $indSel; ?>><?php echo $name; ?> </option>
                     <?php } else { ?>
                         
                     <?php } 
