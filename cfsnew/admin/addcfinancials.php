@@ -1627,8 +1627,11 @@ function combineAllExcel($companyProfileID,$cprofile,$industries,$sectors,$city,
 	$Email = trim(stripslashes($Email)) . $sep; //Email
 
 	$websit = trim($CompanyProfile['Website']) . $sep; //websit
-	$whererunType = "Company_Id =".$companyID;
-	$runType = $cprofile->getrunType( $whererunType );
+	$detailsWhere = 'Company_Id='.$_GET['vcid'];
+
+	$CINDetails = $cprofile->getcomCIN( $detailsWhere );
+	$whererunType .= "cin = '".$CINDetails['CIN']."'";
+		$runType = $cprofile->getrunType( $whererunType );
 
 	if($runType['run_type'] == 1){
 		$runTypetext = "XBRL";
