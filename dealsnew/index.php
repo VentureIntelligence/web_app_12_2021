@@ -1840,7 +1840,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                                 $comp_industry_id_where
                                             GROUP BY pe.PEId ";
     $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business,
-                 amount, round, s.stage,  stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod , pec.website, pec.city,
+                 amount, round, s.stage,  stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod , pec.website, pec.city,
                  pec.region,pe.PEId,pe.comment,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId ,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,
                                  (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                  FROM peinvestments AS pe, industry AS i, pecompanies AS pec,stage as s
@@ -1948,7 +1948,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     GROUP BY pe.PEId";
 
         $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,amount,pe.Amount_INR, round, s.stage,  stakepercentage, 
-    DATE_FORMAT( dates, '%b-%Y' ) as dealperiod , pec.website, pec.city,pec.region,pe.PEId,pe.comment,MoreInfor,hideamount,hidestake,pe.StageId ,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
+    DATE_FORMAT( dates, '%M-%Y' ) as dealperiod , pec.website, pec.city,pec.region,pe.PEId,pe.comment,MoreInfor,hideamount,hidestake,pe.StageId ,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
     (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
     FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID
     JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId
@@ -2018,7 +2018,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                             $comp_industry_id_where GROUP BY pe.PEId ";
 
     $exportSplitSql = "SELECT distinct pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,
-                            pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,
+                            pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,
                             pec.website, pec.city, pec.region, pe.PEId,
                             pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,
                             (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
@@ -2202,7 +2202,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                 GROUP BY pe.PEId ";
 
     $exportSplitSql = "SELECT distinct pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,pe.amount, pe.Amount_INR, pe.round, s.Stage,  
-                    pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,(SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
+                    pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,(SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                 FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID
                 JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId
                 JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
@@ -2248,7 +2248,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                                 $comp_industry_id_where
                                                 GROUP BY pe.PEId ";
     $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,
-                                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,
+                                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,
                                 pec.website, pec.city, pec.region, pe.PEId,
                                 pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,SPV,AggHide,pe.dates as dates ,pe.Exit_Status,
                                                 (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
@@ -2329,7 +2329,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                 GROUP BY pe.PEId ";
 
     $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,
-                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,
+                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,
                 pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,SPV,AggHide,pe.dates as dates ,pe.Exit_Status,
                                 (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others')  FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                 FROM peinvestments AS pe, industry AS i,
@@ -2386,7 +2386,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                     GROUP BY pe.PEId ";
         $exportSplitSql = "select pe.PECompanyId as PECompanyId,pec.companyname,pec.industry,i.industry as industry,sector_business as sector_business,pe.amount,
                                     peinv_invs.InvestorId,peinv_invs.PEId,invs.Investor,pe.PECompanyId,pec.industry,
-                                    pec.companyname,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
+                                    pec.companyname,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
                                     (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     from peinvestments as pe,pecompanies as pec,industry as i,stage as s,peinvestments_investors as peinv_invs,peinvestors as invs
                                     where dates between '" . $dt1 . "' and '" . $dt2 . "' AND  pec.industry = i.industryid and  pe.StageId=s.StageId and peinv_invs.PEId=pe.PEId and invs.InvestorId=peinv_invs.InvestorId AND pe.Deleted=0
@@ -2422,7 +2422,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
 
         $exportSplitSql = "select pe.PECompanyId as PECompanyId,pec.companyname,pec.industry,i.industry as industry,sector_business as sector_business,pe.amount,
                                     peinv_invs.InvestorId,peinv_invs.PEId,invs.Investor,pe.PECompanyId,pec.industry,
-                                    pec.companyname,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
+                                    pec.companyname,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
                                     (SELECT GROUP_CONCAT( inv.Investor   ORDER BY inv.InvestorId IN ($keyword) desc) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     from peinvestments as pe,pecompanies as pec,industry as i,stage as s,peinvestments_investors as peinv_invs,peinvestors as invs
                                     where dates between '" . $dt1 . "' and '" . $dt2 . "' AND  pec.industry = i.industryid and  pe.StageId=s.StageId and peinv_invs.PEId=pe.PEId and invs.InvestorId=peinv_invs.InvestorId AND pe.Deleted=0
@@ -2490,7 +2490,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                 GROUP BY pe.PEId )";
     $exportSplitSql = "(
                 SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry as industry, pec.sector_business as sector_business, pe.amount,
-                                cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
+                                cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                 (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                 FROM peinvestments AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
                 peinvestments_advisorinvestors AS adac,stage as s WHERE dates between '" . $dt1 . "' and '" . $dt2 . "' AND   pe.Deleted=0 and pec.industry = i.industryid
@@ -2819,7 +2819,7 @@ $valuationsql  $sectorcondition
                                                     GROUP BY pe.PEId ".$wheresyndication.")";
     $exportSplitSql = "(
                                     SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe.amount,
-                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
+                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     FROM peinvestments AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
                                     peinvestments_advisorinvestors AS adac,stage as s  ".$joinsectortable. "  WHERE dates between '" . $dt1 . "' and '" . $dt2 . "' AND   pe.Deleted=0 and pec.industry = i.industryid
@@ -2836,7 +2836,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
     $exportSplitGroup = " GROUP BY pe.PEId ".$wheresyndication.")";
     $exportSplitSql1 = "UNION (
                                     SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry as industry, pec.sector_business as sector_business, pe.amount,
-                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
+                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     FROM peinvestments AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
                                     peinvestments_advisorcompanies AS adac,stage as s  ".$joinsectortable. " 
