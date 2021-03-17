@@ -1189,8 +1189,12 @@ function combineAllExcel($companyID,$cprofile,$industries,$sectors,$city,$countr
 
 	$where7 = " city_id = ".$CompanyProfile[27];
 	$getcity = $city->getsinglecity($where7);
-	$whererunType = "Company_Id =".$companyID;
-	$runType = $cprofile->getrunType( $whererunType );
+
+		$detailsWhere = 'Company_Id='.$_GET['vcid'];
+
+	$CINDetails = $cprofile->getcomCIN( $detailsWhere );
+	$whererunType .= "cin = '".$CINDetails['CIN']."'";
+		$runType = $cprofile->getrunType( $whererunType );
 
 	if($runType['run_type'] == 1){
 		$runTypetext = "XBRL";
