@@ -304,7 +304,7 @@ if (isset($_POST['popup_select'])) {
 //                        echo "ddddddddddd"
             //                       print_r($_POST);
            // echo $period_flag;
-            if ($_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
+            if (($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || $_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
 
                 $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
                 $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
@@ -1584,11 +1584,15 @@ if ($resetfield == "tagsearch") {
 }
 
 if ($industry != '' && (count($industry) > 0)) {
+    if(gettype($industry)!="string"){
     $indusSql = $industryvalue = '';$industryvalueid = '';
     foreach ($industry as $industrys) {
         $indusSql .= " IndustryId=$industrys or ";
     }
     $indusSql = trim($indusSql, ' or ');
+    }else{
+        $indusSql .= " IndustryId=$industry";
+    }
     $industrysql = "select industry,industryid from industry where $indusSql";
 
     if ($industryrs = mysql_query($industrysql)) {
@@ -2601,6 +2605,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     $transtype='L';
     $advisorName=$advisorsearchstring_legal;
    }
+  
     if (count($industry) > 0) {
         $indusSql = '';
         foreach ($industry as $industrys) {
@@ -2615,6 +2620,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
         }
        /* $qryIndTitle = "Industry - ";*/
     }
+
     //print_r($industry);
      if (count($regionId) > 0) {
         $increg = "JOIN region AS r ON r.RegionId=pec.RegionId";
@@ -2932,7 +2938,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
     // }
     //echo "<br>TRANS-".$vcflagValue;
     //echo $companysql;
-} elseif (count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
+} elseif (gettype($industry)=="string" || count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
     $yourquery = 1;
 
     $dt1 = $year1 . "-" . $month1 . "-01";
@@ -3035,6 +3041,8 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
         }
     }
 
+   
+   
     if (count($industry) > 0) {
         $indusSql = '';
         foreach ($industry as $industrys) {
@@ -3045,6 +3053,12 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
             $whereind = ' ( ' . $indusSql . ' ) ';
         }
         $qryIndTitle = "Industry - ";
+    }
+    if($industry !="" && gettype($industry)=="string"){
+        $indusSql .= " pec.industry=$industry ";
+        if ($indusSql != '') {
+            $whereind = ' ( ' . $indusSql . ' ) ';
+        }
     }
      if (count($state) > 0) {
                                     $stateSql = '';
@@ -3375,7 +3389,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
         $companysql = $companysql . $wheresyndication;
     }
     $popup_search = 1;
-                              //       echo   $companysql;
+                                //     echo "finalquery:".$companysql;
 } else {
     echo "<br> INVALID DATES GIVEN ";
     $fetchRecords = false;
@@ -5594,6 +5608,7 @@ if ($type != 1) {
             <ul class="exportcolumn">
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="Company" checked/> <span> Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company"/> <span> Company</span></li>
+                <li><input type="checkbox" class="exportcheck" name="skills" value="Cinno"/> <span> CIN</span></li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Industry" /> Industry</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Sector" /> Sector</li>
@@ -5636,7 +5651,7 @@ if ($type != 1) {
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Cash & Cash Equ. (INR Cr)" /> Cash & Cash Equ. (INR Cr)</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Book Value Per Share" /> Book Value Per Share</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Price Per Share" /> Price Per Share</li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li>
+                <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li> -->
             </ul>
         </div>
         <div class="cr_entry" style="text-align:center;margin-top:25px;">
