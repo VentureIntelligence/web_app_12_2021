@@ -1191,6 +1191,7 @@ function combineAllExcel($companyID,$cprofile,$industries,$sectors,$city,$countr
 	$getcity = $city->getsinglecity($where7);
 
 		$detailsWhere = 'Company_Id='.$_GET['vcid'];
+		
 
 	$CINDetails = $cprofile->getcomCIN( $detailsWhere );
 	$whererunType .= "cin = '".$CINDetails['CIN']."'";
