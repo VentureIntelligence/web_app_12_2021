@@ -649,6 +649,7 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 "></i>       Advanced Filters
         </button> </span>
         <?php  }?>
+        
                            
 </td>
 
