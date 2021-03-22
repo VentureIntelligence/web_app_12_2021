@@ -658,11 +658,11 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 
 <?php } ?>
 <div class="lb" id="popup-box-lp" style="width: 450px;">
-    <div class="title" style="font-size: 16px;"> Request for - Advance Export </div>
+    <div class="title" style="font-size: 16px;"> Request for - Advanced Export </div>
         <form style="margin-bottom: 0px;">
             <div class="entry">
                     <h5>Add a note..</h5><span style='float:right;display: block;margin-top: -20px;'></span>
-                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="Need access for advance filter" val=''></textarea>
+                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="Need access for advanced filter" val=''></textarea>
                     <input type="hidden" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"/>
             </div>
             <div class="entry">
