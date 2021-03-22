@@ -155,13 +155,13 @@
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
         </div>
-        <div id="linksnone"><a href="../adminvi/adminFilter.php">AddFilter</a><br /></div>
-        <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">EditFilter</a><br /></div>
+        <div id="linksnone"><a href="../adminvi/adminFilter.php">Add Filter</a><br /></div>
+        <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">Edit Filter</a><br /></div>
          
-        <div id="vertMenu">
+        <!-- <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;vifilter log</span></div>
-        </div>
-        <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">log table</a><br /></div>
+        </div> -->
+        <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
 
 
         <div id="vertMenu">

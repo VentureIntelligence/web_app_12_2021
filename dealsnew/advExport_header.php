@@ -232,6 +232,9 @@
          height: 30px;
          border: 1px solid gray;
          } */
+         .swal-button {
+    background-color: #a2753a !important;
+}
          .token-input-dropdown-facebook {
          width: 27.5% !important;
          }
@@ -1647,7 +1650,7 @@
          
          })
          var mode='';
-         $(document).on("change",".exportcheck",function() {debugger;
+         $(document).on("change",".exportcheck",function() {
          var result = $('.exportcolumn input[type="checkbox"]:checked'); // this return collection of items checked
          var totalcheckbox = $('.exportcolumn input[type="checkbox"]');
          if (result.length > 0) {
@@ -1978,6 +1981,11 @@
          }
          else
          {
+            swal({
+    //title: "Wow!",
+    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+    type: "success"
+}).then(function() {
          if(value == 1)
          {
          $.ajax({
@@ -2030,6 +2038,7 @@
          $('#round').val(dataValue[0].round);
          $('#stage').val(dataValue[0].stage);
          $('#investorType').val(dataValue[0].investor_type);
+         $('#companytype').val(dataValue[0].company_type);
          $('#month1').val(dataValue[0].start_date);
          $('#month2').val(dataValue[0].end_date);
          $('#year1').val(dataValue[0].start_year);
@@ -2099,6 +2108,7 @@
          
          });
          }
+         });
          }
          },
          });
@@ -2172,7 +2182,7 @@
          }
          var investornameArray=[];
          function saveFilterName()
-         {debugger;
+         {
          mode=$('#mode').val();
          investornameArray=[];
          
@@ -2569,6 +2579,11 @@
          
          else
          {
+            swal({
+    //title: "Wow!",
+    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+    type: "success"
+}).then(function() {
          $.ajax({
          url: 'ajxCheckDownload.php',
          dataType: 'json',
@@ -2580,16 +2595,10 @@
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
          //alert(remLimit);
-         // if(globalfilterId != "")
-         // {
+      
          var filterType= $(".rightpanel").find(".active").attr('value')       
-         exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
-         //}
-         // else
-         // {
-            $("input[type='search']").val('');
-            //var filterType= $(".rightpanel").find(".active").attr('value')       
-         // exportfiltr(1,filterType,globalfilterId,globalfilterNameId,1);
+         entrylogtabledata(filterType,globalfilterId,globalfilterNameId);
+ 
          if (currentRec < remLimit){
          hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
@@ -2609,11 +2618,41 @@
          }
          
          });
+});
          }
          },
          });
          }
          });
+
+         function  entrylogtabledata(filterType,filterNameId,filter_name)
+    {
+
+      $.ajax({
+         url: 'saveFilter.php',
+         type: "POST",
+         data:{mode:'getTotalcount'},
+         success: function(dataVal){
+         var dataval=JSON.parse(dataVal)
+         if(parseInt(dataval[0]) <= parseInt(dataval[1]))
+         {
+         swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
+         }
+         else
+         {
+            $.ajax({
+         url: 'saveFilter.php',
+         type: "POST",
+         data: {companyName:'<?php echo $companyName?>',filterType:filterType,filterName:filter_name,filterNameId: filterNameId, mode: 'export'},
+         success: function(data){
+
+         },
+         });
+         }
+         },
+         });
+
+    }
          
          $('#exitexpshowdealsbt').click(function(){
          var checkboxname=$('.exitallexportcheck').prop('checked')
@@ -2722,6 +2761,11 @@
          
          else
          {
+            swal({
+    //title: "Wow!",
+    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+    type: "success"
+}).then(function() {
          $.ajax({
          url: 'ajxCheckDownload.php',
          dataType: 'json',
@@ -2735,7 +2779,7 @@
          //alert(remLimit);
          // if(exitglobalfilterId != ""){
          var filterType= $(".rightpanel").find(".active").attr('value')       
-         exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
+         entrylogtabledata(filterType,exitglobalfilterId,exitglobalfilterNameId);
          // }
          // else
          // {
@@ -2759,6 +2803,7 @@
          alert("There was some problem exporting...");
          }
          
+         });
          });
          }
          },
@@ -2797,6 +2842,11 @@
            
             if(query != 0)
          {
+            swal({
+    //title: "Wow!",
+    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+    type: "success"
+}).then(function() {
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
@@ -2823,6 +2873,7 @@
          $("#pelistingexcel").submit();
          }
          },
+         });
          });
          }
          else{
