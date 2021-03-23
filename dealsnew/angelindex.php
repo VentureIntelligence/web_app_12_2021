@@ -1053,7 +1053,11 @@ if (!$_POST) {
         $whereyearfoundedesql = " pec.yearfounded >= $yearafter and pec.yearfounded <= $yearbefore";
     }
     if (($followonVCFund == "3") || ($followonVCFund == "1")) {
-        $wherefollowonVCFund = " pe.FollowonVCFund = " . $followonVCFund;
+        if($followonVCFund == "1"){
+            $wherefollowonVCFund = " pe.FollowonVCFund = " . $followonVCFund;
+        }else{
+            $wherefollowonVCFund = " pe.FollowonVCFund != 1" ;
+        }
         $qryDealTypeTitle = "Follow on Funding Status  - ";
     }
 
@@ -1138,7 +1142,7 @@ if ($whereyearaftersql != "") {
     echo "<br> Invalid input selection ";
     $fetchRecords = false;
 }
-
+//echo "final-----".$companysql;
 $ajaxcompanysql = urlencode($companysql);
 if ($companysql != "" && $orderby != "" && $ordertype != "") {
     $companysql = $companysql . " order by  Dealdate desc,companyname asc ";
