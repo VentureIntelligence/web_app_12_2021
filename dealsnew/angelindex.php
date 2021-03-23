@@ -1142,7 +1142,7 @@ if ($whereyearaftersql != "") {
     echo "<br> Invalid input selection ";
     $fetchRecords = false;
 }
-//echo "final-----".$companysql;
+
 $ajaxcompanysql = urlencode($companysql);
 if ($companysql != "" && $orderby != "" && $ordertype != "") {
     $companysql = $companysql . " order by  Dealdate desc,companyname asc ";
