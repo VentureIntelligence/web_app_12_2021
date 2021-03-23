@@ -100,6 +100,7 @@ $dateValue=$_POST['txthidedate'];
                 $companysearch=$_POST['txthidecompany'];
                 $advisorsearchstring_legal=$_POST['txthideadvisor_legal'];
                 $tagsearch=$_POST['tagsearch'];
+                $searchallfield=$_POST['txthidesearchallfield'];
                
 if ($listallcompany != 1) {
      $isAggregate = 'AND pe.SPV=0 and pe.AggHide=0';
@@ -566,7 +567,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                 JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
                 JOIN industry AS i ON pec.industry = i.industryid
                 JOIN stage AS s ON s.StageId=pe.StageId
-                WHERE pe.dates between '" . $dt1 . "' and '" . $dt2 . "' " . $hideWhere . "  and pe.Deleted =0 " . $addVCFlagqry . " " . $addDelind . " AND ( $tagsval)
+                WHERE pe.dates between '" . $dt1 . "' and '" . $dt2 . "' " . $hideWhere . "  and pe.Deleted =0 ".$isAggregate . $addVCFlagqry . " " . $addDelind . " AND ( $tagsval)
                 AND pe.PEId NOT IN (SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1) $comp_industry_id_where
                 GROUP BY pe.PEId ";
 
@@ -869,7 +870,7 @@ $valuationsql  $sectorcondition
                                                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
                                     FROM peinvestments AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
                                     peinvestments_advisorcompanies AS adac,stage as s  ".$joinsectortable. " 
-                                                    WHERE dates between '" . $dt1 . "' and '" . $dt2 .  "' $hideWhere and pe.Deleted=0 and pec.industry = i.industryid
+                                                    WHERE dates between '" . $dt1 . "' and '" . $dt2 .  "' $hideWhere and pe.Deleted=0 and pec.industry = i.industryid ".$isAggregate."
                                     AND pec.PECompanyId = pe.PECompanyId
                                     AND adac.CIAId = cia.CIAID and 
 $valuationsql  $sectorcondition
@@ -1375,7 +1376,7 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 
 
-echo $companysql;exit();
+//echo $companysql;exit();
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
