@@ -232,9 +232,19 @@
          height: 30px;
          border: 1px solid gray;
          } */
-         .swal-button {
-    background-color: #a2753a !important;
-}
+         .swal-button--confirm {
+               background-color: #a2753a !important;
+               font-family: sans-serif !important;
+            }
+            .swal-button swal-button--cancel {
+               background-color: #efefef !important;
+               font-family: sans-serif !important;
+            }
+            .swal-text
+            {
+               font-family: sans-serif !important;
+
+            }
          .token-input-dropdown-facebook {
          width: 27.5% !important;
          }
@@ -350,6 +360,10 @@
          {
             display:none;
          }
+         .swal-wide
+         {
+            width:57%!important;
+         }
       </style>
    </head>
    <?php if($_SESSION['PE_TrialLogin']==1){ ?>
@@ -426,7 +440,7 @@
          <ul class="navbar navbar-expand-sm  navbar-dark navigation">
             <span class="navbar-brand dashboard">Dashboard >Advanced Filters</span>
             <div class="button-group text-right  ml-auto">
-               <button class="btn  advanced" href="#">Advanced Filters</button>
+               <button class="btn  advanced" onclick="refreshFilter()">Advanced Filters</button>
                <button class="btn  advanced " href="#" style="opacity:0.5">Trends Reports</button>
             </div>
          </ul>
@@ -1982,10 +1996,12 @@
          else
          {
             swal({
-    //title: "Wow!",
-    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
-    type: "success"
-}).then(function() {
+          text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+          buttons: ["Cancel", "Submit"],
+          className: 'swal-wide',
+
+          }).then((willDelete) => {
+         if (willDelete) {
          if(value == 1)
          {
          $.ajax({
@@ -2107,6 +2123,7 @@
          },
          
          });
+         }
          }
          });
          }
@@ -2582,8 +2599,11 @@
             swal({
     //title: "Wow!",
     text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
-    type: "success"
-}).then(function() {
+    buttons: ["Cancel", "Submit"],
+    className: 'swal-wide',
+
+          }).then((willDelete) => {
+         if (willDelete) {
          $.ajax({
          url: 'ajxCheckDownload.php',
          dataType: 'json',
@@ -2618,6 +2638,7 @@
          }
          
          });
+         }
 });
          }
          },
@@ -2764,8 +2785,11 @@
             swal({
     //title: "Wow!",
     text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
-    type: "success"
-}).then(function() {
+    buttons: ["Cancel", "Submit"],
+    className: 'swal-wide',
+
+          }).then((willDelete) => {
+         if (willDelete) {
          $.ajax({
          url: 'ajxCheckDownload.php',
          dataType: 'json',
@@ -2804,6 +2828,7 @@
          }
          
          });
+         }
          });
          }
          },
@@ -2845,8 +2870,11 @@
             swal({
     //title: "Wow!",
     text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
-    type: "success"
-}).then(function() {
+    buttons: ["Cancel", "Submit"],
+    className: 'swal-wide',
+
+          }).then((willDelete) => {
+         if (willDelete) {
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
@@ -2874,6 +2902,7 @@
          }
          },
          });
+         }
          });
          }
          else{
@@ -2964,6 +2993,11 @@
          // e.preventDefault();
          // navbarTrigger=0;
          // });
+         function refreshFilter()
+         {
+                         window.location.reload(1);
+
+         }
       </script>
    </body>
 </html>
