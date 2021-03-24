@@ -180,7 +180,7 @@ updateDownload($result);
           echo "PAT"."\t";
 			echo "Book Value Per Share"."\t";
 			echo "Price Per Share"."\t";
-	echo "Link for Financials"."\t";
+	//echo "Link for Financials"."\t";
  print("\n");
 
  /*print("\n");*/
@@ -450,7 +450,7 @@ updateDownload($result);
 							 $schema_insert .= $book_value_per_share.$sep;  //book_value_per_share
 							 $schema_insert .= $price_per_share.$sep;  //price_per_share
                                                          
-                           $schema_insert .= $row[29].$sep; //finlink
+                           //$schema_insert .= $row[29].$sep; //finlink
 
 	     $schema_insert = str_replace($sep."$", "", $schema_insert);
             $schema_insert .= ""."\n";

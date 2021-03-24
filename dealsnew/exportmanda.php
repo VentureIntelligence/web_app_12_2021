@@ -185,7 +185,7 @@ updateDownload($result);
         echo "PAT"."\t";
 			echo "Book Value Per Share"."\t";
 			echo "Price Per Share"."\t";
-	echo "Link for Financials"."\t";
+	// echo "Link for Financials"."\t";
         
        
 
@@ -475,7 +475,7 @@ $schema_insert .= $row[34].$sep; // year founded
 					 $schema_insert .= $book_value_per_share.$sep;  //book_value_per_share
 					 $schema_insert .= $price_per_share.$sep;  //price_per_share
                                          
-                    $schema_insert .= $row[21].$sep;  //Financial link
+                   // $schema_insert .= $row[21].$sep;  //Financial link
                                                             
                                                             
                      
