@@ -767,7 +767,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
             } 
         ?>                               
                <?php
-                if(($industry >0 && $industry!=null)||($yearafter!= "" || $yearbefore != "")||($followonVC!="--" && $followonVC!="")||($exited !="--" && $exited !="")||($txtregion != "--" && $txtregion != "")||($citysearch !="--" && $citysearch !="")||($datevalueDisplay1!="")||($companysearch!="" && $companysearch!=" ")||($searchallfield!="" && $searchallfield!=" ")||($keyword!="" && $keyword!=" ")||($tagsearch!='')){              
+                if(($industry >0 && $industry!=null)||($yearafter!= "" || $yearbefore != "")||( $followonVC!="")||($exited !="--" && $exited !="")||($txtregion != "--" && $txtregion != "")||($citysearch !="--" && $citysearch !="")||($datevalueDisplay1!="")||($companysearch!="" && $companysearch!=" ")||($searchallfield!="" && $searchallfield!=" ")||($keyword!="" && $keyword!=" ")||($tagsearch!='')){              
              if($_POST)
                     {   
                     ?>
