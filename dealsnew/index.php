@@ -4911,8 +4911,6 @@ if ($type != 1) {
         <input type="hidden" name="tagandor" value="<?php echo $tagandor; ?>" >
     <!-- T960 -------------------------------------------->
     <input type="hidden" class="resultarray" name="resultarray" value=""/>
-                 <input type="hidden" name="sql" value="<?php echo $exportsql; ?>" >
-                 <input type="hidden" name="split_sql" value="<?php echo $exportSplitSql; ?>" >
                  <input type="hidden" name="split_group" value="<?php echo $exportSplitGroup; ?>" >
                  <input type="hidden" name="split_sql1" value="<?php echo $exportSplitSql1; ?>" >
                  <input type="hidden" name="split_group1" value="<?php echo $exportSplitGroup1; ?>" >
@@ -5387,10 +5385,15 @@ if ($type != 1) {
                 /*jQuery('#preloading').fadeIn();
                 initExport();
                 return false;*/
-
                 jQuery('#maskscreen').fadeIn();
-                jQuery('#popup-box-copyrights').fadeIn();
-                return false;
+                    jQuery('#popup-box-copyrights').fadeIn();
+                    $('.exportcheck').iCheck('destroy');
+                    $('.companyexportcheck').iCheck('destroy');
+                    $('.allexportcheck').iCheck('destroy');
+                    $('.allexportcheck').iCheck('check');
+                    $(".resultarray").val('Select-All');
+                    $('.exportcolumn .exportcheck').attr('checked', true); 
+                    return false;
             });
 
              function updateCountandAmount( elementINRAmount, elementAmount, type, amountFlag, pehideFlag, total_invdeal ) {
