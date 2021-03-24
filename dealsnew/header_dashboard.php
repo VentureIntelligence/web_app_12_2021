@@ -659,7 +659,7 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 
 <?php } ?>
 <div class="lb" id="popup-box-lp" style="width: 450px;">
-    <div class="title" style="font-size: 16px;"> Request for - Advanced Export </div>
+    <div class="title" style="font-size: 16px;"> Request for - Advanced Filters </div>
         <form style="margin-bottom: 0px;">
             <div class="entry">
                     <h5>Add a note..</h5><span style='float:right;display: block;margin-top: -20px;'></span>

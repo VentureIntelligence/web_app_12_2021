@@ -440,7 +440,7 @@
          <ul class="navbar navbar-expand-sm  navbar-dark navigation">
             <span class="navbar-brand dashboard">Dashboard >Advanced Filters</span>
             <div class="button-group text-right  ml-auto">
-               <button class="btn  advanced" href="#">Advanced Filters</button>
+               <button class="btn  advanced" onclick="refreshFilter()">Advanced Filters</button>
                <button class="btn  advanced " href="#" style="opacity:0.5">Trends Reports</button>
             </div>
          </ul>
@@ -2993,6 +2993,11 @@
          // e.preventDefault();
          // navbarTrigger=0;
          // });
+         function refreshFilter()
+         {
+                         window.location.reload(1);
+
+         }
       </script>
    </body>
 </html>
