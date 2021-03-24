@@ -663,7 +663,7 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
         <form style="margin-bottom: 0px;">
             <div class="entry">
                     <h5>Add a note..</h5><span style='float:right;display: block;margin-top: -20px;'></span>
-                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="Need access for advanced filter" val=''></textarea>
+                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="Need access for advanced filters" val=''></textarea>
                     <input type="hidden" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"/>
             </div>
             <div class="entry">
