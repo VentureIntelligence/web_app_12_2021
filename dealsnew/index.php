@@ -3563,7 +3563,7 @@ if (trim($buttonClicked == "")) {
         writeSql_for_no_records($companysql, $emailid);
     }
 
-    echo '<div style="display: none">' . $companysqlwithlimit . '</div>';
+   // echo '<div style="display: none">' . $companysqlwithlimit . '</div>';
     ?>
 
 <td class="profile-view-left" style="width:100%;">
