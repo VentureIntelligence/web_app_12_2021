@@ -1513,9 +1513,12 @@ padding:0px 10px; }
     //    function popup(ow){
             var Android = navigator.userAgent.match(/Android/i);
             IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
-            
+            var windowwidth =$(window).width();
             if(Android || IOS){
-                 
+                  if(windowwidth >1025){
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();  
+                  }
                     var popup = getCookie("mobilepopuppe");
                     if (popup == "show") {
                         $(".mobileRedirectPopup").hide();
