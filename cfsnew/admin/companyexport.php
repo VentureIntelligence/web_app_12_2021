@@ -71,7 +71,8 @@
     $exportsql = stripslashes("SELECT a.PLStandard_Id, a.CId_FK, a.IndustryId_FK,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus,a.TotalIncome as TotalIncome,b.FYCount AS FYValue,b.Permissions1, b.SCompanyName, b.Industry, b.Sector FROM plstandard a ,cprofile b WHERE a.CId_FK = b.Company_Id and b.Permissions1=0 and $where and a.FY=(SELECT max(aa.FY) as MFY FROM plstandard aa WHERE aa.CId_FK=a.CId_FK)  GROUP BY  b.SCompanyName ORDER BY FIELD(a.FY,'16') DESC,FIELD(a.FY,'15') DESC, a.FY DESC, b.SCompanyName asc");
      * */
         $ExportResult = $plstandard->ExporttoExcel($exportsql);
-    
+       // echo $exportsql;exit();
+
   //  updateDownload($ExportResult);
        
     function movetabs($fytabs){
@@ -125,7 +126,8 @@
         print("\n");
         $currFY = Date('y');
 	echo "Company Name"."\t";
-	echo "CIN"."\t";
+    echo "CIN"."\t";
+    echo "Company Type"."\t";
         echo "Brand Name"."\t";
         echo "Industry"."\t";
 	echo "Sector"."\t";
@@ -182,7 +184,7 @@
        
         $previousCompId = '';
         $currentFY = $currFY;
-    
+
 	foreach($ExportResult as $row) { 
             
             if ($previousCompId!=$row[1]){
@@ -193,6 +195,17 @@
                 $company_name = preg_replace("/\s+/", " ", $row[12]);
                 $schema_insert .= trim($company_name).$sep; //Company Name
                 $schema_insert .= trim($row[20]).$sep; //CIN
+
+                    $runType = $cprofile->getrunType( "cin = '".trim($row[20])."'" );
+            
+                if($runType['run_type'] == 1){
+                    $runTypetext = "XBRL";
+                } else {
+                    $runTypetext = "NON-XBRL";
+                }
+                // //echo $runTypetext;exit();
+                 $schema_insert .= $runTypetext.$sep; //Company Type
+
                 $brand = preg_replace("/\s+/", " ", $row[17]);
                 $schema_insert .= trim($brand).$sep; //Brand
                 $where5 = " Industry_Id= ".$row[2];
