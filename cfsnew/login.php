@@ -103,8 +103,7 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                 elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== FALSE || strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== FALSE)
                    { $user_os = 'iOS';}
                 else{$user_os =  'Windows';}
-                echo $_SERVER['HTTP_USER_AGENT'];
-               echo  $user_os;
+            
                
               if($user_os=='IOS'){      
 
