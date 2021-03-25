@@ -517,7 +517,7 @@ While($myrow=mysql_fetch_array($resChkdevices, MYSQL_BOTH))
     $devices_array_list[]= $myrow["device_details"];
 }
 
-
+if (isset($_SERVER['HTTP_USER_AGENT'])) {
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE){
     $user_os =  'Windows';
 }elseif((strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== FALSE) && strpos($_SERVER['HTTP_USER_AGENT'], 'Linux')!==FALSE){
@@ -531,6 +531,7 @@ elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== FALSE)
 elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== FALSE || strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== FALSE)
    { $user_os = 'iOS';}
 else{$user_os =  'Windows';}
+}else{$user_os =  'Windows';}
 
 if($user_os=='IOS'){      
 
@@ -541,7 +542,7 @@ if($user_os=='IOS'){
   else
       $user_browser = "Safari";
 }else{
-
+    if (isset($_SERVER['HTTP_USER_AGENT'])) {
     if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
     {$user_browser =  'IE';}
     elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
@@ -559,7 +560,8 @@ if($user_os=='IOS'){
     elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
         {$user_browser = "Safari";}
     else{$user_browser = 'Chrome';}
-}
+} else{$user_browser = 'Chrome';}
+
 
    /* echo $_SERVER['HTTP_USER_AGENT'];
     echo $user_os;
