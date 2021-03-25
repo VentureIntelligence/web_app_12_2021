@@ -11820,7 +11820,7 @@ echo $user_browser;?>
     
     $('#popup_keyword').keyup(function() {
         var $th = $(this);
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.()']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
     });
 });
 </script>
