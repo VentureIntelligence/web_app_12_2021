@@ -647,11 +647,15 @@ if ($resetfield == "tagsearch") {
 }
 
 if ($industry != '' && count($industry)) {
+    if(gettype($industry)!="string"){
     $indusSql = $industryvalue = '';
     foreach ($industry as $industrys) {
         $indusSql .= " IndustryId=$industrys or ";
     }
     $indusSql = trim($indusSql, ' or ');
+    }else{
+        $indusSql .= " IndustryId=$industry ";
+    }
     $industrysql = "select industry,industryid from industry where $indusSql";
 
     if ($industryrs = mysql_query($industrysql)) {
@@ -1017,7 +1021,7 @@ if (!$_POST) {
         $ordertype = "desc";
     }
     //echo "<br> Investor search- ".$companysql;
-} elseif ((($industry > 0) || ($followonVCFund >= 0) || ($exited >= 0) || ($txtregion != '') || ($citysearch != '')) && (($month1 != "--") && (year1 != "--") && ($month2 != "--") && ($year2 != "--")) || ($yearafter != "") || ($yearbefore != "")) {
+} elseif ((gettype($industry)=="string" || ($industry > 0) || ($followonVCFund >= 0) || ($exited >= 0) || ($txtregion != '') || ($citysearch != '')) && (($month1 != "--") && (year1 != "--") && ($month2 != "--") && ($year2 != "--")) || ($yearafter != "") || ($yearbefore != "")) {
     $iftest = 5;
     $yourquery = 1;
     $dt1 = $year1 . "-" . $month1 . "-01";
@@ -1041,6 +1045,12 @@ if (!$_POST) {
         }
         $qryIndTitle = "Industry - ";
     }
+    if($industry !="" && gettype($industry)=="string"){
+        $indusSql .= " pec.industry=$industry ";
+        if ($indusSql != '') {
+            $whereind = ' ( ' . $indusSql . ' ) ';
+        }
+        }
     if ($yearafter != '' && $yearbefore == '') {
         $whereyearaftersql = " pec.yearfounded >= $yearafter";
     }
@@ -1138,11 +1148,11 @@ if ($whereyearaftersql != "") {
         $orderby = "DealDate";
         $ordertype = "desc";
     }
+    
 } else {
     echo "<br> Invalid input selection ";
     $fetchRecords = false;
 }
-
 $ajaxcompanysql = urlencode($companysql);
 if ($companysql != "" && $orderby != "" && $ordertype != "") {
     $companysql = $companysql . " order by  Dealdate desc,companyname asc ";

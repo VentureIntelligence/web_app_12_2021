@@ -1627,7 +1627,17 @@ function combineAllExcel($companyProfileID,$cprofile,$industries,$sectors,$city,
 	$Email = trim(stripslashes($Email)) . $sep; //Email
 
 	$websit = trim($CompanyProfile['Website']) . $sep; //websit
+	$detailsWhere = 'Company_Id='.$_GET['vcid'];
 
+	$CINDetails = $cprofile->getcomCIN( $detailsWhere );
+	$whererunType .= "cin = '".$CINDetails['CIN']."'";
+		$runType = $cprofile->getrunType( $whererunType );
+
+	if($runType['run_type'] == 1){
+		$runTypetext = "XBRL";
+	} else {
+		$runTypetext = "NON-XBRL";
+	}
 	error_reporting(E_ALL);
 	ini_set('display_errors', TRUE);
 	ini_set('display_startup_errors', TRUE);
@@ -1637,46 +1647,48 @@ function combineAllExcel($companyProfileID,$cprofile,$industries,$sectors,$city,
 	$cprofileExcel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
 	$cprofileExcel->setActiveSheetIndex(0)
 	            ->setCellValue('A1', 'Company Name')
-	            ->setCellValue('B1', 'CIN Number')
-	            ->setCellValue('C1', 'Brand Name')
-	            ->setCellValue('D1', 'Industry')
-	            ->setCellValue('E1', 'Sector')
-	            ->setCellValue('F1', 'NAICS Code')
-	            ->setCellValue('G1', 'Entity Type')
-	            ->setCellValue('H1', 'Transaction Status')
-	            ->setCellValue('I1', 'Year Founded')
-	            ->setCellValue('J1', 'Business Description')
-	            ->setCellValue('K1', 'Address')
-	            ->setCellValue('L1', 'City')
-	            ->setCellValue('M1', 'Country')
-	            ->setCellValue('N1', 'Telephone')
-	            ->setCellValue('O1', 'Contact Name')
-	            ->setCellValue('P1', 'Designation')
-	            ->setCellValue('Q1', 'Auditor Name')
-	            ->setCellValue('R1', 'Email')
-	            ->setCellValue('S1', 'Website');
+				->setCellValue('B1', 'CIN Number')
+				->setCellValue('C1', 'Company Type')
+	            ->setCellValue('D1', 'Brand Name')
+	            ->setCellValue('E1', 'Industry')
+	            ->setCellValue('F1', 'Sector')
+	            ->setCellValue('G1', 'NAICS Code')
+	            ->setCellValue('H1', 'Entity Type')
+	            ->setCellValue('I1', 'Transaction Status')
+	            ->setCellValue('J1', 'Year Founded')
+	            ->setCellValue('K1', 'Business Description')
+	            ->setCellValue('L1', 'Address')
+	            ->setCellValue('M1', 'City')
+	            ->setCellValue('N1', 'Country')
+	            ->setCellValue('O1', 'Telephone')
+	            ->setCellValue('P1', 'Contact Name')
+	            ->setCellValue('Q1', 'Designation')
+	            ->setCellValue('R1', 'Auditor Name')
+	            ->setCellValue('S1', 'Email')
+	            ->setCellValue('T1', 'Website');
 
 
 	$cprofileExcel->setActiveSheetIndex(0)
 	            ->setCellValue('A2', $CompanyProfile['FCompanyName'])
-	            ->setCellValue('B2', $CompanyProfile['CIN'])
-	            ->setCellValue('C2', $CompanyProfile['SCompanyName'])
-	            ->setCellValue('D2', $industry)
-	            ->setCellValue('E2', $sectorname)
-	            ->setCellValue('F2', $naicsCode)
-	            ->setCellValue('G2', $ListingStatus)
-	            ->setCellValue('H2', $Permissions)
-	            ->setCellValue('I2', $CompanyProfile['IncorpYear'])
-	            ->setCellValue('J2', $BusinessDesc)
-	            ->setCellValue('K2', $Address)
-	            ->setCellValue('L2', $city)
-	            ->setCellValue('M2', $Country)
-	            ->setCellValue('N2', $Phone)
-	            ->setCellValue('O2', $Contactperson)
-	            ->setCellValue('P2', $designation)
-	            ->setCellValue('Q2', $auditor_name)
-	            ->setCellValue('R2', $Email)
-	            ->setCellValue('S2', $websit);
+				->setCellValue('B2', $CompanyProfile['CIN'])
+				->setCellValue('C2', $runTypetext)
+	            ->setCellValue('D2', $CompanyProfile['SCompanyName'])
+	            ->setCellValue('E2', $industry)
+	            ->setCellValue('F2', $sectorname)
+	            ->setCellValue('G2', $naicsCode)
+	            ->setCellValue('H2', $ListingStatus)
+	            ->setCellValue('I2', $Permissions)
+	            ->setCellValue('J2', $CompanyProfile['IncorpYear'])
+	            ->setCellValue('K2', $BusinessDesc)
+	            ->setCellValue('L2', $Address)
+	            ->setCellValue('M2', $city)
+	            ->setCellValue('N2', $Country)
+	            ->setCellValue('O2', $Phone)
+	            ->setCellValue('P2', $Contactperson)
+	            ->setCellValue('Q2', $designation)
+	            ->setCellValue('R2', $auditor_name)
+	            ->setCellValue('S2', $Email)
+	            ->setCellValue('T2', $websit);
 
 	$outputFile = 'companyDetail_'.$CompanyProfile['Company_Id'].".xls";
 

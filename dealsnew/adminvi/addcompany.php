@@ -326,7 +326,9 @@ function Student()
 				<img src="img.gif" id="f_trigger_c" style="cursor: pointer; border: 1px solid red;" title="Date selector"
 	             onmouseover="this.style.background='red';" onmouseout="this.style.background=''" />
 				-->
-
+			
+                                
+								
 	        Add Members :  <Br />
 	        <div id="headingtextprosmallfont">(Note: All fields are manadatory. Please provide Email, Name, Pasword resp. )</div>
 
