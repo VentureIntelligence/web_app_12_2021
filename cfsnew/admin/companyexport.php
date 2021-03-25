@@ -196,7 +196,7 @@
                 $schema_insert .= trim($company_name).$sep; //Company Name
                 $schema_insert .= trim($row[20]).$sep; //CIN
 
-                    $runType = $cprofile->getrunType( "cin = '".trim($row[20])."'" );
+            $runType = $cprofile->getrunType( "cin = '".trim($row[20])."'" );
             
                 if($runType['run_type'] == 1){
                     $runTypetext = "XBRL";
