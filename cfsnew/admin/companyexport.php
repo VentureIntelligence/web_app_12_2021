@@ -198,6 +198,7 @@
 
             $runType = $cprofile->getrunType( "cin = '".trim($row[20])."'" );
             
+            
                 if($runType['run_type'] == 1){
                     $runTypetext = "XBRL";
                 } else {
