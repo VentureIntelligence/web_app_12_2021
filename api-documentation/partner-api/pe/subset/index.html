@@ -1,0 +1,1513 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Swagger UI</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui.css" >
+  <style>
+    html
+    {
+      box-sizing: border-box;
+      overflow: -moz-scrollbars-vertical;
+      overflow-y: scroll;
+    }
+    *,
+    *:before,
+    *:after
+    {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin:0;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+
+<div id="swagger-ui"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-bundle.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-standalone-preset.js"> </script>
+<script>
+window.onload = function() {
+
+  var spec = {
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Venture Intelligence -  Third Party API Documentation - Subset",
+    "version": "1.0.0",
+    "description": "This is the specification for the PE Partner API, which have clear request and response details\n\n## Changelog\n\nAPI version | Date | Changes\n------------|------|--------\n1.0.0 | 26-March-2021 | Consolidated Request, Response for PE Investments and Exits\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.vionweb.com/partnersubapi/pe/deals/",
+      "description": "PROD"
+    }
+  ],
+  "paths": {
+    "/investments": {
+      "post": {
+        "tags": [
+          "MediBuddy"
+        ],
+        "summary": "Service used to optain the consolidated view of investment deal detail",
+        "requestBody": {
+          "description": "Input parameters are:",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "token",
+                  "userName",
+                  "password",
+                  "fromDate",
+                  "toDate",
+                  "userType",
+                  "companyName"
+                ],
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "description": "Dynamic token"
+                  },
+                  "userName": {
+                    "type": "string",
+                    "description": "Email of the user"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user"
+                  },
+                  "fromDate": {
+                    "type": "string",
+                    "description": "Deal start date"
+                  },
+                  "toDate": {
+                    "type": "string",
+                    "description": "Deal end date"
+                  },
+                  "userType": {
+                    "type": "string",
+                    "enum": [
+                      "External_partner"
+                    ]
+                  },
+                  "companyName": {
+                    "type": "string",
+                    "description": "User input of company name"
+                  },
+                  "investorName": {
+                    "type": "string",
+                    "description": "User input of investor name"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "Investments": {
+                      "type": "object",
+                      "properties": {
+                        "PE": {
+                          "type": "object",
+                          "properties": {
+                            "CompanyName": {
+                              "type": "string"
+                            },
+                            "Deal_Info": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "amount": {
+                                    "type": "string"
+                                  },
+                                  "Amount_INR": {
+                                    "type": "string"
+                                  },
+                                  "date": {
+                                    "type": "string"
+                                  },
+                                  "BV Per Share": {
+                                    "type": "string"
+                                  },
+                                  "Stake": {
+                                    "type": "string"
+                                  },
+                                  "stage": {
+                                    "type": "string"
+                                  },
+                                  "round": {
+                                    "type": "string"
+                                  },
+                                  "Price Per Share": {
+                                    "type": "string"
+                                  },
+                                  "Price To Book": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "Valuation Info": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "Pre Money Valuation": {
+                                    "type": "object",
+                                    "properties": {
+                                      "Company_Valuation": {
+                                        "type": "string"
+                                      },
+                                      "Revenue_Multiple": {
+                                        "type": "string"
+                                      },
+                                      "EBITDA_Multiple": {
+                                        "type": "string"
+                                      },
+                                      "PAT_Multiple": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "Post Money Valuation": {
+                                    "type": "object",
+                                    "properties": {
+                                      "Company_Valuation": {
+                                        "type": "string"
+                                      },
+                                      "Revenue_Multiple": {
+                                        "type": "string"
+                                      },
+                                      "EBITDA_Multiple": {
+                                        "type": "string"
+                                      },
+                                      "PAT_Multiple": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "Ev": {
+                                    "type": "object",
+                                    "properties": {
+                                      "Company_Valuation": {
+                                        "type": "string"
+                                      },
+                                      "Revenue_Multiple": {
+                                        "type": "string"
+                                      },
+                                      "EBITDA_Multiple": {
+                                        "type": "string"
+                                      },
+                                      "PAT_Multiple": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "More info": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "Financials": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "Financial Year": {
+                                    "type": "string"
+                                  },
+                                  "Revenue": {
+                                    "type": "string"
+                                  },
+                                  "EBITDA": {
+                                    "type": "string"
+                                  },
+                                  "PAT": {
+                                    "type": "string"
+                                  },
+                                  "Total_Debt": {
+                                    "type": "string"
+                                  },
+                                  "Cash_Equ": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "Investors Info": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "Investor": {
+                                    "type": "string"
+                                  },
+                                  "InvestorType": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "Company Info": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "companyname": {
+                                    "type": "string"
+                                  },
+                                  "industry": {
+                                    "type": "string"
+                                  },
+                                  "companyType": {
+                                    "type": "string"
+                                  },
+                                  "sector_bussiness": {
+                                    "type": "string"
+                                  },
+                                  "city": {
+                                    "type": "string"
+                                  },
+                                  "region": {
+                                    "type": "string"
+                                  },
+                                  "website": {
+                                    "type": "string"
+                                  },
+                                  "link": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "More Info": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "Moreinfo": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "angel": {
+                          "type": "object",
+                          "properties": {
+                            "Deal_Details": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "dealInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "investor": {
+                                          "type": "string"
+                                        },
+                                        "multipleRound": {
+                                          "type": "string"
+                                        },
+                                        "followonFunding": {
+                                          "type": "string"
+                                        },
+                                        "exitedStatus": {
+                                          "type": "string"
+                                        },
+                                        "date": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyName": {
+                                          "type": "string"
+                                        },
+                                        "industry": {
+                                          "type": "string"
+                                        },
+                                        "sector": {
+                                          "type": "string"
+                                        },
+                                        "city": {
+                                          "type": "string"
+                                        },
+                                        "region": {
+                                          "type": "string"
+                                        },
+                                        "website": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "moreInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "moreInfo": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyProfile": {
+                                    "type": "object",
+                                    "properties": {
+                                      "0": {
+                                        "type": "object",
+                                        "properties": {
+                                          "companyName": {
+                                            "type": "string"
+                                          },
+                                          "investor": {
+                                            "type": "string"
+                                          },
+                                          "industry": {
+                                            "type": "string"
+                                          },
+                                          "sector": {
+                                            "type": "string"
+                                          },
+                                          "website": {
+                                            "type": "string"
+                                          },
+                                          "city": {
+                                            "type": "string"
+                                          },
+                                          "otherLocation": {
+                                            "type": "string"
+                                          },
+                                          "country": {
+                                            "type": "string"
+                                          },
+                                          "telephone": {
+                                            "type": "string"
+                                          },
+                                          "email": {
+                                            "type": "string"
+                                          },
+                                          "yearFounded": {
+                                            "type": "string"
+                                          },
+                                          "linkedIn": {
+                                            "type": "string"
+                                          },
+                                          "linkedInCompany": {
+                                            "type": "string"
+                                          },
+                                          "news": {
+                                            "type": "string"
+                                          },
+                                          "additionalInformation": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "topManagement": {
+                                        "type": "string"
+                                      },
+                                      "investorBoardMember": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "investments": {
+                                    "type": "object",
+                                    "properties": {
+                                      "pe/vcInvestors": {
+                                        "type": "string"
+                                      },
+                                      "incubators": {
+                                        "type": "string"
+                                      },
+                                      "angelInvestors": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "investorName": {
+                                              "type": "string"
+                                            },
+                                            "dealPeriod": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "Incubation": {
+                          "type": "object",
+                          "properties": {
+                            "Deal_Details": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "companyName": {
+                                    "type": "string"
+                                  },
+                                  "companyInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyname": {
+                                          "type": "string"
+                                        },
+                                        "industry": {
+                                          "type": "string"
+                                        },
+                                        "sectorBusiness": {
+                                          "type": "string"
+                                        },
+                                        "city": {
+                                          "type": "string"
+                                        },
+                                        "region": {
+                                          "type": "string"
+                                        },
+                                        "website": {
+                                          "type": "string"
+                                        },
+                                        "incubator": {
+                                          "type": "string"
+                                        },
+                                        "dealDate": {
+                                          "type": "string"
+                                        },
+                                        "status": {
+                                          "type": "string"
+                                        },
+                                        "followonFund": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "moreInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "Moreinfo": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "financialsInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "file": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyProfile": {
+                                    "type": "object",
+                                    "properties": {
+                                      "0": {
+                                        "type": "object",
+                                        "properties": {
+                                          "companyName": {
+                                            "type": "string"
+                                          },
+                                          "investor": {
+                                            "type": "string"
+                                          },
+                                          "industry": {
+                                            "type": "string"
+                                          },
+                                          "sector": {
+                                            "type": "string"
+                                          },
+                                          "website": {
+                                            "type": "string"
+                                          },
+                                          "city": {
+                                            "type": "string"
+                                          },
+                                          "otherLocation": {
+                                            "type": "string"
+                                          },
+                                          "country": {
+                                            "type": "string"
+                                          },
+                                          "telephone": {
+                                            "type": "string"
+                                          },
+                                          "email": {
+                                            "type": "string"
+                                          },
+                                          "yearFounded": {
+                                            "type": "string"
+                                          },
+                                          "linkedIn": {
+                                            "type": "string"
+                                          },
+                                          "linkedInCompany": {
+                                            "type": "string"
+                                          },
+                                          "news": {
+                                            "type": "string"
+                                          },
+                                          "additionalInformation": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "topManagement": {
+                                        "type": "string"
+                                      },
+                                      "investorBoardMember": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "investments": {
+                                    "type": "object",
+                                    "properties": {
+                                      "pe/vcInvestors": {
+                                        "type": "string"
+                                      },
+                                      "incubators": {
+                                        "type": "string"
+                                      },
+                                      "angelInvestors": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Exit": {
+                      "type": "object",
+                      "properties": {
+                        "PEMA": {
+                          "type": "object",
+                          "properties": {
+                            "Deal_Details": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "companyName": {
+                                    "type": "string"
+                                  },
+                                  "dealInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "acquirer": {
+                                          "type": "string"
+                                        },
+                                        "dealSize": {
+                                          "type": "string"
+                                        },
+                                        "dealType": {
+                                          "type": "string"
+                                        },
+                                        "exitStatus": {
+                                          "type": "string"
+                                        },
+                                        "date": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyName": {
+                                          "type": "string"
+                                        },
+                                        "sector": {
+                                          "type": "string"
+                                        },
+                                        "industry": {
+                                          "type": "string"
+                                        },
+                                        "website": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "investorAndAdvisorInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "investor": {
+                                          "type": "string"
+                                        },
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "advisorSeller": {
+                                          "type": "string"
+                                        },
+                                        "advisorBuyer": {
+                                          "type": "string"
+                                        },
+                                        "moreDetails": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "financialsInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "file": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "exitDetails": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyValuationEquityPostMoney(INRCr)": {
+                                          "type": "string"
+                                        },
+                                        "revenueMultiple(BasedOnEquityValue/MarketCap)": {
+                                          "type": "string"
+                                        },
+                                        "ebitdaMultiple(BasedOnEquityValue)": {
+                                          "type": "string"
+                                        },
+                                        "patMultiple(BasedOnEquityValue)": {
+                                          "type": "string"
+                                        },
+                                        "priceToBook": {
+                                          "type": "string"
+                                        },
+                                        "valuation": {
+                                          "type": "string"
+                                        },
+                                        "revenue": {
+                                          "type": "string"
+                                        },
+                                        "ebitda": {
+                                          "type": "string"
+                                        },
+                                        "pat": {
+                                          "type": "string"
+                                        },
+                                        "bookValuePerShare": {
+                                          "type": "string"
+                                        },
+                                        "pricePerShare": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyProfile": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyName": {
+                                          "type": "string"
+                                        },
+                                        "investor": {
+                                          "type": "string"
+                                        },
+                                        "industry": {
+                                          "type": "string"
+                                        },
+                                        "sector": {
+                                          "type": "string"
+                                        },
+                                        "website": {
+                                          "type": "string"
+                                        },
+                                        "address": {
+                                          "type": "string"
+                                        },
+                                        "city": {
+                                          "type": "string"
+                                        },
+                                        "otherLocation": {
+                                          "type": "string"
+                                        },
+                                        "country": {
+                                          "type": "string"
+                                        },
+                                        "telephone": {
+                                          "type": "string"
+                                        },
+                                        "fax": {
+                                          "type": "string"
+                                        },
+                                        "email": {
+                                          "type": "string"
+                                        },
+                                        "stockcode": {
+                                          "type": "string"
+                                        },
+                                        "yearFounded": {
+                                          "type": "string"
+                                        },
+                                        "linkedIn": {
+                                          "type": "string"
+                                        },
+                                        "linkedInCompany": {
+                                          "type": "string"
+                                        },
+                                        "news": {
+                                          "type": "string"
+                                        },
+                                        "additionalInformation": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "investments": {
+                                    "type": "object",
+                                    "properties": {
+                                      "pe/vcInvestors": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Investor Name": {
+                                              "type": "string"
+                                            },
+                                            "Deal Period": {
+                                              "type": "string"
+                                            },
+                                            "Exit Status": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "PE-publicmarket": {
+                          "type": "object",
+                          "properties": {
+                            "Deal_Details": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "companyName": {
+                                    "type": "string"
+                                  },
+                                  "dealInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "acquirer": {
+                                          "type": "string"
+                                        },
+                                        "dealSize": {
+                                          "type": "string"
+                                        },
+                                        "dealType": {
+                                          "type": "string"
+                                        },
+                                        "exitStatus": {
+                                          "type": "string"
+                                        },
+                                        "date": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyName": {
+                                          "type": "string"
+                                        },
+                                        "sector": {
+                                          "type": "string"
+                                        },
+                                        "industry": {
+                                          "type": "string"
+                                        },
+                                        "website": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "investorAndAdvisorInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "investor": {
+                                          "type": "string"
+                                        },
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "moreDetails": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "financialsInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "file": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "exitDetails": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyValuationEquityPostMoney(INRCr)": {
+                                          "type": "string"
+                                        },
+                                        "revenueMultiple(BasedOnEquityValue/MarketCap)\"": {
+                                          "type": "string"
+                                        },
+                                        "ebitdaMultiple(BasedOnEquityValue)": {
+                                          "type": "string"
+                                        },
+                                        "patMultiple(BasedOnEquityValue)": {
+                                          "type": "string"
+                                        },
+                                        "priceToBook": {
+                                          "type": "string"
+                                        },
+                                        "valuation": {
+                                          "type": "string"
+                                        },
+                                        "revenue": {
+                                          "type": "string"
+                                        },
+                                        "ebitda": {
+                                          "type": "string"
+                                        },
+                                        "pat": {
+                                          "type": "string"
+                                        },
+                                        "bookValuePerShare": {
+                                          "type": "string"
+                                        },
+                                        "pricePerShare": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyProfile": {
+                                    "type": "object",
+                                    "properties": {
+                                      "0": {
+                                        "type": "object",
+                                        "properties": {
+                                          "companyName": {
+                                            "type": "string"
+                                          },
+                                          "investor": {
+                                            "type": "string"
+                                          },
+                                          "industry": {
+                                            "type": "string"
+                                          },
+                                          "sector": {
+                                            "type": "string"
+                                          },
+                                          "website": {
+                                            "type": "string"
+                                          },
+                                          "city": {
+                                            "type": "string"
+                                          },
+                                          "otherLocation": {
+                                            "type": "string"
+                                          },
+                                          "country": {
+                                            "type": "string"
+                                          },
+                                          "telephone": {
+                                            "type": "string"
+                                          },
+                                          "email": {
+                                            "type": "string"
+                                          },
+                                          "yearFounded": {
+                                            "type": "string"
+                                          },
+                                          "linkedIn": {
+                                            "type": "string"
+                                          },
+                                          "linkedInCompany": {
+                                            "type": "string"
+                                          },
+                                          "news": {
+                                            "type": "string"
+                                          },
+                                          "additionalInformation": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "topManagement": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Name": {
+                                              "type": "string"
+                                            },
+                                            "Designation": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "investorBoardMember": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Name": {
+                                              "type": "string"
+                                            },
+                                            "Designation": {
+                                              "type": "string"
+                                            },
+                                            "LinkedIn": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "investments": {
+                                    "type": "object",
+                                    "properties": {
+                                      "pe/vcInvestors": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Investor Name": {
+                                              "type": "string"
+                                            },
+                                            "Deal Period": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "incubators": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Investor Name": {
+                                              "type": "string"
+                                            },
+                                            "Deal Period": {
+                                              "type": "string"
+                                            },
+                                            "Exit Status": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "angelInvestors": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "PE-IPO": {
+                          "type": "object",
+                          "properties": {
+                            "Deal_Details": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "dealInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "ipoSize(US$M)": {
+                                          "type": "string"
+                                        },
+                                        "ipoPrice": {
+                                          "type": "string"
+                                        },
+                                        "ipoValuation": {
+                                          "type": "string"
+                                        },
+                                        "dealPeriod": {
+                                          "type": "string"
+                                        },
+                                        "exitStatus": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "companyInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "company": {
+                                          "type": "string"
+                                        },
+                                        "sector": {
+                                          "type": "string"
+                                        },
+                                        "industry": {
+                                          "type": "string"
+                                        },
+                                        "website": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "financialsInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "companyValuationEquityPostMoney(INRCr)": {
+                                          "type": "string"
+                                        },
+                                        "revenueMultiple(BasedOnEquityValue/MarketCap)\"": {
+                                          "type": "string"
+                                        },
+                                        "ebitdaMultiple(BasedOnEquityValue)": {
+                                          "type": "string"
+                                        },
+                                        "patMultiple(BasedOnEquityValue)": {
+                                          "type": "string"
+                                        },
+                                        "priceToBook": {
+                                          "type": "string"
+                                        },
+                                        "valuation": {
+                                          "type": "string"
+                                        },
+                                        "revenue": {
+                                          "type": "string"
+                                        },
+                                        "ebitda": {
+                                          "type": "string"
+                                        },
+                                        "pat": {
+                                          "type": "string"
+                                        },
+                                        "bookValuePerShare": {
+                                          "type": "string"
+                                        },
+                                        "pricePerShare": {
+                                          "type": "string"
+                                        },
+                                        "file": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "investorInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "investor": {
+                                          "type": "string"
+                                        },
+                                        "investorType": {
+                                          "type": "string"
+                                        },
+                                        "investorSaleDisplay": {
+                                          "type": "string"
+                                        },
+                                        "sellingInvestorsValue": {
+                                          "type": "string"
+                                        },
+                                        "link": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "moreDetails(OverallIPO)": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "moreInfor": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "investmentDetails": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "investmentDeals": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "returnInfo": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "companyProfile": {
+                                    "type": "object",
+                                    "properties": {
+                                      "0": {
+                                        "type": "object",
+                                        "properties": {
+                                          "companyName": {
+                                            "type": "string"
+                                          },
+                                          "investor": {
+                                            "type": "string"
+                                          },
+                                          "industry": {
+                                            "type": "string"
+                                          },
+                                          "sector": {
+                                            "type": "string"
+                                          },
+                                          "website": {
+                                            "type": "string"
+                                          },
+                                          "city": {
+                                            "type": "string"
+                                          },
+                                          "otherLocation": {
+                                            "type": "string"
+                                          },
+                                          "country": {
+                                            "type": "string"
+                                          },
+                                          "telephone": {
+                                            "type": "string"
+                                          },
+                                          "email": {
+                                            "type": "string"
+                                          },
+                                          "yearFounded": {
+                                            "type": "string"
+                                          },
+                                          "linkedIn": {
+                                            "type": "string"
+                                          },
+                                          "linkedInCompany": {
+                                            "type": "string"
+                                          },
+                                          "news": {
+                                            "type": "string"
+                                          },
+                                          "additionalInformation": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "topManagement": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Name": {
+                                              "type": "string"
+                                            },
+                                            "Designation": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "investorBoardMember": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "investments": {
+                                    "type": "object",
+                                    "properties": {
+                                      "pe/vcInvestors": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Investor Name": {
+                                              "type": "string"
+                                            },
+                                            "Deal Period": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "incubators": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Investor Name": {
+                                              "type": "string"
+                                            },
+                                            "Deal Period": {
+                                              "type": "string"
+                                            },
+                                            "Exit Status": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "angelInvestors": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Definition/explanation of specific fields available in the Response": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "Name of the file. Extensions should be one of jpg, pdf, mdcm, zip, doc, docx, xls, xlsx, csv, html, rar, jpeg, mht, png, mp4, wav"
+          },
+          "docPath": {
+            "type": "string",
+            "description": "location of the file"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Deal amount in USD millions"
+          },
+          "amountINR": {
+            "type": "string",
+            "description": "Deal amount in INR Cr"
+          },
+          "exitStatus": {
+            "type": "string",
+            "description": "Investor’s presence in the company – Unexited, Partially Exited or Fully Exited"
+          },
+          "date": {
+            "type": "string",
+            "description": "Deal date"
+          },
+          "bvPerShare": {
+            "type": "string",
+            "description": "Book Value per share – applicable only to BFSI companies"
+          },
+          "stake": {
+            "type": "string",
+            "description": "Stake acquired by Investors in the particular transaction"
+          },
+          "stage": {
+            "type": "string",
+            "description": "Refer to the Index"
+          },
+          "round": {
+            "type": "string",
+            "description": "Seed, Round 1, 2, 3 (Series A, B, C respectively), Open Market Transaction (Stake acquisition by PE investors in listed companies), Preferential Allotment (Bulk allotment of shares to PE/VC investors in the companies)"
+          },
+          "pricePerShare": {
+            "type": "string",
+            "description": "Issue price of equity and other instruments (preference shares, debentures)"
+          },
+          "priceToBook": {
+            "type": "string",
+            "description": "Price to Book ratio – applicable only to BFSI companies"
+          },
+          "financialYear": {
+            "type": "string",
+            "description": "Financial year"
+          },
+          "revenue": {
+            "type": "string",
+            "description": "Total Revenue"
+          },
+          "ebitda": {
+            "type": "string",
+            "description": "Earnings Before Interest, Taxes, Depreciation and Amortization"
+          },
+          "pat": {
+            "type": "string",
+            "description": "Profit After Tax"
+          },
+          "totalDebt": {
+            "type": "string",
+            "description": "Long Term Borrowings + Short Term Borrowings"
+          },
+          "cashEqu": {
+            "type": "string",
+            "description": "Cash and Cash Equivalents"
+          },
+          "investor": {
+            "type": "string",
+            "description": "Investor name"
+          },
+          "investorType": {
+            "type": "string",
+            "description": "Foreign or India dedicated or Co-investement"
+          },
+          "industry": {
+            "type": "string",
+            "description": "Refer to the Industry list in the Index"
+          },
+          "companyType": {
+            "type": "string",
+            "description": "Listed or Unlisted"
+          },
+          "website": {
+            "type": "string",
+            "description": "Company’s website"
+          },
+          "link": {
+            "type": "string",
+            "description": "New article URLs"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  }
+}
+// Build a system
+  const ui = SwaggerUIBundle({
+    spec: spec,
+    dom_id: '#swagger-ui',
+    deepLinking: true,
+    presets: [
+      SwaggerUIBundle.presets.apis,
+      SwaggerUIStandalonePreset
+    ],
+    plugins: [
+      SwaggerUIBundle.plugins.DownloadUrl
+    ],
+    layout: "StandaloneLayout"
+  })
+
+  window.ui = ui
+}
+</script>
+</body>
+
+</html>
