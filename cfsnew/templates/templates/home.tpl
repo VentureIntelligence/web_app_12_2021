@@ -161,7 +161,7 @@ padding:0px 10px; }
 
 <ul>
 <li><a  href="home.php" class="active postlink"><i></i> LIST VIEW</a></li>
-<li><a class="postlink" href="{if count($SearchResults[List]) gt 0}details.php?vcid={$SearchResults[0].Company_Id}{else}#{/if}"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
+{* <li><a class="postlink" href="{if count($SearchResults[List]) gt 0}details.php?vcid={$SearchResults[0].Company_Id}{else}#{/if}"><i class="i-detail-view"></i> DETAIL VIEW</a></li> *}
 </ul><div class="page-no" style="position: initial;width">
 <select name="currency" class="limit currency"  onchange="this.form.submit();">
     <option value="INR" {if $currency eq "INR"}selected{/if}>INR</option>
@@ -270,7 +270,6 @@ padding:0px 10px; }
     {else}
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if}    
-            <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
             <input type="hidden" name="currency" id="currency" value="{$currency}"/>     
              <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>
