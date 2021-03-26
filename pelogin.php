@@ -1514,10 +1514,14 @@ padding:0px 10px; }
             var Android = navigator.userAgent.match(/Android/i);
             var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
             var windowwidth = $(window).width();
-           
+           console.log(windowwidth);
+           console.log(Android);
+           console.log(IOS);
+           console.log($(window).height());
             if(Android || IOS){
                  
                     var popup = getCookie("mobilepopuppe");
+                    console.log(popup);
                     if (popup == "show") {
                         $(".mobileRedirectPopup").hide();
                         $(".backdrop").hide();  
