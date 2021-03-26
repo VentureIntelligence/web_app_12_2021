@@ -561,6 +561,7 @@ if($user_os=='IOS'){
         {$user_browser = "Safari";}
     else{$user_browser = 'Chrome';}
 } else{$user_browser = 'Chrome';}
+}
 
 
    /* echo $_SERVER['HTTP_USER_AGENT'];
