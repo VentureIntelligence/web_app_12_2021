@@ -1514,7 +1514,8 @@ padding:0px 10px; }
     //    function popup(ow){
             var Android = navigator.userAgent.match(/Android/i);
             IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
-            
+            var windowwidth = $(window).width();
+           
             if(Android || IOS){
                  
                     var popup = getCookie("mobilepopuppe");
@@ -1522,9 +1523,13 @@ padding:0px 10px; }
                         $(".mobileRedirectPopup").hide();
                         $(".backdrop").hide();  
                     } else {
-                        
-                            $(".mobileRedirectPopup").show();
-                            $(".backdrop").show();
+                        if(windowwidth > 1025){
+                            $(".mobileRedirectPopup").hide();
+                            $(".backdrop").hide();  
+                        }else{
+                                    $(".mobileRedirectPopup").show();
+                                    $(".backdrop").show();
+                        }
                        
                     }
                 

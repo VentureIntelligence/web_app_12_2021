@@ -1619,6 +1619,7 @@ if ($sector != '' && (count($sector) > 0)) {
     }
    
     $sectorvalue = trim($sectorvalue, ',');
+    $sector_hide = implode($sector, ',');
     // $industry_hide = implode($industry, ',');
 }
 
@@ -1676,7 +1677,7 @@ if ($boolStage == true) {
 } else {
     $stagevaluetext = "";
 }
-
+$stageval_hide = implode($stageval,',');
 if ($getstage != '') {
     $stagevaluetext = $getstage;
 } else if ($getrg != '') {
@@ -1827,7 +1828,6 @@ if ($DcompanyId == 697447099) {
 }
 
 if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $getreg != '' || $getrg != '') {
-    
 
     $companysql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business,
                  amount,pe.Amount_INR, round, s.stage,  stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod , pec.website, pec.city,
@@ -3223,7 +3223,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
             $wheredealsinvolving = '     (' . $wheredealsinvolving . ')';
         }
        // echo $wheredealsinvolving;
-       
+       $dealsinvolvingValue_hide = implode($dealsinvolvingvalue,',');
     }
     if (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) {
         $qryDateTitle = "Period - ";
@@ -3563,7 +3563,7 @@ if (trim($buttonClicked == "")) {
         writeSql_for_no_records($companysql, $emailid);
     }
 
-    echo '<div style="display: none">' . $companysqlwithlimit . '</div>';
+   // echo '<div style="display: none">' . $companysqlwithlimit . '</div>';
     ?>
 
 <td class="profile-view-left" style="width:100%;">
@@ -4855,14 +4855,68 @@ if ($type != 1) {
 </form>
             <!--input class="postlink" type="hidden" name="numberofcom" value="<?php echo $totalInv; ?>"-->
             <form name="pelisting" id="pelisting"  method="post" action="exportinvdeals.php">
-                 <input type="hidden" name="sql" value="<?php echo $exportsql; ?>" >
-                 <input type="hidden" name="split_sql" value="<?php echo $exportSplitSql; ?>" >
+            <input type="hidden" name="txtsearchon" value="1" >
+            <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
+            <input type="hidden" name="txtmonth1" value=<?php echo $month1; ?> >
+            <input type="hidden" name="listallcompanies" value=<?php echo $listallcompany; ?> >
+            <input type="hidden" name="debt_equity" value=<?php echo $debt_equity; ?> >
+            <input type="hidden" name="companyType" value=<?php echo $companyType; ?> >
+            <input type="hidden" name="countryid" value=<?php echo $investor_head; ?> >
+            <input type="hidden" name="invandor" value=<?php echo $invandor; ?> >
+           
+    <input type="hidden" name="txtmonth2" value=<?php echo $month2; ?> >
+    <input type="hidden" name="txtyear1" value=<?php echo $year1; ?> >
+    <input type="hidden" name="txtyear2" value=<?php echo $year2; ?> >
+    <input type="hidden" name="txttitle" value=<?php echo $vcflagValue; ?> >
+    <input type="hidden" name="txthidename" value=<?php echo $username; ?> >
+    <input type="hidden" name="txthideemail" value=<?php echo $UserEmail; ?> >
+    <input type="hidden" name="txthidedate" value=<?php echo $datevalue; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
+    <input type="hidden" name="txthidedealsinvolving" value="<?php echo $dealsinvolvingValue_hide;?>" >
+    <input type="hidden" name="txthidesectorval" value=<?php echo $sector_hide; ?> >
+    <input type="hidden" name="txthidesubsector" value="<?php echo $subsectorString; ?>" >
+    <input type="hidden" name="txthidesyndication" value="<?php echo $syndication;?>" >
+
+
+    <input type="hidden" name="txthidesector" value="<?php echo $sectorsearchhidden; ?>" >
+    <input type="hidden" name="txthideadvisor_legal" value=<?php echo $advisorsearchhidden_legal; ?> >
+    <input type="hidden" name="txthideadvisor_trans" value=<?php echo $advisorsearchhidden_trans; ?> >
+    <input type="hidden" name="txthideindustryid" value="<?php echo $industry_hide; ?>" >
+    <input type="hidden" name="txthidestageval" value="<?php echo $stageval_hide; ?>" >
+    <input type="hidden" name="txthideround" value="<?php echo $roundTxtVal; ?>">
+                        <input type="hidden" name="txthidevaluation" value="<?php echo $valuationsql; ?> ">
+    <input type="hidden" name="txthideregionid" value="<?php echo $region_hide; ?>" >
+    <input type="hidden" name="txthidecity" value="<?php echo $city; ?>">
+    <input type="hidden" name="txthidedateStartValue" value=<?php echo $startyear; ?> >
+    <input type="hidden" name="txthidedateEndValue" value=<?php echo $endyear; ?> >
+                        <input type="hidden" name="txthidedebt_equity" value=<?php echo $debt_equity; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthideinvtypeid" value=<?php echo $investorType; ?> >
+
+     <input type="hidden" name="yearafter" value=<?php echo $yearafter; ?> >
+    <input type="hidden" name="yearbefore" value=<?php echo $yearbefore; ?> >
+    <input type="hidden" name="state" value=<?php echo $statevalueid; ?> >
+    <input type="hidden" name="cityid" value=<?php echo $cityvalueid; ?> >
+
+
+    <input type="hidden" name="txthiderangeStartValue" value=<?php echo $startRangeValue; ?>>
+    <input type="hidden" name="txthiderangeEndValue" value=<?php echo $endRangeValue; ?> >
+                        <input type="hidden" name="txthideexitstatusValue" value=<?php echo $exitstatusValue_hide; ?> >
+    <input type="hidden" name="txthidesearchallfield" value=<?php echo $searchallfield; ?> >
+    <input type="hidden" name="txthidepe" id="txthidepe" value="<?php echo implode( ',', $pe_checkbox ); ?>">
+    <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode( ',', $pe_checkbox_enable ); ?>">
+    <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if($_POST['full_uncheck_flag']!=''){ echo $_POST['full_uncheck_flag']; }else{ echo ""; } ?>">
+    <input type="hidden" id="invradio" name="invradio" value="<?php if($invandor!=''){echo $invandor;}else {echo 0;}?>" placeholder="" style="width:220px;"> <input type="hidden" name="tagsearch" value="<?php echo $tagsearch; ?>" >
+        <input type="hidden" name="tagandor" value="<?php echo $tagandor; ?>" >
+    <!-- T960 -------------------------------------------->
+    <input type="hidden" class="resultarray" name="resultarray" value=""/>
                  <input type="hidden" name="split_group" value="<?php echo $exportSplitGroup; ?>" >
                  <input type="hidden" name="split_sql1" value="<?php echo $exportSplitSql1; ?>" >
                  <input type="hidden" name="split_group1" value="<?php echo $exportSplitGroup1; ?>" >
                  <input type="hidden" name="split_orderby" value="<?php echo $exportSplitOrderBy; ?>" >
                  <input type="hidden" name="txthideinvestor" value="<?php echo $keywordhidden; ?>" >
-                 <input type="hidden" name="txthidepe" id="txthidepe" value="<?php echo implode(',', $pe_checkbox); ?>">
+                 
                  <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode(',', $pe_checkbox_enable); ?>">
                  <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if ($_POST['full_uncheck_flag'] != '') {echo $_POST['full_uncheck_flag'];} else {echo "";}?>">
                 <!-- T960 ---------------------------------------->
@@ -4942,7 +4996,73 @@ if ($type != 1) {
 
     </form>
     <form name="exporttrend" id="exporttable"  method="post" action="ajxExcel.php">
-        <input type="hidden" id="exporttablesql" name="exporttablesql" value="<?php echo $companysql; ?>" >
+    <input type="hidden" name="txtsearchon" value="1" >
+            <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
+            <input type="hidden" name="txtmonth1" value=<?php echo $month1; ?> >
+            <input type="hidden" name="listallcompanies" value=<?php echo $listallcompany; ?> >
+            <input type="hidden" name="debt_equity" value=<?php echo $debt_equity; ?> >
+            <input type="hidden" name="companyType" value=<?php echo $companyType; ?> >
+            <input type="hidden" name="countryid" value=<?php echo $investor_head; ?> >
+            <input type="hidden" name="invandor" value=<?php echo $invandor; ?> >
+           
+    <input type="hidden" name="txtmonth2" value=<?php echo $month2; ?> >
+    <input type="hidden" name="txtyear1" value=<?php echo $year1; ?> >
+    <input type="hidden" name="txtyear2" value=<?php echo $year2; ?> >
+    <input type="hidden" name="txttitle" value=<?php echo $vcflagValue; ?> >
+    <input type="hidden" name="txthidename" value=<?php echo $username; ?> >
+    <input type="hidden" name="txthideemail" value=<?php echo $UserEmail; ?> >
+    <input type="hidden" name="txthidedate" value=<?php echo $datevalue; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
+    <input type="hidden" name="txthidedealsinvolving" value="<?php echo $dealsinvolvingValue_hide;?>" >
+    <input type="hidden" name="txthidesectorval" value=<?php echo $sector_hide; ?> >
+    <input type="hidden" name="txthidesubsector" value="<?php echo $subsectorString; ?>" >
+    <input type="hidden" name="txthidesyndication" value="<?php echo $syndication;?>" >
+
+
+    <input type="hidden" name="txthidesector" value="<?php echo $sectorsearchhidden; ?>" >
+    <input type="hidden" name="txthideadvisor_legal" value=<?php echo $advisorsearchhidden_legal; ?> >
+    <input type="hidden" name="txthideadvisor_trans" value=<?php echo $advisorsearchhidden_trans; ?> >
+    <input type="hidden" name="txthideindustryid" value="<?php echo $industry_hide; ?>" >
+    <input type="hidden" name="txthidestageval" value="<?php echo $stageval_hide; ?>" >
+    <input type="hidden" name="txthideround" value="<?php echo $roundTxtVal; ?>">
+                        <input type="hidden" name="txthidevaluation" value="<?php echo $valuationsql; ?> ">
+    <input type="hidden" name="txthideregionid" value="<?php echo $region_hide; ?>" >
+    <input type="hidden" name="txthidecity" value="<?php echo $city; ?>">
+    <input type="hidden" name="txthidedateStartValue" value=<?php echo $startyear; ?> >
+    <input type="hidden" name="txthidedateEndValue" value=<?php echo $endyear; ?> >
+                        <input type="hidden" name="txthidedebt_equity" value=<?php echo $debt_equity; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthideinvtypeid" value=<?php echo $investorType; ?> >
+
+     <input type="hidden" name="yearafter" value=<?php echo $yearafter; ?> >
+    <input type="hidden" name="yearbefore" value=<?php echo $yearbefore; ?> >
+    <input type="hidden" name="state" value=<?php echo $statevalueid; ?> >
+    <input type="hidden" name="cityid" value=<?php echo $cityvalueid; ?> >
+
+
+    <input type="hidden" name="txthiderangeStartValue" value=<?php echo $startRangeValue; ?>>
+    <input type="hidden" name="txthiderangeEndValue" value=<?php echo $endRangeValue; ?> >
+                        <input type="hidden" name="txthideexitstatusValue" value=<?php echo $exitstatusValue_hide; ?> >
+    <input type="hidden" name="txthidesearchallfield" value=<?php echo $searchallfield; ?> >
+    <input type="hidden" name="txthidepe" id="txthidepe" value="<?php echo implode( ',', $pe_checkbox ); ?>">
+    <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode( ',', $pe_checkbox_enable ); ?>">
+    <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if($_POST['full_uncheck_flag']!=''){ echo $_POST['full_uncheck_flag']; }else{ echo ""; } ?>">
+    <input type="hidden" id="invradio" name="invradio" value="<?php if($invandor!=''){echo $invandor;}else {echo 0;}?>" placeholder="" style="width:220px;"> <input type="hidden" name="tagsearch" value="<?php echo $tagsearch; ?>" >
+        <input type="hidden" name="tagandor" value="<?php echo $tagandor; ?>" >
+    <!-- T960 -------------------------------------------->
+    <input type="hidden" class="resultarray" name="resultarray" value=""/>
+                 <input type="hidden" name="split_group" value="<?php echo $exportSplitGroup; ?>" >
+                 <input type="hidden" name="split_sql1" value="<?php echo $exportSplitSql1; ?>" >
+                 <input type="hidden" name="split_group1" value="<?php echo $exportSplitGroup1; ?>" >
+                 <input type="hidden" name="split_orderby" value="<?php echo $exportSplitOrderBy; ?>" >
+                 <input type="hidden" name="txthideinvestor" value="<?php echo $keywordhidden; ?>" >
+                 
+                 <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode(',', $pe_checkbox_enable); ?>">
+                 <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if ($_POST['full_uncheck_flag'] != '') {echo $_POST['full_uncheck_flag'];} else {echo "";}?>">
+                <!-- T960 ---------------------------------------->
+                <input type="hidden" class="resultarray" name="resultarray" value=""/>
+       
     </form>
 
             <input type="hidden" id="prev" value="<?php echo $prevpage; ?>"/>
@@ -5331,10 +5451,15 @@ if ($type != 1) {
                 /*jQuery('#preloading').fadeIn();
                 initExport();
                 return false;*/
-
                 jQuery('#maskscreen').fadeIn();
-                jQuery('#popup-box-copyrights').fadeIn();
-                return false;
+                    jQuery('#popup-box-copyrights').fadeIn();
+                    $('.exportcheck').iCheck('destroy');
+                    $('.companyexportcheck').iCheck('destroy');
+                    $('.allexportcheck').iCheck('destroy');
+                    $('.allexportcheck').iCheck('check');
+                    $(".resultarray").val('Select-All');
+                    $('.exportcolumn .exportcheck').attr('checked', true); 
+                    return false;
             });
 
              function updateCountandAmount( elementINRAmount, elementAmount, type, amountFlag, pehideFlag, total_invdeal ) {
@@ -5808,39 +5933,7 @@ $(document).ready(function () {
     </script>
 <?php if ($type == 1 && $vcflagValue == 0) {?>
 
-    <script language="javascript">
-    $(document).ready(function(){
-        $("#ldtrend").click(function () {
-
-
-
-            if($(".show_hide").attr('class')!='show_hide'){
-
-                         /*$('.list-tab').css('position', 'relative');
-                         $('.view-table-list').css('margin-top', '');*/
-                var htmlinner = $(".profile-view-title").html();
-                $(".profile-view-title").html(htmlinner + '<br><br><font color="green">Please wait while we load the graph...</font>');
-                //Execute SQL
-                $.ajax({
-                    type : 'POST',
-                    url  : 'ajxQuery.php',
-                    dataType : 'json',
-                    data: {
-                        sql : '<?php echo addslashes($companysql); ?>'
-                    },
-                    success : function(data){
-                        drawVisualization(data);
-                        $(".profile-view-title").html(htmlinner);
-                    },
-                    error : function(XMLHttpRequest, textStatus, errorThrown) {
-                        alert('There was an error');
-                    }
-                });
-            }
-
-        });
-    });
-    </script>
+   
 
 
     <script type="text/javascript">

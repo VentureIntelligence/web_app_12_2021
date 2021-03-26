@@ -42,7 +42,7 @@ else
   cursor: default !important;
   pointer-events: none;
 } */
-.request-for-lp{
+/* .request-for-lp{
   position: absolute;
     background: #41352999;
     right: 205px;
@@ -52,7 +52,7 @@ else
     top: 4px;
     margin-right: 0px !important;
     width:15px;
-}
+} */
   </style>
  <div id="maskscreen" ></div>
       <div id="preloading"></div>
@@ -642,13 +642,14 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 
         else{
         ?>
-        <span class="request-for-lp" style=""><i class="fa fa-lock" aria-hidden="true" style="
+        <span class="request-for-lp" style="">
+
+        <button style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;border-radius:5px;    opacity: 0.5;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advanced Filters" id="advExport" ><i class="fa fa-lock" aria-hidden="true" style="
     background-image: none;    font-size: 15px;
-"></i></span>
-        <input style="float: right;margin-right: 9px;color:white;background-color: #A2753A;text-transform:capitalize;padding:7px 30px 7px 30px;border-radius:5px;" type="button" class="btn-disabled" disabled="disabled"  name="advExport" value="Advanced Filters" id="advExport" >
-       
-        
+"></i>       Advanced Filters
+        </button> </span>
         <?php  }?>
+        
                            
 </td>
 
@@ -658,11 +659,11 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
 
 <?php } ?>
 <div class="lb" id="popup-box-lp" style="width: 450px;">
-    <div class="title" style="font-size: 16px;"> Request for - Advance Export </div>
+    <div class="title" style="font-size: 16px;"> Request for - Advanced Filters </div>
         <form style="margin-bottom: 0px;">
             <div class="entry">
                     <h5>Add a note..</h5><span style='float:right;display: block;margin-top: -20px;'></span>
-                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="Need access for advance filter" val=''></textarea>
+                    <textarea name="ymessage" id="ymessage" style="width: 420px; height: 57px;" placeholder="Need access for advanced filters" val=''></textarea>
                     <input type="hidden" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"/>
             </div>
             <div class="entry">
