@@ -11779,6 +11779,7 @@ echo $user_browser;?>
           
             var Android = navigator.userAgent.match(/Android/i);
             var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            var windowwidth = $(window).width();
             // alert(IOS);
             // alert(Android);
             if(Android || IOS){
@@ -11789,8 +11790,13 @@ echo $user_browser;?>
                         $(".backdrop").hide();  
                     }else{
                         
-                            $(".mobileRedirectPopup").show();
-                            $(".backdrop").show();
+                        if(windowwidth > 1025 || windowwidth === undefined){
+                            $(".mobileRedirectPopup").hide();
+                            $(".backdrop").hide();  
+                        }else{
+                                    $(".mobileRedirectPopup").show();
+                                    $(".backdrop").show();
+                       }
                         
                     }
                         
