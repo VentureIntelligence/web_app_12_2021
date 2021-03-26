@@ -986,7 +986,7 @@ detail-table-div table thead th:last-child {
 
 
 </style>
-
+<div id="useragent" style="display:none"><?php echo $_SERVER['HTTP_USER_AGENT']?></div>
 <?php 
 
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE)
