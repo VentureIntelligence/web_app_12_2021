@@ -516,7 +516,9 @@ While($myrow=mysql_fetch_array($resChkdevices, MYSQL_BOTH))
     $devices_array[]= $myrow;
     $devices_array_list[]= $myrow["device_details"];
 }
-
+?>
+<div id="useragent" style="display:none"><?php echo $_SERVER['HTTP_USER_AGENT']?></div>
+<?php
 if (isset($_SERVER['HTTP_USER_AGENT'])) {
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE){
     $user_os =  'Windows';
