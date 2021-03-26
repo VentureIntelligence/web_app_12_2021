@@ -529,10 +529,10 @@ function search_array ( array $array, $term )
 <link rel="stylesheet" href="css/login.css" />
 <link rel="shortcut icon" href="img/fave-icon.png">
 <script src="//www.google-analytics.com/urchin.js" type="text/javascript"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.7.js"></script>
+<script type="text/javascript" src="dealsnew/js/jquery-1.7.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 <script type="text/javascript" src="js/ui.dropdownchecklist.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="dealsnew/css/jquery-ui.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
 <script>
@@ -987,7 +987,7 @@ detail-table-div table thead th:last-child {
 
 
 </style>
-
+<div id="useragent" style="display:none"><?php echo $_SERVER['HTTP_USER_AGENT']?></div>
 <?php 
 
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE)
