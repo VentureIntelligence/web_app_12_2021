@@ -362,7 +362,7 @@ elseif(($username !='')  && (md5($password) == $Pwd) && ($authAdmin['usr_flag'] 
 	//$template->assign("ErrMsg","Account Not Yet activated !");
         $displayMessage = 'Account Not Yet activated !';
 
-}elseif(($username !='') && (md5($password) == $Pwd) && ($authAdmin['usr_flag'] == '0' ||  $groupstatus['status']==1 ) && (strtotime($groupstatus['expiry_date']) <= strtotime(date('d-m-Y')))){
+}elseif(($username !='') && (md5($password) == $Pwd)  && (strtotime($groupstatus['expiry_date']) <= strtotime(date('d-m-Y')))){
 	//$template->assign("ErrMsg","Account Not Yet activated !");
         $displayMessage = 'Your login has expired. Please contact renewal@ventureintelligence.com';
 

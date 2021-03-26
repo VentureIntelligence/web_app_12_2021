@@ -2,20 +2,16 @@
 <?php
 
     //session_save_path("/tmp");
-    //session_start();
-
     require("../dbconnectvi.php");
     $Db = new dbInvestments();
-    if(!isset($_SESSION['UserNames']))
-	{
-	header('Location:../pelogin.php');
-	}
-	else
-	{    
+    include_once 'checklogin.php';
+
     //Check Session Id 
     $sesID=session_id();
     $emailid=$_SESSION['UserEmail'];
     $sqlUserLogSel = "SELECT `sessionId` FROM `user_log` WHERE `emailId`='".$emailid."' AND `dbTYpe`='PE'";
+    //echo $sqlUserLogSel;exit();
+
     $resUserLogSel = mysql_query($sqlUserLogSel);
     $cntUserLogSel = mysql_num_rows($resUserLogSel);
     if ($cntUserLogSel > 0){
@@ -26,16 +22,20 @@
         }
     }
 // Start T960
-$exportvalue=$_POST['resultarray'];
+$exportvalue=$_POST['exitresultarray'];
+//echo $exportvalue;exit();
 if($exportvalue == "Select-All"){
     $exportvalue = "PortfolioCompany,CIN,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare";    
+
+   // $exportvalue = "PortfolioCompany,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
 }
 $expval=explode(",",$exportvalue);
+//echo json_encode($exportvalue);exit();
 // end T960
     function updateDownload($res){
         //Added By JFR-KUTUNG - Download Limit
         $recCount = mysql_num_rows($res);
-        $dlogUserEmail = $_SESSION['UserEmail'];
+        $dlogUserEmail =$_SESSION['UserEmail'];
         $today = date('Y-m-d');
 
         //Check Existing Entry
@@ -86,17 +86,20 @@ $expval=explode(",",$exportvalue);
     $dealtype=$_POST['txthidedealtypeid'];
     $invtypevalue=$_POST['txthideinvtype'];
     $invType=$_POST['txthideinvtypeid'];
+    //echo $invType;exit();
     $investor_head=$_POST['invhead'];
     $exitstatusvalue=$_POST['txthideexitstatusvalue'];
+    //echo $exitstatusvalue;exit(); 
     $hidedateStartValue=$_POST['txthidedateStartValue'];
     $hidedateEndValue=$_POST['txthidedateEndValue'];
     $dateValue=$_POST['txthidedate'];
     $tagsearch=$_POST['tagsearchval'];
-
+   // echo $_POST['exitQuery'];exit();
     $hidetxtfrm=$_POST['txthideReturnMultipleFrm'];
     $hidetxtto=$_POST['txthideReturnMultipleTo'];
-
+    //echo 'hai';
     $keyword=$_POST['txthideinvestor'];
+    //echo $_POST['txthideinvestor'];exit();
     $investorString=$_POST['txthideInvestorString'];
     $txthidepe=$_POST['txthidepe'];
     $yearafter=$_POST['yearafter'];
@@ -154,6 +157,7 @@ $expval=explode(",",$exportvalue);
             while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
             {
                     $compId=$trialrow["DCompId"];
+
             }
     }
     if($searchtitle==0)
@@ -212,7 +216,6 @@ $expval=explode(",",$exportvalue);
    // $addhide_pms_qry=" and pe.DealTypeId= dt.DealTypeId and dt.hide_for_exit=".$var_hideforexit;
 $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
     $hideWhere = '';
-    
     if($_SESSION['PE_industries']!=''){
 
         $comp_industry_id_where = ' AND pec.industry IN ('.$_SESSION['PE_industries'].') ';
@@ -220,7 +223,6 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 
     if (($keyword == "") && ($companysearch=="") && ($sectorsearch=="") &&  ($searchallfield=="")  && ($acquirersearch=="") && ($advisorsearch_legal=="") && ($advisorsearch_trans=="") && ($industry =="--") && ($InTypes =="")  && ($dealtype=="--") && ($invType == "--") && ($exitstatusvalue=="--") &&($hidedateStartValue == "------01") && ($hidedateEndValue == "------01"))
     {
-        
         if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
             $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
@@ -245,14 +247,14 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, pec.sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         DealAmount, website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it
         WHERE pec.industry = i.industryid and dt.DealTypeId=pe.DealTypeId and it.InvestorType=pe.InvestorType
         AND pec.PEcompanyID = pe.PECompanyID and pe.Deleted=0 and pec.industry !=15" .$addVCFlagqry .$addhide_pms_qry .$addDelind.$hideWhere.$comp_industry_id_where.
         " order by companyname";
 
-                            //	echo "<br>3 Query for All records" .$companysql;
+                            	  //echo "<br>3 Query for All records" .$companysql;exit();
     }
     elseif ($companysearch != "")
     {
@@ -279,7 +281,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pec.industry = i.industryid AND dt.DealTypeId=pe.DealTypeId and  it.InvestorType=pe.InvestorType
@@ -360,7 +362,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it".$joinsectortable."
         WHERE".$whereind." DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pec.industry = i.industryid AND dt.DealTypeId=pe.DealTypeId and  it.InvestorType=pe.InvestorType
@@ -373,47 +375,48 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         	/*echo "<br>Query for company search";
         	 echo "<br> Company search--" .$companysql;*/
     }
-    elseif($keyword!="") 
-    {
-        if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
+    // elseif($keyword1!="") 
+    // {
 
-            $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
+    //     if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
-        }elseif(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==''){
+    //         $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
 
-             $hideWhere = " and pe.MandAId NOT IN ( " . $_POST[ 'txthidepe' ] . " ) ";
+    //     }elseif(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==''){
 
-        }elseif(isset($_POST['txthidepe']) && $_POST['txthidepe'] != ''){
+    //          $hideWhere = " and pe.MandAId NOT IN ( " . $_POST[ 'txthidepe' ] . " ) ";
 
-           $hideWhere = " and pe.MandAId NOT IN ( " . $_POST[ 'txthidepe' ] . " ) ";
+    //     }elseif(isset($_POST['txthidepe']) && $_POST['txthidepe'] != ''){
 
-        }elseif(isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != ''){
+    //        $hideWhere = " and pe.MandAId NOT IN ( " . $_POST[ 'txthidepe' ] . " ) ";
 
-             $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
+    //     }elseif(isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != ''){
 
-        }else{
-             $hideWhere = " ";
-        }
+    //          $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
 
-        $companysql="select pe.MandAId,pe.MandAId,pe.PECompanyId,pec.industry,pe.DealTypeId,pe.AcquirerID,peinv_inv.InvestorId,
-        pec.companyname,i.industry,sector_business,
-        dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
-        pe.DealAmount,pec.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,
-        EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
-        FROM
-        manda_investors as peinv_inv,
-        peinvestors as inv,
-        manda as pe,dealtypes as dt,
-        pecompanies as pec,industry as i,investortype as it
-        WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'  and  
-        pe.Deleted=0 and
-        peinv_inv.MandAId=pe.MandAId and dt.DealTypeId=pe.DealTypeId and
-        inv.InvestorId=peinv_inv.InvestorId and pec.industry = i.industryid and it.InvestorType=pe.InvestorType
-        and pec.PECompanyId=pe.PECompanyId and pec.industry != 15 " .$addVCFlagqry.$addhide_pms_qry  .$addDelind.$hideWhere.$comp_industry_id_where.
-        " AND inv.InvestorId IN($keyword)  order by companyname";
+    //     }else{
+    //          $hideWhere = " ";
+    //     }
 
-       // echo "<br> Investor search- ".$companysql;
-    }
+    //     $companysql="select pe.MandAId,pe.MandAId,pe.PECompanyId,c.industry,pe.DealTypeId,pe.AcquirerID,peinv_inv.InvestorId,
+    //     c.companyname,i.industry,sector_business,
+    //     dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
+    //     pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,
+    //     EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
+    //     FROM
+    //     manda_investors as peinv_inv,
+    //     peinvestors as inv,
+    //     manda as pe,dealtypes as dt,
+    //     pecompanies as c,industry as i,investortype as it
+    //     WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'  and  
+    //     pe.Deleted=0 and
+    //     peinv_inv.MandAId=pe.MandAId and dt.DealTypeId=pe.DealTypeId and
+    //     inv.InvestorId=peinv_inv.InvestorId and c.industry = i.industryid and it.InvestorType=pe.InvestorType
+    //     and c.PECompanyId=pe.PECompanyId and c.industry != 15 " .$addVCFlagqry.$addhide_pms_qry  .$addDelind.$hideWhere.$comp_industry_id_where.
+    //     " AND inv.InvestorId IN($keyword)  order by companyname";
+
+    //     //echo "<br> Investor search- ".$companysql;exit();
+    // }
     elseif($acquirersearch!="")
     {
         if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
@@ -439,7 +442,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         c.companyname,i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor, ac.Acquirer,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,c.CINNo
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
         FROM
         acquirers AS ac, manda AS pe, pecompanies AS c, industry AS i,dealtypes as dt ,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  ac.AcquirerId = pe.AcquirerId and dt.DealTypeId=pe.DealTypeId
@@ -519,7 +522,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
         FROM
         manda AS pe,
         industry AS i,
@@ -562,7 +565,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             c.companyname,i.industry,c.sector_business,
             dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
             pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,cia.cianame,pe.InvestmentDeals,Link,
-            EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,c.CINNo
+            EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
             from manda AS pe, pecompanies AS c, industry AS i,advisor_cias AS cia,
             peinvestments_advisoracquirer AS adac,acquirers as ac,dealtypes as dt,investortype as it
             where DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and pe.Deleted=0 and
@@ -614,7 +617,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         c.companyname,i.industry,c.sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,cia.cianame,pe.InvestmentDeals,Link,
-        EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,c.CINNo
+        EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
         from manda AS pe, pecompanies AS c, industry AS i,advisor_cias AS cia,
         peinvestments_advisoracquirer AS adac,acquirers as ac,dealtypes as dt,investortype as it
         where pe.Deleted=0 and
@@ -629,7 +632,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,
         cia.cianame,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,
-        Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,,c.CINNo
+        Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple ,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
         FROM manda AS pe, pecompanies AS c, industry AS i, advisor_cias AS cia,
         peinvestments_advisorcompanies AS adcomp, acquirers AS ac,dealtypes as dt,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pe.Deleted=0 and
@@ -685,7 +688,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         pec.companyname, i.industry, sector_business,
         dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
         pe.DealAmount,website, MoreInfor,hideamount,hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
+        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded
         FROM
         manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it
         WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pec.industry = i.industryid AND dt.DealTypeId=pe.DealTypeId and  it.InvestorType=pe.InvestorType
@@ -697,9 +700,14 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             //  echo "<br>Query for company search";
             //echo "<br> Company search--" .$companysql;
         }
-    elseif (($industry !='') || ($dealtype !='') || ($invType != "--") || ($InTypes != "") || ($exitstatusvalue!="--") || ($dateValue!="---to---") || (($hidetxtfrm>=0) && ($hidetxtto>0)) || ($yearafter!="") || ($yearbefore!="") || ($investor_head != "--"))
+        elseif($_POST['exitquery'] != "")
+        {
+            $companysql = $_POST['exitquery'] ;
+           // echo $_POST['exitQuery'];exit();
+        }
+    elseif ( ($keyword != "") || ($invType != "--") || ($InTypes != "") || ($exitstatusvalue!="--") || ($dateValue!="---to---") || (($hidetxtfrm>=0) && ($hidetxtto>0)) || ($yearafter!="") || ($yearbefore!="") || ($investor_head != "--"))
     {
-
+       // echo $keyword;exit();
         if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
             $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
@@ -720,12 +728,45 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
              $hideWhere = " ";
         }
 
-        $companysql = "SELECT DISTINCT pe.MandAId,pe.MandAId,pe.MandAId,pe.PECompanyId,pec.industry,pe.DealTypeId,pe.AcquirerId,
-        pec.companyname,i.industry,pec.sector_business,
-        dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate, pe.DealAmount,pec.website,
-        pe.MoreInfor,pe.hideamount,pe.hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR,
-        MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
-        FROM manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it,manda_investors as mandainv,peinvestors as inv where";
+        $companysql = "SELECT pe.mandaid,
+        pe.mandaid,
+        pe.pecompanyid,
+        pec.industry,
+        pe.dealtypeid,
+        pe.acquirerid,
+        mandainv.investorid,
+        pec.companyname,
+        i.industry,
+        sector_business,
+        dt.dealtype,
+        Date_format(dealdate, '%M-%Y') AS DealDate,
+        pe.dealamount,
+        pec.website,
+        moreinfor,
+        hideamount,
+        hidemoreinfor,
+        pe.investmentdeals,
+        pe.investmentdeals,
+        link,
+        estimatedirr,
+        moreinforeturns,
+        it.investortypename,
+        valuation,
+        finlink,
+        company_valuation,
+        revenue_multiple,
+        ebitda_multiple,
+        pat_multiple,
+        exitstatus,
+        revenue,
+        ebitda,
+        pat,
+        price_to_book,
+        book_value_per_share,
+        price_per_share,
+        type,
+        pec.yearfounded,pec.CINNo FROM manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,
+        manda_investors as mandainv ,peinvestors as inv ,investortype AS it where";
         $whereind="";
         $wheredates="";
         $wheredealtype=""; 
@@ -759,11 +800,11 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
                 $wheredealtype=  ' ( '.$dealSql.' ) ';
                 //$whereRound="pe.round LIKE '".$round."'";
             }
-            $addhide_pms_qry=" and dt.hide_for_exit in (0)"; 
+            $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
         }
         if ($invType!= "--" && $invType!= "")
                { $whereInvType = " pe.InvestorType = '".$invType."'";
-            $addhide_pms_qry=" and dt.hide_for_exit in (1)"; 
+            $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
        }
         if ($investor_head != "--" && $investor_head != '') {
                    $whereInvhead = "inv.InvestorId=mandainv.InvestorId and inv.countryid = '" . $investor_head . "'";
@@ -844,9 +885,10 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
                     $bool = true;
                 }
         $companysql = $companysql . "  i.industryid=pec.industry and
-        pec.PEcompanyID = pe.PECompanyID  and dt.DealtypeId=pe.DealTypeId and   pe.InvestorType=it.InvestorType  and
-         mandainv.MandAId=pe.MandAId and pe.Deleted=0  " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere.$comp_industry_id_where." order by companyname ";
-        //	echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
+        pec.PEcompanyID = pe.PECompanyID  and inv.InvestorId=mandainv.InvestorId and
+         mandainv.MandAId=pe.MandAId and pec.industry != 15 and pe.Deleted=0  and pe.DealTypeId= dt.DealTypeId AND it.investortype = pe.investortype " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere." AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22)   
+         AND inv.InvestorId IN($keyword)  GROUP BY pe.MandAId  order by  DealDate desc,companyname ";
+        	//echo "<br><br>WHERE CLAUSE SQL---" .$companysql;exit();
     }
     else
     {
@@ -1014,11 +1056,11 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
                 $submitpassword="";
         }
     }
-
+//echo $_POST['exitquery'];
  $sql=$companysql;
  /*echo $tagsearch;*/
-// echo "<br>---" .$sql;
-// exit();
+ //echo "<br>---" .$sql;
+ //exit();
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");
@@ -1215,9 +1257,8 @@ if(in_array("DealType", $expval))
 }
 if(in_array("Type", $expval))
 {
-    if($hide_pms==1){
         echo "Type"."\t";
-    }
+    
 }
 if(in_array("Acquirer", $expval))
 {
@@ -1519,10 +1560,10 @@ if(in_array("PricePerShare", $expval))
         {          
             //Type
             $type_val = '';
-            if($hide_pms==1){
+            
                 if($row[5] == 4){
                     if($row[36] == 1){ $type_val = "IPO"; } else if($row[36] == 2){ $type_val = "Open Market Transaction"; }else if($row[36] == 3){ $type_val = "Reverse Merger";}else {$type_val = "Open Market Transaction";}
-                }
+                
                 $schema_insert .= $type_val.$sep;
             }
         }
@@ -1707,10 +1748,10 @@ if(in_array("PricePerShare", $expval))
                              {
                                  $schema_insert .= $price_per_share.$sep;  //price_per_share
                              }
-                            //  if(in_array("LinkforFinancials", $expval))
-                            //  {
-                            //      $schema_insert .= $row[24].$sep;  //Financial link
-                            //  }
+                             if(in_array("LinkforFinancials", $expval))
+                             {
+                                 $schema_insert .= $row[24].$sep;  //Financial link
+                             }
                    
 
 
@@ -1737,7 +1778,7 @@ if(in_array("PricePerShare", $expval))
     echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
     print("\n");
-    }
+
 mysql_close();
     mysql_close($cnx);
     ?>
