@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Swagger UI</title>
+  <title>Venture Intelligence</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui.css" >
   <style>
@@ -49,10 +49,10 @@ window.onload = function() {
     }
   ],
   "paths": {
-    "/investments": {
+    "/Deals": {
       "post": {
         "tags": [
-          "MediBuddy"
+          "Venture Intelligence"
         ],
         "summary": "Service used to optain the consolidated view of investment deal detail",
         "requestBody": {
@@ -135,6 +135,9 @@ window.onload = function() {
                                     "type": "string"
                                   },
                                   "Amount_INR": {
+                                    "type": "string"
+                                  },
+                                  "exitStatus": {
                                     "type": "string"
                                   },
                                   "date": {
@@ -376,7 +379,7 @@ window.onload = function() {
                                       }
                                     }
                                   },
-                                  "companyProfile": {
+                                  "Company Profile": {
                                     "type": "object",
                                     "properties": {
                                       "0": {
@@ -483,7 +486,7 @@ window.onload = function() {
                                     "items": {
                                       "type": "object",
                                       "properties": {
-                                        "companyname": {
+                                        "company": {
                                           "type": "string"
                                         },
                                         "industry": {
@@ -521,7 +524,7 @@ window.onload = function() {
                                     "items": {
                                       "type": "object",
                                       "properties": {
-                                        "Moreinfo": {
+                                        "moreinfo": {
                                           "type": "string"
                                         }
                                       }
@@ -753,63 +756,76 @@ window.onload = function() {
                                     }
                                   },
                                   "companyProfile": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "companyName": {
-                                          "type": "string"
-                                        },
-                                        "investor": {
-                                          "type": "string"
-                                        },
-                                        "industry": {
-                                          "type": "string"
-                                        },
-                                        "sector": {
-                                          "type": "string"
-                                        },
-                                        "website": {
-                                          "type": "string"
-                                        },
-                                        "address": {
-                                          "type": "string"
-                                        },
-                                        "city": {
-                                          "type": "string"
-                                        },
-                                        "otherLocation": {
-                                          "type": "string"
-                                        },
-                                        "country": {
-                                          "type": "string"
-                                        },
-                                        "telephone": {
-                                          "type": "string"
-                                        },
-                                        "fax": {
-                                          "type": "string"
-                                        },
-                                        "email": {
-                                          "type": "string"
-                                        },
-                                        "stockcode": {
-                                          "type": "string"
-                                        },
-                                        "yearFounded": {
-                                          "type": "string"
-                                        },
-                                        "linkedIn": {
-                                          "type": "string"
-                                        },
-                                        "linkedInCompany": {
-                                          "type": "string"
-                                        },
-                                        "news": {
-                                          "type": "string"
-                                        },
-                                        "additionalInformation": {
-                                          "type": "string"
+                                    "type": "object",
+                                    "properties": {
+                                      "0": {
+                                        "type": "object",
+                                        "properties": {
+                                          "companyName": {
+                                            "type": "string"
+                                          },
+                                          "investor": {
+                                            "type": "string"
+                                          },
+                                          "industry": {
+                                            "type": "string"
+                                          },
+                                          "sector": {
+                                            "type": "string"
+                                          },
+                                          "website": {
+                                            "type": "string"
+                                          },
+                                          "city": {
+                                            "type": "string"
+                                          },
+                                          "otherLocation": {
+                                            "type": "string"
+                                          },
+                                          "country": {
+                                            "type": "string"
+                                          },
+                                          "telephone": {
+                                            "type": "string"
+                                          },
+                                          "email": {
+                                            "type": "string"
+                                          },
+                                          "yearFounded": {
+                                            "type": "string"
+                                          },
+                                          "linkedIn": {
+                                            "type": "string"
+                                          },
+                                          "linkedInCompany": {
+                                            "type": "string"
+                                          },
+                                          "news": {
+                                            "type": "string"
+                                          },
+                                          "additionalInformation": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "topManagement": {
+                                        "type": "string"
+                                      },
+                                      "investorBoardMember": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Name": {
+                                              "type": "string"
+                                            },
+                                            "Designation": {
+                                              "type": "string"
+                                            },
+                                            "LinkedIn": {
+                                              "type": "string"
+                                            }
+                                          }
                                         }
                                       }
                                     }
@@ -827,12 +843,29 @@ window.onload = function() {
                                             },
                                             "Deal Period": {
                                               "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "incubators": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "Investor Name": {
+                                              "type": "string"
+                                            },
+                                            "Deal Period": {
+                                              "type": "string"
                                             },
                                             "Exit Status": {
                                               "type": "string"
                                             }
                                           }
                                         }
+                                      },
+                                      "angelInvestors": {
+                                        "type": "string"
                                       }
                                     }
                                   }
@@ -1380,17 +1413,9 @@ window.onload = function() {
   },
   "components": {
     "schemas": {
-      "Definition/explanation of specific fields available in the Response": {
+      "ss": {
         "type": "object",
         "properties": {
-          "fileName": {
-            "type": "string",
-            "description": "Name of the file. Extensions should be one of jpg, pdf, mdcm, zip, doc, docx, xls, xlsx, csv, html, rar, jpeg, mht, png, mp4, wav"
-          },
-          "docPath": {
-            "type": "string",
-            "description": "location of the file"
-          },
           "amount": {
             "type": "string",
             "description": "Deal amount in USD millions"
@@ -1490,8 +1515,7 @@ window.onload = function() {
     }
   }
 }
-// Build a system
-  const ui = SwaggerUIBundle({
+const ui = SwaggerUIBundle({
     spec: spec,
     dom_id: '#swagger-ui',
     deepLinking: true,
