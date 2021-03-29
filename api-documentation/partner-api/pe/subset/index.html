@@ -132,12 +132,13 @@ window.onload = function() {
                                 "type": "object",
                                 "properties": {
                                   "amount": {
-                                    "type": "string"
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "description": "ss"
+                                    }
                                   },
                                   "Amount_INR": {
-                                    "type": "string"
-                                  },
-                                  "exitStatus": {
                                     "type": "string"
                                   },
                                   "date": {
@@ -776,6 +777,9 @@ window.onload = function() {
                                           "website": {
                                             "type": "string"
                                           },
+                                          "address": {
+                                            "type": "string"
+                                          },
                                           "city": {
                                             "type": "string"
                                           },
@@ -788,7 +792,13 @@ window.onload = function() {
                                           "telephone": {
                                             "type": "string"
                                           },
+                                          "fax": {
+                                            "type": "string"
+                                          },
                                           "email": {
+                                            "type": "string"
+                                          },
+                                          "stockcode": {
                                             "type": "string"
                                           },
                                           "yearFounded": {
@@ -1413,7 +1423,7 @@ window.onload = function() {
   },
   "components": {
     "schemas": {
-      "Definition/explanation of specific fields available in the Response": {
+      "ss": {
         "type": "object",
         "properties": {
           "amount": {
