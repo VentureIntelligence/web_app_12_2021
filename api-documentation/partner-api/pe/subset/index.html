@@ -132,11 +132,7 @@ window.onload = function() {
                                 "type": "object",
                                 "properties": {
                                   "amount": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "description": "ss"
-                                    }
+                                    "type": "string"
                                   },
                                   "Amount_INR": {
                                     "type": "string"
@@ -1188,7 +1184,7 @@ window.onload = function() {
                                       }
                                     }
                                   },
-                                  "financialsInfo": {
+                                  "financialInfo": {
                                     "type": "array",
                                     "items": {
                                       "type": "object",
@@ -1525,6 +1521,8 @@ window.onload = function() {
     }
   }
 }
+
+
 const ui = SwaggerUIBundle({
     spec: spec,
     dom_id: '#swagger-ui',
