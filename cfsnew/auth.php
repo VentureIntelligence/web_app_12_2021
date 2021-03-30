@@ -43,19 +43,21 @@ if ($_POST['btnSubmit']=='Authorize'){
                 // mysql_query($sqluserstatus) or die(mysql_error());
                 
         }else{
-            
-               if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE)
-                   $user_os =  'Windows';
-               elseif((strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== FALSE) && strpos($_SERVER['HTTP_USER_AGENT'], 'Linux')!==FALSE)
-                   $user_os = 'Android';
-               elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Linux') !== FALSE) //For Supporting IE 11
-                   $user_os =  'Linux';
-               elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== FALSE)
-                   $user_os = 'IOS';
-               elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== FALSE)
-                   $user_os = 'IOS';
-               elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== FALSE || strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== FALSE)
-                   $user_os = 'iOS';
+            if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            if(strpos($_SERVER['HTTP_USER_AGENT'], 'Windows') !== FALSE){
+                $user_os =  'Windows';
+            }elseif((strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== FALSE) && strpos($_SERVER['HTTP_USER_AGENT'], 'Linux')!==FALSE){
+                $user_os = 'Android';
+            }elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Linux') !== FALSE) //For Supporting IE 11
+               { $user_os =  'Linux';}
+            elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== FALSE)
+              {  $user_os = 'IOS';}
+            elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== FALSE)
+               { $user_os = 'IOS';}
+            elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== FALSE || strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== FALSE)
+               { $user_os = 'iOS';}
+            else{$user_os =  'Windows';}
+        }else{$user_os =  'Windows';} 
 
                if($user_os=='IOS'){      
 
@@ -66,24 +68,26 @@ if ($_POST['btnSubmit']=='Authorize'){
                    else
                        $user_browser = "Safari";
                }else{
-
+                if (isset($_SERVER['HTTP_USER_AGENT'])) {
                    if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
-                       $user_browser =  'IE';
+                       {$user_browser =  'IE';}
                    elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
-                       $user_browser =  'IE';
+                       {$user_browser =  'IE';}
                    elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') !== FALSE) //For Supporting IE EDGE
-                       $user_browser =  'IE';
+                       {$user_browser =  'IE';}
                    elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
-                       $user_browser = 'Firefox';
+                       {$user_browser = 'Firefox';}
                    elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)
-                       $user_browser = 'Chrome';
+                       {$user_browser = 'Chrome';}
                    elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== FALSE)
-                       $user_browser = "Opera_Mini";
+                       {$user_browser = "Opera_Mini";}
                    elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== FALSE)
-                       $user_browser = "Opera";
+                       {$user_browser = "Opera";}
                    elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
-                       $user_browser = "Safari";
-               }
+                       {$user_browser = "Safari";}
+                   else{$user_browser = 'Chrome';}
+               } else{$user_browser = 'Chrome';}
+            }
 
             /*echo $_SERVER['HTTP_USER_AGENT'];
                echo $user_os;
