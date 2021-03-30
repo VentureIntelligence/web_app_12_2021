@@ -1,12 +1,12 @@
-<?php /* Smarty version 2.5.0, created on 2019-11-08 16:08:38
+<?php /* Smarty version 2.5.0, created on 2021-03-30 18:22:39
          compiled from home.tpl */ ?>
 <?php $this->_load_plugins(array(
-array('modifier', 'lower', 'home.tpl', 48, false),
-array('modifier', 'capitalize', 'home.tpl', 48, false),
-array('modifier', 'explode', 'home.tpl', 62, false),
-array('modifier', 'replace', 'home.tpl', 83, false),
-array('function', 'math', 'home.tpl', 57, false),
-array('function', 'assign', 'home.tpl', 62, false),)); ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+array('function', 'assign', 'home.tpl', 197, false),
+array('function', 'math', 'home.tpl', 213, false),
+array('modifier', 'replace', 'home.tpl', 197, false),
+array('modifier', 'lower', 'home.tpl', 204, false),
+array('modifier', 'capitalize', 'home.tpl', 204, false),
+array('modifier', 'explode', 'home.tpl', 218, false),)); ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include("header.tpl", array());
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
@@ -26,18 +26,171 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 <?php echo '
+
     <style>
 .entry-pad{
 padding:0px 10px; }
+        .mobileRedirectPopup {
+            position: fixed !important;
+            background: #fff;
+            height: 185px;
+            width:700px;
+            border-radius: 10px;
+            left:50%;
+            top:25%;
+            margin-top:-92.5px;
+            margin-left:-350px;
+            -webkit-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
+            box-shadow: -1px -3px 10px 0px rgba(50, 50, 50, 0.75);
+            z-index:1000;
+            display:none;
+        }
+        .backdrop{
+            height:100vh;
+            width:100vw;
+            background:rgba(50, 50, 50, 0.75);
+            z-index:500;
+            position:absolute;
+            top:0px;
+            left:0px;
+            overflow:hidden;
+        }
+        .app-text-col h5{
+            font-size:1em !important;
+            color:#302922 !important;
+            margin-left: 20px;
+        }
+        h5 {
+            margin: 10px 0px;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .btn {
+            padding: 10px;
+            width: 100%;
+            border-radius: 25px;
+            border: 0px solid #000;
+            -webkit-box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+            box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+            text-decoration: none;
+        }
+         .redirect-button-col .btn {
+            margin-top: 2px;
+        }
+        .redirect-button-col .btn-primary {
+            background: #302922 !important;
+        }
+        .redirect-button-col .btn-primary a{
+            color: white !important;
+        }
+        .redirect-button-col .btn-default {
+            background: unset !important;
+            color: #302922;
+        }
+
+        .d-none {
+            display: none;
+        }
+
+        .d-block {
+            display: block;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            /* margin-left: -15px;
+            margin-left: -15px; */
+            margin: 10px 0;
+        }
+
+        .image-col {
+            width: 18%;
+            padding-right: 0px;
+            padding-left: 15px;
+        }
+
+        .app-text-col {
+            width: 50%;
+            padding-right: 15px;
+            padding-left: 0px;
+        }
+
+        .redirect-button-col {
+            width: 35%;
+            padding-right: 15px;
+            padding-left: 15px;
+            text-align: center;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        .popup-title{
+            padding-left:20px;
+            padding-right:20px;
+            margin-bottom:15px;
+        }
+        .popup-title h5 {
+            border-bottom: 1.25px solid #302922;
+            padding-bottom: 10px;
+            padding-top: 5px;
+            font-size:1rem;
+        }
+
+        .image-col img {
+            max-width: 50px !important;
+            border-radius: 50px;
+            height: 40px;
+            margin-top:1px;
+        }
+
+        .btn a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .btn.btn-primary a {
+            color: #fff !important;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+        .list-tab{
+            height:39px;
+            overflow: initial;
+        }
+        .limit{
+            width: 62px !important;
+        }
     </style>
 '; ?>
 
+<div class="backdrop"></div>
+ 
 <div class="list-tab"  style="margin-top: 26px;">
+
 <ul>
 <li><a  href="home.php" class="active postlink"><i></i> LIST VIEW</a></li>
-<li><a class="postlink" href="<?php if (count ( $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']] ) > 0): ?>details.php?vcid=<?php echo $this->_tpl_vars['SearchResults'][0]['Company_Id']; ?>
-<?php else: ?>#<?php endif; ?>"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
-</ul><div class="page-no" style="position: initial;"><span>(in Rs. Cr) &nbsp;&nbsp;</span></div>
+
+</ul><div class="page-no" style="position: initial;width">
+<select name="currency" class="limit currency"  onchange="this.form.submit();">
+    <option value="INR" <?php if ($this->_tpl_vars['currency'] == 'INR'): ?>selected<?php endif; ?>>INR</option>
+    <option value="USD" <?php if ($this->_tpl_vars['currency'] == 'USD'): ?>selected<?php endif; ?>>USD</option>
+  </select>
+  <?php if ($this->_tpl_vars['currency'] == 'INR'): ?><span>(in Rs. Cr) &nbsp;&nbsp;</span><?php endif; ?>
+  <?php if ($this->_tpl_vars['currency'] == 'USD'): ?><span>(in $ M) &nbsp;&nbsp;</span><?php endif; ?>
+  </div>
 </div>
 
 <div class="companies-list">
@@ -90,11 +243,15 @@ $this->_sections['List']['index_next'] = $this->_sections['List']['index'] + $th
 $this->_sections['List']['first']      = ($this->_sections['List']['iteration'] == 1);
 $this->_sections['List']['last']       = ($this->_sections['List']['iteration'] == $this->_sections['List']['total']);
 ?>  
+    <?php echo $this->_plugins['function']['assign'][0](array('var' => 'foo','value' => $this->_run_mod_handler('replace', true, $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['FY'], ' ', '_')), $this) ; ?>
+
+   
     
       <tr><td class="name-list" style="text-transform: uppercase"> <span class="has-tip" data-tooltip="" title="<?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '0'): ?>Both<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '1'): ?> Listed<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '2'): ?> Privately held(Ltd)<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '3'): ?> Partnership <?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '4'): ?> Proprietorship<?php endif; ?>"><?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '0'): ?>Both<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '1'): ?> L<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '2'): ?> PVT<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '3'): ?> PART <?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['ListingStatus'] == '4'): ?> PROP<?php endif; ?></span>
               <?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['COMPANYNAME']): ?>
             <a class="postlink" href="details.php?vcid=<?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Company_Id']; ?>
 &c=<?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['COMPANYNAME']; ?>
+&currencyval=<?php echo $this->_tpl_vars['currency']; ?>
 " title="Click here to view Annual Report" 
          
         ><?php echo $this->_run_mod_handler('capitalize', true, $this->_run_mod_handler('lower', true, $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['SCompanyName'])); ?>
@@ -102,6 +259,7 @@ $this->_sections['List']['last']       = ($this->_sections['List']['iteration'] 
 
         <?php else: ?>
         <a class="postlink" href="details.php?vcid=<?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Company_Id']; ?>
+&currencyval=<?php echo $this->_tpl_vars['currency']; ?>
 " title="Click here to view Annual Report" 
        
         ><?php echo $this->_run_mod_handler('capitalize', true, $this->_run_mod_handler('lower', true, $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['SCompanyName'])); ?>
@@ -110,13 +268,16 @@ $this->_sections['List']['last']       = ($this->_sections['List']['iteration'] 
         <?php endif; ?>
               </td>
     <td><?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['TotalIncome'] == 0): ?>&nbsp;<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['GrowthPerc_Id'] || $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['CAGR_Id']): ?><?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['TotalIncome']; ?>
-<?php else: ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "x / y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['TotalIncome'],'y' => 10000000,'format' => "%.2f"), $this) ; ?>
+<?php elseif ($this->_tpl_vars['currency'] == 'INR'): ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "x / y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['TotalIncome'],'y' => 10000000,'format' => "%.2f"), $this) ; ?>
+<?php elseif ($this->_tpl_vars['currency'] == 'USD'): ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "(x / z)/y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['TotalIncome'],'y' => 1000000,'z' => $this->_tpl_vars['yearcurrency'][$this->_tpl_vars['foo']],'format' => "%.2f"), $this) ; ?>
 <?php endif; ?></td>
     <td><?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['EBITDA'] == 0): ?>&nbsp;<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['GrowthPerc_Id'] || $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['CAGR_Id']): ?><?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['EBITDA']; ?>
-<?php else: ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "x / y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['EBITDA'],'y' => 10000000,'format' => "%.2f"), $this) ; ?>
+<?php elseif ($this->_tpl_vars['currency'] == 'INR'): ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "x / y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['EBITDA'],'y' => 10000000,'format' => "%.2f"), $this) ; ?>
+<?php elseif ($this->_tpl_vars['currency'] == 'USD'): ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "(x / z)/y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['EBITDA'],'y' => 1000000,'z' => $this->_tpl_vars['yearcurrency'][$this->_tpl_vars['foo']],'format' => "%.2f"), $this) ; ?>
 <?php endif; ?></td>
     <td><?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['PAT'] == 0): ?>&nbsp;<?php elseif ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['GrowthPerc_Id'] || $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['CAGR_Id']): ?><?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['PAT']; ?>
-<?php else: ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "x / y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['PAT'],'y' => 10000000,'format' => "%.2f"), $this) ; ?>
+<?php elseif ($this->_tpl_vars['currency'] == 'INR'): ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "x / y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['PAT'],'y' => 10000000,'format' => "%.2f"), $this) ; ?>
+<?php elseif ($this->_tpl_vars['currency'] == 'USD'): ?><?php echo $this->_plugins['function']['math'][0](array('equation' => "(x / z)/y",'x' => $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['PAT'],'y' => 1000000,'z' => $this->_tpl_vars['yearcurrency'][$this->_tpl_vars['foo']],'format' => "%.2f"), $this) ; ?>
 <?php endif; ?></td>
     <?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['FY'] > 0): ?>
     <td>
@@ -125,6 +286,7 @@ $this->_sections['List']['last']       = ($this->_sections['List']['iteration'] 
         <?php if ($this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['COMPANYNAME']): ?>
             <a class="postlink" href="details.php?vcid=<?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Company_Id']; ?>
 &c=<?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['COMPANYNAME']; ?>
+&currencyval=<?php echo $this->_tpl_vars['currency']; ?>
 " title="Click here to view Annual Report" 
          
         >FY<?php echo $this->_tpl_vars['FY'][0]; ?>
@@ -137,6 +299,7 @@ $this->_sections['List']['last']       = ($this->_sections['List']['iteration'] 
         <?php else: ?>
         
         <a class="postlink" href="details.php?vcid=<?php echo $this->_tpl_vars['SearchResults'][$this->_sections['List']['index']]['Company_Id']; ?>
+&currencyval=<?php echo $this->_tpl_vars['currency']; ?>
 " title="Click here to view Annual Report" 
        
         >FY<?php echo $this->_tpl_vars['FY'][0]; ?>
@@ -196,8 +359,34 @@ unset($_smarty_tpl_vars);
     <?php else: ?>
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     <?php endif; ?>    
-            <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
-            <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
+            <input type="hidden" name="currency" id="currency" value="<?php echo $this->_tpl_vars['currency']; ?>
+"/>     
+             <input type="hidden" name="filters" id="filters" value=" <?php if (isset($this->_sections['List'])) unset($this->_sections['List']);
+$this->_sections['List']['name'] = 'List';
+$this->_sections['List']['loop'] = is_array($this->_tpl_vars['fliters']) ? count($this->_tpl_vars['fliters']) : max(0, (int)$this->_tpl_vars['fliters']);
+$this->_sections['List']['show'] = true;
+$this->_sections['List']['max'] = $this->_sections['List']['loop'];
+$this->_sections['List']['step'] = 1;
+$this->_sections['List']['start'] = $this->_sections['List']['step'] > 0 ? 0 : $this->_sections['List']['loop']-1;
+if ($this->_sections['List']['show']) {
+    $this->_sections['List']['total'] = $this->_sections['List']['loop'];
+    if ($this->_sections['List']['total'] == 0)
+        $this->_sections['List']['show'] = false;
+} else
+    $this->_sections['List']['total'] = 0;
+if ($this->_sections['List']['show']):
+
+            for ($this->_sections['List']['index'] = $this->_sections['List']['start'], $this->_sections['List']['iteration'] = 1;
+                 $this->_sections['List']['iteration'] <= $this->_sections['List']['total'];
+                 $this->_sections['List']['index'] += $this->_sections['List']['step'], $this->_sections['List']['iteration']++):
+$this->_sections['List']['rownum'] = $this->_sections['List']['iteration'];
+$this->_sections['List']['index_prev'] = $this->_sections['List']['index'] - $this->_sections['List']['step'];
+$this->_sections['List']['index_next'] = $this->_sections['List']['index'] + $this->_sections['List']['step'];
+$this->_sections['List']['first']      = ($this->_sections['List']['iteration'] == 1);
+$this->_sections['List']['last']       = ($this->_sections['List']['iteration'] == $this->_sections['List']['total']);
+?><?php echo $this->_tpl_vars['fliters'][$this->_sections['List']['index']]['value']; ?>
+, <?php endfor; endif; ?>"/>
             <input type="hidden" id="exportexcel" name="exportexcel" value="<?php echo $this->_tpl_vars['searchexport']; ?>
 "/>
             <div class="btn-cnt p10" style="float:right;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
@@ -211,7 +400,9 @@ unset($_smarty_tpl_vars);
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     <?php endif; ?> 
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
-            <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="exportenable" id="exportenable" value="0"/>   
+            <input type="hidden" name="currency" id="currency" value="<?php echo $this->_tpl_vars['currency']; ?>
+"/>  
             <input type="hidden" id="exportexcel" name="exportexcel1" value="<?php echo $this->_tpl_vars['searchexport2']; ?>
 "/>
             <div class="btn-cnt p10" style="float:right;"><input class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
@@ -226,6 +417,8 @@ unset($_smarty_tpl_vars);
     <?php endif; ?> 
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
             <input type="hidden" name="exportenable" id="exportenable" value="0"/>     
+            <input type="hidden" name="currency" id="currency" value="<?php echo $this->_tpl_vars['currency']; ?>
+"/> 
             <input type="hidden" id="exportexcel" name="exportexcel2" value="<?php echo $this->_tpl_vars['searchexport3']; ?>
 "/>
             <div class="btn-cnt p10" style="float:right;"><input  class="home_export" name="exportcompare" id="exportcompare" type="submit" value="EXPORT" /></div>
@@ -280,10 +473,131 @@ unset($_smarty_tpl_vars);
       <b><a href="javascript:;" class="agree-export">I Agree</a></b><!-- <b><a href="javascript:;" class="close-lookup">Cancel</a></b> --> 
   </div>
 </div>
+<div class="mobileRedirectPopup">
+        <div class="popup-title ">
+            <h5 class="text-center">See Venture Intelligence in ...</h5>
+        </div>
+        <div class="row">
+            <div class="image-col text-center"><img
+                    src="images/cfs_app_icon@2x.png"></div>
+            <div class="app-text-col">
+                <h5 class="text-left vi_app">
+                    VI <span class="login-type"></span> App
+                </h5>
+            </div>
+            <div class="redirect-button-col">
+                <button class="btn btn-primary"><a href="#" class="redirectApp">Open</a></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="image-col text-center">
+            <?php if ($this->_tpl_vars['user_browser'] == 'Safari'): ?>
+                <img
+                    src="https://www.pngfind.com/pngs/m/314-3147164_download-png-ico-icns-flat-safari-icon-png.png"
+            alt=""><?php endif; ?><?php if ($this->_tpl_vars['user_browser'] == 'Chrome'): ?>
+            <img
+                    src="https://www.pngfind.com/pngs/m/98-981105_chrome-icon-free-download-at-icons8-icono-google.png"
+                    alt="">
+                   <?php endif; ?>
+                   </div>
+            <div class="app-text-col">
+                <h5 class="text-left">
+                    <?php echo $this->_tpl_vars['user_browser']; ?>
+
+                </h5>
+            </div>
+            <div class="redirect-button-col">
+                <button class="btn btn-default continue">Continue</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 <?php echo '
+
     <script type="text/javascript">
+        $(document).ready(function () {
+            var userAgent = navigator.userAgent.toLowerCase();
+            var login = "cfs";
+            var Android = navigator.userAgent.match(/Android/i);
+            var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            var redirectButton = $(".redirectApp");
+            var loginTextSpan = $(".login-type");
+            if (Android) {
+                $(".mobileRedirectPopup").show();
+                if (login == "cfs") {
+                    loginTextSpan.text("CFS");
+                    redirectButton.attr("href", "intent://scan/#Intent;scheme=Venture+intelligence;package=com.venture.intelligence;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.venture.intelligence;end")
+
+                } else if (login == "pe") {
+                    loginTextSpan.text("PE");
+                    redirectButton.attr("href", " intent://scan/#Intent;scheme=Venture+intelligence;package=com.intelligence.venture;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.intelligence.venture;end")
+                }
+                // alert("Android")
+            } else if (IOS) {
+                // alert("IOS")
+                $(".mobileRedirectPopup").hide();
+                $(".backdrop").hide();
+            }else{
+                //alert("desktop");
+                $(".mobileRedirectPopup").hide();
+                $(".backdrop").hide();
+            }
+        })
+        
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(\';\');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == \' \') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        $(".redirect-button-col .btn").on("click", function () {
+            setCookie("mobilepopupcfs", "show", 1);
+        });
+        $(".continue").on("click", function () {
+            $(".mobileRedirectPopup").hide();
+            $(".backdrop").hide();
+            setCookie("mobilepopupcfs", "show", 1);
+        })
+
+        $(document).ready(function(){
+          
+           var Android = navigator.userAgent.match(/Android/i);
+            IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            if(Android ){
+                 
+                    var popup = getCookie("mobilepopupcfs");
+                    if (popup == "show") {
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();  
+                    }else{
+                        
+                            $(".mobileRedirectPopup").show();
+                            $(".backdrop").show();
+                        
+                    }
+                        
+            }else{
+                        $(".mobileRedirectPopup").hide();
+                        $(".backdrop").hide();
+                    }
+       })
+
         $(document).ready(function() {
               $(".sorthead").live(\'click\',function(){
                  // $(this).html($(this).text()+\'<img src="images/ajax-loader.gif" style="float:right;height:20px;"/>\');
@@ -487,7 +801,7 @@ unset($_smarty_tpl_vars);
                 .list-tab{
                     clear:both !important;
                     }
-                    form.custom .custom.dropdown ul li { width: 100%;}
+                    .custom.dropdown ul li { width: 100%;}
         #export-popup .agree-export {
             margin-right: 10px;
         }
@@ -497,3 +811,10 @@ unset($_smarty_tpl_vars);
         }
     </style>
 '; ?>
+
+
+<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include("popup.tpl", array());
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
