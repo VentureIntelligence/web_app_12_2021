@@ -4536,7 +4536,7 @@ if($_GET['type']!="")
       <?php } ?>
            $(document).ready(function () {
     
-    $('#popup_keyword').keyup(function() {
+    $('#popup_keyword').keyup(function() {debugger;
         $('#popup_keyword').keyup(function() {
         var $th = $(this);
         var popup_select =$('#popup_select').val();

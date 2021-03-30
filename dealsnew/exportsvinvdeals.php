@@ -1428,6 +1428,7 @@ if(in_array("PricePerShare", $expval))
                 $schema_insert .= $searchStringDisplay.$sep;
                 $webdisplay="";
             }
+            
         }
         if(in_array("CIN", $expval))
         {
