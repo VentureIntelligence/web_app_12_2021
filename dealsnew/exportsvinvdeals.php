@@ -729,7 +729,7 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                             pec.website,pec.city,r.Region,MoreInfor,hideamount,hidestake,c.country,c.country,
                             Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,
                             Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ ,
-                             pec.yearfounded as yearfounded,pec.CINNo
+                             pec.yearfounded as yearfounded,pec.CINNo,GROUP_CONCAT( inv.Investor ORDER BY Investor='others') AS Investor,count(inv.Investor) AS Investorcount
                             from peinvestments as pe, industry as i,pecompanies as pec,stage as s,
                             country as c,investortype as it,region as r ,peinvestments_dbtypes  as pedb,
                                 peinvestments_investors as peinv_inv,peinvestors as inv, pe_subsectors as pe_sub,pe_sectors as pe_s
@@ -1584,7 +1584,7 @@ if(in_array("PricePerShare", $expval))
                     }
                     if (in_array("YearFounded", $expval))
                     {
-                        $schema_insert .= $row[55].$sep;
+                        $schema_insert .= $row[53].$sep;
                     }
                     if (in_array("City", $expval))
                     {
