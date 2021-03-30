@@ -736,6 +736,7 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                             where ".$txthidevaluation . $hideWhere;
                             
                             
+                            
                             if ($industry != '') {
                                 $inSql = '';
                                 $industry1 = explode(',',$industry);
