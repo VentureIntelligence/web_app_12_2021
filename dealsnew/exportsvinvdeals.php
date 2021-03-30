@@ -1585,7 +1585,7 @@ if(in_array("PricePerShare", $expval))
                     }
                     if (in_array("YearFounded", $expval))
                     {
-                        $schema_insert .= $row[55].$sep;
+                        $schema_insert .= $row[53].$sep;
                     }
                     if (in_array("City", $expval))
                     {
