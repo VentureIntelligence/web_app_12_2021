@@ -1813,7 +1813,7 @@ $col = 0;
         }
     }
 
-
+//echo json_encode($rowArray).'hai';exit();
     // T960
     if(in_array("Company", $rowArray))
     {

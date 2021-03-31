@@ -75,7 +75,7 @@
 
 			$sql="SELECT pe.InvesteeId, pec.companyname, pec.industry, i.industry, pec.sector_business,
 				DATE_FORMAT( DealDate, '%M-%Y' ) as dt, pec.website, pec.city,
-				r.region,pe.AngelDealId,Comment,MoreInfor,Link,MultipleRound,FollowonVCFund,Exited, pec.yearfounded
+				r.region,pe.AngelDealId,Comment,MoreInfor,Link,MultipleRound,FollowonVCFund,Exited, pec.yearfounded,pec.CINNo
 				FROM angelinvdeals AS pe, industry AS i, pecompanies AS pec,region as r
 				WHERE pec.industry = i.industryid
 				AND pec.PEcompanyID = pe.InvesteeId and pe.Deleted=0 and pec.industry !=15
@@ -129,6 +129,7 @@
 				// 	echo mysql_field_name($result,$i) . "\t";
 				// }
 					echo "Company"."\t";
+					echo "CIN"."\t";
 					echo "Industry"."\t";
 					echo "Sector"."\t";
 					echo "Investors"."\t";
@@ -183,6 +184,7 @@
 								$schema_insert .= $searchStringDisplay.$sep;
 								 $webdisplay="";
 							}
+						$schema_insert .=$row[17].$sep; //cinno
 						$schema_insert .=$row[3].$sep; //industry
 						$schema_insert .=$row[4].$sep; //sector
 						
