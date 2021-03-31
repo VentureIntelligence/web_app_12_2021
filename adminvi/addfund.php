@@ -88,6 +88,7 @@ session_start();
         $fundCloseStatus    = $_POST['fundCloseStatus'];
        // $fundDate           = $_POST['date'];
         $fundDate           = "$_POST[year]-$_POST[month]-01";
+        $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
         $capitalSource      = $_POST['capitalSource'];
         $moreInfo           = mysql_real_escape_string($_POST['moreInfo']);
         $source             = mysql_real_escape_string($_POST['source']);
@@ -107,6 +108,8 @@ session_start();
         $fundStatus = ($fundStatus!="")?', fundStatus = "'.$fundStatus.'"':'';
         $fundCloseStatus = ($fundCloseStatus!="")?', fundClosedStatus = "'.$fundCloseStatus.'"':'';
         $fundDate = ($fundDate!="")?', fundDate = "'.$fundDate.'"':'';
+        $launchDate = ($launchDate!="")?', launchDate = "'.$launchDate.'"':'';
+
         $capitalSource = ($capitalSource!="")?', capitalSource = "'.$capitalSource.'"':'';
         $moreInfo = ($moreInfo!="")?', moreInfo = "'.$moreInfo.'"':'';
         $source = ($source!="")?', source = "'.$source.'"':'';
@@ -118,7 +121,7 @@ if($dbType =='PE')
         //Insert into Table
         /*$sqlIns = "INSERT INTO `fundRaisingDetails` (`dbType`,`investorId`,`fundName`,`fundManager`,`fundTypeStage`,`fundTypeIndustry`,`size`,`fundStatus`,`fundClosedStatus`,`fundDate`,`capitalSource`,`moreInfo`,`source`,`amount_raised`) ";
         $sqlIns .= " VALUES ('".$dbType."','".$investorId."','".$fundnameId."','".$fundMan."','".$fundTypStage."','".$fundTypIndy."',".$fundSize.",'".$fundStatus."','".$fundCloseStatus."','".$fundDate."','".$capitalSource."','".$moreInfo."','".$source."'," . $amount_raised . ")";*/
-        $sqlIns = "INSERT INTO `fundRaisingDetails` SET " . $dbType1 . $investorId . $fundnameId . $fundMan . $fundTypStage . $fundTypIndy . $fundSize . $fundStatus . $fundCloseStatus . $fundDate . $capitalSource . $moreInfo . $source . $amount_raised . $HideAggregate. "";
+        $sqlIns = "INSERT INTO `fundRaisingDetails` SET " . $dbType1 . $investorId . $fundnameId . $fundMan . $fundTypStage . $fundTypIndy . $fundSize . $fundStatus . $fundCloseStatus . $fundDate . $launchDate .$capitalSource . $moreInfo . $source . $amount_raised . $HideAggregate. "";
 
  }
  else if($dbType =='RE')
