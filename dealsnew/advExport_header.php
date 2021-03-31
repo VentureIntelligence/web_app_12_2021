@@ -807,9 +807,9 @@
                                           <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li> -->
                                           <li>
                                              <input type="checkbox" class="exportcheck" name="skills" value="Company Type" />
-                                             <select NAME="comptype" id="comptype" onChange="getcompanyType()" >
-                                                <option  value="" selected> Company Type </option>
-                                                <option  value="--"  > Both </option>
+                                             <select NAME="comptype[]" id="comptype" multiple="multiple"  >
+                                                
+                                                <!-- <option  value="--"  > Both </option> -->
                                                 <option value="L" > Listed </option>
                                                 <option  value="U"> Unlisted </option>
                                              </select>
@@ -856,7 +856,7 @@
                                           <li><input type="checkbox" class="exportcheck" name="skills" value="City" /> 
                                              <select name="city[]" multiple="multiple"  id="citysearch" style=" background: <?php echo $background; ?>;" <?php if($disable_flag_city == "1"){ echo "disabled"; } ?>>
                                              <?php
-                                                echo "stateval----".$statevalueid;
+                                                //echo "stateval----".$statevalueid;
                                                 
                                                 if($statevalueid !=""){
                                                 $citysql = " SELECT DISTINCT city.city_id,city.city_name from city,pecompanies,peinvestments where pecompanies.PEcompanyID = peinvestments.PECompanyID and pecompanies.city=city.city_name and city.city_name!='' and city.city_name!='Not Identified - City' and city.city_name!='undefined' and city.city_StateID_FK IN (".$statevalueid.") ORDER BY city.city_name ASC  ";
@@ -1055,9 +1055,9 @@
                                           </li>
                                           <li>
                                              <input type="checkbox" class="exportcheck" name="skills" value="Investor Type" />
-                                             <SELECT NAME="invType" id="invType" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
-                                                <OPTION id="5" value="" selected> Investor Type </option>
-                                                <OPTION id="5" value="--" > ALL </option>
+                                             <SELECT NAME="invType[]" id="invType" multiple="multiple" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+                                                <!-- <OPTION id="5" value="" selected> Investor Type </option>
+                                                <OPTION id="5" value="--" > ALL </option> -->
                                                 <?php
                                                    /* populating the investortype from the investortype table */
                                                    $invtypesql = "select InvestorType,InvestorTypeName from investortype where Hide=0";
@@ -1329,9 +1329,9 @@
                                           <li><input type="checkbox" class="exitexportcheck" name="skills" value="ExitingInvestors" /> Exiting Investors</li>
                                           <li>
                                              <input type="checkbox" class="exitexportcheck" name="skills" value="InvestorType" />
-                                             <SELECT NAME="invType" id="exitinvType" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
-                                                <OPTION id="5" value="--" selected> Investor Type </option>
-                                                <OPTION id="5" value="--" > ALL </option>
+                                             <SELECT NAME="invType[]" id="exitinvType" multiple="multiple" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+                                                <!-- <OPTION id="5" value="--" selected> Investor Type </option>
+                                                <OPTION id="5" value="--" > ALL </option> -->
                                                 <?php
                                                    /* populating the investortype from the investortype table */
                                                    $invtypesql = "select InvestorType,InvestorTypeName from investortype where Hide=0";
@@ -1362,8 +1362,8 @@
                                           </li>
                                           <li>
                                              <input type="checkbox" class="exitexportcheck" name="skills" value="ExitStatus" />
-                                             <SELECT NAME="exitstatus" id="exitFlstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
-                                                <OPTION  value="--" > Exit Status </option>
+                                             <SELECT NAME="exitstatus[]" id="exitFlstatus" multiple="multiple" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+                                                <!-- <OPTION  value="--" > Exit Status </option> -->
                                                 <OPTION  value="0" > Partial </option>
                                                 <OPTION  value="1" > Complete </option>
                                              </SELECT>
@@ -1436,9 +1436,9 @@
                                           </li>
                                           <li>
                                              <input type="checkbox" class="exitexportcheck" name="skills" value="Type" /> 
-                                             <SELECT NAME="InType" id="exitInType" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
-                                                <option value="--"> Type </option>
-                                                <option value="--"> ALL </option>
+                                             <SELECT NAME="InType[]" id="exitInType" multiple="multiple" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+                                                <!-- <option value="--"> Type </option>
+                                                <option value="--"> ALL </option> -->
                                                 <option value="1" <?php if($types==1) { echo "selected"; } ?>> IPO </option>
                                                 <option value="2" <?php if($types==2) { echo "selected"; } ?>> Open Market Transaction </option>
                                                 <option value="3" <?php if($types==3) { echo "selected"; } ?>> Reverse Merger </option>
@@ -1729,16 +1729,25 @@
          exitglobalfilterDescrip=dataValue[0].filter_desc;
          exitglobalfilterNameId=dataValue[0].filter_name;
          exitglobalfilterId=dataValue[0].id;
-         $("#exitFlstatus").val(dataValue[0].exit_status)
+         //$("#exitFlstatus").val(dataValue[0].exit_status)
          
+         $("#exitFlstatus").val(dataValue[0].exit_status.split(','))
+         $("#exitFlstatus").multiselect('refresh') 
+
          $("#exitsltindustry").val(dataValue[0].industry.split(','))
          $("#exitsltindustry").multiselect('refresh') 
          
          $("#exitdealtype").val(dataValue[0].dealtype.split(','))
          $("#exitdealtype").multiselect('refresh') 
+
+         $("#exitinvType").val(dataValue[0].investor_type.split(','))
+         $("#exitinvType").multiselect('refresh') 
+
+         $("#exitInType").val(dataValue[0].intype.split(','))
+         $("#exitInType").multiselect('refresh') 
          
-         $("#exitinvType").val(dataValue[0].investor_type);
-         $("#exitInType").val(dataValue[0].intype);
+         //$("#exitinvType").val(dataValue[0].investor_type);
+         //$("#exitInType").val(dataValue[0].intype);
          $('#exitmon1').val(dataValue[0].start_date);
          $('#exitmon2').val(dataValue[0].end_date);
          $('#exityr1').val(dataValue[0].start_year);
@@ -1756,8 +1765,11 @@
          $('#mon2').val(dataValue[0].end_date);
          $('#yr1').val(dataValue[0].start_year);
          $('#yr2').val(dataValue[0].end_year) 
-         $("#comptype").val(dataValue[0].company_type); 
+         // $("#comptype").val(dataValue[0].company_type); 
          
+         $("#comptype").val(dataValue[0].company_type.split(','))
+         $("#comptype").multiselect('refresh')
+
          $("#sltindustry").val(dataValue[0].industry.split(','))
          $("#sltindustry").multiselect('refresh') 
          
@@ -1779,8 +1791,11 @@
          $("#stage").val(dataValue[0].stage.split(','))
          $("#stage").multiselect('refresh') 
          
-         $("#invType").val(dataValue[0].investor_type);
-         $("#comptype").val(dataValue[0].company_type);
+         $("#invType").val(dataValue[0].investor_type.split(','))
+         $("#invType").multiselect('refresh')
+
+         //$("#invType").val(dataValue[0].investor_type);
+         //$("#comptype").val(dataValue[0].company_type);
          }
          // $('#maskscreen').fadeOut();
          // $('#preloading').fadeOut();  
@@ -1909,6 +1924,9 @@
          $("#sltindustry").multiselect({noneSelectedText: 'Industry', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
          });
          $(function(){
+         $("#comptype").multiselect({noneSelectedText: 'Company Type', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+         });
+         $(function(){
          $("#exitsltindustry").multiselect({noneSelectedText: 'Industry', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
          });
          $(function(){
@@ -1925,6 +1943,18 @@
          });
          $(function(){
          $("#exitdealtype").multiselect({noneSelectedText: 'Deal Type', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+         });
+         $(function(){
+         $("#invType").multiselect({noneSelectedText: 'Investor Type', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+         });
+         $(function(){
+         $("#exitFlstatus").multiselect({noneSelectedText: 'Exit Status', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+         });
+         $(function(){
+         $("#exitinvType").multiselect({noneSelectedText: 'Investor Type', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
+         });
+         $(function(){
+         $("#exitInType").multiselect({noneSelectedText: 'Type', showCheckAll:false, showUncheckAll:false, selectedList: 0}).multiselectfilter();
          });
          
          function deleteFilter(filterNameId)
@@ -1987,7 +2017,6 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
-         console.log(dataValue);
          if(dataValue.length != 0)
          {
          var Type=dataValue[0].filter_type
@@ -2121,13 +2150,13 @@
          processData: false,
          contentType: false,
          success: function(data){
-         
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
          data: {investorName:data,mode:'getInvestorId'},
          
          success: function(data){
+            
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
@@ -2143,7 +2172,8 @@
          }
          else
          {
-         $('#file').val('')
+         $('#file').val('');
+         
          for(i=0;i<dataValue.length;i++)
          {
          $("#investorauto_sug").tokenInput("add",{id: dataValue[i]['InvestorId'], name: dataValue[i]['Investor']});
@@ -2177,8 +2207,8 @@
          
          var filterType=$(".rightpanel").find(".active").attr('value')
          
-         var filtername=$('#filter_name').val().trim().toLowerCase();
-         var filterDesc=$('#filter_desc').val().trim().toLowerCase();
+         var filtername=$('#filter_name').val().trim();
+         var filterDesc=$('#filter_desc').val().trim();
 
          if(filterType == "Exit")
          {
@@ -2629,7 +2659,7 @@
          {
          var invType=$('#exitinvType').val();
          $('#txthideinvtypeid').val(invType);
-         $('#txthideinvtype').val($('#exitinvType').find(":selected").text());
+         $('#txthideinvtype').val($('#exitinvType').val());
          }
          
          var InType=$('#exitInType').val();
@@ -2865,11 +2895,17 @@
          $('#exityr2').val(currentYear); 
          }
           $('#mode').val('A');
-          $('#comptype').val("")
+         // $('#comptype').val("")
 
-          $('#invType').val("")
+          //$('#invType').val("")          
+          $("#invType option:selected").prop("selected", false);
+          $("#invType").multiselect( 'refresh' );
+
           $("#sltindustry option:selected").prop("selected", false);
           $("#sltindustry").multiselect( 'refresh' );
+
+          $("#comptype option:selected").prop("selected", false);
+          $("#comptype").multiselect( 'refresh' );
 
           $("#citysearch option:selected").prop("selected", false);
           $("#citysearch").multiselect( 'refresh' );
@@ -2892,11 +2928,21 @@
           $("#exitsltindustry option:selected").prop("selected", false);
           $("#exitsltindustry").multiselect( 'refresh' );
 
+          $("#exitFlstatus option:selected").prop("selected", false);
+          $("#exitFlstatus").multiselect( 'refresh' );
+          
+          $("#exitinvType option:selected").prop("selected", false);
+          $("#exitinvType").multiselect( 'refresh' );
+
+          $("#exitInType option:selected").prop("selected", false);
+          $("#exitInType").multiselect( 'refresh' );
+
+
           $("#exitdealtype option:selected").prop("selected", false);
           $("#exitdealtype").multiselect( 'refresh' );
-          $('#exitinvType').val("")
-          $('#exitFlstatus').val("")
-          $('#exitInType').val("")
+          //$('#exitinvType').val("")
+          //$('#exitFlstatus').val("")
+          //$('#exitInType').val("")
           $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
          $('#investorErr').hide();

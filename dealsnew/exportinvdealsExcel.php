@@ -1468,8 +1468,10 @@ $investorType=$_POST['investorType'];
 //echo $_POST['companytype'];exit();
 if($companytype != '' && $companytype != '--')
 {
+    $companytype=str_replace(",","','",$companytype);
+    $companytype="'".$companytype."'";
    // echo 'hai';exit();
-$companyTypeStatus="and pe.listing_status='".$companytype."'";
+$companyTypeStatus="and pe.listing_status IN (".$companytype.")";
 }
 //echo $companyTypeStatus;exit();
 if($industry != '')
@@ -1520,7 +1522,9 @@ $StageId="and pe.StageId IN (".$stage.")";
 }
 if($investorType != ''  && $investorType != '--')
 {
-$InvestorType="and pe.InvestorType='".$investorType."'";
+    $investorType=str_replace(",","','",$investorType);
+    $investorType="'".$investorType."'";
+$InvestorType="and pe.InvestorType IN (".$investorType.")";
 }
 //echo $_POST['exitStatus'];exit();
 if($_POST['invquery'] != "")

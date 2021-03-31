@@ -801,7 +801,10 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
         }
         if ($invType!= "--" && $invType!= "")
-               { $whereInvType = " pe.InvestorType = '".$invType."'";
+               { 
+                $invType=str_replace(",","','",$invType);
+                $invType="'".$invType."'";   
+                $whereInvType = " pe.InvestorType IN (".$invType.")";
             $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
        }
         if ($investor_head != "--" && $investor_head != '') {
@@ -810,12 +813,15 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 
         if ($InTypes!= "" && $InTypes!='--')
         {
-                $whereType = " pe.type = '".$InTypes."'";
+            $InTypes=str_replace(",","','",$InTypes);
+                $InTypes="'".$InTypes."'";
+                $whereType = " pe.type IN (".$InTypes.")";
         }
 
         if($exitstatusvalue!="--" && $exitstatusvalue!='')
-        {    
-            $whereexitstatus=" pe.ExitStatus=".$exitstatusvalue; 
+        {    $exitstatusvalue=str_replace(",","','",$exitstatusvalue);
+            $exitstatusvalue="'".$exitstatusvalue."'";
+            $whereexitstatus=" pe.ExitStatus IN(".$exitstatusvalue.")"; 
         }
           if(trim($hidetxtfrm=="") && trim($hidetxtto>0))
          {
@@ -1057,8 +1063,8 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 //echo $_POST['exitquery'];
  $sql=$companysql;
  /*echo $tagsearch;*/
- //echo "<br>---" .$sql;
- //exit();
+//   echo "<br>---" .$sql;
+//   exit();
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");
