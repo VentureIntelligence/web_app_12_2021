@@ -75,7 +75,7 @@
 			$sql="SELECT pe.IncubateeId, pec.companyname, pec.industry, i.industry, pec.sector_business,
 				 pec.website, pec.AdCity,
 				 pec.region,MoreInfor,pe.IncubatorId,inc.Incubator,pec.RegionId,
-				 pe.StatusId,pec.yearfounded,Individual,s.Status,FollowonFund
+				 pe.StatusId,pec.yearfounded,Individual,s.Status,FollowonFund,pec.CINNo
 				 		 FROM incubatordeals AS pe, industry AS i, pecompanies AS pec,
 					     incubators as inc,incstatus as s
 						 WHERE pec.industry = i.industryid
@@ -127,6 +127,7 @@
 				// 	echo mysql_field_name($result,$i) . "\t";
 				// }
 					echo "Company"."\t";
+					echo "CIN"."\t";
 					echo "Year Founded"."\t";
 					echo "Industry"."\t";
 					echo "Sector"."\t";
@@ -213,7 +214,7 @@
 								$schema_insert .= $searchStringDisplay.$sep;
 								 $webdisplay="";
 							}
-
+							$schema_insert .=$row[17].$sep; //cinno
 							$schema_insert .=$yearfounded.$sep; //year founded
 						$schema_insert .=$row[3].$sep; //industry
 						$schema_insert .=$row[4].$sep; //sector
