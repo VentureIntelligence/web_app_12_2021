@@ -5733,7 +5733,7 @@ if ($type != 1) {
             <ul class="exportcolumn">
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="Company" checked/> <span> Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company"/> <span> Company</span></li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="Cinno"/> <span> CIN</span></li>
+                <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/> <span> CIN</span></li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Industry" /> Industry</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Sector" /> Sector</li>
@@ -11887,6 +11887,7 @@ echo $user_browser;?>
           
             var Android = navigator.userAgent.match(/Android/i);
             var IOS = navigator.userAgent.match(/iPhone|iPad|iPod|macintosh/i);
+            var windowwidth = $(window).width();
             // alert(IOS);
             // alert(Android);
             if(Android || IOS){
@@ -11897,8 +11898,13 @@ echo $user_browser;?>
                         $(".backdrop").hide();  
                     }else{
                         
-                            $(".mobileRedirectPopup").show();
-                            $(".backdrop").show();
+                        if(windowwidth > 1025 || windowwidth === undefined){
+                            $(".mobileRedirectPopup").hide();
+                            $(".backdrop").hide();  
+                        }else{
+                                    $(".mobileRedirectPopup").show();
+                                    $(".backdrop").show();
+                       }
                         
                     }
                         
@@ -11913,7 +11919,11 @@ echo $user_browser;?>
     
     $('#popup_keyword').keyup(function() {
         var $th = $(this);
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
-    });
+        var popup_select =$('#popup_select').val();
+        if(popup_select == "" || popup_select == "exact")
+        {
+            $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.']/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        }    
+        });
 });
 </script>
