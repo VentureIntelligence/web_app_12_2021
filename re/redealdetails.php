@@ -727,7 +727,7 @@
             else
             {
                 $hidestake=$myrow["stakepercentage"];
-                if($myrow["stakepercentage"] == "")
+                if($myrow["stakepercentage"] != 0)
                     $hidestake="&nbsp;";
                     else
                     $hidestake=$myrow["stakepercentage"];
