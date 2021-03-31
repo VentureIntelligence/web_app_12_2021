@@ -430,13 +430,13 @@
         
        <div  id="sample" style="padding:10px 10px 0 0;">
         
-        <iframe src="" id="lframe"  scrolling="no" frameborder="no" align="center" width="400" height="0"></iframe>
+        <iframe src="" id="lframe"  scrolling="no" frameborder="no" align="center" width="400" height="0" style="display:none"></iframe>
     </div>
 
     <input type="hidden" name="dataId" id="dataId" >
    
  </div>
-   <div class="fl" style="padding:10px 10px 0 0;"><iframe src="" id="lframe1"  scrolling="no" frameborder="no" align="center" width="674" height="0" ></iframe></div>    
+   <div class="fl" style="padding:10px 10px 0 0;display:none"><iframe src="" id="lframe1"  scrolling="no" frameborder="no" align="center" width="674" height="0" ></iframe></div>    
            
 <?php }
      else{
@@ -656,7 +656,11 @@ if (trim($no_employees) != "")
   <li><h4>News </h4><p><a href=<?php echo $company_newssearch; ?> target="_blank">Click Here</a></p></li> 
  <?php } ?>
   
-  
+ <?php
+    if (trim($linkedIn) != ""){
+ ?>
+  <li><h4>LinkedIn </h4><p><a href=<?php echo $linkedIn; ?> target="_blank">Click Here</a></p></li> 
+ <?php } ?>
   
       <?php if ($linkedinSearchDomain != "") 
   {  ?>
