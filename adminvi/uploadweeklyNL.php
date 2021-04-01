@@ -153,10 +153,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 <div id="headingtextpro">
                                     <div class="acc-section">
                                        <?php if (isset($_FILES['upload'])) {
-                                            //$uploadDir = '/home/venture/public_html/ddw/'; //path you wish to store you uploaded files
-                                            $uploadDir = '../ddw/';
-                                            $uploadedFileNL = $uploadDir . basename($_FILES['upload']['name']);
-                                               if(move_uploaded_file($_FILES['upload']['tmp_name'], $uploadedFileNL)) {
+                                            $uploadDir = '/home/venture/public_html/ddw/'; //path you wish to store you uploaded files
+                                            $uploadedFile = $uploadDir . basename($_FILES['upload']['name']);
+                                               if(move_uploaded_file($_FILES['upload']['tmp_name'], $uploadedFile)) {
                                                     echo 'File was uploaded successfully.';
                                                 } else {
                                                     echo 'There was a problem saving the uploaded file';
