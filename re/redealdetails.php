@@ -701,7 +701,7 @@
         
         $flagvalue=$value;
         $searchstring="";
-        //echo $sql;
+        echo $sql;
         if ($companyrs = mysql_query($sql)){  
         ?>
             
@@ -727,12 +727,10 @@
             else
             {
                 $hidestake=$myrow["stakepercentage"];
-                if($myrow["stakepercentage"] == 0 )
-                    $hidestake="&nbsp;";
-                    else
+                if($myrow["stakepercentage"]>0)
                     $hidestake=$myrow["stakepercentage"];
-
-               
+                else
+                    $hidestake="&nbsp;";
                         }
                         $col6=$myrow["Link"];
                         $linkstring=str_replace('"','',$col6);
