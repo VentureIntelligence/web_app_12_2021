@@ -2353,7 +2353,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-//    include_once("ipotrendview.php");
+   include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php
@@ -3076,7 +3076,6 @@
         <ul class="exportcolumn">
         <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="PortfolioCompany" checked/> <span> Portfolio Company</span></li> -->
         <li><input type="checkbox" class="exportcheck" name="skills" value="PortfolioCompany"/> <span> Portfolio Company</span></li>
-        <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/> <span>CIN</span></li>
         <li><input type="checkbox" class="exportcheck" name="skills" value="YearFounded" /> Year Founded</li>
         <li><input type="checkbox" class="exportcheck" name="skills" value="PEFirm" /> PE Firm(s)</li>
         <li><input type="checkbox" class="exportcheck" name="skills" value="InvestorType" /> Investor Type</li>
@@ -3106,7 +3105,7 @@
         <li><input type="checkbox" class="exportcheck" name="skills" value="PAT" /> PAT</li>
         <li><input type="checkbox" class="exportcheck" name="skills" value="BookValuePerShare" /> Book Value Per Share</li>
         <li><input type="checkbox" class="exportcheck" name="skills" value="PricePerShare" /> Price Per Share</li>
-        <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li> -->
+        <li><input type="checkbox" class="exportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li>
 
 </ul>
     
