@@ -75,7 +75,7 @@
   	pec.website, pec.city, pec.region,pe.IPOId,Comment,MoreInfor,hideamount,hidemoreinfor,
         InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns, its.InvestorTypeName,
         Company_Valuation,Sales_Multiple,EBITDA_Multiple,Netprofit_Multiple,InvestorSale,SellingInvestors,
-        Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT,  price_to_book, book_value_per_share, price_per_share,pec.yearfounded
+        Valuation,FinLink,ExitStatus,Revenue,EBITDA,PAT,  price_to_book, book_value_per_share, price_per_share,pec.yearfounded,pec.CINNo
    	FROM ipos AS pe, industry AS i, pecompanies AS pec,investortype as its
   	WHERE pec.industry = i.industryid and pe.IPOId=$SelCompRef  and
   	pec.PEcompanyId = pe.PECompanyId  and its.InvestorType=pe.InvestorType
@@ -142,6 +142,7 @@ updateDownload($result);
 // 	echo mysql_field_name($result,$i) . "\t";
 // }
 	echo "Portfolio Company"."\t";
+	echo "CIN"."\t";
 	echo "Year Founded"."\t";
 	echo "PE Firm(s)"."\t";
         echo "Investor Type"."\t";
@@ -180,7 +181,7 @@ updateDownload($result);
           echo "PAT"."\t";
 			echo "Book Value Per Share"."\t";
 			echo "Price Per Share"."\t";
-	echo "Link for Financials"."\t";
+	//echo "Link for Financials"."\t";
  print("\n");
 
  /*print("\n");*/
@@ -218,6 +219,7 @@ updateDownload($result);
    		$schema_insert .= $searchStringDisplay.$sep;
    		 $webdisplay="";
 	}
+	$schema_insert .= $row[38].$sep;//cinno
 	$schema_insert .= $row[37].$sep;//year founded
         $investor_sale_value=$row[26];
 		
@@ -450,7 +452,7 @@ updateDownload($result);
 							 $schema_insert .= $book_value_per_share.$sep;  //book_value_per_share
 							 $schema_insert .= $price_per_share.$sep;  //price_per_share
                                                          
-                           $schema_insert .= $row[29].$sep; //finlink
+                           //$schema_insert .= $row[29].$sep; //finlink
 
 	     $schema_insert = str_replace($sep."$", "", $schema_insert);
             $schema_insert .= ""."\n";
