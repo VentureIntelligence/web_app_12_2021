@@ -2455,7 +2455,7 @@
                         <input type="hidden" name="txthideacquirerId" value=<?php echo $acquirerId; ?> >
             <input type="hidden" name="txttargetcountry" value=<?php echo $targetcountry_hide; ?>>
             <input type="hidden" name="txtacquirercountry" value=<?php echo $acquirercountry_hide; ?>>
-            <input type="hidden" name="txthidesearchallfield" value=<?php echo $searchallfieldhidden; ?> >
+            <input type="hidden" name="txthidesearchallfield" value="<?php echo $searchallfieldhidden; ?>" >
                         
                  <?php } else {
 
@@ -4459,6 +4459,17 @@ div.token-input-dropdown{
         mysql_close();
         } ?>
 <script>
+      $(document).ready(function () {
+    
+        $('#popup_keyword').keyup(function() {
+        var $th = $(this);
+        var popup_select =$('#popup_select').val();
+        if(popup_select == "")
+        {
+            $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.']/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        }
+    });
+});
 //Added for the T-931    
 $(document).ready(function(){
 $countryheight=$('.countryht').height();

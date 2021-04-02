@@ -426,7 +426,7 @@ $actionUrl = "newinvestorreport.php?flag=1";
                          <div style="right: 140px;top: 99px;margin-bottom: 20px;position: absolute;margin-top: 6px;">
                         <label style="font-size: 13px;font-weight: 600;margin: 0px 5px;">From</label>
                         <?php
-        $month1 = ($_POST['month1']=='') ? '1' : $_POST['month1'];
+       
     ?>  
                                     <SELECT NAME=month1 id="tour_month1" style="font-family: Arial;color: #004646;font-size: 13px;padding: 3px;">
              <OPTION id=1 value="--" selected> Month </option>

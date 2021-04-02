@@ -25,7 +25,9 @@
 $exportvalue=$_POST['exitresultarray'];
 //echo $exportvalue;exit();
 if($exportvalue == "Select-All"){
-    $exportvalue = "PortfolioCompany,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
+    $exportvalue = "PortfolioCompany,CIN,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare";    
+
+   // $exportvalue = "PortfolioCompany,YearFounded,ExitingInvestors,InvestorType,ExitStatus,Industry,SectorBusinessDescription,DealType,Type,Acquirer,DealDate,DealAmount,AdvisorSeller,AdvisorBuyer,Website,AddlnInfo,InvestmentDetails,Link,ReturnMultiple,IRR,MoreInfo,CompanyValuation,RevenueMultiple,EBITDAMultiple,PATMultiple,PricetoBook,Valuation,Revenue,EBITDA,PAT,BookValuePerShare,PricePerShare,LinkforFinancials";    
 }
 $expval=explode(",",$exportvalue);
 //echo json_encode($exportvalue);exit();
@@ -763,7 +765,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         book_value_per_share,
         price_per_share,
         type,
-        pec.yearfounded FROM manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,
+        pec.yearfounded,pec.CINNo FROM manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,
         manda_investors as mandainv ,peinvestors as inv ,investortype AS it where";
         $whereind="";
         $wheredates="";
@@ -1227,6 +1229,10 @@ if(in_array("PortfolioCompany", $expval))
 {
     echo "Portfolio Company"."\t";
 }
+if(in_array("CIN", $expval))
+{
+    echo "CIN"."\t";
+}
 if(in_array("YearFounded", $expval))
 {
     echo "Year Founded"."\t";
@@ -1354,10 +1360,10 @@ if(in_array("PricePerShare", $expval))
 {
     echo "Price Per Share"."\t";
 }
-if(in_array("LinkforFinancials", $expval))
-{
-    echo "Link for Financials"."\t";
-}
+// if(in_array("LinkforFinancials", $expval))
+// {
+//     echo "Link for Financials"."\t";
+// }
        
  print("\n");
 
@@ -1394,6 +1400,10 @@ if(in_array("LinkforFinancials", $expval))
          if(in_array("PortfolioCompany", $expval))
          {
              $schema_insert .= $row[7].$sep;
+         }
+         if(in_array("CIN", $expval))
+         {
+             $schema_insert .= $row[38].$sep;
          }
          if(in_array("YearFounded", $expval))
          {

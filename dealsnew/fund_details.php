@@ -510,7 +510,8 @@ if($dealuv == 0)
           <?php if ( cap_sor($fu_de["capitalSource"]) != "") { ?> <li><h4>Capital Source  </h4><p> <?php echo cap_sor($fu_de["capitalSource"]); ?></p></li> <?php  } ?>
          
          <?php if ($fu_de["fundDate"] != "") { ?> <li><h4>Date  </h4><p> <?php echo $newDate = date("M-Y", strtotime($fu_de["fundDate"]));  ?></p></li> <?php  } ?>
-     
+         <?php if ($fu_de["launchDate"] != "") { ?> <li><h4>Launch Date  </h4><p> <?php echo $newDate = date("M-Y", strtotime($fu_de["launchDate"]));  ?></p></li> <?php  } ?>
+
                 
           </ul>
               
