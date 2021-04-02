@@ -590,8 +590,8 @@
                      $report_cnt = mysql_num_rows($reportrs);
                      }
                      ?> 
-                  <?php if($companyId != 948740559)
-                     {?>
+                  <?php //if($companyId != 948740559)
+                     //{?>
                   <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                      <div class="card">
                         <div class="row mt-2">
@@ -639,7 +639,7 @@
                         </div>
                      </div>
                   </div>
-                  <?php } ?>
+                  <?php //} ?>
                   <?php if($companyId != 948740559)
                      {?>
                   <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
