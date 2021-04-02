@@ -341,7 +341,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 <script>
 
     function saveAdminFilter()
-    {debugger;
+    {
         var filtername=$('#filter_name').val().trim().toLowerCase();
         var filterdesc=$('#filterdesc').val().trim().toLowerCase();
 
@@ -397,8 +397,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         }
          }
          },});
+         }
 
-    }
 </script>
 
 </body>

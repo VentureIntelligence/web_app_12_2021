@@ -148,9 +148,7 @@ $dlogUserEmail = $_SESSION['UserEmail'];
         $sql="Delete from saved_filter where  id='$filterId'";
 
         mysql_query($sql) or die(mysql_error());
-
-        
-    }
+}
 
         $post_order = isset($_REQUEST["post_order_ids"]) ? $_REQUEST["post_order_ids"] : [];
 	if(count($post_order)>0){
