@@ -4085,7 +4085,7 @@ div.token-input-dropdown{
             ?>
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="PortfolioCompany" checked/> <span>Portfolio Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="PortfolioCompany"/> <span>Portfolio Company</span></li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/> <span>CIN</span></li>
+                <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/><span>CIN</span></li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="YearFounded" /> Year Founded</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="ExitingInvestors" /> Exiting Investors</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="InvestorType" /> Investor Type</li>
@@ -11442,8 +11442,11 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     
     $('#popup_keyword').keyup(function() {
         var $th = $(this);
+        var popup_select =$('#popup_select').val();
+        if(popup_select == "" || popup_select == "exact")
+        {
             $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.']/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
-        
+        }
     });
 });
 </script>
