@@ -273,3 +273,30 @@ h5{
 
     padding:0.8rem 1rem !important;
 }
+.editexpbutton{
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    display: initial !important;
+}
+.edit{
+    margin:0px 5px;
+    border-radius:5px !important;
+    padding:8px 35px;
+    font-size:14px;
+    height:auto;
+}
+.exportFilt{
+    margin:0px 5px;
+    border-radius:5px !important;
+    padding:8px 25px;
+    font-size:14px;
+    height:auto;
+}
+.viexportbtn{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.viexportbtn button{
+    width:30%;
+}

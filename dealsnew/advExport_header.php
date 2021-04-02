@@ -479,9 +479,9 @@
                               </div>
                            </div>
                         </div>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
+                        <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
+                           <button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
+                           <button type="button" class="btn exportFilt text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
                         </div>
                      </div>
                      <?php
@@ -527,9 +527,9 @@
                               </div>
                            </div>
                         </div>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                           <button type="button" class="btn edit w-100 text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <button type="button" class="btn exportFilt w-100 text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
+                        <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
+                           <button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
+                           <button type="button" class="btn exportFilt  text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
                         </div>
                      </div>
                      <?php
@@ -608,7 +608,7 @@
                                     </div>
                                  </div>
                                  <!-- <div class="card-footer edit"> -->
-                                 <button type='button' class='btn exportFilt w-100 text-center' onclick='ExportAdminFilter("<?php echo $myrow["id"] ?>","<?php echo $myrow["filter_name"] ?>","<?php echo $myrow["filter_type"] ?>",<?php echo $trimmed_str ?>)'>Export</button>
+                                 <div class="viexportbtn"><button type='button' class='btn exportFilt text-center' onclick='ExportAdminFilter("<?php echo $myrow["id"] ?>","<?php echo $myrow["filter_name"] ?>","<?php echo $myrow["filter_type"] ?>",<?php echo $trimmed_str ?>)'>Export</button></div>
                                  <!-- <h5 class="text-center ">Export</h5> -->
                                  <!-- </div> -->
                               </div>
