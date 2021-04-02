@@ -645,7 +645,7 @@
                   <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                      <input type="hidden" name="companyName" id="companyName" value="<?php echo $companyName;?>">
                      <?php } else {?>
-                     <div class="tab-pane ml-3 show active" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                     <div class="tab-pane ml-3 show " id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         <input type="hidden" name="companyName" id="companyName" value="Venture">
                         <?php }?>
                         <div class="card">
