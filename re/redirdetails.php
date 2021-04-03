@@ -661,7 +661,7 @@
           
              <?php if ($myrow["linkedIn"] != "") 
             {  ?>
-            <li ><h4>View LinkedIn Profile  </h4><p><a href=<?php echo $myrow["linkedIn"]; ?> target="_blank">Click Here</a></p></li>
+            <li ><h4>LinkedIn</h4><p><a href=<?php echo $myrow["linkedIn"]; ?> target="_blank">Click Here</a></p></li>
             <?php } ?>
 
   

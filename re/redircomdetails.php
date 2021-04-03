@@ -520,7 +520,7 @@ if(trim($AddInfo)!="")
     
      <?php if ($linkedinSearchDomain != "") 
   {  ?>
-  <li id="viewlinkedin_loginbtn" style="display: none"><h4>View LinkedIn Profile  </h4><p><script type="in/Login"></script></p></li>
+  <li id="viewlinkedin_loginbtn" style="display: none"><h4>LinkedIn</h4><p><script type="in/Login"></script></p></li>
   <?php } ?>
   
    </ul>
