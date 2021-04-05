@@ -88,6 +88,14 @@ session_start();
         $fundCloseStatus    = $_POST['fundCloseStatus'];
        // $fundDate           = $_POST['date'];
         $fundDate           = "$_POST[year]-$_POST[month]-01";
+        if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
+        {
+        $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+        }
+        else
+        {
+            $launchDate =NULL;
+        }
         $capitalSource      = $_POST['capitalSource'];
         $moreInfo           = mysql_real_escape_string($_POST['moreInfo']);
         $source             = mysql_real_escape_string($_POST['source']);
@@ -107,6 +115,8 @@ session_start();
         $fundStatus = ($fundStatus!="")?', fundStatus = "'.$fundStatus.'"':'';
         $fundCloseStatus = ($fundCloseStatus!="")?', fundClosedStatus = "'.$fundCloseStatus.'"':'';
         $fundDate = ($fundDate!="")?', fundDate = "'.$fundDate.'"':'';
+        $launchDate = ($launchDate!="")?', launchDate = "'.$launchDate.'"':'';
+
         $capitalSource = ($capitalSource!="")?', capitalSource = "'.$capitalSource.'"':'';
         $moreInfo = ($moreInfo!="")?', moreInfo = "'.$moreInfo.'"':'';
         $source = ($source!="")?', source = "'.$source.'"':'';
@@ -118,7 +128,7 @@ if($dbType =='PE')
         //Insert into Table
         /*$sqlIns = "INSERT INTO `fundRaisingDetails` (`dbType`,`investorId`,`fundName`,`fundManager`,`fundTypeStage`,`fundTypeIndustry`,`size`,`fundStatus`,`fundClosedStatus`,`fundDate`,`capitalSource`,`moreInfo`,`source`,`amount_raised`) ";
         $sqlIns .= " VALUES ('".$dbType."','".$investorId."','".$fundnameId."','".$fundMan."','".$fundTypStage."','".$fundTypIndy."',".$fundSize.",'".$fundStatus."','".$fundCloseStatus."','".$fundDate."','".$capitalSource."','".$moreInfo."','".$source."'," . $amount_raised . ")";*/
-        $sqlIns = "INSERT INTO `fundRaisingDetails` SET " . $dbType1 . $investorId . $fundnameId . $fundMan . $fundTypStage . $fundTypIndy . $fundSize . $fundStatus . $fundCloseStatus . $fundDate . $capitalSource . $moreInfo . $source . $amount_raised . $HideAggregate. "";
+        $sqlIns = "INSERT INTO `fundRaisingDetails` SET " . $dbType1 . $investorId . $fundnameId . $fundMan . $fundTypStage . $fundTypIndy . $fundSize . $fundStatus . $fundCloseStatus . $fundDate . $launchDate .$capitalSource . $moreInfo . $source . $amount_raised . $HideAggregate. "";
 
  }
  else if($dbType =='RE')
@@ -335,7 +345,7 @@ if($dbType =='PE')
     var investor_db_id = '';
     var showModal = true;
     function monthyearcheck()
-{
+{debugger;
          var checkmonth = document.addfund.month.value;
          var checkyear = document.addfund.year.value;
          
@@ -373,7 +383,6 @@ if($dbType =='PE')
         
         
 }
-
 
 function checklist()
 {
@@ -944,6 +953,45 @@ $(document).ready(function() {
                 <option id="2013" value="2013">2013</option>
                 <option id="2014" value="2014">2014</option>-->
                 
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Launch Date</td>
+            <td colspan="2">
+                 <!--                <input type="date" name="date" size="50" value="<?php echo date('Y-m-d');?>" >-->
+                <select name="launchmonth" id="launchmonth"   >
+                     <option value="0">Month</option>
+                     <option value="01">Jan</option>
+                    <option value="02">Feb</option>
+                    <option value="03">Mar</option>
+                    <option value="04">Apr</option>
+                    <option value="05">May</option>
+                    <option value="06">Jun</option>
+                    <option value="07">Jul</option>
+                    <option value="08">Aug</option>
+                    <option value="09">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                   <option value="12">Dec</option>
+                </select>
+                
+                
+                <select name="launchyear" id="launchyear"  >
+                <option  value="0">Year</option>
+                
+                <?php
+                 $i=1998;
+                        While($i<= $currentyear )
+                        {
+                        $id = $i;
+                        $name = $i;
+                       // $isselected = ($year1==$id) ? 'SELECTED' : '';
+                        echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
+                        $i++;
+                        }
+              ?>
 
                 </select>
             </td>

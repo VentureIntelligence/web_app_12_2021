@@ -68,7 +68,7 @@ $sql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sect
 				 DealAmount, DATE_FORMAT( DealDate, '%M-%Y' ) as dt, pec.website,
 				 pe.MandAId,pe.Comment,MoreInfor,hideamount,hidemoreinfor,
 				pe.DealTypeId,dt.DealType,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns ,it.InvestorTypeName,
-				Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type, pec.yearfounded
+				Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type, pec.yearfounded,pec.CINNo
 			 FROM manda AS pe, industry AS i, pecompanies AS pec,
 			 dealtypes as dt ,investortype as it
 			 WHERE  i.industryid=pec.industry
@@ -148,6 +148,7 @@ updateDownload($result);
 // 	echo mysql_field_name($result,$i) . "\t";
 // }
 	echo "Portfolio Company"."\t";
+	echo "CIN"."\t";
 	echo "Year Founded"."\t";
 	echo "Exiting Investors"."\t";
 	echo "Investor Type"."\t";
@@ -185,7 +186,7 @@ updateDownload($result);
         echo "PAT"."\t";
 			echo "Book Value Per Share"."\t";
 			echo "Price Per Share"."\t";
-	echo "Link for Financials"."\t";
+	// echo "Link for Financials"."\t";
         
        
 
@@ -234,8 +235,8 @@ updateDownload($result);
 			$schema_insert .= $searchStringDisplay.$sep;
 			 $webdisplay="";
 		}
-
-$schema_insert .= $row[34].$sep; // year founded
+		$schema_insert .= $row[35].$sep; //cinno
+		$schema_insert .= $row[34].$sep; // year founded
 	//	echo "<Br>".$advcompanysql;
 
 		if ($rsgetAcquirerSql = mysql_query($AcquirerSql))
@@ -475,7 +476,7 @@ $schema_insert .= $row[34].$sep; // year founded
 					 $schema_insert .= $book_value_per_share.$sep;  //book_value_per_share
 					 $schema_insert .= $price_per_share.$sep;  //price_per_share
                                          
-                    $schema_insert .= $row[21].$sep;  //Financial link
+                   // $schema_insert .= $row[21].$sep;  //Financial link
                                                             
                                                             
                      
