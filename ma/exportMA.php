@@ -1,13 +1,19 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
  //session_save_path("/tmp");
-	session_start();
+	//session_start();
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
-    include ('machecklogin.php');    
-        
+   // include ('machecklogin.php');    
         //Check Session Id 
+       // print_r($_SESSION);exit();
+        if(!isset($_SESSION['MAUserNames']))
+        {
+        header('Location:../malogin.php');
+        }
+        else
+        { 
         $sesID=session_id();
         $emailid=$_SESSION['MAUserEmail'];
         $sqlUserLogSel = "SELECT `sessionId` FROM `user_log` WHERE `emailId`='".$emailid."' AND `dbTYpe`='MA'";
@@ -20,6 +26,7 @@
                 header( 'Location: logoff.php?value=caccess' ) ;
             }
         }
+    
         
          function updateDownload($res){
             //Added By JFR-KUTUNG - Download Limit
@@ -615,4 +622,5 @@ updateDownload($result);
 //else
 //	header( 'Location: '. GLOBAL_BASE_URL .'pelogin.php' ) ;
 mysql_close();
+        }
 ?>
