@@ -187,7 +187,7 @@ function updateDownload($res){
                                     }
                                         $companysql = "SELECT pe.IncDealId,pe.IncubateeId,pec.companyname, pec.industry, i.industry,
                                         pec.sector_business,Individual,inc.Incubator,
-                                        pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded
+                                        pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded,pec.CINNo
                                         FROM incubatordeals AS pe, industry AS i, pecompanies AS pec,incubators as inc, incstatus as s
                                         WHERE $datefilter pec.industry = i.industryid   and inc.IncubatorId=pe.IncubatorId and s.StatusId=pe.StatusId
                                         AND pec.PEcompanyID = pe.IncubateeId  and pe.Deleted=0" .$addVCFlagqry.$addDefunctqry. " ".$addDelind." " . $hideWhere . " order by companyname";
@@ -262,7 +262,7 @@ function updateDownload($res){
                                             
                                         $companysql="SELECT pe.IncDealId,pe.IncubateeId, pec.companyname, pec.industry, i.industry,
                                         pec.sector_business,Individual,inc.Incubator,
-                                         pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded
+                                         pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded,pec.CINNo
                                         FROM incubatordeals AS pe, industry AS i,  pecompanies AS pec,incubators as inc,incstatus as s
                                         WHERE $datefilter pec.industry = i.industryid AND pec.PEcompanyID = pe.IncubateeId
                                         and inc.IncubatorId=pe.IncubatorId  and s.StatusId=pe.StatusId
@@ -293,7 +293,7 @@ function updateDownload($res){
                                     }
                                         $companysql="SELECT pe.IncDealId,pe.IncubateeId, pec.companyname, pec.industry, i.industry,
                                         pec.sector_business,Individual,inc.Incubator,
-                                         pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded
+                                         pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded,pec.CINNo
                                         FROM incubatordeals AS pe, industry AS i,  pecompanies AS pec,incubators as inc,incstatus as s
                                         WHERE $datefilter pec.industry = i.industryid AND pec.PEcompanyID = pe.IncubateeId
                                         and inc.IncubatorId=pe.IncubatorId  and s.StatusId=pe.StatusId
@@ -325,7 +325,7 @@ function updateDownload($res){
                                     }
                                         $companysql="select pe.IncDealId,pe.IncubateeId,pec.companyname,pec.industry,i.industry,pec.sector_business,
                                         Individual,	inc.Incubator,
-                                        pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded
+                                        pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded,pec.CINNo
                                         from incubatordeals as pe,pecompanies as pec,industry as i ,incubators as inc,incstatus as s
                                         where $datefilter pec.industry = i.industryid and  inc.IncubatorId=pe.IncubatorId and pe.Deleted=0 and s.StatusId=pe.StatusId
                                         and pec.PECompanyId=pe.IncubateeId " .$addVCFlagqry.$addDefunctqry." ".$addDelind." " . $hideWhere . " AND inc.IncubatorId IN($keyword) order by companyname";
@@ -357,7 +357,7 @@ function updateDownload($res){
                                          $hideWhere = " ";
                                     }
                                         $companysql = "select pe.IncDealId,pe.IncubateeId,pec.companyname,pec.industry,i.industry,pec.sector_business,
-                                        Individual,inc.Incubator,pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded
+                                        Individual,inc.Incubator,pe.YearFounded,pec.website, pec.AdCity, pec.region,pec.RegionId,MoreInfor,pe.StatusId,s.Status,FollowonFund, pe.date_month_year,pec.yearfounded,pec.CINNo
                                         from incubatordeals as pe, industry as i,pecompanies as pec,incubators as inc,incstatus as s
                                         where $datefilter " . $hideWhere;
                                 //	echo "<br> individual where clauses have to be merged ";
@@ -610,6 +610,7 @@ function updateDownload($res){
 // 	echo mysql_field_name($result,$i) . "\t";
 // }
 	echo "Company"."\t";
+    echo "CIN"."\t";
 	echo "Year Founded"."\t";
 	echo "Industry"."\t";
 	echo "Sector"."\t";
@@ -699,7 +700,7 @@ function updateDownload($res){
 			$schema_insert .= $searchStringDisplay.$sep;
 			 $webdisplay="";
 		}
-
+        $schema_insert .= $row[19].$sep; //cin no
           $schema_insert .= $yearfounded.$sep; //Year Founded
           $schema_insert .= $row[4].$sep; //industry
 	      $schema_insert .= $row[5].$sep; //sector

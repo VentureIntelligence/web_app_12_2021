@@ -1468,7 +1468,9 @@ $result = mysql_query($sql) or die(mysql_error());
 // Start T960
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
-    $exportvalue = "Company,Company Type,Industry,Sector,Amount(US".'$M'."),Amount(INR Cr),Round,Stage,Investors,Investor Type,Stake (%),Date,Exit Status,Website,Year Founded,City,State,Region,Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share,Link for Financials";    
+    $exportvalue = "Company,CIN,Company Type,Industry,Sector,Amount(US".'$M'."),Amount(INR Cr),Round,Stage,Investors,Investor Type,Stake (%),Date,Exit Status,Website,Year Founded,City,State,Region,Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share";    
+
+    //$exportvalue = "Company,CIN,Company Type,Industry,Sector,Amount(US".'$M'."),Amount(INR Cr),Round,Stage,Investors,Investor Type,Stake (%),Date,Exit Status,Website,Year Founded,City,State,Region,Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share,Link for Financials";    
 }
 $expval=explode(",",$exportvalue);
 
@@ -1903,6 +1905,10 @@ $col = 0;
     {
         $DataList[] = $companyName;
     }
+    if(in_array("CIN", $rowArray))
+    {
+        $DataList[] = $row[55];
+    }
     if(in_array("Company Type", $rowArray))
     {
         $DataList[] = $listing_status_display;
@@ -2071,10 +2077,10 @@ $col = 0;
     {
         $DataList[]= $price_per_share;
     }
-    if(in_array("Link for Financials", $rowArray))
-    {
-        $DataList[]= $row[27];
-    }
+    // if(in_array("Link for Financials", $rowArray))
+    // {
+    //     $DataList[]= $row[27];
+    // }
     
     $arrayData[] = $DataList;
 

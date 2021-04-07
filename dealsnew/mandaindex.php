@@ -4085,7 +4085,7 @@ div.token-input-dropdown{
             ?>
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="PortfolioCompany" checked/> <span>Portfolio Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="PortfolioCompany"/> <span>Portfolio Company</span></li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/> <span>CIN</span></li>
+                <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/><span>CIN</span></li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="YearFounded" /> Year Founded</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="ExitingInvestors" /> Exiting Investors</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="InvestorType" /> Investor Type</li>

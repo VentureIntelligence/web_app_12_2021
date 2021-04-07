@@ -28,7 +28,9 @@
         // Start T960
         $exportvalue=$_POST['resultarray'];
         if($exportvalue == "Select-All"){
-            $exportvalue = "Company,CompanyType,Industry,Sector,Amount(M),Amount(Cr),Round,Stage,Investors,InvestorType,Stake,Date,ExitStatus,Website,YearFounded,City,Region,Advisors-Company,Advisors-Investors,MoreInformation,Link,PreMoneyValuation,PreRevenueMultiple,PreEBITDAMultiple,PrePATMultiple,PostMoneyValuation,PostRevenueMultiple,PostEBITDAMultiple,PostPATMultiple,EnterpriseValuation,EVRevenueMultiple,EVEBITDAMultiple,EVPATMultiple,PriceToBook,Valuation,Revenue,EBITDA,PAT,TotalDebt,CashCashEqu,BookValuePerShare,PricePerShare,LinkforFinancials";    
+            $exportvalue = "Company,CIN,CompanyType,Industry,Sector,Amount(M),Amount(Cr),Round,Stage,Investors,InvestorType,Stake,Date,ExitStatus,Website,YearFounded,City,Region,Advisors-Company,Advisors-Investors,MoreInformation,Link,PreMoneyValuation,PreRevenueMultiple,PreEBITDAMultiple,PrePATMultiple,PostMoneyValuation,PostRevenueMultiple,PostEBITDAMultiple,PostPATMultiple,EnterpriseValuation,EVRevenueMultiple,EVEBITDAMultiple,EVPATMultiple,PriceToBook,Valuation,Revenue,EBITDA,PAT,TotalDebt,CashCashEqu,BookValuePerShare,PricePerShare";    
+
+            // $exportvalue = "Company,CompanyType,Industry,Sector,Amount(M),Amount(Cr),Round,Stage,Investors,InvestorType,Stake,Date,ExitStatus,Website,YearFounded,City,Region,Advisors-Company,Advisors-Investors,MoreInformation,Link,PreMoneyValuation,PreRevenueMultiple,PreEBITDAMultiple,PrePATMultiple,PostMoneyValuation,PostRevenueMultiple,PostEBITDAMultiple,PostPATMultiple,EnterpriseValuation,EVRevenueMultiple,EVEBITDAMultiple,EVPATMultiple,PriceToBook,Valuation,Revenue,EBITDA,PAT,TotalDebt,CashCashEqu,BookValuePerShare,PricePerShare,LinkforFinancials";    
         }
         $expval=explode(",",$exportvalue);
         // end T960
@@ -262,7 +264,7 @@
                         $companysql = "SELECT pe.PEId,pe.PEId,pe.PEId,pe.PECompanyId, pe.StageId,pec.countryid,
                         pec.industry,pec.companyname, i.industry, pec.sector_business,
                         amount, round, s.stage, it.InvestorTypeName, stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod , pec.website, pec.city,
-                        r.Region,MoreInfor,hideamount,hidestake,c.country,c.country,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide, Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded as yearfounded
+                        r.Region,MoreInfor,hideamount,hidestake,c.country,c.country,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide, Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded as yearfounded,pec.CINNo
                         FROM peinvestments AS pe, industry AS i, pecompanies AS pec,stage as s,country as c,investortype as it,region as r,peinvestments_dbtypes  as pedb
                         WHERE pec.industry = i.industryid and it.InvestorType=pe.InvestorType
                         AND pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.StageId and c.countryid=pec.countryid   and pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype'
@@ -307,7 +309,7 @@
                         peinv_inv.InvestorId,peinv_inv.PEId,
                         pec.companyname,i.industry,sector_business,peinv.amount,peinv.round,s.Stage,it.InvestorTypeName,peinv.stakepercentage,
                         DATE_FORMAT( peinv.dates, '%M-%Y' )as dealperiod,pec.website,pec.city,r.Region,MoreInfor,
-                        hideamount,hidestake,c.country,inv.Investor,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,Exit_Status,price_to_book, book_value_per_share, price_per_share,peinv.Amount_INR, peinv.Company_Valuation_pre, peinv.Revenue_Multiple_pre, peinv.EBITDA_Multiple_pre, peinv.PAT_Multiple_pre,peinv.Company_Valuation_EV, peinv.Revenue_Multiple_EV, peinv.EBITDA_Multiple_EV, peinv.PAT_Multiple_EV, peinv.Total_Debt, peinv.Cash_Equ, pec.yearfounded as yearfounded 
+                        hideamount,hidestake,c.country,inv.Investor,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,Exit_Status,price_to_book, book_value_per_share, price_per_share,peinv.Amount_INR, peinv.Company_Valuation_pre, peinv.Revenue_Multiple_pre, peinv.EBITDA_Multiple_pre, peinv.PAT_Multiple_pre,peinv.Company_Valuation_EV, peinv.Revenue_Multiple_EV, peinv.EBITDA_Multiple_EV, peinv.PAT_Multiple_EV, peinv.Total_Debt, peinv.Cash_Equ, pec.yearfounded as yearfounded ,pec.CINNo
                         from peinvestments_investors as peinv_inv,peinvestors as inv,
                         peinvestments as peinv,pecompanies as pec,industry as i,stage as s,country as c,investortype as it,region as r ,peinvestments_dbtypes  as pedb,pe_subsectors as pe_sub,pe_sectors as pe_s
                         where pe_s.sector_id=pe_sub.sector_id and pec.PEcompanyID=pe_sub.PECompanyID and inv.InvestorId=peinv_inv.InvestorId and pec.industry = i.industryid and
@@ -348,7 +350,7 @@
                                        pec.companyname, i.industry, pec.sector_business,
                                        pe.amount, pe.round, s.Stage,it.InvestorTypeName,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod,
                                        pec.website, pec.city, r.Region,
-                                       MoreInfor,hideamount,hidestake,c.country,c.country,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide, Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded as yearfounded
+                                       MoreInfor,hideamount,hidestake,c.country,c.country,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide, Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded as yearfounded,pec.CINNo
                                        FROM peinvestments AS pe, industry AS i,
                                        pecompanies AS pec,stage as s,country as c,investortype as it,region as r,peinvestments_dbtypes  as pedb,pe_subsectors as pe_sub,pe_sectors as pe_s 
                                        WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=pe_sub.sector_id and pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.StageId
@@ -407,7 +409,7 @@
                                        pec.companyname, i.industry, pec.sector_business,
                                        pe.amount, pe.round, s.Stage,it.InvestorTypeName,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod,
                                        pec.website, pec.city, r.Region,
-                                       MoreInfor,hideamount,hidestake,c.country,c.country,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide, Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ , pec.yearfounded as yearfounded
+                                       MoreInfor,hideamount,hidestake,c.country,c.country,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide, Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ , pec.yearfounded as yearfounded,pec.CINNo
                                        FROM peinvestments AS pe, industry AS i,
                                        pecompanies AS pec,stage as s,country as c,investortype as it,region as r,peinvestments_dbtypes as pedb,
                                         peinvestments_investors as peinv_inv,peinvestors as inv
@@ -499,7 +501,7 @@
                                           pe.amount, pe.round, s.Stage,it.InvestorTypeName,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod,
                                           pec.website, pec.city, r.Region,
                                           MoreInfor,hideamount,hidestake,c.country,c.country,Link,pec.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,
-                                           Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded as yearfounded
+                                           Exit_Status,price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre,pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded as yearfounded,pec.CINNo
                                           FROM peinvestments AS pe, industry AS i,
                                           pecompanies AS pec,stage as s,country as c,investortype as it,region as r, peinvestments_dbtypes  as pedb, peinvestments_investors as peinv_inv, peinvestors as inv,pe_subsectors as pe_sub,
 pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=pe_sub.sector_id and dates between '" .$hidedateStartValue. "' and '" .$hidedateEndValue. "' " . $hideWhere . " and pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and pe.StageId=s.StageId
@@ -575,7 +577,7 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                             SELECT peinv.PEId,peinv.PECompanyId,peinv.StageId,c.countryid,c.industry,cia.CIAId,adac.CIAId AS AcqCIAId,
                             c.companyname, i.industry, c.sector_business, peinv.amount,peinv.round,s.Stage,it.InvestorTypeName,peinv.stakepercentage,
                             DATE_FORMAT( peinv.dates, '%M-%Y' )as dealperiod,c.website,c.city,r.Region,MoreInfor,
-                            hideamount,hidestake,co.country,cia.Cianame,Link,c.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,Exit_Status,price_to_book, book_value_per_share, price_per_share,peinv.Amount_INR, peinv.Company_Valuation_pre, peinv.Revenue_Multiple_pre, peinv.EBITDA_Multiple_pre, peinv.PAT_Multiple_pre,peinv.Company_Valuation_EV, peinv.Revenue_Multiple_EV, peinv.EBITDA_Multiple_EV, peinv.PAT_Multiple_EV, peinv.Total_Debt, peinv.Cash_Equ , pec.yearfounded as yearfounded
+                            hideamount,hidestake,co.country,cia.Cianame,Link,c.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,Exit_Status,price_to_book, book_value_per_share, price_per_share,peinv.Amount_INR, peinv.Company_Valuation_pre, peinv.Revenue_Multiple_pre, peinv.EBITDA_Multiple_pre, peinv.PAT_Multiple_pre,peinv.Company_Valuation_EV, peinv.Revenue_Multiple_EV, peinv.EBITDA_Multiple_EV, peinv.PAT_Multiple_EV, peinv.Total_Debt, peinv.Cash_Equ , pec.yearfounded as yearfounded,pec.CINNo
                             FROM peinvestments AS peinv, pecompanies AS c, industry AS i,stage as s,country as co,investortype as it,
                             advisor_cias AS cia, peinvestments_advisorinvestors AS adac,region as r, peinvestments_dbtypes  as pedb
                             WHERE peinv.Deleted=0 and c.industry = i.industryid
@@ -668,7 +670,7 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
                             SELECT peinv.PEId,peinv.PECompanyId,peinv.StageId,c.countryid,c.industry,cia.CIAId,adac.CIAId AS AcqCIAId,
                             c.companyname, i.industry, c.sector_business, peinv.amount,peinv.round,s.Stage,it.InvestorTypeName,peinv.stakepercentage,
                             DATE_FORMAT( peinv.dates, '%M-%Y' )as dealperiod,c.website,c.city,r.Region,MoreInfor,
-                            hideamount,hidestake,co.country,cia.Cianame,Link,c.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,Exit_Status,price_to_book, book_value_per_share, price_per_share,peinv.Amount_INR, peinv.Company_Valuation_pre, peinv.Revenue_Multiple_pre, peinv.EBITDA_Multiple_pre, peinv.PAT_Multiple_pre,peinv.Company_Valuation_EV, peinv.Revenue_Multiple_EV, peinv.EBITDA_Multiple_EV, peinv.PAT_Multiple_EV, peinv.Total_Debt, peinv.Cash_Equ , pec.yearfounded as yearfounded
+                            hideamount,hidestake,co.country,cia.Cianame,Link,c.RegionId,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,SPV,listing_status,Revenue,EBITDA,PAT,AggHide,Exit_Status,price_to_book, book_value_per_share, price_per_share,peinv.Amount_INR, peinv.Company_Valuation_pre, peinv.Revenue_Multiple_pre, peinv.EBITDA_Multiple_pre, peinv.PAT_Multiple_pre,peinv.Company_Valuation_EV, peinv.Revenue_Multiple_EV, peinv.EBITDA_Multiple_EV, peinv.PAT_Multiple_EV, peinv.Total_Debt, peinv.Cash_Equ , pec.yearfounded as yearfounded,pec.CINNo
                             FROM peinvestments AS peinv, pecompanies AS c, industry AS i,stage as s,country as co,investortype as it,
                             advisor_cias AS cia, peinvestments_advisorinvestors AS adac,region as r, peinvestments_dbtypes  as pedb
                             WHERE peinv.Deleted=0 and c.industry = i.industryid
@@ -1122,8 +1124,8 @@ pe_sectors as pe_s WHERE pec.PEcompanyID=pe_sub.PECompanyID and pe_s.sector_id=p
 
 
 $sql=$companysql;
-/*echo "<br>---" .$sql;die;
-exit;*/
+//echo "<br>---" .$sql;die;
+// exit;
 
  //execute query
  $result = @mysql_query($sql)
@@ -1180,6 +1182,10 @@ updateDownload($result);
 if(in_array("Company", $expval))
 {
     echo "Company"."\t";
+}
+if(in_array("CIN", $expval))
+{
+    echo "CIN"."\t";
 }
 if(in_array("CompanyType", $expval))
 {
@@ -1345,10 +1351,10 @@ if(in_array("PricePerShare", $expval))
 {
     echo "Price Per Share" . "\t";
 }
-if(in_array("LinkforFinancials", $expval))
-{
-    echo "Link for Financials"."\t";
-}
+// if(in_array("LinkforFinancials", $expval))
+// {
+//     echo "Link for Financials"."\t";
+// }
 
 
 
@@ -1376,10 +1382,8 @@ if(in_array("LinkforFinancials", $expval))
  $searchString2="Others";
  $searchString2=strtolower($searchString2);
 
-
      while($row = mysql_fetch_row($result))
      {
-        
          //set_time_limit(60); // HaRa
          $schema_insert = "";
          $PEId=$row[0];
@@ -1412,7 +1416,7 @@ if(in_array("LinkforFinancials", $expval))
                          $closeDebtBracket="";
                  }
         //echo $compResult;
-
+                // print_r($row);exit();
         if (in_array("Company", $expval))
         {
             if($compResult==0)
@@ -1425,6 +1429,10 @@ if(in_array("LinkforFinancials", $expval))
                 $schema_insert .= $searchStringDisplay.$sep;
                 $webdisplay="";
             }
+        }
+        if(in_array("CIN", $expval))
+        {
+            $schema_insert .= $row[54].$sep;
         }
         if(in_array("CompanyType", $expval))
         {
@@ -1810,10 +1818,10 @@ if(in_array("LinkforFinancials", $expval))
                 {
                     $schema_insert .= $Price_per.$sep; //Price per share
                 }
-                if (in_array("LinkforFinancials", $expval))
-                { 
-                    $schema_insert .= $row[27].$sep;  //link for financial
-                }
+                // if (in_array("LinkforFinancials", $expval))
+                // { 
+                //     $schema_insert .= $row[27].$sep;  //link for financial
+                // }
    
     
     
