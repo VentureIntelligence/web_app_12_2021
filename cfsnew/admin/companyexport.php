@@ -271,7 +271,7 @@
                         $getcity = $city->getsinglecity($where7);
 
                          $schema_insert .= trim($comdetails['IncorpYear']).$sep;//year found 
-                         $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
+                         $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v','"');
                          /*$BusinessDesc =  str_replace($replace_array, ' ', $comdetails['BusinessDesc']);
                          $BusinessDesc1 = nl2br($BusinessDesc);
                          $BusinessDesc =  trim(str_replace($replace_array, '', $BusinessDesc1));*/
