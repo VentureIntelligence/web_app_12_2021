@@ -497,8 +497,10 @@
                            </div>
                         </div>
                         <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
-                           <button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <button type="button" class="btn exportFilt text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
+                             <div class='col-md-6'><button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
+                         </div>
+                         <div class='col-md-6'><button type="button" class="btn exportFilt text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
+                        </div>
                         </div>
                      </div>
                      <?php
@@ -545,8 +547,8 @@
                            </div>
                         </div>
                         <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
-                           <button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
-                           <button type="button" class="btn exportFilt  text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
+                        <div class='col-md-6'><button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button></div>
+                        <div class='col-md-6'><button type="button" class="btn exportFilt  text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button></div>
                         </div>
                      </div>
                      <?php
@@ -594,7 +596,7 @@
                      //{?>
                   <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                      <div class="card">
-                        <div class="row mt-2">
+                        <div class="row vifilter">
                            <?php
                               if ($report_cnt>0)
                               {
@@ -607,24 +609,21 @@
                                 
                               // if($myrow['vi_filter'] == 1 ){
                               ?> 
-                           <div class="col-md-6 mb-3">
+                           <div class="col-md-12 mb-3" style="padding: 0px;">
                               <div class="card invest viadmin">
                                  <div class="card-body ">
                                     <div class="row ">
-                                       <div class="col-md-10 col-10">
+                                       <div class="col-md-9 col-10" >
                                           <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
                                           <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
-                                          <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?></p>
                                        </div>
-                                       <!-- <div class="col-md-2 col-2">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                          </button>
-                                          </div> -->
+                                       <div class="col-md-3 col-2 creatediv">
+                                       <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?> <i class="fa fa-download" aria-hidden="true" onclick='ExportAdminFilter("<?php echo $myrow["id"] ?>","<?php echo $myrow["filter_name"] ?>","<?php echo $myrow["filter_type"] ?>",<?php echo $trimmed_str ?>)'></i></p>
+                                       </div>
                                     </div>
                                  </div>
                                  <!-- <div class="card-footer edit"> -->
-                                 <div class="viexportbtn"><button type='button' class='btn exportFilt text-center' onclick='ExportAdminFilter("<?php echo $myrow["id"] ?>","<?php echo $myrow["filter_name"] ?>","<?php echo $myrow["filter_type"] ?>",<?php echo $trimmed_str ?>)'>Export</button></div>
+                                 
                                  <!-- <h5 class="text-center ">Export</h5> -->
                                  <!-- </div> -->
                               </div>

@@ -148,9 +148,9 @@ letter-spacing: 0px;
     border: none;
 }
 .invest{
-    margin:10px;
+    /* margin:10px; */
     box-shadow: 0px 2px 8px #00000022;
-    margin-top: 30px!important;
+    /* margin-top: 30px!important; */
 }
 .date
 {
@@ -266,8 +266,8 @@ h5{
 }
 .viadmin
 {
-    width:80%;
-    margin-left: 38px;
+    /* width:80%; */
+    margin-left: 0px;
 }
 .card-body{
 
@@ -277,19 +277,17 @@ h5{
     width: 100%;
     margin-bottom: 10px;
     text-align: center;
-    display: initial !important;
+    display: inline-flex;
 }
 .edit{
-    margin:0px 5px;
     border-radius:5px !important;
-    padding:8px 35px;
+    padding:5px 35px;
     font-size:14px;
     height:auto;
 }
 .exportFilt{
-    margin:0px 5px;
     border-radius:5px !important;
-    padding:8px 25px;
+    padding:5px 25px;
     font-size:14px;
     height:auto;
 }
@@ -299,4 +297,20 @@ h5{
 }
 .viexportbtn button{
     width:30%;
+}
+.vifilter{
+    margin:30px;
+}
+.vifilter .col-md-12.mb-3:last-child {
+    margin-bottom: 0px !important;
+}
+.creatediv{
+    float: right;
+    padding-right: 5px;
+}
+.create{
+    float: right;
+}
+.create i{
+cursor:pointer;float:right;font-size: 18px;    margin-left: 15px;
 }
