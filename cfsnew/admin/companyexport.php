@@ -279,30 +279,17 @@
                          $BusinessDesc =  str_replace($replace_array, '', $BusinessDesc);
                          $BusinessDesc = preg_replace("/\s+/", " ", $BusinessDesc);
                          $schema_insert .= trim(stripslashes($BusinessDesc)).$sep;//BusinessDesc
-                         if($comdetails['AddressHead'] != "")
-                         {
                          $AddressHead = trim($comdetails['AddressHead']);
                          $AddressHead = preg_replace("/\s+/", " ", $AddressHead);
                          $AddressHead = preg_replace("/\r\n|\r|\n/",'<br/>',$AddressHead);
                          $AddressHead =  str_replace($replace_array, '', $AddressHead);
-                         }
-                         if($comdetails['AddressLine2'] != "")
-                         {
                          $AddressLine2 = trim($comdetails['AddressLine2']);
                          $AddressLine2 = preg_replace("/\s+/", " ", $AddressLine2);
                          $AddressLine2 = preg_replace("/\r\n|\r|\n/",'<br/>',$AddressLine2);
                          $AddressLine2 =  str_replace($replace_array, '', $AddressLine2);
-                         }
-                         if($comdetails['AddressLine2'] == "" && $comdetails['AddressHead'] == "" )
-                         {
-                            $Address ="No address found"; 
-                            $schema_insert .= $Address.$sep;//Address
-                         }
-                         else
-                         {
                             $Address = trim((stripslashes($AddressHead).','.stripslashes($AddressLine2)),',');
                             $schema_insert .= trim(stripslashes($Address)).$sep;//Address
-                         }
+                         
                          $schema_insert .= trim($getcity[0]).$sep; //city
                         $where7 = " Country_Id = ".$comdetails['AddressCountry'];
                         $getcountry = $countries->getsinglecountry($where7);
