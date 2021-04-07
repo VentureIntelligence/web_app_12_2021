@@ -3439,7 +3439,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                     include_once("mandatrendview.php");
+                      include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -4085,6 +4085,7 @@ div.token-input-dropdown{
             ?>
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="PortfolioCompany" checked/> <span>Portfolio Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="PortfolioCompany"/> <span>Portfolio Company</span></li>
+                <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/> <span>CIN</span></li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="YearFounded" /> Year Founded</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="ExitingInvestors" /> Exiting Investors</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="InvestorType" /> Investor Type</li>
@@ -4116,7 +4117,7 @@ div.token-input-dropdown{
                 <li><input type="checkbox" class="exportcheck" name="skills" value="PAT" /> PAT (INR Cr)</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="BookValuePerShare" /> Book Value Per Share</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="PricePerShare" /> Price Per Share</li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li>
+                <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="LinkforFinancials" /> Link for Financials</li> -->
             <?php } ?>
                 
             </ul>
