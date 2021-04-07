@@ -517,11 +517,10 @@ if(trim($AddInfo)!="")
     
     
     ?> 
-    
-     <?php if ($linkedinSearchDomain != "") 
-  {  ?>
-  <li id="viewlinkedin_loginbtn" style="display: none"><h4>View LinkedIn Profile  </h4><p><script type="in/Login"></script></p></li>
-  <?php } ?>
+      <?php if ($myrow["linkedIn"] != "") 
+            {  ?>
+            <li ><h4>LinkedIn</h4><p><a href=<?php echo $myrow["linkedIn"]; ?> target="_blank">Click Here</a></p></li>
+            <?php } ?>
   
    </ul>
  </div>
