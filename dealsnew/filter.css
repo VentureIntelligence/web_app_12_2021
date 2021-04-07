@@ -125,7 +125,7 @@ body{
     font-size: 14px;
 }
 
-.create{
+.create,.createon{
     font-size: 12px;
     /* font: normal normal bold 14px/23px Montserrat; */
     letter-spacing: 0px;
@@ -308,9 +308,9 @@ h5{
     float: right;
     padding-right: 5px;
 }
-.create{
+.createon{
     float: right;
 }
-.create i{
+.createon i{
 cursor:pointer;float:right;font-size: 18px;    margin-left: 15px;
 }

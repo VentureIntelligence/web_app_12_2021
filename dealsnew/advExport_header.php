@@ -618,7 +618,7 @@
                                           <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
                                        </div>
                                        <div class="col-md-3 col-2 creatediv">
-                                       <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?> <i class="fa fa-download" aria-hidden="true" onclick='ExportAdminFilter("<?php echo $myrow["id"] ?>","<?php echo $myrow["filter_name"] ?>","<?php echo $myrow["filter_type"] ?>",<?php echo $trimmed_str ?>)'></i></p>
+                                       <p class="createon">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?> <i class="fa fa-download" aria-hidden="true" onclick='ExportAdminFilter("<?php echo $myrow["id"] ?>","<?php echo $myrow["filter_name"] ?>","<?php echo $myrow["filter_type"] ?>",<?php echo $trimmed_str ?>)'></i></p>
                                        </div>
                                     </div>
                                  </div>
