@@ -542,7 +542,6 @@ print("\n");*/
 // 	echo mysql_field_name($result,$i) . "\t";
 // }
 echo "Company"."\t";
-echo "CIN"."\t";
 //echo "PE/VC INVESTORS"."\t";
 echo "Industry"."\t";
 echo "Sector"."\t";
@@ -579,7 +578,7 @@ $pe_inv = array();
        
     $schema_insert = "";
     $companyName    =   $row['companyname'];
-    $CINNo    =   $row['CINNo'];
+    //$CINNo    =   $row['CINNo'];
    $pe_inv[] = $PECompanyId    =   $row['PECompanyId'];
     $industry       =   $row['industry'];
     $sector         =   $row['sector_business'];
@@ -663,7 +662,6 @@ $pe_inv = array();
     }
     $PE_investroeList = trim($PE_investroeList, ', ');
     $schema_insert .= $PE_investroeList.$sep;*/
-    $schema_insert .= $CINNo.$sep;
     $schema_insert .= $industry.$sep;
     $schema_insert .= $sector.$sep;
     $schema_insert .= $investors.$sep;
