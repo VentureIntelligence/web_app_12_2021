@@ -293,17 +293,15 @@
                          $AddressLine2 = preg_replace("/\r\n|\r|\n/",'<br/>',$AddressLine2);
                          $AddressLine2 =  str_replace($replace_array, '', $AddressLine2);
                          }
-                         if($comdetails['AddressLine2'] != "" || $comdetails['AddressHead'] != "" )
+                         if($comdetails['AddressLine2'] == "" && $comdetails['AddressHead'] == "" )
                          {
-                         $Address = trim((stripslashes($AddressHead).','.stripslashes($AddressLine2)),',');
-                         $schema_insert .= trim(stripslashes($Address)).$sep;//Address
-
+                            $Address ="No address found"; 
+                            $schema_insert .= $Address.$sep;//Address
                          }
                          else
                          {
-                            $Address =""; 
-                            $schema_insert .= $Address.$sep;//Address
-
+                            $Address = trim((stripslashes($AddressHead).','.stripslashes($AddressLine2)),',');
+                            $schema_insert .= trim(stripslashes($Address)).$sep;//Address
                          }
                          $schema_insert .= trim($getcity[0]).$sep; //city
                         $where7 = " Country_Id = ".$comdetails['AddressCountry'];
