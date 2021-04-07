@@ -12,6 +12,9 @@
             .result-title li{
                 word-break: break-all ;
             }
+            #lepopup-wrap {
+    top: 170px !important;
+}
 </style>
 <?php
       /*echo '<pre>';
@@ -4253,9 +4256,7 @@ if($type==1){?>
                });
             </script>
             <style>
-             #lepopup-wrap {
-    top: 170px !important;
-}
+            
 .investment-form a.tooltip span{
     margin-left: 105px;
     margin-top: -23px;

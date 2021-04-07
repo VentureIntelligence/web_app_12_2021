@@ -1,7 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
  //session_save_path("/tmp");
-	session_start();
+	//session_start();
 
 	require("../dbconnectvi.php");
 	$Db = new dbInvestments();
