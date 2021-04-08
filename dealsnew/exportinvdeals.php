@@ -1477,8 +1477,230 @@ $expval=explode(",",$exportvalue);
 // end T960
 
 
-updateDownload($result);
+$rowArray=$expval;
+// end T960
 
+
+updateDownload($result);
+ //if this parameter is included ($w=1), file returned will be in word format ('.doc')
+ //if parameter is not included, file returned will be in excel format ('.xls')
+    
+ if (isset($w) && ($w==1))
+ {
+         $file_type = "msword";
+         $file_ending = "doc";
+ }
+ else
+ {
+         $file_type = "vnd.ms-excel";
+         $file_ending = "xls";
+ }
+ 
+//header info for browser: determines file type ('.doc' or '.xls')
+ 
+header("Content-Type: application/$file_type");
+ header("Content-Disposition: attachment; filename=Simple.$file_ending");
+ header("Pragma: no-cache");
+ header("Expires: 0");
+ if ($Use_Title == 1)
+ {
+     echo("$title\n");
+ }
+     /*echo ("$tsjtitle");
+
+ print("\n");
+ print("\n");
+ echo "Target in () indicates sale of asset rather than the company. Target in {} indicates a minority stake acquisition.";
+ print("\n");
+ print("\n");*/
+ 
+ //define separator (defines columns in excel & tabs in word)
+ 
+ $sep = "\t"; //tabbed character
+
+//start of printing column names as names of MySQL fields
+
+if(in_array("Company", $rowArray))
+{
+    echo "Company"."\t";
+
+}
+if(in_array("CIN", $rowArray))
+{
+    echo "CIN"."\t";
+}
+if(in_array("Company Type", $rowArray))
+{
+    echo "Company Type"."\t";
+}
+if(in_array("Industry", $rowArray))
+{
+    echo "Industry"."\t";
+}
+if(in_array("Sector", $rowArray))
+{
+    echo "Sector"."\t";
+}
+if(in_array("Amount(US".'$M'.")", $rowArray))
+{
+    echo "Amount(US".'$M'.")"."\t";
+}
+if(in_array("Amount(INR Cr)", $rowArray))
+{
+    echo "Amount(INR Cr)"."\t";
+}
+if(in_array("Round", $rowArray))
+{
+    echo "Round"."\t";
+}
+if(in_array("Stage", $rowArray))
+{
+    echo "Stage"."\t";
+}
+if(in_array("Investors", $rowArray))
+{
+    echo "Investors"."\t";
+}
+if(in_array("Investor Type", $rowArray))
+{
+    echo "Investor Type"."\t";
+}
+if(in_array("Stake (%)", $rowArray))
+{
+    echo "Stake (%)"."\t";
+}
+if(in_array("Date", $rowArray))
+{
+    echo "Date"."\t";
+}
+if(in_array("Exit Status", $rowArray))
+{
+    echo "Exit Status"."\t";
+}
+if(in_array("Website", $rowArray))
+{
+    echo "Website"."\t";
+}
+if(in_array("Year Founded", $rowArray))
+{
+    echo "Year Founded"."\t";
+}
+if(in_array("City", $rowArray))
+{
+    echo "City"."\t";
+}
+if(in_array("State", $rowArray))
+{
+    echo "State"."\t";
+}
+if(in_array("Region", $rowArray))
+{
+    echo "Region"."\t";
+}
+if(in_array("Advisor-Company", $rowArray))
+{
+    echo "Advisor-Company"."\t";
+}
+if(in_array("Advisor-Investors", $rowArray))
+{
+    echo "Advisor-Investors"."\t";
+}
+if(in_array("More Details", $rowArray))
+{
+    echo "More Details"."\t";
+}
+if(in_array("Link", $rowArray))
+{
+    echo "Link"."\t";
+}
+if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
+{
+    echo "Pre Money Valuation (INR Cr)"."\t";
+}
+if(in_array("Revenue Multiple (Pre)", $rowArray))
+{
+    echo "Revenue Multiple (Pre)"."\t";
+}
+if(in_array("EBITDA Multiple (Pre)", $rowArray))
+{
+    echo "EBITDA Multiple (Pre)"."\t";
+}
+if(in_array("PAT Multiple (Pre)", $rowArray))
+{
+    echo "PAT Multiple (Pre)"."\t";
+}
+if(in_array("Post Money Valuation (INR Cr)", $rowArray))
+{
+    echo "Post Money Valuation (INR Cr)"."\t";
+}
+if(in_array("Revenue Multiple (Post)", $rowArray))
+{
+    echo "Revenue Multiple (Post)"."\t";
+}
+if(in_array("EBITDA Multiple (Post)", $rowArray))
+{
+    echo "EBITDA Multiple (Post)"."\t";
+}
+if(in_array("PAT Multiple (Post)", $rowArray))
+{
+    echo "PAT Multiple (Post)"."\t";
+}
+if(in_array("Enterprise Valuation (INR Cr)", $rowArray))
+{
+    echo "Enterprise Valuation (INR Cr)"."\t";
+}
+if(in_array("Revenue Multiple (EV)", $rowArray))
+{
+    echo "Revenue Multiple (EV)"."\t";
+}
+if(in_array("EBITDA Multiple (EV)", $rowArray))
+{
+    echo "EBITDA Multiple (EV)"."\t";
+}
+if(in_array("PAT Multiple (EV)", $rowArray))
+{
+    echo "PAT Multiple (EV)"."\t";
+}
+if(in_array("Price to Book", $rowArray))
+{
+    echo "Price to Book"."\t";
+}
+if(in_array("Valuation", $rowArray))
+{
+    echo "Valuation"."\t";
+}
+if(in_array("Revenue (INR Cr)", $rowArray))
+{
+    echo "Revenue (INR Cr)"."\t";
+}
+if(in_array("EBITDA (INR Cr)", $rowArray))
+{
+    echo "EBITDA (INR Cr)"."\t";
+}
+if(in_array("PAT (INR Cr)", $rowArray))
+{
+    echo "PAT (INR Cr)"."\t";
+}
+if(in_array("Total Debt (INR Cr)", $rowArray))
+{
+    echo "Total Debt (INR Cr)"."\t";
+}
+if(in_array("Cash & Cash Equ. (INR Cr)", $rowArray))
+{
+    echo "Cash & Cash Equ. (INR Cr)"."\t";
+}
+if(in_array("Book Value Per Share", $rowArray))
+{
+    echo "Book Value Per Share"."\t";
+}
+if(in_array("Price Per Share", $rowArray))
+{
+    echo "Price Per Share"."\t";
+}
+ 
+ /*print("\n");*/
+ print("\n");
+ //end of printing column names
 
 $searchString = "Undisclosed";
 $searchString = strtolower($searchString);
@@ -1497,33 +1719,33 @@ $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be us
 
 $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
 /** Error reporting */
-error_reporting(E_ALL);
-ini_set('display_errors', TRUE);
-ini_set('display_startup_errors', TRUE);
-date_default_timezone_set('Europe/London');
-if (PHP_SAPI == 'cli')
-	die('This example should only be run from a Web Browser');
-/** Include PHPExcel */
-require_once '../PHPExcel_1.8.0_doc/Classes/PHPExcel.php';
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-// Set document properties
-$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-							 ->setLastModifiedBy("Maarten Balliauw")
-							 ->setTitle("Office 2007 XLSX Test Document")
-							 ->setSubject("Office 2007 XLSX Test Document")
-							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-							 ->setKeywords("office 2007 openxml php")
-							 ->setCategory("Test result file");
-// Add some data
-$rowArray = $expval;
-$objPHPExcel->getActiveSheet()
-    ->fromArray(
-        $rowArray,   // The data to set
-        NULL,        // Array values with this value will not be set
-        'A1'         // Top left coordinate of the worksheet range where
-                     //    we want to set these values (default is A1)
-    );
+// error_reporting(E_ALL);
+// ini_set('display_errors', TRUE);
+// ini_set('display_startup_errors', TRUE);
+// date_default_timezone_set('Europe/London');
+// if (PHP_SAPI == 'cli')
+// 	die('This example should only be run from a Web Browser');
+// /** Include PHPExcel */
+// require_once '../PHPExcel_1.8.0_doc/Classes/PHPExcel.php';
+// // Create new PHPExcel object
+// $objPHPExcel = new PHPExcel();
+// // Set document properties
+// $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+// 							 ->setLastModifiedBy("Maarten Balliauw")
+// 							 ->setTitle("Office 2007 XLSX Test Document")
+// 							 ->setSubject("Office 2007 XLSX Test Document")
+// 							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+// 							 ->setKeywords("office 2007 openxml php")
+// 							 ->setCategory("Test result file");
+// // Add some data
+// $rowArray = $expval;
+// $objPHPExcel->getActiveSheet()
+//     ->fromArray(
+//         $rowArray,   // The data to set
+//         NULL,        // Array values with this value will not be set
+//         'A1'         // Top left coordinate of the worksheet range where
+//                      //    we want to set these values (default is A1)
+//     );
 // $objPHPExcel->setActiveSheetIndex(0)
 //             ->setCellValue('A1', 'Company')
 //             ->setCellValue('B1', 'Company Type')
@@ -1576,7 +1798,7 @@ $peidcheck = '';
 
 $arrayData = array();
 while ($rows = mysql_fetch_array($result)) {
-$DataList = array();
+//$DataList = array();
 $col = 0;  
 
     if(isset($rows['PEId'])){
@@ -1899,190 +2121,191 @@ $col = 0;
         }
     }
 
+    $schema_insert = "";
 
     // T960
     if(in_array("Company", $rowArray))
     {
-        $DataList[] = $companyName;
+        $schema_insert .= $companyName.$sep;
     }
     if(in_array("CIN", $rowArray))
     {
-        $DataList[] = $row[55];
+        $schema_insert .= $row[55].$sep;
     }
     if(in_array("Company Type", $rowArray))
     {
-        $DataList[] = $listing_status_display;
+        $schema_insert .= $listing_status_display.$sep;
     }
     if(in_array("Industry", $rowArray))
     {
-        $DataList[] = $row[8];
+        $schema_insert .= $row[8].$sep;
     }
     if(in_array("Sector", $rowArray))
     {
-        $DataList[] = $row[9];
+        $schema_insert .= $row[9].$sep;
     }
     if(in_array("Amount(US".'$M'.")", $rowArray))
     {
-        $DataList[] = $hideamount;
+        $schema_insert .= $hideamount.$sep;
     }
     if(in_array("Amount(INR Cr)", $rowArray))
     {
-        $DataList[] = $hideamount_INR;
+        $schema_insert .= $hideamount_INR.$sep;
     }
     if(in_array("Round", $rowArray))
     {
-        $DataList[] = $row[11];
+        $schema_insert .= $row[11].$sep;
     }
     if(in_array("Stage", $rowArray))
     {
-        $DataList[] = $row[12];
+        $schema_insert .= $row[12].$sep;
     }
     if(in_array("Investors", $rowArray))
     {
-        $DataList[] = $investorString;
+        $schema_insert .= $investorString.$sep;
     }
     if(in_array("Investor Type", $rowArray))
     {
-        $DataList[] = $row[13];
+        $schema_insert .= $row[13].$sep;
     }
     if(in_array("Stake (%)", $rowArray))
     {
-        $DataList[] = $hidestake;
+        $schema_insert .= $hidestake.$sep;
     }
     if(in_array("Date", $rowArray))
     {
-        $DataList[] = $row[15];
+        $schema_insert .= $row[15].$sep;
     }
     if(in_array("Exit Status", $rowArray))
     {
-        $DataList[] = $exitstatusis;
+        $schema_insert .= $exitstatusis.$sep;
     }
     if(in_array("Website", $rowArray))
     {
-        $DataList[] = $webdisplay;
+        $schema_insert .= $webdisplay.$sep;
     }
     if(in_array("Year Founded", $rowArray))
     {
-        $DataList[] = $yearfounded;
+        $schema_insert .= $yearfounded.$sep;
     }
     if(in_array("City", $rowArray))
     {
-        $DataList[] = $row[17];
+        $schema_insert .= $row[17].$sep;
     }
     if(in_array("State", $rowArray))
     {
-        $DataList[] = $row[54];
+        $schema_insert .= $row[54].$sep;
     }
     if(in_array("Region", $rowArray))
     {
-        $DataList[] = $row[18];
+        $schema_insert .= $row[18].$sep;
     }
     if(in_array("Advisor-Company", $rowArray))
     {
-        $DataList[] = $advisorCompanyString;
+        $schema_insert .= $advisorCompanyString.$sep;
     }
     if(in_array("Advisor-Investors", $rowArray))
     {
-        $DataList[] = $advisorInvestorString;
+        $schema_insert .= $advisorInvestorString.$sep;
     }
     if(in_array("More Details", $rowArray))
     {
-        $DataList[] = $resmoreinfo;
+        $schema_insert .= $resmoreinfo.$sep;
     }
     if(in_array("Link", $rowArray))
     {
-        $DataList[] = trim($row[24]);
+        $schema_insert .= trim($row[24]).$sep;
     }
     if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
     {
-        $DataList[] = $pre_company_valuation;
+        $schema_insert .= $pre_company_valuation.$sep;
     }
     if(in_array("Revenue Multiple (Pre)", $rowArray))
     {
-        $DataList[] = $pre_revenue_multiple;
+        $schema_insert .= $pre_revenue_multiple.$sep;
     }
     if(in_array("EBITDA Multiple (Pre)", $rowArray))
     {
-        $DataList[] = $pre_ebitda_multiple;
+        $schema_insert .= $pre_ebitda_multiple.$sep;
     }
     if(in_array("PAT Multiple (Pre)", $rowArray))
     {
-        $DataList[] = $pre_pat_multiple;
+        $schema_insert .= $pre_pat_multiple.$sep;
     }
     if(in_array("Post Money Valuation (INR Cr)", $rowArray))
     {
-        $DataList[] = $dec_company_valuation;
+        $schema_insert .= $dec_company_valuation.$sep;
     }
     if(in_array("Revenue Multiple (Post)", $rowArray))
     {
-        $DataList[]= $dec_revenue_multiple;
+        $schema_insert .= $dec_revenue_multiple.$sep;
     }
     if(in_array("EBITDA Multiple (Post)", $rowArray))
     {
-        $DataList[]= $dec_ebitda_multiple;
+        $schema_insert .= $dec_ebitda_multiple.$sep;
     }
     if(in_array("PAT Multiple (Post)", $rowArray))
     {
-        $DataList[] = $dec_pat_multiple;
+        $schema_insert .= $dec_pat_multiple.$sep;
     }
     if(in_array("Enterprise Valuation (INR Cr)", $rowArray))
     {
-        $DataList[]= $ev_company_valuation;
+        $schema_insert .= $ev_company_valuation.$sep;
     }
     if(in_array("Revenue Multiple (EV)", $rowArray))
     {
-        $DataList[]= $ev_revenue_multiple;
+        $schema_insert .= $ev_revenue_multiple.$sep;
     }
     if(in_array("EBITDA Multiple (EV)", $rowArray))
     {
-        $DataList[]= $ev_ebitda_multiple;
+        $schema_insert .= $ev_ebitda_multiple.$sep;
     }
     if(in_array("PAT Multiple (EV)", $rowArray))
     {
-        $DataList[]= $ev_pat_multiple;
+        $schema_insert .= $ev_pat_multiple.$sep;
     }
     if(in_array("Price to Book", $rowArray))
     {
-        $DataList[] = $price_to_book;
+        $schema_insert .= $price_to_book.$sep;
     }
     if(in_array("Valuation", $rowArray))
     {
-        $DataList[]= trim($row[26]);
+        $schema_insert .= trim($row[26]).$sep;
     }
     if(in_array("Revenue (INR Cr)", $rowArray))
     {
-        $DataList[]= $dec_revenue;
+        $schema_insert .= $dec_revenue.$sep;
     }
     if(in_array("EBITDA (INR Cr)", $rowArray))
     {
-        $DataList[] = $dec_ebitda;
+        $schema_insert .= $dec_ebitda.$sep;
     }
     if(in_array("PAT (INR Cr)", $rowArray))
     {
-        $DataList[]= $dec_pat;
+        $schema_insert .= $dec_pat.$sep;
     }
     if(in_array("Total Debt (INR Cr)", $rowArray))
     {
-        $DataList[]= $Total_Debt;
+        $schema_insert .= $Total_Debt.$sep;
     }
     if(in_array("Cash & Cash Equ. (INR Cr)", $rowArray))
     {
-        $DataList[]= $Cash_Equ;
+        $schema_insert .= $Cash_Equ.$sep;
     }
     if(in_array("Book Value Per Share", $rowArray))
     {
-        $DataList[]= $book_value_per_share;
+        $schema_insert .= $book_value_per_share.$sep;
     }
     if(in_array("Price Per Share", $rowArray))
     {
-        $DataList[]= $price_per_share;
+        $schema_insert .= $price_per_share.$sep;
     }
     // if(in_array("Link for Financials", $rowArray))
     // {
     //     $DataList[]= $row[27];
     // }
     
-    $arrayData[] = $DataList;
+    //$arrayData[] = $DataList;
 
      //Setting Values
     //  $objPHPExcel->setActiveSheetIndex(0)
@@ -2130,62 +2353,80 @@ $col = 0;
     //         ->setCellValue('AP'.$index, $book_value_per_share)
     //         ->setCellValue('AQ'.$index, $price_per_share)
     //         ->setCellValue('AR'.$index, $row[27]);
-     $index++;
+
+    $schema_insert = str_replace($sep."$", "", $schema_insert);
+    $schema_insert .= ""."\n";
+            //following fix suggested by Josue (thanks, Josue!)
+            //this corrects output in excel when table fields contain \n or \r
+            //these two characters are now replaced with a space
+    $schema_insert = preg_replace("/\r\n|\n\r|\n|\r/", " ", $schema_insert);
+    $schema_insert .= "\t";
+    print(trim($schema_insert));
+    print "\n";
 }
-
-// T960
-$objPHPExcel->getActiveSheet()
-            ->fromArray(
-                $arrayData,  // The data to set
-                NULL,        // Array values with this value will not be set
-                'A2'         // Top left coordinate of the worksheet range where
-                            //    we want to set these values (default is A1)
-            );
-
-
-$indexfortitle = $index + 5;
-$indexfortranche = $index + 7;
-
-$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A'.$indexfortitle, $tsjtitle)
-            ->setCellValue('A'.$indexfortranche, $tranchedisplay);
-
-// Rename worksheet
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
-
-// $objPHPExcel->getActiveSheet()->getDefaultColumnDimension()
-//     ->setWidth(12);
-// T960 Changes
+print("\n");
+    print("\n");
+    print("\n");
+    print("\n");
+    echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
+    print("\n");
+    print("\n");
+    echo "Target in () indicates sale of asset rather than the company. Target in {} indicates a minority stake acquisition.";
+    print("\n");
+    print("\n");
+// // T960
 // $objPHPExcel->getActiveSheet()
-//     ->getStyle('G2:G'.$index)
-//     ->getAlignment()
-//     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+//             ->fromArray(
+//                 $arrayData,  // The data to set
+//                 NULL,        // Array values with this value will not be set
+//                 'A2'         // Top left coordinate of the worksheet range where
+//                             //    we want to set these values (default is A1)
+//             );
 
+
+// $indexfortitle = $index + 5;
+// $indexfortranche = $index + 7;
+
+// $objPHPExcel->setActiveSheetIndex(0)
+//             ->setCellValue('A'.$indexfortitle, $tsjtitle)
+//             ->setCellValue('A'.$indexfortranche, $tranchedisplay);
+
+// // Rename worksheet
+// $objPHPExcel->getActiveSheet()->setTitle('Simple');
+
+// // $objPHPExcel->getActiveSheet()->getDefaultColumnDimension()
+// //     ->setWidth(12);
+// // T960 Changes
+// // $objPHPExcel->getActiveSheet()
+// //     ->getStyle('G2:G'.$index)
+// //     ->getAlignment()
+// //     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+// // $objPHPExcel->getActiveSheet()
+// //     ->getStyle('L2:L'.$index)
+// //     ->getAlignment()
+// //     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+// // T960 Changes
 // $objPHPExcel->getActiveSheet()
-//     ->getStyle('L2:L'.$index)
+//     ->getStyle('A2:A2')
 //     ->getAlignment()
-//     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-// T960 Changes
-$objPHPExcel->getActiveSheet()
-    ->getStyle('A2:A2')
-    ->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+//     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
-// Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$objPHPExcel->setActiveSheetIndex(0);
-// Redirect output to a client’s web browser (Excel5)
-header('Content-Type: application/vnd.ms-excel');
-header('Content-Disposition: attachment;filename="peinv_deals.xls"');
-header('Cache-Control: max-age=0');
-// If you're serving to IE 9, then the following may be needed
-header('Cache-Control: max-age=1');
-// If you're serving to IE over SSL, then the following may be needed
-header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
-header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-header ('Pragma: public'); // HTTP/1.0
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save('php://output');
+// // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+// $objPHPExcel->setActiveSheetIndex(0);
+// // Redirect output to a client’s web browser (Excel5)
+// header('Content-Type: application/vnd.ms-excel');
+// header('Content-Disposition: attachment;filename="peinv_deals.xls"');
+// header('Cache-Control: max-age=0');
+// // If you're serving to IE 9, then the following may be needed
+// header('Cache-Control: max-age=1');
+// // If you're serving to IE over SSL, then the following may be needed
+// header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+// header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+// header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+// header ('Pragma: public'); // HTTP/1.0
+// $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+// $objWriter->save('php://output');
 exit();
         }
 //		}
@@ -2194,6 +2435,3 @@ exit();
 mysql_close();
 mysql_close($cnx);
 ?>
-
-
-	
