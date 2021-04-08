@@ -70,17 +70,13 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $companyIdtoEdit = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
     $trialFlag="";$peindustries = array(); $maindustries = array();
     
-    $getCompNameSql ="Select DCompanyName,custom_limit_enable,custom_export_limit,ExpiryDate,TrialLogin,Student,REInv,IPAdd,poc,MAMA,peindustries,maindustries,mobile_access from dealcompanies where DCompId=$companyIdtoEdit ";
+    $getCompNameSql ="Select DCompanyName,ExpiryDate,TrialLogin,Student,REInv,IPAdd,poc,MAMA,peindustries,maindustries,mobile_access from dealcompanies where DCompId=$companyIdtoEdit ";
     if($rsgetname =mysql_query($getCompNameSql))
     {
 	//	echo "<br>2--";
         While($myrow=mysql_fetch_array($rsgetname, MYSQL_BOTH))
         {
             //		echo "<br>3--";
-            $export_limit = $myrow['custom_export_limit'];
-            $limit_enable = $myrow['custom_limit_enable'];
-
-
             $CompanyName=$myrow["DCompanyName"];
             $ExpDate=$myrow["ExpiryDate"];
             $trialLoginFlag=$myrow["TrialLogin"];
@@ -762,16 +758,6 @@ $(document).ready(function(){
                 console.log(name);
                 console.log(pass);*/
 
-                if($('#limit_enable').prop('checked') == true)
-                {
-                    $('#limit_enable').val(1)
-                }
-                else{
-                    $('#limit_enable').val(0)
-                }
-
-                $('#exp_limit').val();
-
                 for(var i=0;i < mail.length; i++){
                     
                     if(mail[i] !=''){
@@ -1093,12 +1079,6 @@ $(document).ready(function(){
                 
                                 <b>Reset Export Limit to</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/arrow.gif" /><input type="text" name="resetExp" id="resetExp"> <input type="button" name="limReset" value="Reset" onclick="resetExpLimit();">
                                 <br /><br />
-
-                                <div class="row" style="width: 300px;">
-                                    <h2>Custom Export Option</h2>
-                                    <input type="checkbox" id="limit_enable" name="limit_enable" <?php if($limit_enable==1) { echo "checked"; } else { }?>><b>Enable</b><br><br>
-                                    <b>Export Limit</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="exp_limit" id="exp_limit" value="<?php echo $export_limit ?>"><br><br>
-                                </div>
                                 
                                 <div style="margin-bottom: 15px;">
                                     <span style="font-size: 14px;font-weight:bold;">List of Members : </span> <Br />

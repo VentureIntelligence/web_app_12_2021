@@ -23,7 +23,6 @@
     $city = new city();
     require_once MODULES_DIR."countries.php";
     $countries = new countries();
-    
     function updateDownload($res){
         //Added By JFR-KUTUNG - Download Limit
         $recCount = count($res);
@@ -230,6 +229,7 @@
 
                 foreach($comdetail as $comdetails)
                     {
+                       // print_r($comdetails);
 
 
                         if($comdetails['listingstatus']==1)
@@ -271,7 +271,7 @@
                         $getcity = $city->getsinglecity($where7);
 
                          $schema_insert .= trim($comdetails['IncorpYear']).$sep;//year found 
-                         $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
+                         $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v','"');
                          /*$BusinessDesc =  str_replace($replace_array, ' ', $comdetails['BusinessDesc']);
                          $BusinessDesc1 = nl2br($BusinessDesc);
                          $BusinessDesc =  trim(str_replace($replace_array, '', $BusinessDesc1));*/
@@ -287,8 +287,9 @@
                          $AddressLine2 = preg_replace("/\s+/", " ", $AddressLine2);
                          $AddressLine2 = preg_replace("/\r\n|\r|\n/",'<br/>',$AddressLine2);
                          $AddressLine2 =  str_replace($replace_array, '', $AddressLine2);
-                         $Address = trim((stripslashes($AddressHead).','.stripslashes($AddressLine2)),',');
-                         $schema_insert .= trim(stripslashes($Address)).$sep;//Address
+                            $Address = trim((stripslashes($AddressHead).','.stripslashes($AddressLine2)),',');
+                            $schema_insert .= trim(stripslashes($Address)).$sep;//Address
+                         
                          $schema_insert .= trim($getcity[0]).$sep; //city
                         $where7 = " Country_Id = ".$comdetails['AddressCountry'];
                         $getcountry = $countries->getsinglecountry($where7);

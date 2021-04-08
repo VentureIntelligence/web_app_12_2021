@@ -609,7 +609,7 @@ function updateDownload($res){
 // {
 // 	echo mysql_field_name($result,$i) . "\t";
 // }
-    echo "Company"."\t";
+	echo "Company"."\t";
     echo "CIN"."\t";
 	echo "Year Founded"."\t";
 	echo "Industry"."\t";
@@ -647,7 +647,7 @@ function updateDownload($res){
 
      while($row = mysql_fetch_row($result))
      {
-        //print_r($row);
+
          //set_time_limit(60); // HaRa
          $schema_insert = "";
          $IncDealId=$row[0];
@@ -700,7 +700,7 @@ function updateDownload($res){
 			$schema_insert .= $searchStringDisplay.$sep;
 			 $webdisplay="";
 		}
-        $schema_insert .= $row[19].$sep; //Year Founded
+        $schema_insert .= $row[19].$sep; //cin no
           $schema_insert .= $yearfounded.$sep; //Year Founded
           $schema_insert .= $row[4].$sep; //industry
 	      $schema_insert .= $row[5].$sep; //sector

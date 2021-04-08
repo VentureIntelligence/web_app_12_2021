@@ -86,7 +86,7 @@
 	//echo "<Br>Investor".$investorSql;
 
 	
-				//echo "<br>---" .$sql;
+				//echo "<br>---" .$sql;exit();
 				 //execute query
 				 $result = @mysql_query($sql)
 				     or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
@@ -165,6 +165,7 @@
 
 				     while($row = mysql_fetch_row($result))
 				     {
+						// print_r($row);exit();
 				         //set_time_limit(60); // HaRa
 				         $schema_insert = "";
 				            $strIndustry="";

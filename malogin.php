@@ -376,11 +376,9 @@ $pwd=md5(trim($pwd));
                                 }else
                                     header( 'Location: ' . BASE_URL . 'ma/index.php' );
                                 }
-                                elseif($myrow["ExpiryDate"] <= date('y-m-d'))
+                                elseif($myrow["ExpiryDate"] >= date('y-m-d'))
                                 {
                                     $displayMessage= $TrialExpired;
-                                    $_SESSION['loginusername'] = "";
-                                    $_SESSION['password'] = "";
                                 }
                             }
                     }

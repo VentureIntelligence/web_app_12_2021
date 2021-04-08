@@ -190,8 +190,8 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('AN1', 'Total Debt (INR Cr)')
             ->setCellValue('AO1', 'Cash & Cash Equ. (INR Cr)')
             ->setCellValue('AP1', 'Book Value Per Share')
-            ->setCellValue('AQ1', 'Price Per Share')
-            ->setCellValue('AR1', 'Link for Financials');
+            ->setCellValue('AQ1', 'Price Per Share');
+            // ->setCellValue('AR1', 'Link for Financials');
 $index = 2;
 /*$objPHPExcel->getActiveSheet()->setCellValue('A1', 'Something');
 */
@@ -467,8 +467,8 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('AN'.$index, $row[47])
             ->setCellValue('AO'.$index, $row[48])
             ->setCellValue('AP'.$index, $book_value_per_share)
-            ->setCellValue('AQ'.$index, $price_per_share)
-            ->setCellValue('AR'.$index, $row[23]);
+            ->setCellValue('AQ'.$index, $price_per_share);
+            // ->setCellValue('AR'.$index, $row[23]);
      $index++;
  }
 $indexfortitle = $index + 5;

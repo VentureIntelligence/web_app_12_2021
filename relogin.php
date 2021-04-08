@@ -351,11 +351,9 @@ session_start();
                                                                                         header( 'Location: ' . BASE_URL . 're/reindex.php' ) ;
 										//}
 									}
-									elseif($myrow["ExpiryDate"] <= date('y-m-d'))
+									elseif($myrow["ExpiryDate"] >= date('y-m-d'))
 									{
-                                        $displayMessage= $TrialExpired;
-                                        $_SESSION['loginusername'] = "";
-                                        $_SESSION['password'] = "";
+										$displayMessage= $TrialExpired;
 									}
                                                                     }
 								}

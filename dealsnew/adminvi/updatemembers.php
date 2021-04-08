@@ -221,10 +221,8 @@ require("../dbconnectvi.php");
 			$RENewMailArray=$_POST['MailsRE'];
 			$RENewPwd=$_POST['PwdRE'];
 
-			
-		
-			//echo "<Br>Companyid - " .$exp_limit;exit();
-			//echo "<Br>Company - " .$companyName;
+		//	echo "<Br>Companyid - " .$companyId;
+		//	echo "<Br>Company - " .$companyName;
 			$UpdateCompSql= "Update dealcompanies set DCompanyName='$companyName',ExpiryDate='$expDate',TrialLogin=$trial, PEInv=$PEInv,VCInv=$VCInv,REInv=$REInv,PEIpo=$PEIpo,VCIpo=$VCIpo,
 				PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MaMa,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,
                                  Student=$student,REInv=$relogin,IPAdd=$ipFlag
@@ -233,7 +231,7 @@ require("../dbconnectvi.php");
 				if ($rsUpdateComp=mysql_query($UpdateCompSql))
 				{
 			?>
-					<tr bgcolor="#FF6699" style="font-family: Verdana; font-size: 8pt" >
+					<tr bgcolor="#FF6699" style="font-family: Verdana; font-size: 8pt">
 					<td> <?php echo $companyName; ?> -- Company Name,Expiry Date change recorded </td> </tr>
 
 				<?php
