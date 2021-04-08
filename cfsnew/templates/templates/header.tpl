@@ -1530,10 +1530,28 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
             }
         });
   $(document).ready(function () {
-    $('#country').keyup(function() {
-        var $th = $(this);
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+   $('#country').keyup(function() {
+     
+       var $th = $(this);
+        var allowedarray = ["&"];
+        var n = allowedarray.includes($th.val().slice(-1));
+        var $count=$th.val().length ;
+        if(n==true && $count > 1){
+                  return $th.val().slice(-1);
+        }
+        if(n==true && $count == 1){
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        }
+        else{
+           var charcheck = allowedarray.includes($th.val());
+           if(charcheck == false){
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+           }else{
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+           }
+        }
     });
+    
     
 });
   </script>  
