@@ -204,7 +204,7 @@ $mailurl= curPageURL();
     //$keyword=trim($_POST['keywordsearch']);
     $investorauto=$_POST['investorauto_sug'];
     $keyword= trim($investorauto);
-    $sql_investorauto_sug = "select  InvestorId as id,Investor as name from peinvestors where InvestorId IN($keyword) order by InvestorId";
+    $sql_investorauto_sug = "select InvestorId as id,Investor as name from peinvestors where InvestorId IN($keyword) order by InvestorId";
         
     $sql_investorauto_sug_Exe=mysql_query($sql_investorauto_sug);
     // print_r($getInvestorSql_Exe);
@@ -7523,8 +7523,8 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <form name="companyDisplay" method="post" id="exportform" action="dealdetailexport.php">
 <input type="hidden" name="txthidePEId" value="<?php echo $SelCompRef;?>" >
 <input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
-<input type="hidden" name="company_name" value="<?php echo $myrow["companyname"];?>" >
-<input type="hidden" name="deal_date" value="<?php echo $myrow["dt"];?>" >
+<input type="hidden" name="company_name" value="<?php echo $ped["companyname"];?>" >
+<input type="hidden" name="deal_date" value="<?php echo $ped["dates"];?>" >
 </form>
 <script type="text/javascript">
 
