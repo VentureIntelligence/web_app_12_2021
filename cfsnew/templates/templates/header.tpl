@@ -1533,21 +1533,21 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
    $('#country').keyup(function() {
      
        var $th = $(this);
-        var allowedarray = ["&"];
+        var allowedarray = ["&","'"];
         var n = allowedarray.includes($th.val().slice(-1));
         var $count=$th.val().length ;
         if(n==true && $count > 1){
                   return $th.val().slice(-1);
         }
         if(n==true && $count == 1){
-                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
         }
         else{
            var charcheck = allowedarray.includes($th.val());
            if(charcheck == false){
                   $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
            }else{
-                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
            }
         }
     });
@@ -1757,7 +1757,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
     {
         var conval=$('#country').val();
         var currency=$('#currency').val();
-        document.location.href='home.php?searchv='+conval+'&currency='+currency;
+        document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency;
         return false;
     }
     function onkeypress(event) {   
