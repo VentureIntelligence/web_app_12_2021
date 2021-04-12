@@ -83,7 +83,7 @@
             <a href="addlist.php">Add Report</a><br />
         </div>
         <?php }
-       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray ) ) { ?>
+       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray ) || in_array( 'upload_unicornTrack', $modulesArray ) ) { ?>
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Upload</span></div>
         </div>
