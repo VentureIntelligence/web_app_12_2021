@@ -177,7 +177,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
             for($h=0;$h<count($ex_search_export_value);$h++){
                 $txt = trim($ex_search_export_value[$h]);
                 if($txt !=''){
-                   // echo $searchbyvalue;exit();
+                    
                     if($searchbyvalue == 1)
                     {
                         $input_where = "CIN LIKE "."'".$txt."%' OR Old_CIN LIKE '%".$txt."%'";
@@ -186,10 +186,11 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
                    
                     }
                     else{
-                         $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
-                      (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
-                        }
-                    }
+                        $input_where .= ' (b.FCompanyName REGEXP '.'"^'.$txt.'" or (b.FCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.FCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or 
+                                      (b.SCompanyName REGEXP '.'"^'.$txt.'" or (b.SCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.SCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or ';
+                
+                }
+                }
             }
 
             if($input_where !=''){
