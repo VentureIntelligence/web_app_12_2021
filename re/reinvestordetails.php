@@ -1,3 +1,5 @@
+
+
 <?php
         require_once("reconfig.php");
 	require_once("../dbconnectvi.php");
@@ -372,14 +374,14 @@
     ?>
     <div class="linkedin-bg">
 
-        <script type="text/javascript" > 
+        <!-- <script type="text/javascript" > 
             
-            $(document).ready(function () {
-                $('#lframe,#lframe1').on('load', function () {
-        //            $('#loader').hide();
+        //     $(document).ready(function () {
+        //         $('#lframe,#lframe1').on('load', function () {
+        // //            $('#loader').hide();
 
-                });
-            });
+        //         });
+        //     });
 
             function autoResize(id){
                 var newheight;
@@ -393,9 +395,9 @@
                 document.getElementById(id).height= (newheight) + "px";
                 document.getElementById(id).width= (newwidth) + "px";
             }
-        </script>
+        </script> -->
    
-        <script type="text/javascript" src="//platform.linkedin.com/in.js"> 
+        <!-- <script type="text/javascript" src="//platform.linkedin.com/in.js"> 
             api_key:65623uxbgn8l
             authorize:true
             onLoad: onLinkedInLoad
@@ -426,7 +428,7 @@
 
               }
 
-        </script>
+        </script> -->
         
        <div  id="sample" style="padding:10px 10px 0 0;">
         
@@ -658,10 +660,12 @@ if (trim($no_employees) != "")
   
   
   
-      <?php if ($linkedinSearchDomain != "") 
+      <?php if ($linkedIn != "") 
   {  ?>
-  <li id="viewlinkedin_loginbtn" style="display: none"><h4>View LinkedIn Profile  </h4><p><script type="in/Login"></script></p></li>
+    <li><h4>LinkedIn </h4><p><a href=<?php echo $linkedIn; ?> target="_blank">Click Here</a></p></li> 
+
   <?php } ?>
+  
   
    </ul>
  
