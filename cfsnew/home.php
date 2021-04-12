@@ -1448,7 +1448,8 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $template->assign("tag_response",$tag_response);
 
                 $filterFlag = true;
-                
+                $tags_where = '';
+
                 $tagResult = $plstandard->fetchCIN($tagsearch, $tagandor);
                 
                 $tags_where .=  "  b.CIN IN($tagResult)";
