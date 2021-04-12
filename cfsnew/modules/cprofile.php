@@ -407,7 +407,26 @@ class cprofile extends database {
 	        }
 	        return $name_cin_array;
         }
-	
+		function getCompaniesAutoSuggest_name_cinno($slt,$where,$order){
+	        $sql = "select Company_Id, ".$slt." from ".$this->dbName;
+	        if(strlen($where)) $sql.= " WHERE ".$where;
+	        if(strlen($order)) $sql.= " ORDER BY ".$order;
+	        //$sql.= " LIMIT 0,10";
+	        //print_r($sql);
+	        $this->execute($sql);
+	        $name_cin_array = array();
+	        while ($rs = $this->fetch()) {
+	                $cin_array_name[$rs[0]]= $rs[1];
+	                if($slt == "CIN, Old_CIN" && $rs[2] != ""){
+						$cin_array[$rs[0]]= $rs[2];
+						array_push($name_cin_array,$cin_array,$cin_array_name);
+					}
+	                $cont++;
+					//print_r($name_cin_array);
+	        }					
+			//exit();
+	        return $name_cin_array;
+        }
 
 	function getCompaniesCompare($where,$order){
 		$sql = "select Company_Id, SCompanyName from ".$this->dbName;

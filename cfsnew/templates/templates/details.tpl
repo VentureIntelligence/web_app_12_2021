@@ -344,6 +344,8 @@ span.result-amount-no {
     var fundAjax = '';
     var cin = '{/literal}{$CIN}{literal}';
     //$(document).ready(function() {
+
+
     $(window).load(function() {
         $.urlParam = function(name){
             var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -518,6 +520,7 @@ function check(newLink)
 }
 function resetfoundation()
 {
+     
   $(document).foundation();
                     $(".multi-select").dropdownchecklist('destroy');
                     $(".multi-select").dropdownchecklist({emptyText: "Please select ...",
@@ -548,7 +551,9 @@ function resetfoundation()
         }
         }
     });
+   $("div.custom.dropdown.searchbyid").remove();
 
+$("select#searchby").removeClass("hidden-field");
 }
 
 
@@ -3100,5 +3105,6 @@ function genDownloadExcel( excel_type = '', format = '', companyID = '' ) {
     //window.open('https://support.wwf.org.uk', '_blank');
     javascript:window.open('fydownexcel.php?excel_type='+excel_type+'&format='+format+'&companyID='+companyID, '_blank');
 }
+
 </script>
             {/literal}
