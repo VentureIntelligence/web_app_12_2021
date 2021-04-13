@@ -1529,6 +1529,14 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
                 event.preventDefault();
             }
         });
+          function clearsearchvalue(){
+  
+    $('#country').val('');  
+
+    setTimeout($('#suggestions').fadeOut(), 300);
+                    $("#autosuggest_loading").hide(); 
+
+}
   $(document).ready(function () {
     $("div.custom.dropdown.searchbyid").remove();
   $("select#searchby").removeClass("hidden-field");
@@ -1756,6 +1764,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
 
 {literal}
 <script>
+
     function validate()
     {
       
@@ -2408,14 +2417,7 @@ function isNumber(evt) {
 
 
   }
-  function clearsearchvalue(){
-  
-    $('#country').val('');  
 
-    setTimeout($('#suggestions').fadeOut(), 300);
-                    $("#autosuggest_loading").hide(); 
-
-}
   function fillHidden(thisid) {
     $('#cid').val(thisid);
     $('#submitbtn').show();
@@ -2490,12 +2492,12 @@ filter: alpha(opacity=75);
 {if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
         <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Search by" >
-          <select style="width: 85px; top:15px;left:120px; position:absolute" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
+         
+                <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
+       <select style="width: 85px; top:15px;left:120px; position:absolute" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
                     <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
                     <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
                 </select>
-                <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
-      
     <span id="viewfinance" style="display:none;">&nbsp;</span>
     <div class="suggestionsBox" id="suggestions" style="display: none;"> <!--<img src="images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />-->
     <div class="suggestionList" id="suggestionsList"> &nbsp; </div>
