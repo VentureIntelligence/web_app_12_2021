@@ -2276,8 +2276,10 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $pages =  array_unique($pages);
             sort($pages);
         
-            if($search_export_value!=''){
-                $pagination_search ='searchv='.$search_export_value.'&currency='.$currency;  
+            if($search_export_value!='' && $searchbyvalue!=''){
+                //$pagination_search ='searchv='.$search_export_value.'&currency='.$currency; 
+                $pagination_search ='searchv='.$search_export_value.'&currency='.$currency.'&searchbyvalue='.$searchbyvalue;  
+ 
             }else{
                 $pagination_search='';
             }
@@ -2287,13 +2289,13 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                $paginationdiv.='<li class="arrow unavailable"><a href="">&laquo;</a></li>';
             } else {  
 
-                $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="home.php?'.$pagination_search.'page='.$prevpage.'" >&laquo;</a></li>';    
+                $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$prevpage.'" >&laquo;</a></li>';    
             }     
                  
             for($i=0;$i<count($pages);$i++){ 
                 
                 if($pages[$i] > 0 && $pages[$i] <= $totalpages){
-                     $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'page='.$pages[$i].'">'.$pages[$i].'</a></li>';
+                     $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$pages[$i].'">'.$pages[$i].'</a></li>';
                 }
                 if(isset($pages[$i+1])){
                     if($pages[$i+1]-$pages[$i]>1){
@@ -2304,13 +2306,13 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                      
             if($page<$totalpages){
 
-                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'page='.$nextpage.'">&raquo;</a></li>';
+                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li>';
             } else {  
                 $paginationdiv.='<li class="arrow"><a >&raquo;</a></li>';
             }
         
             $paginationdiv.='</ul>';   
-        
+            //echo $paginationdiv;exit();
             $template->assign("paginationdiv",$paginationdiv);
         }
         else {

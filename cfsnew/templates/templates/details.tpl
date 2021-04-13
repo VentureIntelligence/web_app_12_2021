@@ -344,6 +344,7 @@ span.result-amount-no {
     var fundAjax = '';
     var cin = '{/literal}{$CIN}{literal}';
     //$(document).ready(function() {
+            $('#country').val('');  
 
 
     $(window).load(function() {
