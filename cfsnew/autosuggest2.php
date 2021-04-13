@@ -33,7 +33,7 @@
         }
     }else{
         //$html.="[]";
-        $jsonarray = "No Result Found for you Search !..";
+       // $jsonarray = "No Result Found for you Search !..";
     }
 
     echo json_encode($jsonarray);
