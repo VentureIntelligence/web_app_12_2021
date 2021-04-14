@@ -11,12 +11,8 @@
     $grouplist = new grouplist();
 
 //		print $key;
-    $NotFound = "No Result Found for you Search !..";
-    if (preg_match('/[\'^£$%*()}{@#~?><>,|=_+¬]/', $_POST['queryString'])) {
-        echo json_encode(array());
-        exit;
-    }
-    $searchStrings = explode( ' ', $_POST['queryString'] );
+  
+   // $searchStrings = explode( ' ', $_POST['queryString'] );
     /*$where = "(FCompanyName LIKE "."'%".$_POST['queryString']."%' or SCompanyName LIKE "."'%".$_POST['queryString']."%')";
     $where .= " and  (Industry  != '' and  State  != '') ";*/
 
@@ -24,6 +20,8 @@
     $slt='CIN, Old_CIN';
 
     $Companies_brand = $cprofile->getCompaniesAutoSuggest_name_cinno($slt,$where,$order);
+    //print_r($Companies_brand);exit();
+
     if(array_keys($Companies_brand)){
         foreach($Companies_brand as $key => $comp_brand) {
             foreach($comp_brand as $key1 => $value) {
