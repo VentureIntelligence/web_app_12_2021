@@ -564,7 +564,7 @@
                </div>
             </div>
          </div>
-         <?php //if($companyId == 948740559)
+         <?php //if($companyId == 1946568266)
             //{?>
          <!-- <div class="col-md-8 mb-2" style="    padding-left: 0px;">
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
@@ -592,7 +592,7 @@
                      $report_cnt = mysql_num_rows($reportrs);
                      }
                      ?> 
-                  <?php //if($companyId != 948740559)
+                  <?php //if($companyId != 1946568266)
                      //{?>
                   <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                      <div class="card">
@@ -639,7 +639,7 @@
                      </div>
                   </div>
                   <?php //} ?>
-                  <?php if($companyId != 948740559)
+                  <?php if($companyId != 1946568266)
                      {?>
                   <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                      <input type="hidden" name="companyName" id="companyName" value="<?php echo $companyName;?>">
