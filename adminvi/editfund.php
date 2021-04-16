@@ -54,7 +54,16 @@ require("../dbconnectvi.php");
         $capitalSource      = $_POST['capitalSource'];
         $moreInfo           = mysql_real_escape_string($_POST['moreInfo']);
         $source             = $_POST['source'];
-        
+       // $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+       if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
+        {
+         $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+        }
+        else
+        {
+        $launchDate ="";
+        }
+
         if(($_POST['hideaggregate']))
        { $HideAggregate=1;
        }
@@ -63,8 +72,15 @@ require("../dbconnectvi.php");
        }
        
         
-        $sqlUpdate ="UPDATE `fundRaisingDetails` SET `dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
-       
+        //$sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`='$launchDate',`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
+        if($launchDate != "")
+        {
+        $sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`='$launchDate',`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
+        }
+        else
+        {
+            $sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`=NULL,`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
+        }
         $res = mysql_query($sqlUpdate) or die(mysql_error());
        /* echo $sqlUpdate;
         exit();*/
@@ -638,6 +654,45 @@ $(document).ready(function() {
                 <?php } ?>
                 </select>
                 
+            </td>
+        </tr>
+        <tr>
+            <td>Launch Date</td>
+            <td colspan="2">
+                 <!--                <input type="date" name="date" size="50" value="<?php echo date('Y-m-d');?>" >-->
+                <select name="launchmonth" id="launchmonth"   >
+                     <option value="0">Month</option>
+                     <option value="01">Jan</option>
+                    <option value="02">Feb</option>
+                    <option value="03">Mar</option>
+                    <option value="04">Apr</option>
+                    <option value="05">May</option>
+                    <option value="06">Jun</option>
+                    <option value="07">Jul</option>
+                    <option value="08">Aug</option>
+                    <option value="09">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                   <option value="12">Dec</option>
+                </select>
+                
+                
+                <select name="launchyear" id="launchyear"  >
+                <option  value="0">Year</option>
+                
+                <?php
+                 $i=1998;
+                        While($i<= $currentyear )
+                        {
+                        $id = $i;
+                        $name = $i;
+                       // $isselected = ($year1==$id) ? 'SELECTED' : '';
+                        echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
+                        $i++;
+                        }
+              ?>
+
+                </select>
             </td>
         </tr>
         <tr>
