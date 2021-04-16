@@ -62,7 +62,8 @@ require("../dbconnectvi.php");
         {
             $launchDate ="";
         }
-       // echo $launchDate;exit();
+     
+
         if(($_POST['hideaggregate']))
        { $HideAggregate=1;
        }
@@ -70,6 +71,8 @@ require("../dbconnectvi.php");
        { $HideAggregate=0;
        }
        
+        
+        //$sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`='$launchDate',`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
         if($launchDate != "")
         {
         $sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`='$launchDate',`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
@@ -77,7 +80,6 @@ require("../dbconnectvi.php");
         else
         {
             $sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`=NULL,`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
- 
         }
         $res = mysql_query($sqlUpdate) or die(mysql_error());
          //echo $sqlUpdate;
@@ -694,6 +696,9 @@ $(document).ready(function() {
                 <?php } ?>
                 </select>
                 
+                 <!--                <input type="date" name="date" size="50" value="<?php echo date('Y-m-d');?>" >-->
+   
+
             </td>
         </tr>
         <tr>

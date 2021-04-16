@@ -96,6 +96,7 @@ session_start();
         {
             $launchDate =NULL;
         }
+        //$launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
         $capitalSource      = $_POST['capitalSource'];
         $moreInfo           = mysql_real_escape_string($_POST['moreInfo']);
         $source             = mysql_real_escape_string($_POST['source']);
@@ -103,7 +104,15 @@ session_start();
             { $HideAggregate=1;}
         else
             { $HideAggregate=0;}
-        
+
+            if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
+            {
+             $launchDate = "$_POST[launchyear]-$_POST[launchmonth]-01";
+            }
+            else
+            {
+            $launchDate ="";
+            }
 
         $dbType1 = ($dbType!="")?'dbTYpe = "'.$dbType.'"':'';
         $investorId = ($investorId!="")?', investorId = "'.$investorId.'"':'';
