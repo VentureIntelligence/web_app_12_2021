@@ -88,7 +88,7 @@ session_start();
         $fundCloseStatus    = $_POST['fundCloseStatus'];
        // $fundDate           = $_POST['date'];
         $fundDate           = "$_POST[year]-$_POST[month]-01";
-        $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+        //$launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
         $capitalSource      = $_POST['capitalSource'];
         $moreInfo           = mysql_real_escape_string($_POST['moreInfo']);
         $source             = mysql_real_escape_string($_POST['source']);
@@ -96,7 +96,15 @@ session_start();
             { $HideAggregate=1;}
         else
             { $HideAggregate=0;}
-        
+
+            if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
+            {
+             $launchDate = "$_POST[launchyear]-$_POST[launchmonth]-01";
+            }
+            else
+            {
+            $launchDate ="";
+            }
 
         $dbType1 = ($dbType!="")?'dbTYpe = "'.$dbType.'"':'';
         $investorId = ($investorId!="")?', investorId = "'.$investorId.'"':'';
@@ -338,7 +346,7 @@ if($dbType =='PE')
     var investor_db_id = '';
     var showModal = true;
     function monthyearcheck()
-{debugger;
+{
          var checkmonth = document.addfund.month.value;
          var checkyear = document.addfund.year.value;
          
