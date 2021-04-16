@@ -2446,7 +2446,7 @@
          swal('You are allowed to add up to 50 investors only')
          }
          else
-         {debugger;
+         {
              if(parseInt($('#yr1').val()) == parseInt($('#yr2').val()))
                {
                      if(parseInt($('#mon1').val()) > parseInt($('#mon2').val()))
