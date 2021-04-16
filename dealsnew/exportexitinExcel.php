@@ -1070,6 +1070,15 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");
+
+     $rowscount = mysql_num_rows($result);
+//echo "There are " . $rowscount . " rows in my table.";exit();
+if($rowscount == 0)
+{
+    echo $rowscount;exit();
+}
+else
+{
  updateDownload($result);
 
  //if this parameter is included ($w=1), file returned will be in word format ('.doc')
@@ -1776,6 +1785,7 @@ if(in_array("PricePerShare", $expval))
          
          print "\n";
      }
+    }
     print "\n";
     print "\n";
     print "\n";
