@@ -132,7 +132,7 @@ filename : reipoaddupdate.php
 											//echo "<br>random MandAId--" .$IPOId;
 											$insertcompanysql="";
 											$insertcompanysql= "INSERT INTO REipos (IPOId,PECompanyId,IPODate,IPOSize,IPOAmount,IPOValuation,Comment,MoreInfor,Validation,Deleted,hideamount,hidemoreinfor,city,RegionId,InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns,ExitStatus)
-											VALUES ($IPOId,$companyId,'$fullDateAfter',$IPOSize,$IPOPrice,$IPOValuation,'$comment','$moreinfor', '$validation',$flagdeletion,$hideamount,$hidemoreinfor,'$citytoUpdate','$regionIdtoUpdate','$invdealsummary','$link','$estimatedirr','$moreinforeturns','$exitstatusvalue')";
+											VALUES ($IPOId,$companyId,'$fullDateAfter',$IPOSize,$IPOPrice,'$IPOValuation','$comment','$moreinfor', '$validation',$flagdeletion,$hideamount,$hidemoreinfor,'$citytoUpdate','$regionIdtoUpdate','$invdealsummary','$link','$estimatedirr','$moreinforeturns','$exitstatusvalue')";
 											echo "<br>@@@@ :".$insertcompanysql;
 											if ($rsinsert = mysql_query($insertcompanysql))
 											{
