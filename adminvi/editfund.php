@@ -80,10 +80,11 @@ require("../dbconnectvi.php");
         else
         {
             $sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`=NULL,`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
+ 
         }
         $res = mysql_query($sqlUpdate) or die(mysql_error());
-       /* echo $sqlUpdate;
-        exit();*/
+         //echo $sqlUpdate;
+         //exit();
         header("location:fundlist.php");
     }    
     
@@ -103,6 +104,7 @@ require("../dbconnectvi.php");
         $dtfundStatus         = $row['fundStatus'];
         $dtfundClosedStatus   = $row['fundClosedStatus'];
         $dtfundDate           = $row['fundDate'];
+        $launchDate           = $row['launchDate'];
         $dtcapitalSource      = $row['capitalSource'];
         $dtmoreInfo           = $row['moreInfo'];
         $dtsource             = $row['source'];
@@ -659,40 +661,42 @@ $(document).ready(function() {
         <tr>
             <td>Launch Date</td>
             <td colspan="2">
-                 <!--                <input type="date" name="date" size="50" value="<?php echo date('Y-m-d');?>" >-->
-                <select name="launchmonth" id="launchmonth"   >
-                     <option value="0">Month</option>
-                     <option value="01">Jan</option>
-                    <option value="02">Feb</option>
-                    <option value="03">Mar</option>
-                    <option value="04">Apr</option>
-                    <option value="05">May</option>
-                    <option value="06">Jun</option>
-                    <option value="07">Jul</option>
-                    <option value="08">Aug</option>
-                    <option value="09">Sep</option>
-                    <option value="10">Oct</option>
-                    <option value="11">Nov</option>
-                   <option value="12">Dec</option>
+<!--                <input type="date" name="date" size="50" value="<?php echo $launchDate;?>" >-->
+                 <?php 
+                $month = date("m",strtotime($launchDate)); 
+                $year = date("Y",strtotime($launchDate)); 
+                if($launchDate == "")
+                {
+                    $month = "0";
+                    $year = "0";
+                }
+                ?>
+                 <select name="launchmonth" id="launchmonth"   >
+                     <option value="0" <?php if($month=='0'){ echo "selected"; } ?>>Month</option>
+                     <option value="01"  <?php if($month=='01'){ echo "selected"; } ?> >Jan</option>
+                    <option value="02"  <?php if($month=='02'){ echo "selected"; } ?>>Feb</option>
+                    <option value="03"  <?php if($month=='03'){ echo "selected"; } ?> >Mar</option>
+                    <option value="04"  <?php if($month=='04'){ echo "selected"; } ?> >Apr</option>
+                    <option value="05"  <?php if($month=='05'){ echo "selected"; } ?> >May</option>
+                    <option value="06"  <?php if($month=='06'){ echo "selected"; } ?> >Jun</option>
+                    <option value="07"  <?php if($month=='07'){ echo "selected"; } ?> >Jul</option>
+                    <option value="08"  <?php if($month=='08'){ echo "selected"; } ?> >Aug</option>
+                    <option value="09"  <?php if($month=='09'){ echo "selected"; } ?> >Sep</option>
+                    <option value="10"  <?php if($month=='10'){ echo "selected"; } ?> >Oct</option>
+                    <option value="11"  <?php if($month=='11'){ echo "selected"; } ?> >Nov</option>
+                   <option value="12"  <?php if($month=='12'){ echo "selected"; } ?> >Dec</option>
                 </select>
                 
                 
-                <select name="launchyear" id="launchyear"  >
+                <select name="launchyear" id="launchyear" >
                 <option  value="0">Year</option>
-                
-                <?php
-                 $i=1998;
-                        While($i<= $currentyear )
-                        {
-                        $id = $i;
-                        $name = $i;
-                       // $isselected = ($year1==$id) ? 'SELECTED' : '';
-                        echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
-                        $i++;
-                        }
-              ?>
-
+                <?php 
+                $cur_date = date("Y");
+                for($s=1998;$s<=$cur_date;$s++){ ?>
+                <option id="<?php echo $s; ?>" value="<?php echo $s; ?>" <?php if($year==$s){ echo "selected"; } ?> ><?php echo $s; ?></option>                
+                <?php } ?>
                 </select>
+                
             </td>
         </tr>
         <tr>

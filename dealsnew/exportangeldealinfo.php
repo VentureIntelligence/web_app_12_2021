@@ -185,7 +185,7 @@
 								$schema_insert .= $searchStringDisplay.$sep;
 								 $webdisplay="";
 							}
-						$schema_insert .=$row[17].$sep; //cin
+						$schema_insert .=$row[17].$sep; //cinno
 						$schema_insert .=$row[3].$sep; //industry
 						$schema_insert .=$row[4].$sep; //sector
 						
