@@ -54,15 +54,16 @@ require("../dbconnectvi.php");
         $capitalSource      = $_POST['capitalSource'];
         $moreInfo           = mysql_real_escape_string($_POST['moreInfo']);
         $source             = $_POST['source'];
-        if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
+       // $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+       if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
         {
-        $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+         $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
         }
         else
         {
-            $launchDate ="";
+        $launchDate ="";
         }
-       // echo $launchDate;exit();
+
         if(($_POST['hideaggregate']))
        { $HideAggregate=1;
        }
@@ -70,6 +71,8 @@ require("../dbconnectvi.php");
        { $HideAggregate=0;
        }
        
+        
+        //$sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`='$launchDate',`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
         if($launchDate != "")
         {
         $sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`='$launchDate',`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";

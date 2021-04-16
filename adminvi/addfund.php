@@ -88,6 +88,7 @@ session_start();
         $fundCloseStatus    = $_POST['fundCloseStatus'];
        // $fundDate           = $_POST['date'];
         $fundDate           = "$_POST[year]-$_POST[month]-01";
+        //$launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
         if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
         {
         $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
@@ -103,7 +104,15 @@ session_start();
             { $HideAggregate=1;}
         else
             { $HideAggregate=0;}
-        
+
+            if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
+            {
+             $launchDate = "$_POST[launchyear]-$_POST[launchmonth]-01";
+            }
+            else
+            {
+            $launchDate ="";
+            }
 
         $dbType1 = ($dbType!="")?'dbTYpe = "'.$dbType.'"':'';
         $investorId = ($investorId!="")?', investorId = "'.$investorId.'"':'';
