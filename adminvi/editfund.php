@@ -106,6 +106,7 @@ require("../dbconnectvi.php");
         $dtcapitalSource      = $row['capitalSource'];
         $dtmoreInfo           = $row['moreInfo'];
         $dtsource             = $row['source'];
+        $launchDate = $row['launchDate'];
         $hideaggregate=0;
         if($row['hideaggregate']==1)
                     $hideaggregate ="checked";
@@ -659,22 +660,31 @@ $(document).ready(function() {
         <tr>
             <td>Launch Date</td>
             <td colspan="2">
-                 <!--                <input type="date" name="date" size="50" value="<?php echo date('Y-m-d');?>" >-->
-                <select name="launchmonth" id="launchmonth"   >
-                     <option value="0">Month</option>
-                     <option value="01">Jan</option>
-                    <option value="02">Feb</option>
-                    <option value="03">Mar</option>
-                    <option value="04">Apr</option>
-                    <option value="05">May</option>
-                    <option value="06">Jun</option>
-                    <option value="07">Jul</option>
-                    <option value="08">Aug</option>
-                    <option value="09">Sep</option>
-                    <option value="10">Oct</option>
-                    <option value="11">Nov</option>
-                   <option value="12">Dec</option>
-                </select>
+            <?php
+          
+$launchmonth = date("m",strtotime($launchDate));
+$year = date("Y",strtotime($launchDate));
+if($launchDate == "")
+{
+$month = "0";
+$year = "0";
+}
+?>
+<select name="launchmonth" id="launchmonth" >
+<option value="0" <?php if($launchmonth=='0'){ echo "selected"; } ?>>Month</option>
+<option value="01" <?php if($launchmonth=='01'){ echo "selected"; } ?> >Jan</option>
+<option value="02" <?php if($launchmonth=='02'){ echo "selected"; } ?>>Feb</option>
+<option value="03" <?php if($launchmonth=='03'){ echo "selected"; } ?> >Mar</option>
+<option value="04" <?php if($launchmonth=='04'){ echo "selected"; } ?> >Apr</option>
+<option value="05" <?php if($launchmonth=='05'){ echo "selected"; } ?> >May</option>
+<option value="06" <?php if($launchmonth=='06'){ echo "selected"; } ?> >Jun</option>
+<option value="07" <?php if($launchmonth=='07'){ echo "selected"; } ?> >Jul</option>
+<option value="08" <?php if($launchmonth=='08'){ echo "selected"; } ?> >Aug</option>
+<option value="09" <?php if($launchmonth=='09'){ echo "selected"; } ?> >Sep</option>
+<option value="10" <?php if($launchmonth=='10'){ echo "selected"; } ?> >Oct</option>
+<option value="11" <?php if($launchmonth=='11'){ echo "selected"; } ?> >Nov</option>
+<option value="12" <?php if($launchmonth=='12'){ echo "selected"; } ?> >Dec</option>
+</select>
                 
                 
                 <select name="launchyear" id="launchyear"  >
@@ -686,7 +696,7 @@ $(document).ready(function() {
                         {
                         $id = $i;
                         $name = $i;
-                       // $isselected = ($year1==$id) ? 'SELECTED' : '';
+                        $isselected = ($year==$id) ? 'SELECTED' : '';
                         echo "<OPTION id=". $id. " value='". $id."' ".$isselected.">".$name."</OPTION>\n";
                         $i++;
                         }
