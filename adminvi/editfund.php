@@ -80,10 +80,11 @@ require("../dbconnectvi.php");
         else
         {
             $sqlUpdate ="UPDATE `fundRaisingDetails` SET `launchDate`=NULL,`dbType` = '$dbType',`investorId` = '".$investorId."',`fundName` = '".$fundnameId."',`fundManager` = '".$fundMan."',`fundTypeStage` = '".$fundTypStage."',`fundTypeIndustry` = '".$fundTypIndy."',`size` = ".$fundSize.",`fundStatus` = '".$fundStatus."',`fundClosedStatus` = '".$fundCloseStatus."',`fundDate` = '".$fundDate."',`capitalSource` = '".$capitalSource."',`moreInfo` = '".$moreInfo."',`source` = '".$source."', `amount_raised` = " . $amount_raised . ",`hideaggregate`='".$HideAggregate."' WHERE `id` = '".$fundId."'";
+ 
         }
         $res = mysql_query($sqlUpdate) or die(mysql_error());
-       /* echo $sqlUpdate;
-        exit();*/
+         //echo $sqlUpdate;
+         //exit();
         header("location:fundlist.php");
     }    
     
@@ -103,6 +104,7 @@ require("../dbconnectvi.php");
         $dtfundStatus         = $row['fundStatus'];
         $dtfundClosedStatus   = $row['fundClosedStatus'];
         $dtfundDate           = $row['fundDate'];
+        $launchDate           = $row['launchDate'];
         $dtcapitalSource      = $row['capitalSource'];
         $dtmoreInfo           = $row['moreInfo'];
         $dtsource             = $row['source'];
@@ -660,34 +662,34 @@ $(document).ready(function() {
         <tr>
             <td>Launch Date</td>
             <td colspan="2">
-            <?php
-          
-$launchmonth = date("m",strtotime($launchDate));
-$year = date("Y",strtotime($launchDate));
-if($launchDate == "")
-{
-$month = "0";
-$year = "0";
-}
-?>
-<select name="launchmonth" id="launchmonth" >
-<option value="0" <?php if($launchmonth=='0'){ echo "selected"; } ?>>Month</option>
-<option value="01" <?php if($launchmonth=='01'){ echo "selected"; } ?> >Jan</option>
-<option value="02" <?php if($launchmonth=='02'){ echo "selected"; } ?>>Feb</option>
-<option value="03" <?php if($launchmonth=='03'){ echo "selected"; } ?> >Mar</option>
-<option value="04" <?php if($launchmonth=='04'){ echo "selected"; } ?> >Apr</option>
-<option value="05" <?php if($launchmonth=='05'){ echo "selected"; } ?> >May</option>
-<option value="06" <?php if($launchmonth=='06'){ echo "selected"; } ?> >Jun</option>
-<option value="07" <?php if($launchmonth=='07'){ echo "selected"; } ?> >Jul</option>
-<option value="08" <?php if($launchmonth=='08'){ echo "selected"; } ?> >Aug</option>
-<option value="09" <?php if($launchmonth=='09'){ echo "selected"; } ?> >Sep</option>
-<option value="10" <?php if($launchmonth=='10'){ echo "selected"; } ?> >Oct</option>
-<option value="11" <?php if($launchmonth=='11'){ echo "selected"; } ?> >Nov</option>
-<option value="12" <?php if($launchmonth=='12'){ echo "selected"; } ?> >Dec</option>
-</select>
+<!--                <input type="date" name="date" size="50" value="<?php echo $launchDate;?>" >-->
+                 <?php 
+                $month = date("m",strtotime($launchDate)); 
+                $year = date("Y",strtotime($launchDate)); 
+                if($launchDate == "")
+                {
+                    $month = "0";
+                    $year = "0";
+                }
+                ?>
+                 <select name="launchmonth" id="launchmonth"   >
+                     <option value="0" <?php if($month=='0'){ echo "selected"; } ?>>Month</option>
+                     <option value="01"  <?php if($month=='01'){ echo "selected"; } ?> >Jan</option>
+                    <option value="02"  <?php if($month=='02'){ echo "selected"; } ?>>Feb</option>
+                    <option value="03"  <?php if($month=='03'){ echo "selected"; } ?> >Mar</option>
+                    <option value="04"  <?php if($month=='04'){ echo "selected"; } ?> >Apr</option>
+                    <option value="05"  <?php if($month=='05'){ echo "selected"; } ?> >May</option>
+                    <option value="06"  <?php if($month=='06'){ echo "selected"; } ?> >Jun</option>
+                    <option value="07"  <?php if($month=='07'){ echo "selected"; } ?> >Jul</option>
+                    <option value="08"  <?php if($month=='08'){ echo "selected"; } ?> >Aug</option>
+                    <option value="09"  <?php if($month=='09'){ echo "selected"; } ?> >Sep</option>
+                    <option value="10"  <?php if($month=='10'){ echo "selected"; } ?> >Oct</option>
+                    <option value="11"  <?php if($month=='11'){ echo "selected"; } ?> >Nov</option>
+                   <option value="12"  <?php if($month=='12'){ echo "selected"; } ?> >Dec</option>
+                </select>
                 
                 
-                <select name="launchyear" id="launchyear"  >
+                <select name="launchyear" id="launchyear" >
                 <option  value="0">Year</option>
                 
                 <?php
@@ -703,6 +705,7 @@ $year = "0";
               ?>
 
                 </select>
+                
             </td>
         </tr>
         <tr>
