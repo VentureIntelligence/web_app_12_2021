@@ -127,6 +127,7 @@
         $currFY = Date('y');
 	echo "Company Name"."\t";
     echo "CIN"."\t";
+    
     echo "Company Type"."\t";
         echo "Brand Name"."\t";
         echo "Industry"."\t";
