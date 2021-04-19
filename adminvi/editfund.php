@@ -108,6 +108,7 @@ require("../dbconnectvi.php");
         $dtcapitalSource      = $row['capitalSource'];
         $dtmoreInfo           = $row['moreInfo'];
         $dtsource             = $row['source'];
+        $launchDate = $row['launchDate'];
         $hideaggregate=0;
         if($row['hideaggregate']==1)
                     $hideaggregate ="checked";
