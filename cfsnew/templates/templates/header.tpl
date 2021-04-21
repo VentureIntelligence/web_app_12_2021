@@ -2493,7 +2493,7 @@ filter: alpha(opacity=75);
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
         <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Search by" >
          
-                <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
+                <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 45%;top: 35%; display:none;">
        <select style="width: 85px; top:15px;left:120px; position:absolute" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
                     <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
                     <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
