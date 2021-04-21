@@ -21,7 +21,7 @@
     $where .= " and  (Industry  != '' and  State  != '') ";*/
 
     if( count( $searchStrings ) > 1 ) {
-        $joinStr = implode( '', $searchStrings );
+        $joinStr = implode( ' ', $searchStrings );
         // `FCompanyName` REGEXP '^pri.*[[:space:]]+lim.*[[:space:]]+test.*' or `SCompanyName` REGEXP '^pri.*[[:space:]]+lim.*' or `FCompanyName` REGEXP '^lim.*[[:space:]]+pri.*' or `SCompanyName` REGEXP '^lim.*[[:space:]]+pri.*'
         $where = "FCompanyName like '".$joinStr."%'";
         $brand_where1 = "( SCompanyName like '".$joinStr."%' )";
