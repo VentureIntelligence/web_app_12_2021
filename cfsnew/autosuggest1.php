@@ -12,24 +12,25 @@
 
 //		print $key;
     $NotFound = "No Result Found for you Search !..";
-    if (preg_match('/[\'^£$%*()}{@#~?><>,|=_+¬]/', $_POST['queryString'])) {
+    //echo $_POST['queryString'];exit();
+    if (preg_match('/[\^£$%*}{@#~?><>,|=+¬]/', $_POST['queryString'])) {
         echo json_encode(array());
         exit;
     }
     $searchStrings = explode( ' ', $_POST['queryString'] );
     /*$where = "(FCompanyName LIKE "."'%".$_POST['queryString']."%' or SCompanyName LIKE "."'%".$_POST['queryString']."%')";
     $where .= " and  (Industry  != '' and  State  != '') ";*/
-
+    //echo count( $searchStrings );exit();
     if( count( $searchStrings ) > 1 ) {
-        $joinStr = implode( '', $searchStrings );
+        $joinStr = implode( ' ', $searchStrings );
         // `FCompanyName` REGEXP '^pri.*[[:space:]]+lim.*[[:space:]]+test.*' or `SCompanyName` REGEXP '^pri.*[[:space:]]+lim.*' or `FCompanyName` REGEXP '^lim.*[[:space:]]+pri.*' or `SCompanyName` REGEXP '^lim.*[[:space:]]+pri.*'
-        $where = "FCompanyName like '".$joinStr."%'";
-        $brand_where1 = "( SCompanyName like '".$joinStr."%' )";
+        $where = 'FCompanyName like "'.$joinStr.'%"';
+        $brand_where1 = '( SCompanyName like "'.$joinStr.'%")';
     } else {
         //$where = "FCompanyName LIKE "."'%".$_POST['queryString']."%' or SCompanyName LIKE "."'%".$_POST['queryString']."%'";
        // $where = "FCompanyName REGEXP '^".$searchStrings[0]."' or FCompanyName REGEXP '[[:space:]]+".$searchStrings[0]."'";
-        $where = "( FCompanyName like '".$searchStrings[0]."%' or FCompanyName like '".$searchStrings[0]."%' ) " ;
-        $brand_where1 = "( SCompanyName like '".$searchStrings[0]."%' or SCompanyName like '".$searchStrings[0]."%' )";
+        $where = '( FCompanyName like "'.$searchStrings[0].'%" or FCompanyName like "'.$searchStrings[0].'%" ) ' ;
+        $brand_where1 = '( SCompanyName like "'.$searchStrings[0].'%" or SCompanyName like "'.$searchStrings[0].'%" )';
     }
     // $where .= " and  Industry  != '' and  State  != '' ";
     // $brand_where1 .= " and  Industry  != '' and  State  != '' ";
@@ -89,6 +90,7 @@
     $limit = " LIMIT 0,10";
     $brand_limit = " LIMIT 0,3";
     $Companies = $cprofile->getCompaniesAutoSuggest($where,$order,$limit);
+    
     $jsonarray=array();
     if(array_keys($Companies)){
             foreach($Companies as $id => $name) {
