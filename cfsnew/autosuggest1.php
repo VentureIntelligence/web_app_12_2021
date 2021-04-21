@@ -21,15 +21,15 @@
     $where .= " and  (Industry  != '' and  State  != '') ";*/
 
     if( count( $searchStrings ) > 1 ) {
-        $joinStr = '^'.implode( '.*[[:space:]]+', $searchStrings );
+        $joinStr = implode( '', $searchStrings );
         // `FCompanyName` REGEXP '^pri.*[[:space:]]+lim.*[[:space:]]+test.*' or `SCompanyName` REGEXP '^pri.*[[:space:]]+lim.*' or `FCompanyName` REGEXP '^lim.*[[:space:]]+pri.*' or `SCompanyName` REGEXP '^lim.*[[:space:]]+pri.*'
-        $where = "FCompanyName REGEXP '".$joinStr."'";
-        $brand_where1 = "( SCompanyName REGEXP '".$joinStr."' )";
+        $where = "FCompanyName like '".$joinStr."%'";
+        $brand_where1 = "( SCompanyName like '".$joinStr."%' )";
     } else {
         //$where = "FCompanyName LIKE "."'%".$_POST['queryString']."%' or SCompanyName LIKE "."'%".$_POST['queryString']."%'";
        // $where = "FCompanyName REGEXP '^".$searchStrings[0]."' or FCompanyName REGEXP '[[:space:]]+".$searchStrings[0]."'";
-        $where = "( FCompanyName REGEXP '^".$searchStrings[0]."' or FCompanyName REGEXP '[[:space:]]+".$searchStrings[0]."' ) " ;
-        $brand_where1 = "( SCompanyName REGEXP '^".$searchStrings[0]."' or SCompanyName REGEXP '[[:space:]]+".$searchStrings[0]."' )";
+        $where = "( FCompanyName like '".$searchStrings[0]."%' or FCompanyName like '".$searchStrings[0]."%' ) " ;
+        $brand_where1 = "( SCompanyName like '".$searchStrings[0]."%' or SCompanyName like '".$searchStrings[0]."%' )";
     }
     // $where .= " and  Industry  != '' and  State  != '' ";
     // $brand_where1 .= " and  Industry  != '' and  State  != '' ";
