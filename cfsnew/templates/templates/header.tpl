@@ -2444,7 +2444,7 @@ filter: alpha(opacity=75);
 <li class="search-company" style="position:relative; border:none;">
 {if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
-        <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Company Search" /><img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
+        <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Company Search" /><img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 45%;top: 35%; display:none;">
     <span id="viewfinance" style="display:none;">&nbsp;</span>
     <div class="suggestionsBox" id="suggestions" style="display: none;"> <!--<img src="images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />-->
     <div class="suggestionList" id="suggestionsList"> &nbsp; </div>
