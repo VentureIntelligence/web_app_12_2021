@@ -1529,11 +1529,40 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
                 event.preventDefault();
             }
         });
+          function clearsearchvalue(){
+  
+    $('#country').val('');  
+
+    setTimeout($('#suggestions').fadeOut(), 300);
+                    $("#autosuggest_loading").hide(); 
+
+}
   $(document).ready(function () {
-    $('#country').keyup(function() {
-        var $th = $(this);
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _']/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+    $("div.custom.dropdown.searchbyid").remove();
+  $("select#searchby").removeClass("hidden-field");
+
+   $('#country').keyup(function() {
+     
+       var $th = $(this);
+        var allowedarray = ["&","'","-",".","/","(",")"];
+        var n = allowedarray.includes($th.val().slice(-1));
+        var $count=$th.val().length ;
+        if(n==true && $count > 1){
+                  return $th.val().slice(-1);
+        }
+        if(n==true && $count == 1){
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        }
+        else{
+           var charcheck = allowedarray.includes($th.val());
+           if(charcheck == false){
+                 $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _()'./-]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+           }else{
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+           }
+        }
     });
+    
     
 });
   </script>  
@@ -1735,16 +1764,22 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
 
 {literal}
 <script>
+
     function validate()
     {
+      
         var conval=$('#country').val();
         var currency=$('#currency').val();
-        document.location.href='home.php?searchv='+conval+'&currency='+currency;
+                var searchby=$('#searchby').val();
+
+      //  document.location.href='home.php?searchv='+conval+'&currency='+currency+'&searchbyvalue='+searchby;
+        document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency+'&searchbyvalue='+searchby;
         return false;
     }
     function onkeypress(event) {   
         var country = $('#country').val();
         $('#search_export_value').val(country);
+
             $('.search_export').show();
         /*if (event.which == 44){
             $('.search_export').show();
@@ -1803,6 +1838,10 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
       source: function( request, response ) {
      // ajaxrequest1.abort();
     //  $('#mca_data').html('');
+    var searchBy=$('#searchby').val()
+                    $('#searchbyvalue').val(searchBy);
+          if(searchBy == 0)
+          {
           $("#autosuggest_loading").show(); 
         $.ajax({
             type: "POST",
@@ -1823,6 +1862,30 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
             }));
           }
         });
+          }
+          else
+          {
+             $("#autosuggest_loading").show(); 
+        $.ajax({
+            type: "POST",
+          url: "autosuggest2.php",
+          dataType: "json",
+          data: {
+            queryString: request.term
+          },
+          success: function( data ) {
+              $("#autosuggest_loading").hide(); 
+            response( $.map( data, function( item ) {
+              return {
+                label: item.countryname,
+                value: item.countryname,
+                 id: item.countryid,
+                 category: item.category
+              }
+            }));
+          }
+        });
+          }
       },
       minLength: 4,
       select: function( event, ui ) {
@@ -2351,8 +2414,10 @@ function isNumber(evt) {
                    $('#suggestions').fadeOut(); 
                    $('#suggestionsList').html("");  
                 }, 400);
-               
+
+
   }
+
   function fillHidden(thisid) {
     $('#cid').val(thisid);
     $('#submitbtn').show();
@@ -2426,7 +2491,13 @@ filter: alpha(opacity=75);
 <li class="search-company" style="position:relative; border:none;">
 {if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
-        <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Company Search" /><img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
+        <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Search by" >
+         
+                <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 45%;top: 35%; display:none;">
+       <select style="width: 85px; top:15px;left:120px; position:absolute" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
+                    <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
+                    <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
+                </select>
     <span id="viewfinance" style="display:none;">&nbsp;</span>
     <div class="suggestionsBox" id="suggestions" style="display: none;"> <!--<img src="images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />-->
     <div class="suggestionList" id="suggestionsList"> &nbsp; </div>
@@ -2439,6 +2510,8 @@ filter: alpha(opacity=75);
         <form id="form" action="home.php" method="post" onsubmit="return validate();">
       
             <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
+                            <input type="hidden" name="searchbyvalue" id="searchbyvalue" value="{$searchby}" />
+
             <input type="hidden" name="currency" id="currency" value="{$currency}" />
             <input type="submit" name="search_export" id="search_export" value="Go" class="search_export" style="{if $searchSubmit != '' }display:block{/if}"/>
         </form>
