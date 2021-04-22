@@ -108,11 +108,22 @@ if($search_export_value !=''){
             $input_where = '';
             for($h=0;$h<count($ex_search_export_value);$h++){
                 $txt = trim($ex_search_export_value[$h]);
+                $searchbyvalue = $_GET['searchbyvalue'];
+
                 if($txt !=''){
+                    if($searchbyvalue == 1)
+                    {
+                        $input_where = "CIN LIKE "."'".$txt."%' OR Old_CIN LIKE '%".$txt."%'";
+                        //$input_where .= " (b.CIN REGEXP "."'^".$txt."' or (b.CIN REGEXP "."'[[:space:]]+".$txt."' and b.CIN REGEXP "."'".$txt."+[[:space:]]')) or 
+                    //(b.Old_CIN REGEXP "."'^".$txt."' or (b.Old_CIN REGEXP "."'[[:space:]]+".$txt."' and b.Old_CIN REGEXP "."'".$txt."+[[:space:]]')) or ";
+                   
+                    }
+                    else{
                     //$input_where .= " b.FCompanyName LIKE "."'%".$txt."%' or b.SCompanyName LIKE "."'%".$txt."%' or ";
                     $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
                                       (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
-                }
+                    }
+                                    }
             }
             if($input_where !=''){
                 $input_where = trim($input_where,' or ');
@@ -137,9 +148,13 @@ if($search_export_value !=''){
         }
         $template->assign("searchv",$search_export_value);
         $template->assign("searchSubmit",'1');
+        $template->assign("searchby",$searchbyvalue);
+
     }else{
         $template->assign("searchv","");    
-        $template->assign("searchSubmit",'');    
+        $template->assign("searchSubmit",'');  
+        $template->assign("searchby",'0');
+  
     }
 
 $getgroupid = $users->select($_SESSION["user_id"]);
@@ -1540,7 +1555,7 @@ include "ratiobasedfilter.php";
 
         /*$fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType");*/
         $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "a.ResultType as MaxResultType,bsn.Total_assets".$usdfield);
-        $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield);
+        $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "a.ResultType as MaxResultType".$usdfield);
         if($where!=''){
             $where .= " and a.CId_FK = b.Company_Id"; // Original Where
         }else{

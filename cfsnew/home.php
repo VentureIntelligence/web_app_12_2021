@@ -186,10 +186,13 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
                    
                     }
                     else{
-                        $input_where .= ' (b.FCompanyName REGEXP '.'"^'.$txt.'" or (b.FCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.FCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or 
-                                      (b.SCompanyName REGEXP '.'"^'.$txt.'" or (b.SCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.SCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or ';
+                        // $input_where .= ' (b.FCompanyName REGEXP '.'"^'.$txt.'" or (b.FCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.FCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or 
+                        //               (b.SCompanyName REGEXP '.'"^'.$txt.'" or (b.SCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.SCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or ';
                 
-                }
+                        $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
+                        (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
+
+                    }
                 }
             }
 
@@ -1807,7 +1810,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
-            $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
+            $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "a.ResultType as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields1,$ratio);
                 }
