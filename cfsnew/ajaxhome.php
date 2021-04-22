@@ -1577,7 +1577,7 @@ include "ratiobasedfilter.php";
         // End
         if($_REQUEST['arcossall'] !='across' && $_REQUEST['arcossallr'] != 'across')
         {
-                $group = " b.Company_Id $havingClause";
+                //$group = " b.Company_Id $havingClause";
         }
         //$order12 = " ORDER BY b.SCompanyName ASC";
         //$order = " a.FY DESC,b.SCompanyName ASC";
@@ -1596,7 +1596,7 @@ include "ratiobasedfilter.php";
             $order2 = "a.PAT ".$_REQUEST[ 'sortorder' ];
         } else if( $_REQUEST[ 'sortby' ] == "sortdetailed" ) {
             //$order2 = "a.FY ".$_REQUEST[ 'sortorder' ];
-            $order2 = "LEFT(max(a.FY),2) ".$_REQUEST[ 'sortorder' ].", trim(b.SCompanyName) REGEXP '^[a-z]' DESC, trim(b.SCompanyName) ASC";
+            $order2 = "LEFT(a.FY,2) ".$_REQUEST[ 'sortorder' ].", trim(b.SCompanyName) REGEXP '^[a-z]' DESC, trim(b.SCompanyName) ASC";
         }
 
         $whereTop = trim($where);
@@ -1673,7 +1673,7 @@ include "ratiobasedfilter.php";
                                 $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag);
                             }
                         }
-                       // echo $whereHomeCountNew;exit();
+                        //echo $order2;exit();
                 $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery);
             }
             $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery);
