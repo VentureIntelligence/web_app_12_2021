@@ -1315,7 +1315,7 @@ class plstandard extends database {
                 if((strlen($pageID)>0 || strlen($rows)>0) && $rows!="all" )
 		$esql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
                 }
-		
+				//echo $esql;exit();
 		if($type=="name"){
 			$this->setFetchMode('ASSOC');
 		}

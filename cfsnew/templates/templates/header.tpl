@@ -1544,7 +1544,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
    $('#country').keyup(function() {
      
        var $th = $(this);
-        var allowedarray = ["&","'","-",".","/","(",")"];
+        var allowedarray = ["&","-",".","/","(",")"];
         var n = allowedarray.includes($th.val().slice(-1));
         var $count=$th.val().length ;
         if(n==true && $count > 1){
@@ -1556,7 +1556,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
         else{
            var charcheck = allowedarray.includes($th.val());
            if(charcheck == false){
-                 $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _()'./-]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+                 $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
            }else{
                   $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
            }
@@ -2551,6 +2551,8 @@ filter: alpha(opacity=75);
              
 {if $pageName eq 'comparers.php'} 
       <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="comparers.php" method="post" class="custom"   enctype="multipart/form-data" >
+                                  <input type="hidden" name="searchbyvalue" id="searchbyvalue" value="{$searchby}" />
+
                <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
     <div class="search-main">
     <ul>
@@ -2648,6 +2650,8 @@ filter: alpha(opacity=75);
 {elseif $pageName eq 'details.php'}
 <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="home.php" method="post" enctype="multipart/form-data" >
 <input type="hidden" name="currency" id="currency" value="{$currency}" />
+                            <input type="hidden" name="searchbyvalue" id="searchbyvalue" value="{$searchby}" />
+
                <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
                 <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="{$REQUEST.oldFinacialDataFlag}"/>
                 <input type="hidden" name="sortby" id="sortby" value="{$sortby}"/>
@@ -2701,6 +2705,8 @@ filter: alpha(opacity=75);
 <div class="container slide-bg {if $pageName eq 'home.php'} container-bg {/if}">   
 {elseif $pageName eq 'indexofcharges.php'}    
 <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="chargesholderlist_suggest.php?ioc_filter=1" method="post"    enctype="multipart/form-data" >
+                            <input type="hidden" name="searchbyvalue" id="searchbyvalue" value="{$searchby}" />
+
                <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
                <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="{$REQUEST.oldFinacialDataFlag}"/>
                <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
@@ -2752,6 +2758,8 @@ filter: alpha(opacity=75);
 <div class="container slide-bg container-bg">
 {elseif $pageName eq 'chargesholderlist_suggest.php'}    
 <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="chargesholderlist_suggest.php?ioc_filter=1" method="post"    enctype="multipart/form-data" >
+                            <input type="hidden" name="searchbyvalue" id="searchbyvalue" value="{$searchby}" />
+
                <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
                <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="{$REQUEST.oldFinacialDataFlag}"/>
                <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
@@ -2804,6 +2812,8 @@ filter: alpha(opacity=75);
 {else} 
 <form name="Frm_HmeSearch" id="Frm_HmeSearch" action="home.php" method="post"    enctype="multipart/form-data" >
                <input type="hidden" id="filterData_top" name="filterData_top" value="{if $smarty.session.totalResults_top}{$smarty.session.totalResults_top}{/if}"/>
+                                           <input type="hidden" name="searchbyvalue" id="searchbyvalue" value="{$searchby}" />
+
                <input type="hidden" id="oldFinacialDataFlag" name="oldFinacialDataFlag" value="{$REQUEST.oldFinacialDataFlag}"/>
                <input type="hidden" name="search_export_value" id="search_export_value" value="{$searchv}" />
 <div class="search-main">
