@@ -1307,13 +1307,10 @@ include "ratiobasedfilter.php";
                 $whereHomeCountNew .=  $regions_where;
             }
 
-            $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+            $maxFYQuery = "$usdjoinCondition";
 
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield );
-            $group = " b.Company_Id $havingClause";
+            //$group = " b.Company_Id $havingClause";
             $tot_fields = array("a.PLStandard_Id");
             
             //echo "step1"; pr($where);
@@ -1377,13 +1374,10 @@ include "ratiobasedfilter.php";
                 $whereHomeCountNew .=  " $state_where ";
             }
 
-           $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+           $maxFYQuery = "$usdjoinCondition";
                 
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield);
-            $group = " b.Company_Id $havingClause";
+            //$group = " b.Company_Id $havingClause";
             
             //echo "2";
             //echo "<div class='' style='display:none'>case 3</div>";
@@ -1446,13 +1440,10 @@ include "ratiobasedfilter.php";
                 $whereCountNew .=  " $city_where ";
             }
 
-            $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+            $maxFYQuery = "$usdjoinCondition";
    
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield);
-            $group = " b.Company_Id $havingClause";
+            //$group = " b.Company_Id $havingClause";
             //echo "3";
             //echo "<div class='' style='display:none'>case 4</div>";
             /*$allSearchResults = $plstandard->SearchHome($fields,$where,$order,$group);
@@ -1548,7 +1539,7 @@ include "ratiobasedfilter.php";
     if($_REQUEST['YOYCAGR'] != ("gAnyOf" || 'gacross' || "CAGR")){
 
         /*$fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType");*/
-        $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,max(a.FY) as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "max(a.ResultType) as MaxResultType".$usdfield);
+        $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "a.ResultType as MaxResultType,bsn.Total_assets".$usdfield);
         $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield);
         if($where!=''){
             $where .= " and a.CId_FK = b.Company_Id"; // Original Where
@@ -1562,10 +1553,7 @@ include "ratiobasedfilter.php";
             $where .=  "  a.FY=(SELECT max(aa.FY) as MFY FROM plstandard aa WHERE aa.CId_FK=a.CId_FK) ";
         }
 
-        $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+        $maxFYQuery = "$usdjoinCondition";
 
         if($_REQUEST['arcossall']=='across'){
                 $acrossallFlag = true;
@@ -1685,6 +1673,7 @@ include "ratiobasedfilter.php";
                                 $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag);
                             }
                         }
+                       // echo $whereHomeCountNew;exit();
                 $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery);
             }
             $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery);
