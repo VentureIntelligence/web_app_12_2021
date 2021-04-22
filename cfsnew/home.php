@@ -802,9 +802,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         }
 
         if($whereHomeCountNew!=''){
-            $whereHomeCountNew .=  " and  b.Industry  != '' and  b.State  != ''";
+            $whereHomeCountNew .=  " and  b.Industry  != '' and  b.State  != '' and  a.fy  != ''";
         }else{
-            $whereHomeCountNew .=  "  b.Industry  != '' and  b.State  != ''";
+            $whereHomeCountNew .=  "  b.Industry  != '' and  b.State  != '' and  a.fy  != ''";
         } 
 
         $balancesheet = 0;
@@ -1487,10 +1487,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     $whereHomeCountNew .=  $tags_where;
                 }
 
-                $maxFYQuery = "INNER JOIN (
-                                    SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                                ) as aa
-                                ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+                $maxFYQuery = "$usdjoinCondition";
 
                 /*$fields = array(" a.CId_FK, a.EBITDA,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome",  "max(a.ResultType) as MaxResultType" );*/
                 $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield );
@@ -1498,7 +1495,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 array_push($fields,$ratio);
                 }
                 $order ="a.FY desc";
-                $group = " b.Company_Id $havingClause";
+                //$group = " b.Company_Id $havingClause";
                 $tot_fields = array("a.PLStandard_Id");
                 
                 //echo "step1"; pr($where);
@@ -1564,17 +1561,14 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $whereHomeCountNew .=  $regions_where;
             }
 
-            $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+            $maxFYQuery = "$usdjoinCondition";
 
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield );
             if($ratio !=''){
                 array_push($fields,$ratio);
             }
             $order ="a.FY desc";
-            $group = " b.Company_Id $havingClause";
+            //$group = " b.Company_Id $havingClause";
             $tot_fields = array("a.PLStandard_Id");
             
             //echo "step1"; pr($where);
@@ -1638,17 +1632,14 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $whereHomeCountNew .=  " $state_where ";
             }
 
-            $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+            $maxFYQuery = "$usdjoinCondition";
                 
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
             $order ="a.FY desc";
-            $group = " b.Company_Id $havingClause";
+            //$group = " b.Company_Id $havingClause";
             
             //echo "2";
             //echo "<div class='' style='display:none'>case 3</div>";
@@ -1711,17 +1702,14 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $whereCountNew .=  " $city_where ";
             }
 
-            $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+            $maxFYQuery = "$usdjoinCondition";
    
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
             $order ="a.FY desc";
-            $group = " b.Company_Id $havingClause";
+           // $group = " b.Company_Id $havingClause";
             //echo "3";
             //echo "<div class='' style='display:none'>case 4</div>";
             /*$allSearchResults = $plstandard->SearchHome($fields,$where,$order,$group);
@@ -1815,7 +1803,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         if($_REQUEST['YOYCAGR'] != ("gAnyOf" || 'gacross' || "CAGR")){
 
             /*$fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType");*/
-            $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,max(a.FY) as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "max(a.ResultType) as MaxResultType,bsn.Total_assets".$usdfield);
+            $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "a.ResultType as MaxResultType,bsn.Total_assets".$usdfield);
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
@@ -1835,10 +1823,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $where .=  "  a.FY=(SELECT max(aa.FY) as MFY FROM plstandard aa WHERE aa.CId_FK=a.CId_FK) ";
             }
 
-            $maxFYQuery = "INNER JOIN (
-                                SELECT CId_FK, max(FY) as MFY,max(ResultType) as MResultType FROM plstandard GROUP BY CId_FK
-                            ) as aa
-                            ON a.CId_FK = aa.CId_FK and a.ResultType = aa.MResultType $addFYCondition $usdjoinCondition";
+            $maxFYQuery = "$usdjoinCondition";
     
             if($_REQUEST['arcossall']=='across'){
                     $acrossallFlag = true;
@@ -1861,7 +1846,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             }
             if($_REQUEST['arcossall'] !='across' && $_REQUEST['arcossallr'] != 'across')
             {
-                    $group = " b.Company_Id $havingClause";
+                   // $group = " b.Company_Id $havingClause";
             }
             // End
 
@@ -1869,7 +1854,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             //$order = " a.FY DESC,b.SCompanyName ASC";
             $order1 = "b.SCompanyName ASC,a.FY DESC";
             //$order2 = "FIELD(a.FY,'17') DESC, FIELD(a.FY,'16') DESC,FIELD(a.FY,'15') DESC, a.FY DESC, b.SCompanyName asc";
-            $order2 = "LEFT(max(a.FY),2) DESC, trim(b.SCompanyName) REGEXP '^[a-z]' DESC, trim(b.SCompanyName) ASC";
+            $order2 = "LEFT(a.FY,2) DESC, trim(b.SCompanyName) REGEXP '^[a-z]' DESC, trim(b.SCompanyName) ASC";
 
             if( $_REQUEST[ 'sortby' ] == "sortcompany" ) {
                 //$order2 = "b.SCompanyName  ".$_REQUEST[ 'sortorder' ];
@@ -1882,7 +1867,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $order2 = "a.PAT ".$_REQUEST[ 'sortorder' ];
             } else if( $_REQUEST[ 'sortby' ] == "sortdetailed" ) {
                 //$order2 = "a.FY ".$_REQUEST[ 'sortorder' ];
-                $order2 = "LEFT(max(a.FY),2) ".$_REQUEST[ 'sortorder' ].", trim(b.SCompanyName) REGEXP '^[a-z]' DESC, trim(b.SCompanyName) ASC";
+                $order2 = "LEFT(a.FY,2) ".$_REQUEST[ 'sortorder' ].", trim(b.SCompanyName) REGEXP '^[a-z]' DESC, trim(b.SCompanyName) ASC";
             }
                    
             $whereTop = trim($where);
@@ -1954,7 +1939,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                 $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag,$ratio,$maxFYQueryratio);
                             }
                         }
-
+                       // echo $whereHomeCountNew;exit();
                     $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
                 }
                 $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery,$ratio,$maxFYQueryratio);
@@ -1999,8 +1984,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             }
 
             $template->assign("searchexport",$SearchExport);
-            //echo json_encode($SearchResults);exit();
-
+            //print_r($SearchResults);exit();
             $template->assign("SearchResults",$SearchResults);
             $template->assign("totalrecord",$total);
                 /*Financial Search Ends*/

@@ -1372,11 +1372,18 @@ class plstandard extends database {
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		$sql = "SELECT ".$fields." FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
+		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  AND a.resulttype = bsn.resulttype ";
 		$sql .=  $maxFYQueryratio;
 		$sql .=  $maxFYQuery;
 
-		if(strlen($where)) $sql.= " WHERE ".$where;
+		if(strlen($where)) $sql.= " WHERE a.fy = (SELECT Max(fy)
+		FROM   plstandard
+		WHERE  cid_fk = a.cid_fk)
+		AND a.resulttype = (SELECT Max(resulttype)
+							FROM   plstandard
+							WHERE  cid_fk = a.cid_fk
+								AND fy = a.fy)
+		AND ".$where;
 		if(strlen($group))   $sql.= " GROUP BY ".$group;
 		if(strlen($order))   $sql.= " ORDER BY ".$order;
                 if($rows>0){
