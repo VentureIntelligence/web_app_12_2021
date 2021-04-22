@@ -1309,7 +1309,7 @@ include "ratiobasedfilter.php";
 
             $maxFYQuery = "$usdjoinCondition";
 
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield );
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, b.Company_Id, b.FCompanyName, b.SCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "a.ResultType as MaxResultType".$usdfield );
             //$group = " b.Company_Id $havingClause";
             $tot_fields = array("a.PLStandard_Id");
             
@@ -1376,7 +1376,7 @@ include "ratiobasedfilter.php";
 
            $maxFYQuery = "$usdjoinCondition";
                 
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield);
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "a.ResultType as MaxResultType".$usdfield);
             //$group = " b.Company_Id $havingClause";
             
             //echo "2";
@@ -1442,7 +1442,7 @@ include "ratiobasedfilter.php";
 
             $maxFYQuery = "$usdjoinCondition";
    
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType".$usdfield);
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "a.ResultType as MaxResultType".$usdfield);
             //$group = " b.Company_Id $havingClause";
             //echo "3";
             //echo "<div class='' style='display:none'>case 4</div>";
@@ -1794,7 +1794,7 @@ include "ratiobasedfilter.php";
                     $group = " t1.Company_Id $havingClause";
             }
         
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType".$usdfield);
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType,b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType".$usdfield);
             $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType".$usdfield);
            // $fields2= array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY, a.ResultType,b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Industry"," b.Sector");
             if($order2 ==''){
@@ -1893,7 +1893,7 @@ $end2=count($_REQUEST['answer']['GrowthSearchFieds'])-1;
             $where .= " and  c.CId_FK = b.Company_Id AND a.CId_FK = c.CId_FK"; // Original Where
             $whereHomeCountNew .= " and  c.CId_FK = b.Company_Id AND a.CId_FK = c.CId_FK"; // Original Where
             $group = " t1.Company_Id $havingClause";
-            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType".$usdfield);
+            $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType,b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType".$usdfield);
             $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType".$usdfield);
 
             $orderc="FIELD(t1.FY,'17') DESC,FIELD(t1.FY,'16') DESC,FIELD(t1.FY,'15') DESC, t1.FY DESC, t1.SCompanyName asc";	
