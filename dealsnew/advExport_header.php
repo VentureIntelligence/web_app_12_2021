@@ -564,7 +564,7 @@
                </div>
             </div>
          </div>
-         <?php //if($companyId == 948740559)
+         <?php //if($companyId == 1946568266)
             //{?>
          <!-- <div class="col-md-8 mb-2" style="    padding-left: 0px;">
             <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
@@ -592,7 +592,7 @@
                      $report_cnt = mysql_num_rows($reportrs);
                      }
                      ?> 
-                  <?php //if($companyId != 948740559)
+                  <?php //if($companyId != 1946568266)
                      //{?>
                   <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                      <div class="card">
@@ -602,10 +602,10 @@
                               {
                               While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
                               {	
-                                 $queryResult =  $myrow["query"] ;
+                                 $queryResult =  $myrow["vi_filter"] ;
                            
-                                 $trimmed_str = strlen(trim($queryResult));
-                                // echo $trimmed_str; 
+                                 $trimmed_str = $queryResult;
+                                 //echo $trimmed_str; 
                                 
                               // if($myrow['vi_filter'] == 1 ){
                               ?> 
@@ -639,7 +639,7 @@
                      </div>
                   </div>
                   <?php //} ?>
-                  <?php if($companyId != 948740559)
+                  <?php if($companyId != 1946568266)
                      {?>
                   <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                      <input type="hidden" name="companyName" id="companyName" value="<?php echo $companyName;?>">
@@ -2313,14 +2313,14 @@
          $('#filterErr').show();
          
          }
-         else if(filterDesc == '')
-         {
-         //$('.error').html('Enter the filter Name')
-         $('#filterDescErr').show();
-         $('#filterErr').hide();
+         // else if(filterDesc == '')
+         // {
+         // //$('.error').html('Enter the filter Name')
+         // $('#filterDescErr').show();
+         // $('#filterErr').hide();
 
          
-         }
+         // }
          else if(parseInt(year1) > parseInt(year2))
          {
          swal("Error: 'To' Year cannot be before 'From' Year");
@@ -2337,7 +2337,7 @@
             } 
         }
          $('#filterErr').hide();
-         $('#filterDescErr').hide();
+         //$('#filterDescErr').hide();
          $('#durationErr').hide()
          
          $.ajax({
@@ -2386,7 +2386,42 @@
          
          if($(".rightpanel").find(".active").attr('value') == "Investments")
          {
+            var checkboxname=$('.allexportcheck').prop('checked')
+         if(checkboxname == true)
+         {
+         $(".resultarray").val('Select-All');
+         }
+         var month1= $('#mon1').val()
+         $('#month1').val(month1)
+         var month2= $('#mon2').val()
+         $('#month2').val(month2)
+         var year1= $('#yr1').val()
+         $('#year1').val(year1)
+         var year2= $('#yr2').val()
+         $('#year2').val(year2) 
+         $('#filter_name').val(' ');
+         $('#filter_desc').val(' ')
+         var investorval=$('#investorauto_sug').val();
+         $('#investorvalue').val(investorval);
+         var Industry=$('#sltindustry').val();
+         $('#industry').val(Industry);
+         var city=$('#citysearch').val();
+         $('#city').val(city);
+         var compType=$("#comptype").val(); 
+         $("#companytype").val(compType); 
          
+         var state=$('#sltstate').val();
+         $('#state').val(state);
+         var region=$('#txtregion').val();
+         $('#region').val(region);
+         var exitStatus=$('#exitstatus').val();
+         $('#sltexitStatus').val(exitStatus);
+         var round=$('#round').val();
+         $('#sltround').val(round);
+         var stage=$('#stage').val();
+         $('#sltstage').val(stage);
+         var investor=$('#invType').val();
+         $('#investorType').val(investor);
          if($('#investorauto_sug').tokenInput("get").length == 0)
          {
          $('#investorErr').show();
@@ -2422,8 +2457,24 @@
                }
          $('#investorErr').hide();
          $('#columnnameErr').hide();
-         
+         var post_url = $("#pelistingexcel").attr("action"); //get form action url
+	      var request_method = $("#pelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#pelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){ 
+                  if(data == 0)
+                  {
+                     swal("No data available for the selected filter");
+                  }
+                  else
+                  {
          $('.saveshowdealsbt').modal('show');
+                  }
+         },
+         });
          
          mode=$('#mode').val();
          if(mode == 'A')
@@ -2442,6 +2493,61 @@
          }
          }
          else{
+            var checkboxname=$('.exitallexportcheck').prop('checked')
+         if(checkboxname == true)
+         {
+         $(".exitresultarray").val('Select-All');
+         }
+         if($('#exitdealtype').val() != null)
+         {
+         var dealtype=$('#exitdealtype').val().toString();
+         $('#txthidedealtypeid').val(dealtype);
+         }
+         
+         if($('#exitinvType').val() != "")
+         {
+         var invType=$('#exitinvType').val();
+         $('#txthideinvtypeid').val(invType);
+         $('#txthideinvtype').val($('#exitinvType').val());
+         }
+         
+         var InType=$('#exitInType').val();
+         $('#txthidetype').val(InType);
+         
+         if($('#exitsltindustry').val() != null)
+         {
+         $('#txthideindustryid').val($('#exitsltindustry').val().toString());
+         }
+         
+         var exitStatus=$('#exitFlstatus').val();
+         $('#txthideexitstatusvalue').val(exitStatus);
+         
+         
+         var month1= $('#exitmon1').val()
+         var month2= $('#exitmon2').val()
+         var year1= $('#exityr1').val()
+         var year2= $('#exityr2').val()
+         var months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+         var betweenDateMonth1=months[month1-1]
+         var betweenDateMonth2=months[month2-1]
+         
+         var betweenDate=betweenDateMonth1+'-'+year1+'to'+betweenDateMonth2+'-'+year2
+         
+         $('#txthidedate').val(betweenDate)
+         var startDate=year1 +'-'+ month1 +'-'+ 01 
+         $('#txthidedateStartValue').val(startDate);
+         
+         var endDate=year2 +'-'+ month2 +'-'+ 31;
+         $('#txthidedateEndValue').val(endDate);
+         
+         $('#filter_name').val(' ');
+         $('#filter_desc').val(' ')
+         var investorval=$('#expinvestorauto_sug').val();
+         $('#txthideinvestor').val(investorval);
+         var investorvalStr= $('#expinvestorauto_sug').val() ; 
+         investorvalStr += '+';
+         $('#txthideInvestorString').val(investorvalStr);
+         
          if($('#expinvestorauto_sug').tokenInput("get").length == 0)
          {
          $('#exitinvestorErr').show();
@@ -2475,8 +2581,23 @@
                }
          $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
-         
+         var post_url = $("#exitpelistingexcel").attr("action"); //get form action url
+	      var request_method = $("#exitpelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#exitpelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){ 
+                  if(data == 0)
+                  {
+                     swal("No data available for the selected filter");
+                  }
+                  else{
          $('.saveshowdealsbt').modal('show');
+                  }
+         },
+            });
          
          mode=$('#mode').val();
          
@@ -2503,7 +2624,7 @@
          
          $(document).on('click','#expcancelbtn-savefilter',function(){
          $('#filterErr').hide()
-         $('#filterDescErr').hide()
+        // $('#filterDescErr').hide()
          $('#durationErr').hide()
          jQuery('#popup-box-copyrights-savefilter').fadeOut();   
          jQuery('#maskscreen').fadeOut(1000);
@@ -2513,7 +2634,7 @@
          
          $(document).on('click','#expcancelbtn-savefilter',function(){
          $('#filterErr').hide()
-         $('#filterDescErr').hide()
+        // $('#filterDescErr').hide()
          $('#durationErr').hide()
          jQuery('#popup-box-copyrights-savefilter').fadeOut();   
          jQuery('#maskscreen').fadeOut(1000);
@@ -2625,6 +2746,19 @@
          
          else
          {
+         var post_url = $("#pelistingexcel").attr("action"); //get form action url
+	      var request_method = $("#pelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#pelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){ 
+                  if(data == 0)
+                  {
+                     swal("No data available for the selected filter");
+                  }
+                  else{
             swal({
     //title: "Wow!",
     text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
@@ -2668,7 +2802,10 @@
          
          });
          }
-});
+         });
+                  }
+         },
+         });
          }
          },
          });
@@ -2811,6 +2948,19 @@
          
          else
          {
+            var post_url = $("#exitpelistingexcel").attr("action"); //get form action url
+	      var request_method = $("#exitpelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#exitpelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){ 
+                  if(data == 0)
+                  {
+                     swal("No data available for the selected filter");
+                  }
+                  else{
             swal({
     //title: "Wow!",
     text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
@@ -2863,14 +3013,19 @@
          },
          });
          }
+            },
          });
+         }
+         });
+         //}
+        // });
          
     
          
          function cancelFilterName()
          {
          $('#filterErr').hide()
-         $('#filterDescErr').hide()
+         //$('#filterDescErr').hide()
          $('#durationErr').hide()
          jQuery('#popup-box-copyrights-savefilter').fadeOut();   
          jQuery('#maskscreen').fadeOut(1000);
@@ -2896,14 +3051,14 @@
            
             if(query != 0)
          {
-            swal({
-    //title: "Wow!",
-    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
-    buttons: ["Cancel", "Submit"],
-    className: 'swal-wide',
+   //          swal({
+   //  //title: "Wow!",
+   //  text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+   //  buttons: ["Cancel", "Submit"],
+   //  className: 'swal-wide',
 
-          }).then((willDelete) => {
-         if (willDelete) {
+   //        }).then((willDelete) => {
+   //       if (willDelete) {
          $.ajax({
          url: 'saveFilter.php',
          type: "POST",
@@ -2915,13 +3070,44 @@
          
          if(dataValue[0].filter_type =="Exit")
          {
+            if(dataValue[0].query == "")
+            {
+               swal("No data available for the selected filter");
+
+            }
+            else{
+               swal({
+    //title: "Wow!",
+    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+    buttons: ["Cancel", "Submit"],
+    className: 'swal-wide',
+
+          }).then((willDelete) => {
+         if (willDelete) {
          $('#exitquery').val(dataValue[0].query)
          $(".exitresultarray").val('Select-All');
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
          $("#exitpelistingexcel").submit();
          }
+          });
+            }
+         }
          else{
+            if(dataValue[0].query == "")
+            {
+               swal("No data available for the selected filter");
+
+            }
+            else{
+               swal({
+    //title: "Wow!",
+    text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
+    buttons: ["Cancel", "Submit"],
+    className: 'swal-wide',
+
+          }).then((willDelete) => {
+         if (willDelete) {
          $('#invquery').val(dataValue[0].query)
          $(".resultarray").val('Select-All');
 
@@ -2929,10 +3115,13 @@
          $("#pelistingexcel").attr("action", hrefval);
          $("#pelistingexcel").submit();
          }
+          });
+            }
+         }
          },
          });
-         }
-         });
+         //}
+        // });
          }
          else{
          exportfiltr(1,type,id,name)

@@ -1537,8 +1537,14 @@ $sql="SELECT pe.PECompanyID as PECompanyId,pec.companyname,pec.industry,pe.dates
 //echo $sql;exit();
 //execute query
 $result = mysql_query($sql) or die(mysql_error());
-
-// Start T960
+$rowscount = mysql_num_rows($result);
+//echo "There are " . $rowscount . " rows in my table.";exit();
+if($rowscount == 0)
+{
+    echo $rowscount;exit();
+}
+else
+{
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
     $exportvalue = "Company,CIN,Company Type,Industry,City,State,Region,Exit Status,Round,Stage,Investor Type,Stake (%),Investors,Date,Website,Year Founded,Sector,Amount(US".'$M'."),Amount(INR Cr),Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share";    
@@ -2265,8 +2271,8 @@ header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('php://output');
-exit();
-
+//exit();
+        }
 //		}
 //else
 //	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;
