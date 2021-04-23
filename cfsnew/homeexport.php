@@ -49,10 +49,10 @@
     } 
     
         
-    $exportsql = stripslashes($_REQUEST['exportexcel']);
+    $exportsql = $_REQUEST['exportexcel'];
     $exportsql1 = stripslashes($_REQUEST['exportexcel1']);
     $exportsql2 = stripslashes($_REQUEST['exportexcel2']);
-    
+    //echo $exportsql;exit();
    
     if($exportsql !='')
         $ExportResult = $plstandard->ExporttoExcel($exportsql);
