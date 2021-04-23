@@ -2498,6 +2498,7 @@ filter: alpha(opacity=75);
                     <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
                     <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
                 </select>
+                
     <span id="viewfinance" style="display:none;">&nbsp;</span>
     <div class="suggestionsBox" id="suggestions" style="display: none;"> <!--<img src="images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />-->
     <div class="suggestionList" id="suggestionsList"> &nbsp; </div>
