@@ -1544,7 +1544,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
    $('#country').keyup(function() {
      
        var $th = $(this);
-        var allowedarray = ["&","-",".","/","(",")"];
+        var allowedarray = ["&","'","-",".","/","(",")"];
         var n = allowedarray.includes($th.val().slice(-1));
         var $count=$th.val().length ;
         if(n==true && $count > 1){
