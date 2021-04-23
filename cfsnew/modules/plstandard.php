@@ -1289,39 +1289,42 @@ class plstandard extends database {
 		return $return_array;
 	}
 
-	function SearchHomeExportNew($fields="",$where="",$order="b.SCompanyName asc",$group="",$type="name",$pageID=1,$rows=0,$client="",$maxFYQuery=''){
-    
-               
-		//if(!strlen($pageID)) $pageID=1;
-		//if(!strlen($rows)) $rows=7000; //$rows=7000;
-		if(!strlen($fields[0])) $fields=array("a.PLStandard_Id,a.OptnlIncome");
-		if(!strlen($where)) $where="";
-		if(!strlen($order)) $order="";
-		
-		if($fields != '*')
-			$fields = implode(",", $fields);
-
-		//$esql = "SELECT ".$fields." FROM ".$this->dbName." a ,cprofile b"; // JAGADEESH
-		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
-		$esql = "SELECT ".$fields." FROM ".$this->dbName." a";
-		//$esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-                $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  and a.ResultType = bsn.ResultType ";
-		$esql .=  $maxFYQuery;
-
-		if(strlen($where)) $esql.= " WHERE a.FY = (select max(FY) from plstandard where CID_FK = a.CID_FK) and a.ResultType = (select max(ResultType) from plstandard where CID_FK = a.CID_FK and FY = a.FY) and ".$where;
-		if(strlen($group))   $esql.= " GROUP BY ".$group;
-		if(strlen($order))   $esql.= " ORDER BY ".$order;
-                if($rows>0){
-                if((strlen($pageID)>0 || strlen($rows)>0) && $rows!="all" )
-		$esql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
-                }
-				//echo $esql;exit();
-		if($type=="name"){
-			$this->setFetchMode('ASSOC');
-		}
-		return $esql;
-          
-	}
+	function SearchHomeExportNew($fields="",$where="",$order="b.SCompanyName asc",$group="",$type="name",$pageID=1,$rows=0,$client="",$maxFYQuery='',$ratio,$maxFYQueryratio){
+        //if(!strlen($pageID)) $pageID=1;
+        //if(!strlen($rows)) $rows=7000; //$rows=7000;
+        if(!strlen($fields[0])) $fields=array("a.PLStandard_Id,a.OptnlIncome");
+        if(!strlen($where)) $where="";
+        if(!strlen($order)) $order="";
+        if($fields != '*')
+        if(!strlen($maxFYQueryratio)) $maxFYQueryratio="";
+        $fields = implode(",", $fields);
+        if( $ratio !='') {
+            $ratio = ','.$ratio;
+        } else {
+            $ratio = '';
+        }
+        //$esql = "SELECT ".$fields." FROM ".$this->dbName." a ,cprofile b"; // JAGADEESH
+        //$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
+        $esql = 'SELECT '.$fields.' FROM '.$this->dbName.' a';
+        //$esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
+        $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY and a.ResultType = bsn.ResultType ";
+        $esql .=  $maxFYQueryratio;
+        $esql .= $maxFYQuery;
+        
+        if(strlen($where)) $esql.= " WHERE a.FY = (select max(FY) from plstandard where CID_FK = a.CID_FK) and a.ResultType = (select max(ResultType) from plstandard where CID_FK = a.CID_FK and FY = a.FY) and ".$where;
+        if(strlen($group)) $esql.= " GROUP BY ".$group;
+        if(strlen($order)) $esql.= " ORDER BY ".$order;
+        if($rows>0){
+        if((strlen($pageID)>0 || strlen($rows)>0) && $rows!="all" )
+        $esql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
+        }
+        //echo $esql;
+        //exit();
+        if($type=="name"){
+        $this->setFetchMode('ASSOC');
+        }
+        return $esql;
+        }
 	function fetchCIN($tagsearch, $tagandor){
 		
 		$tags = ''; 
