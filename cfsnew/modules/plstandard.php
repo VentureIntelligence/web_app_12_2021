@@ -567,13 +567,20 @@ class plstandard extends database {
 		/*$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom" . $FYcountField . " FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 
-		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType ".$ratio. $FYcountField . " FROM ".$this->dbName." a";
+		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,a.ResultType as MaxResultType ".$ratio. $FYcountField . " FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
+                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY and a.ResultType = bsn.ResultType ";
 		$sql .=  $maxFYQueryratio;
         $sql .=  $maxFYQuery;        
-		if(strlen($where)) $sql.= " WHERE ".$where;
-		if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
+		if(strlen($where)) $sql.= " WHERE a.FY = (select max(FY) from plstandard where CID_FK = a.CID_FK) and a.ResultType = (select max(ResultType) from plstandard where CID_FK = a.CID_FK and FY = a.FY) and ".$where;
+		//if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
+		if(strlen($group))
+
+			{ $sql.= " GROUP BY ".$group.") v1";}else{
+
+			$sql.= ") v1";
+
+			}
 		
 		//print $sql;
 		//echo '<div style="display:none" class="count1">';print_r( $sql );echo'</div>';
@@ -1302,10 +1309,10 @@ class plstandard extends database {
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		$esql = "SELECT ".$fields." FROM ".$this->dbName." a";
 		//$esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-                $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
+                $esql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY and a.ResultType = bsn.ResultType ";
 		$esql .=  $maxFYQuery;
 
-		if(strlen($where)) $esql.= " WHERE ".$where;
+		if(strlen($where)) $esql.= " WHERE a.FY = (select max(FY) from plstandard where CID_FK = a.CID_FK) and a.ResultType = (select max(ResultType) from plstandard where CID_FK = a.CID_FK and FY = a.FY) and ".$where;
 		if(strlen($group))   $esql.= " GROUP BY ".$group;
 		if(strlen($order))   $esql.= " ORDER BY ".$order;
                 if($rows>0){
@@ -1372,11 +1379,18 @@ class plstandard extends database {
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
 		$sql = "SELECT ".$fields." FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  ";
+		$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY  AND a.resulttype = bsn.resulttype ";
 		$sql .=  $maxFYQueryratio;
 		$sql .=  $maxFYQuery;
 
-		if(strlen($where)) $sql.= " WHERE ".$where;
+		if(strlen($where)) $sql.= " WHERE a.fy = (SELECT Max(fy)
+		FROM   plstandard
+		WHERE  cid_fk = a.cid_fk)
+		AND a.resulttype = (SELECT Max(resulttype)
+							FROM   plstandard
+							WHERE  cid_fk = a.cid_fk
+								AND fy = a.fy)
+		AND ".$where;
 		if(strlen($group))   $sql.= " GROUP BY ".$group;
 		if(strlen($order))   $sql.= " ORDER BY ".$order;
                 if($rows>0){
