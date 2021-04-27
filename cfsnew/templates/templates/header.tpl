@@ -1544,7 +1544,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
    $('#country').keyup(function() {
      
        var $th = $(this);
-        var allowedarray = ["&","-",".","/","(",")"];
+        var allowedarray = ["&","'","-",".","/","(",")"];
         var n = allowedarray.includes($th.val().slice(-1));
         var $count=$th.val().length ;
         if(n==true && $count > 1){
@@ -2488,13 +2488,13 @@ filter: alpha(opacity=75);
 <ul class="search-user " style="padding-right: 15px;">
 {if $searchlimit gte $searchDone} 
 <li class="classic-btn tour-lock"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
-<li > <select style="width: 85px; top:10px;left:9px;color: #808080;
+<li > <select style="width: 85px; top:10px;left:2px;color: #808080;
   border: 1px solid #ccc;height: 30px; position:relative" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
                <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
                <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
            </select></li>
 
-<li class="search-company" style="position:relative; border:none;">
+<li class="search-company" style="position:relative; border:none;    padding: 7px 0px !important;">
 {if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
      
