@@ -2474,12 +2474,12 @@ filter: alpha(opacity=75);
 <div style="position:absolute; left:50%; top:50%; margin:-250px 0 0 -250px;">
 <img src="images/loading_page1.gif" width="508" height="381" alt=""/> </div>
 </div>
-<div class="header companylist"><div class="logo"> 
+<div class="header companylist"><div class="logo" style="width:170px !important"> 
   <a href="index.php"><!-- <img src="images/logo.gif" width="149" height="41" alt="Venture Intelligence" /> --><div class="vilogo" ></div></a>
 </div>
 <div class="header-right">
 
-<ul class="nav">
+<ul class="nav" style="margin-left: 158px; !important">
 <li {if $pageName eq 'home.php' || $pageName eq 'details.php'} class="active" {/if}><a href="home.php"><i class="companies"></i> FINANCIALS</a></li>
 <li {if $pageName eq 'indexofcharges.php' || $pageName eq 'companylist_suggest.php' || $pageName eq 'chargesholderlist_suggest.php'} class="active" {/if}><a href="indexofcharges.php"> INDEX OF CHARGES<span class="betaversion">Beta</span></a></li>
 <!-- <li {if $pageName eq 'comparers.php'} class="active" {/if}><a href="comparers.php"><i class="compare"></i> COMPARE</a></li> -->
