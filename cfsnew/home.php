@@ -177,16 +177,22 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
             for($h=0;$h<count($ex_search_export_value);$h++){
                 $txt = trim($ex_search_export_value[$h]);
                 if($txt !=''){
-                    $txt=str_replace("'", "\\'", $txt);
-
+                    
+                    if($searchbyvalue == 1)
+                    {
+                        $input_where = "CIN LIKE "."'".$txt."%' OR Old_CIN LIKE '%".$txt."%'";
+                        //$input_where .= " (b.CIN REGEXP "."'^".$txt."' or (b.CIN REGEXP "."'[[:space:]]+".$txt."' and b.CIN REGEXP "."'".$txt."+[[:space:]]')) or 
+                    //(b.Old_CIN REGEXP "."'^".$txt."' or (b.Old_CIN REGEXP "."'[[:space:]]+".$txt."' and b.Old_CIN REGEXP "."'".$txt."+[[:space:]]')) or ";
+                   
+                    }
+                    else{
+                        // $input_where .= ' (b.FCompanyName REGEXP '.'"^'.$txt.'" or (b.FCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.FCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or 
+                        //               (b.SCompanyName REGEXP '.'"^'.$txt.'" or (b.SCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.SCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or ';
+                
+                        $txt=str_replace("'", "\\'", $txt);
                         $input_where .= " (b.FCompanyName like "."'".$txt."%')  or 
-
                                                (b.SCompanyName like "."'".$txt."%' ) or ";
-
-
-                    //$input_where .= " b.FCompanyName LIKE "."'%".$txt."%' or b.SCompanyName LIKE "."'%".$txt."%' or ";
-                   // $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
-                    //                  (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
+                    }
                 }
             }
 
