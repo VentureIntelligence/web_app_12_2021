@@ -2488,16 +2488,20 @@ filter: alpha(opacity=75);
 <ul class="search-user " style="padding-right: 15px;">
 {if $searchlimit gte $searchDone} 
 <li class="classic-btn tour-lock"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
+<li > <select style="width: 85px; top:10px;left:9px;color: #808080;
+  border: 1px solid #ccc;height: 30px; position:relative" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
+               <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
+               <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
+           </select></li>
+
 <li class="search-company" style="position:relative; border:none;">
 {if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
+     
         <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Search by" >
          
-                <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 45%;top: 35%; display:none;">
-       <select style="width: 85px; top:15px;left:120px; position:absolute" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
-                    <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
-                    <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
-                </select>
+                <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
+      
                 
     <span id="viewfinance" style="display:none;">&nbsp;</span>
     <div class="suggestionsBox" id="suggestions" style="display: none;"> <!--<img src="images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />-->
