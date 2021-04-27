@@ -388,8 +388,9 @@ if($_POST['cin']!=''){
             $companyrs = mysql_query($getcompanysql);          
             while($myrow=mysql_fetch_array($companyrs)){
                 $companyidarr[]=$myrow['PECompanyId'];
-                $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."' or ";
             }
+            $companyname .= "Acquirer LIKE '".trim($mybrandname['SCompanyName'])."' or ";
+
             $companyname = trim($companyname,"or ");
             $acquirersql ="SELECT AcquirerId FROM acquirers WHERE $companyname";
             $acquirer= mysql_query($acquirersql);

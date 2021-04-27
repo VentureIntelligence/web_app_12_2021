@@ -111,19 +111,15 @@ if($search_export_value !=''){
                 $searchbyvalue = $_GET['searchbyvalue'];
 
                 if($txt !=''){
-                    if($searchbyvalue == 1)
-                    {
-                        $input_where = "CIN LIKE "."'".$txt."%' OR Old_CIN LIKE '%".$txt."%'";
-                        //$input_where .= " (b.CIN REGEXP "."'^".$txt."' or (b.CIN REGEXP "."'[[:space:]]+".$txt."' and b.CIN REGEXP "."'".$txt."+[[:space:]]')) or 
-                    //(b.Old_CIN REGEXP "."'^".$txt."' or (b.Old_CIN REGEXP "."'[[:space:]]+".$txt."' and b.Old_CIN REGEXP "."'".$txt."+[[:space:]]')) or ";
-                   
-                    }
-                    else{
+                    $txt=str_replace("'", "\\'", $txt);
+
+                        $input_where .= " (b.FCompanyName like "."'".$txt."%')  or 
+
+                                               (b.SCompanyName like "."'".$txt."%' ) or ";
                     //$input_where .= " b.FCompanyName LIKE "."'%".$txt."%' or b.SCompanyName LIKE "."'%".$txt."%' or ";
-                    $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
-                                      (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
-                    }
-                                    }
+                    //$input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
+                      //                (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
+                }
             }
             if($input_where !=''){
                 $input_where = trim($input_where,' or ');
@@ -1392,8 +1388,8 @@ include "ratiobasedfilter.php";
            $maxFYQuery = "$usdjoinCondition";
                 
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, b.Company_Id, b.FCompanyName,b.ListingStatus","TotalIncome","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "a.ResultType as MaxResultType".$usdfield);
-            //$group = " b.Company_Id $havingClause";
-            
+            ///$group = " b.Company_Id $havingClause";
+        
             //echo "2";
             //echo "<div class='' style='display:none'>case 3</div>";
             /*$allSearchResults = $plstandard->SearchHome($fields,$where,$order,$group);
@@ -1554,7 +1550,7 @@ include "ratiobasedfilter.php";
     if($_REQUEST['YOYCAGR'] != ("gAnyOf" || 'gacross' || "CAGR")){
 
         /*$fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "max(a.ResultType) as MaxResultType");*/
-        $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "a.ResultType as MaxResultType,bsn.Total_assets".$usdfield);
+        $fields = array(" a.CId_FK, a.OptnlIncome,a.EBITDA,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName", "b.CIN", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt",  "a.ResultType as MaxResultType".$usdfield);
         $fields1 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector", "(bsn.L_term_borrowings+bsn.S_term_borrowings) as Total_Debt", "bsn.TotalFunds as Networth","(bsn.L_term_borrowings+bsn.S_term_borrowings+bsn.TotalFunds) as Capital_Employed", "a.ResultType as MaxResultType".$usdfield);
         if($where!=''){
             $where .= " and a.CId_FK = b.Company_Id"; // Original Where
@@ -1592,7 +1588,7 @@ include "ratiobasedfilter.php";
         // End
         if($_REQUEST['arcossall'] !='across' && $_REQUEST['arcossallr'] != 'across')
         {
-                //$group = " b.Company_Id $havingClause";
+               // $group = " b.Company_Id $havingClause";
         }
         //$order12 = " ORDER BY b.SCompanyName ASC";
         //$order = " a.FY DESC,b.SCompanyName ASC";
@@ -1810,7 +1806,7 @@ include "ratiobasedfilter.php";
             }
         
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType,b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType".$usdfield);
-            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType".$usdfield);
+            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType".$usdfield);
            // $fields2= array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY, a.ResultType,b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.GFYCount AS GFY","b.Permissions1"," b.SCompanyName"," b.Industry"," b.Sector");
             if($order2 ==''){
                 $orderc="FIELD(t1.FY,'17') DESC,FIELD(t1.FY,'16') DESC,FIELD(t1.FY,'15') DESC, t1.FY DESC, t1.SCompanyName asc"; 
@@ -1909,7 +1905,7 @@ $end2=count($_REQUEST['answer']['GrowthSearchFieds'])-1;
             $whereHomeCountNew .= " and  c.CId_FK = b.Company_Id AND a.CId_FK = c.CId_FK"; // Original Where
             $group = " t1.Company_Id $havingClause";
             $fields = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType,b.CIN, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType".$usdfield);
-            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType".$usdfield);
+            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType,b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType".$usdfield);
 
             $orderc="FIELD(t1.FY,'17') DESC,FIELD(t1.FY,'16') DESC,FIELD(t1.FY,'15') DESC, t1.FY DESC, t1.SCompanyName asc";	
 

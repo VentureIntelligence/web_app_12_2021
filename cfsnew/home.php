@@ -177,22 +177,16 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
             for($h=0;$h<count($ex_search_export_value);$h++){
                 $txt = trim($ex_search_export_value[$h]);
                 if($txt !=''){
-                    
-                    if($searchbyvalue == 1)
-                    {
-                        $input_where = "CIN LIKE "."'".$txt."%' OR Old_CIN LIKE '%".$txt."%'";
-                        //$input_where .= " (b.CIN REGEXP "."'^".$txt."' or (b.CIN REGEXP "."'[[:space:]]+".$txt."' and b.CIN REGEXP "."'".$txt."+[[:space:]]')) or 
-                    //(b.Old_CIN REGEXP "."'^".$txt."' or (b.Old_CIN REGEXP "."'[[:space:]]+".$txt."' and b.Old_CIN REGEXP "."'".$txt."+[[:space:]]')) or ";
-                   
-                    }
-                    else{
-                        // $input_where .= ' (b.FCompanyName REGEXP '.'"^'.$txt.'" or (b.FCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.FCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or 
-                        //               (b.SCompanyName REGEXP '.'"^'.$txt.'" or (b.SCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.SCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or ';
-                
-                        $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
-                        (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
+                    $txt=str_replace("'", "\\'", $txt);
 
-                    }
+                        $input_where .= " (b.FCompanyName like "."'".$txt."%')  or 
+
+                                               (b.SCompanyName like "."'".$txt."%' ) or ";
+
+
+                    //$input_where .= " b.FCompanyName LIKE "."'%".$txt."%' or b.SCompanyName LIKE "."'%".$txt."%' or ";
+                   // $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
+                    //                  (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
                 }
             }
 
@@ -1712,7 +1706,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 array_push($fields,$ratio);
                 }
             $order ="a.FY desc";
+<<<<<<< HEAD
            // $group = " b.Company_Id $havingClause";
+=======
+            //$group = " b.Company_Id $havingClause";
+>>>>>>> 4e3849db799279bd14a0d3bb0e41d03d3da5654f
             //echo "3";
             //echo "<div class='' style='display:none'>case 4</div>";
             /*$allSearchResults = $plstandard->SearchHome($fields,$where,$order,$group);
@@ -1947,6 +1945,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 }
                 $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery,$ratio,$maxFYQueryratio);
                 
+                
                 if($total > 0 && $search_export_value!=''){
                     //echo "dddddddddddddddddddd 3";
                     if($_SERVER["HTTP_REFERER"]!=''){
@@ -2074,7 +2073,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
-            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn.Total_assets");
+            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType,bsn.Total_assets");
             if($ratio !=''){
                 array_push($fields2,$ratio);
                 }
@@ -2176,7 +2175,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
-            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn.Total_assets");
+            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType,b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType,bsn.Total_assets");
             if($ratio !=''){
                 array_push($fields2,$ratio);
                 }
