@@ -2494,7 +2494,8 @@ filter: alpha(opacity=75);
         <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Search by" >
          
                 <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 45%;top: 35%; display:none;">
-       <select style="width: 85px; top:15px;left:120px; position:absolute" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
+       <select style="width: 85px; top:13px;left:120px;color: #808080;
+       border: 1px solid #ccc;    background-color: buttonface;    height: 24px; position:absolute" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
                     <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
                     <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
                 </select>
