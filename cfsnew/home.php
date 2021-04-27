@@ -1712,11 +1712,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 array_push($fields,$ratio);
                 }
             $order ="a.FY desc";
-<<<<<<< HEAD
            // $group = " b.Company_Id $havingClause";
-=======
-            //$group = " b.Company_Id $havingClause";
->>>>>>> 4e3849db799279bd14a0d3bb0e41d03d3da5654f
             //echo "3";
             //echo "<div class='' style='display:none'>case 4</div>";
             /*$allSearchResults = $plstandard->SearchHome($fields,$where,$order,$group);
@@ -1951,7 +1947,6 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 }
                 $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery,$ratio,$maxFYQueryratio);
                 
-                
                 if($total > 0 && $search_export_value!=''){
                     //echo "dddddddddddddddddddd 3";
                     if($_SERVER["HTTP_REFERER"]!=''){
@@ -2079,7 +2074,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
-            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType, b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType,bsn.Total_assets");
+            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType), b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn.Total_assets");
             if($ratio !=''){
                 array_push($fields2,$ratio);
                 }
@@ -2181,7 +2176,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             if($ratio !=''){
                 array_push($fields,$ratio);
                 }
-            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,a.FY as FY, a.ResultType,b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, a.ResultType as MaxResultType,bsn.Total_assets");
+            $fields2 = array("a.PLStandard_Id, a.CId_FK, b.Industry,a.OptnlIncome,a.EBITDA,a.EBDT ,a.EBT,a.Tax,a.PAT ,max(a.FY) as FY, max(a.ResultType),b.Company_Id, b.FCompanyName,b.ListingStatus","a.TotalIncome as TotalIncome","b.FYCount AS FYValue","b.Permissions1"," b.SCompanyName"," b.Sector, max(a.ResultType) as MaxResultType,bsn.Total_assets");
             if($ratio !=''){
                 array_push($fields2,$ratio);
                 }

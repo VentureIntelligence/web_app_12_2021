@@ -1538,35 +1538,30 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
 
 }
   $(document).ready(function () {
-    $('#country').keyup(function() {
-        var $th = $(this);
+    $("div.custom.dropdown.searchbyid").remove();
+  $("select#searchby").removeClass("hidden-field");
+
+   $('#country').keyup(function() {
+     
+       var $th = $(this);
         var allowedarray = ["&","'","-",".","/","(",")"];
-
         var n = allowedarray.includes($th.val().slice(-1));
-
         var $count=$th.val().length ;
-
         if(n==true && $count > 1){
-
-        return $th.val().slice(-1);
-
+                  return $th.val().slice(-1);
         }
-
         if(n==true && $count == 1){
-
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
-
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
         }
-
         else{
-        var charcheck = allowedarray.includes($th.val());
-        if(charcheck == false){
-        $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _()'./-]/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
-        }else{
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+           var charcheck = allowedarray.includes($th.val());
+           if(charcheck == false){
+                 $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+           }else{
+                  $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+           }
         }
-        }
-        });
+    });
     
     
 });
@@ -1775,16 +1770,10 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
       
         var conval=$('#country').val();
         var currency=$('#currency').val();
-<<<<<<< HEAD
                 var searchby=$('#searchby').val();
 
       //  document.location.href='home.php?searchv='+conval+'&currency='+currency+'&searchbyvalue='+searchby;
         document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency+'&searchbyvalue='+searchby;
-=======
-       // document.location.href='home.php?searchv='+conval+'&currency='+currency;
-        document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency;
-
->>>>>>> 4e3849db799279bd14a0d3bb0e41d03d3da5654f
         return false;
     }
     function onkeypress(event) {   
@@ -2499,13 +2488,13 @@ filter: alpha(opacity=75);
 <ul class="search-user " style="padding-right: 15px;">
 {if $searchlimit gte $searchDone} 
 <li class="classic-btn tour-lock"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
-<li > <select style="width: 85px; top:10px;left:2px;color: #808080;
+<li > <select style="width: 85px; top:10px;left:9px;color: #808080;
   border: 1px solid #ccc;height: 30px; position:relative" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
                <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
                <option value="1" {if $searchby eq '1'} selected {/if}>CIN</option>
            </select></li>
 
-<li class="search-company" style="position:relative; border:none;    padding: 7px 0px !important;">
+<li class="search-company" style="position:relative; border:none;">
 {if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
      
