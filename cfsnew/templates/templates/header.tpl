@@ -1538,6 +1538,8 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
 
 }
   $(document).ready(function () {
+      $("div.custom.dropdown.searchbyid").remove();
+  $("select#searchby").removeClass("hidden-field");
     $('#country').keyup(function() {
         var $th = $(this);
         var allowedarray = ["&","'","-",".","/","(",")"];
