@@ -1775,16 +1775,9 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
       
         var conval=$('#country').val();
         var currency=$('#currency').val();
-<<<<<<< HEAD
-                var searchby=$('#searchby').val();
-
-      //  document.location.href='home.php?searchv='+conval+'&currency='+currency+'&searchbyvalue='+searchby;
-        document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency+'&searchbyvalue='+searchby;
-=======
        // document.location.href='home.php?searchv='+conval+'&currency='+currency;
         document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency;
 
->>>>>>> 4e3849db799279bd14a0d3bb0e41d03d3da5654f
         return false;
     }
     function onkeypress(event) {   

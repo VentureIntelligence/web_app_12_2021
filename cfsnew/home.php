@@ -1712,11 +1712,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 array_push($fields,$ratio);
                 }
             $order ="a.FY desc";
-<<<<<<< HEAD
-           // $group = " b.Company_Id $havingClause";
-=======
             //$group = " b.Company_Id $havingClause";
->>>>>>> 4e3849db799279bd14a0d3bb0e41d03d3da5654f
             //echo "3";
             //echo "<div class='' style='display:none'>case 4</div>";
             /*$allSearchResults = $plstandard->SearchHome($fields,$where,$order,$group);
