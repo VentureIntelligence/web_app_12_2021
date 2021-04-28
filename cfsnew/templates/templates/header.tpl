@@ -1540,6 +1540,7 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
   $(document).ready(function () {
       $("div.custom.dropdown.searchbyid").remove();
   $("select#searchby").removeClass("hidden-field");
+
     $('#country').keyup(function() {
         var $th = $(this);
         var allowedarray = ["&","'","-",".","/","(",")"];
@@ -1777,9 +1778,10 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
       
         var conval=$('#country').val();
         var currency=$('#currency').val();
-       // document.location.href='home.php?searchv='+conval+'&currency='+currency;
-        document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency;
+                var searchby=$('#searchby').val();
 
+      //  document.location.href='home.php?searchv='+conval+'&currency='+currency+'&searchbyvalue='+searchby;
+        document.location.href='home.php?searchv='+encodeURIComponent(conval)+'&currency='+currency+'&searchbyvalue='+searchby;
         return false;
     }
     function onkeypress(event) {   
