@@ -932,7 +932,7 @@ else
     
     
     <div  class="work-masonry-thumb  com-inv-sec   col-2" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
-    <h2>PE/VC Investors</h2>
+    <h2>PE/VC Investments</h2>
     <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
     <thead><tr><th>Investor Name</th> <th>Deal Period</th></tr></thead>
     <tbody>
