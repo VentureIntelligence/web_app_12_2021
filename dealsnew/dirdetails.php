@@ -948,6 +948,9 @@ if (isset($_REQUEST['angelco_only'])) {
     $firm_typeId      = $myrow["FirmTypeId"];
     $other_location   = $myrow["OtherLocation"];
     $assets_mgmt      = $myrow["Assets_mgmt"];
+    $exit_amount  = $myrow["exit_amount"];
+
+    $hide_exit_amount  = $myrow["exitamount_hide"];
     $hide_dry_powder  = $myrow["dry_hide"];
     $already_invested = $myrow["AlreadyInvested"];
     $preferred_stage  = ltrim($strStage); //$myrow["PreferredStage"];
@@ -1993,6 +1996,23 @@ if (trim($assets_mgmt) != "") {
         $Assets_mgmt = (int) preg_replace("/[^0-9\.]/", '', $assets_mgmt);
     } else {
         $Assets_mgmt = 0;
+    }
+?>
+                                              <?php
+    if ($hide_exit_amount == 0) {
+?>
+                                                  <tr>
+                                                        <td>
+                                                            <h4>Already Exited (US$ Million)</h4></td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <p>
+                                                                <?php
+        echo $exit_amount;
+?>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
     }
 ?>
                                               <?php
