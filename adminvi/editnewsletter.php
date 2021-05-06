@@ -27,20 +27,22 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                    // echo $update;exit();
         if( mysql_query( $update ) ) {
             for ($i=0;$i<count($_POST['name']);$i++){
-                if($i<$numrowsquery){
-                            $name= mysql_real_escape_string( $_POST[ 'name' ][$i] );
+                $name= mysql_real_escape_string( $_POST[ 'name' ][$i] );
                             
                             $url= mysql_real_escape_string( $_POST[ 'URL' ][$i] );
+                            $source_id=$_POST['sourceid'][$i];
+                if($i<$_POST['numrowsquery']){
+                            
 
                     $update_mod = "UPDATE newsletter_source SET
                                         name = '" . $name . "', url = '" . $url . "'
-                                        WHERE news_id = " . $keyword;
+                                        WHERE news_id = " . $keyword ." and source_id =" . $source_id;
                                     // echo $update_mod;exit();
                                         mysql_query( $update_mod ) or die( mysql_error() );
                 }
                         else{
                             $insert_mod = "INSERT INTO newsletter_source ( news_id, name, url )
-                            VALUES( '" . $lastInsertId . "', '" . $name . "', '" . $url . "' )";
+                            VALUES( '" . $keyword . "', '" . $name . "', '" . $url . "' )";
                                             mysql_query( $insert_mod ) or die( mysql_error() );
                         }
 
@@ -140,11 +142,14 @@ td{
                                             $numrowsquery = mysql_num_rows( $resquery );
 
                                             $ipCount = 0;
-
+                                                ?>
+                                                <input type="hidden" name= "numrowsquery" value="<?php echo $numrowsquery ?>">
+                                                <?php
                                             while ($rows = mysql_fetch_array($resquery)) {
                                              if ($ipCount==0) { ?>
                                             
                                                 <p id="ipPr<?php echo $ipCount?>">
+                                                <input type="hidden" name="sourceid[]" placeholder="source_id" size="10" value="<?php echo $rows[ 'source_id' ]; ?>">
 
                                                 <input type="text" name="name[]" placeholder="Name" size="10" value="<?php echo $rows[ 'name' ]; ?>">
                                                 &nbsp;
@@ -155,6 +160,7 @@ td{
 
                                            <?php }else{ ?>
                                             <p id="ipPr<?php echo $ipCount?>">
+                                            <input type="hidden" name="sourceid[]" placeholder="source_id" size="10" value="<?php echo $rows[ 'source_id' ]; ?>">
 
                                             <input type="text" name="name[]" placeholder="Name" size="10" value="<?php echo $rows[ 'name' ]; ?>">
                                             &nbsp;
