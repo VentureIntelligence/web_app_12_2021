@@ -9,14 +9,25 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 {
     if( isset( $_POST ) ) {
         $user_id = $_POST[ 'userid' ];
+        $source_id = $_POST[ 'source_id' ];
+        if($source_id)
+        {
+            $update = "Delete From  newsletter_source  WHERE source_id = " . $source_id;
+
+            mysql_query( $update ) or die( mysql_error() );
+            echo 1;
+        }
+        else{
         //$update = "DELETE FROM newsletter WHERE  id   = " . $user_id;
         $update = "UPDATE newsletter SET is_deleted = 1 WHERE id = " . $user_id;
 
         mysql_query( $update ) or die( mysql_error() );
         echo 1;
+        }
     } else {
         echo 2;
     }
+
 ?>
 <?php
 

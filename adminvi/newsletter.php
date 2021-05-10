@@ -57,6 +57,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             <div style=" width:565px;  margin-top:4px;" class="main_content_container">
                 
                 <div id="maintextpro" style="background-color: #ffffff;width:100%; min-height: 774px;">
+                <div id="heading"><h2 style="text-align: center;">News Letter</h2></div>
                     <div id="headingtextpro">
                             <span style="float: right; margin-right: 10px;">
                                 <a href="addnewsletter.php" style="text-decoration: underline;">Create News Letter</a></span>

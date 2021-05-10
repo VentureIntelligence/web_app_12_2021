@@ -21,6 +21,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $publish_at = $_POST[ 'publish_at' ];
         $keyword="";
         $keyword=$_GET['id'];
+        $date  = "$publish_at";
+
+        $dt   = new DateTime($date);
+        $epochtime= $dt->getTimestamp();
         $sel = "SELECT * from newsletter where id='".$keyword."'";
         $res = mysql_query( $sel ) or die( mysql_error() );
         $numrows = mysql_num_rows( $res );
@@ -28,8 +32,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             $result = mysql_fetch_array( $res );
            
         } else {
-            $insert = "INSERT INTO newsletter ( category, heading, summary, Targetcmp_website, vi_database, publish_at,created_on )
-                        VALUES( '" . $category . "', '" . $heading . "', '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
+            $insert = "INSERT INTO newsletter ( category, heading, summary, targetcmp_website, vi_database, publish_at,created_on )
+                        VALUES( '" . $category . "', '" . $heading . "', '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $epochtime . "','" . $createdOn . "' )";
            //echo $insert;exit();
            if( mysql_query( $insert ) ) {
                 $lastInsertId = mysql_insert_id();
@@ -83,6 +87,9 @@ td{
                 
                 <div id="maintextpro" style="background-color: #ffffff;width:100%; min-height: 774px;">
                     <div id="headingtextpro">
+                    <span style="float: right; margin-right: 10px;">
+                                <a href="newsletter.php" style="text-decoration: underline;">Back</a></span>
+
                         <div class="form_container">
                             <?php
                             if( $emailExists && $userExists  ) {
@@ -93,7 +100,10 @@ td{
                                 echo '<div class="error_msg">User name already exists</div>';
                             }
                             if( $successState ) {
-                                echo '<div class="success_msg">News Letter added successfully</div>';
+
+                                echo '<script>alert("News Letter added successfully")</script>';
+                                echo "<script>window.open('newsletter.php','_self')</script>";
+
                             }
                             ?>
                             <form method="post" action="addnewsletter.php">
@@ -105,7 +115,24 @@ td{
                                                 <label for="Category">Category</label>
                                             </td>
                                             <td>
-                                                <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value=""> 
+                                                <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="">  -->
+                                                <select name="Category" id="Category">
+                                                    <option value="PEFI">Private Equity Fund Investments</option>
+                                                    <option value="LE">Liquidity Events</option>
+                                                    <option value="SVCI">Social VC Investments</option>
+                                                    <option value="I/A">Incubation/Acceleration</option>
+                                                    <option value="AI">Angel Investments</option>
+                                                    <option value="OPE/SI">Other Private Equity/Strategic Investments</option>
+                                                    <option value="M&A">M&A</option>
+                                                    <option value="IPO">IPO</option>
+                                                    <option value="SI">Secondary Issues</option>
+                                                    <option value="OD">Other Deals</option>
+                                                    <option value="OD-LF">Other Deals - Listed Firms</option>
+                                                    <option value="DF">Debt Financing </option>
+                                                    <option value="RET">Real Estate Transactions</option>
+                                                    <option value="FN">Fund News</option>
+
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
@@ -151,7 +178,9 @@ td{
                                                 <label for="vi_db">From Vi Database</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" value="">
+                                            <textarea type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" value=""></textarea>
+
+                                                <!-- <input type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" value=""> -->
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
@@ -159,14 +188,14 @@ td{
                                                 <label for="publish_at">Published At</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="">
+                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="">
                                             </td>
                                         </tr>
                                         
                                     </tbody>
                                 </table>
                                 <div style="text-align: center; margin-top: 20px;">
-                                    <input type="submit" id="add_btn" name="add_btn" value="Add" />
+                                    <input type="submit" id="add_btn" name="add_btn" value="save" />
                                     <button type="button" name="cancel_user" id="cancel_user">Cancel</button>
                                 </div>
                             </form>
@@ -196,7 +225,7 @@ td{
    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
      </script>
      <script type="text/javascript">
-        CKEDITOR.replace('Summary')
+        // CKEDITOR.replace('Summary')
 
     $(document).ready(function(){
         var ipNum = $("#ipCount").val();

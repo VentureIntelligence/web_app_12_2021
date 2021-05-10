@@ -20,9 +20,12 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $createdOn = date( 'Y-m-d h:i:s' );
         $publish_at = $_POST[ 'publish_at' ];
         $keyword=$_GET['userID'];
-       
+        $date  = "$publish_at";
+
+        $dt   = new DateTime($date);
+        $epochtime= $dt->getTimestamp();
         $update = "UPDATE newsletter SET
-                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "', summary = '" . trim( $summary ) . "', Targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', publish_at = '" . trim( $publish_at ) . "'
+                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "', summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', publish_at = '" .  $epochtime . "'
                     WHERE id = " . $keyword;
                    // echo $update;exit();
         if( mysql_query( $update ) ) {
@@ -76,11 +79,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 <link href="../css/material-design-iconic-font.min.css" rel="stylesheet" type="text/css">
 <script src="//cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
 <style>
-td{
-    width: 20% !important;
-    font-size: 12px !important;
-    text-align: center !important;
-}
+
 </style>
 </head>
 <body class="">
@@ -99,10 +98,14 @@ td{
                 
                 <div id="maintextpro" style="background-color: #ffffff;width:100%; min-height: 774px;">
                     <div id="headingtextpro">
+                    <span style="float: right; margin-right: 10px;">
+                                <a href="newsletter.php" style="text-decoration: underline;">Back</a></span>
+
                         <div class="form_container">
                             <?php
                             if( $successState ) {
-                                echo '<div class="success_msg">User updated successfully</div>';
+                                echo '<script>alert("News Letter Updated successfully")</script>';
+                                echo "<script>window.open('newsletter.php','_self')</script>";
                             }
                             ?>
 
@@ -115,7 +118,24 @@ td{
                                                 <label for="Category">Category</label>
                                             </td>
                                             <td>
-                                                <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="<?php echo $result[ 'category' ]; ?>"> 
+                                            <select name="Category" id="Category">
+                                                    <option value="PEFI" <?php if ( $result[ 'category' ] == 'PEFI') { echo 'selected'; } ?>>Private Equity Fund Investments</option>
+                                                    <option value="LE" <?php if ( $result[ 'category' ] == 'LE') { echo 'selected'; } ?>>Liquidity Events</option>
+                                                    <option value="SVCI" <?php if ( $result[ 'category' ] == 'SVCI') { echo 'selected'; } ?>>Social VC Investments</option>
+                                                    <option value="I/A" <?php if ( $result[ 'category' ] == 'I/A') { echo 'selected'; } ?>>Incubation/Acceleration</option>
+                                                    <option value="AI" <?php if ( $result[ 'category' ] == 'AI') { echo 'selected'; } ?>>Angel Investments</option>
+                                                    <option value="OPE/SI" <?php if ( $result[ 'category' ] == 'OPE/SI') { echo 'selected'; } ?>>Other Private Equity/Strategic Investments</option>
+                                                    <option value="M&A" <?php if ( $result[ 'category' ] == 'M&A') { echo 'selected'; } ?>>M&A</option>
+                                                    <option value="IPO" <?php if ( $result[ 'category' ] == 'IPO') { echo 'selected'; } ?>>IPO</option>
+                                                    <option value="SI" <?php if ( $result[ 'category' ] == 'SI') { echo 'selected'; } ?>>Secondary Issues</option>
+                                                    <option value="OD" <?php if ( $result[ 'category' ] == 'OD') { echo 'selected'; } ?>>Other Deals</option>
+                                                    <option value="OD-LF" <?php if ( $result[ 'category' ] == 'OD-LF') { echo 'selected'; } ?>>Other Deals - Listed Firms</option>
+                                                    <option value="DF" <?php if ( $result[ 'category' ] == 'DF') { echo 'selected'; } ?>>Debt Financing </option>
+                                                    <option value="RET" <?php if ( $result[ 'category' ] == 'RET') { echo 'selected'; } ?>>Real Estate Transactions</option>
+                                                    <option value="FN" <?php if ( $result[ 'category' ] == 'FN') { echo 'selected'; } ?>>Fund News</option>
+
+                                                </select>   
+                                            <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="<?php echo $result[ 'category' ]; ?>">  -->
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
@@ -166,7 +186,7 @@ td{
                                             &nbsp;
                                             <input type="text" name="URL[]" placeholder="URL" size="10" value="<?php echo $rows[ 'url' ]; ?>">
                                             &nbsp;
-                                            <img src="../dealsnew/images/cross.gif" onclick="removeip('<?php echo $ipCount ?>')">                                            </p>
+                                            <img src="../dealsnew/images/cross.gif" onclick="removeip('<?php echo $ipCount ?>','<?php echo $rows[ 'source_id' ] ?>')">                                            </p>
 
 
                                           <?php } $ipCount++; } ?>
@@ -188,7 +208,7 @@ td{
                                                 <label for="Targetcmpweb">Target company Websites</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="Targetcmpweb" size="26" name="Targetcmpweb" class="req_value" forerror="UserName" value="<?php echo $result[ 'Targetcmp_website' ]; ?>">
+                                                <input type="text" id="Targetcmpweb" size="26" name="Targetcmpweb" class="req_value" forerror="UserName" value="<?php echo $result[ 'targetcmp_website' ]; ?>">
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
@@ -196,7 +216,7 @@ td{
                                                 <label for="vi_db">From Vi Database</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" value="<?php echo $result[ 'vi_database' ]; ?>">
+                                                <textarea type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" ><?php echo $result[ 'vi_database' ]; ?></textarea>
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
@@ -204,7 +224,11 @@ td{
                                                 <label for="publish_at">Published At</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo $result[ 'publish_at' ]; ?>">
+                                                <?php
+                                                $epoch = $result[ 'publish_at' ];
+                                               // echo date('Y-m-d', $epoch);
+                                                ?>
+                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo date('Y-m-d', $epoch); ?>">
                                             </td>
                                         </tr>
                                         
@@ -237,7 +261,6 @@ td{
 
 <!--   <SCRIPT LANGUAGE="JavaScript1.2" SRC="../js/bottom1.js"></SCRIPT>-->
 <script type="text/javascript">
-    CKEDITOR.replace('Summary')
     $(document).ready(function(){
         var ipNum = $("#ipCount").val();
         if(ipNum == 0)
@@ -248,7 +271,7 @@ td{
                                                 
         }
     
-        $('#addMore').click(function(){debugger;
+        $('#addMore').click(function(){
             var ipNum = $("#ipCount").val();
             ipNum = (ipNum * 1) + 1;
             var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" placeholder="URL" size="10" value="">&nbsp;<img src="../dealsnew/images/cross.gif" onclick="removeip('+ ipNum +')"></p>';
@@ -256,12 +279,27 @@ td{
             $("#IpRnglst").append(htmlpr);
         });
     });
-    function removeip(idval){
+    function removeip(idval,source_id){
     
-    var temp = '#ipPr'+idval;
-    $(temp).html('');
-    $(temp).remove();
-    $("#ipCount").val(idval-1);
+   
+    $.ajax({
+                    type: 'POST',
+                    url: 'ajax_news_del.php',
+                    data: {source_id:source_id},
+                    success: function( resp ) {
+                        if( resp == 1 ) {
+                           // alert( 'News Letter deleted successfully' );
+                           var temp = '#ipPr'+idval;
+                            $(temp).html('');
+                            $(temp).remove();
+                            $("#ipCount").val(idval-1);
+                        } else {
+                           // alert( 'Some problem occurred' );
+                        }
+                        location.reload();
+                    }
+                });
+
 }
 // function textToHtmlCodeHW() { 
 //   var htmlEditorData = CKEDITOR.instances.ckeditor.getData(); 
