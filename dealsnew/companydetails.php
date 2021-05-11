@@ -2798,10 +2798,10 @@ function curPageURL() {
             <?php } ?>
 <script type="text/javascript" >
             $(document).ready(function() {
-                $('#country').select2({
-                    placeholder: "Select Options",
-                    minimumResultsForSearch: Infinity
-                });
+                // $('#country').select2({
+                //     placeholder: "Select Options",
+                //     minimumResultsForSearch: Infinity
+                // });
             });
              // Multiple city edit
              var country_val = $('#country').val();
@@ -3021,6 +3021,36 @@ span#select2-city-container {
 ?>
 <script>
  $(document).ready(function() {
+    //alert(  $('.tabView li').length);
+    var tabView = [];
+    var flag=0;
+    $('.tabView li').each(function() {
+            var heading =$(this).text();
+            tabView.push(heading);
+        })
+        for(i=0;i<tabView.length;i++)
+        {
+            if(tabView[i] != "PE/VC INVESTMENTS")
+            {
+                flag =1;
+            }
+            else{
+                flag =0;
+            }
+        }
+        if(flag == 1)
+        {
+            var selectedtab = $('.tabView li:first').attr('href');
+                 $('.tabView li:first').addClass('current'); 
+                $(selectedtab).addClass('activetab');
+        }
+    // if($('.tabView li').length == 1)
+    // {
+    //     var selectedtab = $('.tabView li:first').attr('href');
+    //     $('.tabView li:first').addClass('current'); 
+    //     $(selectedtab).addClass('activetab');
+
+    // }
          $('.tabView li').click(function(){
             var selectedtab = $(this).attr('href');
             $('.tab-items').removeClass('activetab');

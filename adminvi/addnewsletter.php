@@ -237,7 +237,7 @@ td{
                                                 
         }
     
-        $('#addMore').click(function(){debugger;
+        $('#addMore').click(function(){
             var ipNum = $("#ipCount").val();
             ipNum = (ipNum * 1) + 1;
             var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" placeholder="URL" size="10" value="">&nbsp;<img src="../dealsnew/images/cross.gif" onclick="removeip('+ ipNum +')"></p>';

@@ -96,6 +96,8 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
     $acrossallRFlag = false;
     $acrossallFlag = false;
     $search_export_value = $_POST['search_export_value'];
+    $searchbyvalue = $_GET['searchbyvalue'];
+
     $countflagvalue=$_POST['countflag'];
     $tagsearch = $_POST['tagsearch_auto'];
      $tagandor = $_REQUEST['tagandor'];
@@ -109,6 +111,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
         $search_export_value = ($_GET['searchv']!='')?$_GET['searchv']:'';
     }
 
+    
     if($search_export_value != '' || $countflagvalue == 1){
         $addFYCondition = " and a.FY = aa.MFY and a.FY !='' ";
     } else { 
@@ -174,18 +177,25 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
             for($h=0;$h<count($ex_search_export_value);$h++){
                 $txt = trim($ex_search_export_value[$h]);
                 if($txt !=''){
-                    $txt=str_replace("'", "\\'", $txt);
-
+                    
+                    if($searchbyvalue == 1)
+                    {
+                        $input_where = "CIN LIKE "."'".$txt."%' OR Old_CIN LIKE '%".$txt."%'";
+                        //$input_where .= " (b.CIN REGEXP "."'^".$txt."' or (b.CIN REGEXP "."'[[:space:]]+".$txt."' and b.CIN REGEXP "."'".$txt."+[[:space:]]')) or 
+                    //(b.Old_CIN REGEXP "."'^".$txt."' or (b.Old_CIN REGEXP "."'[[:space:]]+".$txt."' and b.Old_CIN REGEXP "."'".$txt."+[[:space:]]')) or ";
+                   
+                    }
+                    else{
+                        // $input_where .= ' (b.FCompanyName REGEXP '.'"^'.$txt.'" or (b.FCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.FCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or 
+                        //               (b.SCompanyName REGEXP '.'"^'.$txt.'" or (b.SCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.SCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or ';
+                
+                        $txt=str_replace("'", "\\'", $txt);
                         $input_where .= " (b.FCompanyName like "."'".$txt."%')  or 
-
                                                (b.SCompanyName like "."'".$txt."%' ) or ";
-
-
-                    //$input_where .= " b.FCompanyName LIKE "."'%".$txt."%' or b.SCompanyName LIKE "."'%".$txt."%' or ";
-                   // $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
-                    //                  (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
+                    }
                 }
             }
+
             if($input_where !=''){
                 $input_where = trim($input_where,' or ');
                 if($where !=''){
@@ -207,13 +217,17 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
                 }
             }
         }
+        $template->assign("searchby",$searchbyvalue);
+
         $template->assign("searchv",$search_export_value);
         $template->assign("searchSubmit",'1');
     }else{
+        $template->assign("searchby",'0');
+
         $template->assign("searchv","");    
         $template->assign("searchSubmit",'');    
     }
-   
+
 if(!isset($authAdmin->user->elements['user_id']) || $authAdmin->user->elements['user_id'] == "") { error_log('CFS authadmin userid Empty in Home -'.$_SESSION['username'].' - Prev Page : '.$_SERVER['HTTP_REFERER'].'  ,- Current page :'.$_SERVER['PHP_SELF']); }
 if(!isset($authAdmin->user->elements['GroupList']) || $authAdmin->user->elements['GroupList'] == "") { error_log('CFS authadmin GroupList Empty in Home -'.$_SESSION['username'].' - Prev Page : '.$_SERVER['HTTP_REFERER'].'  ,- Current page :'.$_SERVER['PHP_SELF']); }
 
@@ -446,7 +460,6 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
         $template->assign("sortby" , $_REQUEST['sortby']);
         $template->assign("sortorder" , $_REQUEST['sortorder']);
-
         $template->assign("city" , $city->getCity());
         $template->assign("curPage" , $page);
         $template->assign("countflag" , $countflag);
@@ -1437,9 +1450,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 
                 $template->assign("tag_response",$tag_response);
 
-                //echo $tagsearch;
                 $filterFlag = true;
                 $tags_where = '';
+
                 $tagResult = $plstandard->fetchCIN($tagsearch, $tagandor);
                 
                 $tags_where .=  "  b.CIN IN($tagResult)";
@@ -1781,7 +1794,6 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
              
              */
 	}
-
     if( $filterFlag && $chargewhere == '' ) {
         $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossFlag,$ratio,$maxFYQueryratio);
         $template->assign("totalrecord",$total);
@@ -1930,7 +1942,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                 $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag,$ratio,$maxFYQueryratio);
                             }
                         }
-
+                       // echo $whereHomeCountNew;exit();
                     $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
                 }
                 $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery,$ratio,$maxFYQueryratio);
@@ -2252,8 +2264,10 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $pages =  array_unique($pages);
             sort($pages);
         
-            if($search_export_value!=''){
-                $pagination_search ='searchv='.$search_export_value.'&currency='.$currency;  
+            if($search_export_value!='' && $searchbyvalue!=''){
+                //$pagination_search ='searchv='.$search_export_value.'&currency='.$currency; 
+                $pagination_search ='searchv='.$search_export_value.'&currency='.$currency.'&searchbyvalue='.$searchbyvalue;  
+ 
             }else{
                 $pagination_search='';
             }
@@ -2263,13 +2277,13 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                $paginationdiv.='<li class="arrow unavailable"><a href="">&laquo;</a></li>';
             } else {  
 
-                $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="home.php?'.$pagination_search.'page='.$prevpage.'" >&laquo;</a></li>';    
+                $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$prevpage.'" >&laquo;</a></li>';    
             }     
                  
             for($i=0;$i<count($pages);$i++){ 
                 
                 if($pages[$i] > 0 && $pages[$i] <= $totalpages){
-                     $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'page='.$pages[$i].'">'.$pages[$i].'</a></li>';
+                     $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$pages[$i].'">'.$pages[$i].'</a></li>';
                 }
                 if(isset($pages[$i+1])){
                     if($pages[$i+1]-$pages[$i]>1){
@@ -2280,13 +2294,13 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                      
             if($page<$totalpages){
 
-                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'page='.$nextpage.'">&raquo;</a></li>';
+                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li>';
             } else {  
                 $paginationdiv.='<li class="arrow"><a >&raquo;</a></li>';
             }
         
             $paginationdiv.='</ul>';   
-        
+            //echo $paginationdiv;exit();
             $template->assign("paginationdiv",$paginationdiv);
         }
         else {
