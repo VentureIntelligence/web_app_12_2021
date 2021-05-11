@@ -69,6 +69,10 @@ td{
     width: 20% !important;
     font-size: 12px !important;
 }
+input[type=text],textarea,input[type=date]
+{
+    width: 82% ;
+}
 </style>
 </head>
 <body class="">
@@ -188,7 +192,7 @@ td{
                                                 <label for="publish_at">Published At</label> 
                                             </td>
                                             <td>
-                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="">
+                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo date('Y-m-d') ?>">
                                             </td>
                                         </tr>
                                         
@@ -231,7 +235,7 @@ td{
         var ipNum = $("#ipCount").val();
         if(ipNum == 0)
         {
-            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" placeholder="URL" size="10" value="">&nbsp;<input type="button" name="addMore" id="addMore" value="Add"></p>';
+            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" style="width:32%" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" style="width:32%" placeholder="URL" size="10" value="">&nbsp;<input type="button" name="addMore" id="addMore" value="Add"></p>';
             $("#ipCount").val(ipNum); 
             $("#IpRnglst").append(htmlpr);
                                                 
@@ -240,7 +244,7 @@ td{
         $('#addMore').click(function(){
             var ipNum = $("#ipCount").val();
             ipNum = (ipNum * 1) + 1;
-            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" placeholder="URL" size="10" value="">&nbsp;<img src="../dealsnew/images/cross.gif" onclick="removeip('+ ipNum +')"></p>';
+            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" style="width:32%" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" style="width:32%"  placeholder="URL" size="10" value="">&nbsp;<img src="../dealsnew/images/cross.gif" onclick="removeip('+ ipNum +')"></p>';
             $("#ipCount").val(ipNum); 
             $("#IpRnglst").append(htmlpr);
         });
@@ -252,7 +256,9 @@ td{
     $(temp).remove();
     $("#ipCount").val(idval-1);
 }
-
+$( '#cancel_user' ).on('click', function() {
+    window.location.href = '<?php echo BASE_URL; ?>adminvi/newsletter.php';
+  });
 
   </script>
 </body>
