@@ -20,12 +20,12 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $createdOn = date( 'Y-m-d h:i:s' );
         $publish_at = $_POST[ 'publish_at' ];
         $keyword=$_GET['userID'];
-        $date  = "$publish_at";
+       // $date  = "$publish_at";
 
-        $dt   = new DateTime($date);
-        $epochtime= $dt->getTimestamp();
+        //$dt   = new DateTime($date);
+       // $epochtime= $dt->getTimestamp();
         $update = "UPDATE newsletter SET
-                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "', summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', publish_at = '" .  $epochtime . "'
+                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "', summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
                    // echo $update;exit();
         if( mysql_query( $update ) ) {
@@ -232,10 +232,10 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                                 <?php
-                                                $epoch = $result[ 'publish_at' ];
+                                                $epoch = $result[ 'published_at' ];
                                                // echo date('Y-m-d', $epoch);
                                                 ?>
-                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo date('Y-m-d', $epoch); ?>">
+                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo $epoch; ?>">
                                             </td>
                                         </tr>
                                         

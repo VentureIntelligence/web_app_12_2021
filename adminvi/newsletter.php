@@ -9,7 +9,7 @@ session_start();
 
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
 {
-    $sel = "SELECT * FROM newsletter where is_deleted = 0 ";
+    $sel = "SELECT *, DATE_FORMAT(published_at,'%d-%M-%y') as publishdate FROM newsletter where is_deleted = 0 ";
     $res = mysql_query( $sel ) or die( mysql_error() );
     $numrows = mysql_num_rows( $res );
 
@@ -143,7 +143,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                     <td><?php echo $result[ 'id' ] ?></td>
                                     <td ><?php echo $categoryval ?></td>
                                     <td><?php echo substr_replace($result[ 'heading' ], "...", 20) ?></td>
-                                    <td><?php echo date('d-M-Y', $result[ 'publish_at' ]) ?></td>
+                                    <td><?php echo  $result[ 'publishdate' ] ?></td>
                                     <td>
                                         <a href="editnewsletter.php?userID=<?php echo $result[ 'id' ]; ?>">
                                             <img src="images/edit.png" style="width: 15px; height: 15px;" />
