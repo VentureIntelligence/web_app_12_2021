@@ -79,7 +79,14 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 <link href="../css/material-design-iconic-font.min.css" rel="stylesheet" type="text/css">
 <script src="//cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
 <style>
-
+td{
+    width: 20% !important;
+    font-size: 12px !important;
+}
+input[type=text],textarea,input[type=date]
+{
+    width: 82% ;
+}
 </style>
 </head>
 <body class="">
@@ -171,9 +178,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                                 <p id="ipPr<?php echo $ipCount?>">
                                                 <input type="hidden" name="sourceid[]" placeholder="source_id" size="10" value="<?php echo $rows[ 'source_id' ]; ?>">
 
-                                                <input type="text" name="name[]" placeholder="Name" size="10" value="<?php echo $rows[ 'name' ]; ?>">
+                                                <input type="text" name="name[]" style="width:32%" placeholder="Name" size="10" value="<?php echo $rows[ 'name' ]; ?>">
                                                 &nbsp;
-                                                <input type="text" name="URL[]" placeholder="URL" size="10" value="<?php echo $rows[ 'url' ]; ?>">
+                                                <input type="text" name="URL[]" style="width:32%" placeholder="URL" size="10" value="<?php echo $rows[ 'url' ]; ?>">
                                                 &nbsp;
                                                 <input type="button" name="addMore" id="addMore" value="Add">
                                                 </p>
@@ -182,9 +189,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                             <p id="ipPr<?php echo $ipCount?>">
                                             <input type="hidden" name="sourceid[]" placeholder="source_id" size="10" value="<?php echo $rows[ 'source_id' ]; ?>">
 
-                                            <input type="text" name="name[]" placeholder="Name" size="10" value="<?php echo $rows[ 'name' ]; ?>">
+                                            <input type="text" name="name[]" style="width:32%" placeholder="Name" size="10" value="<?php echo $rows[ 'name' ]; ?>">
                                             &nbsp;
-                                            <input type="text" name="URL[]" placeholder="URL" size="10" value="<?php echo $rows[ 'url' ]; ?>">
+                                            <input type="text" name="URL[]" style="width:32%" placeholder="URL" size="10" value="<?php echo $rows[ 'url' ]; ?>">
                                             &nbsp;
                                             <img src="../dealsnew/images/cross.gif" onclick="removeip('<?php echo $ipCount ?>','<?php echo $rows[ 'source_id' ] ?>')">                                            </p>
 
@@ -265,7 +272,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         var ipNum = $("#ipCount").val();
         if(ipNum == 0)
         {
-            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" placeholder="URL" size="10" value="">&nbsp;<input type="button" name="addMore" id="addMore" value="Add"></p>';
+            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" style="width:32%" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" style="width:32%" placeholder="URL" size="10" value="">&nbsp;<input type="button" name="addMore" id="addMore" value="Add"></p>';
             $("#ipCount").val(ipNum); 
             $("#IpRnglst").append(htmlpr);
                                                 
@@ -274,7 +281,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $('#addMore').click(function(){
             var ipNum = $("#ipCount").val();
             ipNum = (ipNum * 1) + 1;
-            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" placeholder="URL" size="10" value="">&nbsp;<img src="../dealsnew/images/cross.gif" onclick="removeip('+ ipNum +')"></p>';
+            var htmlpr = '<p id="ipPr'+ipNum+'"><input type="text" name="name[]" style="width:32%" placeholder="Name" size="10" value="">&nbsp;<input type="text" name="URL[]" style="width:32%" placeholder="URL" size="10" value="">&nbsp;<img src="../dealsnew/images/cross.gif" onclick="removeip('+ ipNum +')"></p>';
             $("#ipCount").val(ipNum); 
             $("#IpRnglst").append(htmlpr);
         });
@@ -301,6 +308,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 });
 
 }
+$( '#cancel_user' ).on('click', function() {
+    window.location.href = '<?php echo BASE_URL; ?>adminvi/newsletter.php';
+  });
 // function textToHtmlCodeHW() { 
 //   var htmlEditorData = CKEDITOR.instances.ckeditor.getData(); 
 //   var editor = ace.edit("Summary");

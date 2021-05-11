@@ -12,6 +12,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $sel = "SELECT * FROM newsletter where is_deleted = 0 ";
     $res = mysql_query( $sel ) or die( mysql_error() );
     $numrows = mysql_num_rows( $res );
+
+   
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -64,13 +66,13 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                     <div id="headingtextpro">
                             <span style="float: right; margin-right: 10px;">
                                 <a href="addnewsletter.php" style="text-decoration: underline;">Create News Letter</a></span><br><br>
-                        <table style="" cellpadding="5" width="100%" id="myTable">
+                        <table style=""   id="myTable">
                             <thead>
                                 <tr>
-                                    <th style="">ID</th>
-                                    <th style="">Category</th>
-                                    <th style="" style="">heading</th>
-                                    <th style="">vi_database</th>
+                                    <th style="width:30px !important">ID</th>
+                                    <th style="width: 184px; !important">Category</th>
+                                    <th style="" style="">Heading</th>
+                                    <th style="">Published at</th>
                                     <th style="">Action</th>
                                 </tr>
                             </thead>
@@ -78,6 +80,57 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 <?php
                                 if( $numrows > 0 ) {
                                     while( $result = mysql_fetch_array( $res ) ) {
+                                        $category=$result[ 'category' ];
+
+                                        if($category == "PEFI")
+                                        {
+                                            $categoryval="Private Equity Fund Investments";
+                                        }
+                                        else if($category == "LE")
+                                        {
+                                            $categoryval="Liquidity Events";
+                                        }
+                                        else if($category == "SVCI")
+                                        {
+                                            $categoryval="Social VC Investments";
+                                        }
+                                        else if($category == "I/A")
+                                        {
+                                            $categoryval="Incubation/Acceleration";
+                                        }
+                                        else if($category == "AI")
+                                        {
+                                            $categoryval="Angel Investments";
+                                        }
+                                        else if($category == "OPE/SI")
+                                        {
+                                            $categoryval="Other Private Equity/Strategic Investments";
+                                        }
+                                        else if($category == "SI")
+                                        {
+                                            $categoryval="Secondary Issues";
+                                        }
+                                        else if($category == "OD")
+                                        {
+                                            $categoryval="Other Deals";
+                                        }
+                                        else if($category == "OD-LF")
+                                        {
+                                            $categoryval="Other Deals - Listed Firms";
+                                        }
+                                        else if($category == "DF")
+                                        {
+                                            $categoryval="Debt Financing";
+                                        }
+                                        else if($category == "RET")
+                                        {
+                                            $categoryval="Real Estate Transactions";
+                                        }
+                                        else if($category == "FN")
+                                        {
+                                           $categoryval="Fund News" ;
+                                        }
+                                        
                                         if( $result[ 'is_enabled' ] == 0 ) {
                                             $icon = 'disable.png';
                                             $value= 1;
@@ -88,9 +141,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 ?>
                                 <tr>
                                     <td><?php echo $result[ 'id' ] ?></td>
-                                    <td><?php echo $result[ 'category' ] ?></td>
-                                    <td><?php echo $result[ 'heading' ] ?></td>
-                                    <td><?php echo $result[ 'vi_database' ] ?></td>
+                                    <td ><?php echo $categoryval ?></td>
+                                    <td><?php echo substr_replace($result[ 'heading' ], "...", 20) ?></td>
+                                    <td><?php echo date('d-M-Y', $result[ 'publish_at' ]) ?></td>
                                     <td>
                                         <a href="editnewsletter.php?userID=<?php echo $result[ 'id' ]; ?>">
                                             <img src="images/edit.png" style="width: 15px; height: 15px;" />
@@ -108,7 +161,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 } else {
                                 ?>
                                 <tr>
-                                    <td colspan="7">No user(s) added</td>
+                                    <td colspan="7">No News Letter(s) added</td>
                                 </tr>
                                 <?php
                                 } 
