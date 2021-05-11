@@ -42,7 +42,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 
                 $url= mysql_real_escape_string( $_POST[ 'URL' ][$i] );
             
-                $insert_mod = "INSERT INTO newsletter_source ( news_id, name, url )
+                $insert_mod = "INSERT INTO sources ( news_id, name, url )
                                 VALUES( '" . $lastInsertId . "', '" . $name . "', '" . $url . "' )";
                 mysql_query( $insert_mod ) or die( mysql_error() );
                 }

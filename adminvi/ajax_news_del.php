@@ -12,7 +12,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $source_id = $_POST[ 'source_id' ];
         if($source_id)
         {
-            $update = "Delete From  newsletter_source  WHERE source_id = " . $source_id;
+            $update = "Delete From  sources  WHERE source_id = " . $source_id;
 
             mysql_query( $update ) or die( mysql_error() );
             echo 1;

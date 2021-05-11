@@ -37,14 +37,14 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 if($i<$_POST['numrowsquery']){
                             
 
-                    $update_mod = "UPDATE newsletter_source SET
+                    $update_mod = "UPDATE sources SET
                                         name = '" . $name . "', url = '" . $url . "'
                                         WHERE news_id = " . $keyword ." and source_id =" . $source_id;
                                     // echo $update_mod;exit();
                                         mysql_query( $update_mod ) or die( mysql_error() );
                 }
                         else{
-                            $insert_mod = "INSERT INTO newsletter_source ( news_id, name, url )
+                            $insert_mod = "INSERT INTO sources ( news_id, name, url )
                             VALUES( '" . $keyword . "', '" . $name . "', '" . $url . "' )";
                                             mysql_query( $insert_mod ) or die( mysql_error() );
                         }
@@ -156,7 +156,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                             <!-- <input type="hidden" name="ipCount" id="ipCount" value="<?php echo ($numrows -1 ) ?>"> -->
 
                                             <?php
-                                             $selQuery = "SELECT * FROM newsletter_source WHERE newsletter_source.news_id = " . $userID;
+                                             $selQuery = "SELECT * FROM sources WHERE sources.news_id = " . $userID;
                                              //echo $selQuery;exit();
                                             $resquery = mysql_query( $selQuery ) or die( mysql_error() );
                                             $numrowsquery = mysql_num_rows( $resquery );

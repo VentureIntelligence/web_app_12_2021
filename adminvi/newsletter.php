@@ -25,6 +25,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 <script src="../js/jquery-ui.js"></script>
 <link href="../css/vistyle.css" rel="stylesheet" type="text/css">
 <link href="../css/material-design-iconic-font.min.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+               <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+               
 <style>
 .userMGMT #headingtextpro table {
     width:100%; margin-top: 20px;
@@ -60,8 +63,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 <div id="heading"><h2 style="text-align: center;">News Letter</h2></div>
                     <div id="headingtextpro">
                             <span style="float: right; margin-right: 10px;">
-                                <a href="addnewsletter.php" style="text-decoration: underline;">Create News Letter</a></span>
-                        <table style="" cellpadding="5">
+                                <a href="addnewsletter.php" style="text-decoration: underline;">Create News Letter</a></span><br><br>
+                        <table style="" cellpadding="5" width="100%" id="myTable">
                             <thead>
                                 <tr>
                                     <th style="">ID</th>
@@ -151,6 +154,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 });
             }
         });
+        $(document).ready(function() {
+         $('#myTable').DataTable();
+         } );
 </script>
 
 
