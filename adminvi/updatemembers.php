@@ -306,6 +306,9 @@ session_start();
                                             $reExpLmtArray = $_POST['ExpLmtRE'];
                                             $contacts = trim($_POST['contacts']);
 
+                                            $exp_limit=intval($_POST['exp_limit']);
+			                                $limit_enable=intval($_POST['limit_enable']);
+                                            //echo $contacts;
                                             if($_POST['peonly']==1 && $_POST['vconly']==2  ) { $permission=0; }
                                             else if(!isset($_POST['vconly']) && $_POST['peonly']==1  ) { $permission=1; }
                                             else if(!isset($_POST['peonly']) && $_POST['vconly']==2  ) { $permission=2; }
@@ -317,7 +320,7 @@ session_start();
                                             Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry' where DCompId=$companyId ";*/
                                             $UpdateCompSql= "Update dealcompanies set DCompanyName='$companyName',ExpiryDate='$expDate',TrialLogin=$trial, PEInv=$PEInv,VCInv=$VCInv,REInv=$REInv,PEIpo=$PEIpo,VCIpo=$VCIpo,
                                             PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MAlogin,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,
-                                            Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry',LPDir=$LPDir, mobile_access=$mobapp  where DCompId=$companyId ";
+                                            Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry',LPDir=$LPDir, mobile_access=$mobapp,custom_limit_enable=$limit_enable,custom_export_limit=$exp_limit where DCompId=$companyId ";
                                             //echo "<br>--" .$UpdateCompSql;
                                             
                                             if ($rsUpdateComp=mysql_query($UpdateCompSql))
