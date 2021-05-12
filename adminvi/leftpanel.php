@@ -141,8 +141,13 @@
             <a href="users.php">User(s) List</a><br />
         </div>
         <?php } ?>
+<<<<<<< HEAD
         <!-- <div id="vertMenu"> -->
             <!-- <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
+=======
+        <!-- <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
+>>>>>>> 886129dae4c707e15413f939d12a0bf19831b535
         </div>
         <div id="linksnone"><a href="../adminvi/adminFilter.php">AddFilter</a><br /></div>
         <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">EditFilter</a><br /></div>
@@ -154,6 +159,7 @@
 
 
         <div id="vertMenu">
+<<<<<<< HEAD
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/adminFilter.php">Add Filter</a><br /></div>
@@ -165,6 +171,12 @@
         <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
 
 
+=======
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;News letter</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/newsletter.php">Manage News letter</a><br /></div>
+         
+>>>>>>> 886129dae4c707e15413f939d12a0bf19831b535
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Exit</span></div>
         </div>

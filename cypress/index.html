@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Venture Intelligence</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.tokeninput.js"></script>
+    
+        <link rel="stylesheet" href="css/token-input.css" type="text/css" />
+        <link rel="stylesheet" href="css/token-input-facebook.css" type="text/css" />
+        </head>
+    <body>
+        <h1>Venture Intelligence - Cypress</h1>
+        <input type="text" id="demo-input" name="blah" />
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#demo-input").tokenInput([
+                {id: 7, name: "Flipkart"},
+                {id: 11, name: "amazon"},
+                {id: 13, name: "CTS"},
+                {id: 17, name: "TCS"},
+                {id: 19, name: "HCL"},
+                {id: 23, name: "Wipro"},
+                {id: 29, name: "Siemens"},
+                {id: 31, name: "L&T"},
+                {id: 37, name: "ABB"},
+                {id: 41, name: "Robert Boash"},
+                {id: 43, name: "Infosys"},
+                {id: 47, name: "Mindtree"}
+            ]);
+            });
+            </script>
+    </body>
+</html>
