@@ -386,10 +386,10 @@
 
                                         $insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT)
                                         VALUES ($MAMAId,$companyId,$amount,$stake,'$fullDateAfter',$dealTypeId,$AcquirerId,'$comment','$moreinfor', '$validation',$assetFlag,$flagdeletion,'$createddate','$modifieddate',$hideamountFlag,'$link','$filename','$sourcename','$valuation','$finlink',$company_valuation,$revenue_multiple,$ebitda_multiple,$pat_multiple,'$target_listingstatusvalue','$acquirer_listingstatusvalue',$hideAggregatetoUpdate,$revenue,$ebitda,$pat)";
-                                        echo "<br>@@@@ :".$insertcompanysql;
+                                        //echo "<br>@@@@ :".$insertcompanysql;
                                         if ($rsinsert = mysql_query($insertcompanysql))
                                         {
-                                            echo "<br>Advisor String-" .$TargetAdvisorString;
+                                            //echo "<br>Advisor String-" .$TargetAdvisorString;
                                             foreach ($TargetAdvisorString as $targetadvisor)
                                             {
                                                 if(trim($targetadvisor)!="")
@@ -447,10 +447,10 @@
                                 //             if ($rsupdate = mysql_query($updatecompanysql))
                                 //         { ?>
                                             
-                                <!-- //             <Br>
-                                //         <tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp; -->MA_MA Deal already exists and deals has been updated</td> <br> </tr>
-                                    
-                                      <?php  //} -->
+                                            <Br>
+                                         <!-- <tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp;MA_MA Deal already exists and deals has been updated</td> <br> </tr>
+                                     -->
+                                      <?php // } 
                                  
                                 //     }
                                     
