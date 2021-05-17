@@ -2093,7 +2093,7 @@
          $('#year2').val(dataValue[0].end_year)   
          }
          if(dataValue.length != 0)
-         {debugger;
+         {
          var div='';
          if(dataValue[0].Investor != "")
          {
@@ -2453,7 +2453,7 @@
          swal('You are allowed to add up to 50 investors only')
          }
          else
-         {debugger;
+         {
              if(parseInt($('#yr1').val()) == parseInt($('#yr2').val()))
                {
                      if(parseInt($('#mon1').val()) > parseInt($('#mon2').val()))
@@ -2584,7 +2584,7 @@
          swal('You are allowed to add up to 50 investors only')
          }
          else
-         {debugger;
+         {
              if(parseInt($('#exityr1').val()) == parseInt($('#exityr1').val()))
                {
                      if(parseInt($('#exitmon1').val()) > parseInt($('#exitmon2').val()))
