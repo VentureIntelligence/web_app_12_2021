@@ -2506,7 +2506,7 @@ filter: alpha(opacity=75);
 {if $pageName neq 'indexofcharges.php' && $pageName neq 'companylist_suggest.php' && $pageName neq 'chargesholderlist_suggest.php'}
     <form id="form" action="details.php" method="get" onsubmit="return validate();">
      
-        <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Search by" >
+        <input type="text" value="{$searchv}" id="country"  class=""  autocomplete=off placeholder="Search" >
          
                 <img  id="autosuggest_loading"  src="images/autosuggest_loading.gif" style="position: absolute;right: 4%;top: 27%; display:none;">
       
