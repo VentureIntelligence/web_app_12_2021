@@ -529,15 +529,22 @@ class plstandard extends database {
 
 		/*$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom FROM ".$this->dbName." a ,cprofile b";*/
 		//$sql.= " INNER JOIN cprofile b on(CId_FK = b.Company_Id) ";
-		$sql = "select count(NumberOfCom) from (SELECT a.PLStandard_Id AS NumberOfCom,max(a.ResultType) as MaxResultType".$ratio." FROM ".$this->dbName." a";
+		$sql = "select count(NumberOfCom) as NumberOfCom from (SELECT a.PLStandard_Id AS NumberOfCom,a.ResultType as MaxResultType ".$ratio. $FYcountField . " FROM ".$this->dbName." a";
 		//$sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK " . $maxFYQuery . "";
-        $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY ";
+                $sql .= " INNER JOIN cprofile b ON b.Company_Id = a.CId_FK LEFT JOIN balancesheet_new bsn on bsn.CID_FK = b.Company_Id AND a.FY = bsn.FY and a.ResultType = bsn.ResultType ";
 		$sql .=  $maxFYQueryratio;
-		$sql .=  $maxFYQuery;
-		if(strlen($where)) $sql.= " WHERE ".$where;
-		if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
+        $sql .=  $maxFYQuery;        
+		if(strlen($where)) $sql.= " WHERE a.FY = (select max(FY) from plstandard where CID_FK = a.CID_FK) and a.ResultType = (select max(ResultType) from plstandard where CID_FK = a.CID_FK and FY = a.FY) and ".$where;
+		//if(strlen($group))   $sql.= " GROUP BY ".$group.") v1";
+		if(strlen($group))
+
+			{ $sql.= " GROUP BY ".$group.") v1";}else{
+
+			$sql.= ") v1";
+
+			}
                 
-		//print $sql;
+	//	print $sql;exit();
  	   //echo '<div style="display:none" class="count">';print_r( $sql );echo'</div>';
 		$this->execute($sql);
 		
@@ -1412,7 +1419,7 @@ class plstandard extends database {
                 //$exp="";
                 $return_array = array();
               /*  $return_array['exportsql']=$sql;*/
-                //echo $sql;
+                //echo $sql;exit();
                 //echo '<pre>'; print_r( $sql );echo '</pre>';
 		$this->execute($sql);
 		
