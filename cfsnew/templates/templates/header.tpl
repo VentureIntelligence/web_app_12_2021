@@ -2495,7 +2495,7 @@ filter: alpha(opacity=75);
 
 <ul class="search-user " style="padding-right: 15px;">
 {if $searchlimit gte $searchDone} 
-<li class="classic-btn tour-lock"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
+<li class="classic-btn tour-lock" style="margin-right: 15px;"><a href="cfsfaq.php" id="faq-btn" style="opacity: 1;">FAQ</a></li>
 <li > <select style="width: 85px; top:10px;left:2px;color: #808080;
   border: 1px solid #ccc;height: 30px; position:relative" id="searchby" class="searchbyid" name="searchby" onchange="clearsearchvalue()">
                <option value="0" {if $searchby eq '0' } selected {/if}>Company</option>
