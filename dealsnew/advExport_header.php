@@ -1504,7 +1504,9 @@
                                           <input type="hidden" name="year1" id="year1" value="">
                                           <input type="hidden" name="year2" id="year2" value="">
                                           <input type="hidden" class="exitresultarray" name="exitresultarray" value=""/> -->
-                                       <input type="hidden" name="txtsearchon" value="3" >
+                                          <input type="hidden" name="exportexit" value="exportexit" >
+
+                                          <input type="hidden" name="txtsearchon" value="3" >
                                        <input type="hidden" name="txttitle" id="txttitle" value=0>
                                        <input type="hidden" name="txthide_pms"  id="txthide_pms" value=2>
                                        <input type="hidden" name="txthidename" id="txthidename" value="<?php echo $username ?>">
@@ -1816,6 +1818,8 @@
          // $('#maskscreen').fadeOut();
          // $('#preloading').fadeOut();  
          // $('#popup-box-copyrights-getfilter').fadeOut();
+         if(dataValue[0]['Investor'] !="")
+         {
          for(i=0;i<dataValue.length;i++)
          {
          if(dataValue[i]['filter_type'] == "Investments")
@@ -1825,6 +1829,7 @@
          else{
          $("#expinvestorauto_sug").tokenInput("add",{id: dataValue[i]['InvestorId'], name: dataValue[i]['Investor']});
          
+         }
          }
          }
          filterDescrip=$('#filter_desc').val(dataValue[0].filter_desc)
@@ -2087,10 +2092,11 @@
          $('#year1').val(dataValue[0].start_year);
          $('#year2').val(dataValue[0].end_year)   
          }
-         
          if(dataValue.length != 0)
-         {
+         {debugger;
          var div='';
+         if(dataValue[0].Investor != "")
+         {
          for(i=0;i<dataValue.length;i++)
          {
          div +=dataValue[i].InvestorId
@@ -2098,6 +2104,7 @@
          {
          div +=',' 
          } 
+         }
          }
          
          
@@ -2446,7 +2453,7 @@
          swal('You are allowed to add up to 50 investors only')
          }
          else
-         {
+         {debugger;
              if(parseInt($('#yr1').val()) == parseInt($('#yr2').val()))
                {
                      if(parseInt($('#mon1').val()) > parseInt($('#mon2').val()))
@@ -2457,8 +2464,15 @@
                }
          $('#investorErr').hide();
          $('#columnnameErr').hide();
+         if($('#expinvestorauto_sug').tokenInput("get").length == 0)
+         {
+            var post_url = "getexportcount.php"; //get form action url
+
+         }
+         else{
          var post_url = $("#pelistingexcel").attr("action"); //get form action url
-	      var request_method = $("#pelistingexcel").attr("method"); //get form GET/POST method
+         }         	      
+         var request_method = $("#pelistingexcel").attr("method"); //get form GET/POST method
 	      var form_data = $("#pelistingexcel").serialize();
             $.ajax({
                url : post_url,
@@ -2570,7 +2584,7 @@
          swal('You are allowed to add up to 50 investors only')
          }
          else
-         {
+         {debugger;
              if(parseInt($('#exityr1').val()) == parseInt($('#exityr1').val()))
                {
                      if(parseInt($('#exitmon1').val()) > parseInt($('#exitmon2').val()))
@@ -2581,7 +2595,14 @@
                }
          $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
+         if($('#expinvestorauto_sug').tokenInput("get").length == 0)
+         {
+            var post_url = "getexportcount.php"; //get form action url
+
+         }
+         else{
          var post_url = $("#exitpelistingexcel").attr("action"); //get form action url
+         }
 	      var request_method = $("#exitpelistingexcel").attr("method"); //get form GET/POST method
 	      var form_data = $("#exitpelistingexcel").serialize();
             $.ajax({
@@ -2746,7 +2767,15 @@
          
          else
          {
+            if($('#expinvestorauto_sug').tokenInput("get").length == 0)
+         {
+            var post_url = "getexportcount.php"; //get form action url
+
+         }
+         else{
          var post_url = $("#pelistingexcel").attr("action"); //get form action url
+         }
+         //var post_url = $("#pelistingexcel").attr("action"); //get form action url
 	      var request_method = $("#pelistingexcel").attr("method"); //get form GET/POST method
 	      var form_data = $("#pelistingexcel").serialize();
             $.ajax({
@@ -2948,7 +2977,14 @@
          
          else
          {
+            if($('#expinvestorauto_sug').tokenInput("get").length == 0)
+         {
+            var post_url = "getexportcount.php"; //get form action url
+
+         }
+         else{
             var post_url = $("#exitpelistingexcel").attr("action"); //get form action url
+         }
 	      var request_method = $("#exitpelistingexcel").attr("method"); //get form GET/POST method
 	      var form_data = $("#exitpelistingexcel").serialize();
             $.ajax({
