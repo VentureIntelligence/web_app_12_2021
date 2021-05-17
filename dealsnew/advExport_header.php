@@ -2422,15 +2422,15 @@
          $('#sltstage').val(stage);
          var investor=$('#invType').val();
          $('#investorType').val(investor);
-         if($('#investorauto_sug').tokenInput("get").length == 0)
-         {
-         $('#investorErr').show();
-         $('#columnnameErr').hide();
-         $('.saveshowdealsbt').modal('hide');
-         }
+         // if($('#investorauto_sug').tokenInput("get").length == 0)
+         // {
+         // $('#investorErr').show();
+         // $('#columnnameErr').hide();
+         // $('.saveshowdealsbt').modal('hide');
+         // }
          
          
-         else if($(":input.exportcheck[checked='checked']").length == 0)
+          if($(":input.exportcheck[checked='checked']").length == 0)
          {
          $('#columnnameErr').show();
          $('#investorErr').hide();
@@ -2548,13 +2548,13 @@
          investorvalStr += '+';
          $('#txthideInvestorString').val(investorvalStr);
          
-         if($('#expinvestorauto_sug').tokenInput("get").length == 0)
-         {
-         $('#exitinvestorErr').show();
-         $('#exitcolumnnameErr').hide();
-         $('.saveshowdealsbt').modal('hide');
-         }
-         else if($(":input.exitexportcheck[checked='checked']").length == 0)
+         // if($('#expinvestorauto_sug').tokenInput("get").length == 0)
+         // {
+         // $('#exitinvestorErr').show();
+         // $('#exitcolumnnameErr').hide();
+         // $('.saveshowdealsbt').modal('hide');
+         // }
+          if($(":input.exitexportcheck[checked='checked']").length == 0)
          {
             $('#exitinvestorErr').hide();
 
@@ -2695,13 +2695,13 @@
          $('#sltstage').val(stage);
          var investor=$('#invType').val();
          $('#investorType').val(investor);
-         if($('#investorauto_sug').tokenInput("get").length == 0)
-         {
-         $('#investorErr').show();
-         $('#columnnameErr').hide();
+         // if($('#investorauto_sug').tokenInput("get").length == 0)
+         // {
+         // $('#investorErr').show();
+         // $('#columnnameErr').hide();
 
-         }
-         else if(($('#mon1').val() && $('#mon2').val() && $('#yr1').val() && $('#yr2').val()) == '')
+         // }
+          if(($('#mon1').val() && $('#mon2').val() && $('#yr1').val() && $('#yr2').val()) == '')
          {
          $('#durationErr').show()
          
@@ -2897,13 +2897,13 @@
          investorvalStr += '+';
          $('#txthideInvestorString').val(investorvalStr);
          
-         if($('#expinvestorauto_sug').tokenInput("get").length == 0)
-         {
-         $('#exitinvestorErr').show();
-         $('#exitcolumnnameErr').hide();
+         // if($('#expinvestorauto_sug').tokenInput("get").length == 0)
+         // {
+         // $('#exitinvestorErr').show();
+         // $('#exitcolumnnameErr').hide();
 
-         }
-         else if($('#expinvestorauto_sug').tokenInput("get").length > 50)
+         // }
+          if($('#expinvestorauto_sug').tokenInput("get").length > 50)
          {
          swal('You are allowed to add up to 50 investors only')
          }
