@@ -122,20 +122,20 @@ input[type=text],textarea,input[type=date]
                                             <td>
                                                 <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="">  -->
                                                 <select name="Category" id="Category">
-                                                    <option value="PEFI">Private Equity Fund Investments</option>
-                                                    <option value="LE">Liquidity Events</option>
-                                                    <option value="SVCI">Social VC Investments</option>
-                                                    <option value="I/A">Incubation/Acceleration</option>
-                                                    <option value="AI">Angel Investments</option>
-                                                    <option value="OPE/SI">Other Private Equity/Strategic Investments</option>
+                                                    <option value="Private Equity Fund Investments">Private Equity Fund Investments</option>
+                                                    <option value="Liquidity Events">Liquidity Events</option>
+                                                    <option value="Social VC Investments">Social VC Investments</option>
+                                                    <option value="Incubation/Acceleration">Incubation/Acceleration</option>
+                                                    <option value="Angel Investments">Angel Investments</option>
+                                                    <option value="Other Private Equity/Strategic Investments">Other Private Equity/Strategic Investments</option>
                                                     <option value="M&A">M&A</option>
                                                     <option value="IPO">IPO</option>
-                                                    <option value="SI">Secondary Issues</option>
-                                                    <option value="OD">Other Deals</option>
-                                                    <option value="OD-LF">Other Deals - Listed Firms</option>
-                                                    <option value="DF">Debt Financing </option>
-                                                    <option value="RET">Real Estate Transactions</option>
-                                                    <option value="FN">Fund News</option>
+                                                    <option value="Secondary Issues">Secondary Issues</option>
+                                                    <option value="Other Deals">Other Deals</option>
+                                                    <option value="Other Deals - Listed Firms">Other Deals - Listed Firms</option>
+                                                    <option value="Debt Financing">Debt Financing </option>
+                                                    <option value="Real Estate Transactions">Real Estate Transactions</option>
+                                                    <option value="Fund News">Fund News</option>
 
                                                 </select>
                                             </td>
