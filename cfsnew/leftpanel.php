@@ -300,13 +300,26 @@ $fliterlist[$i++]=array('field'=>'ListingStatus2','key'=>$_REQUEST['ListingStatu
 
 if ($_REQUEST['ListingStatus3']!="")
 $fliterlist[$i++]=array('field'=>'ListingStatus3','key'=>$_REQUEST['ListingStatus3'],'value'=>"Proprietorship");
-
+if($getgroup['Permissions'] == 2)
+{
 if ($_REQUEST['answer']['Permissions']==="0")
 $fliterlist[$i++]=array('field'=>'Permissions','key'=>$_REQUEST['answer']['Permissions'],'value'=>"PE Backed");
 
 if ($_REQUEST['answer']['Permissions2']=="1")
 $fliterlist[$i++]=array('field'=>'Permissions2','key'=>$_REQUEST['answer']['Permissions2'],'value'=>"Non-PE Backed");
-
+}
+elseif($getgroup['Permissions'] == 0)
+{
+    if ($_REQUEST['answer']['Permissions']==="0")
+    $fliterlist[$i++]=array('field'=>'Permissions','key'=>$_REQUEST['answer']['Permissions'],'value'=>"PE Backed");
+    
+}
+else
+{
+    if ($_REQUEST['answer']['Permissions2']=="1")
+    $fliterlist[$i++]=array('field'=>'Permissions2','key'=>$_REQUEST['answer']['Permissions2'],'value'=>"Non-PE Backed");
+    
+}
 if ($_REQUEST['answer']['Region']!=""){
    $im_Region = implode($_REQUEST['answer']['Region'],',');
 $fliterlist[$i++]=array('field'=>'Region','key'=>$im_Region,'value'=>$im_Region);
