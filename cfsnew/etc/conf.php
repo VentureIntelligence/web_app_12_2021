@@ -30,8 +30,8 @@ $PUBLICHTML_PATH = $DIR_PATH;
 $DB_DATABASE_TYPE = "mysql"; //db type
 //$DB_SERVER = "66.96.131.34"; //your ip
 $DB_SERVER = "localhost";
-$DB_USER = "venturei_admin16";
-$DB_PASSWORD = "%KTbNCJ@mO^iM9#c";
+$DB_USER = "root";
+$DB_PASSWORD = "root@123";
 //$DB_SERVER = "localhost";
 //$DB_USER = "venture_admin"; //your db user name
 //$DB_PASSWORD = "Admin2014"; // your db password
@@ -45,7 +45,7 @@ $DB_USER = "root";
 $DB_PASSWORD = "root@123"; */
 
 
-$DB_DATABASE_NAME = "venturei_dev_new"; //your db name
+$DB_DATABASE_NAME = "vi_db"; //your db name
 
 switch ($WRK_HTTP_HOST) 
 {
@@ -112,8 +112,9 @@ require_once MAIN_PATH.APP_NAME."/etc/conf.d/20_logs.php";
 require_once MAIN_PATH.APP_NAME."/etc/conf.d/30_authSession.php";
 require_once MAIN_PATH.APP_NAME."/etc/conf.d/35_phpmailer.php";
 
-define('BASE_URL','//www.ventureintelligence.asia/dev/');
-define('ADMIN_BASE_URL','//www.ventureintelligence.asia/dev/cfsnew/admin/');
+define('BASE_URL','https://localhost/vi_webapp/');
+
+define('ADMIN_BASE_URL','//www.ventureintelligence/cfsnew/admin/');
 
 $UploadImageSizes = array(
 					"medium" => array("Width"=>"600","Height"=>"300","Crop"=>true),

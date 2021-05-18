@@ -4,7 +4,8 @@
 //ini_set('max_execution_time', 99999);
 session_save_path("/tmp");
 session_start();
-define('BASE_URL','https://www.ventureintelligence.asia/dev/');
+//define('BASE_URL','https://localhost/vi_webapp/');
+define('BASE_URL','http://localhost/vi_webapp/');
 function session_register($arg){
     $_SESSION[$arg] = true; 
 }
@@ -24,8 +25,8 @@ function session_unregister($arg){
                         global $cnx;
                         global $clsx;
                 //$cnx = mysql_connect("localhost","venture_admin","Admin2014")or die("Sorry. There is a temporary server problem. Please try later.");
-                $cnx = mysql_connect("localhost","venturei_admin16","%KTbNCJ@mO^iM9#c")or die("Sorry. There is a temporary server problem. Please try later.");
-                $dcnx = mysql_select_db("venturei_Tsjmedia",$cnx);
+                $cnx = mysql_connect("localhost","root","root@123")or die("Sorry. There is a temporary server problem. Please try later.");
+                $dcnx = mysql_select_db("vi_db",$cnx);
                 }
 
                 function getRs($sql) {
@@ -67,10 +68,10 @@ function session_unregister($arg){
 		                         global $cnx;
 		                         global $clsx;
 		                 //$cnx = mysql_connect("localhost","venture_admin","Admin2014")or die("Sorry. There is a temporary server problem. Please try later.");
-		                 $cnx = mysql_connect("localhost","venturei_admin16","%KTbNCJ@mO^iM9#c")or die("Sorry. There is a temporary server problem. Please try later.");
+		                 $cnx = mysql_connect("localhost","root","root@123")or die("Sorry. There is a temporary server problem. Please try later.");
 
 		                 //$cnx = mysql_connect("localhost","venture_kutung","Kutung@123")or die("Sorry. There is a temporary server problem. Please try later.");
-		                 $dcnx = mysql_select_db("venturei_dev_new",$cnx)or die( "Sorry. There is a temporary server problem. Please try later." );
+		                 $dcnx = mysql_select_db("vi_db",$cnx)or die( "Sorry. There is a temporary server problem. Please try later." );
 		                 }
 
 		                 function getRs($sql) {

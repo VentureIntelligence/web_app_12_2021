@@ -1,6 +1,6 @@
 <?php
-$con=mysql_connect("localhost","venturei_ltadmin","ZyCfJ]ghLB9J");
-mysql_select_db("venturei_leaguetable") or die ("DB selection error");
+$con=mysql_connect("localhost","root","root@123");
+mysql_select_db("vi_db") or die ("DB selection error");
 // Check connection
 if (!$con)
   {

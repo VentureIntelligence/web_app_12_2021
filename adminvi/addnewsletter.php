@@ -14,6 +14,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     if( isset( $_POST[ 'add_btn' ] ) ) {
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
+        $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
@@ -32,8 +33,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             $result = mysql_fetch_array( $res );
            
         } else {
-            $insert = "INSERT INTO newsletter ( category, heading, summary, targetcmp_website, vi_database, published_at,created_on )
-                        VALUES( '" . $category . "', '" . $heading . "', '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
+            $insert = "INSERT INTO newsletter ( category, heading, slug,summary, targetcmp_website, vi_database, published_at,created_on )
+                        VALUES( '" . $category . "', '" . $heading . "', '" . $slug . "', '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
            //echo $insert;exit();
            if( mysql_query( $insert ) ) {
                 $lastInsertId = mysql_insert_id();
@@ -145,6 +146,14 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                                 <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="">
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Slug</label> 
+                                            </td>
+                                            <td>
+                                                <input type="text" id="slug" size="26" name="slug" class="req_value" forerror="UserName" value="">
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">

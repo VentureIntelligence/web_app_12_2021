@@ -1,5 +1,7 @@
 <?php
 
-define('GLOBAL_BASE_URL','https://www.ventureintelligence.asia/dev/');
+define('GLOBAL_BASE_URL','https://localhost/vi_webapp/');
+
+
 
 ?>

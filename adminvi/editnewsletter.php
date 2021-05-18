@@ -14,6 +14,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     if( isset( $_POST[ 'add_btn' ] ) ) {
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
+        $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
@@ -25,7 +26,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         //$dt   = new DateTime($date);
        // $epochtime= $dt->getTimestamp();
         $update = "UPDATE newsletter SET
-                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "', summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
+                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "', summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
                    // echo $update;exit();
         if( mysql_query( $update ) ) {
@@ -151,6 +152,14 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                                 <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="<?php echo $result[ 'heading' ]; ?>">
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Slug</label> 
+                                            </td>
+                                            <td>
+                                                <input type="text" id="slug" size="26" name="slug" class="req_value" forerror="UserName" value="<?php echo $result[ 'slug' ]; ?>">
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
