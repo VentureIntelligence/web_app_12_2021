@@ -188,9 +188,17 @@ $template->assign("companies" , $test);
 //}
 //
 //$template->assign("companies1",$count);
+$getgroupid = $users->select($_SESSION["user_id"]);
+$getgroup = $grouplist->select($getgroupid['GroupList']); 
 
-
+if($getgroup['Permissions'] == 2)
+{
 $template->assign("REQUEST_Answer",$_REQUEST['answer']);
+}
+else
+{
+    $template->assign("REQUEST_Answer",$getgroup);   
+}
 $template->assign("REQUEST",$_REQUEST);
 //$ind=$industries->getIndustries($where5,$order5);
 //print_r($ind);
