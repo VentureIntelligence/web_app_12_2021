@@ -31,7 +31,7 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
    	$getDatasql = "SELECT InvestorId,Investor,Address1,Address2,City,Zip,
    	Telephone,Fax,Email,website,linkedIn,Description,yearfounded,NoEmployees,FirmType,
    	OtherLocation,Assets_mgmt,AlreadyInvested,LimitedPartners,
-   	NoFunds,NoActiveFunds,MinInvestment,AdditionalInfor,Comment,countryid,FirmTypeId,focuscapsourceid,KeyContact,angelco_invID,dry_hide
+   	NoFunds,NoActiveFunds,MinInvestment,AdditionalInfor,Comment,countryid,FirmTypeId,focuscapsourceid,KeyContact,angelco_invID,dry_hide,exitamount_hide
 			FROM peinvestors WHERE InvestorId=$SelCompRef";
    
         $getinvestorAmount = "select SUM(peinvestments_investors.Amount_M) as total_amount FROM peinvestments 
@@ -41,10 +41,19 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
         peinvestments.AggHide=0 and peinvestments.SPV = 0 and pecompanies.industry !=15 AND 
         peinvestments.PEId NOT IN (SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 )";
         
-        $investor_amount='';
+        $getexitamount="select SUM(manda_investors.Amount_M) as total_amount FROM manda 
+        JOIN manda_investors ON manda_investors.MandAId = manda.MandAId 
+        JOIN pecompanies ON pecompanies.PECompanyId = manda.PECompanyId 
+        where manda_investors.InvestorId = ".$SelCompRef." AND manda.Deleted=0 and pecompanies.industry !=15";
+
+		$investor_amount='';
         $investoramountrs = mysql_query($getinvestorAmount);
         $investorrowrow = mysql_fetch_row($investoramountrs, MYSQL_BOTH);
         $investor_amount = $investorrowrow['total_amount'];
+
+		$exitamountrs = mysql_query($getexitamount);
+        $exitrowrow = mysql_fetch_row($exitamountrs, MYSQL_BOTH);
+        $exit_amount = $exitrowrow['total_amount'];
         
 //echo "<br>--" .$getDatasql;
 	if ($companyrs = mysql_query($getDatasql))
@@ -243,6 +252,12 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 				<tr><td >Already Invested (US$ Million)</td>
 				<td>
 				<input type="text" name="txtalreadyinvested" size="50" readonly value="<?php echo $investor_amount; ?>"> </td>
+				</tr>
+				<tr><td >Already Exited (US$ Million)</td>
+				<td>
+				<input type="text" name="txtexitamount" size="50" readonly value="<?php echo $exit_amount; ?>"> 
+                <input type="checkbox" name="txthideexitamount" value="1" <?php if($mycomprow["exitamount_hide"]==1){ echo 'checked';} ?>>Hide Exit Amount 
+                                </td>
 				</tr>
                                 <tr><td >Dry Powder (US$ Million)</td>
 				<td>
