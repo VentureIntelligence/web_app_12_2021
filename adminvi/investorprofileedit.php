@@ -46,6 +46,7 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
         JOIN pecompanies ON pecompanies.PECompanyId = manda.PECompanyId 
         where manda_investors.InvestorId = ".$SelCompRef." AND manda.Deleted=0 and pecompanies.industry !=15";
 
+		
 		$investor_amount='';
         $investoramountrs = mysql_query($getinvestorAmount);
         $investorrowrow = mysql_fetch_row($investoramountrs, MYSQL_BOTH);
