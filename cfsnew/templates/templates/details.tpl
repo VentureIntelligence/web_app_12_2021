@@ -1066,6 +1066,8 @@ p.textareanew:focus {
     </li>
   </ul>
 </div>
+ {if $Industryselected eq 0}<input type="hidden" id="industryselected" value=0>{/if}
+        {if $Industryselected eq 1}<input type="hidden" id="industryselected" value=1>{/if}
 
 <div class="companies-details">
     
@@ -3110,5 +3112,12 @@ function cleardata(){
  $("#industry option:selected").prop("selected", false);
           $("#industry").multiselect( 'refresh' );
 }
+    $(document).ready(function () {
+         if($('#industryselected').val() == 0)
+         {
+        $("#industry option:selected").prop("selected", false);
+        $("#industry").multiselect( 'refresh' );
+         }
+        });
 </script>
             {/literal}

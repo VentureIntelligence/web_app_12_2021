@@ -393,11 +393,22 @@ padding:0px 10px; }
             </div>
         </div>
     </div>
+    {if $Industryselected eq 0}<input type="hidden" id="industryselected" value=0>{/if}
+        {if $Industryselected eq 1}<input type="hidden" id="industryselected" value=1>{/if}
+
+    {* <input type="hidden" id="industryselected" value="{if $Industryselected eq 0}0{/if}{elseif $Industryselected eq 1}1{/elseif}"> *}
 </body>
 </html>
 {literal}
 
     <script type="text/javascript">
+     $(document).ready(function () {
+         if($('#industryselected').val() == 0)
+         {
+        $("#industry option:selected").prop("selected", false);
+        $("#industry").multiselect( 'refresh' );
+         }
+        });
         $(document).ready(function () {
             var userAgent = navigator.userAgent.toLowerCase();
             var login = "cfs";
