@@ -531,7 +531,15 @@ $getgroupid = $users->select($_SESSION["user_id"]);
 $getgroup = $grouplist->select($getgroupid['GroupList']); 
 if($getgroup['Industry'] != "")
 {
+   $ind= explode (",", $getgroup['Industry']);
+   if(count($ind) == 25)
+   {
+    $template->assign("Industry",0);
+
+   }
+   else{
     $template->assign("Industry",1);
+   }
 
 }
 else{
