@@ -2347,7 +2347,25 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             } 
             exit;
         }
-
+        $getgroupid = $users->select($_SESSION["user_id"]);
+        $getgroup = $grouplist->select($getgroupid['GroupList']); 
+        if($getgroup['Industry'] != "")
+        {
+           $ind= explode (",", $getgroup['Industry']);
+           if(count($ind) == 25)
+           {
+            $template->assign("Industryselected",0);
+        
+           }
+           else{
+            $template->assign("Industryselected",1);
+           }
+        
+        }
+        else{
+            $template->assign("Industryselected",0);
+        
+        }
         $template->assign('pageTitle',"CFS :: Company Search");
         $template->assign('pageDescription',"CFS - Company Search");
         $template->assign('pageKeyWords',"CFS - Company Search");
