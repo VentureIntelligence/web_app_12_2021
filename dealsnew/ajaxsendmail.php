@@ -8,6 +8,7 @@ $Db = new dbInvestments();
    }
    else
    { 
+       
    if( isset($_POST['toventure'])){
        
         $to=$_POST['to'];
