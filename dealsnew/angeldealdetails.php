@@ -1070,7 +1070,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
         <form>
         <div class="entry">
                <label> To*</label>
-               <input type="text" name="toaddress_fc" id="toaddress_fc"  value="database@ventureintelligence.com"/>
+               <input type="text" name="toaddress_fc" id="toaddress_fc"  value="research@ventureintelligence.com"/>
         </div>
         <div class="entry">
                <h5>Subject*</h5>
