@@ -999,7 +999,7 @@ p.textareanew:focus {
 
 <div class="list-tab cfsDeatilPage" style="clear: both;margin-top:15px;">
     <ul style="float:left;">
-    <li><a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" onclick="cleardata()"><i class="i-grid-view"></i> LIST VIEW</a></li>
+    <li>{if $Industry eq 0}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" onclick="cleardata()">{/if}{if $Industry eq 1}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" >{/if}<i class="i-grid-view"></i> LIST VIEW</a></li>
     <li><a  href="details.php?vcid={$VCID}" class="active postlink"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
     </ul>
     <ul style="float: right;" class="social">       
