@@ -193,7 +193,7 @@ $getgroup = $grouplist->select($getgroupid['GroupList']);
 
 if($getgroup['Permissions'] == 2)
 {
-$template->assign("REQUEST_Answer",$_REQUEST['answer']);
+$template->assign("REQUESTAnswer",$_REQUEST['answer']);
 }
 else
 {
@@ -201,8 +201,10 @@ else
 }
 $template->assign("REQUEST",$_REQUEST);
 //$ind=$industries->getIndustries($where5,$order5);
-//print_r($ind);
+// print_r($_REQUEST['answer']);exit();
 //$template->assign("industries" , $ind);
+$template->assign("REQUEST_Answer",$_REQUEST['answer']);
+
 if($_REQUEST['answer']['Industry']!=""){
     $industry=  implode(',', array_values(array_filter($_REQUEST['answer']['Industry'])));
     $where12 = " IndustryId_FK IN (".$industry.")";
