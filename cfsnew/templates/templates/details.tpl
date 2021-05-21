@@ -1770,8 +1770,8 @@ function autoResize(id){
 <div class="lb" id="lookup-boxmca">
     <div class="title"></div>
     <div class="lookup-body">
-        MCA data not responding. Please try again later... <br/><br/>
-        <b><input type="button" class="mca_cancel" value="Cancel." onclick="mcaclose({$VCID})"></b><br/><br/> 
+        MCA website is not responding. Please try again later... <br/><br/>
+        <b><input type="button" class="mca_cancel" value="Ok." onclick="mcaclose({$VCID})"></b><br/><br/> 
     </div>
 </div>
 
@@ -2254,7 +2254,7 @@ $( '#mca_data a' ).on( 'click', function() {
         type: 'GET',
         url: 'ajax_mca_profile_1.php',
         data: {cin: ""+cin+""},
-        timeout: 5000,
+        timeout: 3000,
         success: function(data) {
              var respData = $( data );
              if(data ==403 || data == 302 || data == 0 || data == 404 || data.startsWith("Javascript") == true){
@@ -2266,10 +2266,10 @@ $( '#mca_data a' ).on( 'click', function() {
         },
         error: function(xhr, textStatus, errorThrown) {
             $( '#lookup-box' ).fadeOut();
-    $( '.maskscreenMCA' ).fadeOut();
-    //$( '#lookup-box .title' ).text( 'COMPANY MASTER DATA' );
-    $( '#lookup-boxmca' ).fadeIn();
-    $( '.maskscreenMCALimit' ).fadeIn();
+            $( '.maskscreenMCA' ).fadeOut();
+            //$( '#lookup-box .title' ).text( 'COMPANY MASTER DATA' );
+            $( '#lookup-boxmca' ).fadeIn();
+            $( '.maskscreenMCALimit' ).fadeIn();
                   //  alert("Error : Timeout for this call!");
                 
                 }
