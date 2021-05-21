@@ -999,7 +999,7 @@ p.textareanew:focus {
 
 <div class="list-tab cfsDeatilPage" style="clear: both;margin-top:15px;">
     <ul style="float:left;">
-    <li>{if $Industry eq 0}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" onclick="cleardata()">{/if}{if $Industry eq 1}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" >{/if}<i class="i-grid-view"></i> LIST VIEW</a></li>
+    <li>{if $Industry eq 0}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" >{/if}{if $Industry eq 1}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" >{/if}<i class="i-grid-view"></i> LIST VIEW</a></li>
     <li><a  href="details.php?vcid={$VCID}" class="active postlink"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
     </ul>
     <ul style="float: right;" class="social">       
@@ -3108,16 +3108,7 @@ function genDownloadExcel( excel_type = '', format = '', companyID = '' ) {
     //window.open('https://support.wwf.org.uk', '_blank');
     javascript:window.open('fydownexcel.php?excel_type='+excel_type+'&format='+format+'&companyID='+companyID, '_blank');
 }
-function cleardata(){
- $("#industry option:selected").prop("selected", false);
-          $("#industry").multiselect( 'refresh' );
-}
-    $(document).ready(function () {
-         if($('#industryselected').val() == 0)
-         {
-        $("#industry option:selected").prop("selected", false);
-        $("#industry").multiselect( 'refresh' );
-         }
-        });
+
+
 </script>
             {/literal}

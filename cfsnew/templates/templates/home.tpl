@@ -402,13 +402,7 @@ padding:0px 10px; }
 {literal}
 
     <script type="text/javascript">
-     $(document).ready(function () {
-         if($('#industryselected').val() == 0)
-         {
-        $("#industry option:selected").prop("selected", false);
-        $("#industry").multiselect( 'refresh' );
-         }
-        });
+ 
         $(document).ready(function () {
             var userAgent = navigator.userAgent.toLowerCase();
             var login = "cfs";
