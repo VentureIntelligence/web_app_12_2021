@@ -197,7 +197,7 @@ $template->assign("REQUESTAnswer",$_REQUEST['answer']);
 }
 else
 {
-    $template->assign("REQUEST_Answer",$getgroup);   
+    $template->assign("REQUESTAnswer",$getgroup);   
 }
 $template->assign("REQUEST",$_REQUEST);
 //$ind=$industries->getIndustries($where5,$order5);
