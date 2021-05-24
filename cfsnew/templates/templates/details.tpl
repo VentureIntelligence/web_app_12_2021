@@ -2316,6 +2316,7 @@ $( '#mca_data2 a' ).on( 'click', function() {
         type: 'GET',
         url: 'ajax_mca_charges_1.php',
         data: {cin: ""+cin+""},
+        timeout: 3000,
         success: function(data) {
             var respData = $( data );
              if(data ==403 || data == 302 || data == 0 || data == 404 || data.startsWith("Javascript") == true){
@@ -2325,7 +2326,15 @@ $( '#mca_data2 a' ).on( 'click', function() {
                  mcachargeload(respData); 
             }
         },
-        timeout: 180000
+        error: function(xhr, textStatus, errorThrown) {
+            $( '#lookup-box' ).fadeOut();
+            $( '.maskscreenMCA' ).fadeOut();
+            //$( '#lookup-box .title' ).text( 'COMPANY MASTER DATA' );
+            $( '#lookup-boxmca' ).fadeIn();
+            $( '.maskscreenMCALimit' ).fadeIn();
+                
+                }
+       // timeout: 180000
     });
 
 });
