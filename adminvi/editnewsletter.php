@@ -15,6 +15,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
         $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
+        $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
@@ -26,7 +27,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         //$dt   = new DateTime($date);
        // $epochtime= $dt->getTimestamp();
         $update = "UPDATE newsletter SET
-                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "', summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
+                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
                    // echo $update;exit();
         if( mysql_query( $update ) ) {
@@ -162,17 +163,19 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Heading">Heading</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="<?php echo $result[ 'heading' ]; ?>">
+                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" onchange = "headingslug(this.value)" value="<?php echo $result[ 'heading' ]; ?>">
                                             </td>
                                         </tr>
+
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
-                                                <label for="Heading">Slug</label> 
+                                                <label for="Heading">Tags</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="slug" size="26" name="slug" class="req_value" forerror="UserName" value="<?php echo $result[ 'slug' ]; ?>">
+                                                <input type="text" id="tags" size="26" name="tags" class="req_value" forerror="UserName" value="<?php echo $result[ 'tags' ]; ?>" >
                                             </td>
                                         </tr>
+                                      
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="Source">Source</label> 
@@ -258,6 +261,14 @@ input[type=text],textarea,input[type=date]
                                                 <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo $epoch; ?>">
                                             </td>
                                         </tr>
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Slug</label> 
+                                            </td>
+                                            <td>
+                                                <input type="text" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value="<?php echo $result[ 'slug' ]; ?>">
+                                            </td>
+                                        </tr>
                                         
                                     </tbody>
                                 </table>
@@ -339,6 +350,16 @@ $( '#cancel_user' ).on('click', function() {
 // }
 
   </script>
+
+    <script>
+        function headingslug(val)
+        {
+            var html = val;
+            var slugvalue = val.replace(/ /g,"-");
+            //alert(slugvalue);
+            $(".slugvalue").val(slugvalue);
+        }
+    </script>
 
 </body>
 </html>
