@@ -527,6 +527,25 @@ $template->assign("LastYear",$LastYear);
 //$template->assign("industries" , $industries->getIndustries($where4,$order4));
 //$template->assign("sectors" , $sectors->getSectors($where5,$order5));
 
+$getgroupid = $users->select($_SESSION["user_id"]);
+$getgroup = $grouplist->select($getgroupid['GroupList']); 
+if($getgroup['Industry'] != "")
+{
+   $ind= explode (",", $getgroup['Industry']);
+   if(count($ind) == 25)
+   {
+    $template->assign("Industry",0);
+
+   }
+   else{
+    $template->assign("Industry",1);
+   }
+
+}
+else{
+    $template->assign("Industry",0);
+
+}
 
 //left panel 
 

@@ -188,13 +188,23 @@ $template->assign("companies" , $test);
 //}
 //
 //$template->assign("companies1",$count);
+$getgroupid = $users->select($_SESSION["user_id"]);
+$getgroup = $grouplist->select($getgroupid['GroupList']); 
 
-
-$template->assign("REQUEST_Answer",$_REQUEST['answer']);
+if($getgroup['Permissions'] == 2)
+{
+$template->assign("REQUESTAnswer",$_REQUEST['answer']);
+}
+else
+{
+    $template->assign("REQUESTAnswer",$getgroup);   
+}
 $template->assign("REQUEST",$_REQUEST);
 //$ind=$industries->getIndustries($where5,$order5);
-//print_r($ind);
+// print_r($_REQUEST['answer']);exit();
 //$template->assign("industries" , $ind);
+$template->assign("REQUEST_Answer",$_REQUEST['answer']);
+
 if($_REQUEST['answer']['Industry']!=""){
     $industry=  implode(',', array_values(array_filter($_REQUEST['answer']['Industry'])));
     $where12 = " IndustryId_FK IN (".$industry.")";
@@ -292,13 +302,26 @@ $fliterlist[$i++]=array('field'=>'ListingStatus2','key'=>$_REQUEST['ListingStatu
 
 if ($_REQUEST['ListingStatus3']!="")
 $fliterlist[$i++]=array('field'=>'ListingStatus3','key'=>$_REQUEST['ListingStatus3'],'value'=>"Proprietorship");
-
+if($getgroup['Permissions'] == 2)
+{
 if ($_REQUEST['answer']['Permissions']==="0")
 $fliterlist[$i++]=array('field'=>'Permissions','key'=>$_REQUEST['answer']['Permissions'],'value'=>"PE Backed");
 
 if ($_REQUEST['answer']['Permissions2']=="1")
 $fliterlist[$i++]=array('field'=>'Permissions2','key'=>$_REQUEST['answer']['Permissions2'],'value'=>"Non-PE Backed");
-
+}
+elseif($getgroup['Permissions'] == 0)
+{
+    if ($_REQUEST['answer']['Permissions']==="0")
+    $fliterlist[$i++]=array('field'=>'Permissions','key'=>$_REQUEST['answer']['Permissions'],'value'=>"PE Backed");
+    
+}
+else
+{
+    if ($_REQUEST['answer']['Permissions2']=="1")
+    $fliterlist[$i++]=array('field'=>'Permissions2','key'=>$_REQUEST['answer']['Permissions2'],'value'=>"Non-PE Backed");
+    
+}
 if ($_REQUEST['answer']['Region']!=""){
    $im_Region = implode($_REQUEST['answer']['Region'],',');
 $fliterlist[$i++]=array('field'=>'Region','key'=>$im_Region,'value'=>$im_Region);
