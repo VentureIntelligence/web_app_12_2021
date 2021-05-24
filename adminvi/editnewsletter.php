@@ -14,18 +14,20 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     if( isset( $_POST[ 'add_btn' ] ) ) {
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
+        $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
+        $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
         $createdOn = date( 'Y-m-d h:i:s' );
         $publish_at = $_POST[ 'publish_at' ];
         $keyword=$_GET['userID'];
-        $date  = "$publish_at";
+       // $date  = "$publish_at";
 
-        $dt   = new DateTime($date);
-        $epochtime= $dt->getTimestamp();
+        //$dt   = new DateTime($date);
+       // $epochtime= $dt->getTimestamp();
         $update = "UPDATE newsletter SET
-                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "', summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', publish_at = '" .  $epochtime . "'
+                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
                    // echo $update;exit();
         if( mysql_query( $update ) ) {
@@ -126,20 +128,31 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                             <select name="Category" id="Category">
-                                                    <option value="PEFI" <?php if ( $result[ 'category' ] == 'PEFI') { echo 'selected'; } ?>>Private Equity Fund Investments</option>
-                                                    <option value="LE" <?php if ( $result[ 'category' ] == 'LE') { echo 'selected'; } ?>>Liquidity Events</option>
-                                                    <option value="SVCI" <?php if ( $result[ 'category' ] == 'SVCI') { echo 'selected'; } ?>>Social VC Investments</option>
-                                                    <option value="I/A" <?php if ( $result[ 'category' ] == 'I/A') { echo 'selected'; } ?>>Incubation/Acceleration</option>
-                                                    <option value="AI" <?php if ( $result[ 'category' ] == 'AI') { echo 'selected'; } ?>>Angel Investments</option>
-                                                    <option value="OPE/SI" <?php if ( $result[ 'category' ] == 'OPE/SI') { echo 'selected'; } ?>>Other Private Equity/Strategic Investments</option>
+                                                    <option value="Private Equity Fund Investments" <?php if ( $result[ 'category' ] == 'Private Equity Fund Investments') { echo 'selected'; } ?>>Private Equity Fund Investments</option>
+                                                    <option value="Liquidity Events" <?php if ( $result[ 'category' ] == 'Liquidity Events') { echo 'selected'; } ?>>Liquidity Events</option>
+                                                    <option value="Social VC Investments" <?php if ( $result[ 'category' ] == 'Social VC Investments') { echo 'selected'; } ?>>Social VC Investments</option>
+
+                                                    <option value="Incubation/Acceleration" <?php if ( $result[ 'category' ] == 'Incubation/Acceleration') { echo 'selected'; } ?>>Incubation/Acceleration</option>
+
+                                                    <option value="Angel Investments" <?php if ( $result[ 'category' ] == 'Angel Investments') { echo 'selected'; } ?>>Angel Investments</option>
+
+                                                    <option value="Other Private Equity/Strategic Investments" <?php if ( $result[ 'category' ] == 'Other Private Equity/Strategic Investments') { echo 'selected'; } ?>>Other Private Equity/Strategic Investments</option>
+
                                                     <option value="M&A" <?php if ( $result[ 'category' ] == 'M&A') { echo 'selected'; } ?>>M&A</option>
+
                                                     <option value="IPO" <?php if ( $result[ 'category' ] == 'IPO') { echo 'selected'; } ?>>IPO</option>
-                                                    <option value="SI" <?php if ( $result[ 'category' ] == 'SI') { echo 'selected'; } ?>>Secondary Issues</option>
-                                                    <option value="OD" <?php if ( $result[ 'category' ] == 'OD') { echo 'selected'; } ?>>Other Deals</option>
-                                                    <option value="OD-LF" <?php if ( $result[ 'category' ] == 'OD-LF') { echo 'selected'; } ?>>Other Deals - Listed Firms</option>
-                                                    <option value="DF" <?php if ( $result[ 'category' ] == 'DF') { echo 'selected'; } ?>>Debt Financing </option>
-                                                    <option value="RET" <?php if ( $result[ 'category' ] == 'RET') { echo 'selected'; } ?>>Real Estate Transactions</option>
-                                                    <option value="FN" <?php if ( $result[ 'category' ] == 'FN') { echo 'selected'; } ?>>Fund News</option>
+
+                                                    <option value="Secondary Issues" <?php if ( $result[ 'category' ] == 'Secondary Issues') { echo 'selected'; } ?>>Secondary Issues</option>
+
+                                                    <option value="Other Deals" <?php if ( $result[ 'category' ] == 'Other Deals') { echo 'selected'; } ?>>Other Deals</option>
+
+                                                    <option value="Other Deals - Listed Firms" <?php if ( $result[ 'category' ] == 'Other Deals - Listed Firms') { echo 'selected'; } ?>>Other Deals - Listed Firms</option>
+
+                                                    <option value="Debt Financing" <?php if ( $result[ 'category' ] == 'Debt Financing') { echo 'selected'; } ?>>Debt Financing </option>
+
+                                                    <option value="Real Estate Transactions" <?php if ( $result[ 'category' ] == 'Real Estate Transactions') { echo 'selected'; } ?>>Real Estate Transactions</option>
+
+                                                    <option value="Fund News" <?php if ( $result[ 'category' ] == 'Fund News') { echo 'selected'; } ?>>Fund News</option>
 
                                                 </select>   
                                             <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="<?php echo $result[ 'category' ]; ?>">  -->
@@ -150,9 +163,19 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Heading">Heading</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="<?php echo $result[ 'heading' ]; ?>">
+                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" onchange = "headingslug(this.value)" value="<?php echo $result[ 'heading' ]; ?>">
                                             </td>
                                         </tr>
+
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Tags</label> 
+                                            </td>
+                                            <td>
+                                                <input type="text" id="tags" size="26" name="tags" class="req_value" forerror="UserName" value="<?php echo $result[ 'tags' ]; ?>" >
+                                            </td>
+                                        </tr>
+                                      
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="Source">Source</label> 
@@ -232,10 +255,18 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                                 <?php
-                                                $epoch = $result[ 'publish_at' ];
+                                                $epoch = $result[ 'published_at' ];
                                                // echo date('Y-m-d', $epoch);
                                                 ?>
-                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo date('Y-m-d', $epoch); ?>">
+                                                <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo $epoch; ?>">
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Slug</label> 
+                                            </td>
+                                            <td>
+                                                <input type="text" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value="<?php echo $result[ 'slug' ]; ?>">
                                             </td>
                                         </tr>
                                         
@@ -319,6 +350,16 @@ $( '#cancel_user' ).on('click', function() {
 // }
 
   </script>
+
+    <script>
+        function headingslug(val)
+        {
+            var html = val;
+            var slugvalue = val.replace(/ /g,"-");
+            //alert(slugvalue);
+            $(".slugvalue").val(slugvalue);
+        }
+    </script>
 
 </body>
 </html>

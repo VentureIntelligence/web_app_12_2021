@@ -14,6 +14,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     if( isset( $_POST[ 'add_btn' ] ) ) {
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
+        $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
+        $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
@@ -32,8 +34,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             $result = mysql_fetch_array( $res );
            
         } else {
-            $insert = "INSERT INTO newsletter ( category, heading, summary, targetcmp_website, vi_database, publish_at,created_on )
-                        VALUES( '" . $category . "', '" . $heading . "', '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $epochtime . "','" . $createdOn . "' )";
+            $insert = "INSERT INTO newsletter ( category, heading, slug, tags, summary, targetcmp_website, vi_database, published_at,created_on )
+                        VALUES( '" . $category . "', '" . $heading . "', '" . $slug . "',  '" . $tags . "',     '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
            //echo $insert;exit();
            if( mysql_query( $insert ) ) {
                 $lastInsertId = mysql_insert_id();
@@ -121,20 +123,20 @@ input[type=text],textarea,input[type=date]
                                             <td>
                                                 <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="">  -->
                                                 <select name="Category" id="Category">
-                                                    <option value="PEFI">Private Equity Fund Investments</option>
-                                                    <option value="LE">Liquidity Events</option>
-                                                    <option value="SVCI">Social VC Investments</option>
-                                                    <option value="I/A">Incubation/Acceleration</option>
-                                                    <option value="AI">Angel Investments</option>
-                                                    <option value="OPE/SI">Other Private Equity/Strategic Investments</option>
+                                                    <option value="Private Equity Fund Investments">Private Equity Fund Investments</option>
+                                                    <option value="Liquidity Events">Liquidity Events</option>
+                                                    <option value="Social VC Investments">Social VC Investments</option>
+                                                    <option value="Incubation/Acceleration">Incubation/Acceleration</option>
+                                                    <option value="Angel Investments">Angel Investments</option>
+                                                    <option value="Other Private Equity/Strategic Investments">Other Private Equity/Strategic Investments</option>
                                                     <option value="M&A">M&A</option>
                                                     <option value="IPO">IPO</option>
-                                                    <option value="SI">Secondary Issues</option>
-                                                    <option value="OD">Other Deals</option>
-                                                    <option value="OD-LF">Other Deals - Listed Firms</option>
-                                                    <option value="DF">Debt Financing </option>
-                                                    <option value="RET">Real Estate Transactions</option>
-                                                    <option value="FN">Fund News</option>
+                                                    <option value="Secondary Issues">Secondary Issues</option>
+                                                    <option value="Other Deals">Other Deals</option>
+                                                    <option value="Other Deals - Listed Firms">Other Deals - Listed Firms</option>
+                                                    <option value="Debt Financing">Debt Financing </option>
+                                                    <option value="Real Estate Transactions">Real Estate Transactions</option>
+                                                    <option value="Fund News">Fund News</option>
 
                                                 </select>
                                             </td>
@@ -144,9 +146,18 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Heading">Heading</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="">
+                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="" onchange = "headingslug(this.value)">
                                             </td>
                                         </tr>
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Tags</label> 
+                                            </td>
+                                            <td>
+                                                <input type="text" id="tags" size="26" name="tags" class="req_value" forerror="UserName" value="" >
+                                            </td>
+                                        </tr>
+                                       
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="Source">Source</label> 
@@ -193,6 +204,15 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                                 <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo date('Y-m-d') ?>">
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Slug</label> 
+                                            </td>
+                                            <td>
+                                                <input type="text" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value="" disabled>
+                                                <input type="hidden" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value=""> 
                                             </td>
                                         </tr>
                                         
@@ -261,6 +281,17 @@ $( '#cancel_user' ).on('click', function() {
   });
 
   </script>
+
+    <script>
+        function headingslug(val)
+        {
+            var html = val;
+            var slugvalue = val.replace(/ /g,"-");
+            //alert(slugvalue);
+            $(".slugvalue").val(slugvalue);
+        }
+    </script>
+
 </body>
 </html>
 <?php
