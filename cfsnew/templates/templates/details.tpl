@@ -999,7 +999,7 @@ p.textareanew:focus {
 
 <div class="list-tab cfsDeatilPage" style="clear: both;margin-top:15px;">
     <ul style="float:left;">
-    <li><a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}"><i class="i-grid-view"></i> LIST VIEW</a></li>
+    <li>{if $Industry eq 0}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" >{/if}{if $Industry eq 1}<a class="postlink" href="home.php{if $pageno}?page={$pageno}&currency={$currencyval}{/if}" >{/if}<i class="i-grid-view"></i> LIST VIEW</a></li>
     <li><a  href="details.php?vcid={$VCID}" class="active postlink"><i class="i-detail-view"></i> DETAIL VIEW</a></li>
     </ul>
     <ul style="float: right;" class="social">       
@@ -1066,6 +1066,8 @@ p.textareanew:focus {
     </li>
   </ul>
 </div>
+ {if $Industryselected eq 0}<input type="hidden" id="industryselected" value=0>{/if}
+        {if $Industryselected eq 1}<input type="hidden" id="industryselected" value=1>{/if}
 
 <div class="companies-details">
     
@@ -3106,6 +3108,7 @@ function genDownloadExcel( excel_type = '', format = '', companyID = '' ) {
     //window.open('https://support.wwf.org.uk', '_blank');
     javascript:window.open('fydownexcel.php?excel_type='+excel_type+'&format='+format+'&companyID='+companyID, '_blank');
 }
+
 
 </script>
             {/literal}
