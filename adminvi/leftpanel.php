@@ -9,7 +9,7 @@
 ?>
 <style>
 #vertbgproproducts{
-    height: 900px;
+    height: 1053px;
 } 
 </style>
 <div id="leftpanel">
@@ -83,7 +83,7 @@
             <a href="addlist.php">Add Report</a><br />
         </div>
         <?php }
-       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray ) || in_array( 'upload_unicornTrack', $modulesArray ) ) { ?>
+       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray ) ) { ?>
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Upload</span></div>
         </div>
@@ -139,9 +139,54 @@
             <a href="users.php">User(s) List</a><br />
         </div>
         <?php } ?>
+        <!-- <div id="vertMenu"> -->
+            <!-- <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/adminFilter.php">AddFilter</a><br /></div>
+        <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">EditFilter</a><br /></div>
+         -->
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;M&A</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/uploadCinno.php">Upload CIN Number</a><br /></div>
+
+
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/adminFilter.php">Add Filter</a><br /></div>
+        <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">Edit Filter</a><br /></div>
+         
+        <!-- <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;vifilter log</span></div>
+        </div> -->
+        <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
+
+
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;M&A</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/uploadCinno.php">Upload CIN Number</a><br /></div>
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;News letter</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/newsletter.php">Manage News letter</a><br /></div>
+         
+
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/adminFilter.php">Add Filter</a><br /></div>
+        <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">Edit Filter</a><br /></div>
+         
+        <!-- <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;vifilter log</span></div>
+        </div> -->
+        <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Exit</span></div>
         </div>
         <div id="linksnone"><a href="../adminlogoff.php">Logout</a><br /></div>
+       
     </div> <!-- end of vertbgproducts div-->
 </div>

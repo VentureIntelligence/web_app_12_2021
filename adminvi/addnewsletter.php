@@ -23,10 +23,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $publish_at = $_POST[ 'publish_at' ];
         $keyword="";
         $keyword=$_GET['id'];
-        //$date  = "$publish_at";
+        $date  = "$publish_at";
 
-        //$dt   = new DateTime($date);
-        //$epochtime= $dt->getTimestamp();
+        $dt   = new DateTime($date);
+        $epochtime= $dt->getTimestamp();
         $sel = "SELECT * from newsletter where id='".$keyword."'";
         $res = mysql_query( $sel ) or die( mysql_error() );
         $numrows = mysql_num_rows( $res );
