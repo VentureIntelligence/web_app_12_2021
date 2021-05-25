@@ -2339,7 +2339,7 @@ $valuationsql  $sectorcondition
         }
         
         $combineSearchFlag = true;
-        $whereinvestorsql = " peinv_inv.InvestorId IN($keyword)";
+        $whereinvestorsql = " peinv_inv.InvestorId IN('$keyword')";
 
     }
 
