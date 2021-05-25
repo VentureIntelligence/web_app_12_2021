@@ -54,8 +54,8 @@
 <ul>
 <li><h3>Transaction Status</h3>
 
-<label> <input type="checkbox" name="answer[Permissions]" id="answer[Permissions]" value="0" {if $REQUEST_Answer.Permissions eq "0" or count($REQUEST_Answer) eq 0} checked {/if} /> PE Backed</label>
-<label> <input type="checkbox" name="answer[Permissions2]" id="answer[Permissions2]" value="1" {if $REQUEST_Answer.Permissions2 eq 1 or count($REQUEST_Answer) eq 0} checked {/if}/> Non-PE Backed</label>
+<label> <input type="checkbox" name="answer[Permissions]" id="answer[Permissions]" value="0" {if $REQUESTAnswer.Permissions eq "0"  or count($REQUEST_Answer) eq 0} checked {/if} /> PE Backed</label>
+<label> <input type="checkbox" name="answer[Permissions2]" id="answer[Permissions2]" value="1" {if $REQUESTAnswer.Permissions eq 1 or $REQUESTAnswer.Permissions2 eq 1 or count($REQUEST_Answer) eq 0} checked {/if}/> Non-PE Backed</label>
 </li>
 <li>
     <div style="clear:both">   

@@ -376,8 +376,8 @@
                                         $investment_cnt = mysql_num_rows($rsInvestment);
                                         //echo "<br>Count**********-- " .$investment_cnt ;
                                     }
-                                    if($investment_cnt==0)
-                                    {
+                                    // if($investment_cnt==0)
+                                    // {
                                         $MAMAId= rand();
                                         //echo "<br>random MandAId--" .$MAMAId;
                                         $insertcompanysql="";
@@ -386,10 +386,10 @@
 
                                         $insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT)
                                         VALUES ($MAMAId,$companyId,$amount,$stake,'$fullDateAfter',$dealTypeId,$AcquirerId,'$comment','$moreinfor', '$validation',$assetFlag,$flagdeletion,'$createddate','$modifieddate',$hideamountFlag,'$link','$filename','$sourcename','$valuation','$finlink',$company_valuation,$revenue_multiple,$ebitda_multiple,$pat_multiple,'$target_listingstatusvalue','$acquirer_listingstatusvalue',$hideAggregatetoUpdate,$revenue,$ebitda,$pat)";
-                                        echo "<br>@@@@ :".$insertcompanysql;
+                                        //echo "<br>@@@@ :".$insertcompanysql;
                                         if ($rsinsert = mysql_query($insertcompanysql))
                                         {
-                                            echo "<br>Advisor String-" .$TargetAdvisorString;
+                                            //echo "<br>Advisor String-" .$TargetAdvisorString;
                                             foreach ($TargetAdvisorString as $targetadvisor)
                                             {
                                                 if(trim($targetadvisor)!="")
@@ -431,31 +431,31 @@
                                         <?php
                                         }
                                             //	echo "<br> insert-".$insertcompanysql;
-                                    }
-                                    elseif($investment_cnt >= 1)
-                                    {
-                                        While($myrow=mysql_fetch_array($rsInvestment, MYSQL_BOTH))
-                                        {
-                                            $fullDateAfter;
-                                            $updatecompanysql= "Update mama set PECompanyId='$companyId',Amount='$amount',Stake='$stake',DealDate='$fullDateAfter',
-                                            MADealTypeId='$dealTypeId',AcquirerId='$AcquirerId',Comment='$comment',MoreInfor='$moreinfor',Validation='$validation',Asset='$assetFlag',
-                                            Deleted='$flagdeletion',CreatedDate='$createddate',ModifiedDate='$modifieddate',hideamount='$hideamountFlag',Link='$link',
-                                            uploadfilename='$filename',source='$sourcename',Valuation='$valuation',FinLink='$finlink',Company_Valuation='$company_valuation',
-                                            Revenue_Multiple='$revenue_multiple',EBITDA_Multiple='$ebitda_multiple',PAT_Multiple='$pat_multiple',target_listing_status='$target_listingstatusvalue',
-                                            acquirer_listing_status='$acquirer_listingstatusvalue',AggHide='$hideAggregatetoUpdate',Revenue='$revenue',EBITDA='$ebitda',PAT='$pat' where MAMAId=".$myrow['MAMAId'];
+                                //     }
+                                //     elseif($investment_cnt >= 1)
+                                //     {
+                                //         While($myrow=mysql_fetch_array($rsInvestment, MYSQL_BOTH))
+                                //         {
+                                //             $fullDateAfter;
+                                //             $updatecompanysql= "Update mama set PECompanyId='$companyId',Amount='$amount',Stake='$stake',DealDate='$fullDateAfter',
+                                //             MADealTypeId='$dealTypeId',AcquirerId='$AcquirerId',Comment='$comment',MoreInfor='$moreinfor',Validation='$validation',Asset='$assetFlag',
+                                //             Deleted='$flagdeletion',CreatedDate='$createddate',ModifiedDate='$modifieddate',hideamount='$hideamountFlag',Link='$link',
+                                //             uploadfilename='$filename',source='$sourcename',Valuation='$valuation',FinLink='$finlink',Company_Valuation='$company_valuation',
+                                //             Revenue_Multiple='$revenue_multiple',EBITDA_Multiple='$ebitda_multiple',PAT_Multiple='$pat_multiple',target_listing_status='$target_listingstatusvalue',
+                                //             acquirer_listing_status='$acquirer_listingstatusvalue',AggHide='$hideAggregatetoUpdate',Revenue='$revenue',EBITDA='$ebitda',PAT='$pat' where MAMAId=".$myrow['MAMAId'];
                                       
-                                            if ($rsupdate = mysql_query($updatecompanysql))
-                                        { ?>
+                                //             if ($rsupdate = mysql_query($updatecompanysql))
+                                //         { ?>
                                             
                                             <Br>
-                                        <tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp; -->MA_MA Deal already exists and deals has been updated</td> <br> </tr>
-                                    
-                                     <?php  }
+                                         <!-- <tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp;MA_MA Deal already exists and deals has been updated</td> <br> </tr>
+                                     -->
+                                      <?php // } 
                                  
-                                    }
+                                //     }
                                     
                                  
-                                }
+                                // }
 
                                 }
 

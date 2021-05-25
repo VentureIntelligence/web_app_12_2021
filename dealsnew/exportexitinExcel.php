@@ -1,6 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
-
+ini_set('memory_limit', '2048M');
+ini_set("max_execution_time", 10000);
     //session_save_path("/tmp");
     require("../dbconnectvi.php");
     $Db = new dbInvestments();
@@ -705,6 +706,10 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             $companysql = $_POST['exitquery'] ;
            // echo $_POST['exitQuery'];exit();
         }
+        elseif($keyword == "")
+                {
+                   $companysql = "SELECT DISTINCT pe.MandAId,pe.MandAId,pe.MandAId,pe.PECompanyId,pec.industry,pe.DealTypeId,pe.AcquirerId, pec.companyname,i.industry,pec.sector_business, dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate, pe.DealAmount,pec.website, pe.MoreInfor,pe.hideamount,pe.hidemoreinfor,pe.InvestmentDeals,pe.InvestmentDeals,Link,EstimatedIRR, MoreInfoReturns,it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo FROM manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,investortype as it,manda_investors as mandainv,peinvestors as inv where DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and i.industryid=pec.industry and pec.PEcompanyID = pe.PECompanyID and dt.DealtypeId=pe.DealTypeId and pe.InvestorType=it.InvestorType and mandainv.MandAId=pe.MandAId and pe.Deleted=0 and dt.hide_for_exit in (0,1) AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) order by companyname";
+              }
     elseif ( ($keyword != "") || ($invType != "--") || ($InTypes != "") || ($exitstatusvalue!="--") || ($dateValue!="---to---") || (($hidetxtfrm>=0) && ($hidetxtto>0)) || ($yearafter!="") || ($yearbefore!="") || ($investor_head != "--"))
     {
        // echo $keyword;exit();

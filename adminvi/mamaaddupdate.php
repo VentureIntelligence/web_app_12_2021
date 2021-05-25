@@ -249,8 +249,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 							$investment_cnt = mysql_num_rows($rsInvestment);
 						 //echo "<br>Count**********-- " .$investment_cnt ;
 						}
-						if($investment_cnt==0)
-						{
+						// if($investment_cnt==0)
+						// {
 								$MAMAId= rand();
 								//echo "<br>random MandAId--" .$MAMAId;
 								$insertcompanysql="";
@@ -259,10 +259,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
 								$insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT,price_to_book,book_value_per_share,price_per_share)
 								VALUES ($MAMAId,$companyId,$amount,$stake,'$fullDateAfter',$dealTypeId,$AcquirerId,'$comment','$moreinfor', '$validation',$assetFlag,$flagdeletion,'$createddate','$modifieddate',$hideamountFlag,'$link','$filename','$sourcename','$valuation','$finlink',$company_valuation,$revenue_multiple,$ebitda_multiple,$pat_multiple,'$target_listingstatusvalue','$acquirer_listingstatusvalue',$hideAggregatetoUpdate,$revenue,$ebitda,$pat,$price_to_book,$book_value_per_share,$price_per_share)";
-								echo "<br>@@@@ :".$insertcompanysql;
+								//echo "<br>@@@@ :".$insertcompanysql;
 								if ($rsinsert = mysql_query($insertcompanysql))
 								{
-									echo "<br>Advisor String-" .$TargetAdvisorString;
+									//echo "<br>Advisor String-" .$TargetAdvisorString;
 									 foreach ($TargetAdvisorString as $targetadvisor)
 									{
 										if(trim($targetadvisor)!="")
@@ -297,21 +297,16 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 								<Br>
 								<tr bgcolor="#00CC66"> <td colspan=2width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $datedisplay . " - " .$portfoliocompany ; ?>&nbsp; --> Inserted</td> </tr>
 								<?php
-								}
-								else
+								//}
+								
+						//	echo "<br> insert-".$insertcompanysql;
+						}
+						else
 								{
 								?>
 								<tr bgcolor="red"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp; --> Insert failed</td> </tr>
 								<?php
 								}
-						//	echo "<br> insert-".$insertcompanysql;
-						}
-						elseif($investment_cnt>= 1)
-						{
-						?>
-						<tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp; -->MA_MA Deal already exists</td> </tr>
-						<?php
-						}
 				}//if companyid >0 loop ends
 		} //if $portfoliocompany !=null loop ends
 

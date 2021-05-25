@@ -4256,7 +4256,7 @@ if($type==1){?>
                });
             </script>
             <style>
-           
+            
 .investment-form a.tooltip span{
     margin-left: 105px;
     margin-top: -23px;

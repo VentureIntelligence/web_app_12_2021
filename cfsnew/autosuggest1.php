@@ -50,12 +50,12 @@
     }
     
     if($group['Permissions'] == 0){
-            $where .=  " and Permissions  = ".$authAdmin->user->elements['Permissions'];
-            $brand_where1 .=  " and Permissions  = ".$authAdmin->user->elements['Permissions'];
+            $where .=  " and Permissions1  = ".$authAdmin->user->elements['Permissions'];
+            $brand_where1 .=  " and Permissions1  = ".$authAdmin->user->elements['Permissions'];
             //pr($where);
     }else if($group['Permissions'] == 1){
-            $where .=  " and Permissions  = ".$authAdmin->user->elements['Permissions'];
-            $brand_where1 .=  " and Permissions  = ".$authAdmin->user->elements['Permissions'];
+            $where .=  " and Permissions1  = ".$authAdmin->user->elements['Permissions'];
+            $brand_where1 .=  " and Permissions1  = ".$authAdmin->user->elements['Permissions'];
     //	pr($where);
     }    
 		
