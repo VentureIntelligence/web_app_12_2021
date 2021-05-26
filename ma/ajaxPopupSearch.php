@@ -49,9 +49,9 @@ if ($searchTerm!=''){
                     mysql_free_result($rsadvisor);
         }
     }else if($select_type == 'company'){ 
-        $companysql_search="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, sector_business FROM mama AS pe, industry AS i, pecompanies AS pec";
+        $companysql_search="SELECT DISTINCT pec.companyname,pe.PECompanyId, pec.industry, i.industry, sector_business FROM mama AS pe, industry AS i, pecompanies AS pec";
         $companysql_search.=" WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID AND pe.Deleted =0 and pec.industry != 15 and pec.companyname like '".$searchTerm."%' order by pec.companyname";
-
+        //echo $companysql_search;exit();
         $searchString="Undisclosed";
         $searchString=strtolower($searchString);
 
