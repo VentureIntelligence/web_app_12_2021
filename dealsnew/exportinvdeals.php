@@ -2738,9 +2738,9 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 
 
-/*
-echo $sql;
-exit();*/
+
+echo $companysql;
+exit();
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
