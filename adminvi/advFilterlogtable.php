@@ -2,7 +2,7 @@
    require("../dbconnectvi.php");
    $Db = new dbInvestments();
    require("checkaccess.php");
-   checkaccess( 'admin_report' );
+   //checkaccess( 'admin_report' );
    session_save_path("/tmp");
    session_start();
    //print_r($_SESSION);
