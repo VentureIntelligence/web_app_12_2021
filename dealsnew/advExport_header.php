@@ -1164,6 +1164,9 @@
                                  <input type="hidden" name="investorType" id="investorType" value="">
                                  <input type="hidden" class="resultarray" name="resultarray" value=""/>
                                  <input type="hidden" id="invquery" name="invquery"  value=""/>
+                                 <input type="hidden" name="filter_name" id="filter_name" value="">
+                                 <input type="hidden" id="filter_type" name="filter_type" value=""/>
+                                 <input type="hidden" id="company_name" name="company_name"  value=""/>
                                  </form>
                                  <form name="pelistingexcelInv" id="pelistingexcelInv"  method="post" action="importexcelsheetbyname.php">
                                  <input type="hidden" name="investorname" id="investorname" value="" >
@@ -1504,6 +1507,9 @@
                                           <input type="hidden" name="year1" id="year1" value="">
                                           <input type="hidden" name="year2" id="year2" value="">
                                           <input type="hidden" class="exitresultarray" name="exitresultarray" value=""/> -->
+                                          <input type="hidden" name="filter_name" id="filter_name" value="">
+                                 <input type="hidden" id="filter_type" name="filter_type" value=""/>
+                                 <input type="hidden" id="company_name" name="company_name"  value=""/>
                                           <input type="hidden" name="exportexit" value="exportexit" >
 
                                           <input type="hidden" name="txtsearchon" value="3" >
@@ -2016,18 +2022,7 @@
          
          function exportfiltr(value,filterType,filterNameId,filter_name,columname)
          {
-         $.ajax({
-         url: 'saveFilter.php',
-         type: "POST",
-         data:{mode:'getTotalcount'},
-         success: function(dataVal){
-         var dataval=JSON.parse(dataVal)
-         if(parseInt(dataval[0]) <= parseInt(dataval[1]))
-         {
-         swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
-         }
-         else
-         {
+     
             swal({
           text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
           buttons: ["Cancel", "Submit"],
@@ -2160,12 +2155,7 @@
          }
          }
          });
-         }
-         },
-         });
-         // setTimeout(function(){
-         //    window.location.reload(1);
-         // }, 500);
+         
          }
                   
          function getLeagueImport()
@@ -2679,7 +2669,10 @@
          });
          
          
-         $('#expshowdealsbt').click(function(){
+         $('#expshowdealsbt').click(function(){debugger;
+           $('#filter_type').val($(".rightpanel").find(".active").attr('value'))      
+
+           $('#company_name').val('<?php echo $companyName?>')
          var checkboxname=$('.allexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2754,19 +2747,7 @@
         }
          $('#investorErr').hide();
          $('#columnnameErr').hide();
-         $.ajax({
-         url: 'saveFilter.php',
-         type: "POST",
-         data:{mode:'getTotalcount'},
-         success: function(data){
-         var dataval=JSON.parse(data)
-         if(parseInt(dataval[0]) <= parseInt(dataval[1]))
-         {
-         swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
-         }
-         
-         else
-         {
+      
             if($('#expinvestorauto_sug').tokenInput("get").length == 0)
          {
             var post_url = "getexportcount.php"; //get form action url
@@ -2797,7 +2778,7 @@
           }).then((willDelete) => {
          if (willDelete) {
          $.ajax({
-         url: 'ajxCheckDownload.php',
+         url: 'advCheckDownload.php',
          dataType: 'json',
          success: function(data){
          var downloaded = data['recDownloaded'];
@@ -2835,27 +2816,14 @@
                   }
          },
          });
-         }
-         },
-         });
+        
          }
          });
 
-         function  entrylogtabledata(filterType,filterNameId,filter_name)
-    {
+       function  entrylogtabledata(filterType,filterNameId,filter_name)
+      {
 
-      $.ajax({
-         url: 'saveFilter.php',
-         type: "POST",
-         data:{mode:'getTotalcount'},
-         success: function(dataVal){
-         var dataval=JSON.parse(dataVal)
-         if(parseInt(dataval[0]) <= parseInt(dataval[1]))
-         {
-         swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
-         }
-         else
-         {
+ 
             $.ajax({
          url: 'saveFilter.php',
          type: "POST",
@@ -2864,13 +2832,13 @@
 
          },
          });
-         }
-         },
-         });
+        
 
-    }
+      }
          
          $('#exitexpshowdealsbt').click(function(){
+          
+           $('company_name').val('<?php echo $companyName?>')
          var checkboxname=$('.exitallexportcheck').prop('checked')
          if(checkboxname == true)
          {
@@ -2964,19 +2932,7 @@
             }
          $('#exitinvestorErr').hide();
          $('#exitcolumnnameErr').hide();
-         $.ajax({
-         url: 'saveFilter.php',
-         type: "POST",
-         data:{mode:'getTotalcount'},
-         success: function(data){
-         var dataval=JSON.parse(data)
-         if(parseInt(dataval[0]) <= parseInt(dataval[1]))
-         {
-         swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
-         }
-         
-         else
-         {
+      
             if($('#expinvestorauto_sug').tokenInput("get").length == 0)
          {
             var post_url = "getexportcount.php"; //get form action url
@@ -3006,7 +2962,7 @@
           }).then((willDelete) => {
          if (willDelete) {
          $.ajax({
-         url: 'ajxCheckDownload.php',
+         url: 'advCheckDownload.php',
          dataType: 'json',
          success: function(data){
          var downloaded = data['recDownloaded'];
@@ -3048,9 +3004,7 @@
          }
          },
          });
-         }
-            },
-         });
+        
          }
          });
          //}
@@ -3071,20 +3025,9 @@
          
          function ExportAdminFilter(id,name,type,query)
          {
-         $.ajax({
-         url: 'saveFilter.php',
-         type: "POST",
-         data:{mode:'getTotalcount'},
-         success: function(data){
-         var dataval=JSON.parse(data)
-         if(parseInt(dataval[0]) <= parseInt(dataval[1]))
-         {
-         swal("Currently your export action is crossing the limit of "+ dataval[0] +" records.  To increase the limit please contact info@ventureintelligence.com");
-         }
-         
-         else
-         {
-           
+           $('#filter_name').val(name);
+           $('#filter_type').val(type);
+           $('company_name').val('<?php echo $companyName?>')
             if(query != 0)
          {
    //          swal({
@@ -3164,9 +3107,7 @@
          }
          
          
-         }
-         },
-         });
+        
          }
          
       

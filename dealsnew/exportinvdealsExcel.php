@@ -1367,7 +1367,7 @@ mysql_close();
 ?>
 <?php
 //session_save_path("/tmp");
-session_start();
+//session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 
@@ -1375,10 +1375,18 @@ function updateDownload($res) {
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
     $dlogUserEmail = $_SESSION['UserEmail'];
+    //print_r($_SESSION['name']);exit();
     $today = date('Y-m-d');
-
+    $username=$_SESSION['name'];
+    $filtername = $_POST['filter_name'];
+    $filterType =$_POST['filter_type'];
+    $companyName=$_POST['company_name'];
+    if($filtername == ' ')
+    {
+        $filtername = 'anonymous';  
+    }
     //Check Existing Entry
-    $sqlSelCount = "SELECT `recDownloaded`  FROM `user_downloads` WHERE `emailId` = '" . $dlogUserEmail . "' AND `dbType`='PE' AND `downloadDate` = CURRENT_DATE";
+    $sqlSelCount = "SELECT `recDownloaded`  FROM `advance_export_filter_log` WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
     $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());
     $rowSelCount = mysql_num_rows($sqlSelResult);
     $rowSel = mysql_fetch_object($sqlSelResult);
@@ -1386,10 +1394,13 @@ function updateDownload($res) {
 
     if ($rowSelCount > 0) {
         $upDownloads = $recCount + $downloads;
-        $sqlUdt = "UPDATE `user_downloads` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "' AND `dbType`='PE' AND `downloadDate` = CURRENT_DATE";
+        $sqlUdt = "UPDATE `advance_export_filter_log` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
         $resUdt = mysql_query($sqlUdt) or die(mysql_error());
     } else {
-        $sqlIns = "INSERT INTO `user_downloads` (`user_id`,`emailId`,`downloadDate`,`dbType`,`recDownloaded`) VALUES ('0','" . $dlogUserEmail . "','" . $today . "','PE','" . $recCount . "')";
+        //    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
+
+        $sqlIns = "INSERT INTO `advance_export_filter_log` (`id`, `name`, `filter_name`, `filter_type`,`company_name`,`emailId`,`downloadDate`,`recDownloaded`) VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."','" . $dlogUserEmail . "','" . $today . "','" . $recCount . "')";
+       //echo $sqlIns;exit();
         mysql_query($sqlIns) or die(mysql_error());
     }
 }
