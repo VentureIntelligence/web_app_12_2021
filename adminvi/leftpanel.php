@@ -10,9 +10,8 @@
 <style>
 #vertbgproproducts{
    
-    height: 1051px;
+    height: 1030px;
 } 
-
 </style>
 <div id="leftpanel">
 
@@ -143,8 +142,6 @@
         <?php } ?>
         <!-- <div id="vertMenu"> -->
             <!-- <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
-        <!-- <div id="vertMenu">
-            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/adminFilter.php">AddFilter</a><br /></div>
         <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">EditFilter</a><br /></div>
@@ -154,6 +151,12 @@
         </div>
         <div id="linksnone"><a href="../adminvi/uploadCinno.php">Upload CIN Number</a><br /></div>
 
+        <div id="vertMenu">
+           <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;News letter</span></div>
+       </div>
+       <div id="linksnone"><a href="../adminvi/newsletter.php">Manage News letter</a><br /></div>
+
+       <div id="linksnone"><a href="../adminvi/generatenewsletter.php">Generate News letter</a><br /></div>
 
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
@@ -166,12 +169,7 @@
         </div> -->
         <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
 
-        <div id="vertMenu">
 
-            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;News letter</span></div>
-        </div>
-        <div id="linksnone"><a href="../adminvi/newsletter.php">Manage News letter</a><br /></div>
-         
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Exit</span></div>
         </div>

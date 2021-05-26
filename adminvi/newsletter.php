@@ -80,68 +80,13 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 <?php
                                 if( $numrows > 0 ) {
                                     while( $result = mysql_fetch_array( $res ) ) {
-                                        $category=$result[ 'category' ];
+                                        $category =$result[ 'category' ];
 
-                                        if($category == "PEFI")
-                                        {
-                                            $categoryval="Private Equity Fund Investments";
-                                        }
-                                        else if($category == "LE")
-                                        {
-                                            $categoryval="Liquidity Events";
-                                        }
-                                        else if($category == "SVCI")
-                                        {
-                                            $categoryval="Social VC Investments";
-                                        }
-                                        else if($category == "I/A")
-                                        {
-                                            $categoryval="Incubation/Acceleration";
-                                        }
-                                        else if($category == "AI")
-                                        {
-                                            $categoryval="Angel Investments";
-                                        }
-                                        else if($category == "OPE/SI")
-                                        {
-                                            $categoryval="Other Private Equity/Strategic Investments";
-                                        }
-                                        else if($category == "SI")
-                                        {
-                                            $categoryval="Secondary Issues";
-                                        }
-                                        else if($category == "OD")
-                                        {
-                                            $categoryval="Other Deals";
-                                        }
-                                        else if($category == "OD-LF")
-                                        {
-                                            $categoryval="Other Deals - Listed Firms";
-                                        }
-                                        else if($category == "DF")
-                                        {
-                                            $categoryval="Debt Financing";
-                                        }
-                                        else if($category == "RET")
-                                        {
-                                            $categoryval="Real Estate Transactions";
-                                        }
-                                        else if($category == "FN")
-                                        {
-                                           $categoryval="Fund News" ;
-                                        }
                                         
-                                        if( $result[ 'is_enabled' ] == 0 ) {
-                                            $icon = 'disable.png';
-                                            $value= 1;
-                                        } else {
-                                            $icon = 'enable.png';
-                                            $value= 0;
-                                        }
                                 ?>
                                 <tr>
                                     <td><?php echo $result[ 'id' ] ?></td>
-                                    <td ><?php echo $categoryval ?></td>
+                                    <td ><?php echo $category ?></td>
                                     <td><?php echo substr_replace($result[ 'heading' ], "...", 20) ?></td>
                                     <td><?php echo  $result[ 'publishdate' ] ?></td>
                                     <td>
