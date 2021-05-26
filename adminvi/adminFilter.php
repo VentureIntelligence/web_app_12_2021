@@ -99,7 +99,7 @@ label {
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 require("checkaccess.php");
-    checkaccess( 'subscribers' );
+    //checkaccess( 'adminFilter' );
 //session_save_path("/tmp");
 session_start();
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))

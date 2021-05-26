@@ -1,7 +1,7 @@
 <?php
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
-require("checkaccess.php");
+//require("checkaccess.php");
   checkaccess( 'user_management' );
  //session_save_path("/tmp");
 session_start();
