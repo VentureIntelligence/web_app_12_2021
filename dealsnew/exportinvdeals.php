@@ -2479,7 +2479,7 @@ $valuationsql  $sectorcondition
 
     }
    
-    if ($invType != "--" ) {
+    if ($invType != "--" && $invType != "") {
         $qryInvType = "Investor Type - ";
         $whereInvType = " pe.InvestorType = '" . $invType . "'";
     }
@@ -2738,9 +2738,9 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 
 
-/*
-echo $sql;
-exit();*/
+
+// echo $companysql;
+// exit();
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
