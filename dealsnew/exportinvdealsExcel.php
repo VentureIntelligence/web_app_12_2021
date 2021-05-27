@@ -1378,10 +1378,10 @@ function updateDownload($res) {
     //print_r($_SESSION['name']);exit();
     $today = date('Y-m-d');
     $username=$_SESSION['name'];
-    $filtername = $_POST['filter_name'];
-    $filterType =$_POST['filter_type'];
-    $companyName=$_POST['company_name'];
-    if($filtername == ' ')
+    $filtername = $_POST['exportfilter_name'];
+    $filterType =$_POST['exportfilter_type'];
+    $companyName=$_POST['exportcompany_type'];
+    if($filtername == '')
     {
         $filtername = 'anonymous';  
     }
