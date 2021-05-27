@@ -3522,7 +3522,9 @@ function curPageURL()
     }
     $URL .= "://";
     if ($_SERVER["SERVER_PORT"] != "80" || $_SERVER["SERVER_PORT"] != "443") {
-        $URL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["HTTPS"] .$_SERVER["REQUEST_URI"];
+        //$URL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+        $URL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+
     } else {
         $URL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }
