@@ -2712,7 +2712,7 @@
          });
          
          
-         $('#expshowdealsbt').click(function(){debugger;
+         $('#expshowdealsbt').click(function(){
            $('#exportfilter_type').val($(".rightpanel").find(".active").attr('value'))      
            $('#exportfilter_name').val('')
 
