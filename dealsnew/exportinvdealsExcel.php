@@ -1377,10 +1377,10 @@ function updateDownload($res) {
     $dlogUserEmail = $_SESSION['UserEmail'];
     //print_r($_SESSION['name']);exit();
     $today = date('Y-m-d');
-    $username=$_SESSION['name'];
+    $username=$_SESSION['UserNames'];
     $filtername = $_POST['exportfilter_name'];
     $filterType =$_POST['exportfilter_type'];
-    $companyName=$_POST['exportcompany_type'];
+    $companyName=$_POST['exportcompany_name'];
     if($filtername == '')
     {
         $filtername = 'anonymous';  
