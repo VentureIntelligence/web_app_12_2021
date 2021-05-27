@@ -38,7 +38,7 @@ $expval=explode(",",$exportvalue);
         $recCount = mysql_num_rows($res);
         $dlogUserEmail =$_SESSION['UserEmail'];
         $today = date('Y-m-d');
-        print_r($_SESSION);
+        //print_r($_SESSION);
         $username=$_SESSION['UserNames'];
         $filtername = $_POST['exitfilter_name'];
         $filterType =$_POST['exitfilter_type'];
