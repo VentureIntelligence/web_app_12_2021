@@ -2121,9 +2121,30 @@
          
          }
          $('#txthideinvestor').val(div);
-         hrefval= 'exportexitinExcel.php';
+         $.ajax({
+         url: 'advCheckDownload.php',
+         dataType: 'json',
+         success: function(data){
+         var downloaded = data['recDownloaded'];
+         var exportLimit = data.exportLimit;
+         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var remLimit = exportLimit-downloaded;
+         if (currentRec < remLimit){
+            hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
          $("#exitpelistingexcel").submit();
+         }else{
+         jQuery('#preloading').fadeOut();
+         alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+         }
+         },
+         error:function(){
+         jQuery('#preloading').fadeOut();
+         alert("There was some problem exporting...");
+         }
+         
+         });
+        
          }
          else{
          if(dataValue[0].column_name)
@@ -2143,9 +2164,29 @@
          
          }
          $('#investorvalue').val(div);
-         hrefval= 'exportinvdealsExcel.php';
+         $.ajax({
+         url: 'advCheckDownload.php',
+         dataType: 'json',
+         success: function(data){
+         var downloaded = data['recDownloaded'];
+         var exportLimit = data.exportLimit;
+         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var remLimit = exportLimit-downloaded;
+         if (currentRec < remLimit){
+            hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
          $("#pelistingexcel").submit();
+         }else{
+         jQuery('#preloading').fadeOut();
+         alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+         }
+         },
+         error:function(){
+         jQuery('#preloading').fadeOut();
+         alert("There was some problem exporting...");
+         }
+         
+         });
          }
          }
          }
@@ -2786,7 +2827,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = 807;
+         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -2974,7 +3015,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = 807;
+         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -3072,9 +3113,30 @@
          if (willDelete) {
          $('#exitquery').val(dataValue[0].query)
          $(".exitresultarray").val('Select-All');
+         $.ajax({
+         url: 'advCheckDownload.php',
+         dataType: 'json',
+         success: function(data){
+         var downloaded = data['recDownloaded'];
+         var exportLimit = data.exportLimit;
+         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var remLimit = exportLimit-downloaded;
+         if (currentRec < remLimit){
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
          $("#exitpelistingexcel").submit();
+         jQuery('#preloading').fadeOut();
+         }else{
+         jQuery('#preloading').fadeOut();
+         alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+         }
+         },
+         error:function(){
+         jQuery('#preloading').fadeOut();
+         alert("There was some problem exporting...");
+         }
+         
+         });
          }
           });
             }
@@ -3097,9 +3159,29 @@
          $('#invquery').val(dataValue[0].query)
          $(".resultarray").val('Select-All');
 
-         hrefval= 'exportinvdealsExcel.php';
+         $.ajax({
+         url: 'advCheckDownload.php',
+         dataType: 'json',
+         success: function(data){
+         var downloaded = data['recDownloaded'];
+         var exportLimit = data.exportLimit;
+         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var remLimit = exportLimit-downloaded;
+         if (currentRec < remLimit){
+            hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
          $("#pelistingexcel").submit();
+         }else{
+         jQuery('#preloading').fadeOut();
+         alert("Currently your export action is crossing the limit of "+ exportLimit +" records. You can download "+ remLimit +" more records. To increase the limit please contact info@ventureintelligence.com");
+         }
+         },
+         error:function(){
+         jQuery('#preloading').fadeOut();
+         alert("There was some problem exporting...");
+         }
+         
+         });
          }
           });
             }
