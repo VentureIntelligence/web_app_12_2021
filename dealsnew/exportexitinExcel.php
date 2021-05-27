@@ -48,23 +48,21 @@ $expval=explode(",",$exportvalue);
             $filtername = 'anonymous';  
         }
         //Check Existing Entry
-        $sqlSelCount = "SELECT `recDownloaded`  FROM `advance_export_filter_log` WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
+        $sqlSelCount = "SELECT sum(`current_downloaded`) as `recDownloaded` FROM `advance_export_filter_log` WHERE `emailId` = '".$dlogUserEmail."'  AND ( `downloadDate` = CURRENT_DATE )";
         $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());
         $rowSelCount = mysql_num_rows($sqlSelResult);
         $rowSel = mysql_fetch_object($sqlSelResult);
         $downloads = $rowSel->recDownloaded;
     
-        if ($rowSelCount > 0) {
-            $upDownloads = $recCount + $downloads;
-            $sqlUdt = "UPDATE `advance_export_filter_log` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
-            $resUdt = mysql_query($sqlUdt) or die(mysql_error());
-        } else {
-            //    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
-    
-            $sqlIns = "INSERT INTO `advance_export_filter_log` (`id`, `name`, `filter_name`, `filter_type`,`company_name`,`emailId`,`downloadDate`,`recDownloaded`) VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."','" . $dlogUserEmail . "','" . $today . "','" . $recCount . "')";
+        // if ($rowSelCount > 0) {
+             $upDownloads = $recCount + $downloads;
+        //     $sqlUdt = "UPDATE `advance_export_filter_log` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
+        //     $resUdt = mysql_query($sqlUdt) or die(mysql_error());
+        // } else {    
+            $sqlIns = "INSERT INTO `advance_export_filter_log` (`id`, `name`, `filter_name`, `filter_type`,`company_name`,`emailId`,`downloadDate`,`recDownloaded`,`current_downloaded`) VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."','" . $dlogUserEmail . "','" . $today . "','" . $upDownloads . "','".$recCount."')";
            //echo $sqlIns;exit();
             mysql_query($sqlIns) or die(mysql_error());
-        }
+        //}
     }        
   
     //include('onlineaccount.php');
@@ -1095,6 +1093,8 @@ if($rowscount == 0)
 }
 else
 {
+    if($_POST['exitexportcount'] == "")
+    {
  updateDownload($result);
 
  //if this parameter is included ($w=1), file returned will be in word format ('.doc')
@@ -1802,6 +1802,10 @@ if(in_array("PricePerShare", $expval))
          print "\n";
      }
     }
+    else{
+        echo 1;exit();
+    }
+}
     print "\n";
     print "\n";
     print "\n";

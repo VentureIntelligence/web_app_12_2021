@@ -13,7 +13,7 @@ $dlogUserEmail = $_SESSION['UserEmail'];
  else
  {
  //$sqlSelCount = "SELECT sum(`recDownloaded`) as `recDownloaded` FROM `user_downloads` WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='PE' AND ( `downloadDate` = CURRENT_DATE || `downloadDate` = DATE_SUB(CURRENT_DATE,INTERVAL 1 DAY))";
- $sqlSelCount = "SELECT sum(`recDownloaded`) as `recDownloaded` FROM `advance_export_filter_log` WHERE `emailId` = '".$dlogUserEmail."'  AND ( `downloadDate` = CURRENT_DATE )";
+ $sqlSelCount = "SELECT sum(`current_downloaded`) as `recDownloaded` FROM `advance_export_filter_log` WHERE `emailId` = '".$dlogUserEmail."'  AND ( `downloadDate` = CURRENT_DATE )";
 
  //echo $sqlSelCount ;exit();
  $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());

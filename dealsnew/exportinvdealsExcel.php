@@ -1374,6 +1374,7 @@ $Db = new dbInvestments();
 function updateDownload($res) {
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
+    //echo $recCount;exit();
     $dlogUserEmail = $_SESSION['UserEmail'];
     //print_r($_SESSION['name']);exit();
     $today = date('Y-m-d');
@@ -1386,23 +1387,23 @@ function updateDownload($res) {
         $filtername = 'anonymous';  
     }
     //Check Existing Entry
-    $sqlSelCount = "SELECT `recDownloaded`  FROM `advance_export_filter_log` WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
+    $sqlSelCount = "SELECT sum(`current_downloaded`) as `recDownloaded` FROM `advance_export_filter_log` WHERE `emailId` = '".$dlogUserEmail."'  AND ( `downloadDate` = CURRENT_DATE )";
     $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());
     $rowSelCount = mysql_num_rows($sqlSelResult);
     $rowSel = mysql_fetch_object($sqlSelResult);
     $downloads = $rowSel->recDownloaded;
 
-    if ($rowSelCount > 0) {
-        $upDownloads = $recCount + $downloads;
-        $sqlUdt = "UPDATE `advance_export_filter_log` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
-        $resUdt = mysql_query($sqlUdt) or die(mysql_error());
-    } else {
+    // if ($rowSelCount > 0) {
+         $upDownloads = $recCount + $downloads;
+    //     $sqlUdt = "UPDATE `advance_export_filter_log` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
+    //     $resUdt = mysql_query($sqlUdt) or die(mysql_error());
+    // } else {
         //    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
 
-        $sqlIns = "INSERT INTO `advance_export_filter_log` (`id`, `name`, `filter_name`, `filter_type`,`company_name`,`emailId`,`downloadDate`,`recDownloaded`) VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."','" . $dlogUserEmail . "','" . $today . "','" . $recCount . "')";
-       //echo $sqlIns;exit();
+        $sqlIns = "INSERT INTO `advance_export_filter_log` (`id`, `name`, `filter_name`, `filter_type`,`company_name`,`emailId`,`downloadDate`,`recDownloaded`,`current_downloaded`) VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."','" . $dlogUserEmail . "','" . $today . "','" . $upDownloads . "','".$recCount."')";
+        //echo $sqlIns;exit();
         mysql_query($sqlIns) or die(mysql_error());
-    }
+   // }
 }
 
 $tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
@@ -1560,6 +1561,8 @@ if($rowscount == 0)
 }
 else
 {
+    if($_POST['exportcount'] == "")
+    {
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
     $exportvalue = "Company,CIN,Company Type,Industry,City,State,Region,Exit Status,Round,Stage,Investor Type,Stake (%),Investors,Date,Website,Year Founded,Sector,Amount(US".'$M'."),Amount(INR Cr),Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share";    
@@ -1570,7 +1573,7 @@ $expval=explode(",",$exportvalue);
 
 // end T960
 
-
+//echo $result;exit();
 updateDownload($result);
 
 
@@ -2288,7 +2291,10 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('php://output');
 //exit();
         }
-//		}
+        else{
+            echo 1;exit();
+        }
+		}
 //else
 //	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;
 mysql_close();
