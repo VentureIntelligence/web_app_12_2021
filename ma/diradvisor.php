@@ -821,17 +821,19 @@ function writeSql_for_no_records($sqlqry,$mailid)
 		}
 		$dbregionlink.close();
 	}
-function curPageURL() {
- $pageURL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
- $pageURL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- return $pageURL;
-}
+    function curPageURL() {
+        $URL = 'http';
+        $portArray = array( '80', '443' );
+        if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
+        $URL .= "://";
+        if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
+         $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        } else {
+         $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+        $pageURL=$URL."&scr=EMAIL";
+        return $pageURL;
+       }
 ?>
 
 <script src="hopscotch.js"></script>
