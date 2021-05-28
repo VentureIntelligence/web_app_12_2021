@@ -109,7 +109,7 @@ td {
                                     <th>Filter Name</th>
                                     <th>Filter Type</th>
                                     <th>Company Name</th>
-                                    <th>Download Date</th>
+                                    <th>Created Date</th>
                                     <th style="display:none">Date</th>
                                  </tr>
                               </thead>
@@ -128,8 +128,8 @@ td {
                                     <td><?php echo $myrow['filter_name'] ?></td>
                                     <td><?php echo $myrow['filter_type'] ?></td>
                                     <td><?php echo $myrow['company_name'] ?></td>
-                                    <td><?php echo date('d-M-y', strtotime($myrow['downloadDate']));?></td>
-                                    <td style="display:none"><?php echo date('yyyy-mm-dd', strtotime($myrow['downloadDate']));?></td>
+                                    <td><?php echo date('d-M-y', strtotime($myrow['created_date']));?></td>
+                                    <td style="display:none"><?php echo date('yyyy-mm-dd', strtotime($myrow['created_date']));?></td>
                                  </tr>
                                  <?php } } else {?>
                                  <tr>
