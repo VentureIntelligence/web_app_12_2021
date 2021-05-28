@@ -2151,7 +2151,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A'.$indexfortranche, $tranchedisplay);
 
 // Rename worksheet
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
+$objPHPExcel->getActiveSheet()->setTitle('peinv_deals');
 
 // $objPHPExcel->getActiveSheet()->getDefaultColumnDimension()
 //     ->setWidth(12);
