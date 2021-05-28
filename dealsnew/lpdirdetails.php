@@ -2860,7 +2860,7 @@ function curPageURL() {
     $pageURL=$URL."&scr=EMAIL";
     return $pageURL;
    }   return $pageURL;
-}
+
 ?>
 <script type="text/javascript" >
 <?php
