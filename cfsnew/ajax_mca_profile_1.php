@@ -12,16 +12,16 @@ include_once('simple_html_dom.php');
 
 //Data from MCA website 
 try{ 
-    $urltopost = "http://www.mca.gov.in/mcafoportal/companyLLPMasterData.do";
+    $urltopost = "https://www.mca.gov.in/mcafoportal/companyLLPMasterData.do";
     $datatopost = array ("companyID" => $cin);
     $headerArray = array( 
         "Accept-Encoding" => "gzip, deflate", 
         "Accept-Language" => "en-US,en;q=0.9", 
         "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
         "Content-Type" => "application/x-www-form-urlencoded",
-        "Host"=>"http://www.mca.gov.in",
+        "Host"=>"https://www.mca.gov.in",
         "Upgrade-Insecure-Requests"=>"1",
-        "Origin"=>"http://www.mca.gov.in",
+        "Origin"=>"https://www.mca.gov.in",
         "Cookie"=>"HttpOnly"
     );
     $ch = curl_init ($urltopost);

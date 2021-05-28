@@ -1764,7 +1764,7 @@ $(function() {
      <input type="hidden" id="keywordsearch" name="keywordsearch" value="<?php if(isset($_POST['keywordsearch'])) echo  $_POST['keywordsearch'];  ?>" placeholder="" style="width:220px;">-->
         <?php if($_POST['popup_select'] == 'investor'){
             $isearch = $_POST['popup_keyword'];
-            $iauto = $invester_filter;
+            $iauto = $invester_filter_id;
         }else  if($_POST['investorauto_sug_other'] != ''){
             $isearch = $_POST['keywordsearch_other'];
             $iauto = $investorauto;

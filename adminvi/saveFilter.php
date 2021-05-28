@@ -74,7 +74,7 @@ $dlogUserEmail = $_SESSION['UserEmail'];
         $query = 'INSERT INTO `saved_filter`(`id`, `investor_name`, `column_name`, `filter_name`,`filter_type`,`filter_desc`,`company_type`,`company_name`,`industry`,`city`,`state`,`region`,`exit_status`,`round`,`stage`,`investor_type`,`dealtype`,`intype`,`filter_active`,`query`,`vi_filter`,`created_by`, `created_on`) VALUES (default,"'.$investorvalArray.'","'.$checkboxName.'","'.$filtername.'","'.$filterType.'","'.$filterDesc.'","'.$companytype.'","'.$companyName.'","'.$industry.'","'.$city.'","'.$state.'","'.$region.'","'.$exitStatus.'","'.$round.'","'.$stage.'","'.$investorType.'","'.$dealType.'","'.$Intype.'","'.$filter_active.'","'.$filterQuery.'","'.$vi_filter.'","'.$dlogUserEmail.'",CURDATE())';
 
     }
-   //echo "query = $query";exit(); // for debugging purposes, remove this once it is working
+   // echo "query = $query";exit(); // for debugging purposes, remove this once it is working
     mysql_query($query) or die(mysql_error());
 
    echo 'success';

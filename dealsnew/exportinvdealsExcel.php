@@ -1,6 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
-
+ini_set('memory_limit', '2048M');
+ini_set("max_execution_time", 10000);
 /*//session_save_path("/tmp");
 session_start();
 
@@ -1366,31 +1367,43 @@ mysql_close();
 ?>
 <?php
 //session_save_path("/tmp");
-session_start();
+//session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 
 function updateDownload($res) {
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
+    //echo $recCount;exit();
     $dlogUserEmail = $_SESSION['UserEmail'];
+    //print_r($_SESSION['name']);exit();
     $today = date('Y-m-d');
-
+    $username=$_SESSION['UserNames'];
+    $filtername = $_POST['exportfilter_name'];
+    $filterType =$_POST['exportfilter_type'];
+    $companyName=$_POST['exportcompany_name'];
+    if($filtername == '')
+    {
+        $filtername = 'anonymous';  
+    }
     //Check Existing Entry
-    $sqlSelCount = "SELECT `recDownloaded`  FROM `user_downloads` WHERE `emailId` = '" . $dlogUserEmail . "' AND `dbType`='PE' AND `downloadDate` = CURRENT_DATE";
+    $sqlSelCount = "SELECT sum(`current_downloaded`) as `recDownloaded` FROM `advance_export_filter_log` WHERE `emailId` = '".$dlogUserEmail."'  AND ( `downloadDate` = CURRENT_DATE )";
     $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());
     $rowSelCount = mysql_num_rows($sqlSelResult);
     $rowSel = mysql_fetch_object($sqlSelResult);
     $downloads = $rowSel->recDownloaded;
 
-    if ($rowSelCount > 0) {
-        $upDownloads = $recCount + $downloads;
-        $sqlUdt = "UPDATE `user_downloads` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "' AND `dbType`='PE' AND `downloadDate` = CURRENT_DATE";
-        $resUdt = mysql_query($sqlUdt) or die(mysql_error());
-    } else {
-        $sqlIns = "INSERT INTO `user_downloads` (`user_id`,`emailId`,`downloadDate`,`dbType`,`recDownloaded`) VALUES ('0','" . $dlogUserEmail . "','" . $today . "','PE','" . $recCount . "')";
+    // if ($rowSelCount > 0) {
+         $upDownloads = $recCount + $downloads;
+    //     $sqlUdt = "UPDATE `advance_export_filter_log` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
+    //     $resUdt = mysql_query($sqlUdt) or die(mysql_error());
+    // } else {
+        //    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
+
+        $sqlIns = "INSERT INTO `advance_export_filter_log` (`id`, `name`, `filter_name`, `filter_type`,`company_name`,`emailId`,`downloadDate`,`recDownloaded`,`current_downloaded`) VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."','" . $dlogUserEmail . "','" . $today . "','" . $upDownloads . "','".$recCount."')";
+        //echo $sqlIns;exit();
         mysql_query($sqlIns) or die(mysql_error());
-    }
+   // }
 }
 
 $tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
@@ -1531,6 +1544,9 @@ if($_POST['invquery'] != "")
 {
     $sql= $_POST['invquery'];
 }
+elseif($keyword == ""){
+        $sql="SELECT pe.PECompanyID as PECompanyId,pec.companyname,pec.industry,pe.dates as dates,i.industry as industry, pec.sector_business as sector_business,amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%b-%Y') as dealperiod, pec.website,pec.city,pec.region,pe.PEId,pe.comment,pe.MoreInfor,hideamount,hidestake,pe.StageId,SPV,pec.RegionId,AggHide,pe.Exit_Status, (SELECT GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor, (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId JOIN industry AS i ON pec.industry = i.industryid JOIN stage AS s ON s.StageId=pe.StageId WHERE  dates between '".$startDate."' and '".$endYear."'  and pe.Deleted=0 AND pe.SPV=0 and pe.AggHide=0 and pec.industry !=15 AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) order by dates desc,companyname asc";
+}
 else{
 $sql="SELECT pe.PECompanyID as PECompanyId,pec.companyname,pec.industry,pe.dates as dates,i.industry as industry, pec.sector_business as sector_business,amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%b-%Y') as dealperiod, pec.website,pec.city,pec.region,pe.PEId,pe.comment,pe.MoreInfor,hideamount,hidestake,pe.StageId,SPV,pec.RegionId,AggHide,pe.Exit_Status, (SELECT GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor, (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId JOIN industry AS i ON pec.industry = i.industryid JOIN stage AS s ON s.StageId=pe.StageId WHERE peinv_inv.InvestorId IN(".$keyword.")  and dates between '".$startDate."' and '".$endYear."' ".$companyTypeStatus." ".$industryType." ".$cityType." ".$stateId." ".$RegionId." ".$Exit_Status." ".$roundtype." ".$StageId." ".$InvestorType." and pe.Deleted=0 AND pe.SPV=0 and pe.AggHide=0 and pec.industry !=15 AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) order by dates desc,companyname asc";
 }
@@ -1545,6 +1561,8 @@ if($rowscount == 0)
 }
 else
 {
+    if($_POST['exportcount'] == "")
+    {
 $exportvalue=$_POST['resultarray'];
 if($exportvalue == "Select-All"){
     $exportvalue = "Company,CIN,Company Type,Industry,City,State,Region,Exit Status,Round,Stage,Investor Type,Stake (%),Investors,Date,Website,Year Founded,Sector,Amount(US".'$M'."),Amount(INR Cr),Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share";    
@@ -1555,7 +1573,7 @@ $expval=explode(",",$exportvalue);
 
 // end T960
 
-
+//echo $result;exit();
 updateDownload($result);
 
 
@@ -2273,7 +2291,10 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('php://output');
 //exit();
         }
-//		}
+        else{
+            echo 1;exit();
+        }
+		}
 //else
 //	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;
 mysql_close();

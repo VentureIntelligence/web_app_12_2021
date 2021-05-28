@@ -1,4 +1,7 @@
+<?php include_once("../globalconfig.php"); ?>
 <?php
+require_once("../dbconnectvi.php");
+$Db = new dbInvestments();
    if(!isset($_SESSION['UserNames']))
    {
            header('Location:../pelogin.php');
@@ -24,7 +27,7 @@
         if($comments!=""){
             $message.='<strong>Comments : </strong>'.$comments.'<br><br>';
         }
-        if (@mail($to, $subject, $message, $headers)){
+        if (mail($to, $subject, $message, $headers)){
             echo "1";
         }else{
             echo "0";
@@ -64,7 +67,7 @@
             $message.='<strong>Message : </strong><br><p>'.$ymessage.'</p>';
         }
         
-        if (@mail($to, $subject, $message, $headers)){
+        if (mail($to, $subject, $message, $headers)){
             echo "1";
         }else{
             echo "0";
