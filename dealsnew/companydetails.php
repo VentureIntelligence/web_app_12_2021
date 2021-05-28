@@ -1141,7 +1141,7 @@ ul.tabView li {
          
         <li class="active"><a id="icon-detailed-view" class="postlink" href="companydetails.php?value=<?php echo $_GET['value'];?>" ><i></i> Detail  View</a></li> 
         </ul></div> 
-    <div class="lb" id="popup-box" style="z-index: 11111;">
+    <div class="lb" id="popup-box" style="z-index: 11111;top:100px;">
 	<div class="title">Send this to your Colleague</div>
         <form>
             <div class="entry">
@@ -2771,18 +2771,19 @@ function writeSql_for_no_records($sqlqry,$mailid)
 		}
 		$dbregionlink.close();
 	}
-function curPageURL() {
- $URL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
- $URL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- $pageURL=$URL."&scr=EMAIL";
- return $pageURL;
-}
+    function curPageURL() {
+        $URL = 'http';
+        $portArray = array( '80', '443' );
+        if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
+        $URL .= "://";
+        if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
+         $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        } else {
+         $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+        $pageURL=$URL."&scr=EMAIL";
+        return $pageURL;
+       }
 
 ?>
 
