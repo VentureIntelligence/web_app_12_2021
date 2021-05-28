@@ -1004,7 +1004,7 @@
             <li><a class="postlink"  href="<?php echo $actionlink; ?>"  id="icon-grid-view"><i></i> List  View</a></li>
             <li class="active"><a id="icon-detailed-view" class="postlink" href="redealdetails.php?value=<?php echo $_GET['value'];?>" ><i></i> Detail View</a></li> 
             </ul></div> 
-     <div class="lb" id="popup-box" style="top:100px;>
+     <div class="lb" id="popup-box" style="top:100px;">
 	<div class="title">Send this to your Colleague</div>
         <form>
             <div class="entry">
