@@ -1037,7 +1037,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
             <li><a class="postlink"  href="angelindex.php"  id="icon-grid-view"><i></i> List  View</a></li>
             <li class="active"><a id="icon-detailed-view" class="postlink" href="angeldealdetails.php?value=<?php echo $SelCompRef."/".$vcflagValue;?>" ><i></i> Detail  View</a></li> 
             </ul></div> 
-      <div class="lb" id="popup-box">
+      <div class="lb" id="popup-box" style="top:100px;">
 	<div class="title">Send this to your Colleague</div>
         <form>
             <div class="entry">
