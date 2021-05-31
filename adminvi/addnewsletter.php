@@ -2,7 +2,7 @@
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 require("checkaccess.php");
-  checkaccess( 'user_management' );
+  //checkaccess( 'user_management' );
  //session_save_path("/tmp");
 session_start();
 //print_r($_POST);
@@ -121,8 +121,26 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Category">Category</label>
                                             </td>
                                             <td>
+                                            
+                                            <?php
+                                                $sql = "SELECT `id`,`category` FROM newsletter_category";
+                                                $res = mysql_query($sql) or die(mysql_error());
+                                                $option = '';
+                                                
+                                                while($rows=mysql_fetch_array($res)){ 
+                                                    $id = $rows['id'];
+                                                    $cat = $rows['category'];
+                                                    $option .= '<option value="'.$cat.'">'.$cat.'</option>';
+                                                }
+                                            ?>
+
+                                            <select name="Category">
+                                                <option value="">--- Select Category ---</option>
+                                                <?php echo $option; ?>
+                                            </select>
+
                                                 <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="">  -->
-                                                <select name="Category" id="Category">
+                                                <!-- <select name="Category" id="Category">
                                                     <option value="Private Equity Fund Investments">Private Equity Fund Investments</option>
                                                     <option value="Liquidity Events">Liquidity Events</option>
                                                     <option value="Social VC Investments">Social VC Investments</option>
@@ -138,7 +156,7 @@ input[type=text],textarea,input[type=date]
                                                     <option value="Real Estate Transactions">Real Estate Transactions</option>
                                                     <option value="Fund News">Fund News</option>
 
-                                                </select>
+                                                </select> -->
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
@@ -149,14 +167,14 @@ input[type=text],textarea,input[type=date]
                                                 <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="" onchange = "headingslug(this.value)">
                                             </td>
                                         </tr>
-                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                        <!-- <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="Heading">Tags</label> 
                                             </td>
                                             <td>
                                                 <input type="text" id="tags" size="26" name="tags" class="req_value" forerror="UserName" value="" >
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                        
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
@@ -206,7 +224,7 @@ input[type=text],textarea,input[type=date]
                                                 <input type="date" id="publish_at" size="26" name="publish_at" class="req_value" forerror="UserName" value="<?php echo date('Y-m-d') ?>">
                                             </td>
                                         </tr>
-                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                        <!-- <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="Heading">Slug</label> 
                                             </td>
@@ -214,7 +232,7 @@ input[type=text],textarea,input[type=date]
                                                 <input type="text" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value="" disabled>
                                                 <input type="hidden" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value=""> 
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                         
                                     </tbody>
                                 </table>

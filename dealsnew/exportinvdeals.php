@@ -3662,6 +3662,8 @@ print("\n");
 //                             //    we want to set these values (default is A1)
 //             );
 
+// Rename worksheet
+$objPHPExcel->getActiveSheet()->setTitle('peinv_deals');
 
 // $indexfortitle = $index + 5;
 // $indexfortranche = $index + 7;
