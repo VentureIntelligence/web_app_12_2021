@@ -3099,7 +3099,7 @@ $col = 0;
             ON r.RegionId=pec.RegionId OR (pec.RegionId=0 and r.RegionId=1)
             LEFT JOIN investortype as it ON it.InvestorType = pe.InvestorType 
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
-    
+   // echo $companysql;exit();
     $result2 = mysql_query($companiessql) or die( mysql_error() );
     $row = mysql_fetch_row($result2);
     
