@@ -2255,7 +2255,7 @@ $valuationsql  $sectorcondition
   
 } 
 //elseif (count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
-    else if ($companysearch !="" || $keyword != "" || $companyType !='' || ($industry !="--" && $industry !="" && $industry > 0)|| ($sectorval !="--" && $sectorval !="" && $sectorval > 0)|| ($subsectorval !="--" && $subsectorval !="" && $subsectorval > 0) || ($round != "--") || ($city != "") || ($stageval!="") || ($yearafter!="") || ($yearbefore!="") || ($regionId!="--" && $regionId !="")|| ($invType!= "--" && $invType!= "") || ($startRangeValue!= "" && $endRangeValue != "") || $dateValue != "" || ($syndication !="--" && $syndication !="" && $syndication > 0)  || $cityid !="" ||  ( $tagsearch !='')|| $dealsinvolvingvalue !="" || $invType !='' || $investor_head!="")
+    else if ($companysearch !="" || $keyword != "" || $companyType !='' || ($industry !="--" && $industry !="" && $industry > 0)|| ($sectorval !="--" && $sectorval !="" && $sectorval > 0)|| ($subsectorval !="--" && $subsectorval !="" && $subsectorval > 0) || ($round != "--") || ($city != "") || ($stageval!="") || ($yearafter!="") || ($yearbefore!="") || ($regionId!="--" && $regionId !="")|| ($invType!= "--" && $invType!= "") || ($startRangeValue!= "" && $endRangeValue != "") || $dateValue != "" || ($syndication !="--" && $syndication !="" && $syndication > 0)  || $cityid !="" ||  ( $tagsearch !='')|| $dealsinvolvingvalue !="" || $invType !='' ||  $invType !='--' || $investor_head!="")
                     {
     $yourquery = 1;
     $dt1 = $year1 . "-" . $month1 . "-01";
@@ -2739,8 +2739,8 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 
 
-//  echo $companysql;
-//  exit();
+// echo $companysql;
+// exit();
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
@@ -3076,6 +3076,7 @@ $index = 2;
 $peidcheck = '';
 
 $arrayData = array();
+//echo $companiessql;exit();
 while ($rows = mysql_fetch_array($result)) {
 //$DataList = array();
 $col = 0;  
@@ -3099,7 +3100,7 @@ $col = 0;
             ON r.RegionId=pec.RegionId OR (pec.RegionId=0 and r.RegionId=1)
             LEFT JOIN investortype as it ON it.InvestorType = pe.InvestorType 
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
-   // echo $companysql;exit();
+   // echo $companiessql;exit();
     $result2 = mysql_query($companiessql) or die( mysql_error() );
     $row = mysql_fetch_row($result2);
     
@@ -3401,7 +3402,7 @@ $col = 0;
         }
     }
 
-//echo json_encode($rowArray).'hai';exit();
+//echo json_encode($companyName.$sep).'hai';exit();
     // T960
     if(in_array("Company", $rowArray))
     {
@@ -3662,8 +3663,6 @@ print("\n");
 //                             //    we want to set these values (default is A1)
 //             );
 
-// Rename worksheet
-$objPHPExcel->getActiveSheet()->setTitle('peinv_deals');
 
 // $indexfortitle = $index + 5;
 // $indexfortranche = $index + 7;
