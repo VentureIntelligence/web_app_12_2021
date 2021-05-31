@@ -895,6 +895,8 @@ if ($resetfield == "sectorsearch") {
         $searchallfield = '';
     } else if (isset($_POST['popup_select']) && $_POST['popup_select'] == 'sector') {
         $sectorsearch = trim($_POST['popup_keyword']);
+        $sectorsearchArray = explode(",", str_replace("'", "", $sectorsearch));
+
         $response = array();
         /* $sql_sector = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
 
@@ -1622,7 +1624,24 @@ if ($sector != '' && (count($sector) > 0)) {
     $sector_hide = implode($sector, ',');
     // $industry_hide = implode($industry, ',');
 }
-
+if ($sectorsearchArray != '' && (count($sectorsearchArray) > 0)) {
+    //echo 'hai';
+    $sectorvalue = '';
+    $sectorstr = implode(',',$sectorsearchArray); 
+    $sectorssql = "select sector_name,sector_id from pe_sectors where sector_name IN ('$sectorstr')";
+    //echo $sectorssql;exit();
+   
+    if ($sectors = mysql_query($sectorssql)) {
+        while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
+            $sectorvalue .= $myrow["sector_name"] . ',';
+            $sectorvalueid .= $myrow["sector_id"] . ',';
+        }
+    }
+   
+    $sectorvalue = trim($sectorvalue, ',');
+    $sector_hide =  trim($sectorvalueid, ',');
+    // $industry_hide = implode($industry, ',');
+}
 if ($subsector != '' && (count($subsector) > 0)) {
     $subsectorvalue = '';
     $subsectorvalue = implode(',',$subsector); 
@@ -4785,6 +4804,7 @@ if ($exportToExcel == 1) {
 if (!isset($_POST['tagsfield'])) {
     include "tag_report.php";
 }
+
 ?>
     <!--<div class="overview-cnt mt-trend-tab">
         <div class="showhide-link-wrap">
