@@ -1462,6 +1462,8 @@ $dateValue=$_POST['txthidedate'];
                 $invandor = $_POST['invandor'];
                 $companysearch=$_POST['txthidecompany'];
                 $advisorsearchstring_legal=$_POST['txthideadvisor_legal'];
+                $advisorsearchstring_trans=$_POST['txthideadvisor_trans'];
+
                 $tagsearch=$_POST['tagsearch'];
                 $searchallfield=$_POST['txthidesearchallfield'];
                
