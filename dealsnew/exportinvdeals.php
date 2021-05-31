@@ -2778,7 +2778,7 @@ updateDownload($result);
 //header info for browser: determines file type ('.doc' or '.xls')
  
 header("Content-Type: application/$file_type");
- header("Content-Disposition: attachment; filename=Simple.$file_ending");
+ header("Content-Disposition: attachment; filename=peinv_deals.$file_ending");
  header("Pragma: no-cache");
  header("Expires: 0");
  if ($Use_Title == 1)
