@@ -2255,7 +2255,7 @@ $valuationsql  $sectorcondition
   
 } 
 //elseif (count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
-    else if ($companysearch !="" || $keyword != "" || $companyType !='' || ($industry !="--" && $industry !="" && $industry > 0)|| ($sectorval !="--" && $sectorval !="" && $sectorval > 0)|| ($subsectorval !="--" && $subsectorval !="" && $subsectorval > 0) || ($round != "--") || ($city != "") || ($stageval!="") || ($yearafter!="") || ($yearbefore!="") || ($regionId!="--" && $regionId !="")|| ($invType!= "--" && $invType!= "") || ($startRangeValue!= "" && $endRangeValue != "") || $dateValue != "" || ($syndication !="--" && $syndication !="" && $syndication > 0)  || $cityid !="" ||  ( $tagsearch !='')|| $dealsinvolvingvalue !="" || $invType !='' || $investor_head!="")
+    else if ($companysearch !="" || $keyword != "" || $companyType !='' || ($industry !="--" && $industry !="" && $industry > 0)|| ($sectorval !="--" && $sectorval !="" && $sectorval > 0)|| ($subsectorval !="--" && $subsectorval !="" && $subsectorval > 0) || ($round != "--") || ($city != "") || ($stageval!="") || ($yearafter!="") || ($yearbefore!="") || ($regionId!="--" && $regionId !="")|| ($invType!= "--" && $invType!= "") || ($startRangeValue!= "" && $endRangeValue != "") || $dateValue != "" || ($syndication !="--" && $syndication !="" && $syndication > 0)  || $cityid !="" ||  ( $tagsearch !='')|| $dealsinvolvingvalue !="" || $invType !='' || $invType !='--' || $investor_head!="")
                     {
     $yourquery = 1;
     $dt1 = $year1 . "-" . $month1 . "-01";
@@ -3642,7 +3642,7 @@ $col = 0;
     $schema_insert .= "\t";
     print(trim($schema_insert));
     print "\n";
-}
+}exit();
 print("\n");
     print("\n");
     print("\n");
