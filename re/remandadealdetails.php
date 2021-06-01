@@ -918,7 +918,7 @@
             <li class="active"><a id="icon-detailed-view" class="postlink" href="remandadealdetails.php?value=<?php echo $_GET['value']."/".$newValue;?>" ><i></i> Detail View</a></li> 
             </ul></div> 
     
-    <div class="lb" id="popup-box" style="top:100px">
+    <div class="lb" id="popup-box" style="top:100px;">
 	<div class="title">Send this to your Colleague</div>
         <form>
             <div class="entry">
@@ -1456,13 +1456,13 @@ function writeSql_for_no_records($sqlqry,$mailid)
         if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
         $URL .= "://";
         if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
-        $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+         $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
         } else {
-        $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+         $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
         }
         $pageURL=$URL."&scr=EMAIL";
         return $pageURL;
-        }
+       }
 mysql_close();
 ?>
 <script type="text/javascript" >

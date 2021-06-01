@@ -1965,13 +1965,13 @@ function curPageURL() {
     if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
     $URL .= "://";
     if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
-    $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+     $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
     } else {
-    $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+     $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
     }
     $pageURL=$URL."&scr=EMAIL";
     return $pageURL;
-    }
+   }
 ?>
 <script type="text/javascript" >
         $("a.postlink").click(function(){
