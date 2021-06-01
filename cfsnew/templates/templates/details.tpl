@@ -2278,7 +2278,9 @@ $( '#mca_data a' ).on( 'click', function() {
     });
 });
 function mcaclose(VCID) {
-    window.location.href = "details.php?vcid="+VCID;
+    $( '#lookup-boxmca' ).fadeOut();
+            $( '.maskscreenMCALimit' ).fadeOut();
+    //window.location.href = "details.php?vcid="+VCID;
 }
 $( '#mca_data1 a' ).on( 'click', function() {
     $( '#lookup-box .title' ).text( 'BOARD OF DIRECTORS' );
