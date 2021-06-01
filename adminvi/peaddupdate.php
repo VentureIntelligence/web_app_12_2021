@@ -341,7 +341,7 @@
 											//echo "<br>@@@@ :".$insertcompanysql;
 											if ($rsinsert = mysql_query($insertcompanysql))
 											{
-												echo "<br>Insert PE-" .$insertcompanysql;
+												//echo "<br>Insert PE-" .$insertcompanysql;
 												/* foreach ($investorString as $inv)
 													{
 														if(trim($inv)!="")
@@ -472,7 +472,7 @@
                                                         }*/
                                                     for ( $i =0; $i < count($dbtypearray); $i++){
 														$insertTypesql1="insert into peinvestments_dbtypes values($PEId,'$dbtypearray[$i]',0)";
-														 echo "<bR>***".$insertTypesql1;
+														 //echo "<bR>***".$insertTypesql1;
                                                 		if($rsupdateType = mysql_query($insertTypesql1))
                                                 		{
                                                 		}
@@ -486,7 +486,7 @@
                                                    			$showvalue=0;
                                                    		}
 														$insertTypesql2="insert into peinvestments_dbtypes values($PEId,'$showaspevcarray[$i]','$showvalue')";
-														 echo "<bR>***".$insertTypesql2;
+														// echo "<bR>***".$insertTypesql2;
                                                 		if($rsupdateType = mysql_query($insertTypesql2))
                                                 		{
                                                 		}
@@ -642,7 +642,7 @@ function insert_get_CIAs($cianame)
 	$dblink = new dbInvestments();
 	$cianame=trim($cianame);
 	$getInvestorIdSql = "select CIAId from advisor_cias where cianame like '$cianame'";
-	echo "<br>select--" .$getInvestorIdSql;
+	//echo "<br>select--" .$getInvestorIdSql;
 	if ($rsgetInvestorId = mysql_query($getInvestorIdSql))
 	{
 		$investor_cnt=mysql_num_rows($rsgetInvestorId);
@@ -724,7 +724,7 @@ function insert_get_CIAs($cianame)
 		$dblink= new dbInvestments();
 		$investor=trim($investor);
 		$getInvestorIdSql = "select InvestorId from peinvestors where Investor like '$investor%'";
-		echo "<br>select--" .$getInvestorIdSql;
+		//echo "<br>select--" .$getInvestorIdSql;
 		if ($rsgetInvestorId = mysql_query($getInvestorIdSql))
 		{
 			$investor_cnt=mysql_num_rows($rsgetInvestorId);
