@@ -143,17 +143,17 @@
    $filterType =$_POST['filterType'];
    $companyName=$_POST['companyName'];
    // echo $filterType;exit();
-   if($filtername != "")
-   {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
-   $queryResult = mysql_query($query) or die(mysql_error());
-   }
-   else
-   {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."','".$companyName."',NOW())";
-   //echo $query;exit();
-   $queryResult = mysql_query($query) or die(mysql_error());
-   }
+//    if($filtername != "")
+//    {
+//    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
+//    $queryResult = mysql_query($query) or die(mysql_error());
+//    }
+//    else
+//    {
+//    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."','".$companyName."',NOW())";
+//    //echo $query;exit();
+//    $queryResult = mysql_query($query) or die(mysql_error());
+//    }
    //echo $queryResult;exit();
    $sql="SELECT `investor_name` FROM `saved_filter` where id='".$filterNameId."' ";
    $sqlSelResult = mysql_query($sql) or die(mysql_error());
@@ -229,17 +229,17 @@
      $filtername = $_POST['filterName'];
      $filterType =$_POST['filterType'];
      // echo $filterType;exit();
-     if($filtername != "")
-     {
-     $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."',NOW())";
-     $queryResult = mysql_query($query) or die(mysql_error());
-     }
-     else
-     {
-     $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."',NOW())";
-     //echo $query;exit();
-     $queryResult = mysql_query($query) or die(mysql_error());
-     }
+     // if($filtername != "")
+     // {
+     // $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."',NOW())";
+     // $queryResult = mysql_query($query) or die(mysql_error());
+     // }
+     // else
+     // {
+     // $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."',NOW())";
+     // //echo $query;exit();
+     // $queryResult = mysql_query($query) or die(mysql_error());
+     // }
     $InvestorArray=array();
 
     $sqlquery='SELECT * FROM `saved_filter` WHERE id="'.$filterNameId.'"';
@@ -300,30 +300,6 @@
      }
 
    }
-   elseif($mode ='getTotalcount')
-   {
-        $data=array();
-     $sqlQuery="SELECT dc.DCompanyName as companyName,dc.custom_export_limit as expplimit,dm.DCompId as companyId  FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
-     //echo $sqlQuery;exit();
-      $sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
-      while ($row = mysql_fetch_assoc($sqlSelResult)) {
-      
-      $custom_export_limit= $row['expplimit']  ;
-      array_push($data,$custom_export_limit);
 
-      }
-      
-     $query="SELECT COUNT(name) as count FROM `advance_export_filter_log` where name='$username' ";
-     $queryRes = mysql_query($query) or die(mysql_error());
-     while ($row = mysql_fetch_assoc($queryRes)) {
-     
-     $DownloadCount= $row['count']  ;
-     array_push($data,$DownloadCount);
-
-     
-     }
-
-     echo json_encode($data);
-   }
    
    ?>

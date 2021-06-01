@@ -199,12 +199,12 @@ padding:0px 10px; }
     
       <tr><td class="name-list" style="text-transform: uppercase"> <span class="has-tip" data-tooltip="" title="{if $SearchResults[List].ListingStatus eq '0'}Both{elseif $SearchResults[List].ListingStatus eq '1'} Listed{elseif $SearchResults[List].ListingStatus eq '2'} Privately held(Ltd){elseif $SearchResults[List].ListingStatus eq '3'} Partnership {elseif $SearchResults[List].ListingStatus eq '4'} Proprietorship{/if}">{if $SearchResults[List].ListingStatus eq '0'}Both{elseif $SearchResults[List].ListingStatus eq '1'} L{elseif $SearchResults[List].ListingStatus eq '2'} PVT{elseif $SearchResults[List].ListingStatus eq '3'} PART {elseif $SearchResults[List].ListingStatus eq '4'} PROP{/if}</span>
               {if $SearchResults[List].COMPANYNAME}
-            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}&currencyval={$currency}" title="Click here to view Annual Report" 
+            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}&currencyval={$currency}&searchby={$searchby}" title="Click here to view Annual Report" 
          
         >{$SearchResults[List].SCompanyName|lower|capitalize}</a>	
 
         {else}
-        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&currencyval={$currency}" title="Click here to view Annual Report" 
+        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&currencyval={$currency}&searchby={$searchby}" title="Click here to view Annual Report" 
        
         >{$SearchResults[List].SCompanyName|lower|capitalize}</a>
 
@@ -217,13 +217,13 @@ padding:0px 10px; }
     <td>
         {assign var="FY" value=" "|explode:$SearchResults[List].FY}
         {if $SearchResults[List].COMPANYNAME}
-            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}&currencyval={$currency}" title="Click here to view Annual Report" 
+            <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&c={$SearchResults[List].COMPANYNAME}&currencyval={$currency}&searchby={$searchby}" title="Click here to view Annual Report" 
          
         >FY{$FY[0]} </a>	(upto {if $SearchResults[List].FYValue eq 1} {$SearchResults[List].FYValue} Year {elseif $SearchResults[List].FYValue neq ''} {$SearchResults[List].FYValue} Years{/if} {if $SearchResults[List].GFY eq 1} {$SearchResults[List].GFY} Year {elseif $SearchResults[List].GFY neq ''} {$SearchResults[List].GFY} Years{/if} )	
 
         {else}
         
-        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&currencyval={$currency}" title="Click here to view Annual Report" 
+        <a class="postlink" href="details.php?vcid={$SearchResults[List].Company_Id}&currencyval={$currency}&searchby={$searchby}" title="Click here to view Annual Report" 
        
         >FY{$FY[0]} </a>	(upto {if $SearchResults[List].FYValue eq 1} {$SearchResults[List].FYValue} Year {elseif $SearchResults[List].FYValue neq ''} {$SearchResults[List].FYValue} Years{/if} {if $SearchResults[List].GFY eq 1} {$SearchResults[List].GFY} Year {elseif $SearchResults[List].GFY neq ''} {$SearchResults[List].GFY} Years{/if} )	
         {/if}
@@ -271,6 +271,8 @@ padding:0px 10px; }
  <form name="Frm_Compare" id="exportform" action="homeexport.php" method="post" enctype="multipart/form-data">
     {/if}    
             <!--input type="hidden" name="exportenable" id="exportenable" value="0"/-->
+                                        <input type="hidden" name="searchbyvalue" id="searchbyvalue" value="{$searchby}" />
+
             <input type="hidden" name="exportenable" id="exportenable" value="0"/> 
             <input type="hidden" name="currency" id="currency" value="{$currency}"/>     
              <input type="hidden" name="filters" id="filters" value=" {section name=List loop=$fliters}{$fliters[List].value}, {/section}"/>

@@ -1768,6 +1768,15 @@ function autoResize(id){
     </div>
 </div>
 
+<div id="maskscreen" class="maskscreenMCALimit"></div>
+<div class="lb" id="lookup-boxmca">
+    <div class="title"></div>
+    <div class="lookup-body">
+        MCA website is not responding. Please try again later... <br/><br/>
+        <b><input type="button" class="mca_cancel" value="Ok." onclick="mcaclose({$VCID})"></b><br/><br/> 
+    </div>
+</div>
+
 <div id="maskscreen"></div>
 <div class="lb" id="exportall-popup" style="width: 650px; overflow: visible; left: 50%; top: 50%; transform: translate(-50%, -50%);">
   <span class="close-lookup" style="position: relative; background: #ec4444; font-size: 26px; padding: 0px 5px 5px 6px; z-index: 9022; color: #fff; font-weight: bold; cursor: pointer; float:right;">&times;</span>
@@ -2247,6 +2256,7 @@ $( '#mca_data a' ).on( 'click', function() {
         type: 'GET',
         url: 'ajax_mca_profile_1.php',
         data: {cin: ""+cin+""},
+        timeout: 3000,
         success: function(data) {
              var respData = $( data );
              if(data ==403 || data == 302 || data == 0 || data == 404 || data.startsWith("Javascript") == true){
@@ -2256,9 +2266,22 @@ $( '#mca_data a' ).on( 'click', function() {
             mcadataload( respData );
             }
         },
-        timeout: 180000
+        error: function(xhr, textStatus, errorThrown) {
+            $( '#lookup-box' ).fadeOut();
+            $( '.maskscreenMCA' ).fadeOut();
+            //$( '#lookup-box .title' ).text( 'COMPANY MASTER DATA' );
+            $( '#lookup-boxmca' ).fadeIn();
+            $( '.maskscreenMCALimit' ).fadeIn();
+                  //  alert("Error : Timeout for this call!");
+                
+                }
+
+       // timeout: 180000
     });
 });
+function mcaclose(VCID) {
+    window.location.href = "details.php?vcid="+VCID;
+}
 $( '#mca_data1 a' ).on( 'click', function() {
     $( '#lookup-box .title' ).text( 'BOARD OF DIRECTORS' );
     $( '#lookup-box' ).fadeIn();
@@ -2293,6 +2316,7 @@ $( '#mca_data2 a' ).on( 'click', function() {
         type: 'GET',
         url: 'ajax_mca_charges_1.php',
         data: {cin: ""+cin+""},
+        timeout: 3000,
         success: function(data) {
             var respData = $( data );
              if(data ==403 || data == 302 || data == 0 || data == 404 || data.startsWith("Javascript") == true){
@@ -2302,7 +2326,15 @@ $( '#mca_data2 a' ).on( 'click', function() {
                  mcachargeload(respData); 
             }
         },
-        timeout: 180000
+        error: function(xhr, textStatus, errorThrown) {
+            $( '#lookup-box' ).fadeOut();
+            $( '.maskscreenMCA' ).fadeOut();
+            //$( '#lookup-box .title' ).text( 'COMPANY MASTER DATA' );
+            $( '#lookup-boxmca' ).fadeIn();
+            $( '.maskscreenMCALimit' ).fadeIn();
+                
+                }
+       // timeout: 180000
     });
 
 });
