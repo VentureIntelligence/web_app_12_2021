@@ -32,7 +32,7 @@
             $companytype = implode(",",$_POST['companytype']);
             $industry=implode(",",$_POST['Industry']);
             $dealType=implode(",",$_POST['dealType']);
-            $Intype=$_POST['Intype'];
+            $Intype=implode(",",$_POST['Intype']);
             
             $city=implode(",",$_POST['city']);
             $state=implode(",",$_POST['state']);
@@ -60,13 +60,9 @@
             $endYear=$_POST['end_year'];
 
             //echo $filterType;exit();
-            if($filterType == "Exit")
-            {
-            $exitStatus=$_POST['exitStatus'];
-            }
-            else{
+
             $exitStatus=implode(",",$_POST['exitStatus']);
-            }
+            
             //echo json_encode($_POST['state']);exit();
             $sqlSelCount = "SELECT *  FROM `saved_filter` WHERE `id` = '" . $EditFilter . "' ";
             //echo $sqlSelCount;exit();

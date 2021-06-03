@@ -2984,6 +2984,31 @@
          {
          $(".exitresultarray").val('Select-All');
          }
+         else{
+            var result = $('.exitexportcolumn input[type="checkbox"]:checked'); // this return collection of items checked
+         var totalcheckbox = $('.exitexportcolumn input[type="checkbox"]');
+         if (result.length > 0) {
+         var resultString ="";
+         result.each(function () {
+         resultString += $(this).val() + "," ;
+         // resultString+= $(this).val() + "<br/>";
+         });
+         resultString =  resultString.replace(/,\s*$/, "");
+         $(".exitresultarray").val(resultString);
+         }
+         if(result.length == 1)
+         {
+            $('#exitcolumnnameErr').hide();
+         }
+         if(result.length==totalcheckbox.length)
+         {
+         $('.exitallexportcheck').attr('checked', true);
+         }
+         else{
+         $('.exitallexportcheck').attr('checked', false);
+         }
+         
+         }
          if($('#exitdealtype').val() != null)
          {
          var dealtype=$('#exitdealtype').val().toString();
