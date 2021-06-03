@@ -2075,7 +2075,7 @@
          var endDate=year2 +'-'+ month2 +'-'+ 31;
          $('#txthidedateEndValue').val(endDate);
          }
-         else{debugger;
+         else{
             $('#exportfilter_type').val(filterType)      
            $('#exportfilter_name').val(filter_name)
 
