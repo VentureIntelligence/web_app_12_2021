@@ -107,7 +107,6 @@ $expval=explode(",",$exportvalue);
    // echo $_POST['exitQuery'];exit();
     $hidetxtfrm=$_POST['txthideReturnMultipleFrm'];
     $hidetxtto=$_POST['txthideReturnMultipleTo'];
-    //echo 'hai';
     $keyword=$_POST['txthideinvestor'];
     //echo $_POST['txthideinvestor'];exit();
     $investorString=$_POST['txthideInvestorString'];
@@ -737,7 +736,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
                          $hideWhere = " ";
                     }
             
-                    $companysql = "SELECT pe.mandaid,
+                    $companysql = "SELECT Distinct pe.mandaid,
                     pe.mandaid,
                     pe.pecompanyid,
                     pec.industry,
@@ -927,7 +926,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
              $hideWhere = " ";
         }
 
-        $companysql = "SELECT pe.mandaid,
+        $companysql = "SELECT Distinct pe.mandaid,
         pe.mandaid,
         pe.pecompanyid,
         pec.industry,

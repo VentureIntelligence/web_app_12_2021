@@ -29,17 +29,17 @@
             $checkboxName=$_POST['checkboxName'];
             $investorvalArray = implode (",", $investorval); 
             
-            $companytype = $_POST['companytype'];
+            $companytype = implode(",",$_POST['companytype']);
             $industry=implode(",",$_POST['Industry']);
             $dealType=implode(",",$_POST['dealType']);
-            $Intype=$_POST['Intype'];
+            $Intype=implode(",",$_POST['Intype']);
             
             $city=implode(",",$_POST['city']);
             $state=implode(",",$_POST['state']);
             $region=implode(",",$_POST['region']);
             $round=implode(",",$_POST['round']);
             $stage=implode(",",$_POST['stage']);
-            $investorType=$_POST['investorType'];
+            $investorType=implode(",",$_POST['investorType']);
             $filterType=$_POST['filterType'];
             $companyName=$_POST['companyName'];
             $filterQuery=$_POST['filterQuery'];
@@ -60,13 +60,9 @@
             $endYear=$_POST['end_year'];
 
             //echo $filterType;exit();
-            if($filterType == "Exit")
-            {
-            $exitStatus=$_POST['exitStatus'];
-            }
-            else{
+
             $exitStatus=implode(",",$_POST['exitStatus']);
-            }
+            
             //echo json_encode($_POST['state']);exit();
             $sqlSelCount = "SELECT *  FROM `saved_filter` WHERE `id` = '" . $EditFilter . "' ";
             //echo $sqlSelCount;exit();
