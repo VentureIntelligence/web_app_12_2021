@@ -2084,9 +2084,9 @@
          $('#city').val(dataValue[0].city);
          $('#state').val(dataValue[0].state);
          $('#region').val(dataValue[0].region);
-         $('#exitStatus').val(dataValue[0].exit_status);
-         $('#round').val(dataValue[0].round);
-         $('#stage').val(dataValue[0].stage);
+         $('#sltexitStatus').val(dataValue[0].exit_status);
+         $('#sltround').val(dataValue[0].round);
+         $('#sltstage').val(dataValue[0].stage);
          $('#investorType').val(dataValue[0].investor_type);
          $('#companytype').val(dataValue[0].company_type);
          $('#month1').val(dataValue[0].start_date);

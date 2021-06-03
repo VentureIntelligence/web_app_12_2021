@@ -1263,8 +1263,8 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 //echo $_POST['exitquery'];
  $sql=$companysql;
  /*echo $tagsearch;*/
-//   echo "<br>---" .$sql;
-//   exit();
+   //echo "<br>---" .$sql;
+  //exit();
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");
@@ -1776,11 +1776,11 @@ if(in_array("PricePerShare", $expval))
             //Type
             $type_val = '';
             
-                if($row[5] == 4){
+              
                     if($row[36] == 1){ $type_val = "IPO"; } else if($row[36] == 2){ $type_val = "Open Market Transaction"; }else if($row[36] == 3){ $type_val = "Reverse Merger";}else {$type_val = "Open Market Transaction";}
                 
                 $schema_insert .= $type_val.$sep;
-            }
+            
         }
         if(in_array("Acquirer", $expval))
         { 
