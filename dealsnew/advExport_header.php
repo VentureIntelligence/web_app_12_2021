@@ -2273,7 +2273,7 @@
          }
          var investornameArray=[];
          function saveFilterName()
-         {
+         {debugger;
          mode=$('#mode').val();
          investornameArray=[];
          
@@ -2436,6 +2436,31 @@
          {
          $(".resultarray").val('Select-All');
          }
+         else
+         {
+            var result = $('.exportcolumn input[type="checkbox"]:checked'); // this return collection of items checked
+         var totalcheckbox = $('.exportcolumn input[type="checkbox"]');
+         if (result.length > 0) {
+         var resultString ="";
+         result.each(function () {
+         resultString += $(this).val() + "," ;
+         // resultString+= $(this).val() + "<br/>";
+         });
+         resultString =  resultString.replace(/,\s*$/, "");
+         $(".resultarray").val(resultString);
+         }
+         if(result.length == 1)
+         {
+            $('#columnnameErr').hide();
+         }
+         if(result.length==totalcheckbox.length)
+         {
+         $('.allexportcheck').attr('checked', true);
+         }
+         else{
+         $('.allexportcheck').attr('checked', false);
+         }
+         }
          var month1= $('#mon1').val()
          $('#month1').val(month1)
          var month2= $('#mon2').val()
@@ -2551,6 +2576,31 @@
          if(checkboxname == true)
          {
          $(".exitresultarray").val('Select-All');
+         }
+         else{
+            var result = $('.exitexportcolumn input[type="checkbox"]:checked'); // this return collection of items checked
+         var totalcheckbox = $('.exitexportcolumn input[type="checkbox"]');
+         if (result.length > 0) {
+         var resultString ="";
+         result.each(function () {
+         resultString += $(this).val() + "," ;
+         // resultString+= $(this).val() + "<br/>";
+         });
+         resultString =  resultString.replace(/,\s*$/, "");
+         $(".exitresultarray").val(resultString);
+         }
+         if(result.length == 1)
+         {
+            $('#exitcolumnnameErr').hide();
+         }
+         if(result.length==totalcheckbox.length)
+         {
+         $('.exitallexportcheck').attr('checked', true);
+         }
+         else{
+         $('.exitallexportcheck').attr('checked', false);
+         }
+         
          }
          if($('#exitdealtype').val() != null)
          {
@@ -2722,7 +2772,7 @@
          });
          
          
-         $('#expshowdealsbt').click(function(){
+         $('#expshowdealsbt').click(function(){debugger;
            $('#exportfilter_type').val($(".rightpanel").find(".active").attr('value'))      
            $('#exportfilter_name').val('')
 
@@ -2732,6 +2782,28 @@
          {
          $(".resultarray").val('Select-All');
          }
+         else
+         {
+            var result = $('.exportcolumn input[type="checkbox"]:checked'); // this return collection of items checked
+         var totalcheckbox = $('.exportcolumn input[type="checkbox"]');
+         if (result.length > 0) {
+         var resultString ="";
+         result.each(function () {
+         resultString += $(this).val() + "," ;
+         // resultString+= $(this).val() + "<br/>";
+         });
+         resultString =  resultString.replace(/,\s*$/, "");
+         $(".resultarray").val(resultString);
+         }
+         if(result.length == 1)
+         {
+            $('#columnnameErr').hide();
+         }
+         if(result.length==totalcheckbox.length)
+         {
+         $('.allexportcheck').attr('checked', true);
+         }
+      }
          var month1= $('#mon1').val()
          $('#month1').val(month1)
          var month2= $('#mon2').val()

@@ -29,7 +29,7 @@
             $checkboxName=$_POST['checkboxName'];
             $investorvalArray = implode (",", $investorval); 
             
-            $companytype = $_POST['companytype'];
+            $companytype = implode(",",$_POST['companytype']);
             $industry=implode(",",$_POST['Industry']);
             $dealType=implode(",",$_POST['dealType']);
             $Intype=$_POST['Intype'];
@@ -39,7 +39,7 @@
             $region=implode(",",$_POST['region']);
             $round=implode(",",$_POST['round']);
             $stage=implode(",",$_POST['stage']);
-            $investorType=$_POST['investorType'];
+            $investorType=implode(",",$_POST['investorType']);
             $filterType=$_POST['filterType'];
             $companyName=$_POST['companyName'];
             $filterQuery=$_POST['filterQuery'];
