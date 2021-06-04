@@ -2296,11 +2296,21 @@ $( '#mca_data1 a' ).on( 'click', function() {
         url: 'ajax_mca_director_1.php',
         dataType : 'html',
         data: {cin: ""+cin+""},
+        timeout: 3000,
         success: function(data) {
             var respData = $( data );
             mcadataload( respData );
         },
-        timeout: 180000
+        error: function(xhr, textStatus, errorThrown) {
+            $( '#lookup-box' ).fadeOut();
+            $( '.maskscreenMCA' ).fadeOut();
+            //$( '#lookup-box .title' ).text( 'COMPANY MASTER DATA' );
+            $( '#lookup-boxmca' ).fadeIn();
+            $( '.maskscreenMCALimit' ).fadeIn();
+                  //  alert("Error : Timeout for this call!");
+                
+                }
+       // timeout: 180000
     });
 });
 $( '#mca_data2 a' ).on( 'click', function() {
