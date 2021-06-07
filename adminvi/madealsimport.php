@@ -488,10 +488,8 @@
         //this function returns the date
         $fulldate= $yr ."-" .date("m", strtotime($mth)) ."-01";
        
-        if (checkdate (date("m", strtotime($mth)), 01, $yr))
-        {
             return date('Y-m-d',  strtotime($fulldate));
-        }
+        
         
     }
 
