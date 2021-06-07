@@ -3487,10 +3487,10 @@ include_once($refineUrl); ?>
         pecompanies as pec,executives as exe,pecompanies_board as bd
         where pec.PECompanyId='$SelCompRefvalue' and bd.PECompanyId=pec.PECompanyId and exe.ExecutiveId=bd.ExecutiveId";
 
-        $irrsql="SELECT pe.InvestorId, pe.Investor, ma.MultipleReturn, ma.IRR FROM `peinvestors` as pe, `manda_investors` as ma where ma.InvestorId=pe.InvestorId and ma.MandAId = $SelCompRef";
+        $irrsql="SELECT pe.InvestorId, pe.Investor,  ma.Amount_M, ma.Amount_INR,ma.MultipleReturn, ma.IRR FROM `peinvestors` as pe, `manda_investors` as ma where ma.InvestorId=pe.InvestorId and ma.MandAId = $SelCompRef";
 
 
-
+echo  $irrsql;
 
          if ($getAcquirerSql = mysql_query($AcquirerSql))
                     {
@@ -4861,7 +4861,9 @@ include_once($refineUrl); ?>
 
                                                                 <tr>
                                                                     <th>Investor</th> 
-                                                                    <th>Return Multiple</th>
+                                                                    <th>Amount(US$M)</th> 
+                                                                    <th>Amount(INR)</th> 
+                                                                    <th style="    width: inherit;">Return Multiple</th>
                                                                     <th>IRR</th>
                                                                 </tr>
                                                             </thead>
@@ -4873,6 +4875,8 @@ include_once($refineUrl); ?>
                                                                             {
                                                                                     $Investorid=trim($myInvestorrow["InvestorId"]);
                                                                                     $Investorname=trim($myInvestorrow["Investor"]);
+                                                                                    $Amount_INR=trim($myInvestorrow["Amount_INR"]);
+                                                                                    $Amount_M=trim($myInvestorrow["Amount_M"]);
                                                                                     $multiplereturnname=trim($myInvestorrow["MultipleReturn"]);
                                                                                     $irrvalue=trim($myInvestorrow["IRR"]);
                                                                                                      
@@ -4885,6 +4889,9 @@ include_once($refineUrl); ?>
                                                                             <a href='dirdetails.php?value=<?php echo $Investorid.'/'.$VCFlagValue.'/'.$deal;?>' title="<?php echo $Investorname; ?>" target="_blank"><?php echo $Investorname; ?></a>
                                                                        <?php //} ?>
                                                                     </td>
+                                                                    <td><?php if($Amount_INR!="0.00" && $Amount_INR!="" ){echo $Amount_INR."%";}else{echo "";}?></td>                                                          
+                                                                    <td><?php if($Amount_M!="0.00" && $Amount_M!="" ){echo $Amount_M."%";}else{echo "";}?></td>                                                          
+
                                                                     <td><?php if($multiplereturnname!="0.00" && $multiplereturnname!="" ){echo $multiplereturnname."x";}else{echo "";}?></td>                                                          
                                                                     <td class="table-width1"><?php if($irrvalue!="0.00" && $irrvalue!="" ){echo $irrvalue."%";}else{echo "";} ?></td>   
                                                                    
