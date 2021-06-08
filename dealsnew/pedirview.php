@@ -9169,9 +9169,18 @@ if(tagsearchval == ''){
 
             <?php  if($notable==false)  {  ?> 
              <div style="padding: 0 1%; margin-top: 20px">
+
              <div class="holder" style="float:none; text-align: center;">
                  <div class="paginate-wrapper" style="display: inline-block;"></div>
              </div>
+
+
+            <center><div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center>
+
+
+    
+             
              <?php
                     if(($exportToExcel==1))
                     {

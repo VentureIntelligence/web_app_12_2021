@@ -643,7 +643,8 @@
                        
                              
                 </div>	
-     <div class="holder">
+                <div class="holder" style="float:none; text-align: center;">
+             <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
                     $totalpages=  ceil($totalrecords/$rec_limit);
                     $firstpage=1;
@@ -680,7 +681,10 @@
                                         
                   <a class="jp-next jp-disabled">Next &#8594;</a>
                      <?php  } ?>
-    </div>
+    </div></div>
+                  
+   <center><div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
+   <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center>
          
                         <?php if(($exportToExcel==1)){ ?>
                     
@@ -754,6 +758,12 @@
            });
            $(".jp-page").live("click",function(){
                pageno=$(this).text();
+               $("#paginationinput").val('');
+                loadhtml(pageno,orderby,ordertype);
+               return  false;
+           });
+           $(".jp-page1").live("click",function(){
+               pageno=$(this).val();
                 loadhtml(pageno,orderby,ordertype);
                return  false;
            });
@@ -1139,3 +1149,25 @@ $(function() {
            
         </script>
         <?php mysql_close(); ?>
+
+
+
+    <script>
+        function paginationfun(val)
+        {
+            $(".pagevalue").val(val);
+        }
+    </script>
+
+    <style>
+        .button{
+            background-color: #a2753a; /* Green */
+            border: none;
+            color: white;
+            padding: 4px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>

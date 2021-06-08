@@ -194,6 +194,7 @@
       // default nav
       nav.holder.bind("click.jPages", this.bind(function(evt) {
         var newPage = this.getNewPage(nav, $(evt.target));
+        //alert(newPage);
         if (this.validNewPage(newPage)) {
           this._clicked = true;
           this.paginate(newPage);
@@ -263,7 +264,7 @@
         var target = evt.target.nodeName.toLowerCase();
         if (this.elemScrolledIntoView() && target !== "input" && target != "textarea") {
           var newPage = this._currentPageNum;
-
+          // alert(newPage);
           if (evt.which == 37) newPage = this._currentPageNum - 1;
           if (evt.which == 39) newPage = this._currentPageNum + 1;
 
@@ -312,6 +313,7 @@
     },
 
     validNewPage : function(newPage) {
+      alert(newPage);
       return newPage !== this._currentPageNum && newPage > 0 && newPage <= this._numPages;
     },
 
@@ -455,6 +457,9 @@
     },
 
     updateCurrentPage : function(nav, page) {
+
+      //alert(page);
+
       nav.currentPage.removeClass("jp-current");
       nav.currentPage = nav.pages.eq(page - 1).addClass("jp-current");
     },

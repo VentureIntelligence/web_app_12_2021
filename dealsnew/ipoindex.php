@@ -2112,6 +2112,8 @@
                      <?php  } ?>
                      </div>
     </div>
+    <center> <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
+    <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center>
   <?php 
         }
                  if($hidecount==1)
@@ -2353,7 +2355,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-    include_once("ipotrendview.php");
+    //include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php
@@ -2515,6 +2517,12 @@
            });
            $(".jp-page").live("click",function(){
                pageno=$(this).text();
+               $("#paginationinput").val('');
+                loadhtml(pageno,orderby,ordertype);
+               return  false;
+           });
+           $(".jp-page1").live("click",function(){
+               pageno=$(this).val();
                 loadhtml(pageno,orderby,ordertype);
                return  false;
            });
@@ -10124,4 +10132,24 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     mysql_close();
     mysql_close($cnx);
     ?>
+
+<script>
+    function paginationfun(val)
+    {
+        $(".pagevalue").val(val);
+    }
+    </script>
+
+    <style>
+        .button{
+        background-color: #a2753a; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+        }
+    </style>
    

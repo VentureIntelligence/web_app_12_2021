@@ -816,6 +816,8 @@ if ($resetfield == "companysearch") {
 
         $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
 
+        //echo $sql_company;
+
         $sql_company_Exe = mysql_query($sql_company);
         $company_filter = "";
         $response = array();
@@ -2939,6 +2941,8 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
     //echo "<br>TRANS-".$vcflagValue;
     //echo $companysql;
 } elseif (gettype($industry)=="string" || count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
+
+
     $yourquery = 1;
 
     $dt1 = $year1 . "-" . $month1 . "-01";
@@ -2964,7 +2968,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                                     JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
                                                     JOIN industry AS i ON pec.industry = i.industryid
                                                     JOIN stage AS s ON s.StageId=pe.StageId $increg ".$joinsectortable. " WHERE " . $valuationsql . "";
-    //    echo "<br> individual where clauses have to be merged ";
+        //echo $companysql; 
 
 
     if ($keyword != '') {
@@ -3389,7 +3393,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
         $companysql = $companysql . $wheresyndication;
     }
     $popup_search = 1;
-                                //     echo "finalquery:".$companysql;
+                                   //echo "finalquery:".$companysql;
 } else {
     echo "<br> INVALID DATES GIVEN ";
     $fetchRecords = false;
@@ -3423,6 +3427,7 @@ $getcompaniesSql = "SELECT DISTINCT pe.PECompanyId as PECompanyId, pec. * , i.in
                         AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15
                         AND r.RegionId = pec.RegionId " . $addVCFlagqry . "
                         ORDER BY pec.companyname";
+                        
 
 //Stage
 $stagesql = "select StageId,Stage from stage ";
@@ -4633,10 +4638,11 @@ $pages = array();
                  <?php } else {?>
                  <a class="jp-previous" >&#8592; Previous</a>
                  <?php }
+
     for ($i = 0; $i < count($pages); $i++) {
         if ($pages[$i] > 0 && $pages[$i] <= $totalpages) {
             ?>
-                 <a class='<?php echo ($pages[$i] == $currentpage) ? "jp-current" : "jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
+            <a class='<?php echo ($pages[$i] == $currentpage) ? "jp-current" : "jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
                  <?php }
     }
     if ($currentpage < $totalpages) {
@@ -4645,10 +4651,19 @@ $pages = array();
                      <?php } else {?>
                   <a class="jp-next jp-disabled">Next &#8594;</a>
                      <?php }?>
+                     
+                     
+                      
+
                      </div>
              </div>
            <?php
 }
+?>
+          <center> <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center> 
+            <?php
+
 if ($studentOption == 1) {
     ?>
                      <script type="text/javascript" >
@@ -5080,6 +5095,14 @@ if ($type != 1) {
                 });
                 $(".jp-page").live("click",function(){
                    var pageno=$(this).text();
+                   //alert(pageno);
+                   $("#paginationinput").val('');
+                    loadhtml(pageno,orderby,ordertype);
+                    return  false;
+                });
+                $(".jp-page1").live("click",function(){
+                   var pageno=$(this).val();
+                  // alert(pageno);
                     loadhtml(pageno,orderby,ordertype);
                     return  false;
                 });
@@ -11928,4 +11951,22 @@ echo $user_browser;?>
         }    
         });
 });
+
+function paginationfun(val)
+{
+    $(".pagevalue").val(val);
+}
 </script>
+
+<style>
+    .button{
+    background-color: #a2753a; /* Green */
+  border: none;
+  color: white;
+  padding: 4px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+    }
+</style>

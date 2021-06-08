@@ -1376,7 +1376,8 @@
 			?>
         <?php if($notable==false)
         { ?>
-             <div class="holder">
+             <div class="holder" style="float:none; text-align: center;">
+             <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
                     $totalpages=  ceil($company_cntall/$rec_limit);
                     $firstpage=1;
@@ -1413,7 +1414,12 @@
                      <?php } else { ?>
                   <a class="jp-next jp-disabled">Next &#8594;</a>
                      <?php  } ?>
-             </div>		                 
+             </div>
+             </div>	
+
+            <center><div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center>	
+
         <?php }
                 $totalAmount=round($totalAmount, 0);
                 $totalAmount=number_format($totalAmount);
@@ -1530,7 +1536,7 @@
                        <div class="showhide-link" id="trendnav" style="z-index: 100000"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
                             <div  id="slidingTable" style="display: none;overflow:hidden;">
                                <?php
-                                    include_once("rematrendview.php");
+                                    //include_once("rematrendview.php");
                                ?>   
                                <table width="100%">
 				<?php
@@ -1675,6 +1681,12 @@
                 });
                 $(".jp-page").live("click",function(){
                     pageno=$(this).text();
+                    $("#paginationinput").val('');
+                    loadhtml(pageno,orderby,ordertype);
+                    return  false;
+                });
+                $(".jp-page1").live("click",function(){
+                    pageno=$(this).val();
                     loadhtml(pageno,orderby,ordertype);
                     return  false;
                 });
@@ -3013,3 +3025,23 @@ if($_GET['type']!="")
     });                                   
     </script>  
      <?php  mysql_close();   ?>
+
+     <script>
+        function paginationfun(val)
+        {
+            $(".pagevalue").val(val);
+        }
+    </script>
+
+    <style>
+        .button{
+            background-color: #a2753a; /* Green */
+            border: none;
+            color: white;
+            padding: 4px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
