@@ -1580,7 +1580,7 @@
             $fetchAggregate==false;
             $popup_search=1;
             //  echo "<br>Query for company search";
-            echo "<br> Company search--" .$companysql;
+           // echo "<br> Company search--" .$companysql;
         }
         elseif (trim($companysearchads) != "")
         {
