@@ -192,12 +192,15 @@ $sql="SELECT Distinct pe.PECompanyID as PECompanyId,pec.companyname,pec.industry
 $result = mysql_query($sql) or die(mysql_error());
 $rowscount = mysql_num_rows($result);
 //echo "There are " . $rowscount . " rows in my table.";exit();
+//$_SESSION['rowcount']=$rowscount;
 if($rowscount == 0)
 {
     echo $rowscount;exit();
 }
 else
 {
+    if($_POST['exportcount'] == "")
+    {
     $exportvalue=$_POST['resultarray'];
     if($exportvalue == "Select-All"){
         $exportvalue = "Company,CIN,Company Type,Industry,City,State,Region,Exit Status,Round,Stage,Investor Type,Stake (%),Investors,Date,Website,Year Founded,Sector,Amount(US".'$M'."),Amount(INR Cr),Advisor-Company,Advisor-Investors,More Details,Link,Pre Money Valuation (INR Cr),Revenue Multiple (Pre),EBITDA Multiple (Pre),PAT Multiple (Pre),Post Money Valuation (INR Cr),Revenue Multiple (Post),EBITDA Multiple (Post),PAT Multiple (Post),Enterprise Valuation (INR Cr),Revenue Multiple (EV),EBITDA Multiple (EV),PAT Multiple (EV),Price to Book,Valuation,Revenue (INR Cr),EBITDA (INR Cr),PAT (INR Cr),Total Debt (INR Cr),Cash & Cash Equ. (INR Cr),Book Value Per Share,Price Per Share";    
@@ -926,7 +929,10 @@ else
     $objWriter->save('php://output');
 exit();
     }
-//		}
+    else{
+        echo $rowscount;exit();
+    }
+		}
 //else
 //	header( 'Location: http://www.ventureintelligence.in/pelogin.php' ) ;
 mysql_close();

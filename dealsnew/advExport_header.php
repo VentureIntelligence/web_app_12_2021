@@ -2134,9 +2134,9 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = <?php echo $_SESSION['rowcount'] ?>;
          var remLimit = exportLimit-downloaded;
-         if (currentRec < remLimit){
+         if (downloaded < exportLimit){
             hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
          $("#exitpelistingexcel").submit();
@@ -2177,9 +2177,9 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = <?php echo $_SESSION['rowcount'] ?>;
          var remLimit = exportLimit-downloaded;
-         if (currentRec < remLimit){
+         if (downloaded < exportLimit){
             hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
          $("#pelistingexcel").submit();
@@ -2910,7 +2910,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = <?php echo $_SESSION['rowcount'] ?>;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -2919,7 +2919,7 @@
          var filterType= $(".rightpanel").find(".active").attr('value')       
          entrylogtabledata(filterType,globalfilterId,globalfilterNameId);
  
-         if (currentRec < remLimit){
+         if (downloaded < exportLimit){
             $('#exportcount').val('')
 
          hrefval= 'exportinvdealsExcel.php';
@@ -3135,7 +3135,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = <?php echo $_SESSION['rowcount'] ?>;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -3148,7 +3148,7 @@
          // {
             //var filterType= $(".rightpanel").find(".active").attr('value')       
           //exportfiltr(1,filterType,exitglobalfilterId,exitglobalfilterNameId,1);
-         if (currentRec < remLimit){
+          if (downloaded < exportLimit){
             $('#exitexportcount').val('')
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
@@ -3242,9 +3242,9 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = <?php echo $_SESSION['rowcount'] ?>;
          var remLimit = exportLimit-downloaded;
-         if (currentRec < remLimit){
+         if (downloaded < exportLimit){
             $('#exitexportcount').val('');
          hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
@@ -3291,9 +3291,9 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = <?php echo $_SESSION['rowcount'] ?>;
          var remLimit = exportLimit-downloaded;
-         if (currentRec < remLimit){
+         if (downloaded < exportLimit){
             $('#exportcount').val('')
             hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);

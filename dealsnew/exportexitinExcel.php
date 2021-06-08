@@ -1270,6 +1270,8 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
      or die("Error in connection");
 
      $rowscount = mysql_num_rows($result);
+     $_SESSION['rowcount']=$rowscount;
+
 //echo "There are " . $rowscount . " rows in my table.";exit();
 if($rowscount == 0)
 {
@@ -1987,7 +1989,7 @@ if(in_array("PricePerShare", $expval))
      }
     }
     else{
-        echo 1;exit();
+        echo $rowscount;exit();
     }
 }
     print "\n";
