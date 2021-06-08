@@ -4861,10 +4861,12 @@ include_once($refineUrl); ?>
 
                                                                 <tr>
                                                                     <th>Investor</th> 
-                                                                    <th>Amount(US$M)</th> 
-                                                                    <th>Amount(INR)</th> 
-                                                                    <th style="    width: inherit;">Return Multiple</th>
+                                                                    
+                                                                    <th >Return Multiple</th>
                                                                     <th>IRR</th>
+                                                                    <th>&#8377; Cr</th> 
+                                                                    <th>$ M</th> 
+                                                                
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -4889,13 +4891,14 @@ include_once($refineUrl); ?>
                                                                             <a href='dirdetails.php?value=<?php echo $Investorid.'/'.$VCFlagValue.'/'.$deal;?>' title="<?php echo $Investorname; ?>" target="_blank"><?php echo $Investorname; ?></a>
                                                                        <?php //} ?>
                                                                     </td>
-                                                                    <td><?php if($Amount_M!="0.00" && $Amount_M!="" ){echo $Amount_M."";}else{echo "";}?></td>                                                          
-
-                                                                    <td><?php if($Amount_INR!="0.00" && $Amount_INR!="" ){echo $Amount_INR."";}else{echo "";}?></td>                                                          
-
+                                                                   
                                                                     <td><?php if($multiplereturnname!="0.00" && $multiplereturnname!="" ){echo $multiplereturnname."x";}else{echo "";}?></td>                                                          
                                                                     <td class="table-width1"><?php if($irrvalue!="0.00" && $irrvalue!="" ){echo $irrvalue."%";}else{echo "";} ?></td>   
-                                                                   
+                                                                    <td><?php if($Amount_INR!="0.00" && $Amount_INR!="" ){echo $Amount_INR."";}else{echo "";}?></td>                                                          
+
+                                                                    <td><?php if($Amount_M!="0.00" && $Amount_M!="" ){echo $Amount_M."";}else{echo "";}?></td>                                                          
+
+
                                                                 </tr>                                                         
                                                          <?php 
                                                               }
