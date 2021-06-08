@@ -121,11 +121,7 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Category">Category</label>
                                             </td>
                                             <td>
-<<<<<<< HEAD
                                             
-=======
-
->>>>>>> 44843badd1332afcbe8c7fc7e521734aa6730444
                                             <?php
                                                 $sql = "SELECT `id`,`category` FROM newsletter_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
