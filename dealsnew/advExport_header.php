@@ -2134,7 +2134,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var currentRec = downloaded;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
             hrefval= 'exportexitinExcel.php';
@@ -2177,7 +2177,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var currentRec = downloaded;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
             hrefval= 'exportinvdealsExcel.php';
@@ -2910,7 +2910,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var currentRec = downloaded;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -3135,7 +3135,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var currentRec = downloaded;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -3242,7 +3242,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var currentRec = downloaded;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
             $('#exitexportcount').val('');
@@ -3291,7 +3291,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = <?php echo $_SESSION['totalcount'] ?>;
+         var currentRec = downloaded;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
             $('#exportcount').val('')
