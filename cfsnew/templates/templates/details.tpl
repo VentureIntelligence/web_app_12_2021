@@ -2254,7 +2254,7 @@ $( '#mca_data a' ).on( 'click', function() {
         type: 'GET',
         url: 'ajax_mca_profile_1.php',
         data: {cin: ""+cin+""},
-        timeout: 3000,
+        timeout: 5000,
         success: function(data) {
              var respData = $( data );
              if(data ==403 || data == 302 || data == 0 || data == 404 || data.startsWith("Javascript") == true){
@@ -2296,7 +2296,7 @@ $( '#mca_data1 a' ).on( 'click', function() {
         url: 'ajax_mca_director_1.php',
         dataType : 'html',
         data: {cin: ""+cin+""},
-        timeout: 3000,
+        timeout: 5000,
         success: function(data) {
             var respData = $( data );
             mcadataload( respData );
@@ -2326,7 +2326,7 @@ $( '#mca_data2 a' ).on( 'click', function() {
         type: 'GET',
         url: 'ajax_mca_charges_1.php',
         data: {cin: ""+cin+""},
-        timeout: 3000,
+        timeout: 5000,
         success: function(data) {
             var respData = $( data );
              if(data ==403 || data == 302 || data == 0 || data == 404 || data.startsWith("Javascript") == true){
