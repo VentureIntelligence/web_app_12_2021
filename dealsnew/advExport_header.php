@@ -2128,15 +2128,29 @@
          
          }
          $('#txthideinvestor').val(div);
+         
+         var post_url = $("#exitpelistingexcel").attr("action"); //get form action url
+         $('#exitexportcount').val('exitexportcount')
+      
+	      var request_method = $("#exitpelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#exitpelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){ 
+            globaltotalrowcount=parseInt(data)
          $.ajax({
          url: 'advCheckDownload.php',
          dataType: 'json',
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = globaltotalrowcount;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
+            $('#exitexportcount').val('')
+
             hrefval= 'exportexitinExcel.php';
          $("#exitpelistingexcel").attr("action", hrefval);
          $("#exitpelistingexcel").submit();
@@ -2151,6 +2165,8 @@
          }
          
          });
+         },
+            });
         
          }
          else{
@@ -2171,15 +2187,30 @@
          
          }
          $('#investorvalue').val(div);
+      
+         var post_url = $("#pelistingexcel").attr("action"); //get form action url
+         $('#exportcount').val('exportcount')
+         
+         //var post_url = $("#pelistingexcel").attr("action"); //get form action url
+	      var request_method = $("#pelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#pelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){ 
+            globaltotalrowcount=parseInt(data)
          $.ajax({
          url: 'advCheckDownload.php',
          dataType: 'json',
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = globaltotalrowcount;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
+            $('#exportcount').val('')
+
             hrefval= 'exportinvdealsExcel.php';
          $("#pelistingexcel").attr("action", hrefval);
          $("#pelistingexcel").submit();
@@ -2194,6 +2225,8 @@
          }
          
          });
+         },
+            });
          }
          }
          }
@@ -2543,7 +2576,8 @@
                url : post_url,
 		type: request_method,
 		data : form_data,
-         success: function(data){ 
+         success: function(data){
+            globaltotalrowcount=parseInt(data) 
                   if(data == 0)
                   {
                      swal("No data available for the selected filter");
@@ -2703,6 +2737,7 @@
 		type: request_method,
 		data : form_data,
          success: function(data){ 
+            globaltotalrowcount=parseInt(data)
                   if(data == 0)
                   {
                      swal("No data available for the selected filter");
@@ -2891,6 +2926,7 @@
 		type: request_method,
 		data : form_data,
          success: function(data){ 
+            globaltotalrowcount=parseInt(data)
                   if(data == 0)
                   {
                      swal("No data available for the selected filter");
@@ -2910,7 +2946,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = globaltotalrowcount;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -3116,6 +3152,7 @@
 		         type: request_method,
 		         data : form_data,
                   success: function(data){ 
+                     globaltotalrowcount=parseInt(data)
                   if(data == 0)
                   {
                      swal("No data available for the selected filter");
@@ -3135,7 +3172,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = globaltotalrowcount;
          
          //alert(exportLimit)
          var remLimit = exportLimit-downloaded;
@@ -3223,6 +3260,19 @@
 
             }
             else{
+
+         var post_url = $("#exitpelistingexcel").attr("action"); //get form action url
+         $('#exitexportcount').val('exitexportcount')
+      
+         //var post_url = $("#pelistingexcel").attr("action"); //get form action url
+	      var request_method = $("#exitpelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#exitpelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){ 
+            globaltotalrowcount=parseInt(data)
                swal({
     //title: "Wow!",
     text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
@@ -3242,7 +3292,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = globaltotalrowcount;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
             $('#exitexportcount').val('');
@@ -3263,6 +3313,8 @@
          });
          }
           });
+         },
+            });
             }
          }
          else{
@@ -3272,6 +3324,19 @@
 
             }
             else{
+               var post_url = $("#pelistingexcel").attr("action"); //get form action url
+               $('#exportcount').val('exportcount')
+      
+         //var post_url = $("#pelistingexcel").attr("action"); //get form action url
+	      var request_method = $("#pelistingexcel").attr("method"); //get form GET/POST method
+	      var form_data = $("#pelistingexcel").serialize();
+            $.ajax({
+               url : post_url,
+		type: request_method,
+		data : form_data,
+         success: function(data){
+            globaltotalrowcount=parseInt(data) 
+
                swal({
     //title: "Wow!",
     text: "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.",
@@ -3291,7 +3356,7 @@
          success: function(data){
          var downloaded = data['recDownloaded'];
          var exportLimit = data.exportLimit;
-         var currentRec = downloaded;
+         var currentRec = globaltotalrowcount;
          var remLimit = exportLimit-downloaded;
          if (currentRec < remLimit){
             $('#exportcount').val('')
@@ -3311,6 +3376,8 @@
          });
          }
           });
+         },
+            });
             }
          }
          },
