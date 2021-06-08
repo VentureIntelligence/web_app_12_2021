@@ -1580,7 +1580,7 @@
             $fetchAggregate==false;
             $popup_search=1;
             //  echo "<br>Query for company search";
-            //echo "<br> Company search--" .$companysql;
+            echo "<br> Company search--" .$companysql;
         }
         elseif (trim($companysearchads) != "")
         {
@@ -3827,21 +3827,21 @@ div.token-input-dropdown{
                 //----------------------------------------------------------------------------------
                 
                     var strArray = cur_val.split(',');
-        Â Â Â Â Â Â Â Â Â Â Â Â for( var i = 0; i < strArray.length; i++ ) {
-        Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â if ( strArray[i] === peuncheckCompdId ) {
+                    for( var i = 0; i < strArray.length; i++ ) {
+                        if ( strArray[i] === peuncheckCompdId ) {
                             strArray.splice(i, 1);
-        Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â }
-        Â Â Â Â Â Â Â Â Â Â Â Â }
+                        }
+                    }
                     $('#pe_checkbox_disbale').val( strArray );
                     $('#txthidepe').val( strArray );
                     
                     //------------------------------junaid--------------------------------
                     var strArray1 = cur_val1.split(',');
-        Â Â Â Â Â Â Â Â Â Â Â Â for( var i = 0; i < strArray1.length; i++ ) {
-        Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â if ( strArray1[i] === peuncheckCompdId ) {
+                    for( var i = 0; i < strArray1.length; i++ ) {
+                        if ( strArray1[i] === peuncheckCompdId ) {
                             strArray1.splice(i, 1);
-        Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â }
-        Â Â Â Â Â Â Â Â Â Â Â Â }
+                        }
+                    }
                     if( pehideFlag == 1 ) {
                         $( '#hide_company_array' ).val( strArray1 );
                     }
@@ -3853,11 +3853,11 @@ div.token-input-dropdown{
                     $(event.target).parents('.details_link').addClass('event_stop');
                 //------------------------------junaid--------------------------------   
                     var strArray2 = cur_va2.split(',');
-        Â Â Â Â Â Â Â Â Â Â Â Â for( var i = 0; i < strArray2.length; i++ ) {
-        Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â if ( strArray2[i] === peuncheckCompdId ) {
+                    for( var i = 0; i < strArray2.length; i++ ) {
+                        if ( strArray2[i] === peuncheckCompdId ) {
                             strArray2.splice(i, 1);
-        Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â }
-        Â Â Â Â Â Â Â Â Â Â Â Â }
+                        }
+                    }
                     $('#pe_checkbox_enable').val( strArray2 );
                     $('#export_checkbox_enable').val( strArray2 );
                 //-------------------------------------------------------------- 
