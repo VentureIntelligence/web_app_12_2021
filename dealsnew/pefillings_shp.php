@@ -1705,30 +1705,31 @@ include_once($refineUrl); ?>
                                             if ($rspromotors = mysql_query($getPromotorsSql))
                                             {
                                                 $validate_promoters = mysql_num_rows($rspromotors);
-                                                if($validate_promoters != 0){
-                                                $i=0;
-                                                While($myProrow=mysql_fetch_array($rspromotors, MYSQL_BOTH))
+                                                if($validate_promoters != 0)
                                                 {
+                                                    $i=0;
+                                                    While($myProrow=mysql_fetch_array($rspromotors, MYSQL_BOTH))
+                                                    {
+                                                        ?>
+                                                        <tr>
+                                                            <td>
+                                                            <sqlval style="padding-left: 50px;"><?php echo $myProrow["promoters_name"]; ?></sqlval> 
+                                                            </td>
+                                                            <td>
+                                                            <?php echo $myProrow["stake_held"]; ?>%
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $i++;
+                                                    }
+                                                }else{
                                                 ?>
-                                                <tr>
-                                                    <td>
-                                                    <sqlval style="padding-left: 50px;"><?php echo $myProrow["promoters_name"]; ?></sqlval> 
-                                                    </td>
-                                                    <td>
-                                                    <?php echo $myProrow["stake_held"]; ?>%
-                                                    </td>
-                                                </tr>
+                                                    
+                                                    <td colspan="2">Promoter Records Not Found</td>        
                                                 <?php
-                                                    $i++;
                                                 }
-                                            }else{
-                                            ?>
-                                                
-                                                <td colspan="2">Promoter Records Not Found</td>        
-                                            <?php
                                             }
-                                        }
-                                    ?>
+                                        ?>
                                         
                                         <tr class="table_heading_tr">
                                             <td>ESOP</td>
@@ -1740,7 +1741,7 @@ include_once($refineUrl); ?>
                                             <?php }?> 
                                             </td>
                                         </tr>
-                                        <tr class="table_heading_tr">
+                                        <!-- <tr class="table_heading_tr">
                                             <td>Others</td>
                                             <td>
                                             <?php if($mainTable_Others != "--"){ ?>  
@@ -1749,7 +1750,57 @@ include_once($refineUrl); ?>
                                                     <esop>--</esop>        
                                             <?php }?>  
                                             </td>
+                                        </tr> -->
+
+
+                                        <tr class="table_heading_tr">
+                                            <td>Others</td>
+                                            <td>
+                                            <promoters_percentage style="float:right;font-weight: 100;">
+                                                <?php
+                                                    if($mainTable_Others != ""){
+                                                        echo $mainTable_Others."%";
+                                                    } 
+                                                ?>
+                                            </promoters_percentage>
+                                            </td>
                                         </tr>
+                                        
+                                        <?php
+                                        $getOthersSql="select * from pe_shp_others where PEId=$PEId ORDER BY id ASC";
+                                        if ($rsothers = mysql_query($getOthersSql))
+                                        {
+                                            $validate_others = mysql_num_rows($rsothers);
+                                            if($validate_others != 0)
+                                            {
+                                                $i=0;
+                                                While($myOthersrow=mysql_fetch_array($rsothers, MYSQL_BOTH))
+                                                {
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                        <sqlval style="padding-left: 50px;"><?php echo $myOthersrow["others_name"]; ?></sqlval> 
+                                                        </td>
+                                                        <td>
+                                                        <?php echo $myOthersrow["stake_held"]; ?>%
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                    $i++;
+                                                }
+                                            }else{
+                                            ?>
+                                                
+                                                <td colspan="2">Others Records Not Found</td>        
+                                            <?php
+                                            }
+                                        }
+                                        ?>
+
+
+
+
+
                                         </table>
                                         <?php }else { ?>
                                             <div class="view-table view-table-list filing-cnt" style="padding-top: 3px !important;width: 48%;float:left;margin-left:25px;">
