@@ -427,8 +427,8 @@
                     $month2=date('m');
                     $year2=date('Y');
                  }elseif(!isset($_POST['month1'])|| $period_flag==2){
-                     $month1=$_POST['month1'];
-                    $year1=$_POST['year1'];
+                    $month1=01; 
+                    $year1 = 1998;
                     $month2=date('m');
                     $year2=date('Y');
                  }else{
@@ -2457,7 +2457,7 @@
     
     //if($searchallfield!=''){ ?>
         $(document).ready(function(){
-           var filed_name = "combinesearch";
+           var filed_name = "";
             <?php if ($company_cnt==0){ ?>
                               $('.other_db_search').css('margin-top','50px');
             <?php } ?>
