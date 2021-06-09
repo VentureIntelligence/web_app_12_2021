@@ -63,100 +63,102 @@ else
  
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTable">
-                              <thead><tr>
-                                <th style="width: 700px;" class="header <?php echo ($orderby=="companyname")?$ordertype:""; ?>" id="companyname">Target</th>
-                                <th style="width: 500px;" class="header <?php echo ($orderby=="Acquirer")?$ordertype:""; ?>" id="Acquirer">Acquirer</th>
-                                <th style="width: 300px;" class="header <?php echo ($orderby=="DealDate")?$ordertype:""; ?>" id="DealDate">Date</th>
-                                <th style="width: 228px;" class="header <?php echo ($orderby=="Amount")?$ordertype:""; ?>" id="Amount">Amount (US$M)</th>
-                                </tr></thead>
-                              <tbody id="movies">
-						<?php
-						if ($company_cnt>0)
-                                                {
+        <thead>
+                <tr>
+                        <th style="width: 700px;" class="header <?php echo ($orderby=="companyname")?$ordertype:""; ?>" id="companyname">Target</th>
+                        <th style="width: 500px;" class="header <?php echo ($orderby=="Acquirer")?$ordertype:""; ?>" id="Acquirer">Acquirer</th>
+                        <th style="width: 300px;" class="header <?php echo ($orderby=="DealDate")?$ordertype:""; ?>" id="DealDate">Date</th>
+                        <th style="width: 228px;" class="header <?php echo ($orderby=="Amount")?$ordertype:""; ?>" id="Amount">Amount (US$M)</th>
+                </tr>
+        </thead>
+        <tbody id="movies">
+                <?php
+                if ($company_cnt>0)
+                {
 
 
-                                                        $acrossDealsCnt=0;
-                                                          mysql_data_seek($companyrs, 0);
-                                                        While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
-                                                        {
-                                                                $searchString4="PE Firm(s)";
-                                                                $searchString4=strtolower($searchString4);
-                                                                $searchString4ForDisplay="PE Firm(s)";
-                                                                $searchString="Undisclosed";
-                                                                $searchString=strtolower($searchString);
-                                                                $companyName=trim($myrow["companyname"]);
-                                                                $companyName=strtolower($companyName);
-                                                                $compResult=substr_count($companyName,$searchString);
-                                                                $compResult4=substr_count($companyName,$searchString4);
+                        $acrossDealsCnt=0;
+                                mysql_data_seek($companyrs, 0);
+                        While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
+                        {
+                                $searchString4="PE Firm(s)";
+                                $searchString4=strtolower($searchString4);
+                                $searchString4ForDisplay="PE Firm(s)";
+                                $searchString="Undisclosed";
+                                $searchString=strtolower($searchString);
+                                $companyName=trim($myrow["companyname"]);
+                                $companyName=strtolower($companyName);
+                                $compResult=substr_count($companyName,$searchString);
+                                $compResult4=substr_count($companyName,$searchString4);
 
-                                                                $acquirerName=$myrow["Acquirer"];
-                                                                $acquirerName=strtolower($acquirerName);
+                                $acquirerName=$myrow["Acquirer"];
+                                $acquirerName=strtolower($acquirerName);
 
-                                                                $compResultAcquirer=substr_count($acquirerName,$searchString4);
-                                                                $compResultAcquirerUndisclosed=substr_count($acquirerName,$searchString);
+                                $compResultAcquirer=substr_count($acquirerName,$searchString4);
+                                $compResultAcquirerUndisclosed=substr_count($acquirerName,$searchString);
 
-                                                                if($compResult==0)
-                                                                        $displaycomp=$myrow["companyname"];
-                                                                elseif($compResult4==1)
-                                                                        $displaycomp=ucfirst("$searchString4");
-                                                                elseif($compResult==1)
-                                                                        $displaycomp=ucfirst("$searchString");
+                                if($compResult==0)
+                                        $displaycomp=$myrow["companyname"];
+                                elseif($compResult4==1)
+                                        $displaycomp=ucfirst("$searchString4");
+                                elseif($compResult==1)
+                                        $displaycomp=ucfirst("$searchString");
 
-                                                                if(($compResultAcquirer==0) && ($compResultAcquirerUndisclosed==0))
-                                                                        $displayAcquirer=$myrow["Acquirer"];
-                                                                elseif($compResultAcquirer==1)
-                                                                        $displayAcquirer=ucfirst("$searchString4ForDisplay");
-                                                                elseif($compResultAcquirerUndisclosed==1)
-                                                                        $displayAcquirer=ucfirst("$searchString");;
+                                if(($compResultAcquirer==0) && ($compResultAcquirerUndisclosed==0))
+                                        $displayAcquirer=$myrow["Acquirer"];
+                                elseif($compResultAcquirer==1)
+                                        $displayAcquirer=ucfirst("$searchString4ForDisplay");
+                                elseif($compResultAcquirerUndisclosed==1)
+                                        $displayAcquirer=ucfirst("$searchString");;
 
-                                                                if($myrow["Asset"]==1)
-                                                                {
-                                                                        $openBracket="(";
-                                                                        $closeBracket=")";
-                                                                }
-                                                                else
-                                                                {
-                                                                        $openBracket="";
-                                                                        $closeBracket="";
-                                                                }
-                                                                if($myrow["DealDate"]!="")
-                                                                {
-                                                                        $displaydate=$myrow["dealperiod"];
-                                                                }
-                                                                else
-                                                                {
-                                                                        $displaydate=="--";
-                                                                }
-                                                                if($myrow["Amount"]==0)
-                                                                {
-                                                                        $hideamount="";
-                                                                }
-                                                                else
-                                                                {
-                                                                        $hideamount=$myrow["Amount"];
-                                                                        $acrossDealsCnt=$acrossDealsCnt+1;
-                                                                }
-                                                                if(trim($myrow["sector_business"])=="")
-                                                                        $showindsec=$myrow["industry"];
-                                                                else
-                                                                        $showindsec=$myrow["sector_business"];
+                                if($myrow["Asset"]==1)
+                                {
+                                        $openBracket="(";
+                                        $closeBracket=")";
+                                }
+                                else
+                                {
+                                        $openBracket="";
+                                        $closeBracket="";
+                                }
+                                if($myrow["DealDate"]!="")
+                                {
+                                        $displaydate=$myrow["dealperiod"];
+                                }
+                                else
+                                {
+                                        $displaydate=="--";
+                                }
+                                if($myrow["Amount"]==0)
+                                {
+                                        $hideamount="";
+                                }
+                                else
+                                {
+                                        $hideamount=$myrow["Amount"];
+                                        $acrossDealsCnt=$acrossDealsCnt+1;
+                                }
+                                if(trim($myrow["sector_business"])=="")
+                                        $showindsec=$myrow["industry"];
+                                else
+                                        $showindsec=$myrow["sector_business"];
 
-                                                ?>
-                                  
-                                                <tr class="details_link" valueId="<?php echo $myrow["MAMAId"];;?>">
-                                
-						<?php
-								//Session Variable for storing Id. To be used in Previous / Next Buttons
-						?>
-                                                                <td style="width: 700px;"><?php echo $openBracket;?><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $displaycomp; ?> </a> <?php echo $closeBracket ; ?></td>
-                                                                <td style="width: 500px;"><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $displayAcquirer; ?></a></td>
-                                                                <td style="width: 300px;"><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $displaydate; ?></a></td>
-                                                                <td style="width: 228px;"><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $hideamount; ?>&nbsp;</a></td>
-                                                </tr>
-							<?php
-							}
-						}
-						?>
-                        </tbody>
-                  </table>
+                ?>
+
+                <tr class="details_link" valueId="<?php echo $myrow["MAMAId"];;?>">
+
+                <?php
+                                //Session Variable for storing Id. To be used in Previous / Next Buttons
+                ?>
+                                <td style="width: 700px;"><?php echo $openBracket;?><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $displaycomp; ?> </a> <?php echo $closeBracket ; ?></td>
+                                <td style="width: 500px;"><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $displayAcquirer; ?></a></td>
+                                <td style="width: 300px;"><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $displaydate; ?></a></td>
+                                <td style="width: 228px;"><a class="postlink" href="remadealdetails.php?value=<?php echo $myrow["MAMAId"];?>"><?php echo $hideamount; ?>&nbsp;</a></td>
+                </tr>
+                        <?php
+                        }
+                }
+                ?>
+        </tbody>
+        </table>
 <?php mysql_close(); ?>

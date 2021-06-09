@@ -4606,62 +4606,60 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
 
            <?php }?>
             <?php if ($totalno > 0) {?>
+                <div class="pageinationManual">
             <div class="holder" style="float:none; text-align: center;">
                 <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
-if ($rec_limit > 0) {
-    $totalpages = ceil($company_cntall / $rec_limit);
-} else {
-    $totalpages = 0;
-}
+                    if ($rec_limit > 0) {
+                        $totalpages = ceil($company_cntall / $rec_limit);
+                    } else {
+                        $totalpages = 0;
+                    }
 
-    $firstpage = 1;
-    $lastpage = $totalpages;
-    $prevpage = (($currentpage - 1) > 0) ? ($currentpage - 1) : 1;
-    $nextpage = (($currentpage + 1) < $totalpages) ? ($currentpage + 1) : $totalpages;
-    ?>
+                        $firstpage = 1;
+                        $lastpage = $totalpages;
+                        $prevpage = (($currentpage - 1) > 0) ? ($currentpage - 1) : 1;
+                        $nextpage = (($currentpage + 1) < $totalpages) ? ($currentpage + 1) : $totalpages;
+                        ?>
 
-                  <?php
-$pages = array();
-    $pages[] = 1;
-    $pages[] = $currentpage - 2;
-    $pages[] = $currentpage - 1;
-    $pages[] = $currentpage;
-    $pages[] = $currentpage + 1;
-    $pages[] = $currentpage + 2;
-    $pages[] = $totalpages;
-    $pages = array_unique($pages);
-    sort($pages);
-    if ($currentpage < 2) {
-        ?>
-                 <a class="jp-previous jp-disabled" >&#8592; Previous</a>
-                 <?php } else {?>
-                 <a class="jp-previous" >&#8592; Previous</a>
-                 <?php }
+                                    <?php
+                    $pages = array();
+                        $pages[] = 1;
+                        $pages[] = $currentpage - 2;
+                        $pages[] = $currentpage - 1;
+                        $pages[] = $currentpage;
+                        $pages[] = $currentpage + 1;
+                        $pages[] = $currentpage + 2;
+                        $pages[] = $totalpages;
+                        $pages = array_unique($pages);
+                        sort($pages);
+                        if ($currentpage < 2) {
+                            ?>
+                                    <a class="jp-previous jp-disabled" >&#8592; Previous</a>
+                                    <?php } else {?>
+                                    <a class="jp-previous" >&#8592; Previous</a>
+                                    <?php }
 
-    for ($i = 0; $i < count($pages); $i++) {
-        if ($pages[$i] > 0 && $pages[$i] <= $totalpages) {
-            ?>
-            <a class='<?php echo ($pages[$i] == $currentpage) ? "jp-current" : "jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
-                 <?php }
-    }
-    if ($currentpage < $totalpages) {
-        ?>
-                 <a class="jp-next">Next &#8594;</a>
-                     <?php } else {?>
-                  <a class="jp-next jp-disabled">Next &#8594;</a>
-                     <?php }?>
-                     
-                     
-                      
-
+                        for ($i = 0; $i < count($pages); $i++) {
+                            if ($pages[$i] > 0 && $pages[$i] <= $totalpages) {
+                                ?>
+                                <a class='<?php echo ($pages[$i] == $currentpage) ? "jp-current" : "jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
+                                    <?php }
+                        }
+                        if ($currentpage < $totalpages) {
+                            ?>
+                                    <a class="jp-next">Next &#8594;</a>
+                                        <?php } else {?>
+                                    <a class="jp-next jp-disabled">Next &#8594;</a>
+                                        <?php }?>
                      </div>
              </div>
            <?php
 }
 ?>
-          <center> <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center> 
+         <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Go</button></div>
+        </div>  
             <?php
 
 if ($studentOption == 1) {
@@ -11959,14 +11957,23 @@ function paginationfun(val)
 </script>
 
 <style>
+    .paginationtextbox{
+        width:25%;
+    }
     .button{
     background-color: #a2753a; /* Green */
   border: none;
   color: white;
-  padding: 4px 30px;
+  padding: 4px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+    }
+
+    .pageinationManual{
+        display: flex;
+        margin: auto;
+        width: 60%;
     }
 </style>

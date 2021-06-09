@@ -643,6 +643,8 @@
                        
                              
                 </div>	
+
+                <div class="pageinationManual">
                 <div class="holder" style="float:none; text-align: center;">
              <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -682,9 +684,13 @@
                   <a class="jp-next jp-disabled">Next &#8594;</a>
                      <?php  } ?>
     </div></div>
-                  
-   <center><div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
-   <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center>
+                  &nbsp;&nbsp;
+  <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+   <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Go</button></div>
+
+                </div>
+
+
          
                         <?php if(($exportToExcel==1)){ ?>
                     
@@ -1159,15 +1165,23 @@ $(function() {
         }
     </script>
 
-    <style>
+    <style>  
+        .paginationtextbox{
+            width:25%;
+        }
         .button{
             background-color: #a2753a; /* Green */
             border: none;
             color: white;
-            padding: 4px 30px;
+            padding: 4px 10px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+        }
+        .pageinationManual{
+            display: flex;
+            margin: auto;
+            width: 60%;
         }
     </style>

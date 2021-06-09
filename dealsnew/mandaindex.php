@@ -2881,6 +2881,7 @@ include_once('mandarefine.php');
                 <input type="hidden" name="hide_company_array" id="hide_company_array" value="<?php echo $_POST[ 'pe_hide_companies' ]; ?>">
                 
            <?php } ?>
+           <div class="pageinationManual">
         <div class="holder" style="float:none; text-align: center;">
         <div class="paginate-wrapper" style="display: inline-block;">
           <?php
@@ -2920,8 +2921,11 @@ include_once('mandarefine.php');
           <?php  } ?>
           </div>
         </div>
-        <center> <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Enter the Page Number" onkeyup = "paginationfun(this.value)">
-        <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Submit</button></div></center> 
+        <div class="pagination-section">
+            <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Go</button>
+        </div>
+          </div>
         <?php
         }
         
@@ -3441,7 +3445,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                     // include_once("mandatrendview.php");
+                    include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -11471,14 +11475,24 @@ mysql_close();
     </script>
 
     <style>
+
+.paginationtextbox{
+        width:25%;
+    }
         .button{
         background-color: #a2753a; /* Green */
     border: none;
     color: white;
-    padding: 4px 30px;
+    padding: 4px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
         }
+
+        .pageinationManual{
+        display: flex;
+        margin: auto;
+        width: 50%;
+    }
     </style>
