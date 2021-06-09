@@ -9,7 +9,7 @@ if($_SESSION['MA_industries']!=''){
     $comp_industry_id_where = ' AND pec.industry IN ('.$_SESSION['MA_industries'].') ';
 }
 if ($searchTerm!=''){
-    $companysql_search="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, sector_business FROM mama AS pe, industry AS i, pecompanies AS pec";
+    $companysql_search="SELECT Distinct pe.PECompanyId, pec.companyname, pec.industry, i.industry, sector_business FROM mama AS pe, industry AS i, pecompanies AS pec";
     $companysql_search.=" WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID AND pe.Deleted =0 $comp_industry_id_where and pec.companyname like '%".$searchTerm."%' order by pec.companyname";
 
     $searchString="Undisclosed";
