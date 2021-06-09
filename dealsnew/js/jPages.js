@@ -455,6 +455,7 @@
     },
 
     updateCurrentPage : function(nav, page) {
+      // alert(page)
       nav.currentPage.removeClass("jp-current");
       nav.currentPage = nav.pages.eq(page - 1).addClass("jp-current");
     },

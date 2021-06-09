@@ -1741,17 +1741,7 @@ include_once($refineUrl); ?>
                                             <?php }?> 
                                             </td>
                                         </tr>
-                                        <!-- <tr class="table_heading_tr">
-                                            <td>Others</td>
-                                            <td>
-                                            <?php if($mainTable_Others != "--"){ ?>  
-                                                    <esop><?php echo $mainTable_Others; ?>%</esop>
-                                                <?php }else{ ?>
-                                                    <esop>--</esop>        
-                                            <?php }?>  
-                                            </td>
-                                        </tr> -->
-
+                                       
 
                                         <tr class="table_heading_tr">
                                             <td>Others</td>
@@ -1771,6 +1761,7 @@ include_once($refineUrl); ?>
                                         if ($rsothers = mysql_query($getOthersSql))
                                         {
                                             $validate_others = mysql_num_rows($rsothers);
+                                            
                                             if($validate_others != 0)
                                             {
                                                 $i=0;
