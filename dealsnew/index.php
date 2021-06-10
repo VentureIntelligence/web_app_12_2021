@@ -4658,7 +4658,7 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
 }
 ?>
          <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" name="pagination" type="submit">Go</button></div>
+            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit" >Go</button></div>
         </div>  
             <?php
 
@@ -5083,6 +5083,17 @@ if ($type != 1) {
             <input type="hidden" id="next" value="<?php echo $nextpage; ?>"/>
             <script src="js/listviewfunctions.js"></script>
              <script type="text/javascript">
+    
+                var wage = document.getElementById("paginationinput");
+                wage.addEventListener("keydown", function (e) {debugger;
+                    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                        //paginationForm();
+                        event.preventDefault();
+                        document.getElementById("pagination").click();
+
+                    }
+                })
+            
                var  orderby='<?php echo $orderby; ?>';
                var  ordertype='<?php echo $ordertype; ?>';
                 $(".jp-next").live("click",function(){
@@ -5171,7 +5182,7 @@ if ($type != 1) {
                 // T960 End ------------------------------------------------------
 
                 function loadhtml(pageno,orderby,ordertype)
-                {
+                {debugger;
                     var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                     var full_check_flag =  $( '#all_checkbox_search' ).val();
                     var pecheckedVal = $( '#pe_checkbox_enable' ).val();
