@@ -2334,7 +2334,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $paginationdiv.='<li class="arrow"><a >&raquo;</a></li>';
             }
             
-            $paginationdiv.=' &nbsp;<li> <input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "Enter Page No">  </li> &nbsp;<li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc()">  </li>  </ul>' ;  
+            $paginationdiv.=' &nbsp;<li> <input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "Enter Page No">  </li> &nbsp;<li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();">  </li>  </ul>' ;  
             
            // echo $page.'<br />';
             //echo $_POST['paginationinput'];
@@ -2438,13 +2438,24 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
 function paginationfunc()
 {
+    // alert();
     var pagination = $("#paginationinput").val();
     if(pagination=='')
     {
         pagination = 1;
     }
     window.location.href = "home.php?&page="+pagination;
+
+       
 }
+    var input = document.getElementById("paginationinput");
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("pagination").click();
+        }
+    });
+    
 </script>
 
 <style>
@@ -2459,7 +2470,7 @@ function paginationfunc()
     /* margin-top: -45px !important; */
 }
 .inputpagination{
-    width:150px !important;
+    width:100px !important;
     margin: 0 10px !important;
 }
 </style>
