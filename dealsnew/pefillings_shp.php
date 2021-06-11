@@ -1754,6 +1754,20 @@ include_once($refineUrl); ?>
                                                 ?>
                                             </promoters_percentage>
                                             </td>
+                                        </tr> -->
+
+
+                                        <tr class="table_heading_tr">
+                                            <td>Others</td>
+                                            <td>
+                                            <promoters_percentage style="float:right;font-weight: 100;">
+                                                <?php
+                                                    if($mainTable_Others != ""){
+                                                        echo $mainTable_Others."%";
+                                                    } 
+                                                ?>
+                                            </promoters_percentage>
+                                            </td>
                                         </tr>
                                         
                                         <?php
