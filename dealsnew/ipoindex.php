@@ -2115,7 +2115,7 @@
                     </div>
 
                     <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
-                    <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit">Go</button></div>
+                    <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit" onclick = "validpagination()">Go</button></div>
 
                     </div>
   <?php 
@@ -10144,6 +10144,17 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     {
         $(".pagevalue").val(val);
     }
+    function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
     var wage = document.getElementById("paginationinput");
                 wage.addEventListener("keydown", function (e) {debugger;
                     if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
