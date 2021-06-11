@@ -1741,7 +1741,9 @@ include_once($refineUrl); ?>
                                             <?php }?> 
                                             </td>
                                         </tr>
-                                        <!-- <tr class="table_heading_tr">
+                                       
+
+                                        <tr class="table_heading_tr">
                                             <td>Others</td>
                                             <td>
                                             <promoters_percentage style="float:right;font-weight: 100;">
@@ -1773,6 +1775,7 @@ include_once($refineUrl); ?>
                                         if ($rsothers = mysql_query($getOthersSql))
                                         {
                                             $validate_others = mysql_num_rows($rsothers);
+                                            
                                             if($validate_others != 0)
                                             {
                                                 $i=0;
