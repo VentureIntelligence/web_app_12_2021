@@ -5099,6 +5099,7 @@ if ($type != 1) {
                 $(".jp-next").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                   var  pageno=$("#next").val();
+                  $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);}
                     return  false;
                 });
@@ -5118,6 +5119,7 @@ if ($type != 1) {
                 $(".jp-previous").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     var pageno=$("#prev").val();
+                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     }
                     return  false;
@@ -11985,6 +11987,6 @@ function paginationfun(val)
     .pageinationManual{
         display: flex;
         margin: auto;
-        width: 60%;
+        width: 70%;
     }
 </style>

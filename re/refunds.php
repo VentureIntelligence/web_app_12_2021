@@ -850,6 +850,7 @@
                     
                     if(!$(this).hasClass('jp-disabled')){
                   var  pageno=$("#next").val();
+				  $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);}
                     return  false;
                 });
@@ -867,6 +868,7 @@
                 $(".jp-previous").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     var pageno=$("#prev").val();
+					$("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     }
                     return  false;

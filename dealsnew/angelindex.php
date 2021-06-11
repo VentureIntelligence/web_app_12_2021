@@ -1994,6 +1994,7 @@ if (!isset($_POST['tagsfield'])) {
                 $(".jp-next").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     pageno=$("#next").val();
+                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);}
                     return  false;
                 });
@@ -2012,6 +2013,7 @@ if (!isset($_POST['tagsfield'])) {
                 $(".jp-previous").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     pageno=$("#prev").val();
+                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     }
                     return  false;
