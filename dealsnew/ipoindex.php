@@ -2072,6 +2072,7 @@
                 <input type="hidden" name="hide_company_array" id="hide_company_array" value="<?php echo $_POST[ 'pe_hide_companies' ]; ?>">
                 
            <?php } ?>
+           <div class="pageinationManual">
     <div class="holder" style="float:none; text-align: center;">
     <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -2111,7 +2112,12 @@
                   <a class="jp-next jp-disabled">Next &#8594;</a>
                      <?php  } ?>
                      </div>
-    </div>
+                    </div>
+
+                    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+                    <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit">Go</button></div>
+
+                    </div>
   <?php 
         }
                  if($hidecount==1)
@@ -2510,17 +2516,25 @@
            $(".jp-next").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#next").val();
+               $("#paginationinput").val('');
                loadhtml(pageno,orderby,ordertype);}
                return  false;
            });
            $(".jp-page").live("click",function(){
                pageno=$(this).text();
+               $("#paginationinput").val('');
+                loadhtml(pageno,orderby,ordertype);
+               return  false;
+           });
+           $(".jp-page1").live("click",function(){
+               pageno=$(this).val();
                 loadhtml(pageno,orderby,ordertype);
                return  false;
            });
            $(".jp-previous").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#prev").val();
+               $("#paginationinput").val('');
                 loadhtml(pageno,orderby,ordertype);
                }
                return  false;
@@ -10124,4 +10138,43 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     mysql_close();
     mysql_close($cnx);
     ?>
+
+<script>
+    function paginationfun(val)
+    {
+        $(".pagevalue").val(val);
+    }
+    var wage = document.getElementById("paginationinput");
+                wage.addEventListener("keydown", function (e) {debugger;
+                    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                        //paginationForm();
+                        event.preventDefault();
+                        document.getElementById("pagination").click();
+
+                    }
+                })
+    </script>
+
+    <style>
+
+.paginationtextbox{
+        width:25%;
+    }
+        .button{
+        background-color: #a2753a; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+        }
+
+        .pageinationManual{
+        display: flex;
+        margin: auto;
+        width: 50%;
+    }
+    </style>
    

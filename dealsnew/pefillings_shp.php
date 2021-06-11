@@ -1741,14 +1741,18 @@ include_once($refineUrl); ?>
                                             <?php }?> 
                                             </td>
                                         </tr>
-                                        <!-- <tr class="table_heading_tr">
+                                       
+
+                                        <tr class="table_heading_tr">
                                             <td>Others</td>
                                             <td>
-                                            <?php if($mainTable_Others != "--"){ ?>  
-                                                    <esop><?php echo $mainTable_Others; ?>%</esop>
-                                                <?php }else{ ?>
-                                                    <esop>--</esop>        
-                                            <?php }?>  
+                                            <promoters_percentage style="float:right;font-weight: 100;">
+                                                <?php
+                                                    if($mainTable_Others != ""){
+                                                        echo $mainTable_Others."%";
+                                                    } 
+                                                ?>
+                                            </promoters_percentage>
                                             </td>
                                         </tr> -->
 
@@ -1771,6 +1775,7 @@ include_once($refineUrl); ?>
                                         if ($rsothers = mysql_query($getOthersSql))
                                         {
                                             $validate_others = mysql_num_rows($rsothers);
+                                            
                                             if($validate_others != 0)
                                             {
                                                 $i=0;
