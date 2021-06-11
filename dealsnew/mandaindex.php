@@ -2923,7 +2923,7 @@ include_once('mandarefine.php');
         </div>
         <div class="pagination-section">
             <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" name="pagination"  id = "pagination" type="submit">Go</button>
+            <button class = "jp-page1 button pagevalue" name="pagination"  id = "pagination" type="submit" onclick = "validpagination()">Go</button>
         </div>
           </div>
         <?php
@@ -3445,7 +3445,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                    include_once("mandatrendview.php");
+                     include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -11474,6 +11474,17 @@ mysql_close();
     {
         $(".pagevalue").val(val);
     }
+    function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
     var wage = document.getElementById("paginationinput");
                 wage.addEventListener("keydown", function (e) {debugger;
                     if (e.code === "Enter") {  //checks whether the pressed key is "Enter"

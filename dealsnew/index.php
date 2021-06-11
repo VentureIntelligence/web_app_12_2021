@@ -4658,7 +4658,7 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
 }
 ?>
          <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit" >Go</button></div>
+            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div>
         </div>  
             <?php
 
@@ -5124,7 +5124,7 @@ if ($type != 1) {
                     }
                     return  false;
                 });
-        $(".header").live("click",function(){
+                $(".header").live("click",function(){
                     orderby=$(this).attr('id');
 
                     if($(this).hasClass("asc"))
@@ -11963,10 +11963,24 @@ echo $user_browser;?>
         });
 });
 
-function paginationfun(val)
-{
-    $(".pagevalue").val(val);
-}
+
+
+            function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
+
+            function paginationfun(val)
+            {
+                $(".pagevalue").val(val);
+            }
 </script>
 
 <style>
