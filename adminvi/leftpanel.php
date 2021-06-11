@@ -157,6 +157,10 @@
         </div>
         <div id="linksnone"><a href="../adminvi/uploadCinno.php">Upload CIN Number</a><br /></div>
 
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;CFS</span></div>
+        </div>
+        <div id="linksnone"><a href="../adminvi/uploadCompanyName.php">Upload Company Name</a><br /></div>
 
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
