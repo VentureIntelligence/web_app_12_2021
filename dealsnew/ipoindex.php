@@ -2516,6 +2516,7 @@
            $(".jp-next").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#next").val();
+               $("#paginationinput").val('');
                loadhtml(pageno,orderby,ordertype);}
                return  false;
            });
@@ -2533,6 +2534,7 @@
            $(".jp-previous").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#prev").val();
+               $("#paginationinput").val('');
                 loadhtml(pageno,orderby,ordertype);
                }
                return  false;
