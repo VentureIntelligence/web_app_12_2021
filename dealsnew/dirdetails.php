@@ -2229,6 +2229,7 @@ if (trim($description) != "") {
 <div class="accordions">
   
         <?php
+        if ($VCFlagValue != 2) {
 if ($getcompanyinvrs = mysql_query($Investmentsql)) {
     $inv_cnt = mysql_num_rows($getcompanyinvrs);
 }
@@ -2238,6 +2239,7 @@ if ($getIFcompanyinvrs = mysql_query($IFInvestmentsql)) {
 if ($getCTcompanyinvrs = mysql_query($CTInvestmentsql)) {
     $investmentct_cnt = mysql_num_rows($getCTcompanyinvrs);
 }
+        }
 
 if ($getANGLcompInv = mysql_query($angInvestmentsql)) {
     $angelinv_cnt = mysql_num_rows($getANGLcompInv);
@@ -2252,9 +2254,9 @@ if ($inv_cnt > 0 || $investmentIf_cnt > 0 || $investmentct_cnt > 0 || $angelinv_
 
                                                                 <li id="tabz1">PE/VC Investments</li>
         <?php
-    } else if ($angelinv_cnt > 0) {
+    } if ($angelinv_cnt > 0) {
 ?>
-                                                              <li id="tabz1">Investments</li>
+                                                              <li id="tabz2">Investments</li>
         <?php
     }
     
@@ -2383,11 +2385,12 @@ if ($inv_cnt > 0 || $investmentIf_cnt > 0 || $investmentct_cnt > 0 || $angelinv_
                                                                 </div>
                                                             
                                                                 <?php
-    } else if ($angelinv_cnt > 0) {
-?> <div class="accordions_content">
-    <p>
+    }  if ($angelinv_cnt > 0) {
+?> 
+<!-- <div class="accordions_content">
+    <p> -->
 <div  class=" for-nai">
-                                                                <div id="contentz1" class="tabscontent work-masonry-thumb"> 
+                                                                <div id="contentz2" class="tabscontent work-masonry-thumb"> 
                                                                     <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
                                                                         <thead><tr><th>Company Name</th><th>Industry Name</th><th style="text-align: left;">Sector</th><th>Deal Period</th><!-- <th>Exited</th> --></tr></thead>
                                                                         <tbody>
@@ -2441,7 +2444,7 @@ if ($inv_cnt > 0 || $investmentIf_cnt > 0 || $investmentct_cnt > 0 || $angelinv_
 ?>
 
                                                                         </tbody>
-                                                                    </table></div></div></p></div>
+                                                                    </table></div></div>
 
 
         <?php
