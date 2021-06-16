@@ -1,6 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
-
+ini_set('memory_limit', '2048M');
+ini_set("max_execution_time", 10000);
     //session_save_path("/tmp");
     require("../dbconnectvi.php");
     $Db = new dbInvestments();
@@ -37,22 +38,31 @@ $expval=explode(",",$exportvalue);
         $recCount = mysql_num_rows($res);
         $dlogUserEmail =$_SESSION['UserEmail'];
         $today = date('Y-m-d');
-
+        //print_r($_SESSION);
+        $username=$_SESSION['UserNames'];
+        $filtername = $_POST['exitfilter_name'];
+        $filterType =$_POST['exitfilter_type'];
+        $companyName=$_POST['exitcompany_name'];
+        if($filtername == '')
+        {
+            $filtername = 'anonymous';  
+        }
         //Check Existing Entry
-        $sqlSelCount = "SELECT `recDownloaded`  FROM `user_downloads` WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='PE' AND `downloadDate` = CURRENT_DATE";
+        $sqlSelCount = "SELECT sum(`current_downloaded`) as `recDownloaded` FROM `advance_export_filter_log` WHERE `emailId` = '".$dlogUserEmail."'  AND ( `downloadDate` = CURRENT_DATE )";
         $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());
         $rowSelCount = mysql_num_rows($sqlSelResult);
         $rowSel = mysql_fetch_object($sqlSelResult);
         $downloads = $rowSel->recDownloaded;
-
-        if ($rowSelCount > 0){
-            $upDownloads = $recCount + $downloads;
-            $sqlUdt = "UPDATE `user_downloads` SET `recDownloaded`='".$upDownloads."' WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='PE' AND `downloadDate` = CURRENT_DATE";
-            $resUdt = mysql_query($sqlUdt) or die(mysql_error());
-        }else{
-            $sqlIns = "INSERT INTO `user_downloads` (`user_id`,`emailId`,`downloadDate`,`dbType`,`recDownloaded`) VALUES ('0','".$dlogUserEmail."','".$today."','PE','".$recCount."')";
+    
+        // if ($rowSelCount > 0) {
+             $upDownloads = $recCount + $downloads;
+        //     $sqlUdt = "UPDATE `advance_export_filter_log` SET `recDownloaded`='" . $upDownloads . "' WHERE `emailId` = '" . $dlogUserEmail . "'  AND `downloadDate` = CURRENT_DATE";
+        //     $resUdt = mysql_query($sqlUdt) or die(mysql_error());
+        // } else {    
+            $sqlIns = "INSERT INTO `advance_export_filter_log` (`id`, `name`, `filter_name`, `filter_type`,`company_name`,`emailId`,`downloadDate`,`recDownloaded`,`current_downloaded`) VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."','" . $dlogUserEmail . "','" . $today . "','" . $upDownloads . "','".$recCount."')";
+           //echo $sqlIns;exit();
             mysql_query($sqlIns) or die(mysql_error());
-        }
+        //}
     }        
   
     //include('onlineaccount.php');
@@ -97,7 +107,6 @@ $expval=explode(",",$exportvalue);
    // echo $_POST['exitQuery'];exit();
     $hidetxtfrm=$_POST['txthideReturnMultipleFrm'];
     $hidetxtto=$_POST['txthideReturnMultipleTo'];
-    //echo 'hai';
     $keyword=$_POST['txthideinvestor'];
     //echo $_POST['txthideinvestor'];exit();
     $investorString=$_POST['txthideInvestorString'];
@@ -705,6 +714,195 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
             $companysql = $_POST['exitquery'] ;
            // echo $_POST['exitQuery'];exit();
         }
+        elseif($keyword == "")
+                {
+                    if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
+
+                        $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
+            
+                    }elseif(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==''){
+            
+                         $hideWhere = " and pe.MandAId NOT IN ( " . $_POST[ 'txthidepe' ] . " ) ";
+            
+                    }elseif(isset($_POST['txthidepe']) && $_POST['txthidepe'] != ''){
+            
+                       $hideWhere = " and pe.MandAId NOT IN ( " . $_POST[ 'txthidepe' ] . " ) ";
+            
+                    }elseif(isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != ''){
+            
+                         $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
+            
+                    }else{
+                         $hideWhere = " ";
+                    }
+            
+                    $companysql = "SELECT Distinct pe.mandaid,
+                    pe.mandaid,
+                    pe.pecompanyid,
+                    pec.industry,
+                    pe.dealtypeid,
+                    pe.acquirerid,
+                    mandainv.investorid,
+                    pec.companyname,
+                    i.industry,
+                    sector_business,
+                    dt.dealtype,
+                    Date_format(dealdate, '%M-%Y') AS DealDate,
+                    pe.dealamount,
+                    pec.website,
+                    moreinfor,
+                    hideamount,
+                    hidemoreinfor,
+                    pe.investmentdeals,
+                    pe.investmentdeals,
+                    link,
+                    estimatedirr,
+                    moreinforeturns,
+                    it.investortypename,
+                    valuation,
+                    finlink,
+                    company_valuation,
+                    revenue_multiple,
+                    ebitda_multiple,
+                    pat_multiple,
+                    exitstatus,
+                    revenue,
+                    ebitda,
+                    pat,
+                    price_to_book,
+                    book_value_per_share,
+                    price_per_share,
+                    type,
+                    pec.yearfounded,pec.CINNo FROM manda AS pe, industry AS i, pecompanies AS pec,dealtypes as dt,
+                    manda_investors as mandainv ,peinvestors as inv ,investortype AS it where";
+                    $whereind="";
+                    $wheredates="";
+                    $wheredealtype=""; 
+                    $whereReturnMultiple="";
+                        if ($industry != '' && $industry != '--') {
+                        $inSql = '';
+                        $industry1 = explode(',',$industry);
+                        foreach($industry1 as $industrys)
+                        {
+                            if($industrys != '--'){
+                                $inSql .= " pec.industry= '".$industrys."' or ";
+                            }
+                        }
+                        $inSql = trim($inSql,' or ');
+                        if($inSql !=''){
+                            $whereind=  ' ( '.$inSql.' ) ';
+                            //$whereRound="pe.round LIKE '".$round."'";
+                        }
+                    }
+                    if ($dealtype != '' && $dealtype != '--') {
+                        $dealSql = '';
+                        $dealtype1 = explode(',',$dealtype);
+                        foreach($dealtype1 as $dealtypes)
+                        {
+                            if($dealtype != '--'){
+                                $dealSql .= " pe.DealTypeId= '".$dealtypes."' or ";
+                            }
+                        }
+                        $dealSql = trim($dealSql,' or ');
+                        if($dealSql !=''){
+                            $wheredealtype=  ' ( '.$dealSql.' ) ';
+                            //$whereRound="pe.round LIKE '".$round."'";
+                        }
+                        $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
+                    }
+                    if ($invType!= "--" && $invType!= "")
+                           { 
+                            $invType=str_replace(",","','",$invType);
+                            $invType="'".$invType."'";   
+                            $whereInvType = " pe.InvestorType IN (".$invType.")";
+                        $addhide_pms_qry=" and dt.hide_for_exit in (0,1)"; 
+                   }
+                    if ($investor_head != "--" && $investor_head != '') {
+                               $whereInvhead = "inv.InvestorId=mandainv.InvestorId and inv.countryid = '" . $investor_head . "'";
+                        } 
+            
+                    if ($InTypes!= "" && $InTypes!='--')
+                    {
+                        $InTypes=str_replace(",","','",$InTypes);
+                            $InTypes="'".$InTypes."'";
+                            $whereType = " pe.type IN (".$InTypes.")";
+                    }
+            
+                    if($exitstatusvalue!="--" && $exitstatusvalue!='')
+                    {    $exitstatusvalue=str_replace(",","','",$exitstatusvalue);
+                        $exitstatusvalue="'".$exitstatusvalue."'";
+                        $whereexitstatus=" pe.ExitStatus IN(".$exitstatusvalue.")"; 
+                    }
+                      if(trim($hidetxtfrm=="") && trim($hidetxtto>0))
+                     {
+                       $qryReturnMultiple="Return Multiple - ";
+                       $whereReturnMultiple=" mandainv.MultipleReturn < ".$hidetxtto;
+                     }
+                     elseif(trim($hidetxtfrm >0) && trim($hidetxtto==""))
+                     {
+                       $qryReturnMultiple="Return Multiple - ";
+                       $whereReturnMultiple=" mandainv.MultipleReturn > ".$hidetxtfrm;
+                     }
+                     elseif(($hidetxtfrm>0) &&($hidetxtto > 0))
+                     {
+                                   $qryReturnMultiple="Return Multiple - ";
+                                   $whereReturnMultiple=" mandainv.MultipleReturn > " .$hidetxtfrm . " and  mandainv.MultipleReturn <".$hidetxtto;
+                            }
+            
+                    if($dateValue!="---to---")
+                            $wheredates= " DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
+            
+            
+                    if ($yearafter != '' && $yearbefore == '') {
+                                                $whereyearaftersql = " pec.yearfounded >= $yearafter";
+                                            }
+            
+                                            if ($yearbefore != '' && $yearafter == '') {
+                                                $whereyearbeforesql = " pec.yearfounded <= $yearbefore";
+                                            }
+            
+                                            if ($yearbefore != '' && $yearafter != '') {
+                                                $whereyearfoundedesql = " pec.yearfounded >= $yearafter and pec.yearfounded <= $yearbefore";
+                                            }
+            
+                    if ($whereind != "")
+                                    $companysql=$companysql . $whereind ." and ";
+                    if (($wheredealtype != ""))
+                            $companysql=$companysql . $wheredealtype . " and " ;
+                    if (($whereInvType != "") )
+                            $companysql=$companysql .$whereInvType . " and ";
+            
+                    if (($whereType != "") )
+            
+                            $companysql=$companysql .$whereType . " and ";
+            
+                     if($whereexitstatus!="")
+                      {     $companysql=$companysql .$whereexitstatus . " and ";     }
+                    if($wheredates !== "")
+                            $companysql = $companysql . $wheredates ." and ";
+                    if($whereReturnMultiple!= "")
+                            {
+                             $companysql = $companysql . $whereReturnMultiple ." and ";
+                            }
+                            if ($whereyearaftersql != "") {
+                                                $companysql = $companysql . $whereyearaftersql . " and ";
+                                            }
+                                            if ($whereyearbeforesql != "") {
+                                                $companysql = $companysql . $whereyearbeforesql . " and ";
+                                            }
+                                            if ($whereyearfoundedesql != "") {
+                                                $companysql = $companysql . $whereyearfoundedesql . " and ";
+                                            }   
+                     if (($whereInvhead != "")) {
+                                $companysql = $companysql .$whereInvhead . " and ";
+                                $aggsql = $aggsql . $whereInvhead . " and ";
+                                $bool = true;
+                            }
+                    $companysql = $companysql . "  i.industryid=pec.industry and
+                    pec.PEcompanyID = pe.PECompanyID  and inv.InvestorId=mandainv.InvestorId and
+                     mandainv.MandAId=pe.MandAId and pec.industry != 15 and pe.Deleted=0  and pe.DealTypeId= dt.DealTypeId AND it.investortype = pe.investortype " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere." AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22)   
+                      GROUP BY pe.MandAId  order by  DealDate desc,companyname ";
+                          }
     elseif ( ($keyword != "") || ($invType != "--") || ($InTypes != "") || ($exitstatusvalue!="--") || ($dateValue!="---to---") || (($hidetxtfrm>=0) && ($hidetxtto>0)) || ($yearafter!="") || ($yearbefore!="") || ($investor_head != "--"))
     {
        // echo $keyword;exit();
@@ -728,7 +926,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
              $hideWhere = " ";
         }
 
-        $companysql = "SELECT pe.mandaid,
+        $companysql = "SELECT Distinct pe.mandaid,
         pe.mandaid,
         pe.pecompanyid,
         pec.industry,
@@ -1065,13 +1263,15 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
 //echo $_POST['exitquery'];
  $sql=$companysql;
  /*echo $tagsearch;*/
-//   echo "<br>---" .$sql;
-//   exit();
+   //echo "<br>---" .$sql;
+  //exit();
  //execute query
  $result = @mysql_query($sql)
      or die("Error in connection");
 
      $rowscount = mysql_num_rows($result);
+     $_SESSION['rowcount']=$rowscount;
+
 //echo "There are " . $rowscount . " rows in my table.";exit();
 if($rowscount == 0)
 {
@@ -1079,6 +1279,8 @@ if($rowscount == 0)
 }
 else
 {
+    if($_POST['exitexportcount'] == "")
+    {
  updateDownload($result);
 
  //if this parameter is included ($w=1), file returned will be in word format ('.doc')
@@ -1576,11 +1778,11 @@ if(in_array("PricePerShare", $expval))
             //Type
             $type_val = '';
             
-                if($row[5] == 4){
+              
                     if($row[36] == 1){ $type_val = "IPO"; } else if($row[36] == 2){ $type_val = "Open Market Transaction"; }else if($row[36] == 3){ $type_val = "Reverse Merger";}else {$type_val = "Open Market Transaction";}
                 
                 $schema_insert .= $type_val.$sep;
-            }
+            
         }
         if(in_array("Acquirer", $expval))
         { 
@@ -1786,6 +1988,10 @@ if(in_array("PricePerShare", $expval))
          print "\n";
      }
     }
+    else{
+        echo $rowscount;exit();
+    }
+}
     print "\n";
     print "\n";
     print "\n";
