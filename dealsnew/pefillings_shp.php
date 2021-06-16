@@ -801,7 +801,7 @@ $whereaddHideamount="";
         if($valCount > 0){
 
         foreach($iterator as $object){
-            //echo $object['Key'] . "<br>";
+            //echo json_encode(explode("/", $object['Key'])) . "<br>";
              $fileName =  $object['Key'];
 
             if($object['Size'] == 0){
@@ -809,7 +809,8 @@ $whereaddHideamount="";
                 //echo sizeof($foldername) . "<br>";print_r($foldername);
             } 
             
-
+            if($foldername[1] == $_GET['cname'])
+            {
             // Get a pre-signed URL for an Amazon S3 object
             $signedUrl = $client->getObjectUrl($bucket, $fileName, '+60 minutes');
             // > https://my-bucket.s3.amazonaws.com/data.txt?AWSAccessKeyId=[...]&Expires=[...]&Signature=[...]
@@ -853,6 +854,7 @@ $whereaddHideamount="";
             //}
 
             array_push($items, array('name'=>$str) );
+            }
 
         }   // foreach
 
