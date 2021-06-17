@@ -3489,7 +3489,50 @@ include_once($refineUrl); ?>
 
         $irrsql="SELECT pe.InvestorId, pe.Investor,  ma.Amount_M, ma.Amount_INR,ma.MultipleReturn, ma.IRR FROM `peinvestors` as pe, `manda_investors` as ma where ma.InvestorId=pe.InvestorId and ma.MandAId = $SelCompRef";
 
+        $irrcompanyrs = mysql_query($irrsql);
+        $irr_cnt = mysql_num_rows($irrcompanyrs);
+        While($myInvestorrow=mysql_fetch_assoc($irrcompanyrs))
+        {
+                if($myInvestorrow["Amount_INR"] != "0.00" && $myInvestorrow["Amount_INR"] != "")
+                {
+                $CR .=trim($myInvestorrow["Amount_INR"]).',';
+                }
+                if($myInvestorrow["Amount_M"] != "0.00" && $myInvestorrow["Amount_M"] != "")
+                {
+                $M .=trim($myInvestorrow["Amount_M"]).',';
+                }
+                if($myInvestorrow["MultipleReturn"] != "0.00" && $myInvestorrow["MultipleReturn"] != "")
+                {
+                $MultipleReturn .=trim($myInvestorrow["MultipleReturn"]).',';
+                }
+                if($myInvestorrow["IRR"] != "0.00" && $myInvestorrow["IRR"] != "")
+                {
+                $IRR .=trim($myInvestorrow["IRR"]).',';
+                }
+                     
+                
+        }
+        $INR=rtrim($CR,',');
+        $US_M=rtrim($M,',');
+        $multiplereturnname=rtrim($MultipleReturn,',');
+        $IRR=rtrim($IRR,',');
 
+        $Amount_INR=explode(',',$INR);
+        $Amount_M=explode(',',$US_M);
+        $multiplereturnname=explode(',',$multiplereturnname);
+        $irrvalue=explode(',',$IRR);
+        if(count(array_filter($Amount_INR)) > 0 || count(array_filter($Amount_M)) >0 || count(array_filter($multiplereturnname)) >0 || count(array_filter($irrvalue))>0){
+        $infoDisplay=1;
+        }
+        else
+        {
+        $infoDisplay=0;
+        }
+
+
+//echo  $irrsql;
+
+       // print_r($Amount_INR);
 //echo  $irrsql;
 
          if ($getAcquirerSql = mysql_query($AcquirerSql))
@@ -4846,17 +4889,23 @@ include_once($refineUrl); ?>
                          <div class="accordions_dealtitle active"><span></span>
                                 <h2 id="companyinfo" class="box_heading content-box ">Exit Details (Returns)</h2>
                             </div>
-                            <div class="accordions_dealcontent" style="display: none;">
+                           <?php if($infoDisplay == 1){ ?>
+                            <div class="accordions_dealcontent" >
+                            <?php } else {?>
+                                <div class="accordions_dealcontent" style="display:none">
+                                <?php } ?>
+
                          
                           <div id="exitinvestments" >
                                                     <?php $irrcompanyrs = mysql_query($irrsql);
                                                         $irr_cnt = mysql_num_rows($irrcompanyrs);
                                                    
-                                                     
+                                                    // echo $infoDisplay;
                                                     if($irr_cnt > 0){
                                                     ?>
                                                         
                                                         <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest">
+                                                         
                                                             <thead>
 
                                                                 <tr>
@@ -4864,8 +4913,20 @@ include_once($refineUrl); ?>
                                                                     
                                                                     <th >Return Multiple</th>
                                                                     <th>IRR</th>
+                                                                    
+                                                                    <?php //echo print_r($Amount_INR);
+                                                                    for($i=0;$i<count($Amount_INR);$i++){
+                                                                    if($Amount_INR[$i] != "" &&  $Amount_INR[$i] !="0.00") {?>
+
                                                                     <th>&#8377; Cr</th> 
-                                                                    <th>$ M</th> 
+                                                                    <?php }}?>
+
+                                                                    <?php //echo print_r($Amount_M);
+                                                                    for($i=0;$i<count($Amount_M);$i++){
+                                                                    if($Amount_M[$i] != "" &&  $Amount_M[$i] !="0.00") {?>
+
+                                                                            <th>$ M</th> 
+                                                                    <?php }}?>
                                                                 
                                                                 </tr>
                                                             </thead>
@@ -4960,7 +5021,11 @@ include_once($refineUrl); ?>
                             <div class="accordions_dealtitle active"><span></span>
                                 <h2 id="companyinfo" class="box_heading content-box ">Valuation Info</h2>
                             </div>
-                            <div class="accordions_dealcontent" style="display: none;">
+                            <?php if($infoDisplay == 1){ ?>
+                                <div class="accordions_dealcontent" >
+                            <?php } else {?>
+                                <div class="accordions_dealcontent" style="display:none">
+                                <?php } ?>
                          
                             <table cellpadding="0" cellspacing="0" class="tableInvest tableValuation">
                                 <tbody>
