@@ -3493,17 +3493,41 @@ include_once($refineUrl); ?>
         $irr_cnt = mysql_num_rows($irrcompanyrs);
         While($myInvestorrow=mysql_fetch_assoc($irrcompanyrs))
         {
-                
-                $Amount_INR .=trim($myInvestorrow["Amount_INR"]).',';
-                $Amount_M .=trim($myInvestorrow["Amount_M"]).',';
+                if($myInvestorrow["Amount_INR"] != "0.00" && $myInvestorrow["Amount_INR"] != "")
+                {
+                $CR .=trim($myInvestorrow["Amount_INR"]).',';
+                }
+                if($myInvestorrow["Amount_M"] != "0.00" && $myInvestorrow["Amount_M"] != "")
+                {
+                $M .=trim($myInvestorrow["Amount_M"]).',';
+                }
+                if($myInvestorrow["MultipleReturn"] != "0.00" && $myInvestorrow["MultipleReturn"] != "")
+                {
+                $MultipleReturn .=trim($myInvestorrow["MultipleReturn"]).',';
+                }
+                if($myInvestorrow["IRR"] != "0.00" && $myInvestorrow["IRR"] != "")
+                {
+                $IRR .=trim($myInvestorrow["IRR"]).',';
+                }
+                     
                 
         }
-        $Amount_INR=rtrim($Amount_INR,',');
-        $Amount_M=rtrim($Amount_M,',');
+        $INR=rtrim($CR,',');
+        $US_M=rtrim($M,',');
+        $multiplereturnname=rtrim($MultipleReturn,',');
+        $IRR=rtrim($IRR,',');
 
-        $Amount_INR=explode(',',$Amount_INR);
-        $Amount_M=explode(',',$Amount_M);
-
+        $Amount_INR=explode(',',$INR);
+        $Amount_M=explode(',',$US_M);
+        $multiplereturnname=explode(',',$multiplereturnname);
+        $irrvalue=explode(',',$IRR);
+        if(count(array_filter($Amount_INR)) > 0 || count(array_filter($Amount_M)) >0 || count(array_filter($multiplereturnname)) >0 || count(array_filter($irrvalue))>0){
+        $infoDisplay=1;
+        }
+        else
+        {
+        $infoDisplay=0;
+        }
 
 
 
@@ -4864,13 +4888,18 @@ include_once($refineUrl); ?>
                          <div class="accordions_dealtitle active"><span></span>
                                 <h2 id="companyinfo" class="box_heading content-box ">Exit Details (Returns)</h2>
                             </div>
-                            <div class="accordions_dealcontent" style="display: none;">
+                           <?php if($infoDisplay == 1){ ?>
+                            <div class="accordions_dealcontent" >
+                            <?php } else {?>
+                                <div class="accordions_dealcontent" style="display:none">
+                                <?php } ?>
+
                          
                           <div id="exitinvestments" >
                                                     <?php $irrcompanyrs = mysql_query($irrsql);
                                                         $irr_cnt = mysql_num_rows($irrcompanyrs);
                                                    
-                                                     
+                                                    // echo $infoDisplay;
                                                     if($irr_cnt > 0){
                                                     ?>
                                                         
@@ -4991,7 +5020,11 @@ include_once($refineUrl); ?>
                             <div class="accordions_dealtitle active"><span></span>
                                 <h2 id="companyinfo" class="box_heading content-box ">Valuation Info</h2>
                             </div>
-                            <div class="accordions_dealcontent" style="display: none;">
+                            <?php if($infoDisplay == 1){ ?>
+                                <div class="accordions_dealcontent" >
+                            <?php } else {?>
+                                <div class="accordions_dealcontent" style="display:none">
+                                <?php } ?>
                          
                             <table cellpadding="0" cellspacing="0" class="tableInvest tableValuation">
                                 <tbody>
