@@ -949,17 +949,18 @@ function writeSql_for_no_records($sqlqry,$mailid)
 
 mysql_close();
 function curPageURL() {
- $URL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
- $URL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- $pageURL=$URL."&scr=EMAIL";
- return $pageURL;
-}
+    $URL = 'http';
+    $portArray = array( '80', '443' );
+    if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
+    $URL .= "://";
+    if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
+     $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+    } else {
+     $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    }
+    $pageURL=$URL."&scr=EMAIL";
+    return $pageURL;
+   }
 ?>
 <script type="text/javascript" >
     

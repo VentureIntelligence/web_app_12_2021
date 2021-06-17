@@ -96,6 +96,8 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
     $acrossallRFlag = false;
     $acrossallFlag = false;
     $search_export_value = $_POST['search_export_value'];
+    $searchbyvalue = $_GET['searchbyvalue'];
+
     $countflagvalue=$_POST['countflag'];
     $tagsearch = $_POST['tagsearch_auto'];
      $tagandor = $_REQUEST['tagandor'];
@@ -109,6 +111,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
         $search_export_value = ($_GET['searchv']!='')?$_GET['searchv']:'';
     }
 
+    
     if($search_export_value != '' || $countflagvalue == 1){
         $addFYCondition = " and a.FY = aa.MFY and a.FY !='' ";
     } else { 
@@ -174,18 +177,25 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
             for($h=0;$h<count($ex_search_export_value);$h++){
                 $txt = trim($ex_search_export_value[$h]);
                 if($txt !=''){
-                    $txt=str_replace("'", "\\'", $txt);
-
+                    
+                    if($searchbyvalue == 1)
+                    {
+                        $input_where = "CIN LIKE "."'".$txt."%' OR Old_CIN LIKE '%".$txt."%'";
+                        //$input_where .= " (b.CIN REGEXP "."'^".$txt."' or (b.CIN REGEXP "."'[[:space:]]+".$txt."' and b.CIN REGEXP "."'".$txt."+[[:space:]]')) or 
+                    //(b.Old_CIN REGEXP "."'^".$txt."' or (b.Old_CIN REGEXP "."'[[:space:]]+".$txt."' and b.Old_CIN REGEXP "."'".$txt."+[[:space:]]')) or ";
+                   
+                    }
+                    else{
+                        // $input_where .= ' (b.FCompanyName REGEXP '.'"^'.$txt.'" or (b.FCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.FCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or 
+                        //               (b.SCompanyName REGEXP '.'"^'.$txt.'" or (b.SCompanyName REGEXP '.'"[[:space:]]+'.$txt.'" and b.SCompanyName REGEXP '.'"'.$txt.'+[[:space:]]")) or ';
+                
+                        $txt=str_replace("'", "\\'", $txt);
                         $input_where .= " (b.FCompanyName like "."'".$txt."%')  or 
-
                                                (b.SCompanyName like "."'".$txt."%' ) or ";
-
-
-                    //$input_where .= " b.FCompanyName LIKE "."'%".$txt."%' or b.SCompanyName LIKE "."'%".$txt."%' or ";
-                   // $input_where .= " (b.FCompanyName REGEXP "."'^".$txt."' or (b.FCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.FCompanyName REGEXP "."'".$txt."+[[:space:]]')) or 
-                    //                  (b.SCompanyName REGEXP "."'^".$txt."' or (b.SCompanyName REGEXP "."'[[:space:]]+".$txt."' and b.SCompanyName REGEXP "."'".$txt."+[[:space:]]')) or ";
+                    }
                 }
             }
+
             if($input_where !=''){
                 $input_where = trim($input_where,' or ');
                 if($where !=''){
@@ -207,13 +217,17 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == "") { error_log('CF
                 }
             }
         }
+        $template->assign("searchby",$searchbyvalue);
+
         $template->assign("searchv",$search_export_value);
         $template->assign("searchSubmit",'1');
     }else{
+        $template->assign("searchby",'0');
+
         $template->assign("searchv","");    
         $template->assign("searchSubmit",'');    
     }
-   
+
 if(!isset($authAdmin->user->elements['user_id']) || $authAdmin->user->elements['user_id'] == "") { error_log('CFS authadmin userid Empty in Home -'.$_SESSION['username'].' - Prev Page : '.$_SERVER['HTTP_REFERER'].'  ,- Current page :'.$_SERVER['PHP_SELF']); }
 if(!isset($authAdmin->user->elements['GroupList']) || $authAdmin->user->elements['GroupList'] == "") { error_log('CFS authadmin GroupList Empty in Home -'.$_SESSION['username'].' - Prev Page : '.$_SERVER['HTTP_REFERER'].'  ,- Current page :'.$_SERVER['PHP_SELF']); }
 
@@ -228,6 +242,7 @@ if(!isset($authAdmin->user->elements['GroupList']) || $authAdmin->user->elements
 
 $getgroupid = $users->select($_SESSION["user_id"]);
 $getgroup = $grouplist->select($getgroupid['GroupList']); 
+//echo json_encode($getgroup);exit();
 
 if($getgroup['Industry']!=''){
     
@@ -275,6 +290,7 @@ if($getgroup['Permissions']!=2 && $getgroup['Permissions'] !='')
         $whereHomeCountNew .=  "    b.Permissions1  =".$getgroup['Permissions'] ;
     }
 }
+
 // start index of charge filter
 $chargewhere="";
 if(isset($_REQUEST['chargefromdate']) && $_REQUEST['chargefromdate']!='' ){
@@ -446,7 +462,6 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
         $template->assign("sortby" , $_REQUEST['sortby']);
         $template->assign("sortorder" , $_REQUEST['sortorder']);
-
         $template->assign("city" , $city->getCity());
         $template->assign("curPage" , $page);
         $template->assign("countflag" , $countflag);
@@ -456,6 +471,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         $fields2 = array("*");
         $where2 = "Group_Id =".$usergroup1;
         $toturcount1 = $grouplist->getFullList('','',$fields2,$where2);
+        //echo json_encode($toturcount1);exit();
         $template->assign("grouplimit",$toturcount1);
         $template->assign("searchupperlimit",$toturcount1[0][VisitLimit]);
         $template->assign("searchlowerlimit",$toturcount1[0][Used]);
@@ -600,9 +616,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         if($_REQUEST['answer']['Permissions2'] != ""  && isset($_REQUEST['answer']['Permissions2'])){
                 $permissions[]=$_REQUEST['answer']['Permissions2'];
         }		
+        //echo json_encode($permissions);exit();
 
         if(count($permissions)>0)
         {
+
             $permissionsin=  implode(',', $permissions);
                 if($where != ''){
                     $where .=  " and b.Permissions1 IN (".$permissionsin.")";
@@ -686,7 +704,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 }
         //	pr($where);
         }	
-      
+
       if(count(array_filter($_REQUEST['answer']['Industry']))>0){
         if($_REQUEST['answer']['Industry'] != ""){
             $industry1=$_REQUEST['answer']['Industry'];
@@ -854,9 +872,10 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         /*Financial Search Starts*/
 
         $end=count($_REQUEST['answer']['SearchFieds'])-1;
-        
+
         for($i=0;$i<count($_REQUEST['answer']['SearchFieds']);$i++){
                 //pr($i);
+
                 if($_REQUEST['answer']['SearchFieds'][$i] != ""){
                         $Gtrt = 'Grtr_'.$i;
                         $value=$PL_STNDSEARCHFIELDS[$_REQUEST['answer']['SearchFieds'][$i]];
@@ -1182,9 +1201,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                         $whereHomeCountNew .= " and ((a.".$value." >=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)." ))";
                                                 }
                                         }
+
                                         }
                                 }elseif($_REQUEST[$Gtrt] != ""){
                                         //$where .= " or a.".$value.">".($_REQUEST[$Gtrt]*$crores);
+
                                         if($_REQUEST[$Gtrt] < 100){
 
                                             if($value == "Total Debt"){
@@ -1229,7 +1250,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                 $whereHomeCountNew .= " or (a.".$value.">=".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >=".($_REQUEST[$Gtrt]*$crores)."))" ;
                
                                         }
+
                                         }
+                                        
                                         else if($_REQUEST[$Gtrt] >= 100)
                                         {
 
@@ -1437,9 +1460,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 
                 $template->assign("tag_response",$tag_response);
 
-                //echo $tagsearch;
                 $filterFlag = true;
                 $tags_where = '';
+
                 $tagResult = $plstandard->fetchCIN($tagsearch, $tagandor);
                 
                 $tags_where .=  "  b.CIN IN($tagResult)";
@@ -1754,7 +1777,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             }
             
             
-            
+
             /*
 		if($where!=''){
 			$where .= " and (b.IncorpYear >= ".$_REQUEST['answer']['YearGrtr']." and b.IncorpYear <= ".$_REQUEST['answer']['YearLess'].")";
@@ -1781,7 +1804,6 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
              
              */
 	}
-
     if( $filterFlag && $chargewhere == '' ) {
         $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossFlag,$ratio,$maxFYQueryratio);
         $template->assign("totalrecord",$total);
@@ -1870,10 +1892,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
            // $whereTop = ltrim($whereTop,$replace_where);
             $whereTop = trim($whereTop);
             $whereCountNew = trim($whereCountNew);
+
             //$whereTop = trim($whereTop,'and');
             $whereTop = substr($whereTop,3);
             $whereTop = ' '.$whereTop.' ';
-            $whereCountNew = substr($whereCountNew,3);
+           // $whereCountNew = substr($whereCountNew,3);
             $whereCountNew = ' '.$whereCountNew.' ';
 
             if($chargewhere!=''){
@@ -1902,17 +1925,17 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             else{
                 
                 
-
                 if( !$filterFlag ) {
                     // T975 RATIO BASED
                     if( !$acrossallFlag || !$acrossallRFlag ) {
 
-                         if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25) && $industry=='' ){
-                        $query= "select value from configuration where purpose='initial_count'";
+                         if(($countflag==''||$countflag==0)&& $search_export_value=='' && ($getgroup['Industry'] == '' || count(explode(',', $getgroup['Industry'])) == 25) && $industry=='' && $getgroup['Permissions'] == 2){
+                            $query= "select value from configuration where purpose='initial_count'";
                         $count=mysql_query($query);
                         $total_top1=mysql_fetch_row($count);
                         $total_top=$total_top1[0];
                         }else{
+                            //echo $whereCountNew;exit();
                             $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery,$ratio,$maxFYQueryratio);
                         }
                        // $total_top = $plstandard->allSearchHomecount($whereCountNew,$group,$maxFYQuery);
@@ -1930,11 +1953,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                 $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag,$ratio,$maxFYQueryratio);
                             }
                         }
-
+                       //echo $getgroup['Permissions'];exit();
                     $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
+                //echo json_encode($SearchResults);exit();
                 }
                 $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery,$ratio,$maxFYQueryratio);
-                
                 
                 if($total > 0 && $search_export_value!=''){
                     //echo "dddddddddddddddddddd 3";
@@ -1979,6 +2002,8 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             //print_r($SearchResults);exit();
             $template->assign("SearchResults",$SearchResults);
             $template->assign("totalrecord",$total);
+           // echo $total;exit();
+
                 /*Financial Search Ends*/
         }
        
@@ -2072,13 +2097,14 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 
             if($chargewhere!=''){
                // echo "dddddddddddddddddddd 4";
+
                 $allgrowthResults = $growthpercentage->SearchHomeGrowth_WithCharges_cnt($chargewhere,$fields,$where,$orderc,$group);
                 $total=$allgrowthResults[0]['count'];
                 $SearchExport2 = $growthpercentage->SearchHomeExport1_WithCharges($chargewhere,$fields2,$where,$orderc,$group);
                 $growthResults = $growthpercentage->SearchHomeGrowth_WithCharges($chargewhere,$fields,$where,$orderc,$group,"name",$page,$limit,$client='');        
             }
             else{
-           
+
                 $total = $growthpercentage->SearchHomeGrowth_cnt($fields2,$where,$orderc,$group);
                 $SearchExport2 = $growthpercentage->SearchHomeExport1($fields2,$where,$orderc,$group);
                 $growthResults = $growthpercentage->SearchHomeGrowth($fields2,$where,$orderc,$group,"name",$page,$limit,$client='');
@@ -2225,7 +2251,11 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         if($total>0 &&  $limit!="all"){
             
             $paginationdiv= '<ul class="pagination">';
-        
+            if(!empty($total_top)){
+                $total = $total_top;              
+              }else{
+                $total = $total;              
+              }
             $totalpages=  ceil($total/$limit);
             $firstpage=1;
             $lastpage=$totalpages;
@@ -2252,8 +2282,10 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $pages =  array_unique($pages);
             sort($pages);
         
-            if($search_export_value!=''){
-                $pagination_search ='searchv='.$search_export_value.'&currency='.$currency;  
+            if($search_export_value!='' && $searchbyvalue!=''){
+                //$pagination_search ='searchv='.$search_export_value.'&currency='.$currency; 
+                $pagination_search ='searchv='.$search_export_value.'&currency='.$currency.'&searchbyvalue='.$searchbyvalue;  
+ 
             }else{
                 $pagination_search='';
             }
@@ -2263,13 +2295,12 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                $paginationdiv.='<li class="arrow unavailable"><a href="">&laquo;</a></li>';
             } else {  
 
-                $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="home.php?'.$pagination_search.'page='.$prevpage.'" >&laquo;</a></li>';    
+                $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$prevpage.'" >&laquo;</a></li>';    
             }     
-                 
             for($i=0;$i<count($pages);$i++){ 
                 
                 if($pages[$i] > 0 && $pages[$i] <= $totalpages){
-                     $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'page='.$pages[$i].'">'.$pages[$i].'</a></li>';
+                     $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$pages[$i].'">'.$pages[$i].'</a></li>';
                 }
                 if(isset($pages[$i+1])){
                     if($pages[$i+1]-$pages[$i]>1){
@@ -2280,13 +2311,13 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                      
             if($page<$totalpages){
 
-                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'page='.$nextpage.'">&raquo;</a></li>';
+                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li>';
             } else {  
                 $paginationdiv.='<li class="arrow"><a >&raquo;</a></li>';
             }
         
             $paginationdiv.='</ul>';   
-        
+            //echo $paginationdiv;exit();
             $template->assign("paginationdiv",$paginationdiv);
         }
         else {
@@ -2316,13 +2347,32 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             } 
             exit;
         }
-
+        $getgroupid = $users->select($_SESSION["user_id"]);
+        $getgroup = $grouplist->select($getgroupid['GroupList']); 
+        if($getgroup['Industry'] != "")
+        {
+           $ind= explode (",", $getgroup['Industry']);
+           if(count($ind) == 25)
+           {
+            $template->assign("Industryselected",0);
+        
+           }
+           else{
+            $template->assign("Industryselected",1);
+           }
+        
+        }
+        else{
+            $template->assign("Industryselected",0);
+        
+        }
         $template->assign('pageTitle',"CFS :: Company Search");
         $template->assign('pageDescription',"CFS - Company Search");
         $template->assign('pageKeyWords',"CFS - Company Search");
         $template->assign('userEmail',$_SESSION['UserEmail']);
         $template->assign('user_browser',$user_browser);
         $template->assign('yearcurrency',$yearcurrency);
+        //echo $where;exit();
         $template->display('home.tpl');
         
         // Footer
