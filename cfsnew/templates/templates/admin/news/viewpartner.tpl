@@ -235,8 +235,8 @@ width:20px;
                            <label id="req_answer">Type</label>
                            {* <input type="text" id="partner_type" name="partner_type" value="{$partner_details.partnerType}" required/> *}
                            <select class="form-control" id="partner_type" name="partner_type" style="width: 260px;" readonly>
-                           <option id="type_internal" value="internal_partner" {if $partner_details.partnerType == "internal_partner"} selected="selected"{/if}>internal_partner</option>
-                           <option id="type_external" value="external_partner" {if $partner_details.partnerType == "external_partner"} selected="selected"{/if}>external_partner</option>
+                           {* <option id="type_internal" value="internal_partner" {if $partner_details.partnerType == "internal_partner"} selected="selected"{/if}>internal_partner</option> *}
+                           <option id="type_external" value="external_partner" {if $partner_details.partnerType == "external_partner"} selected="selected"{/if} selected="true" disabled="disabled" >external_partner</option>
                            </select>
                         </div>
                         <br />

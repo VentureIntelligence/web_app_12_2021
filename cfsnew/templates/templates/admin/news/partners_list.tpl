@@ -377,7 +377,7 @@ $( document ).ready( function() {
 		table1 = $('#partnersDetails').DataTable({
 				"autoWidth": false,
 				 data: partnersDetails,
-                 /*"order": [7,"DESC"],*/
+                 "order": [4,"DESC"],
 				"ordering": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 				"columns": [
