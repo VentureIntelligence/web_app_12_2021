@@ -4915,7 +4915,7 @@ include_once($refineUrl); ?>
                                                                     <th>IRR</th>
                                                                     
                                                                     <?php //echo print_r($Amount_INR);
-                                                                        if(count(array_filter($Amount_M)) > 0) {?>
+                                                                        if(count(array_filter($Amount_INR)) > 0) {?>
 
                                                                     <th>&#8377; Cr</th> 
                                                                     <?php }?>
