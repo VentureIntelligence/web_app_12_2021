@@ -4915,18 +4915,16 @@ include_once($refineUrl); ?>
                                                                     <th>IRR</th>
                                                                     
                                                                     <?php //echo print_r($Amount_INR);
-                                                                    for($i=0;$i<count($Amount_INR);$i++){
-                                                                    if($Amount_INR[$i] != "" &&  $Amount_INR[$i] !="0.00") {?>
+                                                                        if(count(array_filter($Amount_M)) > 0) {?>
 
                                                                     <th>&#8377; Cr</th> 
-                                                                    <?php }}?>
+                                                                    <?php }?>
 
                                                                     <?php //echo print_r($Amount_M);
-                                                                    for($i=0;$i<count($Amount_M);$i++){
-                                                                    if($Amount_M[$i] != "" &&  $Amount_M[$i] !="0.00") {?>
+                                                                    if(count(array_filter($Amount_M)) > 0) {?>
 
                                                                             <th>$ M</th> 
-                                                                    <?php }}?>
+                                                                    <?php }?>
                                                                 
                                                                 </tr>
                                                             </thead>
