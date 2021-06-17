@@ -16,8 +16,6 @@ $template->assign('pageKeyWords',"CFS - Admin");
 $template->assign('GLOBAL_BASE_URL',$GLOBAL_BASE_URL);
 
 
-
-
 if($_SESSION['business']['Auth']){
 	$template->assign('LogedIn',"LogedIn");
 }

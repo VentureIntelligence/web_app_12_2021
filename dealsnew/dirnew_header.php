@@ -352,6 +352,13 @@ $(document).ready(function(){
 	  delay : 20
 	});
 });
+
+
+
+
+
+
+
     $(document).ready(function(){
       $('input').iCheck({
         checkboxClass: 'icheckbox_flat-red',

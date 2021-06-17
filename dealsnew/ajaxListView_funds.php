@@ -146,7 +146,11 @@ if ($company_cnt > 0)
 ?>
         </tbody>
 </table>
+
+
+
 <?php
 mysql_close();
     mysql_close($cnx);
     ?>
+

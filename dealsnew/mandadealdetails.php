@@ -3530,6 +3530,7 @@ include_once($refineUrl); ?>
         }
 
 
+//echo  $irrsql;
 
        // print_r($Amount_INR);
 //echo  $irrsql;

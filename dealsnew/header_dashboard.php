@@ -605,7 +605,11 @@ $(function () {
 
 </div>
 </form>
-<form name="pesearch" action="" method="post" id="pesearch">
+<?php 
+    $actionlink="dashboard.php?type=".$_GET['type'];
+
+?>
+<form name="pesearch" action="<?php echo $actionlink; ?>" method="post" id="pesearch">
 <div id="sec-header" class="sec-header-fix">
 <table cellpadding="0" cellspacing="0">
 <tr>
@@ -672,5 +676,5 @@ $custom_limit_enable= $row['custom_limit_enable']  ;
                 <span style="padding: 3px 0px;">(Alternatively please call us at +91 44 42185180)</span>
             </div>
 
-        </form>
+        <!-- </form> -->
     </div>
