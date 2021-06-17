@@ -3489,7 +3489,25 @@ include_once($refineUrl); ?>
 
         $irrsql="SELECT pe.InvestorId, pe.Investor,  ma.Amount_M, ma.Amount_INR,ma.MultipleReturn, ma.IRR FROM `peinvestors` as pe, `manda_investors` as ma where ma.InvestorId=pe.InvestorId and ma.MandAId = $SelCompRef";
 
+        $irrcompanyrs = mysql_query($irrsql);
+        $irr_cnt = mysql_num_rows($irrcompanyrs);
+        While($myInvestorrow=mysql_fetch_assoc($irrcompanyrs))
+        {
+                
+                $Amount_INR .=trim($myInvestorrow["Amount_INR"]).',';
+                $Amount_M .=trim($myInvestorrow["Amount_M"]).',';
+                
+        }
+        $Amount_INR=rtrim($Amount_INR,',');
+        $Amount_M=rtrim($Amount_M,',');
 
+        $Amount_INR=explode(',',$Amount_INR);
+        $Amount_M=explode(',',$Amount_M);
+
+
+
+
+       // print_r($Amount_INR);
 //echo  $irrsql;
 
          if ($getAcquirerSql = mysql_query($AcquirerSql))
@@ -4857,6 +4875,7 @@ include_once($refineUrl); ?>
                                                     ?>
                                                         
                                                         <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest">
+                                                         
                                                             <thead>
 
                                                                 <tr>
@@ -4864,8 +4883,20 @@ include_once($refineUrl); ?>
                                                                     
                                                                     <th >Return Multiple</th>
                                                                     <th>IRR</th>
+                                                                    
+                                                                    <?php //echo print_r($Amount_INR);
+                                                                    for($i=0;$i<count($Amount_INR);$i++){
+                                                                    if($Amount_INR[$i] != "" &&  $Amount_INR[$i] !="0.00") {?>
+
                                                                     <th>&#8377; Cr</th> 
-                                                                    <th>$ M</th> 
+                                                                    <?php }}?>
+
+                                                                    <?php //echo print_r($Amount_M);
+                                                                    for($i=0;$i<count($Amount_M);$i++){
+                                                                    if($Amount_M[$i] != "" &&  $Amount_M[$i] !="0.00") {?>
+
+                                                                            <th>$ M</th> 
+                                                                    <?php }}?>
                                                                 
                                                                 </tr>
                                                             </thead>
