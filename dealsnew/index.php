@@ -4606,7 +4606,7 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
 
            <?php }?>
             <?php if ($totalno > 0) {?>
-                <div class="pageinationManual">
+                <!-- <div class="pageinationManual"> -->
             <div class="holder" style="float:none; text-align: center;">
                 <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -4657,9 +4657,12 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
            <?php
 }
 ?>
-         <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div>
-        </div>  
+         
+        <!-- </div>   -->
+        <center>
+        <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
+
             <?php
 
 if ($studentOption == 1) {
@@ -11985,7 +11988,7 @@ echo $user_browser;?>
 
 <style>
     .paginationtextbox{
-        width:25%;
+        width:6%;
         padding: 3px;
     }
     .button{
