@@ -42,7 +42,7 @@
                 
                if($partner_type == "external_partner"){
                         //echo "select password from external_api_users WHERE `user_id` = '$user_id'";
-                        $sql_pass = mysql_query("select password from pe_external_api_users WHERE `user_id` = '$user_id'");
+                        $sql_pass = mysql_query("select password from news_api_users WHERE `user_id` = '$user_id'");
 
                         $old_password = mysql_fetch_object($sql_pass)->password;
                         
@@ -54,7 +54,7 @@
                         
                         if($partner_name != '' && $partner_email != '' && $partner_company != '' && $update_password != '' && $partner_company != '' && $status != '' ){
                         
-                        // $sql_external = 'UPDATE `pe_external_api_users` SET 
+                        // $sql_external = 'UPDATE `news_api_users` SET 
                         //                 `partnername` = "'.$partner_name.'",
                         //                 `username` = "'.$partner_email.'", 
                         //                 `password` = "'.$update_password.'",
@@ -62,7 +62,7 @@
                         //                 `partner_status` = "'.$status.'", 
                         //                 `updatedAt` = now() 
                         //                 WHERE `user_id` = "'.$user_id.'"';
-                        $sql_external = 'UPDATE `pe_external_api_users` SET 
+                        $sql_external = 'UPDATE `news_api_users` SET 
                                         `username` = "'.$partner_email.'", 
                                         `password` = "'.$update_password.'",
                                         `companyName` = "'.$partner_company.'", 

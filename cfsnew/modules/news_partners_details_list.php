@@ -23,7 +23,8 @@ class partners_details_list extends database {
 		$this->elements["createdAt"]    = "";
 		$this->pkName="partner_id";
 		$this->dbName="news_api_partner";
-		$this->TName="pe_external_api_users";
+		// $this->TName="pe_external_api_users";
+		$this->TName="news_api_users";
 	}
 	
 // 	

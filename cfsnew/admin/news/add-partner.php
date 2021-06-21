@@ -46,7 +46,7 @@
                //  exit;
                
                
-               $validate_partner_email = "select count(*) as partner from pe_external_api_users WHERE username = '$partner_email'";
+               $validate_partner_email = "select count(*) as partner from news_api_users WHERE username = '$partner_email'";
                $ex_partner_valid = mysql_query($validate_partner_email);
                $valid_partner = mysql_fetch_array($ex_partner_valid);
                $valid_user = $valid_partner['partner'];
@@ -58,9 +58,9 @@
 
                   if($partner_name != '' && $partner_email != '' && $partner_company != '' && $partner_password != '' && $partner_duration_from != '' && $partner_duration_to != ''){
 
-                     // $sql_external = "INSERT INTO pe_external_api_users (partnername, username, password, companyName, partner_status, createdAt) 
+                     // $sql_external = "INSERT INTO news_api_users (partnername, username, password, companyName, partner_status, createdAt) 
                      //             VALUES ('$partner_name', '$partner_email', '$password', '$partner_company', '$status', now())";
-                     $sql_external = "INSERT INTO pe_external_api_users ( username, password, companyName, partner_status,api_type, createdAt,updatedAt) 
+                     $sql_external = "INSERT INTO news_api_users ( username, password, companyName, partner_status,api_type, createdAt,updatedAt) 
                                  VALUES ( '$partner_email', '$password', '$partner_company', '$status','$partner_subapi_info', now(), now())";
                      $partner_external_added = mysql_query($sql_external);
                      $external_partner_id = mysql_insert_id();
