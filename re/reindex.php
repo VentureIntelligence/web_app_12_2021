@@ -2003,7 +2003,7 @@
                 </div>			
                            
                 
-                <div class="pageinationManual">
+                <!-- <div class="pageinationManual"> -->
                 <div class="holder" style="float:none; text-align: center;">
              <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -2045,9 +2045,13 @@
              </div>
              </div>
 
-            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+           
+                     <!-- </div> -->
+
+                        <center>
+                     <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
             <button class = "jp-page1 button pagevalue" name="pagination"  id= "pagination" type="submit" onclick = "validpagination()">Go</button></div>
-                     </div>
+            </center>
 
             <?php 
             }else{
@@ -2180,7 +2184,7 @@
                        <div class="showhide-link" id="trendnav" style="z-index: 100000"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
                             <div  id="slidingTable" style="display: none;overflow:hidden;">
                                <?php
-                                include_once("trendviewre.php");
+                                 include_once("trendviewre.php");
                                ?>   
                                <table width="100%">
 									<?php
@@ -4883,7 +4887,7 @@ div.token-input-dropdown{
 
     <style>
         .paginationtextbox{
-            width:25%;
+            width:6%;
             padding: 3px;
         }
         .button{

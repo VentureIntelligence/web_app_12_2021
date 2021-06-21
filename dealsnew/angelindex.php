@@ -1877,7 +1877,7 @@ $count++;
 }*/
 }
 ?>
- <div class="pageinationManual">
+ <!-- <div class="pageinationManual"> -->
     <div class="holder" style="float:none; text-align: center;clear:both;">
       <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -1920,9 +1920,13 @@ if ($currentpage < $totalpages) {
       </div>
     </div>
 
+   
+                     <!-- </div> -->
+
+                        <center>
     <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
     <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit"  onclick = "validpagination()">Go</button></div>
-                     </div>
+    </center>
 
     <div>&nbsp;</div>
     <div>&nbsp;</div>
@@ -2888,9 +2892,8 @@ mysql_close($cnx);
 
     <style>
 
-
 .paginationtextbox{
-        width:25%;
+        width:6%;
         padding: 3px;
     }
         .button{

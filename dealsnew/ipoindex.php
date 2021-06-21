@@ -2072,7 +2072,7 @@
                 <input type="hidden" name="hide_company_array" id="hide_company_array" value="<?php echo $_POST[ 'pe_hide_companies' ]; ?>">
                 
            <?php } ?>
-           <div class="pageinationManual">
+           <!-- <div class="pageinationManual"> -->
     <div class="holder" style="float:none; text-align: center;">
     <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -2114,10 +2114,13 @@
                      </div>
                     </div>
 
+                   
+
+                    <!-- </div> -->
+                        <center>
                     <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
                     <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit" onclick = "validpagination()">Go</button></div>
-
-                    </div>
+                    </center>
   <?php 
         }
                  if($hidecount==1)
@@ -2359,7 +2362,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-     include_once("ipotrendview.php");
+    include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php
@@ -10168,8 +10171,8 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
     <style>
 
-.paginationtextbox{
-        width:25%;
+    .paginationtextbox{
+        width:6%;
         padding: 3px;
     }
         .button{

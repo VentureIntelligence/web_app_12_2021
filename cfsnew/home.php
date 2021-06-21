@@ -2331,10 +2331,12 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 //echo $nextpage;
 
             } else {  
-                $paginationdiv.='<li class="arrow"><a >&raquo;</a></li>';
+                $paginationdiv.='<li class="arrow"><a >&raquo;</a></li></ul> <br />';
             }
+
+       
             
-            $paginationdiv.=' &nbsp;<li> <input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "Enter Page No">  </li> &nbsp;<li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();">  </li>  </ul>' ;  
+            $paginationdiv.='<br /><br /><center> <ul class = "pageul"> <li><input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "Page No"> </li> &nbsp;&nbsp; <li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();"></li> </ul></center> <br /><br />' ;  
             
            // echo $page.'<br />';
             //echo $_POST['paginationinput'];
@@ -2344,6 +2346,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         else {
             $template->assign("paginationdiv","");
         }
+
+      
+        
         
        // LEFT  PANEL
         include "leftpanel.php";
@@ -2466,11 +2471,17 @@ function paginationfunc()
     color: #fff;
     border: 1px solid #624C34;
     padding: 5px 5px;
-    /* margin-left: 22% !important; */
+    margin-left: 22% !important;
     /* margin-top: -45px !important; */
 }
 .inputpagination{
-    width:100px !important;
-    margin: 0 10px !important;
+    width:70px !important;
+    height: 26px !important;
+    /* margin: 0 10px !important; */
+}
+
+.pageul{
+    margin-left: 40% !important;
+    /* padding:5%; */
 }
 </style>

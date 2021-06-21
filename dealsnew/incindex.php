@@ -1551,7 +1551,7 @@
            <?php } 
            
             } ?>
-             <div class="pageinationManual">
+             <!-- <div class="pageinationManual"> -->
     <div class="holder" style="float:none; text-align: center;">
         <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -1592,9 +1592,16 @@
                      <?php  } ?>
         </div>
     </div>
+
+    
+
+                     <!-- </div> -->
+
+                        <center>
     <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
     <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit" onclick = "validpagination()">Go</button></div>
-                     </div>
+    </center>
+
     <?php
                 if($studentOption==1)
         {
@@ -2676,9 +2683,8 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
     <style>
 
-
 .paginationtextbox{
-    width:25%;
+        width:6%;
         padding: 3px;
     }
         .button{

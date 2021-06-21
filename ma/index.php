@@ -2185,7 +2185,7 @@
                   <input type="hidden" name="all_checkbox_search" id="all_checkbox_search" value="<?php if($_POST['full_uncheck_flag']!=''){ echo $_POST['full_uncheck_flag']; }else{ echo ""; } ?>">
                 <input type="hidden" name="hide_company_array" id="hide_company_array" value="<?php echo $_POST[ 'pe_hide_companies' ]; ?>">
                 <?php }?>
-                <div class="pageinationManual">
+                <!-- <div class="pageinationManual"> -->
              <div class="holder" style="float:none; text-align: center;">
              <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
@@ -2227,10 +2227,14 @@
              </div>
              </div>
 
-             <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "PageNo" onkeyup = "paginationfun(this.value)">
+            
+            <!-- </div> -->
+
+                        <center>
+            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "PageNo" onkeyup = "paginationfun(this.value)">
              <button class = "jp-page1 button pagevalue" name="pagination"  id="pagination" type="submit" onclick = "validpagination()"> Go</button>
             </div>
-            </div>
+            </center>
 
             <?php
                     }else{
@@ -4540,7 +4544,7 @@ if($countryheight>'100')
     <style>
         
 .paginationtextbox{
-        width:25%;
+        width:6%;
         padding: 3px;
     }
         .button{
