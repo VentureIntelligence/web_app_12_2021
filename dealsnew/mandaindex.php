@@ -2887,7 +2887,7 @@ include_once('mandarefine.php');
                 <input type="hidden" name="hide_company_array" id="hide_company_array" value="<?php echo $_POST[ 'pe_hide_companies' ]; ?>">
                 
            <?php } ?>
-           <div class="pageinationManual">
+           <!-- <div class="pageinationManual"> -->
         <div class="holder" style="float:none; text-align: center;">
         <div class="paginate-wrapper" style="display: inline-block;">
           <?php
@@ -2927,11 +2927,14 @@ include_once('mandarefine.php');
           <?php  } ?>
           </div>
         </div>
-        <div class="pagination-section">
+       
+          <!-- </div> -->
+          <center>
+          <div class="pagination-section">
             <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
             <button class = "jp-page1 button pagevalue" name="pagination"  id = "pagination" type="submit" onclick = "validpagination()">Go</button>
         </div>
-          </div>
+        </center>
         <?php
         }
         
@@ -3451,7 +3454,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                    include_once("mandatrendview.php");
+                     include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -11505,7 +11508,7 @@ mysql_close();
     <style>
 
 .paginationtextbox{
-    width:25%;
+        width:6%;
         padding: 3px;
     }
         .button{
