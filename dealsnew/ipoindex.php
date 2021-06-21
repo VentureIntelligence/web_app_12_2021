@@ -2359,7 +2359,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-    include_once("ipotrendview.php");
+     include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php
@@ -10170,6 +10170,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
 .paginationtextbox{
         width:25%;
+        padding: 3px;
     }
         .button{
         background-color: #a2753a; /* Green */
@@ -10184,8 +10185,10 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
         .pageinationManual{
         display: flex;
-        margin: auto;
-        width: 50%;
+        position: absolute;
+
+left: 44%;
+
     }
     </style>
    

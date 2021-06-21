@@ -2678,7 +2678,8 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
 
 .paginationtextbox{
-        width:25%;
+    width:25%;
+        padding: 3px;
     }
         .button{
             background-color: #a2753a; /* Green */
@@ -2693,8 +2694,9 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
         .pageinationManual{
         display: flex;
-        margin: auto;
-        width: 60%;
+        position: absolute;
+
+left: 42%;
     }
     </style>
     

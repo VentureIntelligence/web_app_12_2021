@@ -3445,7 +3445,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                     include_once("mandatrendview.php");
+                    include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -11499,7 +11499,8 @@ mysql_close();
     <style>
 
 .paginationtextbox{
-        width:25%;
+    width:25%;
+        padding: 3px;
     }
         .button{
         background-color: #a2753a; /* Green */
@@ -11514,7 +11515,8 @@ mysql_close();
 
         .pageinationManual{
         display: flex;
-        margin: auto;
-        width: 50%;
+        position: absolute;
+
+left: 40%;
     }
     </style>

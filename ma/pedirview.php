@@ -1191,7 +1191,8 @@ $(function() {
 
     <style>  
         .paginationtextbox{
-            width:25%;
+            width:28%;
+            padding: 3px;
         }
         .button{
             background-color: #a2753a; /* Green */
@@ -1205,7 +1206,7 @@ $(function() {
         }
         .pageinationManual{
             display: flex;
-            margin: auto;
-            width: 60%;
+            position: absolute;
+            left: 35%;
         }
     </style>

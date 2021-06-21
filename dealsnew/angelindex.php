@@ -2891,6 +2891,7 @@ mysql_close($cnx);
 
 .paginationtextbox{
         width:25%;
+        padding: 3px;
     }
         .button{
         background-color: #a2753a; /* Green */
@@ -2905,7 +2906,10 @@ mysql_close($cnx);
 
         .pageinationManual{
         display: flex;
-        margin: auto;
-        width: 60%;
+        position: absolute;
+
+        left: 40%;
+
+
     }
     </style>
