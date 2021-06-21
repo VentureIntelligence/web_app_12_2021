@@ -3827,6 +3827,9 @@ try {
         if($object['Size'] == 0){
             $foldername = explode("/", $object['Key']);
         } 
+        //condition check in same company
+        if($foldername[1] == $myrow["companyname"])
+        {
         $signedUrl = $client->getObjectUrl($bucket, $fileName, '+60 minutes');
 
         $pieces = explode("/", $fileName);
@@ -3851,6 +3854,7 @@ try {
     }   // foreach
 
     $result = $c2. " of ". $c1;
+}
 }
 ?>
 
