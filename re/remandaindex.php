@@ -2818,6 +2818,7 @@ if($_GET['type']!="")
     <style>
         .paginationtextbox{
             width:25%;
+            padding: 3px;
         }
         .button{
             background-color: #a2753a; /* Green */
@@ -2831,7 +2832,7 @@ if($_GET['type']!="")
         }
         .pageinationManual{
             display: flex;
-            margin: auto;
-            width: 60%;
+            position: absolute;
+            left: 42%;
         }
     </style>

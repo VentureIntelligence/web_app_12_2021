@@ -1288,7 +1288,8 @@ if($notable==false)
     <style>
 
     .paginationtextbox{
-        width:40%;
+        width:25%;
+        padding: 3px;
     }
     
     .button{
@@ -1304,8 +1305,11 @@ if($notable==false)
 
     .pageinationManual{
         display: flex;
-        margin: auto;
-        width: 50%;
+        /* margin: auto;
+        width: 50%; */
+        position: absolute;
+
+left: 38%;
     }
 
 

@@ -12006,6 +12006,7 @@ echo $user_browser;?>
 <style>
     .paginationtextbox{
         width:25%;
+        padding: 3px;
     }
     .button{
     background-color: #a2753a; /* Green */
@@ -12020,7 +12021,8 @@ echo $user_browser;?>
 
     .pageinationManual{
         display: flex;
-        margin: auto;
-        width: 70%;
+        position: absolute;
+
+left: 40%;
     }
 </style>
