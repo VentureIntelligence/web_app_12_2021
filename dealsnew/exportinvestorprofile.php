@@ -1053,7 +1053,7 @@ function updateDownload($res){
 //                    echo $_REQUEST['txthideinvestorId']."<br>---" .$sql;
 //                   exit();
                     //execute query
-                  //  echo $sql;exit();
+                    echo $sql;exit();
                    $result = @mysql_query($sql)
                         or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
                    updateDownload($result);
@@ -1173,9 +1173,9 @@ function updateDownload($res){
                                 $schema_insert .=trim($row[4]).$sep; //address
                                 $schema_insert .=trim($row[5]).$sep; //address line 2
                                 $schema_insert .=trim($row[6]).$sep; //city
-
+                            
                                 if($isUpdated == true){
-                                    $schema_insert .=trim($row[35]).$sep; //country
+                                    $schema_insert .=trim($row[37]).$sep; //country
                                 } else {
                                     $txtcountryid= $row[27]; //countryid
                                             $countrysql="select country from country where countryid='$txtcountryid'";
@@ -1319,7 +1319,7 @@ function updateDownload($res){
                                 $schema_insert .=$row[25].$sep; //Addtional Info
                                 
                                 if($isUpdated == true){
-                                    $schema_insert .=$row[33].$sep; //Industry for Existing investments
+                                    $schema_insert .=$row[35].$sep; //Industry for Existing investments
                                 } else {
                                     $indSql= " SELECT DISTINCT i.industry as ind, c.industry, peinv_inv.InvestorId
                                             FROM peinvestments_investors AS peinv_inv, peinvestors AS inv, pecompanies AS c, peinvestments AS peinv, industry AS i
