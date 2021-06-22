@@ -839,21 +839,12 @@ $getinvestorAmount = "select SUM(peinvestments_investors.Amount_M) as total_amou
     where peinvestments_investors.InvestorId = " . $investorId . " and peinvestments_investors.exclude_dp = 0 AND peinvestments.Deleted=0 AND 
     peinvestments.AggHide=0 and peinvestments.SPV = 0 and pecompanies.industry !=15 AND 
     peinvestments.PEId NOT IN (SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 )";
-    
-    $getexitamount="select SUM(manda_investors.Amount_M) as total_amount FROM manda 
-    JOIN manda_investors ON manda_investors.MandAId = manda.MandAId 
-    JOIN pecompanies ON pecompanies.PECompanyId = manda.PECompanyId 
-    where manda_investors.InvestorId = ".$investorId." AND manda.Deleted=0 and pecompanies.industry !=15";
-
-        $exitamountrs = mysql_query($getexitamount);
-        $exitrowrow = mysql_fetch_row($exitamountrs, MYSQL_BOTH);
-        $exit_amount = $exitrowrow['total_amount'];
 
 $investor_amount  = '';
 $investoramountrs = mysql_query($getinvestorAmount);
 $investorrowrow   = mysql_fetch_row($investoramountrs, MYSQL_BOTH);
 $investor_amount  = $investorrowrow['total_amount'];
-//echo "<br>--" .$getexitamount;
+//echo "<br>--" .$stageSql;
 
 $strIndustry = "";
 $strStage    = "";
@@ -957,9 +948,6 @@ if (isset($_REQUEST['angelco_only'])) {
     $firm_typeId      = $myrow["FirmTypeId"];
     $other_location   = $myrow["OtherLocation"];
     $assets_mgmt      = $myrow["Assets_mgmt"];
-   // $exit_amount  = $myrow["exit_amount"];
-
-    $hide_exit_amount  = $myrow["exitamount_hide"];
     $hide_dry_powder  = $myrow["dry_hide"];
     $already_invested = $myrow["AlreadyInvested"];
     $preferred_stage  = ltrim($strStage); //$myrow["PreferredStage"];
@@ -2005,23 +1993,6 @@ if (trim($assets_mgmt) != "") {
         $Assets_mgmt = (int) preg_replace("/[^0-9\.]/", '', $assets_mgmt);
     } else {
         $Assets_mgmt = 0;
-    }
-?>
-                                              <?php
-    if ($hide_exit_amount == 0) {
-?>
-                                                  <tr>
-                                                        <td>
-                                                            <h4>Already Exited (US$ Million)</h4></td>
-                                                        <td>:</td>
-                                                        <td>
-                                                            <p>
-                                                                <?php
-        echo $exit_amount;
-?>&nbsp;</p>
-                                                        </td>
-                                                    </tr>
-                                                    <?php
     }
 ?>
                                               <?php
@@ -3533,8 +3504,10 @@ function curPageURL()
         $pageURL .= "s";
     }
     $URL .= "://";
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $URL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    if ($_SERVER["SERVER_PORT"] != "80" || $_SERVER["SERVER_PORT"] != "443") {
+        //$URL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+        $URL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+
     } else {
         $URL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }

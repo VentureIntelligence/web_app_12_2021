@@ -15,11 +15,7 @@ if ($_POST) {
     if ($IPO_MandAId > 0) {
         echo "<bR>-----------------------" . $ipo_mandaflag;
         $exitInvestor = $_POST['txtinvestor'];
-        $Amount_M = $_POST['txtReturnMultipleDollar'];
-        $Amount_INR = $_POST['txtReturnMultipleINR'];
-
         $invReturnMultiple = $_POST['txtReturnMultiple'];
-
         $invMoreInfo = $_POST['txtInvmoreinfor'];
 
         $invMoreIRR = $_POST['irr'];
@@ -30,7 +26,7 @@ if ($_POST) {
         if ($fullString[0] == "IPO") {
             $getInvestorsSql = "select ipo.IPOId, ipo.InvestorId, inv.Investor, ipo.MultipleReturn, ipo.InvMoreInfo, ipo.IRR from ipo_investors as ipo, peinvestors as inv where inv.InvestorId=ipo.InvestorId and ipo.IPOId=$IPO_MandAId ";
         } elseif ($fullString[0] == "MA") {
-            $getInvestorsSql = "select mandainv.MandAId, mandainv.InvestorId, inv.Investor,mandainv.Amount_M,mandainv.Amount_INR, mandainv.MultipleReturn, mandainv.InvMoreInfo, mandainv.IRR  from manda_investors as mandainv, peinvestors as inv where inv.InvestorId=mandainv.InvestorId and mandainv.MandAId=$IPO_MandAId ";
+            $getInvestorsSql = "select mandainv.MandAId, mandainv.InvestorId, inv.Investor, mandainv.MultipleReturn, mandainv.InvMoreInfo, mandainv.IRR  from manda_investors as mandainv, peinvestors as inv where inv.InvestorId=mandainv.InvestorId and mandainv.MandAId=$IPO_MandAId ";
         }
         if ($fullString[0] == "IPO") {
             if (mysql_query("delete from ipo_investors where IPOId=$IPO_MandAId ")) {
@@ -67,19 +63,19 @@ if ($_POST) {
                 if ($row_db_count > 0) {
                     $investorId = return_insert_get_Investor_edit_update($exitInvestor[$j], $txtinvestorid[$j]);
                     if ($investorId != '') {
-                        $ciaIdToInsert = insert_Investment_Investors($ipo_mandaflag, $IPO_MandAId, $investorId,$Amount_M[$j],$Amount_INR[$j], $invReturnMultiple[$j], $invMoreInfo[$j], $invMoreIRR[$j]);
+                        $ciaIdToInsert = insert_Investment_Investors($ipo_mandaflag, $IPO_MandAId, $investorId, $invReturnMultiple[$j], $invMoreInfo[$j], $invMoreIRR[$j]);
                     } else {
                         $investorId = return_insert_get_Investor($exitInvestor[$j]);
                         ///echo "<bR>--1" .$investorId. "*** " .$ipo_mandaflag ;
                         if ($investorId != '') {
-                            $ciaIdToInsert = insert_Investment_Investors($ipo_mandaflag, $IPO_MandAId, $investorId,$Amount_M[$j],$Amount_INR[$j], $invReturnMultiple[$j], $invMoreInfo[$j], $invMoreIRR[$j]);
+                            $ciaIdToInsert = insert_Investment_Investors($ipo_mandaflag, $IPO_MandAId, $investorId, $invReturnMultiple[$j], $invMoreInfo[$j], $invMoreIRR[$j]);
                         }
                     }
                 } else {
                     $investorId = return_insert_get_Investor($exitInvestor[$j]);
                     /// echo "<bR>--2" .$investorId. "*** " .$ipo_mandaflag ;
                     if ($investorId != '') {
-                        $ciaIdToInsert = insert_Investment_Investors($ipo_mandaflag, $IPO_MandAId, $investorId,$Amount_M[$j],$Amount_INR[$j], $invReturnMultiple[$j], $invMoreInfo[$j], $invMoreIRR[$j]);
+                        $ciaIdToInsert = insert_Investment_Investors($ipo_mandaflag, $IPO_MandAId, $investorId, $invReturnMultiple[$j], $invMoreInfo[$j], $invMoreIRR[$j]);
                     }
                 }
             }
@@ -127,8 +123,6 @@ function returnIPOId()
 function addMoreRow(){
     var rowcount = $('#rowcount').val() + 1;
     var str = '<tr><td valign=top><input type="text" name="txtinvestor[]"  size="30" > </td>';
-        str +='<td valign=top> <input type="text" name="txtReturnMultipleDollar[]"  size="5" value=0.00 >  </td>';
-        str +='<td valign=top> <input type="text" name="txtReturnMultipleINR[]"  size="5" value=0.00 > </td>';
         str += '<td valign=top> <input type="text" name="txtReturnMultiple[]"  size="5" value=0.00> </td>';
         str += '<td valign=top> <input type="text" name="irr[]"  size="5" value=0.00></td>';
         str += '<td><textarea name="txtInvmoreinfor[]" rows="3" cols="40"> </textarea></td>';
@@ -149,14 +143,14 @@ $cnt = 5;
 ?>
 
 <table width=60% align=left border=1 id="mutiple_investor" cellpadding=1 cellspacing=0>
-<tr> <th>Investor </th><th> Amount $M </th> <th>Amount INR</th><th> Return Multiple </th> <th>IRR</th> <th>More Info </th></tr>
+<tr> <th>Investor </th><th> Return Multiple </th> <th>IRR</th> <th>More Info </th></tr>
 
 <?php
 
 if($fullString[0] == "IPO"){
 	$getInvestorsSql = "select ipo.IPOId, ipo.InvestorId, inv.Investor, ipo.MultipleReturn, ipo.InvMoreInfo, ipo.IRR  from ipo_investors as ipo, peinvestors as inv where inv.InvestorId=ipo.InvestorId and ipo.IPOId=$IPO_MandAId   ORDER BY ipo.IPOId ASC";
 } elseif($fullString[0] == "MA") {
-	$getInvestorsSql = "select mandainv.MandAId, mandainv.InvestorId, mandainv.Amount_M,mandainv.Amount_INR,inv.Investor, mandainv.MultipleReturn, mandainv.InvMoreInfo, mandainv.IRR  from manda_investors as mandainv, peinvestors as inv where inv.InvestorId=mandainv.InvestorId and mandainv.MandAId=$IPO_MandAId   ORDER BY mandainv.MandAId ASC";
+	$getInvestorsSql = "select mandainv.MandAId, mandainv.InvestorId, inv.Investor, mandainv.MultipleReturn, mandainv.InvMoreInfo, mandainv.IRR  from manda_investors as mandainv, peinvestors as inv where inv.InvestorId=mandainv.InvestorId and mandainv.MandAId=$IPO_MandAId   ORDER BY mandainv.MandAId ASC";
 } 
 
 if ($rsinvestors = mysql_query($getInvestorsSql)) {
@@ -167,10 +161,7 @@ if ($rsinvestors = mysql_query($getInvestorsSql)) {
 				<input name="txtinvestorid[]" type="hidden" value="<?php echo $myInvrow["InvestorId"]; ?>" />
 				<tr>
 					<td valign=top> <input type="text" name="txtinvestor[]"  size="30" value="<?php echo $myInvrow["Investor"]; ?>"  > </td>
-					<td valign=top> <input type="text" name="txtReturnMultipleDollar[]"  size="5" value="<?php echo $myInvrow["Amount_M"]; ?>" >  </td>
-                <td valign=top> <input type="text" name="txtReturnMultipleINR[]"  size="5" value="<?php echo $myInvrow["Amount_INR"]; ?>" > </td>
-                
-                    <td valign=top> <input type="text" name="txtReturnMultiple[]"  value="<?php echo $myInvrow["MultipleReturn"]; ?>"  size="5"> </td>
+					<td valign=top> <input type="text" name="txtReturnMultiple[]"  value="<?php echo $myInvrow["MultipleReturn"]; ?>"  size="5"> </td>
 					<td valign=top> <input type="text" name="irr[]"                value="<?php echo $myInvrow["IRR"]; ?>"  size="5" > </td>
 					<td><textarea  name="txtInvmoreinfor[]" rows="3"  cols="40"><?php echo $myInvrow["InvMoreInfo"]; ?></textarea></td>
                 </tr>
@@ -189,9 +180,6 @@ for ($k = 0; $k <= $cnt - 1; $k++) {
     ?>
 		<tr>   
 			    <td valign=top> <input type="text" name="txtinvestor[]"  size="30" > </td>
-                <td valign=top> <input type="text" name="txtReturnMultipleDollar[]"  size="5" value=0.00 >  </td>
-                <td valign=top> <input type="text" name="txtReturnMultipleINR[]"  size="5" value=0.00 > </td>
-                
 				<td valign=top> <input type="text" name="txtReturnMultiple[]"  size="5" value=0.00> </td>
 				<td valign=top> <input type="text" name="irr[]"  size="5" value=0.00> </td>
                 <td><textarea name="txtInvmoreinfor[]" rows="3" cols="40"> </textarea></td>
@@ -270,9 +258,9 @@ function return_insert_get_Investor_edit_update($investor, $investor_id)
 }
 
 
-function insert_Investment_Investors($exit_flag, $dealId, $investorId,$Amount_M,$Amount_INR, $returnValue, $moreinfo, $irr)
+function insert_Investment_Investors($exit_flag, $dealId, $investorId, $returnValue, $moreinfo, $irr)
 {
-    //echo $exit_flag, $dealId, $investorId,$Amount_M,$Amount_INR, $returnValue, $moreinfo, $irr .'hai';exit();
+    
 	$dbexecmgmt = new dbInvestments();
 	
     if ($exit_flag == "IPO") {
@@ -319,7 +307,7 @@ function insert_Investment_Investors($exit_flag, $dealId, $investorId,$Amount_M,
 
             $deal_invcnt = mysql_num_rows($rsgetdealinvestor);
             if ($deal_invcnt == 0) {
-                $insDealInvSql ="insert into manda_investors(MandAId,InvestorId,Amount_M,Amount_INR,MultipleReturn,InvMoreInfo,IRR) values($dealId,$investorId,$Amount_M,$Amount_INR,$returnValue,'$moreinfo',$irr)";
+                $insDealInvSql ="insert into manda_investors(MandAId,InvestorId,MultipleReturn,InvMoreInfo,IRR) values($dealId,$investorId,$returnValue,'$moreinfo',$irr)";
 				if ($rsinsmgmt = mysql_query($insDealInvSql)) {
 					//print_r($insDealInvSql);
                     echo "<br>MandA Exit  Investor Inserted";
