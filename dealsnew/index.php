@@ -29,7 +29,7 @@ $listallcompany = $_POST['listallcompanies'];
 $all_keyword_other = trim($_POST['all_keyword_other']);
 $searchallfield_other = $_POST['searchallfield_other'];
 $investorauto_sug_other = $_POST['investorauto_sug_other'];
-$keywordsearch_other = $_POST['keywordsearch_other'];
+$keywordsearch_other = $_POST['keywordsearch_other_id'];
 $companyauto_other = $_POST['companyauto_other'];
 $companysearch_other = $_POST['companysearch_other'];
 $sectorsearch_other = $_POST['sectorsearch_other'];
@@ -304,7 +304,7 @@ if (isset($_POST['popup_select'])) {
 //                        echo "ddddddddddd"
             //                       print_r($_POST);
            // echo $period_flag;
-            if ($_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
+            if (($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || $_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
 
                 $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
                 $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
@@ -695,7 +695,7 @@ if ($resetfield == "keywordsearch") {
     $keyword1 = trim($_POST['keywordsearch']);
     if (isset($_POST['popup_select']) && $_POST['popup_select'] == 'investor') {
         $investorauto = $keyword = trim(implode(',', $_POST['search_multi']));
-        $keywordhidden = trim($_POST['popup_keyword']);
+        $keywordhidden = trim(implode(',', $_POST['search_multi']));
     } else if (isset($_POST['investorauto_sug_other'])) {
         $investorauto = $_POST['investorauto_sug_other'];
         $keyword = trim($_POST['investorauto_sug_other']);
@@ -816,6 +816,8 @@ if ($resetfield == "companysearch") {
 
         $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
 
+        //echo $sql_company;
+
         $sql_company_Exe = mysql_query($sql_company);
         $company_filter = "";
         $response = array();
@@ -895,6 +897,8 @@ if ($resetfield == "sectorsearch") {
         $searchallfield = '';
     } else if (isset($_POST['popup_select']) && $_POST['popup_select'] == 'sector') {
         $sectorsearch = trim($_POST['popup_keyword']);
+        $sectorsearchArray = explode(",", str_replace("'", "", $sectorsearch));
+
         $response = array();
         /* $sql_sector = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
 
@@ -1584,11 +1588,15 @@ if ($resetfield == "tagsearch") {
 }
 
 if ($industry != '' && (count($industry) > 0)) {
+    if(gettype($industry)!="string"){
     $indusSql = $industryvalue = '';$industryvalueid = '';
     foreach ($industry as $industrys) {
         $indusSql .= " IndustryId=$industrys or ";
     }
     $indusSql = trim($indusSql, ' or ');
+    }else{
+        $indusSql .= " IndustryId=$industry";
+    }
     $industrysql = "select industry,industryid from industry where $indusSql";
 
     if ($industryrs = mysql_query($industrysql)) {
@@ -1615,9 +1623,27 @@ if ($sector != '' && (count($sector) > 0)) {
     }
    
     $sectorvalue = trim($sectorvalue, ',');
+    $sector_hide = implode($sector, ',');
     // $industry_hide = implode($industry, ',');
 }
-
+if ($sectorsearchArray != '' && (count($sectorsearchArray) > 0)) {
+    //echo 'hai';
+    $sectorvalue = '';
+    $sectorstr = implode(',',$sectorsearchArray); 
+    $sectorssql = "select sector_name,sector_id from pe_sectors where sector_name IN ('$sectorstr')";
+    //echo $sectorssql;exit();
+   
+    if ($sectors = mysql_query($sectorssql)) {
+        while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
+            $sectorvalue .= $myrow["sector_name"] . ',';
+            $sectorvalueid .= $myrow["sector_id"] . ',';
+        }
+    }
+   
+    $sectorvalue = trim($sectorvalue, ',');
+    $sector_hide =  trim($sectorvalueid, ',');
+    // $industry_hide = implode($industry, ',');
+}
 if ($subsector != '' && (count($subsector) > 0)) {
     $subsectorvalue = '';
     $subsectorvalue = implode(',',$subsector); 
@@ -1672,7 +1698,7 @@ if ($boolStage == true) {
 } else {
     $stagevaluetext = "";
 }
-
+$stageval_hide = implode($stageval,',');
 if ($getstage != '') {
     $stagevaluetext = $getstage;
 } else if ($getrg != '') {
@@ -1823,7 +1849,6 @@ if ($DcompanyId == 697447099) {
 }
 
 if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $getreg != '' || $getrg != '') {
-    
 
     $companysql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business,
                  amount,pe.Amount_INR, round, s.stage,  stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod , pec.website, pec.city,
@@ -1840,7 +1865,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                                 $comp_industry_id_where
                                             GROUP BY pe.PEId ";
     $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business,
-                 amount, round, s.stage,  stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod , pec.website, pec.city,
+                 amount, round, s.stage,  stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod , pec.website, pec.city,
                  pec.region,pe.PEId,pe.comment,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId ,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,
                                  (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                  FROM peinvestments AS pe, industry AS i, pecompanies AS pec,stage as s
@@ -1948,7 +1973,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     GROUP BY pe.PEId";
 
         $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,amount,pe.Amount_INR, round, s.stage,  stakepercentage, 
-    DATE_FORMAT( dates, '%b-%Y' ) as dealperiod , pec.website, pec.city,pec.region,pe.PEId,pe.comment,MoreInfor,hideamount,hidestake,pe.StageId ,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
+    DATE_FORMAT( dates, '%M-%Y' ) as dealperiod , pec.website, pec.city,pec.region,pe.PEId,pe.comment,MoreInfor,hideamount,hidestake,pe.StageId ,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
     (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
     FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID
     JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId
@@ -2018,7 +2043,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                             $comp_industry_id_where GROUP BY pe.PEId ";
 
     $exportSplitSql = "SELECT distinct pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,
-                            pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,
+                            pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,
                             pec.website, pec.city, pec.region, pe.PEId,
                             pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,
                             (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
@@ -2202,7 +2227,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                 GROUP BY pe.PEId ";
 
     $exportSplitSql = "SELECT distinct pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,pe.amount, pe.Amount_INR, pe.round, s.Stage,  
-                    pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,(SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
+                    pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,pe.SPV,pe.AggHide,pe.dates as dates,pe.Exit_Status,(SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                 FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID
                 JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId
                 JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
@@ -2248,7 +2273,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                                 $comp_industry_id_where
                                                 GROUP BY pe.PEId ";
     $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,
-                                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,
+                                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,
                                 pec.website, pec.city, pec.region, pe.PEId,
                                 pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,SPV,AggHide,pe.dates as dates ,pe.Exit_Status,
                                                 (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
@@ -2329,7 +2354,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                 GROUP BY pe.PEId ";
 
     $exportSplitSql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,
-                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%b-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,
+                pe.amount, pe.round, s.Stage,  pe.stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dealperiod ,pec.website, pec.city, pec.region, pe.PEId,
                 pe.COMMENT,pe.MoreInfor,pe.hideamount,pe.hidestake,pe.StageId,SPV,AggHide,pe.dates as dates ,pe.Exit_Status,
                                 (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others')  FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                 FROM peinvestments AS pe, industry AS i,
@@ -2386,7 +2411,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                     GROUP BY pe.PEId ";
         $exportSplitSql = "select pe.PECompanyId as PECompanyId,pec.companyname,pec.industry,i.industry as industry,sector_business as sector_business,pe.amount,
                                     peinv_invs.InvestorId,peinv_invs.PEId,invs.Investor,pe.PECompanyId,pec.industry,
-                                    pec.companyname,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
+                                    pec.companyname,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
                                     (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     from peinvestments as pe,pecompanies as pec,industry as i,stage as s,peinvestments_investors as peinv_invs,peinvestors as invs
                                     where dates between '" . $dt1 . "' and '" . $dt2 . "' AND  pec.industry = i.industryid and  pe.StageId=s.StageId and peinv_invs.PEId=pe.PEId and invs.InvestorId=peinv_invs.InvestorId AND pe.Deleted=0
@@ -2422,7 +2447,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
 
         $exportSplitSql = "select pe.PECompanyId as PECompanyId,pec.companyname,pec.industry,i.industry as industry,sector_business as sector_business,pe.amount,
                                     peinv_invs.InvestorId,peinv_invs.PEId,invs.Investor,pe.PECompanyId,pec.industry,
-                                    pec.companyname,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
+                                    pec.companyname,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,hideamount,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
                                     (SELECT GROUP_CONCAT( inv.Investor   ORDER BY inv.InvestorId IN ($keyword) desc) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     from peinvestments as pe,pecompanies as pec,industry as i,stage as s,peinvestments_investors as peinv_invs,peinvestors as invs
                                     where dates between '" . $dt1 . "' and '" . $dt2 . "' AND  pec.industry = i.industryid and  pe.StageId=s.StageId and peinv_invs.PEId=pe.PEId and invs.InvestorId=peinv_invs.InvestorId AND pe.Deleted=0
@@ -2490,7 +2515,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                 GROUP BY pe.PEId )";
     $exportSplitSql = "(
                 SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry as industry, pec.sector_business as sector_business, pe.amount,
-                                cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
+                                cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                 (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                 FROM peinvestments AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
                 peinvestments_advisorinvestors AS adac,stage as s WHERE dates between '" . $dt1 . "' and '" . $dt2 . "' AND   pe.Deleted=0 and pec.industry = i.industryid
@@ -2601,6 +2626,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     $transtype='L';
     $advisorName=$advisorsearchstring_legal;
    }
+  
     if (count($industry) > 0) {
         $indusSql = '';
         foreach ($industry as $industrys) {
@@ -2615,6 +2641,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
         }
        /* $qryIndTitle = "Industry - ";*/
     }
+
     //print_r($industry);
      if (count($regionId) > 0) {
         $increg = "JOIN region AS r ON r.RegionId=pec.RegionId";
@@ -2819,7 +2846,7 @@ $valuationsql  $sectorcondition
                                                     GROUP BY pe.PEId ".$wheresyndication.")";
     $exportSplitSql = "(
                                     SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe.amount,
-                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
+                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     FROM peinvestments AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
                                     peinvestments_advisorinvestors AS adac,stage as s  ".$joinsectortable. "  WHERE dates between '" . $dt1 . "' and '" . $dt2 . "' AND   pe.Deleted=0 and pec.industry = i.industryid
@@ -2836,7 +2863,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
     $exportSplitGroup = " GROUP BY pe.PEId ".$wheresyndication.")";
     $exportSplitSql1 = "UNION (
                                     SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry as industry, pec.sector_business as sector_business, pe.amount,
-                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%b-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
+                                                     cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor
                                     FROM peinvestments AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
                                     peinvestments_advisorcompanies AS adac,stage as s  ".$joinsectortable. " 
@@ -2932,7 +2959,9 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
     // }
     //echo "<br>TRANS-".$vcflagValue;
     //echo $companysql;
-} elseif (count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
+} elseif (gettype($industry)=="string" || count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
+
+
     $yourquery = 1;
 
     $dt1 = $year1 . "-" . $month1 . "-01";
@@ -2958,7 +2987,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                                     JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
                                                     JOIN industry AS i ON pec.industry = i.industryid
                                                     JOIN stage AS s ON s.StageId=pe.StageId $increg ".$joinsectortable. " WHERE " . $valuationsql . "";
-    //    echo "<br> individual where clauses have to be merged ";
+        //echo $companysql; 
 
 
     if ($keyword != '') {
@@ -3035,6 +3064,8 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
         }
     }
 
+   
+   
     if (count($industry) > 0) {
         $indusSql = '';
         foreach ($industry as $industrys) {
@@ -3045,6 +3076,12 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
             $whereind = ' ( ' . $indusSql . ' ) ';
         }
         $qryIndTitle = "Industry - ";
+    }
+    if($industry !="" && gettype($industry)=="string"){
+        $indusSql .= " pec.industry=$industry ";
+        if ($indusSql != '') {
+            $whereind = ' ( ' . $indusSql . ' ) ';
+        }
     }
      if (count($state) > 0) {
                                     $stateSql = '';
@@ -3209,7 +3246,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
             $wheredealsinvolving = '     (' . $wheredealsinvolving . ')';
         }
        // echo $wheredealsinvolving;
-       
+       $dealsinvolvingValue_hide = implode($dealsinvolvingvalue,',');
     }
     if (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) {
         $qryDateTitle = "Period - ";
@@ -3375,7 +3412,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
         $companysql = $companysql . $wheresyndication;
     }
     $popup_search = 1;
-                              //       echo   $companysql;
+                                   //echo "finalquery:".$companysql;
 } else {
     echo "<br> INVALID DATES GIVEN ";
     $fetchRecords = false;
@@ -3409,6 +3446,7 @@ $getcompaniesSql = "SELECT DISTINCT pe.PECompanyId as PECompanyId, pec. * , i.in
                         AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15
                         AND r.RegionId = pec.RegionId " . $addVCFlagqry . "
                         ORDER BY pec.companyname";
+                        
 
 //Stage
 $stagesql = "select StageId,Stage from stage ";
@@ -3549,7 +3587,7 @@ if (trim($buttonClicked == "")) {
         writeSql_for_no_records($companysql, $emailid);
     }
 
-    echo '<div style="display: none">' . $companysqlwithlimit . '</div>';
+   // echo '<div style="display: none">' . $companysqlwithlimit . '</div>';
     ?>
 
 <td class="profile-view-left" style="width:100%;">
@@ -4587,54 +4625,65 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
 
            <?php }?>
             <?php if ($totalno > 0) {?>
+                <!-- <div class="pageinationManual"> -->
             <div class="holder" style="float:none; text-align: center;">
                 <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
-if ($rec_limit > 0) {
-    $totalpages = ceil($company_cntall / $rec_limit);
-} else {
-    $totalpages = 0;
-}
+                    if ($rec_limit > 0) {
+                        $totalpages = ceil($company_cntall / $rec_limit);
+                    } else {
+                        $totalpages = 0;
+                    }
 
-    $firstpage = 1;
-    $lastpage = $totalpages;
-    $prevpage = (($currentpage - 1) > 0) ? ($currentpage - 1) : 1;
-    $nextpage = (($currentpage + 1) < $totalpages) ? ($currentpage + 1) : $totalpages;
-    ?>
+                        $firstpage = 1;
+                        $lastpage = $totalpages;
+                        $prevpage = (($currentpage - 1) > 0) ? ($currentpage - 1) : 1;
+                        $nextpage = (($currentpage + 1) < $totalpages) ? ($currentpage + 1) : $totalpages;
+                        ?>
 
-                  <?php
-$pages = array();
-    $pages[] = 1;
-    $pages[] = $currentpage - 2;
-    $pages[] = $currentpage - 1;
-    $pages[] = $currentpage;
-    $pages[] = $currentpage + 1;
-    $pages[] = $currentpage + 2;
-    $pages[] = $totalpages;
-    $pages = array_unique($pages);
-    sort($pages);
-    if ($currentpage < 2) {
-        ?>
-                 <a class="jp-previous jp-disabled" >&#8592; Previous</a>
-                 <?php } else {?>
-                 <a class="jp-previous" >&#8592; Previous</a>
-                 <?php }
-    for ($i = 0; $i < count($pages); $i++) {
-        if ($pages[$i] > 0 && $pages[$i] <= $totalpages) {
-            ?>
-                 <a class='<?php echo ($pages[$i] == $currentpage) ? "jp-current" : "jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
-                 <?php }
-    }
-    if ($currentpage < $totalpages) {
-        ?>
-                 <a class="jp-next">Next &#8594;</a>
-                     <?php } else {?>
-                  <a class="jp-next jp-disabled">Next &#8594;</a>
-                     <?php }?>
+                                    <?php
+                    $pages = array();
+                        $pages[] = 1;
+                        $pages[] = $currentpage - 2;
+                        $pages[] = $currentpage - 1;
+                        $pages[] = $currentpage;
+                        $pages[] = $currentpage + 1;
+                        $pages[] = $currentpage + 2;
+                        $pages[] = $totalpages;
+                        $pages = array_unique($pages);
+                        sort($pages);
+                        if ($currentpage < 2) {
+                            ?>
+                                    <a class="jp-previous jp-disabled" >&#8592; Previous</a>
+                                    <?php } else {?>
+                                    <a class="jp-previous" >&#8592; Previous</a>
+                                    <?php }
+
+                        for ($i = 0; $i < count($pages); $i++) {
+                            if ($pages[$i] > 0 && $pages[$i] <= $totalpages) {
+                                ?>
+                                <a class='<?php echo ($pages[$i] == $currentpage) ? "jp-current" : "jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
+                                    <?php }
+                        }
+                        if ($currentpage < $totalpages) {
+                            ?>
+                                    <a class="jp-next">Next &#8594;</a>
+                                        <?php } else {?>
+                                    <a class="jp-next jp-disabled">Next &#8594;</a>
+                                        <?php }?>
                      </div>
              </div>
            <?php
 }
+?>
+         
+        <!-- </div>   -->
+        <center>
+        <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
+
+            <?php
+
 if ($studentOption == 1) {
     ?>
                      <script type="text/javascript" >
@@ -4771,6 +4820,7 @@ if ($exportToExcel == 1) {
 if (!isset($_POST['tagsfield'])) {
     include "tag_report.php";
 }
+
 ?>
     <!--<div class="overview-cnt mt-trend-tab">
         <div class="showhide-link-wrap">
@@ -4841,14 +4891,68 @@ if ($type != 1) {
 </form>
             <!--input class="postlink" type="hidden" name="numberofcom" value="<?php echo $totalInv; ?>"-->
             <form name="pelisting" id="pelisting"  method="post" action="exportinvdeals.php">
-                 <input type="hidden" name="sql" value="<?php echo $exportsql; ?>" >
-                 <input type="hidden" name="split_sql" value="<?php echo $exportSplitSql; ?>" >
+            <input type="hidden" name="txtsearchon" value="1" >
+            <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
+            <input type="hidden" name="txtmonth1" value=<?php echo $month1; ?> >
+            <input type="hidden" name="listallcompanies" value=<?php echo $listallcompany; ?> >
+            <input type="hidden" name="debt_equity" value=<?php echo $debt_equity; ?> >
+            <input type="hidden" name="companyType" value=<?php echo $companyType; ?> >
+            <input type="hidden" name="countryid" value=<?php echo $investor_head; ?> >
+            <input type="hidden" name="invandor" value=<?php echo $invandor; ?> >
+           
+    <input type="hidden" name="txtmonth2" value=<?php echo $month2; ?> >
+    <input type="hidden" name="txtyear1" value=<?php echo $year1; ?> >
+    <input type="hidden" name="txtyear2" value=<?php echo $year2; ?> >
+    <input type="hidden" name="txttitle" value=<?php echo $vcflagValue; ?> >
+    <input type="hidden" name="txthidename" value=<?php echo $username; ?> >
+    <input type="hidden" name="txthideemail" value=<?php echo $UserEmail; ?> >
+    <input type="hidden" name="txthidedate" value=<?php echo $datevalue; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
+    <input type="hidden" name="txthidedealsinvolving" value="<?php echo $dealsinvolvingValue_hide;?>" >
+    <input type="hidden" name="txthidesectorval" value=<?php echo $sector_hide; ?> >
+    <input type="hidden" name="txthidesubsector" value="<?php echo $subsectorString; ?>" >
+    <input type="hidden" name="txthidesyndication" value="<?php echo $syndication;?>" >
+
+
+    <input type="hidden" name="txthidesector" value="<?php echo $sectorsearchhidden; ?>" >
+    <input type="hidden" name="txthideadvisor_legal" value=<?php echo $advisorsearchhidden_legal; ?> >
+    <input type="hidden" name="txthideadvisor_trans" value=<?php echo $advisorsearchhidden_trans; ?> >
+    <input type="hidden" name="txthideindustryid" value="<?php echo $industry_hide; ?>" >
+    <input type="hidden" name="txthidestageval" value="<?php echo $stageval_hide; ?>" >
+    <input type="hidden" name="txthideround" value="<?php echo $roundTxtVal; ?>">
+                        <input type="hidden" name="txthidevaluation" value="<?php echo $valuationsql; ?> ">
+    <input type="hidden" name="txthideregionid" value="<?php echo $region_hide; ?>" >
+    <input type="hidden" name="txthidecity" value="<?php echo $city; ?>">
+    <input type="hidden" name="txthidedateStartValue" value=<?php echo $startyear; ?> >
+    <input type="hidden" name="txthidedateEndValue" value=<?php echo $endyear; ?> >
+                        <input type="hidden" name="txthidedebt_equity" value=<?php echo $debt_equity; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthideinvtypeid" value=<?php echo $investorType; ?> >
+
+     <input type="hidden" name="yearafter" value=<?php echo $yearafter; ?> >
+    <input type="hidden" name="yearbefore" value=<?php echo $yearbefore; ?> >
+    <input type="hidden" name="state" value=<?php echo $statevalueid; ?> >
+    <input type="hidden" name="cityid" value=<?php echo $cityvalueid; ?> >
+
+
+    <input type="hidden" name="txthiderangeStartValue" value=<?php echo $startRangeValue; ?>>
+    <input type="hidden" name="txthiderangeEndValue" value=<?php echo $endRangeValue; ?> >
+                        <input type="hidden" name="txthideexitstatusValue" value=<?php echo $exitstatusValue_hide; ?> >
+    <input type="hidden" name="txthidesearchallfield" value=<?php echo $searchallfield; ?> >
+    <input type="hidden" name="txthidepe" id="txthidepe" value="<?php echo implode( ',', $pe_checkbox ); ?>">
+    <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode( ',', $pe_checkbox_enable ); ?>">
+    <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if($_POST['full_uncheck_flag']!=''){ echo $_POST['full_uncheck_flag']; }else{ echo ""; } ?>">
+    <input type="hidden" id="invradio" name="invradio" value="<?php if($invandor!=''){echo $invandor;}else {echo 0;}?>" placeholder="" style="width:220px;"> <input type="hidden" name="tagsearch" value="<?php echo $tagsearch; ?>" >
+        <input type="hidden" name="tagandor" value="<?php echo $tagandor; ?>" >
+    <!-- T960 -------------------------------------------->
+    <input type="hidden" class="resultarray" name="resultarray" value=""/>
                  <input type="hidden" name="split_group" value="<?php echo $exportSplitGroup; ?>" >
                  <input type="hidden" name="split_sql1" value="<?php echo $exportSplitSql1; ?>" >
                  <input type="hidden" name="split_group1" value="<?php echo $exportSplitGroup1; ?>" >
                  <input type="hidden" name="split_orderby" value="<?php echo $exportSplitOrderBy; ?>" >
                  <input type="hidden" name="txthideinvestor" value="<?php echo $keywordhidden; ?>" >
-                 <input type="hidden" name="txthidepe" id="txthidepe" value="<?php echo implode(',', $pe_checkbox); ?>">
+                 
                  <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode(',', $pe_checkbox_enable); ?>">
                  <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if ($_POST['full_uncheck_flag'] != '') {echo $_POST['full_uncheck_flag'];} else {echo "";}?>">
                 <!-- T960 ---------------------------------------->
@@ -4928,7 +5032,73 @@ if ($type != 1) {
 
     </form>
     <form name="exporttrend" id="exporttable"  method="post" action="ajxExcel.php">
-        <input type="hidden" id="exporttablesql" name="exporttablesql" value="<?php echo $companysql; ?>" >
+    <input type="hidden" name="txtsearchon" value="1" >
+            <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
+            <input type="hidden" name="txtmonth1" value=<?php echo $month1; ?> >
+            <input type="hidden" name="listallcompanies" value=<?php echo $listallcompany; ?> >
+            <input type="hidden" name="debt_equity" value=<?php echo $debt_equity; ?> >
+            <input type="hidden" name="companyType" value=<?php echo $companyType; ?> >
+            <input type="hidden" name="countryid" value=<?php echo $investor_head; ?> >
+            <input type="hidden" name="invandor" value=<?php echo $invandor; ?> >
+           
+    <input type="hidden" name="txtmonth2" value=<?php echo $month2; ?> >
+    <input type="hidden" name="txtyear1" value=<?php echo $year1; ?> >
+    <input type="hidden" name="txtyear2" value=<?php echo $year2; ?> >
+    <input type="hidden" name="txttitle" value=<?php echo $vcflagValue; ?> >
+    <input type="hidden" name="txthidename" value=<?php echo $username; ?> >
+    <input type="hidden" name="txthideemail" value=<?php echo $UserEmail; ?> >
+    <input type="hidden" name="txthidedate" value=<?php echo $datevalue; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
+    <input type="hidden" name="txthidedealsinvolving" value="<?php echo $dealsinvolvingValue_hide;?>" >
+    <input type="hidden" name="txthidesectorval" value=<?php echo $sector_hide; ?> >
+    <input type="hidden" name="txthidesubsector" value="<?php echo $subsectorString; ?>" >
+    <input type="hidden" name="txthidesyndication" value="<?php echo $syndication;?>" >
+
+
+    <input type="hidden" name="txthidesector" value="<?php echo $sectorsearchhidden; ?>" >
+    <input type="hidden" name="txthideadvisor_legal" value=<?php echo $advisorsearchhidden_legal; ?> >
+    <input type="hidden" name="txthideadvisor_trans" value=<?php echo $advisorsearchhidden_trans; ?> >
+    <input type="hidden" name="txthideindustryid" value="<?php echo $industry_hide; ?>" >
+    <input type="hidden" name="txthidestageval" value="<?php echo $stageval_hide; ?>" >
+    <input type="hidden" name="txthideround" value="<?php echo $roundTxtVal; ?>">
+                        <input type="hidden" name="txthidevaluation" value="<?php echo $valuationsql; ?> ">
+    <input type="hidden" name="txthideregionid" value="<?php echo $region_hide; ?>" >
+    <input type="hidden" name="txthidecity" value="<?php echo $city; ?>">
+    <input type="hidden" name="txthidedateStartValue" value=<?php echo $startyear; ?> >
+    <input type="hidden" name="txthidedateEndValue" value=<?php echo $endyear; ?> >
+                        <input type="hidden" name="txthidedebt_equity" value=<?php echo $debt_equity; ?> >
+    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+    <input type="hidden" name="txthideinvtypeid" value=<?php echo $investorType; ?> >
+
+     <input type="hidden" name="yearafter" value=<?php echo $yearafter; ?> >
+    <input type="hidden" name="yearbefore" value=<?php echo $yearbefore; ?> >
+    <input type="hidden" name="state" value=<?php echo $statevalueid; ?> >
+    <input type="hidden" name="cityid" value=<?php echo $cityvalueid; ?> >
+
+
+    <input type="hidden" name="txthiderangeStartValue" value=<?php echo $startRangeValue; ?>>
+    <input type="hidden" name="txthiderangeEndValue" value=<?php echo $endRangeValue; ?> >
+                        <input type="hidden" name="txthideexitstatusValue" value=<?php echo $exitstatusValue_hide; ?> >
+    <input type="hidden" name="txthidesearchallfield" value=<?php echo $searchallfield; ?> >
+    <input type="hidden" name="txthidepe" id="txthidepe" value="<?php echo implode( ',', $pe_checkbox ); ?>">
+    <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode( ',', $pe_checkbox_enable ); ?>">
+    <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if($_POST['full_uncheck_flag']!=''){ echo $_POST['full_uncheck_flag']; }else{ echo ""; } ?>">
+    <input type="hidden" id="invradio" name="invradio" value="<?php if($invandor!=''){echo $invandor;}else {echo 0;}?>" placeholder="" style="width:220px;"> <input type="hidden" name="tagsearch" value="<?php echo $tagsearch; ?>" >
+        <input type="hidden" name="tagandor" value="<?php echo $tagandor; ?>" >
+    <!-- T960 -------------------------------------------->
+    <input type="hidden" class="resultarray" name="resultarray" value=""/>
+                 <input type="hidden" name="split_group" value="<?php echo $exportSplitGroup; ?>" >
+                 <input type="hidden" name="split_sql1" value="<?php echo $exportSplitSql1; ?>" >
+                 <input type="hidden" name="split_group1" value="<?php echo $exportSplitGroup1; ?>" >
+                 <input type="hidden" name="split_orderby" value="<?php echo $exportSplitOrderBy; ?>" >
+                 <input type="hidden" name="txthideinvestor" value="<?php echo $keywordhidden; ?>" >
+                 
+                 <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode(',', $pe_checkbox_enable); ?>">
+                 <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if ($_POST['full_uncheck_flag'] != '') {echo $_POST['full_uncheck_flag'];} else {echo "";}?>">
+                <!-- T960 ---------------------------------------->
+                <input type="hidden" class="resultarray" name="resultarray" value=""/>
+       
     </form>
 
             <input type="hidden" id="prev" value="<?php echo $prevpage; ?>"/>
@@ -4936,27 +5106,48 @@ if ($type != 1) {
             <input type="hidden" id="next" value="<?php echo $nextpage; ?>"/>
             <script src="js/listviewfunctions.js"></script>
              <script type="text/javascript">
+    
+                var wage = document.getElementById("paginationinput");
+                wage.addEventListener("keydown", function (e) {debugger;
+                    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                        //paginationForm();
+                        event.preventDefault();
+                        document.getElementById("pagination").click();
+
+                    }
+                })
+            
                var  orderby='<?php echo $orderby; ?>';
                var  ordertype='<?php echo $ordertype; ?>';
                 $(".jp-next").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                   var  pageno=$("#next").val();
+                  $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);}
                     return  false;
                 });
                 $(".jp-page").live("click",function(){
                    var pageno=$(this).text();
+                   //alert(pageno);
+                   $("#paginationinput").val('');
+                    loadhtml(pageno,orderby,ordertype);
+                    return  false;
+                });
+                $(".jp-page1").live("click",function(){
+                   var pageno=$(this).val();
+                  // alert(pageno);
                     loadhtml(pageno,orderby,ordertype);
                     return  false;
                 });
                 $(".jp-previous").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     var pageno=$("#prev").val();
+                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     }
                     return  false;
                 });
-        $(".header").live("click",function(){
+                $(".header").live("click",function(){
                     orderby=$(this).attr('id');
 
                     if($(this).hasClass("asc"))
@@ -5016,7 +5207,7 @@ if ($type != 1) {
                 // T960 End ------------------------------------------------------
 
                 function loadhtml(pageno,orderby,ordertype)
-                {
+                {debugger;
                     var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                     var full_check_flag =  $( '#all_checkbox_search' ).val();
                     var pecheckedVal = $( '#pe_checkbox_enable' ).val();
@@ -5571,6 +5762,8 @@ if ($type != 1) {
                 <input type="hidden" name="companyauto_sug_other" id="companyauto_sug_other" value="<?php echo $companyauto; ?>">
                 <input type="hidden" name="companysearch_other" id="companysearch_other" value="<?php echo $company_filter; ?>">
                 <input type="hidden" name="investorauto_sug_other" id="investorauto_sug_other" value="<?php echo $investorauto; ?>">
+                <input type="hidden" name="keywordsearch_other_id" id="keywordsearch_other_id" value="<?php echo $invester_filter_id; ?>">
+
                 <input type="hidden" name="keywordsearch_other" id="keywordsearch_other" value="<?php echo $invester_filter; ?>">
                 <input type="hidden" name="sectorsearch_other" id="sectorsearch_other" value="<?php echo $sectors_filter; ?>">
                 <input type="hidden" name="advisorsearch_legal_other" id="advisorsearch_legal_other" value="<?php echo $advisorsearchstring_legal; ?>">
@@ -5599,7 +5792,7 @@ if ($type != 1) {
             <ul class="exportcolumn">
                 <!-- <li><input type="checkbox" class="companyexportcheck" name="skills" value="Company" checked/> <span> Company</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company"/> <span> Company</span></li>
-                <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/> <span> CIN</span></li>
+                <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="CIN"/> <span> CIN</span></li> -->
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Company Type" /> Company Type</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Industry" /> Industry</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Sector" /> Sector</li>
@@ -5642,7 +5835,7 @@ if ($type != 1) {
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Cash & Cash Equ. (INR Cr)" /> Cash & Cash Equ. (INR Cr)</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Book Value Per Share" /> Book Value Per Share</li>
                 <li><input type="checkbox" class="exportcheck" name="skills" value="Price Per Share" /> Price Per Share</li>
-                <!-- <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li> -->
+                <li><input type="checkbox" class="exportcheck" name="skills" value="Link for Financials" /> Link for Financials</li>
             </ul>
         </div>
         <div class="cr_entry" style="text-align:center;margin-top:25px;">
@@ -5799,39 +5992,7 @@ $(document).ready(function () {
     </script>
 <?php if ($type == 1 && $vcflagValue == 0) {?>
 
-    <script language="javascript">
-    $(document).ready(function(){
-        $("#ldtrend").click(function () {
-
-
-
-            if($(".show_hide").attr('class')!='show_hide'){
-
-                         /*$('.list-tab').css('position', 'relative');
-                         $('.view-table-list').css('margin-top', '');*/
-                var htmlinner = $(".profile-view-title").html();
-                $(".profile-view-title").html(htmlinner + '<br><br><font color="green">Please wait while we load the graph...</font>');
-                //Execute SQL
-                $.ajax({
-                    type : 'POST',
-                    url  : 'ajxQuery.php',
-                    dataType : 'json',
-                    data: {
-                        sql : '<?php echo addslashes($companysql); ?>'
-                    },
-                    success : function(data){
-                        drawVisualization(data);
-                        $(".profile-view-title").html(htmlinner);
-                    },
-                    error : function(XMLHttpRequest, textStatus, errorThrown) {
-                        alert('There was an error');
-                    }
-                });
-            }
-
-        });
-    });
-    </script>
+   
 
 
     <script type="text/javascript">
@@ -11418,27 +11579,6 @@ $('#expcancelbtn').click(function(){
     jQuery('#maskscreen').fadeOut(1000);
     return false;
 });*/
-$(document).ready(function () {
-
-    
-
-$('#popup_keyword').keyup(function() {
-
-    var $th = $(this);
-
-    var popup_select =$('#popup_select').val();
-
-    if(popup_select == "" || popup_select == "exact")
-
-    {
-
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.']/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
-
-    }    
-
-    });
-
-});
 </script>
 <?php
 //$_SESSION['popup_display'] = 'none';
@@ -11834,4 +11974,58 @@ echo $user_browser;?>
             
       // }  
       })
+      $(document).ready(function () {
+    
+    $('#popup_keyword').keyup(function() {
+        var $th = $(this);
+        var popup_select =$('#popup_select').val();
+        if(popup_select == "" || popup_select == "exact")
+        {
+            $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.']/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        }    
+        });
+});
+
+
+
+            function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
+
+            function paginationfun(val)
+            {
+                $(".pagevalue").val(val);
+            }
 </script>
+
+<style>
+    .paginationtextbox{
+        width:6%;
+        padding: 3px;
+    }
+    .button{
+    background-color: #a2753a; /* Green */
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+    }
+
+    .pageinationManual{
+        display: flex;
+        position: absolute;
+
+left: 40%;
+    }
+</style>

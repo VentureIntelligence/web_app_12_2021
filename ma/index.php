@@ -2185,7 +2185,9 @@
                   <input type="hidden" name="all_checkbox_search" id="all_checkbox_search" value="<?php if($_POST['full_uncheck_flag']!=''){ echo $_POST['full_uncheck_flag']; }else{ echo ""; } ?>">
                 <input type="hidden" name="hide_company_array" id="hide_company_array" value="<?php echo $_POST[ 'pe_hide_companies' ]; ?>">
                 <?php }?>
-             <div class="holder">
+                <!-- <div class="pageinationManual"> -->
+             <div class="holder" style="float:none; text-align: center;">
+             <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
                     $totalpages=  ceil($company_cntall/$rec_limit);
                     $firstpage=1;
@@ -2223,6 +2225,17 @@
                   <a class="jp-next jp-disabled">Next &#8594;</a>
                      <?php  } ?>
              </div>
+             </div>
+
+            
+            <!-- </div> -->
+
+                        <center>
+            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "PageNo" onkeyup = "paginationfun(this.value)">
+             <button class = "jp-page1 button pagevalue" name="pagination"  id="pagination" type="submit" onclick = "validpagination()"> Go</button>
+            </div>
+            </center>
+
             <?php
                     }else{
                                             echo '<div style="margin-left:30px;margin-top:20px;"><h3>No Data Found</h3></div>';
@@ -2514,17 +2527,25 @@
                 $(".jp-next").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     pageno=$("#next").val();
+                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);}
                     return  false;
                 });
                 $(".jp-page").live("click",function(){
                     pageno=$(this).text();
+                    $("#paginationinput").val('');
+                    loadhtml(pageno,orderby,ordertype);
+                    return  false;
+                });
+                $(".jp-page1").live("click",function(){
+                    pageno=$(this).val();
                     loadhtml(pageno,orderby,ordertype);
                     return  false;
                 });
                 $(".jp-previous").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     pageno=$("#prev").val();
+                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     }
                     return  false;
@@ -4256,7 +4277,7 @@ if($type==1){?>
                });
             </script>
             <style>
-           
+            
 .investment-form a.tooltip span{
     margin-left: 105px;
     margin-top: -23px;
@@ -4489,4 +4510,57 @@ if($countryheight>'100')
     height:140px;
     overflow-y:scroll;
 }
-</style>        
+</style>      
+
+
+
+<script>
+        function paginationfun(val)
+        {
+            $(".pagevalue").val(val);
+        }
+        function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
+        var wage = document.getElementById("paginationinput");
+        wage.addEventListener("keydown", function (e) {debugger;
+            if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                //paginationForm();
+                event.preventDefault();
+                document.getElementById("pagination").click();
+
+            }
+        })
+    </script>
+
+    <style>
+        
+.paginationtextbox{
+        width:6%;
+        padding: 3px;
+    }
+        .button{
+            background-color: #a2753a; /* Green */
+            border: none;
+            color: white;
+            padding: 4px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .pageinationManual{
+        display: flex;
+        position: absolute;
+        left: 40%;
+    }
+    </style>

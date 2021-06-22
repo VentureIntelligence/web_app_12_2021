@@ -2266,6 +2266,13 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $pages[]=1;
             $pages[]=$page-2;
             $pages[]=$page-1;
+
+            //if Manual Pagination
+            // if($_POST['paginationinput'] != "")
+            // {
+            //     $page = $_POST['paginationinput'];
+            // }
+
             $pages[]=$page;
             $pages[]=$page+1;
             $pages[]=$page+2;
@@ -2273,6 +2280,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             $pages[]=$totalpages-2;
             $pages[]=$totalpages-1;
             $pages[]=$totalpages;
+
+            
+
             if($totalpages>3)
             {
                 $pages[]=2;
@@ -2289,18 +2299,23 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             }else{
                 $pagination_search='';
             }
-        
+
+            // Previous Page
             if($page<2){
                 
-               $paginationdiv.='<li class="arrow unavailable"><a href="">&laquo;</a></li>';
+                $paginationdiv.='<li class="arrow unavailable"><a href="">&laquo;</a></li>';
             } else {  
 
                 $paginationdiv.='<li class="arrow unavailable"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$prevpage.'" >&laquo;</a></li>';    
-            }     
+            }
+            
+            // Current
             for($i=0;$i<count($pages);$i++){ 
-                
+
                 if($pages[$i] > 0 && $pages[$i] <= $totalpages){
-                     $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$pages[$i].'">'.$pages[$i].'</a></li>';
+
+                    $paginationdiv.='<li  class="'.(($pages[$i]==$page)?"current":" ").'"><a class="postlink" href="home.php?'.$pagination_search.'&page='.$pages[$i].'">'.$pages[$i].'</a></li>';
+
                 }
                 if(isset($pages[$i+1])){
                     if($pages[$i+1]-$pages[$i]>1){
@@ -2308,21 +2323,32 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     }
                 }
             }
-                     
+            //  Next Pages
             if($page<$totalpages){
 
-                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li>';
+                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li> ';
+
+                //echo $nextpage;
+
             } else {  
-                $paginationdiv.='<li class="arrow"><a >&raquo;</a></li>';
+                $paginationdiv.='<li class="arrow"><a >&raquo;</a></li></ul> <br />';
             }
-        
-            $paginationdiv.='</ul>';   
-            //echo $paginationdiv;exit();
+
+       
+            
+            $paginationdiv.='<br /><br /><center> <ul class = "pageul"> <li><input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "Page No"> </li> &nbsp;&nbsp; <li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();"></li> </ul></center> <br /><br />' ;  
+            
+           // echo $page.'<br />';
+            //echo $_POST['paginationinput'];
+            
             $template->assign("paginationdiv",$paginationdiv);
         }
         else {
             $template->assign("paginationdiv","");
         }
+
+      
+        
         
        // LEFT  PANEL
         include "leftpanel.php";
@@ -2409,3 +2435,53 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
         print "\n";
     //set of code ends
 
+
+
+?>
+
+<script>
+
+function paginationfunc()
+{
+    // alert();
+    var pagination = $("#paginationinput").val();
+    if(pagination=='')
+    {
+        pagination = 1;
+    }
+    window.location.href = "home.php?&page="+pagination;
+
+       
+}
+    var input = document.getElementById("paginationinput");
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("pagination").click();
+        }
+    });
+    
+</script>
+
+<style>
+.particularpage {
+    cursor: pointer;
+    font-weight: bold;
+    background: #A2753A;
+    color: #fff;
+    border: 1px solid #624C34;
+    padding: 5px 5px;
+    margin-left: 22% !important;
+    /* margin-top: -45px !important; */
+}
+.inputpagination{
+    width:70px !important;
+    height: 26px !important;
+    /* margin: 0 10px !important; */
+}
+
+.pageul{
+    margin-left: 40% !important;
+    /* padding:5%; */
+}
+</style>
