@@ -1053,7 +1053,7 @@ function updateDownload($res){
 //                    echo $_REQUEST['txthideinvestorId']."<br>---" .$sql;
 //                   exit();
                     //execute query
-                    echo $sql;exit();
+                    //echo $sql;exit();
                    $result = @mysql_query($sql)
                         or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
                    updateDownload($result);
