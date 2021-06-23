@@ -1174,6 +1174,7 @@ function updateDownload($res){
                                 $schema_insert .=trim($row[5]).$sep; //address line 2
                                 $schema_insert .=trim($row[6]).$sep; //city
 
+                                    
                                 if($isUpdated == true){
                                     $schema_insert .=trim($row[37]).$sep; //country
                                 } else {
