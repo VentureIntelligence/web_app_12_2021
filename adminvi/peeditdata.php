@@ -1,95 +1,13 @@
+<?php include_once("../../globalconfig.php"); ?>
 <?php
-require("../dbconnectvi.php");
-$Db = new dbInvestments();
-require("checkaccess.php");
-    checkaccess( 'edit' );
-session_save_path("/tmp");
-session_start();
-if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
-{
+ session_save_path("/tmp");
+	session_start();
+	if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
+	{
+
 ?>
 <html><head>
 <title>PE Investment Deal Info</title>
-<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script> 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
-<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript" src="js/jquery.multiselect.js"></script> 
-
-<script>
-    
-    $(function() {
-        
-        $( "#citysearch" ).autocomplete({
-
-            source: function( request, response ) {
-            //$('#citysearch').val('');
-                $.ajax({
-                    type: "POST",
-                    url: "ajaxCitySearch.php",
-                    dataType: "json",
-                    data: {
-                        vcflag: '<?php echo $VCFlagValue; ?>',
-                        search: request.term
-                    },
-                    success: function( data ) {
-                        $("#region").prop("disabled", false);
-                        response( $.map( data, function( item ) {
-                            return {
-                                label: item.label,
-                                value: item.value,
-                                id: item.id,
-                                regionId: item.regionId,
-                                stateId:item.stateId
-                            }
-                        }));
-                    }
-                });
-            },
-            minLength: 1,
-            select: function( event, ui ) {
-                console.log(ui);
-                $('#citysearch').val(ui.item.value);
-                $('#cityauto').val(ui.item.value);
-          
-                if(ui.item.regionId > 0){
-                    $("#region option[value="+ui.item.regionId+"]").prop('selected', true);  
-                    //$("#region").prop("disabled", true);
-                }else{
-                    $("#region option[value=1]").prop('selected', true);
-                    $("#region").prop("disabled", false);
-                }
-                if(ui.item.stateId > 0){
-                    $("#state option[value="+ui.item.stateId+"]").prop('selected', true);  
-                    //$("#region").prop("disabled", true);
-                }else{
-                    $("#state option[value='--']").prop('selected', true);
-                    $("#state").prop("disabled", false);
-                }
-            },
-            open: function() {
-      //        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-            },
-            close: function() {
-                $('#citysearch').val()=="";
-                   //$( "#companyrauto" ).val('');  
-      //        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-            }
-        });
-    });
-</script>
-<style>
-    .add_ul{
-        padding-left: 0px;
-    }
-    .add_ul li{
-        list-style: none;
-        float: left;
-        width:103px;
-        text-align: left;
-        padding-left: 2px;
-        font-weight: bold;
-    }
-   </style>
 <SCRIPT LANGUAGE="JavaScript">
 function delUploadFile()
 {
@@ -139,7 +57,9 @@ function UpdateREDeals()
  <table border=1 align=center cellpadding=0 cellspacing=0 width=50%
 	        style="font-family: Arial; font-size: 8pt; border-collapse: collapse" bordercolor="#111111" cellspacing="0" bgcolor="#F5F0E4">
 <?php
-	
+	require("../dbconnectvi.php");
+	$Db = new dbInvestments();
+
 $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 $stringtoExplode = explode("-", $value);
 $pe_re=$stringtoExplode[0];
@@ -154,17 +74,15 @@ $companyIdtoEdit=$stringtoExplode[1];
       	 pe.amount, pe.round,pe.StageId, s.stage, pe.stakepercentage, DATE_FORMAT( dates, '%M' )  as dates,
       	 pec.website, pec.city, pec.RegionId,r.Region, PEId,DATE_FORMAT( dates, '%Y' ) as dtyear, comment,MoreInfor,
       	 Validation,InvestorType,hideamount,hidestake,SPV,Link,pec.countryid,pec.uploadfilename,source,Valuation,FinLink,AggHide,
-      	 Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,pe.Revenue,pe.EBITDA,pe.PAT,pe.Amount_INR,pe.Company_Valuation_pre,pe.Company_Valuation_EV,pe.Revenue_Multiple_pre,pe.Revenue_Multiple_EV,pe.EBITDA_Multiple_pre,pe.EBITDA_Multiple_EV,pe.PAT_Multiple_pre,pe.PAT_Multiple_EV,pe.Total_Debt,pe.Cash_Equ,pe.financial_year,pec.stateid,dates as dataperiod
+      	 Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,pe.Revenue,pe.EBITDA,pe.PAT,pe.Amount_INR
   			FROM peinvestments AS pe, industry AS i, pecompanies AS pec,stage as s,region as r
   			WHERE pe.PEId =" .$SelCompRef.
   			" AND i.industryid = pec.industry   and r.RegionId=pec.RegionId
 			AND pec.PEcompanyID = pe.PECompanyID and s.StageId=pe.StageId";
 		//	echo "<br>--" .$getDatasql;
-	 $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.leadinvestor,peinv.newinvestor from peinvestments_investors as peinv,
+	 $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor from peinvestments_investors as peinv,
 	 peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef";
 	$industrysql = "select distinct i.industryid,i.industry  from industry as i	order by i.industry";
-        
-            
 	}
 	elseif($pe_re=="RE")
 	{
@@ -173,10 +91,10 @@ $companyIdtoEdit=$stringtoExplode[1];
 			 pe.amount, pe.round,pe.StageId, s.REType, pe.stakepercentage, DATE_FORMAT( dates, '%M' )  as dates,
 			 pec.website, pe.city, pe.RegionId,r.Region, PEId,DATE_FORMAT( dates, '%Y' ) as dtyear,
 			 comment,MoreInfor,Validation,InvestorType,hidestake,hideamount,SPV,Link,pec.countryid,
-			 uploadfilename,source,Valuation,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status,dates as dataperiod
+			 uploadfilename,source,Valuation,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status
 			FROM REinvestments AS pe, reindustry AS i, REcompanies AS pec,realestatetypes as s,region as r
 			WHERE pe.PEId =" .$SelCompRef .
-			" AND i.industryid =  pe.IndustryId and r.RegionId=pe.RegionId
+			" AND i.industryid = pec.industry and r.RegionId=pe.RegionId
 			AND pec.PEcompanyID = pe.PECompanyID and s.RETypeId=pe.StageId";
 
 	 	$getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor from REinvestments_investors as peinv,
@@ -185,11 +103,10 @@ $companyIdtoEdit=$stringtoExplode[1];
 		 $industrysql = "select distinct i.industryid,i.industry  from reindustry as i";
 	}
 
-		 // $countrysql="select countryid,country from country";
-    $countrysql="select countryid,country from country where countryid NOT IN('','--','10','11') order by country asc";
+		 $countrysql="select countryid,country from country";
 
 
-	//echo "<br>-------------".$getDatasql;
+//	echo "<br>-------------".$getDatasql;
 
 
 
@@ -205,7 +122,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 		{
 				//$period = substr($mycomprow["dates"],0,3);
 				//echo "<br>^^^^^^^^^^^^^".$period;
-                                //print_r($mycomprow);
+
 				$hideamount=0;
 				$hidestake=0;
 				$spvflag=0;
@@ -251,7 +168,6 @@ $companyIdtoEdit=$stringtoExplode[1];
 
                                                                
                                                                 <?php
-                                                                        $datess=$mycomprow["dataperiod"];
                                                                         $period = substr($mycomprow["dates"],0,3);
 
                                                                 ?>
@@ -509,87 +425,32 @@ $companyIdtoEdit=$stringtoExplode[1];
 									{
 									  $ind_cnt = mysql_num_rows($industryrs);
 									}
-                                                                        if($pe_re=="PE"){
-                                                                            
-                                                                            if($ind_cnt > 0)
-                                                                            {
-                                                                                    While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
-                                                                                    {
-                                                                                            $id = $myrow[0];
-                                                                                            $name = $myrow[1];
-
-                                                                                            if ($id==$mycomprow["industry"])
-                                                                                            {
-                                                                                                    echo "<OPTION id=". $id. " value=". $id." SELECTED>".$name."  </OPTION>\n";
-                                                                                            }
-                                                                                            else
-                                                                                            {
-                                                                                                    echo "<OPTION id=". $id. " value=". $id.">".$name."</OPTION> \n";
-                                                                                            }
-                                                                                    }
-                                                                                    mysql_free_result($industryrs);
-                                                                            }
-                                                                        }else{
-                                                                            
-                                                                            
-                                                                            if($ind_cnt > 0)
-                                                                            {
-                                                                                    While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
-                                                                                    {
-                                                                                            $id = $myrow[0];
-                                                                                            $name = $myrow[1];
-
-                                                                                            if ($name==$mycomprow["industry"])
-                                                                                            {
-                                                                                                    echo "<OPTION id=". $id. " value=". $id." SELECTED>".$name."  </OPTION>\n";
-                                                                                            }
-                                                                                            else
-                                                                                            {
-                                                                                                    echo "<OPTION id=". $id. " value=". $id.">".$name."</OPTION> \n";
-                                                                                            }
-                                                                                    }
-                                                                                    mysql_free_result($industryrs);
-                                                                            }
-                                                                        }
-								  	
+								  	if($ind_cnt > 0)
+									{
+								 		While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
+										{
+											$id = $myrow[0];
+											$name = $myrow[1];
+											if ($id==$mycomprow["industry"])
+											{
+												echo "<OPTION id=". $id. " value=". $id." SELECTED>".$name."  </OPTION>\n";
+											}
+											else
+											{
+												echo "<OPTION id=". $id. " value=". $id.">".$name."</OPTION> \n";
+											}
+										}
+							 			mysql_free_result($industryrs);
+									}
 
 								?>
 								</select> </td> </tR>
 
-								<tr><td >Sector (Front end)</td>
+								<tr><td >Sector</td>
 								<td>
 								<input type="text" name="txtsector" size="50" value="<?php echo $mycomprow["sector_business"]; ?>"> </td>
 								</tr>
 
-                                <?php 
-
-                                $sectorsql="select pe.PEId,pe.PECompanyId,pes.sector_id,pes.sector_name,pess.subsector_id,pess.subsector_name,pess.Additional_subsector from peinvestments AS pe,pe_sectors as pes,pe_subsectors as pess where pe.PEId =" .$SelCompRef." and pe.PECompanyId=pess.PECompanyId and pess.sector_id=pes.sector_id GROUP BY pe.PECompanyId";
-                                //echo $sectorsql;
-                                $sectorname=$subsectorname=$AdditionalSubsector="";
-                                if ($rssector = mysql_query($sectorsql))
-                                      {
-                                        
-                                        While($mysectorrow=mysql_fetch_array($rssector, MYSQL_BOTH))
-                                        {
-                                           /* print_r($mysectorrow);*/
-                                          $sectorname=$mysectorrow['sector_name'];
-                                          $subsectorname=$mysectorrow['subsector_name'];
-                                          $AdditionalSubsector=$mysectorrow['Additional_subsector'];
-                                     ?>
-                                
-                                <?php }}?>
-                               
-                                <tr><td >Sector</td>
-                                <td>
-                                <input type="text" name="txtmainsector" size="50" value="<?php echo $sectorname; ?>"> </td>
-                                <tr><td >Sub Sector</td>
-                                <td>
-                                <input type="text" name="txtsubsector" size="50" value="<?php echo $subsectorname; ?>"> </td>
-                                </tr> 
-                                <tr><td >Additional Sub Sector</td>
-                                <td>
-                                <input type="text" name="txtaddsubsector" size="50" value="<?php echo $AdditionalSubsector; ?>"> </td>
-                                </tr> 
 								<tr><td >Amount $M</td>
 								<td >
 								<input type="text" name="txtamount" size="10" value="<?php echo $mycomprow["amount"]; ?>">
@@ -607,28 +468,12 @@ $companyIdtoEdit=$stringtoExplode[1];
 
 								<tr><td >Round</td>
 								<td>
-                                                                    <?php $round = $mycomprow["round"]; ?>
-                                                               <!-- <select name="txtround" id="round" >
-                                                                    <option id="round_1" value="seed" <?php if($round == "seed") echo 'selected'; ?>>Seed</option>
-                                                                    <?php
-                                                                        $j=1; 
-                                                                        $seed=13;
-                                                                        for($i=1; $i<$seed; $i++) {
-                                                                            $j++;
-                                                                            $roundSel = ($round == $i)?'selected':''; 
-                                                                            echo '<option id="round_'.$j.'" value="'.$i.'" '.$roundSel.'>'.$i.'</option>';
-                                                                        }
-
-                                                                        ?>
-                                                                        <option id="round_Open" value="Open Market Transaction" <?php if($round == "Open Market Transaction") echo 'selected'; ?>>Open Market Transaction</option>
-                                                                        <option id="round_Preferential" value="Preferential Allotment" <?php if($round == "Preferential Allotment") echo 'selected'; ?>>Preferential Allotment</option>
-                                                                        <option id="round_Rights" value="Rights Issue" <?php if($round == "Rights Issue") echo 'selected'; ?>>Rights Issue</option>
-                                                                        <option id="round_Share" value="Share Swap" <?php if($round == "Share Swap") echo 'selected'; ?>>Share Swap</option>                                                                        
-                                                                        <option id="round_Special" value="Special Situation" <?php if($round == "Special Situation") echo 'selected'; ?>>Special Situation</option>                                                                         
-                                                                        <option id="round_Debt" value="Debt" <?php if($round == "Debt") echo 'selected'; ?>>Debt</option> 
-                                                                </select>-->
-                                                                    <input type="text" name="txtround" id="round" size="30" value="<?php echo $round; ?>">   
-                                                                </td>
+								<input type="text" name="txtround" size="50" value="<?php echo $mycomprow["round"]; ?>"> </td>
+<!--                                                                <SELECT name="txtround">
+                                                                   <OPTION value="" > Choose Round </option>
+                                                                   <OPTION  value="Open Market Transaction" <?php if($mycomprow[6]=="Open Market Transaction"){echo "SELECTED";} ?>>Open Market Transaction </OPTION>
+                                                                   <OPTION  value="Preferential Allotment" <?php if($mycomprow[6]=="Preferential Allotment"){echo "SELECTED";} ?>>Preferential Allotment </OPTION>
+                                                                </select> -->
 								</tr>
 
 								<tr>
@@ -665,13 +510,9 @@ $companyIdtoEdit=$stringtoExplode[1];
 								</td>
 								</tr>
 
-                                                                 <?php
-                                                                	if($pe_re=="RE")
-									{
-                                                                          ?>
-								<tr>
+								<!--<tr>
 									<td>Investors
-									<td valign=top style="font-family: Verdana; font-size: 8pt" align=left>
+									<td valign=topstyle="font-family: Verdana; font-size: 8pt" align=left>
 									<table border=1 width=100% cellpadding=1 cellspacing=0>
 
 									<?php
@@ -700,17 +541,15 @@ $companyIdtoEdit=$stringtoExplode[1];
 									?>
 									</table>
 									</td>
-								</tr>
-                                                                        <?php } else{ ?>
+								</tr>-->
                                                                 <tr>
 									<td>&nbsp;Investors
 									<td valign="top" style="font-family: 'Verdana'; font-size: 8pt;" align='left'>
 									<table border=1 width=100% cellpadding=1 cellspacing=0>
 
 									<?php
-									  /*$getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo from peinvestments_investors as peinv,
-									  peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY Investor='others',InvestorId desc";*/
-                                     $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY peinv.investorOrder ASC";
+									echo  $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo from peinvestments_investors as peinv,
+									  peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef";
                                                                          //echo "<bR>--" .$getInvestorsSql;
 									  if ($rsinvestors = mysql_query($getInvestorsSql))
 									  {
@@ -718,21 +557,9 @@ $companyIdtoEdit=$stringtoExplode[1];
 										{
 										?>
 									<input name="txtinvestorid[]" type="hidden" value=" <?php echo $myInvrow["InvestorId"]; ?>"  >
-										<tr>
-                                            <td valign=top >
-                                                <?php 
-                                                    if($myInvrow["leadinvestor"] == 1) {
-                                                        echo trim(($myInvrow["Investor"].' (L) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
-                                                    } else if($myInvrow["newinvestor"] == 1){
-                                                        echo trim(($myInvrow["Investor"].' (N) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
-                                                    }else if($myInvrow["existinvestor"] == 1){
-                                                        echo trim(($myInvrow["Investor"].' (E) - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
-                                                    }else {
-                                                        echo trim(($myInvrow["Investor"].' - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); 
-                                                    }
-                                                ?>
-                                            </td>
-                                        </tr>
+										<tr><td valign=top >
+                                                                                        <?php echo trim(($myInvrow["Investor"].' - '.$myInvrow["Amount_M"].' - '.$myInvrow["Amount_INR"].' - '.$myInvrow["InvMoreInfo"]),' - '); ?>
+                                                                                </td></tr>
 
 									<?php
                                                                                 }
@@ -740,22 +567,14 @@ $companyIdtoEdit=$stringtoExplode[1];
 									?>
 									</table><input type="hidden" name="hideIPOId" size="8" value="">
                                                                         <input type="button" value="Add Investors" name="addInvestor"
-                                                                        onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>/<?php echo $mycomprow["PECompanyId"]; ?>/<?php echo $datess; ?>','mywindow','width=700,height=500')">
+                              					onClick="window.open('addPEInvestors.php?value=PE/<?php echo $SelCompRef;?>','mywindow','width=700,height=500')">
 									</td>
 								</tr>
-                                                                        <?php } ?>
+
 								<?php
 									$investType=$mycomprow["InvestorType"];
 
 								?>
-                                <tr>
-									<td>&nbsp;SHP
-									<td valign="top" style="font-family: 'Verdana'; font-size: 8pt;" align='left'>
-										<input type="hidden" name="hideIPOId" size="8" value="">
-										<input type="button" value="Add SHP" name="addInvestor"
-										onClick="window.open('addPESHP.php?value=PE/<?php echo $SelCompRef;?>','mywindow','width=700,height=500')">
-									</td>
-								</tr>
 							<tr>
 									 <td> Investor Type </td>
 									 <Td width=5% align=left> <SELECT NAME=invType>
@@ -806,51 +625,15 @@ $companyIdtoEdit=$stringtoExplode[1];
 
 								<tr>
 								<td >City</td>
-                                                                
 								<td >
-<!--								<input type="text" name="txtcity" size="50" value="<?php echo $mycomprow["city"]; ?>"> </td>-->
-                                                                <input type="hidden" id="cityauto" name="txtcity" value="<?php echo $mycomprow["city"]; ?>" placeholder="" style="width:220px;" autocomplete="off">
-                                                                <input type="text" id="citysearch" name="citysearch" value="<?php echo $mycomprow["city"]; ?>" placeholder="" style="width:220px;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>></td>
+								<input type="text" name="txtcity" size="50" value="<?php echo $mycomprow["city"]; ?>"> </td>
 								</tr>
 
-<?php 
-if($pe_re=="PE")
-    {
-        ?>
+
+
 								<tr>
-                                                                    <tr>
-                                <td >State</td>
-                                <td >
-                                     <SELECT NAME=txtstate id="state">
-                                        <OPTION  value='--' >Choose State</OPTION>  
-                                    <?php
-                                        $stateSql = "select state_id, state_name from state ";
-                                        if ($states = mysql_query($stateSql))
-                                        {
-                                          
-                                            While($myrow=mysql_fetch_array($states, MYSQL_BOTH))
-                                            {
-                                                $id = $myrow[0];
-                                                $name = $myrow[1];
-
-                                            if ($id==$mycomprow["stateid"])
-                                            {
-                                                echo "<OPTION id=". $id. " value=". $id." SELECTED>".$name."  </OPTION>\n";
-                                            }
-                                            else
-                                            {
-                                                echo "<OPTION id=". $id. " value=". $id.">".$name."</OPTION> \n";
-                                            }
-                                            }
-                                        }
-                                    ?>
-                                    </SELECT>
-                                </td>
-
-                                </tr>
-                            <?php  } ?>
 									<td >Region</td>
-									 <Td> <SELECT NAME=txtregion id="region">
+									 <Td> <SELECT NAME=txtregion>
 
 									<?php
 
@@ -891,12 +674,6 @@ if($pe_re=="PE")
 									}
 								  	if($country_cnt > 0)
 									{
-                                        if($mycomprow["countryid"] == 11)
-                                            {
-                                                echo "<OPTION id=". $mycomprow["countryid"]. " value='11' SELECTED>Choose Country</OPTION> \n";
-                                            }else{
-                                                echo "<OPTION id=". $mycomprow["countryid"]. " value='11' >Choose Country</OPTION> \n";
-                                            }
 								 		While($mycountryrow=mysql_fetch_array($countryrs, MYSQL_BOTH))
 										{
 											$id = $mycountryrow[0];
@@ -1032,35 +809,19 @@ if($pe_re=="PE")
                                                                 <tr>
 								<td >Company Valuation (INR Cr)</td>
 								<td >
-                                                                    <ul class="add_ul"><li>Pre-Money</li><li> Post-Money</li><li> EV</li></ul>
-                                                                    <input name="txtcompanyvaluation" id="txtcompanyvaluation" type="text" size="10" value=<?php echo $mycomprow["Company_Valuation_pre"]; ?> > 
-                                                                    <input name="txtcompanyvaluation1" id="txtcompanyvaluation1" type="text" size="10" value=<?php echo $mycomprow["Company_Valuation"]; ?> > 
-                                                                    <input name="txtcompanyvaluation2" id="txtcompanyvaluation2" type="text" size="10" value=<?php echo $mycomprow["Company_Valuation_EV"]; ?> >                                                                 
-                                                                </td>
+								<input name="txtcompanyvaluation" id="txtcompanyvaluation" type="text" size="10" value=<?php echo $mycomprow["Company_Valuation"]; ?> > </td>
 								</tr>
 								<tr>
 								<td >Revenue Multiple</td>
-								<td >
-                                                                    <input name="txtrevenuemultiple" id="txtrevenuemultiple" type="text" size="10" value=<?php echo $mycomprow["Revenue_Multiple_pre"];?> >
-                                                                    <input name="txtrevenuemultiple1" id="txtrevenuemultiple1" type="text" size="10" value=<?php echo $mycomprow["Revenue_Multiple"];?> >
-                                                                    <input name="txtrevenuemultiple2" id="txtrevenuemultiple2" type="text" size="10" value=<?php echo $mycomprow["Revenue_Multiple_EV"];?> >
-                                                                </td>
+								<td ><input name="txtrevenuemultiple" id="txtrevenuemultiple" type="text" size="10" value=<?php echo $mycomprow["Revenue_Multiple"];?> ></td>
 							        </tr>
 								<tr>
 								<td >EBITDA Multiple</td>
-								<td >
-                                                                    <input name="txtEBITDAmultiple" id="txtEBITDAmultiple" type="text" size="10" value=<?php echo $mycomprow["EBITDA_Multiple_pre"];?> >
-                                                                    <input name="txtEBITDAmultiple1" id="txtEBITDAmultiple1" type="text" size="10" value=<?php echo $mycomprow["EBITDA_Multiple"];?> >
-                                                                    <input name="txtEBITDAmultiple2" id="txtEBITDAmultiple2" type="text" size="10" value=<?php echo $mycomprow["EBITDA_Multiple_EV"];?> >
-                                                                </td>
+								<td ><input name="txtEBITDAmultiple" id="txtEBITDAmultiple" type="text" size="10" value=<?php echo $mycomprow["EBITDA_Multiple"];?> ></td>
 								</tr>
 								<tr>
 									<td >PAT Multiple</td>
-								<td >
-                                                                    <input name="txtpatmultiple" id="txtpatmultiple" type="text" size="10" value=<?php echo $mycomprow["PAT_Multiple_pre"];?> >
-                                                                    <input name="txtpatmultiple1" id="txtpatmultiple1" type="text" size="10" value=<?php echo $mycomprow["PAT_Multiple"];?> >
-                                                                    <input name="txtpatmultiple2" id="txtpatmultiple2" type="text" size="10" value=<?php echo $mycomprow["PAT_Multiple_EV"];?> >
-                                                                </td>
+									<td ><input name="txtpatmultiple" id="txtpatmultiple" type="text" size="10" value=<?php echo $mycomprow["PAT_Multiple"];?> ></td>
 								</tr>
 								
 								<!-- New feature 08-08-2016 start -->
@@ -1095,10 +856,6 @@ if($pe_re=="PE")
                                                                     <td ><b>Autofill Revenues (INR Cr), EBITDA (INR Cr), PAT (INR Cr) Values</b></td>
                                                                 <td ><label> <input name="getrevenue_value" id="getrevenue_value" type="checkbox" <?php echo $checked; ?>></label> </td>
 							        </tr>
-                                                                <tr>
-                                                                    <td>Financial/Calendar Year</td>
-                                                                    <td><input name="txtyear" id="txtyear" type="text" size="15" value="<?php echo $mycomprow["financial_year"];?>"> </td>
-                                                                </tr>
                                                                 
 								<tr>
 								<tr>
@@ -1112,16 +869,6 @@ if($pe_re=="PE")
 								<tr>
 								<td >PAT (INR Cr)</td>
 								<td ><input name="txtpat" id="txtpat" type="text" size="10" value=<?php echo $mycomprow["PAT"];?> ></td>
-								</tr>
-								
-								<tr>
-									<td >Total Debt (INR Cr)</td>
-									<td ><input name="txttot_debt" id="txttot_debt" type="text" size="10" value=<?php echo $mycomprow["Total_Debt"];?> ></td>
-								</tr>
-								
-								<tr>
-									<td >Cash & Cash Equ. (INR Cr)</td>
-									<td ><input name="txtcashequ" id="txtcashequ" type="text" size="10" value=<?php echo $mycomprow["Cash_Equ"];?> ></td>
 								</tr>
 									
                                                                 <tr>
@@ -1141,32 +888,31 @@ if($pe_re=="PE")
 								<td >Link for Financials (LISTED FIRM ONLY)</td>
 								<td><textarea name="txtfinlink" rows="3" cols="40"><?php echo $mycomprow["FinLink"]; ?></textarea> </td>
 								</tr>
-								<!-- <tr>
+								<tr>
 								<td >&nbsp;Financial <br>
 								</td>
-								<td valign=top>
-                                <INPUT NAME="txtfilepath" TYPE="file" value="<?php //echo $mycomprow["uploadfilename"]; ?>" size=50>
-								<input name="txtfile" type="text" size="22" value="<?php //echo $mycomprow["uploadfilename"]; ?>" >
+								<td valign=top><INPUT NAME="txtfilepath" TYPE="file" value="<?php echo $mycomprow["uploadfilename"]; ?>" size=50>
+								<input name="txtfile" type="text" size="22" value="<?php echo $mycomprow["uploadfilename"]; ?>" >
 								<?php
-									// if($pe_re=="PE")
-									// {
+									if($pe_re=="PE")
+									{
 									?>
 										<input type="button" value="Delete File" name="deletepeuploadfile" onClick="delUploadFile();"  >
 									<?php
-									// }
-									// else
-									// {
+									}
+									else
+									{
 									?>
 										<input type="button" value="Delete File" name="deletereuploadfile" onClick="delREUploadFile('F');"  >
 									<?php
-									// }
+									}
 									?>
 
 
 								</td>
 
 
-								</tr> -->
+								</tr>
 
 								<tr>
 								<td >&nbsp;Source</td>
@@ -1180,14 +926,14 @@ if($pe_re=="PE")
 
 								</td>
 								</tr>
-<!-- 
+
                                                                 <tr>
 								<th align=left >&nbsp;DB Type----HIDE as PE/VC Deal</th>
 								<td><table>
 								
 								 <?php
                                                 //$dbtypesql = "select DBTypeId,DBType from dbtypes";
-                                              //  $dbtypesql = "select `DBTypeId`,`DBType` from `dbtypes`";
+                                                $dbtypesql = "select `DBTypeId`,`DBType` from `dbtypes`";
 
 						if ($debtypers = mysql_query($dbtypesql))
 						{
@@ -1200,18 +946,17 @@ if($pe_re=="PE")
 							{
 								$id = $myrow[0];
 								$name=$myrow[1];
-								//$dbsql="select * from peinvestments_dbtypes where DBTypeId='$id' and PEId=$SelCompRef";
+								$dbsql="select * from peinvestments_dbtypes where DBTypeId='$id' and PEId=$SelCompRef";
 								//echo "<Br>~~~~~".$dbsql;
 								if($rschk=mysql_query($dbsql))
 							        {
                                                                   $cnt=mysql_num_rows($rschk);
                                                                   if($cnt==1)
                                                                   {
-                                                               //   While($myrow1=mysql_fetch_array($rschk, MYSQL_BOTH))
+                                                                  While($myrow1=mysql_fetch_array($rschk, MYSQL_BOTH))
                                                                   {
-                                                                     $hideflag ="";
-                                                                    // if($myrow1["hide_pevc_flag"]==1)
-                                                                   //  {     $hideflag="checked";}
+                                                                     if($myrow1["hide_pevc_flag"]==1)
+                                                                     {     $hideflag="checked";}
 
                                                                   ?>
                                                                   <tr><td>
@@ -1238,7 +983,7 @@ if($pe_re=="PE")
 						}
                                      	?>
 
-                                      		    </table></td></tr> -->
+                                      		    </table></td></tr>
 
                                                                <?php
 								if($pe_re=="PE")
@@ -1296,54 +1041,6 @@ if($pe_re=="PE")
 							}
 
  ?>
- <?php $dbtypesql = "select `DBTypeId`,`DBType` from `dbtypes`";
-
-            if ($debtypers = mysql_query($dbtypesql)) {
-                $db_cnt = mysql_num_rows($debtypers);
-            }
-            if ($db_cnt > 0) {
-
-                while ($myrow = mysql_fetch_array($debtypers, MYSQL_BOTH)) {
-                    $id = $myrow[0];
-                    $name = $myrow[1];
-                    $dbsql = "select * from peinvestments_dbtypes where DBTypeId='$id' and PEId=$SelCompRef";
-                  
-                  //  echo "<Br>~~~~~".$dbsql;
-                    if ($rschk = mysql_query($dbsql)) {
-                        $cnt = mysql_num_rows($rschk);
-                        if ($cnt == 1) {
-                            while ($myrow1 = mysql_fetch_array($rschk, MYSQL_BOTH)) {
-                                $hideflag = "";
-                                if ($myrow1["DBTypeId"]!="" && $myrow1["hide_pevc_flag"] == 1) {$hideflag = "checked";}
-                                 if ($myrow1["DBTypeId"]!="" && $myrow1["hide_pevc_flag"] == 0) {$dbflag = "checked";}
-                                    ?>
-
-                        <tr>  <td>  <?php echo $name . "&nbsp;also" ?></td>  <td><input name="dbtype[]" type="checkbox" class="<?php echo $name; ?>" value=" <?php echo $id; ?>" <?php echo $dbflag; ?>></td> </tr>
-                        <?php if ($id != 'CT' && $id != "IF") {?>
-
-                        <!-- <tr>  <td>  <?php echo $name . "&nbsp;only" ?> <td><input name="showaspevc[]" type="checkbox" <?php echo $ishidden?> class="<?php echo $id; ?>" value="<?php echo $id; ?>" <?php echo $hideflag; ?> /> </td> </tr> -->
-                        <?php
-}
-}
-                        } //if cnt==1 loop
-                        else {
-                            $hideflag = "";
-                           /*if ($myrow1["DBTypeId"]!="" && $myrow1["hide_pevc_flag"] == 1) {$hideflag = "checked";}
-                                 if ($myrow1["DBTypeId"]!="" && $myrow1["hide_pevc_flag"] == 0) {$dbflag = "checked";}*/
-                                ?>
-                            <tr>  <td>  <?php echo $name. "&nbsp;also" ?></td>  <td><input name="dbtype[]" class="<?php echo $name; ?>" type="checkbox" value=" <?php echo $id; ?>" /></td> </tr>
-                            <?php if ($id != 'CT' && $id != "IF") {?>
-                           <!--  <tr>  <td>  <?php echo $name. "&nbsp;only" ; ?> <td><input name="showaspevc[]" type="checkbox" class="<?php echo $id; ?>" <?php echo $ishidden?> value="<?php echo $id; ?>" /> </td> </tr> -->
-                           
- <?php
-}
-}
-                    } //if rscheck loop
-
-                }
-                mysql_free_result($debtypers);
-            }
-            ?>
 
 </table>
 <table align=center>
@@ -1375,7 +1072,7 @@ if($pe_re=="RE")
      _uacct = "UA-1492351-1";
      urchinTracker();
    </script>
-<!--<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>-->
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
    
    <script>
     $( document ).ready(function() {
@@ -1457,42 +1154,7 @@ if($pe_re=="RE")
         
         });
     });
-    $( document ).ready(function() {
-      
-    // this will contain a reference to the checkbox
-    if ($('.Venture').is(':checked') == true) {
-       $(".SV").attr('disabled',true).prop('checked',false);
-    }else {
-       $(".SV").removeAttr('disabled'); 
-        }
-   
-    if ($('.SV').is(':checked') == true) {
-        $(".Venture").attr('disabled',true).prop('checked',false);
-       
-    }else {
-         $(".Venture").removeAttr('disabled');
-        }
-    });
-   
-
-
-  $('.Venture').change(function() {
-    // this will contain a reference to the checkbox
-    if (this.checked) {
-        $(".SV").attr('disabled',true).prop('checked',false);
-    }else {
-       $(".SV").removeAttr('disabled'); 
-        }
-    });
-      $('.SV').change(function() {
-    // this will contain a reference to the checkbox
-    if (this.checked) {
-        $(".Venture").attr('disabled',true).prop('checked',false);
-       
-    }else {
-         $(".Venture").removeAttr('disabled');
-        }
-    });
+ 
     
     </script>
  </body>
@@ -1501,5 +1163,5 @@ if($pe_re=="RE")
 
  } // if resgistered loop ends
  else
- 	header( 'Location: ' . BASE_URL . 'admin.php' ) ;
+ 	header( 'Location: '. GLOBAL_BASE_URL .'admin.php' ) ;
 ?>
