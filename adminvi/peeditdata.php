@@ -153,7 +153,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 	   	$getDatasql = "SELECT pe.PECompanyId, pe.price_to_book, pe.book_value_per_share, pe.price_per_share, pec.companyname, pec.industry, pec.sector_business,
       	 pe.amount, pe.round,pe.StageId, s.stage, pe.stakepercentage, DATE_FORMAT( dates, '%M' )  as dates,
       	 pec.website, pec.city, pec.RegionId,r.Region, PEId,DATE_FORMAT( dates, '%Y' ) as dtyear, comment,MoreInfor,
-      	 Validation,InvestorType,hideamount,hidestake,SPV,Link,pec.countryid,pec.uploadfilename,source,Valuation,FinLink,AggHide,
+      	 Validation,InvestorType,hideamount,hidestake,SPV,Link,pec.countryid,pec.uploadfilename,source,Valuation,crossBorder,FinLink,AggHide,
       	 Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,pe.Revenue,pe.EBITDA,pe.PAT,pe.Amount_INR,pe.Company_Valuation_pre,pe.Company_Valuation_EV,pe.Revenue_Multiple_pre,pe.Revenue_Multiple_EV,pe.EBITDA_Multiple_pre,pe.EBITDA_Multiple_EV,pe.PAT_Multiple_pre,pe.PAT_Multiple_EV,pe.Total_Debt,pe.Cash_Equ,pe.financial_year,pec.stateid,dates as dataperiod
   			FROM peinvestments AS pe, industry AS i, pecompanies AS pec,stage as s,region as r
   			WHERE pe.PEId =" .$SelCompRef.
@@ -173,7 +173,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 			 pe.amount, pe.round,pe.StageId, s.REType, pe.stakepercentage, DATE_FORMAT( dates, '%M' )  as dates,
 			 pec.website, pe.city, pe.RegionId,r.Region, PEId,DATE_FORMAT( dates, '%Y' ) as dtyear,
 			 comment,MoreInfor,Validation,InvestorType,hidestake,hideamount,SPV,Link,pec.countryid,
-			 uploadfilename,source,Valuation,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status,dates as dataperiod
+			 uploadfilename,source,Valuation,crossBorder,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status,dates as dataperiod
 			FROM REinvestments AS pe, reindustry AS i, REcompanies AS pec,realestatetypes as s,region as r
 			WHERE pe.PEId =" .$SelCompRef .
 			" AND i.industryid =  pe.IndustryId and r.RegionId=pe.RegionId
@@ -210,6 +210,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 				$hidestake=0;
 				$spvflag=0;
 				$hideaggregate=0;
+                $txtCrossborder=0;
 
 				if($mycomprow["hideamount"]==1)
 					$hideamount="checked";
@@ -219,8 +220,10 @@ $companyIdtoEdit=$stringtoExplode[1];
 					$spvbracket="checked";
 				if($mycomprow["AggHide"]==1)
    	                                $hideaggregate="checked";
+                                       if($mycomprow["crossBorder"]==1)
+   	                                $txtCrossborder="checked";
 
-					//echo "<br>checked- ".$hideamount;
+					//echo "<br>checked- ".$mycomprow["crossBorder"];
 					//echo "<br>checked stake- ".$hidestake;
 
   		?>
@@ -1082,6 +1085,12 @@ if($pe_re=="PE")
 								<td >Valuation (More Info)</td>
 								<td><textarea name="txtvaluation" rows="2" cols="40"><?php echo $mycomprow["Valuation"]; ?> </textarea>
 								</td></tr>
+                          
+                                <tr>
+                                                                    <td >Cross border</td>
+                                                                <td ><label> <input name="txtCrossborder" type="checkbox" value=" <?php echo $mycomprow["crossBorder"]; ?>" <?php echo $txtCrossborder; ?>>
+ </td>
+							        </tr>
                                                                 <?php
                                                                 	if($pe_re=="PE")
 									{
