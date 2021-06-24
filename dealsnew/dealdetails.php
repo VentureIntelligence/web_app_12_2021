@@ -5236,7 +5236,7 @@ try {
                                     ?>
                                      <tr>
                                         <td style="border-bottom: none !important;padding:0px !important;">
-                                            <p  style="padding: 10px;font-size:12px;">Cross border deal-The valuation details are not available since the investment is routed via foreign foreign registered entity. Please proceed to
+                                            <p  style="padding: 10px;font-size:12px;">Cross border deal - The valuation details are not available since the investment is routed via foreign registered entity. Please proceed to
                                                 <!-- <a id="clickhere" href="mailto:database@ventureintelligence.com?subject=Request for more deal data-VC Investment&amp;body=http://localhost/ventureintelligence/dealsnew/dealdetails.php?value=144184063/0/&amp;scr=EMAIL " style="color: #624C34 !important;text-decoration: underline;">Click Here</a> -->
                                                 <a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle;?>&body=<?php echo $mailurl;?> " style="color: #624C34 !important;text-decoration: underline;">mail</a> if you are looking for details other than valuation.  
                                            </p>
