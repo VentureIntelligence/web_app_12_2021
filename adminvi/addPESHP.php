@@ -27,7 +27,7 @@ require("../dbconnectvi.php");
         $mainTable_promoters_total = $mainTable['pe_shp_promoters_total'];
     }else{
         $mainTable_ESOP = "";
-        $mainTable_Others = "";
+        $mainTable_Others = "0";
         $mainTable_investor_total = "0";
         $mainTable_promoters_total = "0";
     }
@@ -44,17 +44,22 @@ require("../dbconnectvi.php");
             
         if($IPO_MandAId>0)
         {
+            //echo '<pre>'; print_r($_POST); echo '</pre>'; exit;
 
             $exitInvestor=$_POST['txtinvestor'];
             $txtinvestoramount=$_POST['txtinvestoramount'];
+
             $txtpromoters=$_POST['txtpromoters'];
             $txtpromotersamount=$_POST['txtpromotersamount'];
 
-            if(in_array("0", $txtpromotersamount) || in_array("0", $txtinvestoramount) ){
+            $txtothers=$_POST['txtothers'];
+            $txtothersamount=$_POST['txtothersamount'];
+
+            if(in_array("0", $txtpromotersamount) || in_array("0", $txtinvestoramount) || in_array("0", $txtothersamount) ){
                 echo "<p style='text-align: center;
                     margin: 6px 0 6px 0;
                     color: red;
-                    font-weight: 600;'>'Investor & Promoter' value cannot be zero or empty</p>";
+                    font-weight: 600;'>'Investor & Promoter & Others' value cannot be zero or empty</p>";
             }else{
                 if($_POST['txtesopamount'] != ""){
                     $txtesopamount=$_POST['txtesopamount'];
@@ -64,17 +69,19 @@ require("../dbconnectvi.php");
                     $txt_esopamount_valid = 0;
                 }
 
-                if($_POST['txtothersamount'] != ""){
-                    $txtothersamount=$_POST['txtothersamount'];
-                    $txt_othersamount_valid = (double)$txtothersamount;
-                }else{
-                    $txtothersamount="--";
-                    $txt_othersamount_valid = 0;
-                }
+                // if($_POST['txtothersamount'] != ""){
+                //     $txtothersamount=$_POST['txtothersamount'];
+                //     $txt_othersamount_valid = (double)$txtothersamount;
+                // }else{
+                //     $txtothersamount="--";
+                //     $txt_othersamount_valid = 0;
+                // }
 
                 // Count Array 
                 $investor_count_total = count($exitInvestor);  
                 $promoters_count_total = count($txtpromoters);
+                $others_count_total = count($txtothers);
+
                 // Investor Total Values
                 if($investor_count_total != 0){
                     for($i=0; $i<$investor_count_total; $i++){
@@ -89,24 +96,40 @@ require("../dbconnectvi.php");
                     for($i=0; $i<$promoters_count_total; $i++)  
                     {
                         $promoters_total += $txtpromotersamount[$i];
-
                     }
                 }else{
                     $promoters_total = 0;
                 }
+
+                // Others Total
+                if($others_count_total !=0){
+                    for($i=0; $i<$others_count_total; $i++)  
+                    {
+                        $others_total += $txtothersamount[$i];
+                    }
+                }else{
+                    $others_total = 0;
+                }
+
                 // return_insert_total_values($investor_total, $promoters_total);
-                $submission_percentage_validation_round = $investor_total + $promoters_total + $txt_esopamount_valid + $txt_othersamount_valid;
+                $submission_percentage_validation_round = $investor_total + $promoters_total + $txt_esopamount_valid + $others_total;
+
+                //echo $submission_percentage_validation_round; exit;
+
                 //$valid_input_feild = $valid_input_feild.toFixed(2);
                 //$valid_input_feild = number_format($valid_input_feild, 2); 
                 $submission_percentage_validation = round($submission_percentage_validation_round, 2);
+
                 if( $submission_percentage_validation == 100 ){
                     //Validate Added Datas Or New Datas 
                     $getInvestorsSHPSql=mysql_query("select * from pe_shp where PEId=$IPO_MandAId");
                     $check_getInvestorsSHPSql = mysql_num_rows($getInvestorsSHPSql);
                     if($check_getInvestorsSHPSql == 0){
+
                         // Insert Main Table
-                        $pe_shp_insert = "insert into pe_shp (PEId,ESOP,Others,pe_shp_investor_total,pe_shp_promoters_total,created_at) values($IPO_MandAId,'$txtesopamount','$txtothersamount',$investor_total,$promoters_total,now())";
+                        $pe_shp_insert = "insert into pe_shp (PEId,ESOP,Others,pe_shp_investor_total,pe_shp_promoters_total,created_at) values($IPO_MandAId,'$txtesopamount',$others_total,$investor_total,$promoters_total,now())";
                         mysql_query($pe_shp_insert);
+
                         // Inserting Investor
                         if($investor_count_total > 0)  
                         {  
@@ -117,8 +140,7 @@ require("../dbconnectvi.php");
                                     $pe_shp_investor_insert = "insert into pe_shp_investor (PEId,investor_name,stake_held,created_at) values($IPO_MandAId,'$exitInvestor[$i]',$txtinvestoramount[$i],now())"; 
                                     mysql_query($pe_shp_investor_insert);
                                     
-                                }  
-                                
+                                }
                             }  
                         }
                         // Inserting Promoters
@@ -131,8 +153,19 @@ require("../dbconnectvi.php");
                                     $pe_shp_promoters_insert = "insert into pe_shp_promoters (PEId,promoters_name,stake_held,created_at) values($IPO_MandAId,'$txtpromoters[$i]',$txtpromotersamount[$i],now())";
                                     mysql_query($pe_shp_promoters_insert); 
                                 }  
-                            }  
-                            // echo "Promoters Inserted";  
+                            } // echo "Promoters Inserted";  
+                        }                        
+                        // Inserting Others
+                        if($others_count_total > 0)  
+                        {  
+                            for($i=0; $i<$others_count_total; $i++)  
+                            {  
+                                if(trim($txtothers[$i] != ''))  
+                                {  
+                                    $pe_shp_others_insert = "insert into pe_shp_others (PEId,others_name,stake_held,created_at) values($IPO_MandAId,'$txtothers[$i]',$txtothersamount[$i],now())";
+                                    mysql_query($pe_shp_others_insert); 
+                                }  
+                            } // echo "Others Inserted";  
                         }
                 
                         // Main Table Values For Percentage
@@ -146,7 +179,9 @@ require("../dbconnectvi.php");
                             $mainTable_Others = $mainTable['Others'];
                             $mainTable_investor_total = $mainTable['pe_shp_investor_total'];
                             $mainTable_promoters_total = $mainTable['pe_shp_promoters_total'];
+                            // $mainTable_others_total = $mainTable['pe_shp_others_total'];
                         }else{
+                            
                             $mainTable_ESOP = "";
                             $mainTable_Others = "";
                             $mainTable_investor_total = "";
@@ -162,12 +197,15 @@ require("../dbconnectvi.php");
                         $pe_shp_delete = mysql_query("delete from pe_shp where PEId=$IPO_MandAId");
                         $pe_shp_investor_delete = mysql_query("delete from pe_shp_investor where PEId=$IPO_MandAId");
                         $pe_shp_promoters_delete = mysql_query("delete from pe_shp_promoters where PEId=$IPO_MandAId");
+                        $pe_shp_others_delete = mysql_query("delete from pe_shp_others where PEId=$IPO_MandAId");
+
                         // Insert Main Table
-                        $pe_shp_insert = "insert into pe_shp (PEId,ESOP,Others,pe_shp_investor_total,pe_shp_promoters_total,created_at) values($IPO_MandAId,'$txtesopamount','$txtothersamount','$investor_total','$promoters_total',now())";
+                        $pe_shp_insert = "insert into pe_shp (PEId,ESOP,Others,pe_shp_investor_total,pe_shp_promoters_total,created_at) values($IPO_MandAId,'$txtesopamount','$others_total','$investor_total','$promoters_total',now())";
                         mysql_query($pe_shp_insert);
                             // Count Values
                             $investor_count = count($exitInvestor);  
                             $promoters_count = count($txtpromoters);
+                            $others_count = count($txtothers);
 
                             // Insert Investor 
                             if($investor_count > 0)  
@@ -197,6 +235,21 @@ require("../dbconnectvi.php");
                                 }  
                                 // echo "Promoters Inserted";  
                             }
+
+                            // Insert Others
+                            if($others_count > 0)  
+                            {  
+                                for($i=0; $i<$others_count; $i++)  
+                                {  
+                                    if(trim($txtothers[$i] != ''))  
+                                    {  
+                                        $pe_shp_others_insert = "insert into pe_shp_others (PEId,others_name,stake_held,created_at) values($IPO_MandAId,'$txtothers[$i]',$txtothersamount[$i],now())";
+                                        mysql_query($pe_shp_others_insert); 
+                                    }  
+                                }  
+                                // echo "Promoters Inserted";  
+                            }
+
                             // Main Table Values For Percentage
                             $getMainTablesSql="select * from pe_shp where PEId=$IPO_MandAId limit 1";
                             $mainTableValidate = mysql_query($getMainTablesSql);
@@ -283,6 +336,9 @@ input[type=number] {
     $("#mutiple_promotors").on('click','.remCF',function(){
         $(this).parent().parent().parent().remove();
     });
+    $("#mutiple_others").on('click','.remCF',function(){
+        $(this).parent().parent().parent().remove();
+    });
 
     });
 function returnIPOId()
@@ -329,6 +385,18 @@ function addMorePromotersRow(){
     $('#mutirow_promoters').append(str);
     $( ".submitBtn" ).prop( "disabled", true );
 }
+
+function addMoreOthersRow(){
+        var rowOtherscount = $('#rowOtherscount').val() + 1;
+        var str = '<tr class="othersrow"><td valign=top> <input type="text" name="txtothers[]" style="width:100%;"> </td>';
+            str += '<td valign=top > <input type="number" name="txtothersamount[]" value="0.00" step="0.01" style="width:60px;"> %  <span style="margin-left: 10px;float: right;margin-right: 10px;margin-top: 3px;"><a href="javascript:void(0);" class="remCF"> <i class="fa fa-trash" aria-hidden="true" style="color: #d21f1f;"></i> </a></span></td>';
+            str += '</tr>';
+        $('#rowOtherscount').val(rowOtherscount);
+        $('#mutirow_others').append(str);
+        $( ".submitBtn" ).prop( "disabled", true );
+    }
+
+
 function calculateValue(){
     // debugger;
     // Investor
@@ -367,25 +435,48 @@ function calculateValue(){
     }else{
         promoter_total = 0;
     }
+
+    // Others
+    var others_cal_value = $('input[name="txtothersamount[]"]');
+    var others_count_total = others_cal_value.length;  
+    var other_total = 0;
+    if(others_count_total >= 0){
+        for(var i=0; i<others_count_total; i++){
+            var txtothersamount = $('input[name="txtothersamount[]"]')[i].value;
+            if(txtothersamount == "" || txtothersamount == "0.00" || txtothersamount == 0){
+                txtothersamount = 0;
+                promoterMemberAmount = 0;
+            }
+            other_total += parseFloat(txtothersamount);
+        }
+    }else{
+        other_total = 0;
+    }
+
     var esop_cal_val = Number($('input[name="txtesopamount"]').val());
-    var others_cal_val = Number($('input[name="txtothersamount"]').val());
+    //  var others_cal_val = Number($('input[name="txtothersamount"]').val());
     // Controlls
-    var valid_input_feild = (investor_total + promoter_total) + (esop_cal_val + others_cal_val);
+    var valid_input_feild = (investor_total + promoter_total + other_total) + (esop_cal_val);
     valid_input_feild = valid_input_feild.toFixed(2);
     //alert(valid_input_feild);
     if(investorMemberAmount != 0 && promoterMemberAmount != 0){
         if(valid_input_feild == 100){
             $('#investor_total').empty();
             $('#investor_total').html((investor_total.toFixed(2))+"%");
+
             $('#promoters_total').empty();
             $('#promoters_total').html((promoter_total.toFixed(2))+"%");
+
+            $('#others_total').empty();
+            $('#others_total').html((other_total.toFixed(2))+"%");
+
             $('.submitBtn').removeAttr("disabled");
         }else{
             alert("SHP percentage value should be 100%");
             $( ".submitBtn" ).prop( "disabled", true );
         }
     }else{
-        alert("'Investor & Promoter' value cannot be zero or empty");
+        alert("'Investor & Promoter & Others' value cannot be zero or empty");
         $( ".submitBtn" ).prop( "disabled", true );
     }
 }
@@ -428,8 +519,8 @@ function calculateValue(){
                     ?>
                 <tr class="investorrow">
                     <td valign=top> <input type="text" style="width:100%;" name="txtinvestor[]" value="<?php echo $myInvrow["investor_name"]; ?>"> </td>
-                    <td valign=top > <input type="number" name="txtinvestoramount[]" step="0.01" value="<?php echo $myInvrow["stake_held"]; ?>" style="width:60px;"> % <span style="margin-left: 10px;float: right;margin-right: 10px;margin-top: 3px;"><a href="javascript:void(0);" class="remCF"> <i class="fa fa-trash" aria-hidden="true" style="color: #d21f1f;"></i>
- </a></span></td>
+
+                    <td valign=top > <input type="number" name="txtinvestoramount[]" step="0.01" value="<?php echo $myInvrow["stake_held"]; ?>" style="width:60px;"> % <span style="margin-left: 10px;float: right;margin-right: 10px;margin-top: 3px;"><a href="javascript:void(0);" class="remCF"> <i class="fa fa-trash" aria-hidden="true" style="color: #d21f1f;"></i></a></span></td>
                     
                 </tr>
 
@@ -471,10 +562,10 @@ function calculateValue(){
                             While($myProrow=mysql_fetch_array($rspromotors, MYSQL_BOTH))
                             {
                     ?>
-                <tr class="promotorrow">
+                    <tr class="promotorrow">
                         <td valign=top> <input type="text" name="txtpromoters[]" style="width:100%;" value="<?php echo $myProrow["promoters_name"]; ?>"> </td>
                         <td valign=top> <input type="number" name="txtpromotersamount[]" step="0.01" value="<?php echo $myProrow["stake_held"]; ?>" style="width:60px;"> %  <span style="margin-left: 10px;float: right;margin-right: 10px;margin-top: 3px;"><a href="javascript:void(0);" class="remCF"><i class="fa fa-trash" aria-hidden="true" style="color: #d21f1f;"></i>
-</a></span></td>
+                        </a></span></td>
                         
                     </tr>
 
@@ -484,12 +575,6 @@ function calculateValue(){
                     }
                     }
                 ?>
-                
-                    <!-- <tr>
-                        <td valign=top> <input type="text" name="txtpromoters[]" style="width:100%;"> </td>
-                        <td valign=top> <input type="text" name="txtpromotersamount[]" value="0.00" style="width:100%;"> </td>
-                        <input type="hidden" name="rowPromoterscount" id="rowPromoterscount" value="0" />
-                    </tr> -->
                 </tbody>
                 <tr>
                     <td valign=top> <input type="button" value="Add More" name="addmorepromoters" onClick="addMorePromotersRow();" > </td>
@@ -503,11 +588,56 @@ function calculateValue(){
                     <td valign=top style="width: 50%;"><b> ESOP </b></td>
                     <td valign=top> <input type="number" name="txtesopamount" step="0.01" style="width:94%;text-align:right;" value="<?php echo $mainTable_ESOP; ?>"> % </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td valign=top><b> Others </b></td>
                     <td valign=top> <input type="number" name="txtothersamount" step="0.01" style="width:94%;text-align:right;" value="<?php echo $mainTable_Others; ?>"> % </td>
+                </tr> -->
+            </table>
+
+
+
+            <table align=left id="mutiple_others" border=1 cellpadding=1 cellspacing=0 style="width: 90%;
+                padding: 0px;
+                margin: 0px 0px 0px 25px;">
+                <thead>
+                    <tr>
+                        <td valign=top style="width: 50%;"><b>Others</b></td>
+                        <td valign=top><span style="float:right;" id="others_total"><?php echo $mainTable_Others; ?>%</span></td>
+                    </tr>
+                </thead>
+                <tbody id="mutirow_others">
+                    <?php
+                    $getOthersSql="select * from pe_shp_others where PEId=$IPO_MandAId ORDER BY id ASC";
+                    if ($rsothers = mysql_query($getOthersSql))
+                    {
+                        $validate_others = mysql_num_rows($rsothers);
+                        if($validate_others != 0)
+                        {
+                            $i=0;
+                            While($myOthersrow=mysql_fetch_array($rsothers, MYSQL_BOTH))
+                            {?>
+                                <tr class="othersrow">
+                                    <td valign=top> <input type="text" name="txtothers[]" style="width:100%;" value="<?php echo $myOthersrow["others_name"]; ?>"> </td>
+
+                                    <td valign=top> <input type="number" name="txtothersamount[]" step="0.01" value="<?php echo $myOthersrow["stake_held"]; ?>" style="width:60px;"> %  <span style="margin-left: 10px;float: right;margin-right: 10px;margin-top: 3px;"><a href="javascript:void(0);" class="remCF"><i class="fa fa-trash" aria-hidden="true" style="color: #d21f1f;"></i>
+                                    </a></span></td>
+                                    
+                                </tr><?php
+                                $i++;
+                            }
+                        }
+                    }
+                ?>
+                </tbody>
+                <tr>
+                    <td valign=top> <input type="button" value="Add More" name="addmoreothers" onClick="addMoreOthersRow();" > </td>
+                    <td valign=top> </td>
                 </tr>
             </table>
+
+
+
+
             <table align=left border=1 cellpadding=1 cellspacing=0 style="width: 90%;
                 padding: 0px;
                 margin: 0px 0px 0px 25px;">

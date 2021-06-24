@@ -169,6 +169,12 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
     // $RegionIdtoUpdate=return_insert_get_RegionId($regiontoUpdate);
     $valuation=$_POST['txtvaluation'];
+    if($_POST['txtCrossborder'])
+    { $crossBorder=1;
+    }
+    else
+    { $crossBorder=0;
+    }
     $company_valuation=$_POST['txtcompanyvaluation'];
     $company_valuation1=$_POST['txtcompanyvaluation1'];
     $company_valuation2=$_POST['txtcompanyvaluation2'];
@@ -415,7 +421,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
           round='$roundtoUpdate',StageId=$stagetoUpdate, stakepercentage=$staketoUpdate,
           comment='$commenttoUpdate',MoreInfor='$moreInfortoUpdate',
           Validation='$validationtoUpdate',InvestorType='$invTypeId',hideamount=$hideamouttoUpdate,
-          hidestake=$hidstaketoUpdate,Link='$linktoUpdate',SPV=$spvdebt,Valuation='$valuation',FinLink='$finlink',
+          hidestake=$hidstaketoUpdate,Link='$linktoUpdate',SPV=$spvdebt,Valuation='$valuation',crossBorder='$crossBorder',FinLink='$finlink',
           AggHide=$hideAggregatetoUpdate,
           Company_Valuation='$company_valuation1',Revenue_Multiple='$revenue_multiple1',
                                         EBITDA_Multiple='$ebitda_multiple1',PAT_Multiple='$pat_multiple1',price_to_book='$price_to_book',book_value_per_share='$book_value_per_share',price_per_share='$price_per_share',listing_status='$listing_statusvalue',Exit_Status='$exit_statusvalue',Revenue='$txtrevenue',EBITDA='$txtEBITDA',PAT='$txtpat',
@@ -444,7 +450,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
           comment='$commenttoUpdate',MoreInfor='$moreInfortoUpdate',
           Validation='$validationtoUpdate',InvestorType='$invTypeId',hideamount=$hideamouttoUpdate,
           hidestake=$hidstaketoUpdate,Link='$linktoUpdate',SPV=$spvdebt,uploadfilename='$filename',source='$sourcename',
-          Valuation='$valuation',FinLink='$finlink',AggHide=$hideAggregatetoUpdate,
+          Valuation='$valuation',crossBorder='$crossBorder',FinLink='$finlink',AggHide=$hideAggregatetoUpdate,
           Company_Valuation='$company_valuation1',Revenue_Multiple='$revenue_multiple1',
                                         EBITDA_Multiple='$ebitda_multiple1',PAT_Multiple='$pat_multiple1',price_to_book='$price_to_book',book_value_per_share='$book_value_per_share',price_per_share='$price_per_share',listing_status='$listing_statusvalue',Exit_Status='$exit_statusvalue',Revenue='$txtrevenue',EBITDA='$txtEBITDA',PAT='$txtpat',
           Company_Valuation_pre='$company_valuation',Company_Valuation_EV='$company_valuation2',Revenue_Multiple_pre='$revenue_multiple',Revenue_Multiple_EV='$revenue_multiple2',

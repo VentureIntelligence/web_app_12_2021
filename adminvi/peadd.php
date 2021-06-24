@@ -548,11 +548,15 @@ function checkCompany()
 								<td >
 								<textarea name="txtvaluation" rows="3" cols="40"></textarea> </td>
 								</tr>
+								<tr>
+                                                                    <td >Cross border</td>
+                                                                <td ><label> <input name="txtCrossborder" id="cross_border" type="checkbox" value="1" ></label> </td>
+							        </tr>
                                                                 
                                                                 <tr>
                                                                     <td colspan="2" height="25"></td>
                                                                 </tr>
-                                                                
+																
                                                                 <tr>
                                                                     <td ><b>Autofill Revenues (INR Cr), EBITDA (INR Cr), PAT (INR Cr) Values</b></td>
                                                                 <td ><label> <input name="getrevenue_value" id="getrevenue_value" type="checkbox"  ></label> </td>

@@ -971,6 +971,8 @@ if ($linkedIn != '') {
 
 
                                             <?php
+                                                    if ($VCFlagValue != 2) {
+
                                             if ($getcompanyinvrs = mysql_query($Investmentsql)) {
                                                 $inv_cnt = mysql_num_rows($getcompanyinvrs);
                                             }
@@ -981,6 +983,7 @@ if ($linkedIn != '') {
                                                 $investmentct_cnt = mysql_num_rows($getCTcompanyinvrs);
                                             }
 
+                                        }
                                             if ($getANGLcompInv = mysql_query($angInvestmentsql)) {
                                                 $angelinv_cnt = mysql_num_rows($getANGLcompInv);
                                             }
@@ -998,9 +1001,9 @@ if ($linkedIn != '') {
 
                                                                 <li id="tabz1">PE/VC Investments</li>
         <?php
-    } else if ($angelinv_cnt > 0) {
+    }  if ($angelinv_cnt > 0) {
         ?>
-                                                                <li id="tabz1">Investments</li>
+                                                                <li id="tabz2">Investments</li>
         <?php
     }
 
@@ -1072,10 +1075,10 @@ if ($linkedIn != '') {
 
                                                                   </div>
                                                                 <?php
-                                                            } else if ($angelinv_cnt > 0) {
+                                                            }  if ($angelinv_cnt > 0) {
                                                                 ?>
 
-                                                                <div id="contentz1" class="tabscontent"> 
+                                                                <div id="contentz2" class="tabscontent"> 
                                                                     <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
                                                                         <thead><tr><th>Company Name</th><th>Industry Name</th><th>Deal Period</th></tr></thead>
                                                                         <tbody>

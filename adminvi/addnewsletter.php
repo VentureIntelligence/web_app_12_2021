@@ -121,7 +121,6 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Category">Category</label>
                                             </td>
                                             <td>
-
                                             <?php
                                                 $sql = "SELECT `id`,`category` FROM newsletter_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
