@@ -3532,7 +3532,7 @@ include_once($refineUrl); ?>
      amount, round, s.Stage, stakepercentage, DATE_FORMAT( dates, '%b-%y' ) as dt,pe.dates, pec.website, pec.linkedIn, pec.city,
      pec.region,pe.PEId,comment,MoreInfor,hideamount,hidestake,pec.countryid,pec.CINNo,
     pe.InvestorType, its.InvestorTypeName,pe.StageId,pe.Link,pe.uploadfilename,pe.source,
-        pe.Valuation,pe.FinLink,pec.RegionId, pe.AggHide, pe.Company_Valuation,pe.Revenue_Multiple,pe.EBITDA_Multiple,pe.PAT_Multiple,pe.listing_status,Exit_Status,
+        pe.Valuation,pe.crossBorder,pe.FinLink,pec.RegionId, pe.AggHide, pe.Company_Valuation,pe.Revenue_Multiple,pe.EBITDA_Multiple,pe.PAT_Multiple,pe.listing_status,Exit_Status,
         pe.SPV,pe.Revenue,pe.EBITDA,pe.PAT,pe.Amount_INR, pe.Company_Valuation_pre,pe.Revenue_Multiple_pre,pe.EBITDA_Multiple_pre,pe.PAT_Multiple_pre, 
         pe.Company_Valuation_EV,pe.Revenue_Multiple_EV,pe.EBITDA_Multiple_EV,pe.PAT_Multiple_EV,pe.Total_Debt,pe.Cash_Equ,pe.financial_year,pec.CINNo, pec.Address1, pec.Address2, pec.Telephone,pec.Email,pec.tags,pec.state
      FROM peinvestments AS pe, industry AS i, pecompanies AS pec,
@@ -3572,6 +3572,7 @@ advisor_cias as cia where advinv.PEId=$SelCompRef and advinv.CIAId=cia.CIAId";
         {
                 $industryId = $myrow["industryId"];
                 $regionid=$myrow["RegionId"];
+                $crossBorder=$myrow["crossBorder"];
                 $countryid=$myrow["countryid"];
                 $Address1=$myrow["Address1"];
                 $Address2=$myrow["Address2"];
@@ -5230,7 +5231,19 @@ try {
                                   </td>
                               </tr>
                                     <?php //} ?>
-                                <?php } else { ?>
+                                <?php } else { 
+                                    if($crossBorder == 1) {
+                                    ?>
+                                     <tr>
+                                        <td style="border-bottom: none !important;padding:0px !important;">
+                                            <p  style="padding: 10px;font-size:12px;">Cross border deal - The valuation details are not available since the investment is routed via foreign registered entity. Please proceed to
+                                                <!-- <a id="clickhere" href="mailto:database@ventureintelligence.com?subject=Request for more deal data-VC Investment&amp;body=http://localhost/ventureintelligence/dealsnew/dealdetails.php?value=144184063/0/&amp;scr=EMAIL " style="color: #624C34 !important;text-decoration: underline;">Click Here</a> -->
+                                                <a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle;?>&body=<?php echo $mailurl;?> " style="color: #624C34 !important;text-decoration: underline;">mail</a> if you are looking for details other than valuation.  
+                                           </p>
+                                        </td>
+                                    </tr>
+                                    <?php } else {?>
+
                                     <tr>
                                         <td style="border-bottom: none !important;padding:0px !important;">
                                             <p class="text-center" style="padding: 10px;"> No data available. 
@@ -5239,7 +5252,7 @@ try {
                                             to request.</p>
                                         </td>
                                     </tr>
-                               <?php }?>
+                               <?php }}?>
                             </tbody>
                             </table>
                     </div>
