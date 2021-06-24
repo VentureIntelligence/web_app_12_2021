@@ -3050,6 +3050,11 @@
          var dealtype=$('#exitdealtype').val().toString();
          $('#txthidedealtypeid').val(dealtype);
          }
+         else
+         {
+            $('#txthidedealtypeid').val('');
+
+         }
          
          if($('#exitinvType').val() != "")
          {
@@ -3060,10 +3065,13 @@
          
          var InType=$('#exitInType').val();
          $('#txthidetype').val(InType);
-         
+
          if($('#exitsltindustry').val() != null)
          {
          $('#txthideindustryid').val($('#exitsltindustry').val().toString());
+         }
+         else{
+            $('#txthideindustryid').val('');
          }
          
          var exitStatus=$('#exitFlstatus').val();
