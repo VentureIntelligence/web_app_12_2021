@@ -1068,10 +1068,7 @@ if($pe_re=="PE")
 								
 								<!-- New feature 08-08-2016 start -->
 									
-									<tr>
-										<td >Price to Book</td>
-										<td ><input name="txtpricetobook" id="txtpricetobook" type="text" size="10" value="<?php echo $mycomprow["price_to_book"]; ?>"> </td>
-									</tr>
+									
 								
 								<!-- New feature 08-08-2016 end -->
 
@@ -1079,18 +1076,18 @@ if($pe_re=="PE")
                                                                      <?php
                                                                      }
                                                                      ?>
-
+ <tr>
+                                                                    <td >Crossborder deal</td>
+                                                                <td ><label> <input name="txtCrossborder" type="checkbox" value=" <?php echo $mycomprow["crossBorder"]; ?>" <?php echo $txtCrossborder; ?>>
+ </td>
+							        </tr>
 
 								<tr>
 								<td >Valuation (More Info)</td>
 								<td><textarea name="txtvaluation" rows="2" cols="40"><?php echo $mycomprow["Valuation"]; ?> </textarea>
 								</td></tr>
                           
-                                <tr>
-                                                                    <td >Cross border</td>
-                                                                <td ><label> <input name="txtCrossborder" type="checkbox" value=" <?php echo $mycomprow["crossBorder"]; ?>" <?php echo $txtCrossborder; ?>>
- </td>
-							        </tr>
+                               
                                                                 <?php
                                                                 	if($pe_re=="PE")
 									{
@@ -1142,7 +1139,10 @@ if($pe_re=="PE")
                                                                         <td >Price Per Share</td>
                                                                         <td ><input name="txtpricepershare" id="txtpricepershare" type="text" size="10" value="<?php echo $mycomprow["price_per_share"];?>"> </td>
                                                                 </tr>
-
+                                                                <tr>
+										<td >Price to Book</td>
+										<td ><input name="txtpricetobook" id="txtpricetobook" type="text" size="10" value="<?php echo $mycomprow["price_to_book"]; ?>"> </td>
+									</tr>
                                                                      <?php
                                                                      }
                                                                      ?>
