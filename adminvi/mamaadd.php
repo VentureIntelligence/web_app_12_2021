@@ -13,10 +13,13 @@
 <title>Add MA_MA Exit Deal Info</title>
 
 
-<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script> 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript" src="js/jquery.multiselect.js"></script> 
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script>
+<link rel="stylesheet" href="styles/token-input.css" type="text/css" />
+<link rel="stylesheet" href="styles/token-input-facebook.css" type="text/css" />
 
 
 
