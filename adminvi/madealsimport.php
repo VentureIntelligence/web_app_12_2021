@@ -502,6 +502,9 @@
 	$dbaclinkss = new dbInvestments();
         
 	$getAcquirerSql="select * from acquirers where Acquirer like '$acquirername' and CityId like '$cityid' and countryid like '$countryid'";
+
+
+    // echo '<pre>'; print_r($seperate_field); echo '</pre>';  exit;
         
 	if($rsgetAcquirer=mysql_query($getAcquirerSql))
 	{
@@ -523,7 +526,25 @@
                 While($myrow=mysql_fetch_array($rsgetAcquirer, MYSQL_BOTH))
                 {
                     $acquirerId = $myrow["AcquirerId"];
-                    $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',countryid='$countryid',IndustryId='$industryid',Acqgroup='$group' where AcquirerId=$acquirerId";
+
+                    $rsgetPECompanyId = mysql_query($getAcquirerSql);
+                    $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+
+                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+
+                    // echo 'Industry__'.$industryid.'<br />';
+                    // echo 'City__'.$cityid.'<br />';
+                   
+                    // exit;
+
+                    if($seperate_field['CityId'] == $city && $seperate_field['IndustryId'] == $industryid)
+                    {
+                        // $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',countryid='$countryid',IndustryId='$industryid',Acqgroup='$group' where AcquirerId=$acquirerId";
+
+                        $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',IndustryId='$industryid' where AcquirerId=$acquirerId";
+
+                    }else{}
+                    
                     if($rsAcqcityCountrySql = mysql_query($updateAcqCityCountrySql))
                     {
                     //	/echo "<br>Acquirer Update-- ".$updateAcqCityCountrySql;
@@ -539,38 +560,74 @@
 	function insert_company($companyname,$industryId,$sector,$web,$countryid,$city,$regionId,$region)
 	{
 		$dbpecomp = new dbInvestments();
-		$getPECompanySql = "select PECompanyId from pecompanies where companyname= '$companyname'";
-		//echo "<br>select--" .$getPECompanySql;
+		$getPECompanySql = "select PECompanyId,industry,sector_business,website,city from pecompanies where companyname= '$companyname'";
+
+		// echo "<br>select--" .$getPECompanySql; exit;
+
+        // echo '<pre>'; print_r($getPECompanySql); echo '</pre>'; 
+
+        $rsgetPECompanyId = mysql_query($getPECompanySql);
+                    $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+
+                    //  echo '<pre>'; print_r($seperate_field); echo '</pre>';  exit;
+
+
+
 		if ($rsgetPECompanyId = mysql_query($getPECompanySql))
 		{
-                    $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
-                    if ($pecomp_cnt==0)
+            $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
+            if ($pecomp_cnt==0)
+            {
+                
+                //insert pecompanies
+                $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,AdCity,RegionId,region)
+                values('$companyname','$industryId','$sector','$web','$countryid','$city','$city',$regionId,'$region')";
+                //echo "<br>Ins company sql=" .$insPECompanySql;
+                if($rsInsPECompany = mysql_query($insPECompanySql))
+                {
+                        $companyId=0;
+                        return $companyId;
+                }
+            }
+            elseif($pecomp_cnt>=1)
+            {
+                While($myrow=mysql_fetch_array($rsgetPECompanyId, MYSQL_BOTH))
+                {
+                    $companyId = $myrow[0];
+
+                    // echo $companyId; exit;
+
+                    $rsgetPECompanyId = mysql_query($getPECompanySql);
+                    $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+            
+                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+
+                    // echo 'Industry__'.$industryId.'<br />';
+                    // echo 'City__'.$city.'<br />';
+                    // echo 'Sector__'.$sector.'<br />';
+                    // echo 'Web__'.$web.'<br />';
+                    //  exit;
+
+                    if($seperate_field['city'] == $city && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] == $industryId &&  $seperate_field['website'] == $web)
                     {
-                        //insert pecompanies
-                        $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,AdCity,RegionId,region)
-                        values('$companyname','$industryId','$sector','$web','$countryid','$city','$city',$regionId,'$region')";
-                        //echo "<br>Ins company sql=" .$insPECompanySql;
-                        if($rsInsPECompany = mysql_query($insPECompanySql))
-                        {
-                                $companyId=0;
-                                return $companyId;
-                        }
+                        // echo 'Changes ila';
+                        $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city' where PECompanyId=$companyId";
+
+                        echo 'Successfully Added';
+
+                    }else{
+                        echo 'Mismatch Records...';
                     }
-                    elseif($pecomp_cnt>=1)
+                    // exit;
+
+                    if($rscityCountrySql=mysql_query($updateCityCountrySql))
                     {
-                        While($myrow=mysql_fetch_array($rsgetPECompanyId, MYSQL_BOTH))
-                        {
-                            $companyId = $myrow[0];
-                            $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',countryid='$countryid',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
-                            
-                            if($rscityCountrySql=mysql_query($updateCityCountrySql))
-                            {
-                    //		echo "<br>Update Company- " .$updateCityCountrySql;
-                            }
-                    //	echo "<br>Insert return industry id--" .$companyId;
-                            return $companyId;
-                        }
+                        //		echo "<br>Update Company- " .$updateCityCountrySql;
                     }
+                        //	echo "<br>Insert return industry id--" .$companyId;
+                    return $companyId;
+                }
+            }
 		}
 		$dbpecomp.close();
 	}
