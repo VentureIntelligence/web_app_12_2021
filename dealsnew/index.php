@@ -5204,10 +5204,23 @@ if ($type != 1) {
                     jQuery('#maskscreen').fadeOut(1000);
                     return false;
                 });
+
+                $( document ).ready(function() {
+
+                var x = localStorage.getItem("pageno");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });
+
                 // T960 End ------------------------------------------------------
 
                 function loadhtml(pageno,orderby,ordertype)
-                {debugger;
+                {
+                    localStorage.setItem("pageno", pageno);
+
                     var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                     var full_check_flag =  $( '#all_checkbox_search' ).val();
                     var pecheckedVal = $( '#pe_checkbox_enable' ).val();
