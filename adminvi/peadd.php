@@ -546,13 +546,13 @@ function checkCompany()
                                                                     <input name="txtpatmultiple2" id="txtpatmultiple2" type="text" size="10" value='' >
                                                                 </td>
 								</tr>
-								
+								<tr>
+                                                                    <td >Crossborder deal</td>
+                                                                <td ><label> <input name="txtCrossborder" id="cross_border" type="checkbox" value="1" ></label> </td>
+							        </tr>
 								<!-- New feature 08-08-2016 start -->
 								
-									<tr>
-										<td >Price to Book</td>
-										<td ><input name="txtpricetobook" id="txtpricetobook" type="text" size="10" value="0.00"> </td>
-									</tr>
+									
 								
 								<!-- New feature 08-08-2016 end -->
 
@@ -561,11 +561,12 @@ function checkCompany()
 								<td >
 								<textarea name="txtvaluation" rows="3" cols="40"></textarea> </td>
 								</tr>
+							
                                                                 
                                                                 <tr>
                                                                     <td colspan="2" height="25"></td>
                                                                 </tr>
-                                                                
+																
                                                                 <tr>
                                                                     <td ><b>Autofill Revenues (INR Cr), EBITDA (INR Cr), PAT (INR Cr) Values</b></td>
                                                                 <td ><label> <input name="getrevenue_value" id="getrevenue_value" type="checkbox"  ></label> </td>
@@ -604,6 +605,10 @@ function checkCompany()
                                                                         <td >Price Per Share</td>
                                                                         <td ><input name="txtpricepershare" id="txtpricepershare" type="text" size="10" value="0.00"> </td>
                                                                 </tr>
+																<tr>
+										<td >Price to Book</td>
+										<td ><input name="txtpricetobook" id="txtpricetobook" type="text" size="10" value="0.00"> </td>
+									</tr>
 								<tr>
                                                                     <td colspan="2" height="25"></td>
                                                                 </tr>

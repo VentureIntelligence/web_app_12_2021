@@ -87,6 +87,11 @@ require("../dbconnectvi.php");
             $dry_hide=0;
         }
 
+		if(isset($_POST['txthideexitamount'])){       
+            $exit_hide=$_POST['txthideexitamount'];
+        }else{
+            $exit_hide=0;
+        }
 
     	 $alreadyinvestedToUpdate=$_POST['txtalreadyinvested'];
     	 	   	 $alreadyinvestedToUpdate=str_replace('"','',$alreadyinvestedToUpdate);
@@ -108,6 +113,7 @@ require("../dbconnectvi.php");
 	   	 $mgmtExecutiveId=$_POST['txtmgmtExecutiveId'];
     	 $mgmtExecutiveIdArray= count($mgmtExecutiveId);
     	 $mgmtExecutiveName=$_POST['txtmgmtExecutiveName'];
+		 $exit_amount=$_POST['txtexitamount'];
 
     	 //echo "<br>----" .$mgmtExecutiveName;
 
@@ -119,7 +125,7 @@ require("../dbconnectvi.php");
     	 AlreadyInvested='$alreadyinvestedToUpdate',LimitedPartners='$lpsToUpdate',NoFunds='$nofundsToUpdate',
     	 NoActiveFunds='$activefundsToUpdate',MinInvestment='$mininvestmentToUpdate',
     	 AdditionalInfor='$addinforToUpdate',Comment='$commentToUpdate',countryid='$countryidToUpdate',FirmTypeId=$firmTypeIdToUpdate,
-    	 focuscapsourceid=$foucs_capsourceIdtoUpdate ,KeyContact='$keyContactToUpdate', angelco_invID='$angelco_invID',dry_hide='$dry_hide'
+    	 focuscapsourceid=$foucs_capsourceIdtoUpdate ,KeyContact='$keyContactToUpdate', angelco_invID='$angelco_invID',dry_hide='$dry_hide',exitamount_hide='$exit_hide',exit_amount='$exit_amount'
     	 where InvestorId=$companyIdtoUpdate";
 
 		//	echo "<br>company update Query-- " .$UpdatecompanySql;

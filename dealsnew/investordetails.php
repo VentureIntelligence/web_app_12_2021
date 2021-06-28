@@ -403,7 +403,7 @@ else
 <!--                        <li><a class="postlink"  href="angelindex.php?value=<?php echo $strvalue[1]; ?>"  id="icon-grid-view"><i></i> List  View</a></li>-->
                         <li class="active"><a id="icon-detailed-view" class="postlink" href="<?php echo $_SERVER['HTTP_REFERER'];?>" ><i></i> Detail View</a></li> 
                         </ul></div> 
-   <div class="lb" id="popup-box">
+   <div class="lb" id="popup-box" style="top:100px">
     <div class="title">Send this to your Colleague</div>
     
         <div class="entry">
@@ -1521,17 +1521,18 @@ function return_insert_get_RegionIdName($regionidd) {
 }
 
 function curPageURL() {
- $URL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
- $URL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- $pageURL=$URL."&scr=EMAIL";
- return $pageURL;
-}
+    $URL = 'http';
+    $portArray = array( '80', '443' );
+    if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
+    $URL .= "://";
+    if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
+     $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+    } else {
+     $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    }
+    $pageURL=$URL."&scr=EMAIL";
+    return $pageURL;
+   }
 ?>
 <script type="text/javascript" >
              $("#panel").animate({width: 'toggle'}, 200); 
