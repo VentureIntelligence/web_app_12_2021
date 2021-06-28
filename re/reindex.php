@@ -2386,8 +2386,33 @@
                     loadhtml(1,orderby,ordertype);
                     return  false;
                 });        
+                $( document ).ready(function() {
+                    $('.popup_call').click(function(){
+                    localStorage.removeItem("pagenoreindex");
+                    localStorage.removeItem("pagenoremandaindex");
+                    localStorage.removeItem("pagenoremaindex");
+
+                });
+                $('#pevchover').click(function(){
+                    localStorage.removeItem("pagenoreindex");
+                    localStorage.removeItem("pagenoremandaindex");
+                    localStorage.removeItem("pagenoremaindex");
+
+                });
+
+                var x = localStorage.getItem("pagenoreindex");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });
                function loadhtml(pageno,orderby,ordertype)
                {
+                localStorage.setItem("pagenoreindex", pageno);
+                $('#paginationinput').val(pageno)
+
+
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
                 type : 'POST',

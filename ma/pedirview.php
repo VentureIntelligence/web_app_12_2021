@@ -792,9 +792,24 @@
                     loadhtml(1,orderby,ordertype);
                     return  false;
             }); 
-
+            $( document ).ready(function() {
+                $('#directorymenu').click(function(){
+                    localStorage.removeItem("pagenomdir");
+                    localStorage.removeItem("pagenomindex");
+                });
+            var x = localStorage.getItem("pagenomdir");
+            //alert(x);
+            if(x != 'null' && x != null)
+            {
+            loadhtml(x,orderby,ordertype)
+            }
+            });
           function  loadhtml(pageno,orderby,ordertype)
           {
+            localStorage.setItem("pagenomdir", pageno);
+            $('#paginationinput').val(pageno)
+
+
            jQuery('#preloading').fadeIn(1000);   
            $.ajax({
            type : 'POST',
