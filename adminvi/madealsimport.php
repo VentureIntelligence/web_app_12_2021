@@ -508,7 +508,7 @@
 	//echo "<br>Acquirer- " .$acquirername;
 	$dbaclinkss = new dbInvestments();
         
-	$getAcquirerSql="select * from acquirers where Acquirer like '$acquirername' and CityId like '$cityid' and countryid like '$countryid'";
+	$getAcquirerSql="select * from acquirers where Acquirer like '$acquirername'";
 
 
     // echo '<pre>'; print_r($seperate_field); echo '</pre>';  exit;
@@ -537,11 +537,15 @@
                     $rsgetPECompanyId = mysql_query($getAcquirerSql);
                     $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
 
+                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+
                     // echo '<pre>'; print_r($seperate_field['CityId']); echo '</pre>'; 
                     // echo '<pre>'; print_r($seperate_field['IndustryId']); echo '</pre>'; 
 
-                    // echo 'Industry__'.$industryid.'<br />';
+
                     // echo 'City__'.$cityid.'<br />';
+                    // echo 'Industry__'.$industryid.'<br />';
+                  
                    
                     // exit;
 
@@ -560,11 +564,10 @@
                         return $acquirerId;
 
                     }else{
-                        echo 'Mismatch Records...';
+                        // echo 'Mismatch Records...';
+                        return $acquirerId;
                     }
-
                     // exit;
-                    
                     
                 }
             }
@@ -636,10 +639,10 @@
                             //		echo "<br>Update Company- " .$updateCityCountrySql;
                         }
                             //	echo "<br>Insert return industry id--" .$companyId;
-                        return $companyId;
+                            return $companyId;
 
                     }else{
-                        echo 'Mismatch Records...';
+                        return $companyId;
                     }
                     // exit;
 
