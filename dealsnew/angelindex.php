@@ -2033,12 +2033,8 @@ if (!isset($_POST['tagsfield'])) {
                     return  false;
                 });
                 $( document ).ready(function() {
-                    $('#angelindex').click(function(){
-                    localStorage.removeItem("pagenoangelindex");
-                });
-
-
-                var x = localStorage.getItem("pagenoangelindex");
+               
+                var x = localStorage.getItem("pageno");
                 //alert(x);
                 if(x != 'null' && x != null)
                 {
@@ -2047,7 +2043,7 @@ if (!isset($_POST['tagsfield'])) {
                 });
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pagenoangelindex", pageno);
+                localStorage.setItem("pageno", pageno);
                 $('#paginationinput').val(pageno)
 
 

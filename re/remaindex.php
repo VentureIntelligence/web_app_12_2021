@@ -1719,14 +1719,8 @@
                     return  false;
                 });    
                     $( document ).ready(function() {
-                        $('#remaindex').click(function(){
-                    localStorage.removeItem("pagenoreindex");
-                    localStorage.removeItem("pagenoremandaindex");
-                    localStorage.removeItem("pagenoremaindex");
 
-                });
-
-                    var x = localStorage.getItem("pagenoremaindex");
+                    var x = localStorage.getItem("pageno");
                     //alert(x);
                     if(x != 'null' && x != null)
                     {
@@ -1735,7 +1729,7 @@
                     });    
                function loadhtml(pageno,orderby,ordertype)
                {
-                    localStorage.setItem("pagenoremaindex", pageno);
+                    localStorage.setItem("pageno", pageno);
                     $('#paginationinput').val(pageno)
 
 

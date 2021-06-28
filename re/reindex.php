@@ -2387,20 +2387,9 @@
                     return  false;
                 });        
                 $( document ).ready(function() {
-                    $('.popup_call').click(function(){
-                    localStorage.removeItem("pagenoreindex");
-                    localStorage.removeItem("pagenoremandaindex");
-                    localStorage.removeItem("pagenoremaindex");
+            
 
-                });
-                $('#pevchover').click(function(){
-                    localStorage.removeItem("pagenoreindex");
-                    localStorage.removeItem("pagenoremandaindex");
-                    localStorage.removeItem("pagenoremaindex");
-
-                });
-
-                var x = localStorage.getItem("pagenoreindex");
+                var x = localStorage.getItem("pageno");
                 //alert(x);
                 if(x != 'null' && x != null)
                 {

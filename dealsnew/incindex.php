@@ -1846,12 +1846,7 @@
                     return  false;
                 });   
                 $( document ).ready(function() {
-                    $('#incindex').click(function(){
-                    localStorage.removeItem("pagenoiciindex");
-                });
-
-
-                var x = localStorage.getItem("pagenoiciindex");
+                var x = localStorage.getItem("pageno");
                 //alert(x);
                 if(x != 'null' && x != null)
                 {
@@ -1860,7 +1855,7 @@
                 });
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pagenoiciindex", pageno);
+                localStorage.setItem("pageno", pageno);
                 $('#paginationinput').val(pageno)
 
                 var peuncheckVal = $( '#pe_checkbox_disbale' ).val();

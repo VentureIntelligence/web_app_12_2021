@@ -3749,12 +3749,7 @@ div.token-input-dropdown{
             });
      });        
              $( document ).ready(function() {
-                $('.mandaindex').click(function(){
-                    localStorage.removeItem("pagenomandaindex");
-                });
-
-
-            var x = localStorage.getItem("pagenomandaindex");
+            var x = localStorage.getItem("pageno");
             //alert(x);
             if(x != 'null' && x != null)
             {
@@ -3763,7 +3758,7 @@ div.token-input-dropdown{
             });       
           function loadhtml(pageno,orderby,ordertype)
           {
-            localStorage.setItem("pagenomandaindex", pageno);
+            localStorage.setItem("pageno", pageno);
             $('#paginationinput').val(pageno)
 
 

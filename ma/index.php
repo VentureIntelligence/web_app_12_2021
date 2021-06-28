@@ -2563,7 +2563,7 @@
 
                 $( document ).ready(function() {
 
-                    var x = localStorage.getItem("pagenomindex");
+                    var x = localStorage.getItem("pageno");
                     //alert(x);
                     if(x != 'null' && x != null)
                     {
@@ -2573,7 +2573,7 @@
 
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pagenomindex", pageno);
+                localStorage.setItem("pageno", pageno);
                 $('#paginationinput').val(pageno)
 
 
@@ -4289,12 +4289,7 @@ if($type==1){?>
                             $('.popup_close a').click(function(){
                                 $(".popup_main").hide();
                              });
-                             $('#dealsmenu').click(function(){
-                                localStorage.removeItem("pagenomdir");
-                                localStorage.removeItem("pagenomindex");
-
-
-                             });
+                       
                });
             </script>
             <style>

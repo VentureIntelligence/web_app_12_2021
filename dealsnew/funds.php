@@ -889,13 +889,10 @@ if($notable==false)
                     loadhtml(1,orderby,ordertype);
                     return  false;
                 }); 
+
                 $( document ).ready(function() {
-                    $('#funds').click(function(){
-                    localStorage.removeItem("pagenoDFunds");
-                });
 
-
-                var x = localStorage.getItem("pagenoDFunds");
+                var x = localStorage.getItem("pageno");
                 //alert(x);
                 if(x != 'null' && x != null)
                 {
@@ -904,7 +901,7 @@ if($notable==false)
                 });       
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pagenoDFunds", pageno);
+                localStorage.setItem("pageno", pageno);
                 $('#paginationinput').val(pageno);
 
                //alert(pageno+","+orderby+","+ordertype);

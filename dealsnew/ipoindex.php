@@ -2556,12 +2556,7 @@
 
      });              
         $( document ).ready(function() {
-            $('.ipoindex').click(function(){
-                    localStorage.removeItem("pagenoipoindex");
-                });
-
-
-        var x = localStorage.getItem("pagenoipoindex");
+        var x = localStorage.getItem("pageno");
         //alert(x);
         if(x != 'null' && x != null)
         {

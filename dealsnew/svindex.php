@@ -4853,12 +4853,8 @@ else
                 }
 
                 $( document ).ready(function() {
-                    $('.svindex').click(function(){
-                    localStorage.removeItem("pagenosvindex");
-                });
 
-
-                var x = localStorage.getItem("pagenosvindex");
+                var x = localStorage.getItem("pageno");
                 //alert(x);
                 if(x != 'null' && x != null)
                 {
@@ -4867,7 +4863,7 @@ else
                 });             
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pagenosvindex", pageno);
+                localStorage.setItem("pageno", pageno);
                 $('#paginationinput').val(pageno)
 
 
