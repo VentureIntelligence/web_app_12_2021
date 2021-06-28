@@ -173,7 +173,7 @@ $companyIdtoEdit=$stringtoExplode[1];
 			 pe.amount, pe.round,pe.StageId, s.REType, pe.stakepercentage, DATE_FORMAT( dates, '%M' )  as dates,
 			 pec.website, pe.city, pe.RegionId,r.Region, PEId,DATE_FORMAT( dates, '%Y' ) as dtyear,
 			 comment,MoreInfor,Validation,InvestorType,hidestake,hideamount,SPV,Link,pec.countryid,
-			 uploadfilename,source,Valuation,crossBorder,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status,dates as dataperiod
+			 uploadfilename,source,Valuation,FinLink,AggHide,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status,dates as dataperiod
 			FROM REinvestments AS pe, reindustry AS i, REcompanies AS pec,realestatetypes as s,region as r
 			WHERE pe.PEId =" .$SelCompRef .
 			" AND i.industryid =  pe.IndustryId and r.RegionId=pe.RegionId
@@ -189,7 +189,7 @@ $companyIdtoEdit=$stringtoExplode[1];
     $countrysql="select countryid,country from country where countryid NOT IN('','--','10','11') order by country asc";
 
 
-	//echo "<br>-------------".$getDatasql;
+//	echo "<br>-------------".$getDatasql;
 
 
 
