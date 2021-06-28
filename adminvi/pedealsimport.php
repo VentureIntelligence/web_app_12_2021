@@ -417,10 +417,9 @@
                                                                 //echo "<br>random MandAId--" .$PEId;
                                                                 $insertcompanysql="";
 
-                                                                $insertcompanysql= "INSERT INTO peinvestments (PEId,PECompanyId,dates,amount,Amount_INR,round,StageId,stakepercentage,comment,MoreInfor,Validation,InvestorType,Deleted,hideamount,hidestake,SPV,Link,uploadfilename,source,Valuation,FinLink,AggHide,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,Revenue,EBITDA,PAT,price_to_book,book_value_per_share,price_per_share,Company_Valuation_pre,Company_Valuation_EV,Revenue_Multiple_pre,Revenue_Multiple_EV,EBITDA_Multiple_pre,EBITDA_Multiple_EV,PAT_Multiple_pre,PAT_Multiple_EV,Total_Debt,Cash_Equ,financial_year)
-                                                                VALUES ($PEId,$companyId,'$fullDateAfter','$DealAmount','$amounttoUpdate_INR','$Round','$StageId',$stakepercentage,'$comment','$moreinfor', '$validation','$investortype',$flagdeletion,$hideamount,$hidestakevalue,$spvdebt,'$link','','$sourcename','$valuation','$finlink',$hideAggregatetoUpdate,$company_valuation1,$revenue_multiple1,$ebitda_multiple1,$pat_multiple1,'$listingstatusvalue',$exitstatusvalue,$revenue,$ebitda,$pat,$price_to_book,$book_value_per_share,$price_per_share,'$company_valuation','$company_valuation2','$revenue_multiple','$revenue_multiple2','$ebitda_multiple','$ebitda_multiple2','$pat_multiple','$pat_multiple2','$txttot_debt','$txtcashequ','$financial_year')";
+                                                                $insertcompanysql= "INSERT INTO peinvestments (PEId,PECompanyId,dates,amount,Amount_INR,round,StageId,stakepercentage,comment,MoreInfor,Validation,InvestorType,Deleted,hideamount,hidestake,SPV,Link,uploadfilename,source,Valuation,FinLink,AggHide,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,Revenue,EBITDA,PAT,price_to_book,book_value_per_share,price_per_share,Company_Valuation_pre,Company_Valuation_EV,Revenue_Multiple_pre,Revenue_Multiple_EV,EBITDA_Multiple_pre,EBITDA_Multiple_EV,PAT_Multiple_pre,PAT_Multiple_EV,Total_Debt,Cash_Equ,financial_year)VALUES ($PEId,$companyId,'$fullDateAfter','$DealAmount','$amounttoUpdate_INR','$Round','$StageId',$stakepercentage,'$comment','$moreinfor', '$validation','$investortype',$flagdeletion,$hideamount,$hidestakevalue,$spvdebt,'$link','','$sourcename','$valuation','$finlink',$hideAggregatetoUpdate,$company_valuation1,$revenue_multiple1,$ebitda_multiple1,$pat_multiple1,'$listingstatusvalue',$exitstatusvalue,$revenue,$ebitda,$pat,$price_to_book,$book_value_per_share,$price_per_share,'$company_valuation','$company_valuation2','$revenue_multiple','$revenue_multiple2','$ebitda_multiple','$ebitda_multiple2','$pat_multiple','$pat_multiple2','$txttot_debt','$txtcashequ','$financial_year')";
 
-                                                                //echo "<br>@@@@ :".$insertcompanysql;
+                                                                // echo "<br>@@@@ :".$insertcompanysql; exit;
                                                                 if ($rsinsert = mysql_query($insertcompanysql))
                                                                 {
                                                                     //echo "<br>Insert PE-" .$insertcompanysql;
@@ -626,11 +625,11 @@
 
 
 
-                    echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
-                    echo 'Industry__'.$industryId.'<br />';
-                    echo 'City__'.$city.'<br />';
-                    echo 'Sector__'.$sector.'<br />';
-                    echo 'Region__'.$regionId.'<br />';
+                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+                    // echo 'Industry__'.$industryId.'<br />';
+                    // echo 'City__'.$city.'<br />';
+                    // echo 'Sector__'.$sector.'<br />';
+                    // echo 'Region__'.$regionId.'<br />';
                     //  exit;
 
 
@@ -649,7 +648,7 @@
                             return $companyId;
 
                         }else{
-                            echo 'Mismatch Records...';
+                            return $companyId;
                         }
 
                         exit;
