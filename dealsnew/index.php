@@ -5206,12 +5206,7 @@ if ($type != 1) {
                 });
 
                 $( document ).ready(function() {
-                    $('#dealhover').click(function(){
-                    localStorage.removeItem("pageno");
-                });
-                $('.index').click(function(){
-                    localStorage.removeItem("pageno");
-                });
+            
 
                 var x = localStorage.getItem("pageno");
                 //alert(x);
@@ -11384,10 +11379,9 @@ if ($tourautostart != 'ON' && $popup_search == 0) {?>
                 $(document).ready(function(){
                  $('.popup_close a').click(function(){
                      $(".popup_main").hide();
-                     localStorage.removeItem("pageno");
-
                   });
                 });
+              
             </script>
             <style>
                 div.token-input-dropdown-facebook{

@@ -236,7 +236,7 @@ Deals</a>
     </div>
 </li>
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?> id="tour_directory"><a href="pedirview.php"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0){ echo "style=pointer-events:none"; } ?> id="funds" href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+<li id="funds" <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0){ echo "style=pointer-events:none"; } ?>  href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
 <script>
 $(document).ready(function() {    
     $(".vconly").hide();
@@ -304,7 +304,7 @@ $(document).ready(function() {
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?> id="tour_directory"><a href="pedirview.php?value=1"><i class="i-directory"></i>Directory</a></li>
 <li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['VCInv'] == 0){ echo "style=pointer-events:none"; } ?> id="funds" href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
 <script>
-$(document).ready(function() {    
+$(document).ready(function() {
     $(".peonly").hide();
     $(".peonly").attr('disabled','disabled');
     $(".vconly").attr('selected','selected');
@@ -367,12 +367,13 @@ $(document).ready(function() {
     </div>
  </li>
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?> id="tour_directory"><a href="pedirview.php?value=0"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0 && $usrRgs['VCInv'] == 0){ echo "style=pointer-events:none"; } ?> id="funds" href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+<li id="funds" <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0 && $usrRgs['VCInv'] == 0){ echo "style=pointer-events:none"; } ?>  href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
  <?php } ?>
 </ul>
 <script>
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
+        localStorage.removeItem("pageno");
         var url = $(this).attr('data-url'); 
         $.ajax({
             url: 'ajax_set_session.php',
@@ -383,6 +384,12 @@ $(document).ready(function() {
                 return true;
             }
         });
+    });
+    $(".tour-lock").on('click', function(e) {
+        //alert('hello');
+        localStorage.removeItem("pageno");
+
+
     });
 </script>
 

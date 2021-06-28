@@ -1126,7 +1126,12 @@ $('input[type="checkbox"]').click(evaluate).each(evaluate);*/
             }
         });
     });
+    $(".tour-lock").on('click', function(e) {
+        //alert('hello');
+        localStorage.removeItem("pageno");
 
+
+    });
     $("#searchkeywords").click(submitSearchRemove);
 
     $('#searchallfield').on('keyup', function(e){
