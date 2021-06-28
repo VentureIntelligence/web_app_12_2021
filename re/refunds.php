@@ -893,11 +893,8 @@
                     return  false;
                 });        
 				$( document ).ready(function() {
-					$('#refunds').click(function(){
-                    localStorage.removeItem("pagerefunds");
-                });
 
-				var x = localStorage.getItem("pagerefunds");
+				var x = localStorage.getItem("pageno");
 				//alert(x);
 				if(x != 'null' && x != null)
 				{
@@ -906,7 +903,7 @@
 				}); 
                function loadhtml(pageno,orderby,ordertype)
                {
-				localStorage.setItem("pagerefunds", pageno);
+				localStorage.setItem("pageno", pageno);
 				$('#paginationinput').val(pageno)
 
 
