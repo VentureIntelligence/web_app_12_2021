@@ -626,11 +626,11 @@
 
 
 
-                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
-                    // echo 'Industry__'.$industryId.'<br />';
-                    // echo 'City__'.$city.'<br />';
-                    // echo 'Sector__'.$sector.'<br />';
-                    // echo 'Region__'.$regionId.'<br />';
+                    echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+                    echo 'Industry__'.$industryId.'<br />';
+                    echo 'City__'.$city.'<br />';
+                    echo 'Sector__'.$sector.'<br />';
+                    echo 'Region__'.$regionId.'<br />';
                     //  exit;
 
 
@@ -641,18 +641,18 @@
 
                             echo 'Successfully Added';
                                 
-                        if($rscityCountrySql=mysql_query($updateCityCountrySql))
-                        {
-                //		echo "<br>Update Company- " .$updateCityCountrySql;
-                        }
-                        //echo "<br>Insert return industry id--" .$companyId;
-                        return $companyId;
+                            if($rscityCountrySql=mysql_query($updateCityCountrySql))
+                            {
+                                //		echo "<br>Update Company- " .$updateCityCountrySql;
+                            }
+                                //echo "<br>Insert return industry id--" .$companyId;
+                            return $companyId;
 
                         }else{
                             echo 'Mismatch Records...';
                         }
 
-                        // exit;
+                        exit;
                         
                     }
                 }

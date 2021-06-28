@@ -196,7 +196,11 @@
                             }
                             
                             $acq_industry_name = $rowData[0][16];
+
+                            // echo $acq_industry_name; exit;
+
                             $industrysql = "select industryid,industry from industry where industryid !=15 and industry='".trim($acq_industry_name)."'order by industry";
+                            
                             $industryid = 0;
                             if ($industryrs = mysql_query($industrysql))
                             {
@@ -204,12 +208,17 @@
                             }
                             if($ind_cnt>0)
                             {
-                                $myrow = mysql_fetch_row($industryrs, MYSQL_BOTH);
+                                $myrow = mysql_fetch_assoc($industryrs, MYSQL_BOTH);
+
+                                // echo '<pre>'; print_r($myrow); echo '</pre>'; exit;
 
                                 $acqindid = $myrow['industryid'];
+                                $acqindustryid = $myrow['industry'];
+
                                 mysql_free_result($industryrs);
                             }else{
                                 $acqindid = '';
+                                $acqindustryid = '';
                             }
 
                             $Acquirorgroup = $rowData[0][17];
@@ -530,26 +539,35 @@
                     $rsgetPECompanyId = mysql_query($getAcquirerSql);
                     $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
 
-                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+                    // echo '<pre>'; print_r($seperate_field['CityId']); echo '</pre>'; 
+                    // echo '<pre>'; print_r($seperate_field['IndustryId']); echo '</pre>'; 
 
                     // echo 'Industry__'.$industryid.'<br />';
                     // echo 'City__'.$cityid.'<br />';
                    
                     // exit;
 
-                    if($seperate_field['CityId'] == $city && $seperate_field['IndustryId'] == $industryid)
+                    if($seperate_field['CityId'] == $cityid && $seperate_field['IndustryId'] == $industryid)
                     {
                         // $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',countryid='$countryid',IndustryId='$industryid',Acqgroup='$group' where AcquirerId=$acquirerId";
 
                         $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',IndustryId='$industryid' where AcquirerId=$acquirerId";
 
-                    }else{}
-                    
-                    if($rsAcqcityCountrySql = mysql_query($updateAcqCityCountrySql))
-                    {
-                    //	/echo "<br>Acquirer Update-- ".$updateAcqCityCountrySql;
+                        echo 'Successfully Added';
+
+                        if($rsAcqcityCountrySql = mysql_query($updateAcqCityCountrySql))
+                        {
+                            //	/echo "<br>Acquirer Update-- ".$updateAcqCityCountrySql;
+                        }
+                        return $acquirerId;
+
+                    }else{
+                        echo 'Mismatch Records...';
                     }
-                    return $acquirerId;
+
+                    // exit;
+                    
+                    
                 }
             }
 	}
