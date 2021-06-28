@@ -1803,10 +1803,28 @@
                         ordertype="asc";
                     loadhtml(1,orderby,ordertype);
                     return  false;
-                });        
+                });    
+                $( document ).ready(function() {
+                    $('#remandaindex').click(function(){
+                    localStorage.removeItem("pagenoreindex");
+                    localStorage.removeItem("pagenoremandaindex");
+                    localStorage.removeItem("pagenoremaindex");
+
+                });
+
+                var x = localStorage.getItem("pagenoremandaindex");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });     
                function loadhtml(pageno,orderby,ordertype)
                {
-               
+                localStorage.setItem("pagenoremandaindex", pageno);
+                $('#paginationinput').val(pageno)
+
+
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
                 type : 'POST',

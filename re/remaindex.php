@@ -1717,10 +1717,28 @@
                         ordertype="asc";
                     loadhtml(1,orderby,ordertype);
                     return  false;
-                });        
+                });    
+                    $( document ).ready(function() {
+                        $('#remaindex').click(function(){
+                    localStorage.removeItem("pagenoreindex");
+                    localStorage.removeItem("pagenoremandaindex");
+                    localStorage.removeItem("pagenoremaindex");
+
+                });
+
+                    var x = localStorage.getItem("pagenoremaindex");
+                    //alert(x);
+                    if(x != 'null' && x != null)
+                    {
+                    loadhtml(x,orderby,ordertype)
+                    }
+                    });    
                function loadhtml(pageno,orderby,ordertype)
                {
-               
+                    localStorage.setItem("pagenoremaindex", pageno);
+                    $('#paginationinput').val(pageno)
+
+
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
                 type : 'POST',

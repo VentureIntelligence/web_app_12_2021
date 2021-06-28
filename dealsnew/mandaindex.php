@@ -3747,9 +3747,26 @@ div.token-input-dropdown{
             $( '#month2' ).on( 'change', function() {
                 $( '#period_flag' ).val(2);
             });
-     });              
+     });        
+             $( document ).ready(function() {
+                $('.mandaindex').click(function(){
+                    localStorage.removeItem("pagenomandaindex");
+                });
+
+
+            var x = localStorage.getItem("pagenomandaindex");
+            //alert(x);
+            if(x != 'null' && x != null)
+            {
+            loadhtml(x,orderby,ordertype)
+            }
+            });       
           function loadhtml(pageno,orderby,ordertype)
           {
+            localStorage.setItem("pagenomandaindex", pageno);
+            $('#paginationinput').val(pageno)
+
+
             var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
             var full_check_flag =  $( '#all_checkbox_search' ).val();//junaid
             var pecheckedVal = $( '#pe_checkbox_enable' ).val();//junaid

@@ -2032,12 +2032,25 @@ if (!isset($_POST['tagsfield'])) {
                     loadhtml(1,orderby,ordertype);
                     return  false;
                 });
-    $(document).ready(function(){
+                $( document ).ready(function() {
+                    $('#angelindex').click(function(){
+                    localStorage.removeItem("pagenoangelindex");
+                });
 
 
-          });
+                var x = localStorage.getItem("pagenoangelindex");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });
                function loadhtml(pageno,orderby,ordertype)
                {
+                localStorage.setItem("pagenoangelindex", pageno);
+                $('#paginationinput').val(pageno)
+
+
                 var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                 var full_check_flag =  $( '#all_checkbox_search' ).val();//junaid
                 var pecheckedVal = $( '#pe_checkbox_enable' ).val();//junaid

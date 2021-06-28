@@ -5206,6 +5206,12 @@ if ($type != 1) {
                 });
 
                 $( document ).ready(function() {
+                    $('#dealhover').click(function(){
+                    localStorage.removeItem("pageno");
+                });
+                $('.index').click(function(){
+                    localStorage.removeItem("pageno");
+                });
 
                 var x = localStorage.getItem("pageno");
                 //alert(x);
@@ -5220,6 +5226,8 @@ if ($type != 1) {
                 function loadhtml(pageno,orderby,ordertype)
                 {
                     localStorage.setItem("pageno", pageno);
+                    $('#paginationinput').val(pageno)
+
 
                     var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                     var full_check_flag =  $( '#all_checkbox_search' ).val();
@@ -11376,6 +11384,8 @@ if ($tourautostart != 'ON' && $popup_search == 0) {?>
                 $(document).ready(function(){
                  $('.popup_close a').click(function(){
                      $(".popup_main").hide();
+                     localStorage.removeItem("pageno");
+
                   });
                 });
             </script>
