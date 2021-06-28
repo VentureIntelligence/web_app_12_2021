@@ -640,19 +640,20 @@
                             $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
 
                             echo 'Successfully Added';
-
-                        }else{
-                            echo 'Mismatch Records...';
-                        }
-
-                        // exit;
-                            
+                                
                         if($rscityCountrySql=mysql_query($updateCityCountrySql))
                         {
                 //		echo "<br>Update Company- " .$updateCityCountrySql;
                         }
                         //echo "<br>Insert return industry id--" .$companyId;
                         return $companyId;
+
+                        }else{
+                            echo 'Mismatch Records...';
+                        }
+
+                        // exit;
+                        
                     }
                 }
                 //echo "<br>----****".$companyId;
