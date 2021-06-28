@@ -613,17 +613,19 @@
 
                         echo 'Successfully Added';
 
+                        if($rscityCountrySql=mysql_query($updateCityCountrySql))
+                        {
+                            //		echo "<br>Update Company- " .$updateCityCountrySql;
+                        }
+                            //	echo "<br>Insert return industry id--" .$companyId;
+                        return $companyId;
+
                     }else{
                         echo 'Mismatch Records...';
                     }
                     // exit;
 
-                    if($rscityCountrySql=mysql_query($updateCityCountrySql))
-                    {
-                        //		echo "<br>Update Company- " .$updateCityCountrySql;
-                    }
-                        //	echo "<br>Insert return industry id--" .$companyId;
-                    return $companyId;
+                   
                 }
             }
 		}
