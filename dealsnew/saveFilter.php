@@ -118,7 +118,7 @@
         $InvestorArray=array();
         if(isset($inv_investor_id))
         {
-        $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `Investor` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filtername.'"';
+        $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filtername.'"';
         // echo $sqlquery;exit();
         $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
         
@@ -168,7 +168,7 @@
    $InvestorArray=array();
    if(isset($inv_investor_id))
    {
-   $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `Investor` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
+   $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
    // echo $sqlquery;exit();
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
    
@@ -202,7 +202,7 @@
           AND pec.industry !=15
           AND peinv.PEId = pe.PEId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+          AND pe.Deleted=0 AND inv.`InvestorId` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
         }else{
           $sqlquery='SELECT  DISTINCT inv.* 
           FROM manda AS pe, pecompanies AS pec, manda_investors AS peinv, peinvestors AS inv
@@ -210,7 +210,7 @@
           AND pec.industry !=15
           AND peinv.MandAId = pe.MandAId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
+          AND pe.Deleted=0 and inv.InvestorId IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
         }
    //echo $sqlquery;exit();
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
