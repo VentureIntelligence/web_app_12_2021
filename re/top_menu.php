@@ -386,6 +386,8 @@ $(document).ready(function() {
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
         var url = $(this).attr('data-url'); 
+        localStorage.removeItem("pageno");
+
         $.ajax({
             url: 'ajax_set_session.php',
             type: 'POST',
