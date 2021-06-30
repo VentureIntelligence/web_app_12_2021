@@ -2257,6 +2257,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                 $total = $total;              
               }
             $totalpages=  ceil($total/$limit);
+            
             $firstpage=1;
             $lastpage=$totalpages;
             $prevpage=(( $page-1)>0)?($page-1):1;
@@ -2326,20 +2327,16 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             //  Next Pages
             if($page<$totalpages){
 
-                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li> ';
+                $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li><br /> <br /><center> <ul class = "pageul"> <li><input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "P.no"> </li> &nbsp;&nbsp; <li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();"></li> </ul></center>';
 
                 //echo $nextpage;
 
             } else {  
-                $paginationdiv.='<li class="arrow"><a >&raquo;</a></li></ul> <br />';
+                $paginationdiv.='<li class="arrow"><a >&raquo;</a></li></ul> <br /><center> <ul class = "pageul"> <li><input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "Page No"> </li> &nbsp;&nbsp; <li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();"></li> </ul></center>';
             }
 
        
-            
-            $paginationdiv.='<br /><br /><center> <ul class = "pageul"> <li><input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "Page No"> </li> &nbsp;&nbsp; <li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();"></li> </ul></center> <br /><br />' ;  
-            
-           // echo $page.'<br />';
-            //echo $_POST['paginationinput'];
+  
             
             $template->assign("paginationdiv",$paginationdiv);
         }
@@ -2475,7 +2472,7 @@ function paginationfunc()
     /* margin-top: -45px !important; */
 }
 .inputpagination{
-    width:70px !important;
+    width:65px !important;
     height: 26px !important;
     /* margin: 0 10px !important; */
 }
@@ -2483,5 +2480,11 @@ function paginationfunc()
 .pageul{
     margin-left: 40% !important;
     /* padding:5%; */
+    text-align: center;   
 }
+
+input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
 </style>
