@@ -2925,7 +2925,7 @@ include_once('mandarefine.php');
           <!-- </div> -->
           <center>
           <div class="pagination-section">
-            <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+            <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
             <button class = "jp-page1 button pagevalue" name="pagination"  id = "pagination" type="submit" onclick = "validpagination()">Go</button>
         </div>
         </center>
@@ -11502,7 +11502,7 @@ mysql_close();
     <style>
 
 .paginationtextbox{
-        width:6%;
+        width:4%;
         padding: 3px;
     }
         .button{
@@ -11521,5 +11521,10 @@ mysql_close();
         position: absolute;
 
 left: 40%;
+    }
+
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
     }
     </style>

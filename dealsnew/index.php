@@ -4660,8 +4660,8 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
          
         <!-- </div>   -->
         <center>
-        <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
+        <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+        <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
 
             <?php
 
@@ -11988,9 +11988,15 @@ echo $user_browser;?>
 
 <style>
     .paginationtextbox{
-        width:6%;
+        width:4.5%;
         padding: 3px;
     }
+
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
+
     .button{
     background-color: #a2753a; /* Green */
   border: none;
