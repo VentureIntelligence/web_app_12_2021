@@ -1244,7 +1244,9 @@ $( document ).ready( function() {
     $(".ttl3").click(function() {
         $(this).toggleClass('active').next('.frmDropDown').toggleClass("active");
      });
-     
+     $(".tour-lock").on('click', function(e) {
+        localStorage.removeItem("pageno");
+    });
     
 </script> 
 <style>
