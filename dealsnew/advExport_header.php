@@ -2359,7 +2359,7 @@
          var companyName=$('#companyName').val();
          for(i=0;i<selectedValues.length;i++)
          {
-         investornameArray.push(selectedValues[i]["name"])
+         investornameArray.push(selectedValues[i]["id"])
          }
          var editfilterId=globalfilterId;
          }
@@ -2381,7 +2381,7 @@
          var companyName=$('#companyName').val();
          for(i=0;i<selectedValues.length;i++)
          {
-         investornameArray.push(selectedValues[i]["name"])
+         investornameArray.push(selectedValues[i]["id"])
          }
          
          }
