@@ -1545,7 +1545,7 @@
                        <div class="showhide-link" id="trendnav" style="z-index: 100000"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
                             <div  id="slidingTable" style="display: none;overflow:hidden;">
                                <?php
-                             include_once("rematrendview.php");
+                            //  include_once("rematrendview.php");
                                ?>   
                                <table width="100%">
 				<?php
@@ -3080,7 +3080,7 @@ if($_GET['type']!="")
 
 <style>
         .paginationtextbox{
-            width:2.6%;
+            width:3%;
             padding: 3px;
         }
 
