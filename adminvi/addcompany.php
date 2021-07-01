@@ -97,7 +97,7 @@ require("checkaccess.php");
 	{
 		$RElogin=0;
 	}
-        //echo $MAlogin."====".$RElogin;
+      //  echo $MAlogin."====".$RElogin;exit();
 	if($_POST['txtStudent'])
         {
                 $student=1;
@@ -336,6 +336,13 @@ require("checkaccess.php");
                 }else{
                     $ctech = 0;
                 }
+                $valInfo=$_POST['valInfo'];
+                if($_POST['valInfo']){
+                    $valInfo=1;
+                }else{
+                    $valInfo = 0;
+                }
+               // echo $valInfo;exit();
                 $mobappArray=$_POST['mobappaccess'];
                 if($_POST['mobappaccess']){
                     $mobapp=1;
@@ -353,6 +360,7 @@ require("checkaccess.php");
                 $custom_export_limit=$_POST['exp_limit'];
                     
                 $getcompNameSql = "select DCompId,DCompanyName from dealcompanies where DCompanyName LIKE '%".trim($comp)."%'";
+                //echo $getcompNameSql;exit();
                 $rscom = mysql_query($getcompNameSql);
                 $companynum_rows = mysql_num_rows($rscom);
                 
@@ -370,10 +378,10 @@ require("checkaccess.php");
                 }else{
                 
                     $insSql= "insert into dealcompanies(DCompId,DCompanyName,Deleted,ExpiryDate,TrialLogin,Student,REInv,PEInv,VCInv,PEIpo,VCIpo,PEMa,VCMa,PEDir,VCDir,SPDir,MAMA,
-                    Inc,AngelInv,SVInv,IfTech,CTech,PE_backDir,VC_backDir,peindustries,maindustries,LPDir,mobile_access,custom_limit_enable,custom_export_limit) values ($DCompId,'$comp',0,'$ExpiryDate',$trial,$student,$RElogin,$PEInv,$VCInv,$PEIpo,$VCIpo,$PEMa,$VCMa,
-                    $PEDir,$CODir,$SPDir,$MAlogin,$Inc,$angelInv,$sv,$itech,$ctech,$PE_back,$VC_back,'$PEindustry','$MAindustry',$LPDir,$mobapp,$custom_limit_enable,$custom_export_limit)";
+                    Inc,AngelInv,SVInv,IfTech,CTech,valInfo,PE_backDir,VC_backDir,peindustries,maindustries,LPDir,mobile_access,custom_limit_enable,custom_export_limit) values ($DCompId,'$comp',0,'$ExpiryDate',$trial,$student,$RElogin,$PEInv,$VCInv,$PEIpo,$VCIpo,$PEMa,$VCMa,
+                    $PEDir,$CODir,$SPDir,$MAlogin,$Inc,$angelInv,$sv,$itech,$ctech,$valInfo,$PE_back,$VC_back,'$PEindustry','$MAindustry',$LPDir,$mobapp,$custom_limit_enable,'$custom_export_limit')";
                
-                    //echo "<Br> Insert company-" .$insSql;
+                    //echo "<Br> Insert company-" .$insSql;exit();
                     if ($rsinsert = mysql_query($insSql))
                     {
                         if($MailArrayLength > 0 && $_POST['type_field']==1)
@@ -390,7 +398,7 @@ require("checkaccess.php");
                                     {
                                         $insMemberSql= "insert into malogin_members(DCompId,EmailId,Passwrd,Name,Deleted) values
                                         ($DCompId,'$MailtoInsert','$PwdtoInsert','$NametoInsert',$deleted)";
-                                        //echo "<br>Ins MA Lgoin For new-" .$insMemberSql;
+                                        echo "<br>Ins MA Lgoin For new-" .$insMemberSql;
 
                                         if ($rsMemberinsert = mysql_query($insMemberSql))
                                         {
@@ -1076,6 +1084,8 @@ require("checkaccess.php");
 						<th>SV-<Br /> Inv</th>
 						<th>If-<br />Tech</th>
 						<th>CTech</th>
+                        <th>W/0 val.</th>
+
                                             </tr>
 
                                             <tr>
@@ -1099,6 +1109,8 @@ require("checkaccess.php");
                                                 <td align=center><input name="SVInv" class="vconly" type="checkbox" value="1" <?php echo $sv; ?> ></td>
                                                 <td align=center><input name="IfTech" class="peonly" type="checkbox" value="1" <?php echo $itech; ?> ></td>
                                                 <td align=center><input name="CTech" class="peonly" type="checkbox" value="1" <?php echo $ctech; ?> ></td>
+                                                <td align=center><input name="valInfo" class="peonly" type="checkbox" value="1" <?php echo $valInfo; ?> ></td>
+
                                             </tr> 
                                         </table>
                                         
