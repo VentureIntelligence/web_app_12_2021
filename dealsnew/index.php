@@ -12025,7 +12025,7 @@ echo $user_browser;?>
 
 <style>
     .paginationtextbox{
-        width:4.5%;
+        width:3%;
         padding: 3px;
     }
 

@@ -3013,7 +3013,7 @@ if($_GET['type']!="")
 
 <style>
         .paginationtextbox{
-            width:4%;
+            width:2.6%;
 			padding: 3px;
         }
 

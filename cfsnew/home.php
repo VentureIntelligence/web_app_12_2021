@@ -2340,7 +2340,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
             }
 
 
-            
+
        
   
             
@@ -2478,7 +2478,7 @@ function paginationfunc()
     /* margin-top: -45px !important; */
 }
 .inputpagination{
-    width:65px !important;
+    width:50px !important;
     height: 26px !important;
     /* margin: 0 10px !important; */
 }
