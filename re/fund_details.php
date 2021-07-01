@@ -65,7 +65,11 @@
             $exportToExcel = $trialrow["TrialLogin"];
         }
     }
-    
+    $month1=($_REQUEST['month1'] || ($_REQUEST['month1']!="")) ?  $_REQUEST['month1'] : date('n');
+    $year1 = ($_REQUEST['year1'] || ($_REQUEST['year1']!="")) ?  $_REQUEST['year1'] : date('Y', strtotime(date('Y')." -1  Year"));
+    $month2=($_REQUEST['month2'] || ($_REQUEST['month2']!="")) ?  $_REQUEST['month2'] : date('n');
+    $year2 = ($_REQUEST['year2'] || ($_REQUEST['year2']!="")) ?  $_REQUEST['year2'] : date('Y');
+
 	include_once('reindex_search.php');
 ?>
    
