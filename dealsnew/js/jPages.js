@@ -60,7 +60,13 @@
     this._itemsHiding = $([]);
 
     this._numPages = Math.ceil(this._items.length / this.options.perPage);
+
+    if(localStorage.getItem("pageno") != "null" && localStorage.getItem("pageno") !=null){
+      this._currentPageNum =localStorage.getItem("pageno");
+    }
+    else{
     this._currentPageNum = this.options.startPage;
+    }
 
     this._clicked = false;
     this._cssAnimSupport = this.getCSSAnimationSupport();
@@ -316,6 +322,8 @@
     },
 
     paginate : function(page) {
+      localStorage.setItem("pageno", page);
+
       var itemRange, pageInterval;
       itemRange = this.updateItems(page);
       pageInterval = this.updatePages(page);

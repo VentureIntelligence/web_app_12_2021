@@ -108,6 +108,8 @@ if($search_export_value !=''){
             $input_where = '';
             for($h=0;$h<count($ex_search_export_value);$h++){
                 $txt = trim($ex_search_export_value[$h]);
+                $searchbyvalue = $_GET['searchbyvalue'];
+
                 if($txt !=''){
                     $txt=str_replace("'", "\\'", $txt);
 
@@ -142,9 +144,13 @@ if($search_export_value !=''){
         }
         $template->assign("searchv",$search_export_value);
         $template->assign("searchSubmit",'1');
+        $template->assign("searchby",$searchbyvalue);
+
     }else{
         $template->assign("searchv","");    
-        $template->assign("searchSubmit",'');    
+        $template->assign("searchSubmit",'');  
+        $template->assign("searchby",'0');
+  
     }
 
 $getgroupid = $users->select($_SESSION["user_id"]);
@@ -1678,6 +1684,7 @@ include "ratiobasedfilter.php";
                                 $total = $plstandard->SearchHomecount($whereHomeCountNew,$group,$maxFYQuery,$acrossallRFlag);
                             }
                         }
+                        //echo $order2;exit();
                 $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery);
             }
             $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery);

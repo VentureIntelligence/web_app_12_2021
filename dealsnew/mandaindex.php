@@ -2887,6 +2887,7 @@ include_once('mandarefine.php');
                 <input type="hidden" name="hide_company_array" id="hide_company_array" value="<?php echo $_POST[ 'pe_hide_companies' ]; ?>">
                 
            <?php } ?>
+           <!-- <div class="pageinationManual"> -->
         <div class="holder" style="float:none; text-align: center;">
         <div class="paginate-wrapper" style="display: inline-block;">
           <?php
@@ -2926,6 +2927,14 @@ include_once('mandarefine.php');
           <?php  } ?>
           </div>
         </div>
+       
+          <!-- </div> -->
+          <center>
+          <div class="pagination-section">
+            <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" name="pagination"  id = "pagination" type="submit" onclick = "validpagination()">Go</button>
+        </div>
+        </center>
         <?php
         }
         
@@ -3445,7 +3454,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                      include_once("mandatrendview.php");
+                     include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -3695,17 +3704,25 @@ div.token-input-dropdown{
            $(".jp-next").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#next").val();
+               $("#paginationinput").val('');
                loadhtml(pageno,orderby,ordertype);}
                return  false;
            });
            $(".jp-page").live("click",function(){
                pageno=$(this).text();
+               $("#paginationinput").val('');
+               loadhtml(pageno,orderby,ordertype);
+               return  false;
+           });
+           $(".jp-page1").live("click",function(){
+               pageno=$(this).val();
                loadhtml(pageno,orderby,ordertype);
                return  false;
            });
            $(".jp-previous").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#prev").val();
+               $("#paginationinput").val('');
                loadhtml(pageno,orderby,ordertype);
                }
                return  false;
@@ -3730,9 +3747,21 @@ div.token-input-dropdown{
             $( '#month2' ).on( 'change', function() {
                 $( '#period_flag' ).val(2);
             });
-     });              
+     });        
+             $( document ).ready(function() {
+            var x = localStorage.getItem("pageno");
+            //alert(x);
+            if(x != 'null' && x != null)
+            {
+            loadhtml(x,orderby,ordertype)
+            }
+            });       
           function loadhtml(pageno,orderby,ordertype)
           {
+            localStorage.setItem("pageno", pageno);
+            $('#paginationinput').val(pageno)
+
+
             var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
             var full_check_flag =  $( '#all_checkbox_search' ).val();//junaid
             var pecheckedVal = $( '#pe_checkbox_enable' ).val();//junaid
@@ -11460,3 +11489,60 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 mysql_close();
     mysql_close($cnx);
     ?>
+
+<script>
+    function paginationfun(val)
+    {
+        $(".pagevalue").val(val);
+    }
+    function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
+    var wage = document.getElementById("paginationinput");
+                wage.addEventListener("keydown", function (e) {debugger;
+                    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                        //paginationForm();
+                        event.preventDefault();
+                        document.getElementById("pagination").click();
+
+                    }
+                })
+    </script>
+
+    <style>
+
+.paginationtextbox{
+        width:2.6%;
+        padding: 3px;
+    }
+        .button{
+        background-color: #a2753a; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+        }
+
+        .pageinationManual{
+        display: flex;
+        position: absolute;
+
+left: 40%;
+    }
+
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
+    </style>

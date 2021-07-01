@@ -801,7 +801,7 @@ $whereaddHideamount="";
         if($valCount > 0){
 
         foreach($iterator as $object){
-            //echo $object['Key'] . "<br>";
+            //echo json_encode(explode("/", $object['Key'])) . "<br>";
              $fileName =  $object['Key'];
 
             if($object['Size'] == 0){
@@ -809,7 +809,8 @@ $whereaddHideamount="";
                 //echo sizeof($foldername) . "<br>";print_r($foldername);
             } 
             
-
+            if($foldername[1] == $_GET['cname'])
+            {
             // Get a pre-signed URL for an Amazon S3 object
             $signedUrl = $client->getObjectUrl($bucket, $fileName, '+60 minutes');
             // > https://my-bucket.s3.amazonaws.com/data.txt?AWSAccessKeyId=[...]&Expires=[...]&Signature=[...]
@@ -853,6 +854,7 @@ $whereaddHideamount="";
             //}
 
             array_push($items, array('name'=>$str) );
+            }
 
         }   // foreach
 
@@ -1741,14 +1743,18 @@ include_once($refineUrl); ?>
                                             <?php }?> 
                                             </td>
                                         </tr>
-                                        <!-- <tr class="table_heading_tr">
+                                       
+
+                                        <tr class="table_heading_tr">
                                             <td>Others</td>
                                             <td>
-                                            <?php if($mainTable_Others != "--"){ ?>  
-                                                    <esop><?php echo $mainTable_Others; ?>%</esop>
-                                                <?php }else{ ?>
-                                                    <esop>--</esop>        
-                                            <?php }?>  
+                                            <promoters_percentage style="float:right;font-weight: 100;">
+                                                <?php
+                                                    if($mainTable_Others != ""){
+                                                        echo $mainTable_Others."%";
+                                                    } 
+                                                ?>
+                                            </promoters_percentage>
                                             </td>
                                         </tr> -->
 
@@ -1771,6 +1777,7 @@ include_once($refineUrl); ?>
                                         if ($rsothers = mysql_query($getOthersSql))
                                         {
                                             $validate_others = mysql_num_rows($rsothers);
+                                            
                                             if($validate_others != 0)
                                             {
                                                 $i=0;

@@ -1115,6 +1115,8 @@ $('input[type="checkbox"]').click(evaluate).each(evaluate);*/
 <script>
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
+        localStorage.removeItem("pageno");
+
         var url = $(this).attr('data-url');
         $.ajax({
             url: 'ajax_set_session.php',
@@ -1126,7 +1128,12 @@ $('input[type="checkbox"]').click(evaluate).each(evaluate);*/
             }
         });
     });
+    $(".tour-lock").on('click', function(e) {
+        //alert('hello');
+        localStorage.removeItem("pageno");
 
+
+    });
     $("#searchkeywords").click(submitSearchRemove);
 
     $('#searchallfield').on('keyup', function(e){

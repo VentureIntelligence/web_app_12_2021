@@ -1053,7 +1053,7 @@ function updateDownload($res){
 //                    echo $_REQUEST['txthideinvestorId']."<br>---" .$sql;
 //                   exit();
                     //execute query
-                  //  echo $sql;exit();
+                  // echo $sql;exit();
                    $result = @mysql_query($sql)
                         or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
                    updateDownload($result);
@@ -1174,6 +1174,7 @@ function updateDownload($res){
                                 $schema_insert .=trim($row[5]).$sep; //address line 2
                                 $schema_insert .=trim($row[6]).$sep; //city
 
+                                
                                 if($isUpdated == true){
                                     $schema_insert .=trim($row[37]).$sep; //country
                                 } else {
@@ -1238,7 +1239,7 @@ function updateDownload($res){
                             if($pe_vc_flag!=2){
 
                                 if($isUpdated == true){
-                                    $schema_insert .=$row[36].$sep; // focuscapsource
+                                    $schema_insert .=$row[38].$sep; // focuscapsource
                                 } else {
                                     //$schema_insert .=$row[30].$sep;
                                     if ($row[30] != "" && $row[30] > 0) { 
@@ -1297,7 +1298,7 @@ function updateDownload($res){
                                 }
 
                                 if($isUpdated == true){
-                                    $schema_insert .=$row[34].$sep; //Preferred Stage of funding
+                                    $schema_insert .=$row[36].$sep; //Preferred Stage of funding
                                 } else {
                                     $stageSql= "select distinct s.Stage,pe.StageId,peinv_inv.InvestorId
                                     from peinvestments_investors as peinv_inv,peinvestors as inv,peinvestments as pe,stage as s
