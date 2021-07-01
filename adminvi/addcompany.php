@@ -165,7 +165,7 @@ require("checkaccess.php");
                         {
                             $insMemberSql= "insert into malogin_members(DCompId,EmailId,Passwrd,Name,Deleted) values
                             ($companyIdAgainforMem,'$MailtoInsert','$PwdtoInsert','$NametoInsert',$deleted)";
-                            echo "<br>Ins MA Lgoin For new-" .$insMemberSql;
+                            //echo "<br>Ins MA Lgoin For new-" .$insMemberSql;
                             if ($rsMemberinsert = mysql_query($insMemberSql))
                             {
                                 echo "---".$MailtoInsert." deal member inserted for MA LOGIN--<br>";
