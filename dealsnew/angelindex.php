@@ -2893,7 +2893,7 @@ mysql_close($cnx);
     <style>
 
 .paginationtextbox{
-        width:4%;
+        width:3%;
         padding: 3px;
     }
 

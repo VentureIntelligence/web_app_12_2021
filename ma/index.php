@@ -4544,7 +4544,7 @@ if($countryheight>'100')
     <style>
         
 .paginationtextbox{
-        width:4.5%;
+        width:3.5%;
         padding: 3px;
     }
     input[type='text']::placeholder

@@ -1292,7 +1292,7 @@ if($notable==false)
     <style>
 
 .paginationtextbox{
-        width:4%;
+        width:2.5%;
         padding: 3px;
     }
     .button{

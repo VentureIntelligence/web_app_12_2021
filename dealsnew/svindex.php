@@ -12435,7 +12435,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
     <style>
  .paginationtextbox{
-        width:4%;
+        width:3%;
         padding: 3px;
     }
         .button{

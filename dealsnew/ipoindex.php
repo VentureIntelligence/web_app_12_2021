@@ -2362,7 +2362,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-    include_once("ipotrendview.php");
+    // include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php
@@ -10172,7 +10172,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     <style>
 
     .paginationtextbox{
-        width:4%;
+        width:2.6%;
         padding: 3px;
     }
 
