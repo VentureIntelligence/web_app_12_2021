@@ -10172,7 +10172,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     <style>
 
     .paginationtextbox{
-        width:2.6%;
+        width:3%;
         padding: 3px;
     }
 
