@@ -177,7 +177,7 @@
   			*/
                                 $sql = $_POST['sqlquery'];
 
-                                // echo '<pre>'; print_r($sql); echo '</pre>';  
+                                // echo '<pre>'; print_r($sql); echo '</pre>';   
 
   				 //$sql=$getcompanySql;
 				//echo "<br>---" .$sql;
@@ -201,10 +201,10 @@
 				 //header info for browser: determines file type ('.doc' or '.xls')
 
 
-				 header("Content-Type: application/$file_type");
-				 header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
-				 header("Pragma: no-cache");
-				 header("Expires: 0");
+				//  header("Content-Type: application/$file_type");
+				//  header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
+				//  header("Pragma: no-cache");
+				//  header("Expires: 0");
 
 				 /*    Start of Formatting for Word or Excel    */
 				 /*    FORMATTING FOR EXCEL DOCUMENTS ('.xls')   */
@@ -353,8 +353,8 @@
 
 				     while($row = mysql_fetch_row($result))
 				     {
-                        //  echo '<pre>'; print_r($row[3]); echo '</pre>'; 
-
+                         echo '<pre>'; print_r($row); echo '</pre>';  exit;
+  
                          $industry_name = "SELECT industry FROM industry WHERE industryid = '$row[3]'";
 
                         //  echo $industry_name; exit;
@@ -364,7 +364,7 @@
 
                         // echo '<pre>';   print_r( $ind_name['industry']);   echo '</pre>'; exit;
 
-                        //  echo $industry_name; exit;
+                        //  echo $ind_name['industry']; exit;
 
 				         //set_time_limit(60); // HaRa
 				         $schema_insert = "";
@@ -386,7 +386,7 @@
                                            $schema_insert = "";
 
                                             $schema_insert .=$row[2].$sep; //Companyname
-                                            $schema_insert .=$$ind_name['industry']; //Industry
+                                            $schema_insert .=$ind_name['industry'].$sep; //Industry
                                             $schema_insert .=$row[4].$sep; //sector
                                             $schema_insert .=$row[11].$sep; //Stock code
                                             $schema_insert .=$row[12].$sep; //Year founded
