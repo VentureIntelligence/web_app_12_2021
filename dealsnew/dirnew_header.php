@@ -357,15 +357,12 @@ $(document).ready(function(){
 
 
 
-$('input').on( ifCreated ifClicked ifChanged ifChecked ifUnchecked ifDisabled ifEnabled ifDestroyed check ', function(event){                
-       alert($(this).val());
-})
+
 
     $(document).ready(function(){
       $('input').iCheck({
         checkboxClass: 'icheckbox_flat-red',
         radioClass: 'iradio_flat-red'
-
       });
     });
 </script>   
@@ -1249,11 +1246,14 @@ $( document ).ready( function() {
         localStorage.removeItem("pageno");
 
      });
-     $('.show-nav').click(function() {
+     $(document).ready(function(){
+    $('.show-nav').on('ifChanged', function(event){
       localStorage.removeItem("pageno");
 
-    
+});    
+
 });
+       
     
 </script> 
 <style>

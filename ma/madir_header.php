@@ -316,7 +316,8 @@ $(document).ready(function(){
        $("#disselect").find(':input').prop("disabled", true);  
        
         $('.show-nav').on('ifChecked', function(event){
-            
+          localStorage.removeItem("pageno");
+
             $("#pesearch").submit();
         });
 });
@@ -478,6 +479,7 @@ if($passwrd != 'P')
 }
 ?>
 <script>
+
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
         localStorage.removeItem("pageno");
