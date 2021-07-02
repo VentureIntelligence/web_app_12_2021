@@ -143,11 +143,17 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                             </div>
                         </div>
                         <div id="formtextpro" >
-                          <h3 style="float:left;">Company:</h3>
+                        <div class="display:flex">
+                          <h3 style="float:left;    padding: 5px;">Company:</h3>
  
-                        <input type="text" name="companyauto_sug" id="companyauto_sug" autocomplete="off"><br><br>
-                        <input type="checkbox" name="allcompanyauto_sug" id="allcompanyauto_sug" value=0><br><br>
+                        <input type="text" name="companyauto_sug" id="companyauto_sug" autocomplete="off">
+                        </div> 
+                        <div class="display:flex">
+ 
+                        <h3 style="float:left;    padding: 5px;">All:</h3>
 
+                        <input type="checkbox" name="allcompanyauto_sug" id="allcompanyauto_sug" value=0 style="    margin: 19px;">
+                        </div>
                         <input type="submit" value="Export" style="float:right"><br><br><br><br>
 
 

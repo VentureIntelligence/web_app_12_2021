@@ -18,6 +18,7 @@ if($keycheck == 1){
     while($row = mysql_fetch_assoc($sql)){
         $json[] = $row['PECompanyId'];
    }
+   //print_r(count($json));exit();
    $keyword=implode(',',$json);
   // echo json_encode($json );exit();
 
@@ -28,68 +29,19 @@ $keyword = $_POST['companyauto_sug'];
 }
 //echo $keyword;exit();
 
-$sql="SELECT Distinct pe.pecompanyid                                     AS PECompanyId,
+$sql="SELECT DISTINCT pec.pecompanyid     AS PECompanyId,
 pec.companyname,
 pec.industry,
-pe.dates                                           AS dates,
-i.industry                                         AS industry,
-pec.sector_business                                AS sector_business,
-amount,
-pe.amount_inr,
-round,
-s.stage,
-stakepercentage,
-Date_format(dates, '%b-%Y')                        AS dealperiod,
+i.industry          AS industry,
+pec.sector_business AS sector_business,
 pec.website,
 pec.city,
-pec.region,
-pe.peid,
-pe.comment,
-pe.moreinfor,
-hideamount,
-hidestake,
-pe.stageid,
-spv,
-pec.regionid,
-agghide,
-pe.exit_status,
-(SELECT Group_concat(inv.investor ORDER BY investor='others' SEPARATOR
-        ', ')
- FROM   peinvestments_investors AS peinv_inv,
-        peinvestors AS inv
- WHERE  peinv_inv.peid = pe.peid
-        AND inv.investorid = peinv_inv.investorid) AS Investor,
-(SELECT Count(inv.investor)
- FROM   peinvestments_investors AS peinv_inv,
-        peinvestors AS inv
- WHERE  peinv_inv.peid = pe.peid
-        AND inv.investorid = peinv_inv.investorid) AS Investorcount
-FROM   peinvestments AS pe
-JOIN pecompanies AS pec
-  ON pec.pecompanyid = pe.pecompanyid
-JOIN peinvestments_investors AS peinv_inv
-  ON peinv_inv.peid = pe.peid
-JOIN peinvestors AS inv
-  ON inv.investorid = peinv_inv.investorid
+pec.OtherLocation
+FROM  pecompanies AS pec
 JOIN industry AS i
   ON pec.industry = i.industryid
-JOIN stage AS s
-  ON s.stageid = pe.stageid
 WHERE  pec.pecompanyid IN( $keyword )
-AND dates BETWEEN '1998-1-01' AND '2021-7-31'
-AND pe.deleted = 0
-AND pec.industry != 15
-AND pe.peid NOT IN (SELECT peid
-                    FROM   peinvestments_dbtypes AS db
-                    WHERE  dbtypeid = 'SV'
-                           AND hide_pevc_flag = 1)
-AND pec.industry IN ( 49, 14, 9, 25,
-                      24, 7, 4, 16,
-                      17, 23, 3, 21,
-                      1, 2, 10, 54,
-                      18, 11, 66, 106,
-                      8, 12, 22 )
-GROUP  BY pe.pecompanyid ";
+";
 //echo $sql;exit();
 //execute query
 $result = mysql_query($sql) or die(mysql_error());
@@ -157,26 +109,24 @@ $exportvalue = "Company Name,Industry,Sector,Website,Location";
     $col = 0;  
     
         if(isset($rows['PEId'])){
-            $PEId = $rows['PEId'];
+            $PEId = $rows['pecompanyid'];
         }else{
-            $PEId = $rows[15];
+            $PEId = $rows[0];
         }
-        
-        $companiessql = "select Distinct pe.PEId,pe.PEId, pec.OtherLocation, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,DATE_FORMAT(dates,'%b-%y') as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
-                LEFT JOIN pecompanies as pec
-                ON pec.PEcompanyID = pe.PECompanyID
-                LEFT JOIN industry as i
-                ON pec.industry = i.industryid
-                LEFT JOIN stage as s
-                ON pe.StageId=s.StageId
-                LEFT JOIN country as c
-                ON c.countryid=pec.countryid
-                LEFT JOIN region as r
-                ON r.RegionId=pec.RegionId OR (pec.RegionId=0 and r.RegionId=1)
-                LEFT JOIN investortype as it ON it.InvestorType = pe.InvestorType 
-                where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE  hide_pevc_flag =1 ) order by companyname";
-        
-               // echo $companiessql;exit();
+        //echo $PEId;exit();
+        $companiessql = "SELECT DISTINCT pec.pecompanyid     AS PECompanyId,
+        pec.companyname,
+        pec.industry,
+        i.industry          AS industry,
+        pec.sector_business AS sector_business,
+        pec.website,
+        pec.city,
+        pec.OtherLocation
+        FROM  pecompanies AS pec
+        JOIN industry AS i
+          ON pec.industry = i.industryid
+        WHERE  pec.pecompanyid =$PEId ";   
+              //  echo $companiessql;exit();
         $result2 = mysql_query($companiessql) or die( mysql_error() );
         $row = mysql_fetch_row($result2);
         
@@ -186,27 +136,27 @@ $exportvalue = "Company Name,Industry,Sector,Website,Location";
     
         if(in_array("Company Name", $rowArray))
             {
-                $DataList[] = $row[7];
+                $DataList[] = $row[1];
             }
           
            
             if(in_array("Industry", $rowArray))
             {
-                $DataList[] = $row[8];
+                $DataList[] = $row[3];
             }
             if(in_array("Sector", $rowArray))
             {
-                $DataList[] = $row[9];
+                $DataList[] = $row[4];
             }
 
          
             if(in_array("Website", $rowArray))
             {
-                $DataList[] = $row[16];
+                $DataList[] = $row[5];
             }
             if(in_array("Location", $rowArray))
             {
-                $DataList[] = $row[2];
+                $DataList[] = $row[7];
             }
                 
         
