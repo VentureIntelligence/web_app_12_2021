@@ -10,7 +10,7 @@
 <style>
 #vertbgproproducts{
    
-    height: 1030px;
+    height: 1200px;;
 } 
 </style>
 <div id="leftpanel">
@@ -173,6 +173,12 @@
         </div> -->
         <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
 
+        <div id="vertMenu">
+            <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Export Companies</span></div>
+        </div>
+        <div id="linksnone">
+            <a href="../adminvi/ExportDeals.php">PE Companies </a> 
+        </div>
 
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Exit</span></div>
