@@ -176,10 +176,15 @@
                        }
   			*/
                                 $sql = $_POST['sqlquery'];
+
+                                // echo '<pre>'; print_r($sql); echo '</pre>'; 
+
   				 //$sql=$getcompanySql;
 				//echo "<br>---" .$sql;
 				 //execute query
 				 $result = @mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
+
+                 
                                  updateDownload($result);
 				 //if this parameter is included ($w=1), file returned will be in word format ('.doc')
 				 //if parameter is not included, file returned will be in excel format ('.xls')
@@ -194,6 +199,8 @@
                                         $file_ending = "xls";
                                 }
 				 //header info for browser: determines file type ('.doc' or '.xls')
+
+
 				 header("Content-Type: application/$file_type");
 				 header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
 				 header("Pragma: no-cache");
@@ -307,7 +314,7 @@
 					echo "Stock Code"."\t";
 					echo "Year Founded"."\t";
 					echo "Address"."\t";
-                                        echo "Address2"."\t";
+                    echo "Address2"."\t";
 					echo "City"."\t";
 					//echo "Region"."\t";
 					echo "Country"."\t";
@@ -319,7 +326,7 @@
 					echo "Other Location(s)"."\t";
 					//echo "More Information"."\t";
 
-                                	print("\n");
+                    print("\n");
 				 /*print("\n");*/
 				 //end of printing column names
 
@@ -328,22 +335,26 @@
 				 note: the following while-loop was taken from phpMyAdmin 2.1.0. --from the file "lib.inc.php".
 				 */
 
-				     $searchString="Undisclosed";
-				 	$searchString=strtolower($searchString);
-					$searchStringDisplay="Undisclosed";
+                    // Disclosed
+                        $searchString="Undisclosed";
+                        $searchString=strtolower($searchString);
+                        $searchStringDisplay="Undisclosed";
 
-				 	$searchString1="Unknown";
-				 	$searchString1=strtolower($searchString1);
+                        $searchString1="Unknown";
+                        $searchString1=strtolower($searchString1);
 
-				 	$searchString2="Others";
-				 	$searchString2=strtolower($searchString2);
+                        $searchString2="Others";
+                        $searchString2=strtolower($searchString2);
 
-					$invResult=substr_count($companyname,$searchString);
-					$invResult1=substr_count($companyname,$searchString1);
-					$invResult2=substr_count($companyname,$searchString2);
+                        $invResult=substr_count($companyname,$searchString);
+                        $invResult1=substr_count($companyname,$searchString1);
+                        $invResult2=substr_count($companyname,$searchString2);
+                    // Disclosed
 
 				     while($row = mysql_fetch_row($result))
 				     {
+                        //  echo '<pre>'; print_r($row); echo '</pre>'; exit;
+
 				         //set_time_limit(60); // HaRa
 				         $schema_insert = "";
 				         $strStage="";
@@ -351,6 +362,7 @@
 				         $strCompany="";
 				         $stripoCompany="";
 				         $strmandaCompany="";
+
                                         $companyname=$row[2];
                                         $companyname=strtolower($companyname);
                                         $invResult=substr_count($companyname,$searchString);
@@ -363,21 +375,21 @@
                                            $schema_insert = "";
 
                                             $schema_insert .=$row[2].$sep; //Companyname
-                                            $schema_insert .=$row[25].$sep; //Industry
+                                            $schema_insert .=$row[3].$sep; //Industry
                                             $schema_insert .=$row[4].$sep; //sector
-                                            $schema_insert .=$row[8].$sep; //Stock code
-                                            $schema_insert .=$row[9].$sep; //Year founded
-                                            $schema_insert .=$row[10].$sep; //Adress
-                                            $schema_insert .=$row[11].$sep; //address line 2
-                                            $schema_insert .=$row[12].$sep; //Ad city
+                                            $schema_insert .=$row[11].$sep; //Stock code
+                                            $schema_insert .=$row[12].$sep; //Year founded
+                                            $schema_insert .=$row[13].$sep; //Adress
+                                            $schema_insert .=$row[14].$sep; //address line 2
+                                            $schema_insert .=$row[15].$sep; //Ad city
                                             //$schema_insert .=$row[24].$sep; //Region
-                                            $schema_insert .=$row[15].$sep; //Country
-                                            $schema_insert .=$row[13].$sep; //zip
-                                            $schema_insert .=$row[17].$sep; //Telephone
-                                            $schema_insert .=$row[18].$sep; //Fax
-                                            $schema_insert .=$row[19].$sep; //Email
+                                            $schema_insert .=$row[18].$sep; //Country
+                                            $schema_insert .=$row[16].$sep; //zip
+                                            $schema_insert .=$row[20].$sep; //Telephone
+                                            $schema_insert .=$row[21].$sep; //Fax
+                                            $schema_insert .=$row[22].$sep; //Email
                                             $schema_insert .=$row[5].$sep; //website
-                                            $schema_insert .=$row[14].$sep; //Other Location
+                                            $schema_insert .=$row[17].$sep; //Other Location
                                             //$schema_insert .=$row[20].$sep; //Moreinformation
 
                                                //commented the foll line in order to get printed $ symbol in excel file
