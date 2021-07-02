@@ -177,7 +177,7 @@
   			*/
                                 $sql = $_POST['sqlquery'];
 
-                                // echo '<pre>'; print_r($sql); echo '</pre>'; 
+                                // echo '<pre>'; print_r($sql); echo '</pre>';  
 
   				 //$sql=$getcompanySql;
 				//echo "<br>---" .$sql;
@@ -353,7 +353,18 @@
 
 				     while($row = mysql_fetch_row($result))
 				     {
-                        //  echo '<pre>'; print_r($row); echo '</pre>'; exit;
+                        //  echo '<pre>'; print_r($row[3]); echo '</pre>'; 
+
+                         $industry_name = "SELECT industry FROM industry WHERE industryid = '$row[3]'";
+
+                        //  echo $industry_name; exit;
+
+                         $getcompanyinvrs = mysql_query($industry_name);
+                         $ind_name = mysql_fetch_assoc($getcompanyinvrs);
+
+                        // echo '<pre>';   print_r( $ind_name['industry']);   echo '</pre>'; exit;
+
+                        //  echo $industry_name; exit;
 
 				         //set_time_limit(60); // HaRa
 				         $schema_insert = "";
@@ -375,7 +386,7 @@
                                            $schema_insert = "";
 
                                             $schema_insert .=$row[2].$sep; //Companyname
-                                            $schema_insert .=$row[3].$sep; //Industry
+                                            $schema_insert .=$$ind_name['industry']; //Industry
                                             $schema_insert .=$row[4].$sep; //sector
                                             $schema_insert .=$row[11].$sep; //Stock code
                                             $schema_insert .=$row[12].$sep; //Year founded
