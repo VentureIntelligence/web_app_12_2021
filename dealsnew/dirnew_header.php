@@ -357,12 +357,15 @@ $(document).ready(function(){
 
 
 
-
+$('input').on( ifCreated ifClicked ifChanged ifChecked ifUnchecked ifDisabled ifEnabled ifDestroyed check ', function(event){                
+       alert($(this).val());
+})
 
     $(document).ready(function(){
       $('input').iCheck({
         checkboxClass: 'icheckbox_flat-red',
         radioClass: 'iradio_flat-red'
+
       });
     });
 </script>   
@@ -1243,10 +1246,14 @@ $( document ).ready( function() {
 
     $(".ttl3").click(function() {
         $(this).toggleClass('active').next('.frmDropDown').toggleClass("active");
-     });
-     $(".tour-lock").on('click', function(e) {
         localStorage.removeItem("pageno");
-    });
+
+     });
+     $('.show-nav').click(function() {
+      localStorage.removeItem("pageno");
+
+    
+});
     
 </script> 
 <style>
