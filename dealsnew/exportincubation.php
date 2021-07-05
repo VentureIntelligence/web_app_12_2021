@@ -185,6 +185,8 @@
 				 $result = @mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
 
                  
+
+                 
                                  updateDownload($result);
 				 //if this parameter is included ($w=1), file returned will be in word format ('.doc')
 				 //if parameter is not included, file returned will be in excel format ('.xls')
@@ -201,10 +203,10 @@
 				 //header info for browser: determines file type ('.doc' or '.xls')
 
 
-				//  header("Content-Type: application/$file_type");
-				//  header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
-				//  header("Pragma: no-cache");
-				//  header("Expires: 0");
+				 header("Content-Type: application/$file_type");
+				 header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
+				 header("Pragma: no-cache");
+				 header("Expires: 0");
 
 				 /*    Start of Formatting for Word or Excel    */
 				 /*    FORMATTING FOR EXCEL DOCUMENTS ('.xls')   */
@@ -353,7 +355,7 @@
 
 				     while($row = mysql_fetch_row($result))
 				     {
-                         echo '<pre>'; print_r($row); echo '</pre>';  exit;
+                        //  echo '<pre>'; print_r($row); echo '</pre>';  exit;
   
                          $industry_name = "SELECT industry FROM industry WHERE industryid = '$row[3]'";
 
