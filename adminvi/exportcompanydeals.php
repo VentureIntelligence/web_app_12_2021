@@ -11,37 +11,78 @@ require("../dbconnectvi.php");
 $Db = new dbInvestments();
 
 
-
-$keycheck = $_POST['allcompanyauto_sug'];
-if($keycheck == 1){
-    $sql=mysql_query("select PECompanyId from pecompanies");
-    while($row = mysql_fetch_assoc($sql)){
-        $json[] = $row['PECompanyId'];
+$keyword = $_POST['allcompanyauto_sug'];
+//echo $keyword;exit();
+if($keyword =="")
+{
+$keycheck = $_POST['companyauto_sug'];
+}
+//echo $keycheck;exit();
+if($keycheck == "pe"){
+    $sql="SELECT DISTINCT pe.PECompanyId,pec.companyname,pec.industry,  i.industry,pec.sector_business                                AS sector_business,
+    pec.website,
+    pec.city FROM pecompanies AS pec, peinvestments AS pe, industry AS i, region AS r , stage AS s , peinvestments_investors AS peinv , peinvestors AS inv WHERE dates between '1998-7-01' and '2021-7-01' and pec.PECompanyId = pe.PEcompanyId AND s.StageId = pe.StageId and peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15 AND r.RegionId = pec.RegionId and pec.companyname NOT LIKE 'Undisclosed%' and pec.companyname NOT LIKE 'Unknown%' and pec.companyname NOT LIKE 'Others%' AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) ORDER BY pec.companyname";
    }
-   //print_r(count($json));exit();
-   $keyword=implode(',',$json);
-  // echo json_encode($json );exit();
+else if($keycheck == "angel"){
+    $sql="SELECT DISTINCT pe.InvesteeId,pec.companyname,
+    pec.industry,
+    i.industry                                         AS industry,
+    pec.sector_business                                AS sector_business,
+    pec.website,
+    pec.city FROM pecompanies AS pec, angelinvdeals AS pe, industry AS i, region AS r WHERE DealDate between '1998-7-01' and '2021-7-01' and pec.PECompanyId = pe.InvesteeId AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15 AND r.RegionId = pec.RegionId and pec.companyname NOT LIKE '%Undisclosed%' and pec.companyname NOT LIKE '%Unknown%' and pec.companyname NOT LIKE '%Others%' AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) ORDER BY pec.companyname";
+}
+else if($keycheck == "incubatee")
+{
+    $sql="SELECT DISTINCT pe.IncubatorId, pec.companyname,
+    pec.industry,
+    i.industry                                         AS industry,
+    pec.sector_business                                AS sector_business,
+    pec.website,
+    pec.city FROM incubatordeals AS pe JOIN pecompanies AS pec
+  ON pec.pecompanyid = pe.IncubatorId JOIN industry AS i
+  ON pec.industry = i.industryid WHERE pe.Deleted=0 ORDER BY pec.companyname";
 
 }
 else
 {
-$keyword = $_POST['companyauto_sug'];
+    $sql="SELECT Distinct pe.pecompanyid    AS PECompanyId,
+pec.companyname,
+pec.industry,
+i.industry                                         AS industry,
+pec.sector_business                                AS sector_business,
+pec.website,
+pec.city
+FROM   peinvestments AS pe
+JOIN pecompanies AS pec
+  ON pec.pecompanyid = pe.pecompanyid
+JOIN peinvestments_investors AS peinv_inv
+  ON peinv_inv.peid = pe.peid
+JOIN peinvestors AS inv
+  ON inv.investorid = peinv_inv.investorid
+JOIN industry AS i
+  ON pec.industry = i.industryid
+JOIN stage AS s
+  ON s.stageid = pe.stageid
+WHERE  pec.pecompanyid IN( $keyword  )
+AND dates BETWEEN '1998-1-01' AND '2021-7-31'
+AND pe.deleted = 0
+AND pec.industry != 15
+AND pe.peid NOT IN (SELECT peid
+                    FROM   peinvestments_dbtypes AS db
+                    WHERE  dbtypeid = 'SV'
+                           AND hide_pevc_flag = 1)
+AND pec.industry IN ( 49, 14, 9, 25,
+                      24, 7, 4, 16,
+                      17, 23, 3, 21,
+                      1, 2, 10, 54,
+                      18, 11, 66, 106,
+                      8, 12, 22 )
+GROUP  BY pe.PECompanyId 
+";
 }
 //echo $keyword;exit();
 
-$sql="SELECT DISTINCT pec.pecompanyid     AS PECompanyId,
-pec.companyname,
-pec.industry,
-i.industry          AS industry,
-pec.sector_business AS sector_business,
-pec.website,
-pec.city,
-pec.OtherLocation
-FROM  pecompanies AS pec
-JOIN industry AS i
-  ON pec.industry = i.industryid
-WHERE  pec.pecompanyid IN( $keyword )
-";
+
 //echo $sql;exit();
 //execute query
 $result = mysql_query($sql) or die(mysql_error());
@@ -102,38 +143,12 @@ $exportvalue = "Company Name,Industry,Sector,Website,Location";
     $index = 2;
     
     $peidcheck = '';
-    
+    $dbTypeSV='PE';
     $arrayData = array();
-    while ($rows = mysql_fetch_array($result)) {
+    while ($row = mysql_fetch_array($result)) {
     $DataList = array();
     $col = 0;  
-    
-        if(isset($rows['PEId'])){
-            $PEId = $rows['pecompanyid'];
-        }else{
-            $PEId = $rows[0];
-        }
-        //echo $PEId;exit();
-        $companiessql = "SELECT DISTINCT pec.pecompanyid     AS PECompanyId,
-        pec.companyname,
-        pec.industry,
-        i.industry          AS industry,
-        pec.sector_business AS sector_business,
-        pec.website,
-        pec.city,
-        pec.OtherLocation
-        FROM  pecompanies AS pec
-        JOIN industry AS i
-          ON pec.industry = i.industryid
-        WHERE  pec.pecompanyid =$PEId ";   
-              //  echo $companiessql;exit();
-        $result2 = mysql_query($companiessql) or die( mysql_error() );
-        $row = mysql_fetch_row($result2);
         
-       
-        // T960
-        
-    
         if(in_array("Company Name", $rowArray))
             {
                 $DataList[] = $row[1];
@@ -156,7 +171,7 @@ $exportvalue = "Company Name,Industry,Sector,Website,Location";
             }
             if(in_array("Location", $rowArray))
             {
-                $DataList[] = $row[7];
+                $DataList[] = $row[6];
             }
                 
         
