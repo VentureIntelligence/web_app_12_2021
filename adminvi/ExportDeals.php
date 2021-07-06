@@ -85,7 +85,8 @@ input[type="radio"],input[type="checkbox"]
     font-size: 14px;
     float: left;
       clear: none;
-      margin: 0px 0 0 2px;
+
+margin: 10px 4px 4px 1px;
 }
 label {
       /* float: left; */
@@ -146,13 +147,15 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         <div class="display:flex">
                           <h3 style="float:left;    padding: 5px;">Company:</h3>
  
-                        <input type="text" name="companyauto_sug" id="companyauto_sug" autocomplete="off">
+                        <input type="text" name="allcompanyauto_sug" id="allcompanyauto_sug" autocomplete="off">
                         </div> 
-                        <div class="display:flex">
- 
-                        <h3 style="float:left;    padding: 5px;">All:</h3>
-
-                        <input type="checkbox" name="allcompanyauto_sug" id="allcompanyauto_sug" value=0 style="    margin: 19px;">
+                        <div >
+                        <input type="radio" id="Pecompanyauto_sug" name="companyauto_sug" value="pe" checked>
+                          <label for="Pecompanyauto_sug">PE</label><br>
+                          <input type="radio" id="angelcompanyauto_sug" name="companyauto_sug" value="angel">
+                          <label for="angelcompanyauto_sug">Angel</label><br>
+                          <input type="radio" id="incubateecompanyauto_sug" name="companyauto_sug" value="incubatee">
+                          <label for="incubateecompanyauto_sug">Incubatee</label>
                         </div>
                         <input type="submit" value="Export" style="float:right"><br><br><br><br>
 
@@ -168,17 +171,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
 </div>
 <script>
-$('#allcompanyauto_sug').change(function() {
-        if(this.checked) {
-            $('#allcompanyauto_sug').val(1)
-        }
-        else
-        {
-            $('#allcompanyauto_sug').val(0)
-   
-        }
-    });
- $("#companyauto_sug").tokenInput("ajaxCompanyDetails_auto.php?vcflag=0",{
+
+
+ $("#allcompanyauto_sug").tokenInput("ajaxCompanyDetails_auto.php?vcflag=0",{
             theme: "facebook",
             minChars:2,
             queryParam: "pe_cq",
@@ -190,7 +185,7 @@ $('#allcompanyauto_sug').change(function() {
 
                 },
                 onDelete: function (item) {
-                    var selectedValues = $('#companyauto_sug').tokenInput("get");
+                    var selectedValues = $('#allcompanyauto_sug').tokenInput("get");
                     var inputCount = selectedValues.length;
                     if(inputCount==0){ 
                        // reloadPage();
