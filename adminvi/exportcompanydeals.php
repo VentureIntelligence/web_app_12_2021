@@ -5,7 +5,7 @@ ini_set("max_execution_time", 10000);
 
 ?>
 <?php
-//session_save_path("/tmp");
+//session_save_path("/tmp")peadd
 //session_start();
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
@@ -88,7 +88,7 @@ GROUP  BY pe.PECompanyId
 $result = mysql_query($sql) or die(mysql_error());
  
   
-$exportvalue = "Company Name,Industry,Sector,Website,Location";    
+$exportvalue = "Company ID,Company Name,Industry,Sector,Website,Location";    
     
     
     $expval=explode(",",$exportvalue);
@@ -148,7 +148,10 @@ $exportvalue = "Company Name,Industry,Sector,Website,Location";
     while ($row = mysql_fetch_array($result)) {
     $DataList = array();
     $col = 0;  
-        
+    if(in_array("Company ID", $rowArray))
+    {
+        $DataList[] = $row[0];
+    }
         if(in_array("Company Name", $rowArray))
             {
                 $DataList[] = $row[1];
