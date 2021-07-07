@@ -21,26 +21,26 @@ $keycheck = $_POST['companyauto_sug'];
 if($keycheck == "pe"){
     $sql="SELECT DISTINCT pe.PECompanyId,pec.companyname,pec.industry,  i.industry,pec.sector_business                                AS sector_business,
     pec.website,
-    pec.city FROM pecompanies AS pec, peinvestments AS pe, industry AS i, region AS r , stage AS s , peinvestments_investors AS peinv , peinvestors AS inv WHERE dates between '1998-7-01' and '2021-7-01' and pec.PECompanyId = pe.PEcompanyId AND s.StageId = pe.StageId and peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15 AND r.RegionId = pec.RegionId and pec.companyname NOT LIKE 'Undisclosed%' and pec.companyname NOT LIKE 'Unknown%' and pec.companyname NOT LIKE 'Others%' AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) ORDER BY pec.companyname";
+    pec.city FROM pecompanies AS pec, peinvestments AS pe, industry AS i, region AS r , stage AS s , peinvestments_investors AS peinv , peinvestors AS inv WHERE dates between '1998-7-01' and '2021-7-01' and pec.PECompanyId = pe.PEcompanyId AND s.StageId = pe.StageId and peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15 AND r.RegionId = pec.RegionId and pec.companyname NOT LIKE 'Undisclosed%' and pec.companyname NOT LIKE 'Unknown%' and pec.companyname NOT LIKE 'Others%' AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) ORDER BY pec.PECompanyId";
    }
 else if($keycheck == "angel"){
-    $sql="SELECT DISTINCT pe.InvesteeId,pec.companyname,
+    $sql="SELECT DISTINCT pec.PECompanyId,pec.companyname,
     pec.industry,
     i.industry                                         AS industry,
     pec.sector_business                                AS sector_business,
     pec.website,
-    pec.city FROM pecompanies AS pec, angelinvdeals AS pe, industry AS i, region AS r WHERE DealDate between '1998-7-01' and '2021-7-01' and pec.PECompanyId = pe.InvesteeId AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15 AND r.RegionId = pec.RegionId and pec.companyname NOT LIKE '%Undisclosed%' and pec.companyname NOT LIKE '%Unknown%' and pec.companyname NOT LIKE '%Others%' AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) ORDER BY pec.companyname";
+    pec.city FROM pecompanies AS pec, angelinvdeals AS pe, industry AS i, region AS r WHERE DealDate between '1998-7-01' and '2021-7-01' and pec.PECompanyId = pe.InvesteeId AND i.industryid = pec.industry and pe.Deleted=0 and pec.industry!=15 AND r.RegionId = pec.RegionId and pec.companyname NOT LIKE '%Undisclosed%' and pec.companyname NOT LIKE '%Unknown%' and pec.companyname NOT LIKE '%Others%' AND pec.industry IN (49, 14, 9, 25, 24, 7, 4, 16, 17, 23, 3, 21, 1, 2, 10, 54, 18, 11, 66, 106, 8, 12, 22) ORDER BY pec.PECompanyId";
 }
 else if($keycheck == "incubatee")
 {
-    $sql="SELECT DISTINCT pe.IncubatorId, pec.companyname,
+    $sql="SELECT DISTINCT pec.PECompanyId, pec.companyname,
     pec.industry,
     i.industry                                         AS industry,
     pec.sector_business                                AS sector_business,
     pec.website,
     pec.city FROM incubatordeals AS pe JOIN pecompanies AS pec
   ON pec.pecompanyid = pe.IncubatorId JOIN industry AS i
-  ON pec.industry = i.industryid WHERE pe.Deleted=0 ORDER BY pec.companyname";
+  ON pec.industry = i.industryid WHERE pe.Deleted=0 ORDER BY pec.PECompanyId";
 
 }
 else
