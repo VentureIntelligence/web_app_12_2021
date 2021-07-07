@@ -33,14 +33,10 @@ else if($keycheck == "angel"){
 }
 else if($keycheck == "incubatee")
 {
-    $sql="SELECT DISTINCT pec.PECompanyId, pec.companyname,
-    pec.industry,
-    i.industry                                         AS industry,
-    pec.sector_business                                AS sector_business,
-    pec.website,
-    pec.city FROM incubatordeals AS pe JOIN pecompanies AS pec
-  ON pec.pecompanyid = pe.IncubatorId JOIN industry AS i
-  ON pec.industry = i.industryid WHERE pe.Deleted=0 ORDER BY pec.PECompanyId";
+    $sql="SELECT DISTINCT pec.PECompanyId, pec.companyname,pec.industry,pec.sector_business,pec.website,pec.city
+    FROM incubatordeals AS pe join pecompanies as pec on pec.PECompanyId=pe.IncubateeId join  incubators as inc on inc.IncubatorId=pe.IncubatorId join  industry i on  pec.industry = i.industryid
+    WHERE   pe.Deleted=0 
+    GROUP by inc.IncubatorId order by pec.PECompanyId";
 
 }
 else
