@@ -240,6 +240,37 @@ a.disable:hover {
 
 
 
+{if $GLOBAL_BASE_URL eq 'https://dev.vionweb.com/' or $GLOBAL_BASE_URL eq 'https://www.vionweb.com/' or $GLOBAL_BASE_URL eq 'https://localhost/vi_webapp/'}
+  {if $Usr_Type eq 1 or $Usr_Type eq 3}
+     <div style="margin-top:20px;"> 
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2"style="text-align: center;"> {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h2 style="font-size:18px;">Baisc API</h2>{/if}</th>
+          </tr>
+          {* <tr>
+            <th style="width: 53%;">PE</th>
+          </tr> *}
+        </thead>
+        <tbody>
+          <tr>
+          
+            <td>
+             <div>
+          {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="basic/partner-api-create.php">Create Partner</a></h3>{/if}
+          {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h3 style="font-size:13px;"><a href="basic/partners-list.php">Manage Partners</a></h3>{/if}
+        
+        </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
+  {/if}
+{/if}
+
+
+
 
      {if $GLOBAL_BASE_URL eq 'https://dev.vionweb.com/' or $GLOBAL_BASE_URL eq 'https://www.vionweb.com/' or $GLOBAL_BASE_URL eq 'https://localhost/vi_webapp/'}
   <div style="margin-top:20px;"> 
