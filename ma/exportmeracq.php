@@ -1029,11 +1029,15 @@
         {
             $schema_insert .= "".$sep;
         }
-                
-        if($row[17]!="")
-            $schema_insert .= $row[17].$sep; //website
+        //website
+        if($$row[17]!="")
+        {
+            $schema_insert .= $row[17].$sep;
+        }
         else
-             $schema_insert .= "".$sep; 
+        {
+            $schema_insert .= "".$sep;
+        }       
 
         if($row[18]!="")
             $schema_insert .= $row[18].$sep; //moreinfor
