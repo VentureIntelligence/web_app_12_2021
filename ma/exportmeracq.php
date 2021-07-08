@@ -1030,7 +1030,8 @@
             $schema_insert .= "".$sep;
         }
         //website
-        if($$row[17]!="")
+
+        if($row[17]!="")
         {
             $schema_insert .= $row[17].$sep;
         }
