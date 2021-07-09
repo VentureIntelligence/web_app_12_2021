@@ -2398,7 +2398,7 @@
                 });
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pagenoreindex", pageno);
+                localStorage.setItem("pageno", pageno);
                 $('#paginationinput').val(pageno)
 
 
@@ -4670,7 +4670,6 @@ $(".result-cnt").css("width",test);
                             $('.popup_close a').click(function(){
                                 $(".popup_main").hide();
                                 localStorage.removeItem("pageno");
-
                              });
 			   });
 			</script>
