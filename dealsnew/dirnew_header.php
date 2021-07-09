@@ -1248,6 +1248,7 @@ $( document ).ready( function() {
      });
      $(document).ready(function(){
     $('.show-nav').on('ifChanged', function(event){
+      //remove page no
       localStorage.removeItem("pageno");
 
 });    

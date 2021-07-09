@@ -316,6 +316,7 @@ $(document).ready(function(){
        $("#disselect").find(':input').prop("disabled", true);  
        
         $('.show-nav').on('ifChecked', function(event){
+            //remove page no 
           localStorage.removeItem("pageno");
 
             $("#pesearch").submit();

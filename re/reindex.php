@@ -4669,6 +4669,8 @@ $(".result-cnt").css("width",test);
 			   $(document).ready(function(){
                             $('.popup_close a').click(function(){
                                 $(".popup_main").hide();
+                                localStorage.removeItem("pageno");
+
                              });
 			   });
 			</script>

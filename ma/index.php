@@ -4288,6 +4288,7 @@ if($type==1){?>
                $(document).ready(function(){
                             $('.popup_close a').click(function(){
                                 $(".popup_main").hide();
+                                localStorage.removeItem("pageno");
                              });
                        
                });
