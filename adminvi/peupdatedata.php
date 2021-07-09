@@ -32,6 +32,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 <?php
   
         $hideamouttoUpdate=0;
+        $user=$_SESSION['UserNames'];
 
          $PEIdtoUpdate = $_POST['txtPEId'];
          $pe_re_update=$_POST['txtpe_re'];
@@ -403,7 +404,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             //
        echo $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate',industry='$industrytoUpdate',
        sector_business='$sectortoUpdate',website='$urltoUpdate',city='$citytoUpdate',AdCity='$citytoUpdate',
-       region='$region',RegionId='$RegionIdtoUpdate',state='$state',stateid='$StateIdtoUpdate',countryid='$countryidtoUpdate' where PECompanyId=$companyIdtoUpdate";
+       region='$region',RegionId='$RegionIdtoUpdate',state='$state',stateid='$StateIdtoUpdate',countryid='$countryidtoUpdate',modefied_by='$user' where PECompanyId=$companyIdtoUpdate";
 
       //echo "<br>company update Query-- " .$UpdatecompanySql;
       if($updaters=mysql_query($UpdatecompanySql))

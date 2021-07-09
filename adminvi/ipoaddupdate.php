@@ -26,6 +26,8 @@
      	session_start();
 	 if (session_is_registered("SessLoggedAdminPwd"))
 	 	{
+			$user=$_SESSION['UserNames'];
+
 			// and session_is_registered("SessLoggedIpAdd"))
 
 			$portfoliocompany = $_POST['txtcompanyname'];
@@ -166,11 +168,11 @@
 
                                 if (trim($portfoliocompany) !="")
 				{
-					$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region);
+					$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$user);
 					echo "<br>CompanyID=".$companyId;
 					if($companyId==0)
 					{
-						$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region);
+						$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$user);
 						echo "<br>CompanyID After Insert=".$companyId;
 					}
 					if ($companyId >0)
@@ -286,7 +288,7 @@ function returnDate($mth,$yr)
 
 
 /* function to insert the companies and return the company id if exists */
-	function insert_company($companyname,$industryId,$sector,$web,$city,$region)
+	function insert_company($companyname,$industryId,$sector,$web,$city,$region,$user)
 	{
 		$dbpecomp = new dbInvestments();
 		$getPECompanySql = "select PECompanyId from pecompanies where companyname= '$companyname'";
@@ -297,8 +299,8 @@ function returnDate($mth,$yr)
 			if ($pecomp_cnt==0)
 			{
 					//insert pecompanies
-					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,region)
-					values('$companyname','$industryId','$sector','$web','$city','$region')";
+					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,region,created_by)
+					values('$companyname','$industryId','$sector','$web','$city','$region','$user')";
 				//	echo "<br>Ins company sql=" .$insPECompanySql;
 					if($rsInsPECompany = mysql_query($insPECompanySql))
 					{
