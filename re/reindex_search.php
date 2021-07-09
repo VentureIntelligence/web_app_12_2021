@@ -1172,8 +1172,14 @@ if($passwrd != 'P')
  
 
 
+$( document ).ready(function() {
+                var nav = $('#myaccount');
 
-</script>
+                nav.find('a').on('click',function(e){
+                    localStorage.removeItem("pageno");
+
+                });
+            });</script>
      
      
           <script>
