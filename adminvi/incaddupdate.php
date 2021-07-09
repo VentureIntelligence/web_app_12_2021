@@ -6,6 +6,8 @@
      	session_start();
 	 	if (session_is_registered("SessLoggedAdminPwd"))
 	 	{
+			$user=$_SESSION['UserNames'];
+
 // && session_is_registered("SessLoggedIpAdd"))
 
 							//echo "<br>full string- " .$i;
@@ -69,11 +71,11 @@
 							}
 							if (trim($portfoliocompany) !="")
 							{
-       							$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$txtregion,$regionId);
+       							$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$txtregion,$regionId,$user);
 								//echo "<bR>####---------------------";
 								if($companyId==0)
 								{
-									$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate);
+									$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$user);
 								}
 								//$companyId=0;
 							//	echo "<br>Company id--" .$companyId;
@@ -128,7 +130,7 @@ else
 //End of peinvestments insert
 
 /* function to insert the companies and return the company id if exists */
-	function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId)
+	function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId,$user)
 	{
 		$dbpecomp = new dbInvestments();
 		$getPECompanySql = "select PECompanyId from pecompanies where companyname= '$companyname'";
@@ -140,9 +142,9 @@ else
 			if ($pecomp_cnt==0)
 			{
 					//insert pecompanies
-					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,AdCity,region,RegionId)
-					values('$companyname',$industryId,'$sector','$web','$city','$region',$regionId)";
-					//echo "<br>Ins company sql=" .$insPECompanySql;
+					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,AdCity,region,RegionId,created_by)
+					values('$companyname',$industryId,'$sector','$web','$city','$region',$regionId,'$user')";
+					echo "<br>Ins company sql=" .$insPECompanySql;
 					if($rsInsPECompany = mysql_query($insPECompanySql))
 					{
 						$companyId=0;

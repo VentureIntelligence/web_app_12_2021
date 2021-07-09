@@ -6,6 +6,7 @@
      	session_start();
 	 	if (session_is_registered("SessLoggedAdminPwd"))
 	 	{
+			 $user=$_SESSION['UserNames'];
 // && session_is_registered("SessLoggedIpAdd"))
 
 							//echo "<br>full string- " .$i;
@@ -295,10 +296,10 @@
 
 								} */
 								//echo "<br>Industryid-".$indid;
-								$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate);
+								$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate,$user);
 								if($companyId==0)
 								{
-									$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate);
+									$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate,$user);
 								}
 								//$companyId=0;
 								//echo "<br>Company id--" .$companyId;
@@ -341,7 +342,7 @@
 											//echo "<br>@@@@ :".$insertcompanysql;
 											if ($rsinsert = mysql_query($insertcompanysql))
 											{
-												echo "<br>Insert PE-" .$insertcompanysql;
+												//echo "<br>Insert PE-" .$insertcompanysql;
 												/* foreach ($investorString as $inv)
 													{
 														if(trim($inv)!="")
@@ -472,7 +473,7 @@
                                                         }*/
                                                     for ( $i =0; $i < count($dbtypearray); $i++){
 														$insertTypesql1="insert into peinvestments_dbtypes values($PEId,'$dbtypearray[$i]',0)";
-														 echo "<bR>***".$insertTypesql1;
+														 //echo "<bR>***".$insertTypesql1;
                                                 		if($rsupdateType = mysql_query($insertTypesql1))
                                                 		{
                                                 		}
@@ -486,7 +487,7 @@
                                                    			$showvalue=0;
                                                    		}
 														$insertTypesql2="insert into peinvestments_dbtypes values($PEId,'$showaspevcarray[$i]','$showvalue')";
-														 echo "<bR>***".$insertTypesql2;
+														// echo "<bR>***".$insertTypesql2;
                                                 		if($rsupdateType = mysql_query($insertTypesql2))
                                                 		{
                                                 		}
@@ -567,7 +568,7 @@ function returnDate($mth,$yr)
 
 
 /* function to insert the companies and return the company id if exists */
-	function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId,$state,$stateId)
+	function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId,$state,$stateId,$user)
 	{
 		$dbpecomp = new dbInvestments();
 		$getPECompanySql = "select PECompanyId from pecompanies where companyname= '$companyname'";
@@ -579,8 +580,8 @@ function returnDate($mth,$yr)
 			if ($pecomp_cnt==0)
 			{
 					//insert pecompanies
-					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,AdCity,region,RegionId,state,stateid)
-					values('$companyname','$industryId','$sector','$web','$city','$city','$region',$regionId,'$state','$stateId')";
+					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,AdCity,region,RegionId,state,stateid,created_by)
+					values('$companyname','$industryId','$sector','$web','$city','$city','$region',$regionId,'$state','$stateId','$user')";
 					//echo "<br>Ins company sql=" .$insPECompanySql;
 					if($rsInsPECompany = mysql_query($insPECompanySql))
 					{
@@ -642,7 +643,7 @@ function insert_get_CIAs($cianame)
 	$dblink = new dbInvestments();
 	$cianame=trim($cianame);
 	$getInvestorIdSql = "select CIAId from advisor_cias where cianame like '$cianame'";
-	echo "<br>select--" .$getInvestorIdSql;
+	//echo "<br>select--" .$getInvestorIdSql;
 	if ($rsgetInvestorId = mysql_query($getInvestorIdSql))
 	{
 		$investor_cnt=mysql_num_rows($rsgetInvestorId);
@@ -724,7 +725,7 @@ function insert_get_CIAs($cianame)
 		$dblink= new dbInvestments();
 		$investor=trim($investor);
 		$getInvestorIdSql = "select InvestorId from peinvestors where Investor like '$investor%'";
-		echo "<br>select--" .$getInvestorIdSql;
+		//echo "<br>select--" .$getInvestorIdSql;
 		if ($rsgetInvestorId = mysql_query($getInvestorIdSql))
 		{
 			$investor_cnt=mysql_num_rows($rsgetInvestorId);
