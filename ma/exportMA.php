@@ -449,9 +449,15 @@ updateDownload($result);
                 else
                     $schema_insert .= "".$sep;
                 if($row[14]!="")
-                    $schema_insert .= $row[14].$sep; //more infor
+                {
+                $res = str_replace( array( '\'', '"',
+                ',' , ';', '<', '>','$' ), ' ',  $row[14]);
+                    $schema_insert .= $res.$sep; //more infor
+                }
                 else
+                {
                     $schema_insert .= "".$sep;
+                }
                 if($row[21]!="")
                     $schema_insert .= $row[21].$sep; //link
                 else
