@@ -391,6 +391,7 @@ $(document).ready(function(){
 		skin : "big-shadow"
            });
 $('.show-nav').on('ifChecked', function(event){
+  //remove page no 
   localStorage.removeItem("pageno");
 
             if(demotour==1)

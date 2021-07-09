@@ -11379,6 +11379,8 @@ if ($tourautostart != 'ON' && $popup_search == 0) {?>
                 $(document).ready(function(){
                  $('.popup_close a').click(function(){
                      $(".popup_main").hide();
+                     localStorage.removeItem("pageno");
+
                   });
                 });
               
