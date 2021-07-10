@@ -27,6 +27,7 @@
 <table width=60% align=center border=1 cellpadding=2>
 
 <?php
+			 $user=$_SESSION['UserNames'];
 
 	$multipleangelrounds=0;
 	$followonVCfunding=0;
@@ -86,7 +87,7 @@
 
     	 $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate',industry=$industrytoUpdate,
     	 sector_business='$sectortoUpdate',website='$urltoUpdate',city='$citytoUpdate',
-    	 RegionId=$RegionIdtoUpdate,countryid='$countryidtoUpdate' where PECompanyId=$companyIdtoUpdate";
+    	 RegionId=$RegionIdtoUpdate,countryid='$countryidtoUpdate',modefied_by='$user' where PECompanyId=$companyIdtoUpdate";
 
 	//echo "<br>company update Query-- " .$UpdatecompanySql;
 	if($updaters=mysql_query($UpdatecompanySql))

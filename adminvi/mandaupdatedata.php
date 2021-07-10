@@ -26,6 +26,7 @@
 <?php
     require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	$user=$_SESSION['UserNames'];
 
 		$hideamouttoUpdate=0;
 
@@ -212,7 +213,7 @@
 		}
 
 
-    	 $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate',industry=$industrytoUpdate,sector_business='$sectortoUpdate',website='$websiteToUpdate' where PECompanyId=$companyIdtoUpdate";
+    	 $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate',industry=$industrytoUpdate,sector_business='$sectortoUpdate',website='$websiteToUpdate',modefied_by='$user' where PECompanyId=$companyIdtoUpdate";
 
 			//echo "<br>company update Query-- " .$UpdatecompanySql;
 			if($updaters=mysql_query($UpdatecompanySql))

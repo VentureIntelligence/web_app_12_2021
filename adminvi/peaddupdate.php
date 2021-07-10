@@ -6,6 +6,7 @@
      	session_start();
 	 	if (session_is_registered("SessLoggedAdminPwd"))
 	 	{
+			 $user=$_SESSION['UserNames'];
 // && session_is_registered("SessLoggedIpAdd"))
 
 							//echo "<br>full string- " .$i;
@@ -303,10 +304,10 @@
 
 								} */
 								//echo "<br>Industryid-".$indid;
-								$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate);
+								$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate,$user);
 								if($companyId==0)
 								{
-									$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate);
+									$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$region,$RegionIdtoUpdate,$state,$StateIdtoUpdate,$user);
 								}
 								//$companyId=0;
 								//echo "<br>Company id--" .$companyId;
@@ -575,7 +576,7 @@ function returnDate($mth,$yr)
 
 
 /* function to insert the companies and return the company id if exists */
-	function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId,$state,$stateId)
+	function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId,$state,$stateId,$user)
 	{
 		$dbpecomp = new dbInvestments();
 		$getPECompanySql = "select PECompanyId from pecompanies where companyname= '$companyname'";
@@ -587,8 +588,8 @@ function returnDate($mth,$yr)
 			if ($pecomp_cnt==0)
 			{
 					//insert pecompanies
-					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,AdCity,region,RegionId,state,stateid)
-					values('$companyname','$industryId','$sector','$web','$city','$city','$region',$regionId,'$state','$stateId')";
+					$insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,AdCity,region,RegionId,state,stateid,created_by)
+					values('$companyname','$industryId','$sector','$web','$city','$city','$region',$regionId,'$state','$stateId','$user')";
 					//echo "<br>Ins company sql=" .$insPECompanySql;
 					if($rsInsPECompany = mysql_query($insPECompanySql))
 					{
