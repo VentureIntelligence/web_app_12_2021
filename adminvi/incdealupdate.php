@@ -28,6 +28,8 @@ require("../dbconnectvi.php");
 	$incDealIdtoUpdate=$_POST['txtIncDealId'];
 	// echo "<br>******".$incDealIdtoUpdate;
  // $industryIdtoUpdate =$_POST['txtindustryId'];
+ $user=$_SESSION['UserNames'];
+
  	   $companyIdtoUpdate = $_POST['txtcompanyid'];
           	 $companyNametoUpdate =$_POST['txtname'];
           	 $industryidtoUpdate=$_POST['industryid'];
@@ -74,7 +76,7 @@ require("../dbconnectvi.php");
 		else
 		{ $defunctFlag=0;}
                 $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate', yearfounded='$yearfounded',sector_business='$sectortoUpdate',
-                industry =$industryidtoUpdate
+                industry =$industryidtoUpdate,modefied_by='$user'
     	       where PECompanyId=$companyIdtoUpdate";
 
                    if($updaterscompany=mysql_query($UpdatecompanySql))

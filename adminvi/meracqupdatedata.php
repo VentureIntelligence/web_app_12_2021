@@ -26,6 +26,7 @@
 <?php
     require("../dbconnectvi.php");
 	$Db = new dbInvestments();
+	$user=$_SESSION['UserNames'];
 
 		$hideamouttoUpdate=0;
 
@@ -260,7 +261,7 @@
 //echo "<br>8--";
 	$UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate',industry=$industrytoUpdate,
 	    	 sector_business='$sectortoUpdate',website='$websiteToUpdate',city='$targetCityName',
-	    	 countryid='$targetCountryIdtoUpdate',RegionId=$regionIdtoUpdate where PECompanyId=$companyIdtoUpdate";
+	    	 countryid='$targetCountryIdtoUpdate',RegionId=$regionIdtoUpdate,modefied_by='$user' where PECompanyId=$companyIdtoUpdate";
 
 			//	echo "<br>company update Query-- " .$UpdatecompanySql;
 			if($updaters=mysql_query($UpdatecompanySql))
