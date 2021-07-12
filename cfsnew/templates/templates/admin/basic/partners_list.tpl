@@ -531,11 +531,7 @@ $( document ).ready( function() {
                         {* <th >Overall Count</th> *}
 						{* <th >Status</th> *}
                          {* <th >Created At </th> *}
-<<<<<<< HEAD
                         <th style="width:10%;text-align:center">Action</th>
-=======
-                        <th style="width:7%;">Action</th>
->>>>>>> 44dca4b405c9ce5d1e519bfccf5ca00651c37b04
                      </tr>
                   </thead>
                   <tbody class="xbrl-row"></tbody>
