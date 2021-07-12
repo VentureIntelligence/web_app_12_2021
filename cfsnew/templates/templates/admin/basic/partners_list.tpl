@@ -407,7 +407,7 @@ $( document ).ready( function() {
                         
                         render: function(data, type, full) {
                             if (data != '')
-                                return '<a href="../viewbasicpartner.php?pid='+data+'"> <img src="../images/view.png" width="20" height="20" title="Click to View" alt="Click to Edit" style="cursor:pointer;" /></a>  <a href="../editbasicpartner.php?pid='+data+'" style="float: right;"> <img src="../images/edit.png" width="16" height="16" title="Click to Edit" alt="Click to Edit" style="cursor:pointer;" /></a>';
+                                return '<a href="../viewbasicpartner.php?pid='+data+'"> <img src="../images/view.png" width="20" height="20" title="Click to View" alt="Click to Edit" style="cursor:pointer;" /></a>  <a href="../editbasicpartner.php?pid='+data+'" style="margin-left: 10px;"> <img src="../images/edit.png" width="16" height="16" title="Click to Edit" alt="Click to Edit" style="cursor:pointer;margin-bottom: 2px;" /></a> <a href="../deletebasicpartner.php?pid='+data+'" style="float: right;"  > <img src="../images/delete1.png" width="16" height="16" title="Click to Edit" alt="Click to Edit" style="cursor:pointer;" /></a>  ';
                             else
                                 return "";             
                         }
@@ -420,6 +420,21 @@ $( document ).ready( function() {
 	});
 
 </script>
+
+<script>
+    function delete_records(data)
+    {
+        var conf = confirm('Are you sure want to delete this record?');
+        if(conf)
+        {
+            window.location.href="../deletebasicpartner.php?pid="+data;
+        
+        }else{
+        }
+    }
+
+</script>
+
 {/literal}
 </head>
 
@@ -516,7 +531,7 @@ $( document ).ready( function() {
                         {* <th >Overall Count</th> *}
 						{* <th >Status</th> *}
                          {* <th >Created At </th> *}
-                        <th style="width:7%;">Action</th>
+                        <th style="width:10%;text-align:center">Action</th>
                      </tr>
                   </thead>
                   <tbody class="xbrl-row"></tbody>

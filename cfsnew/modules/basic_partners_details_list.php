@@ -35,7 +35,7 @@ class partners_details_list extends database {
 		if(!strlen($pageID)) $pageID=1;
 		if(!strlen($rows)) $rows=20;
 		if(!strlen($fields[0]))$fields=array("partner_id","partnerName");
-		if(!strlen($where)) $where="";
+		if(!strlen($where)) $where="delete_status=1";
 		if(!strlen($order)) $order="partner_id DESC";
 	
 		if($fields != '*')
