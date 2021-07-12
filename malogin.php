@@ -538,6 +538,7 @@ function search_array ( array $array, $term )
 <script language="JavaScript" type="text/javascript">
 function checkFields()
  {
+    localStorage.removeItem("pageno");
   	if((document.malogin.emailid.value == "") || (document.malogin.emailpassword.value == ""))
     {
 		alert("Please enter both Email Id and Password");

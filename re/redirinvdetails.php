@@ -135,6 +135,29 @@
  <input type="hidden" name="resetfield" value="" id="resetfield"/>
  <input type="hidden" name="value" value="<?php echo $vcflagValue; ?>">
 </form>
+<div class="lb" id="popup-box" style>
+                            <div class="title">Send this to your Colleague</div>
+                            <form>
+                                <div class="entry">
+                                        <label> To</label>
+                                        <input type="text" name="toaddress" id="toaddress"  />
+                                </div>
+                                <div class="entry">
+                                        <h5>Subject</h5>
+                                        <p>Checkout this profile- <?php echo $myrow["Investor"]; ?> - in Venture Intelligence</p>
+                                        <input type="hidden" name="subject" id="subject" value="Checkout this profile- <?php echo $myrow["Investor"]; ?> - in Venture Intelligence"  />
+                                </div>
+                                <div class="entry">
+                                        <h5>Message</h5>
+                                        <p><?php  echo curPageURL(); ?>   <input type="hidden" name="message" id="message" value="<?php  echo curPageURL(); ?>"  />   <input type="hidden" name="useremail" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"  /> </p>
+                                </div>
+                                <div class="entry">
+                                    <input type="button" value="Submit" id="mailbtn" />
+                                    <input type="button" value="Cancel" id="cancelbtn" />
+                                </div>
+
+                            </form>
+                        </div>
 <form name="reinvestorDetails" id="investorDetails" method="post" action="exportreinvestorprofile.php">
 <div id="container" >
 <table cellpadding="0" cellspacing="0" width="100%" >
@@ -222,29 +245,7 @@
                         <li ><a class="postlink"  href="redirview.php?value=<?php echo $vcflagValue; ?>"  id="icon-grid-view"><i></i> List  View</a></li>
                         <li class="active"><a id="icon-detailed-view" class="postlink" href="redirinvdetails.php?value=<?php echo $strvalue[0]; ?>/<?php echo $vcflagValue;?>/<?php echo $dealvalue;?>" ><i></i> Detail View</a></li> 
                         </ul></div> 
-                        <div class="lb" id="popup-box">
-                            <div class="title">Send this to your Colleague</div>
-                            <form>
-                                <div class="entry">
-                                        <label> To</label>
-                                        <input type="text" name="toaddress" id="toaddress"  />
-                                </div>
-                                <div class="entry">
-                                        <h5>Subject</h5>
-                                        <p>Checkout this profile- <?php echo $myrow["Investor"]; ?> - in Venture Intelligence</p>
-                                        <input type="hidden" name="subject" id="subject" value="Checkout this profile- <?php echo $myrow["Investor"]; ?> - in Venture Intelligence"  />
-                                </div>
-                                <div class="entry">
-                                        <h5>Message</h5>
-                                        <p><?php  echo curPageURL(); ?>   <input type="hidden" name="message" id="message" value="<?php  echo curPageURL(); ?>"  />   <input type="hidden" name="useremail" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"  /> </p>
-                                </div>
-                                <div class="entry">
-                                    <input type="button" value="Submit" id="mailbtn" />
-                                    <input type="button" value="Cancel" id="cancelbtn" />
-                                </div>
-
-                            </form>
-                        </div>
+                      
 <div class="view-detailed">
                            
     <div class="detailed-title-links"> <h2>  <?php echo $myrow["Investor"]; ?></h2>
@@ -974,19 +975,21 @@ function return_insert_get_RegionIdName($regionidd) {
     }
     $dbregionlink . close();
 }
-mysql_close();
 function curPageURL() {
- $URL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
- $URL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- $pageURL=$URL."&scr=EMAIL";
- return $pageURL;
-}
+    $URL = 'http';
+    $portArray = array( '80', '443' );
+    if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
+    $URL .= "://";
+    if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
+     $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+    } else {
+     $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    }
+    $pageURL=$URL."&scr=EMAIL";
+    return $pageURL;
+   }
+mysql_close();
+
 ?>
 <script type="text/javascript" >
              $("#panel").animate({width: 'toggle'}, 200); 

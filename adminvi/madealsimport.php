@@ -196,7 +196,11 @@
                             }
                             
                             $acq_industry_name = $rowData[0][16];
+
+                            // echo $acq_industry_name; exit;
+
                             $industrysql = "select industryid,industry from industry where industryid !=15 and industry='".trim($acq_industry_name)."'order by industry";
+                            
                             $industryid = 0;
                             if ($industryrs = mysql_query($industrysql))
                             {
@@ -204,12 +208,17 @@
                             }
                             if($ind_cnt>0)
                             {
-                                $myrow = mysql_fetch_row($industryrs, MYSQL_BOTH);
+                                $myrow = mysql_fetch_assoc($industryrs, MYSQL_BOTH);
+
+                                // echo '<pre>'; print_r($myrow); echo '</pre>'; exit;
 
                                 $acqindid = $myrow['industryid'];
+                                $acqindustryid = $myrow['industry'];
+
                                 mysql_free_result($industryrs);
                             }else{
                                 $acqindid = '';
+                                $acqindustryid = '';
                             }
 
                             $Acquirorgroup = $rowData[0][17];
@@ -376,8 +385,8 @@
                                         $investment_cnt = mysql_num_rows($rsInvestment);
                                         //echo "<br>Count**********-- " .$investment_cnt ;
                                     }
-                                    if($investment_cnt==0)
-                                    {
+                                    // if($investment_cnt==0)
+                                    // {
                                         $MAMAId= rand();
                                         //echo "<br>random MandAId--" .$MAMAId;
                                         $insertcompanysql="";
@@ -386,10 +395,10 @@
 
                                         $insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT)
                                         VALUES ($MAMAId,$companyId,$amount,$stake,'$fullDateAfter',$dealTypeId,$AcquirerId,'$comment','$moreinfor', '$validation',$assetFlag,$flagdeletion,'$createddate','$modifieddate',$hideamountFlag,'$link','$filename','$sourcename','$valuation','$finlink',$company_valuation,$revenue_multiple,$ebitda_multiple,$pat_multiple,'$target_listingstatusvalue','$acquirer_listingstatusvalue',$hideAggregatetoUpdate,$revenue,$ebitda,$pat)";
-                                        echo "<br>@@@@ :".$insertcompanysql;
+                                        //echo "<br>@@@@ :".$insertcompanysql;
                                         if ($rsinsert = mysql_query($insertcompanysql))
                                         {
-                                            echo "<br>Advisor String-" .$TargetAdvisorString;
+                                            //echo "<br>Advisor String-" .$TargetAdvisorString;
                                             foreach ($TargetAdvisorString as $targetadvisor)
                                             {
                                                 if(trim($targetadvisor)!="")
@@ -431,31 +440,31 @@
                                         <?php
                                         }
                                             //	echo "<br> insert-".$insertcompanysql;
-                                    }
-                                    elseif($investment_cnt >= 1)
-                                    {
-                                        While($myrow=mysql_fetch_array($rsInvestment, MYSQL_BOTH))
-                                        {
-                                            $fullDateAfter;
-                                            $updatecompanysql= "Update mama set PECompanyId='$companyId',Amount='$amount',Stake='$stake',DealDate='$fullDateAfter',
-                                            MADealTypeId='$dealTypeId',AcquirerId='$AcquirerId',Comment='$comment',MoreInfor='$moreinfor',Validation='$validation',Asset='$assetFlag',
-                                            Deleted='$flagdeletion',CreatedDate='$createddate',ModifiedDate='$modifieddate',hideamount='$hideamountFlag',Link='$link',
-                                            uploadfilename='$filename',source='$sourcename',Valuation='$valuation',FinLink='$finlink',Company_Valuation='$company_valuation',
-                                            Revenue_Multiple='$revenue_multiple',EBITDA_Multiple='$ebitda_multiple',PAT_Multiple='$pat_multiple',target_listing_status='$target_listingstatusvalue',
-                                            acquirer_listing_status='$acquirer_listingstatusvalue',AggHide='$hideAggregatetoUpdate',Revenue='$revenue',EBITDA='$ebitda',PAT='$pat' where MAMAId=".$myrow['MAMAId'];
+                                //     }
+                                //     elseif($investment_cnt >= 1)
+                                //     {
+                                //         While($myrow=mysql_fetch_array($rsInvestment, MYSQL_BOTH))
+                                //         {
+                                //             $fullDateAfter;
+                                //             $updatecompanysql= "Update mama set PECompanyId='$companyId',Amount='$amount',Stake='$stake',DealDate='$fullDateAfter',
+                                //             MADealTypeId='$dealTypeId',AcquirerId='$AcquirerId',Comment='$comment',MoreInfor='$moreinfor',Validation='$validation',Asset='$assetFlag',
+                                //             Deleted='$flagdeletion',CreatedDate='$createddate',ModifiedDate='$modifieddate',hideamount='$hideamountFlag',Link='$link',
+                                //             uploadfilename='$filename',source='$sourcename',Valuation='$valuation',FinLink='$finlink',Company_Valuation='$company_valuation',
+                                //             Revenue_Multiple='$revenue_multiple',EBITDA_Multiple='$ebitda_multiple',PAT_Multiple='$pat_multiple',target_listing_status='$target_listingstatusvalue',
+                                //             acquirer_listing_status='$acquirer_listingstatusvalue',AggHide='$hideAggregatetoUpdate',Revenue='$revenue',EBITDA='$ebitda',PAT='$pat' where MAMAId=".$myrow['MAMAId'];
                                       
-                                            if ($rsupdate = mysql_query($updatecompanysql))
-                                        { ?>
+                                //             if ($rsupdate = mysql_query($updatecompanysql))
+                                //         { ?>
                                             
                                             <Br>
-                                        <tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp; -->MA_MA Deal already exists and deals has been updated</td> <br> </tr>
-                                    
-                                     <?php  }
+                                         <!-- <tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><?php echo $portfoliocompany; ?>&nbsp;MA_MA Deal already exists and deals has been updated</td> <br> </tr>
+                                     -->
+                                      <?php // } 
                                  
-                                    }
+                                //     }
                                     
                                  
-                                }
+                                // }
 
                                 }
 
@@ -488,10 +497,8 @@
         //this function returns the date
         $fulldate= $yr ."-" .date("m", strtotime($mth)) ."-01";
        
-        if (checkdate (date("m", strtotime($mth)), 01, $yr))
-        {
             return date('Y-m-d',  strtotime($fulldate));
-        }
+        
         
     }
 
@@ -501,7 +508,10 @@
 	//echo "<br>Acquirer- " .$acquirername;
 	$dbaclinkss = new dbInvestments();
         
-	$getAcquirerSql="select * from acquirers where Acquirer like '$acquirername' and CityId like '$cityid' and countryid like '$countryid'";
+	$getAcquirerSql="select * from acquirers where Acquirer like '$acquirername'";
+
+
+    // echo '<pre>'; print_r($seperate_field); echo '</pre>';  exit;
         
 	if($rsgetAcquirer=mysql_query($getAcquirerSql))
 	{
@@ -523,12 +533,42 @@
                 While($myrow=mysql_fetch_array($rsgetAcquirer, MYSQL_BOTH))
                 {
                     $acquirerId = $myrow["AcquirerId"];
-                    $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',countryid='$countryid',IndustryId='$industryid',Acqgroup='$group' where AcquirerId=$acquirerId";
-                    if($rsAcqcityCountrySql = mysql_query($updateAcqCityCountrySql))
+
+                    $rsgetPECompanyId = mysql_query($getAcquirerSql);
+                    $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+
+                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+
+                    // echo '<pre>'; print_r($seperate_field['CityId']); echo '</pre>'; 
+                    // echo '<pre>'; print_r($seperate_field['IndustryId']); echo '</pre>'; 
+
+
+                    // echo 'City__'.$cityid.'<br />';
+                    // echo 'Industry__'.$industryid.'<br />';
+                  
+                   
+                    // exit;
+
+                    if($seperate_field['CityId'] == $cityid && $seperate_field['IndustryId'] == $industryid)
                     {
-                    //	/echo "<br>Acquirer Update-- ".$updateAcqCityCountrySql;
+                        // $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',countryid='$countryid',IndustryId='$industryid',Acqgroup='$group' where AcquirerId=$acquirerId";
+
+                        $updateAcqCityCountrySql="Update acquirers set CityId='$cityid',IndustryId='$industryid' where AcquirerId=$acquirerId";
+
+                        echo 'Successfully Added';
+
+                        if($rsAcqcityCountrySql = mysql_query($updateAcqCityCountrySql))
+                        {
+                            //	/echo "<br>Acquirer Update-- ".$updateAcqCityCountrySql;
+                        }
+                        return $acquirerId;
+
+                    }else{
+                        // echo 'Mismatch Records...';
+                        return $acquirerId;
                     }
-                    return $acquirerId;
+                    // exit;
+                    
                 }
             }
 	}
@@ -539,38 +579,76 @@
 	function insert_company($companyname,$industryId,$sector,$web,$countryid,$city,$regionId,$region)
 	{
 		$dbpecomp = new dbInvestments();
-		$getPECompanySql = "select PECompanyId from pecompanies where companyname= '$companyname'";
-		//echo "<br>select--" .$getPECompanySql;
+		$getPECompanySql = "select PECompanyId,industry,sector_business,website,city from pecompanies where companyname= '$companyname'";
+
+		// echo "<br>select--" .$getPECompanySql; exit;
+
+        // echo '<pre>'; print_r($getPECompanySql); echo '</pre>'; 
+
+        $rsgetPECompanyId = mysql_query($getPECompanySql);
+                    $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+
+                    //  echo '<pre>'; print_r($seperate_field); echo '</pre>';  exit;
+
+
+
 		if ($rsgetPECompanyId = mysql_query($getPECompanySql))
 		{
-                    $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
-                    if ($pecomp_cnt==0)
+            $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
+            if ($pecomp_cnt==0)
+            {
+                
+                //insert pecompanies
+                $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,AdCity,RegionId,region)
+                values('$companyname','$industryId','$sector','$web','$countryid','$city','$city',$regionId,'$region')";
+                //echo "<br>Ins company sql=" .$insPECompanySql;
+                if($rsInsPECompany = mysql_query($insPECompanySql))
+                {
+                        $companyId=0;
+                        return $companyId;
+                }
+            }
+            elseif($pecomp_cnt>=1)
+            {
+                While($myrow=mysql_fetch_array($rsgetPECompanyId, MYSQL_BOTH))
+                {
+                    $companyId = $myrow[0];
+
+                    // echo $companyId; exit;
+
+                    $rsgetPECompanyId = mysql_query($getPECompanySql);
+                    $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+            
+                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
+
+                    // echo 'Industry__'.$industryId.'<br />';
+                    // echo 'City__'.$city.'<br />';
+                    // echo 'Sector__'.$sector.'<br />';
+                    // echo 'Web__'.$web.'<br />';
+                    //  exit;
+
+                    if($seperate_field['city'] == $city && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] == $industryId &&  $seperate_field['website'] == $web)
                     {
-                        //insert pecompanies
-                        $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,AdCity,RegionId,region)
-                        values('$companyname','$industryId','$sector','$web','$countryid','$city','$city',$regionId,'$region')";
-                        //echo "<br>Ins company sql=" .$insPECompanySql;
-                        if($rsInsPECompany = mysql_query($insPECompanySql))
+                        // echo 'Changes ila';
+                        $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city' where PECompanyId=$companyId";
+
+                        echo 'Successfully Added';
+
+                        if($rscityCountrySql=mysql_query($updateCityCountrySql))
                         {
-                                $companyId=0;
-                                return $companyId;
+                            //		echo "<br>Update Company- " .$updateCityCountrySql;
                         }
-                    }
-                    elseif($pecomp_cnt>=1)
-                    {
-                        While($myrow=mysql_fetch_array($rsgetPECompanyId, MYSQL_BOTH))
-                        {
-                            $companyId = $myrow[0];
-                            $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',countryid='$countryid',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
-                            
-                            if($rscityCountrySql=mysql_query($updateCityCountrySql))
-                            {
-                    //		echo "<br>Update Company- " .$updateCityCountrySql;
-                            }
-                    //	echo "<br>Insert return industry id--" .$companyId;
+                            //	echo "<br>Insert return industry id--" .$companyId;
                             return $companyId;
-                        }
+
+                    }else{
+                        return $companyId;
                     }
+                    // exit;
+
+                   
+                }
+            }
 		}
 		$dbpecomp.close();
 	}

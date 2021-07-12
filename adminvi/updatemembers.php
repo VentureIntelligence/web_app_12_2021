@@ -153,6 +153,8 @@ session_start();
                                             $sv=0;
                                             $itech=0;
                                             $ctech=0;
+                                            $valInfo=0;
+
                                             
                                             $PEInvArray=$_POST['PEInv'];
                                             if($_POST['PEInv']){
@@ -271,6 +273,13 @@ session_start();
                                             }else{
                                                 $ctech=0;
                                             }
+                                            $valInfo=$_POST['valInfo'];
+                                            if($_POST['valInfo']){
+                                                $valInfo=1;
+                                            }else{
+                                                $valInfo=0;
+                                            }
+                                            
                                             $mobappArray=$_POST['mobappaccess'];
                                             if($_POST['mobappaccess']){
                                                 $mobapp=1;
@@ -306,6 +315,9 @@ session_start();
                                             $reExpLmtArray = $_POST['ExpLmtRE'];
                                             $contacts = trim($_POST['contacts']);
 
+                                            $exp_limit=intval($_POST['exp_limit']);
+			                                $limit_enable=intval($_POST['limit_enable']);
+                                            //echo $contacts;
                                             if($_POST['peonly']==1 && $_POST['vconly']==2  ) { $permission=0; }
                                             else if(!isset($_POST['vconly']) && $_POST['peonly']==1  ) { $permission=1; }
                                             else if(!isset($_POST['peonly']) && $_POST['vconly']==2  ) { $permission=2; }
@@ -316,8 +328,8 @@ session_start();
                                             PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MaMa,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,
                                             Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry' where DCompId=$companyId ";*/
                                             $UpdateCompSql= "Update dealcompanies set DCompanyName='$companyName',ExpiryDate='$expDate',TrialLogin=$trial, PEInv=$PEInv,VCInv=$VCInv,REInv=$REInv,PEIpo=$PEIpo,VCIpo=$VCIpo,
-                                            PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MAlogin,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,
-                                            Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry',LPDir=$LPDir, mobile_access=$mobapp  where DCompId=$companyId ";
+                                            PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MAlogin,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,valInfo=$valInfo,
+                                            Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry',LPDir=$LPDir, mobile_access=$mobapp,custom_limit_enable=$limit_enable,custom_export_limit=$exp_limit where DCompId=$companyId ";
                                             //echo "<br>--" .$UpdateCompSql;
                                             
                                             if ($rsUpdateComp=mysql_query($UpdateCompSql))

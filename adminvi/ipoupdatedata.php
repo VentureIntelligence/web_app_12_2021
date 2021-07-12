@@ -29,6 +29,7 @@
    
 
 		$hideamouttoUpdate=0;
+		$user=$_SESSION['UserNames'];
 
          $IPOIdtoUpdate = $_POST['txtIPOId'];
          $industryIdtoUpdate =$_POST['txtindustryId'];
@@ -167,7 +168,7 @@
 		}
 
     	 $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate',industry=$industrytoUpdate,sector_business='$sectortoUpdate',
-    	 website='$websitetoUpdate' where PECompanyId=$companyIdtoUpdate";
+    	 website='$websitetoUpdate',modefied_by='$user' where PECompanyId=$companyIdtoUpdate";
 		//		echo "<br>company update Query-- " .$UpdatecompanySql;
 			if($updaters=mysql_query($UpdatecompanySql))
 			{

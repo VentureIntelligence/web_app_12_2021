@@ -756,46 +756,67 @@ else{
 if($notable==false)
         {
     ?>
-             <div class="holder" style="float:none; text-align: center;">
-                <div class="paginate-wrapper" style="display: inline-block;">
-                 <?php
-                    $totalpages=  ceil($sql_cntall/$rec_limit);
-                    $firstpage=1;
-                    $lastpage=$totalpages;
-                    $prevpage=(( $currentpage-1)>0)?($currentpage-1):1;
-                    $nextpage=(($currentpage+1)<$totalpages)?($currentpage+1):$totalpages;
-                 ?>
-                 
-                  <?php
-                    $pages=array();
-                    $pages[]=1;
-                    $pages[]=$currentpage-2;
-                    $pages[]=$currentpage-1;
-                    $pages[]=$currentpage;
-                    $pages[]=$currentpage+1;
-                    $pages[]=$currentpage+2;
-                    $pages[]=$totalpages;
-                    $pages =  array_unique($pages);
-                    sort($pages);
-                 if($currentpage<2){
-                 ?>
-                 <a class="jp-previous jp-disabled" >&#8592;  Previous</a>
-                 <?php } else { ?>
-                 <a class="jp-previous" >&#8592;  Previous</a>
-                 <?php } for($i=0;$i<count($pages);$i++){ 
-                     if($pages[$i] > 0 && $pages[$i] <= $totalpages){
-                ?>
-                 <a class='<?php echo ($pages[$i]==$currentpage)? "jp-current":"jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
-                 <?php } 
-                     }
-                     if($currentpage<$totalpages){
-                     ?>
-                 <a class="jp-next">Next &#8594;</a>
-                     <?php } else { ?>
-                  <a class="jp-next jp-disabled">Next &#8594;</a>
-                     <?php  } ?>
-                </div>
-             </div>  
+            <!-- <center> -->
+            <!-- <div class="pageinationManual"> -->
+                <div class="holder" style="float:none; text-align: center;">
+                    <div class="paginate-wrapper" style="display: inline-block;">
+                    <?php
+                        $totalpages=  ceil($sql_cntall/$rec_limit);
+                        $firstpage=1;
+                        $lastpage=$totalpages;
+                        $prevpage=(( $currentpage-1)>0)?($currentpage-1):1;
+                        $nextpage=(($currentpage+1)<$totalpages)?($currentpage+1):$totalpages;
+                    ?>
+                    
+                    <?php
+                        $pages=array();
+                        $pages[]=1;
+                        $pages[]=$currentpage-2;
+                        $pages[]=$currentpage-1;
+                        $pages[]=$currentpage;
+                        $pages[]=$currentpage+1;
+                        $pages[]=$currentpage+2;
+                        $pages[]=$totalpages;
+                        $pages =  array_unique($pages);
+                        sort($pages);
+                    if($currentpage<2){
+                    ?>
+                    <a class="jp-previous jp-disabled" >&#8592;  Previous</a>
+                    <?php } else { ?>
+                    <a class="jp-previous" >&#8592;  Previous</a>
+                    <?php } for($i=0;$i<count($pages);$i++){ 
+                        if($pages[$i] > 0 && $pages[$i] <= $totalpages){
+                    ?>
+                    <a class='<?php echo ($pages[$i]==$currentpage)? "jp-current":"jp-page" ?>'  ><?php echo $pages[$i]; ?></a>
+                    <?php } 
+                        }
+                        if($currentpage<$totalpages){
+                        ?>
+                    <a class="jp-next">Next &#8594;</a>
+                        <?php } else { ?>
+                    <a class="jp-next jp-disabled">Next &#8594;</a>
+                        <?php  } ?>
+                        &nbsp;
+
+                        
+                        
+                    </div> 
+                </div>  
+          
+            <!-- </div> -->
+            <!-- </center> -->
+
+
+                <!-- Pagination Section -->
+                <center>
+                <div class="pagination-section">
+                    <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+                    <button class = "jp-page1 button pagevalue" name="pagination"  id="pagination" type="submit" onclick = "validpagination()">Go</button>
+                </div> 
+                </center>
+
+
+         <br /><br />
         <?php } ?>
 </td>
 
@@ -829,17 +850,26 @@ if($notable==false)
                     
                     if(!$(this).hasClass('jp-disabled')){
                   var  pageno=$("#next").val();
+                  $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);}
                     return  false;
                 });
                 $(".jp-page").live("click",function(){
                    var pageno=$(this).text();
+                   $("#paginationinput").val('');
+                    loadhtml(pageno,orderby,ordertype);
+                    return  false;
+                });
+                $(".jp-page1").live("click",function(){
+                   var pageno=$(this).val();
+                  //alert(pageno);
                     loadhtml(pageno,orderby,ordertype);
                     return  false;
                 });
                 $(".jp-previous").live("click",function(){
                     if(!$(this).hasClass('jp-disabled')){
                     var pageno=$("#prev").val();
+                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     }
                     return  false;
@@ -858,9 +888,22 @@ if($notable==false)
                     }
                     loadhtml(1,orderby,ordertype);
                     return  false;
-                });        
+                }); 
+
+                $( document ).ready(function() {
+
+                var x = localStorage.getItem("pageno");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });       
                function loadhtml(pageno,orderby,ordertype)
                {
+                localStorage.setItem("pageno", pageno);
+                $('#paginationinput').val(pageno);
+
                //alert(pageno+","+orderby+","+ordertype);
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
@@ -1228,3 +1271,67 @@ if($notable==false)
     });                               
     </script>  
    
+   <script>
+    function paginationfun(val)
+    {
+        $(".pagevalue").val(val);
+    }
+
+    function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
+
+    var wage = document.getElementById("paginationinput");
+                wage.addEventListener("keydown", function (e) {debugger;
+                    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                        //paginationForm();
+                        event.preventDefault();
+                        document.getElementById("pagination").click();
+
+                    }
+                })
+            
+
+    </script>
+
+    <style>
+
+.paginationtextbox{
+        width:2.5%;
+        padding: 3px;
+    }
+    .button{
+        background-color: #a2753a; /* Green */
+        border: none;
+        color: white;
+        padding: 4px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .pageinationManual{
+        display: flex;
+        /* margin: auto;
+        width: 50%; */
+        position: absolute;
+
+left: 38%;
+    }
+
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
+
+
+    </style>

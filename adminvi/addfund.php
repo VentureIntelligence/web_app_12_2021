@@ -89,6 +89,14 @@ session_start();
        // $fundDate           = $_POST['date'];
         $fundDate           = "$_POST[year]-$_POST[month]-01";
         //$launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+        if($_POST['launchyear'] != 0 && $_POST['launchmonth'] != 0)
+        {
+        $launchDate         = "$_POST[launchyear]-$_POST[launchmonth]-01";
+        }
+        else
+        {
+            $launchDate =NULL;
+        }
         $capitalSource      = $_POST['capitalSource'];
         $moreInfo           = mysql_real_escape_string($_POST['moreInfo']);
         $source             = mysql_real_escape_string($_POST['source']);
@@ -346,7 +354,7 @@ if($dbType =='PE')
     var investor_db_id = '';
     var showModal = true;
     function monthyearcheck()
-{
+{debugger;
          var checkmonth = document.addfund.month.value;
          var checkyear = document.addfund.year.value;
          

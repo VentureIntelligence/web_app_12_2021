@@ -65,7 +65,11 @@
             $exportToExcel = $trialrow["TrialLogin"];
         }
     }
-    
+    $month1=($_REQUEST['month1'] || ($_REQUEST['month1']!="")) ?  $_REQUEST['month1'] : date('n');
+    $year1 = ($_REQUEST['year1'] || ($_REQUEST['year1']!="")) ?  $_REQUEST['year1'] : date('Y', strtotime(date('Y')." -1  Year"));
+    $month2=($_REQUEST['month2'] || ($_REQUEST['month2']!="")) ?  $_REQUEST['month2'] : date('n');
+    $year2 = ($_REQUEST['year2'] || ($_REQUEST['year2']!="")) ?  $_REQUEST['year2'] : date('Y');
+
 	include_once('reindex_search.php');
 ?>
    
@@ -579,18 +583,19 @@ function writeSql_for_no_records($sqlqry,$mailid)
 		}
 		$dbregionlink.close();
 	}
-function curPageURL() {
- $URL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
- $URL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- $pageURL=$URL."&scr=EMAIL";
- return $pageURL;
-}
+    function curPageURL() {
+        $URL = 'http';
+        $portArray = array( '80', '443' );
+        if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
+        $URL .= "://";
+        if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
+         $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        } else {
+         $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+        $pageURL=$URL."&scr=EMAIL";
+        return $pageURL;
+       }
 
 // mysql_close();
 ?>
