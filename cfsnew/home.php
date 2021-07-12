@@ -2478,7 +2478,7 @@ function paginationfunc()
     /* margin-top: -45px !important; */
 }
 .inputpagination{
-    width:50px !important;
+    width:45px !important;
     height: 26px !important;
     /* margin: 0 10px !important; */
 }
