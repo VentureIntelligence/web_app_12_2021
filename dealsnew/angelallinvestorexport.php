@@ -1,6 +1,6 @@
 <?php
  //session_save_path("/tmp");
-session_start();
+//session_start();
 
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
@@ -31,7 +31,7 @@ function updateDownload($res){
    $rowSelCount = mysql_num_rows($sqlSelResult);
    $rowSel = mysql_fetch_object($sqlSelResult);
    $downloads = $rowSel->recDownloaded;
-
+//echo $sqlSelCount;exit();
    if ($rowSelCount > 0){
        $upDownloads = $recCount + $downloads;
        $sqlUdt = "UPDATE `user_downloads` SET `recDownloaded`='".$upDownloads."' WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='PE' AND `downloadDate` = CURRENT_DATE";
@@ -234,6 +234,8 @@ function updateDownload($res){
                         
                     $allexpsql= $_POST['sqlquery'];
                     $allexpresult = mysql_query($allexpsql);
+                    updateDownload($allexpresult);
+
                                 
                     while($allexpresultrow = mysql_fetch_array($allexpresult))
                     {
@@ -244,7 +246,6 @@ function updateDownload($res){
                 
                         $result = @mysql_query($sql)
                              or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
-                        //                                updateDownload($result);
 
                         // angelCo table
                          $query2 = mysql_query("SELECT angelco_invID FROM peinvestors WHERE  InvestorId=".$allexpresultrow['InvestorId']);
