@@ -551,7 +551,7 @@
                                                         }
 
                                                         if($hidedateStartValue !="" && $hidedateEndValue!=''){
-                                                             $wheredates= " dates between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
+                                                             $wheredates= " dealdate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
                                                         }
 
                                                         if ($whereind != "")
@@ -573,11 +573,11 @@
                                                         }
 
 
-                                                        if(($wheredates != "") )
-                                                        {
-                                                                $companysql = $companysql.$wheredates ." and ";
-                                                                $companysql2 = $companysql2.$wheredates ." and ";
-                                                        }
+                                                        // if(($wheredates != "") )
+                                                        // {
+                                                        //         $companysql = $companysql.$wheredates ." and ";
+                                                        //         $companysql2 = $companysql2.$wheredates ." and ";
+                                                        // }
 
 
                                                         $companysql = $companysql ." Deleted =0
@@ -1047,6 +1047,9 @@
 						" AND c.PECompanyId = peinv.PECompanyId
 						AND adac.CIAId = cia.CIAID and pe_inv.PEId=peinv.PEId and inv.InvestorId=pe_inv.InvestorId
 						AND adac.PEId = peinv.PEId and adac.CIAId=$AdvisorId order by dt";
+
+                        //echo $advisor_to_investorsql;exit();
+                        
 					}
 					elseif($pe_vc_flag==9 || $pe_vc_flag==10 || $pe_vc_flag==11)
 					{
