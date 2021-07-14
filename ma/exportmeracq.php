@@ -1029,20 +1029,23 @@
         {
             $schema_insert .= "".$sep;
         }
-        //website
-        if($$row[17]!="")
+                
+        if($row[17]!="")
+            $schema_insert .= $row[17].$sep; //website
+        else
+             $schema_insert .= "".$sep; 
+
+        if($row[18]!="")
         {
-            $schema_insert .= $row[17].$sep;
+            $res = str_replace( array( '\'', '"',
+            ',' , ';', '<', '>','$' ), ' ',  $row[18]);
+
+            $schema_insert .= $res.$sep; //moreinfor
         }
         else
         {
-            $schema_insert .= "".$sep;
-        }       
-
-        if($row[18]!="")
-            $schema_insert .= $row[18].$sep; //moreinfor
-        else
             $schema_insert .= "".$sep; 
+        }
 
                 if($row[20]!="")
                     $schema_insert .= $row[20].$sep;    //Link
