@@ -449,7 +449,7 @@ $( document ).ready( function() {
                         
                         render: function(data, type, full) {
                             if (data != '')
-                                return '<a href="../viewpartner.php?pid='+data+'"> <img src="../images/view.png" width="20" height="20" title="Click to View" alt="Click to Edit" style="cursor:pointer;" /></a>  <a href="../editpartner.php?pid='+data+'" style="float: right;"> <img src="../images/edit.png" width="16" height="16" title="Click to Edit" alt="Click to Edit" style="cursor:pointer;" /></a>';
+                                return '<a href="../viewpartner.php?pid='+data+'"> <img src="../images/view.png" width="20" height="20" title="Click to View" alt="Click to Edit" style="cursor:pointer;" /></a>  <a href="../editpartner.php?pid='+data+'" style="float: right;"> <img src="../images/edit.png" width="16" height="16" title="Click to Edit" alt="Click to Edit" style="cursor:pointer;" /></a><a href="../deletepartner.php?pid='+data+'" style="float: right;margin-right: 5px;"> <img src="../images/delete1.png" width="16" height="16" title="Click to delete" alt="Click to delete" style="cursor:pointer;" /></a>';
                             else
                                 return "";             
                             }
@@ -555,7 +555,7 @@ $( document ).ready( function() {
                         <th >Search Count</th>
                         <th >API Count</th>
 						<th >Status</th>
-                        <th style="width:7%;">Action</th>
+                        <th style="width:8%;">Action</th>
                      </tr>
                   </thead>
                   <tbody class="xbrl-row"></tbody>
