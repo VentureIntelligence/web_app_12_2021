@@ -246,7 +246,7 @@ a.disable:hover {
       <table>
         <thead>
           <tr>
-            <th colspan="2"style="text-align: center;"> {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h2 style="font-size:18px;">Baisc API</h2>{/if}</th>
+            <th colspan="2"style="text-align: center;"> {if $Usr_Type eq 1 or $Usr_Type eq 3 } <h2 style="font-size:18px;">Basic API</h2>{/if}</th>
           </tr>
           {* <tr>
             <th style="width: 53%;">PE</th>
