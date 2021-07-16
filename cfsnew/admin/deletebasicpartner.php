@@ -12,20 +12,35 @@ if(!$_SESSION['business']['Auth']){
 
     $partner_id =  $_GET["pid"];
 
+    $getUserid = mysql_query("SELECT * FROM `basic_api_partners` WHERE partner_id=$partner_id");
+    $user_id = mysql_fetch_object($getUserid)->user_id;
+
     $query = "DELETE FROM basic_api_partners WHERE partner_id = $partner_id";
     $delete_rec = mysql_query($query);
 
     if($delete_rec == 1)
     {
-        ?>
-        <script> alert('Deleted Succesfully'); 
-        window.location = './basic/partners-list.php';</script>
-    <?php
+        $query1 = "DELETE FROM basic_api_users WHERE `user_id`=$user_id";
+        $api_users = mysql_query($query1);
+
+        if($api_users == 1) {
+            ?>
+                <script> alert('Deleted Succesfully'); 
+            window.location = './basic/partners-list.php';</script>
+            <?php
+
+        }else{
+            ?>
+            <script>  alert("Error in Delete Partners Users");
+            window.location = './basic/partners-list.php';</script>
+            <?php
+        }
+       
     }else{
         ?>
-        <script> alert('Error Occur.. Please try again'); 
+        <script> alert("Error in Delete Partners");
         window.location = './basic/partners-list.php';</script>
-    <?php
+       <?php
     }
 
 // $getUserid = mysql_query("SELECT * FROM `basic_api_partners` WHERE partner_id=$partner_id");
