@@ -44,7 +44,7 @@
             $companyName=$_POST['companyName'];
             $filterQuery=$_POST['filterQuery'];
             
-            if($companyIdsession == 1946568266)
+            if($companyIdsession == 1470326532)
             {
                $filter_active='active';
             }
