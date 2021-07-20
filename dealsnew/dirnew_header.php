@@ -352,6 +352,13 @@ $(document).ready(function(){
 	  delay : 20
 	});
 });
+
+
+
+
+
+
+
     $(document).ready(function(){
       $('input').iCheck({
         checkboxClass: 'icheckbox_flat-red',
@@ -1236,8 +1243,18 @@ $( document ).ready( function() {
 
     $(".ttl3").click(function() {
         $(this).toggleClass('active').next('.frmDropDown').toggleClass("active");
+        localStorage.removeItem("pageno");
+
      });
-     
+     $(document).ready(function(){
+    $('.show-nav').on('ifChanged', function(event){
+      //remove page no
+      localStorage.removeItem("pageno");
+
+});    
+
+});
+       
     
 </script> 
 <style>
