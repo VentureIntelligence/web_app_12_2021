@@ -180,6 +180,9 @@
         <div id="linksnone">
             <a href="../adminvi/ExportDeals.php">PE Companies </a> 
         </div>
+        <div id="linksnone">
+            <a href="../adminvi/ExportComapnies.php">CFS Companies </a> 
+        </div>
             <?php } ?>
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Exit</span></div>
