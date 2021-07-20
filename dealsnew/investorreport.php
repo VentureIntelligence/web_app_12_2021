@@ -751,6 +751,8 @@ else if($vcflagValue==2){
                 <input type="hidden" name="txthideindustryid" value="<?php echo $industry;?>" >
                 <input type="hidden" name="txthidefirmtypeid" value="<?php echo $firmtypevalue;?>" >
                 <input type="hidden" name="txthidemostactive" value="1" >
+                <input type="hidden" name="hidevcflagValue" value="<?php echo $vcflagValue;?>">
+
 
             </form>
     <script src="<?php echo $refUrl; ?>js/listviewfunctions.js"></script>
