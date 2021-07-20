@@ -8329,7 +8329,7 @@ if(tagsearchval == ''){
                         ?>
             <div class="list-view-table">
                             
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTables">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTables">
                               <thead><tr>
                                       <?php
                                       if($vcflagValue == 0)
@@ -9169,9 +9169,22 @@ if(tagsearchval == ''){
 
             <?php  if($notable==false)  {  ?> 
              <div style="padding: 0 1%; margin-top: 20px">
-             <div class="holder" style="float:none; text-align: center;">
-                 <div class="paginate-wrapper" style="display: inline-block;"></div>
-             </div>
+
+
+
+
+            <div class="holder" style="float:none; text-align: center;">
+                <div class="paginate-wrapper" style="display: inline-block;">
+                </div>
+            </div>
+
+            <!-- <center><input type="text" value="" name = "paginationNum" id = "paginationNum" />
+            <button class = "jumppage">jump to this page</button></center> -->
+
+          
+
+                <br /><br />
+             
              <?php
                     if(($exportToExcel==1))
                     {
@@ -9897,6 +9910,12 @@ $(document).ready(function(){
 
 <script type="text/javascript"> 
 $(document).ready(function(){
+    var nav = $('.show-by-list');
+
+            nav.find('a').on('click',function(e){
+                localStorage.removeItem("pageno");
+
+            });
     // $('#city').on("change",function(){
     //                 var citytotalcount = $('#city option').length; 
     //                   var citytotalcount_selected = $('#city option:selected').length;
@@ -10206,3 +10225,41 @@ $(function(){
 mysql_close();
     mysql_close($cnx);
 ?>
+
+<script>
+        function paginationfun(val)
+        {
+            $(".pagevalue").val(val);
+        }
+    </script>
+
+    <style>
+        .button{
+            background-color: #a2753a; /* Green */
+            border: none;
+            color: white;
+            padding: 4px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+
+
+
+
+<script>
+
+$(".jumppage").click(function () {
+                // alert();
+                /* get given page */
+                // var page = parseInt($("input").val());
+                var jumppage = $("#paginationNum").val();
+                // var page = 5;
+                alert(jumppage);
+                /* jump to that page */
+                $("div.holder").jPages(jumppage);
+                // return false;
+              });
+</script>

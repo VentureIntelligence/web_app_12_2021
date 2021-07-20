@@ -1115,6 +1115,8 @@ $('input[type="checkbox"]').click(evaluate).each(evaluate);*/
 <script>
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
+        localStorage.removeItem("pageno");
+
         var url = $(this).attr('data-url');
         $.ajax({
             url: 'ajax_set_session.php',
@@ -1126,7 +1128,12 @@ $('input[type="checkbox"]').click(evaluate).each(evaluate);*/
             }
         });
     });
+    $(".tour-lock").on('click', function(e) {
+        //alert('hello');
+        localStorage.removeItem("pageno");
 
+
+    });
     $("#searchkeywords").click(submitSearchRemove);
 
     $('#searchallfield').on('keyup', function(e){
@@ -1162,4 +1169,12 @@ $(document).ready(function () {
         $th.val( $th.val().replace(/[^a-zA-Z0-9_ _ &.']/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
     });
 });
+$( document ).ready(function() {
+                var nav = $('#myaccount');
+
+                nav.find('a').on('click',function(e){
+                    localStorage.removeItem("pageno");
+
+                });
+            });
 </script>
