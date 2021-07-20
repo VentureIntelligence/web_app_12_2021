@@ -1767,7 +1767,14 @@ isFixed = false;
                 $(".sectorlist").parent().prev().find('ul').css("display","none");	
                 $(".subsectorlist").parent().prev().find('ul').css("display","none");	
                });
+               $( document ).ready(function() {
+                var nav = $('#myaccount');
 
+                nav.find('a').on('click',function(e){
+                    localStorage.removeItem("pageno");
+
+                });
+            });
 $(document).ready(function () {
     
     $('#searchallfield').keyup(function() {
