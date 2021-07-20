@@ -5010,7 +5010,7 @@ try {
     <div  class="work-masonry-thumb1 accordian-group">
                  <div class="accordions">
                     
-                    <?php  if(($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0) && $valInfo != 0 ){ ?>
+                    <?php  if(($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0) && $valInfo != 1 ){ ?>
                         <div class="accordions_dealtitle"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Valuation Info</h2>
                         </div>
@@ -5025,7 +5025,8 @@ try {
                      
                         <table cellpadding="0" cellspacing="0" class="tableInvest tableValuation">
                             <tbody>
-                                <?php if($valInfo == 0) {?>
+                            
+                                <?php if($valInfo == 1) {?>
                                     <tr>
                                         <td style="border-bottom: none !important;padding:0px !important;">
                                             <p class="text-center" style="padding: 10px;">You do not have permission to access valuation info </p> 
@@ -5273,7 +5274,7 @@ try {
             <div  class="work-masonry-thumb1 accordian-group" >
                  <div class="accordions">
                     
-                     <?php if(($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 )  && $valInfo != 0){ ?>
+                     <?php if(($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 )  && $valInfo != 1){ ?>
                         <div class="accordions_dealtitle"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Investor Info</h2>
                         </div>
