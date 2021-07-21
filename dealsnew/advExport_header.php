@@ -586,7 +586,7 @@
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
-                     $nanoSql="SELECT * FROM `saved_filter` where company_name IN ('Pranion','Venture') and filter_active='active' order by filter_order_no asc,id desc";
+                     $nanoSql="SELECT * FROM `saved_filter` where company_name IN ('Pranion','VI-Research','Venture') and filter_active='active' order by filter_order_no asc,id desc";
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
@@ -2359,7 +2359,7 @@
          var companyName=$('#companyName').val();
          for(i=0;i<selectedValues.length;i++)
          {
-         investornameArray.push(selectedValues[i]["name"])
+         investornameArray.push(selectedValues[i]["id"])
          }
          var editfilterId=globalfilterId;
          }
@@ -2381,7 +2381,7 @@
          var companyName=$('#companyName').val();
          for(i=0;i<selectedValues.length;i++)
          {
-         investornameArray.push(selectedValues[i]["name"])
+         investornameArray.push(selectedValues[i]["id"])
          }
          
          }

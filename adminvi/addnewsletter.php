@@ -2,7 +2,7 @@
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 require("checkaccess.php");
- // checkaccess( 'user_management' );
+//   checkaccess( 'user_management' );
  //session_save_path("/tmp");
 session_start();
 //print_r($_POST);
@@ -121,7 +121,6 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Category">Category</label>
                                             </td>
                                             <td>
-                                            
                                             <?php
                                                 $sql = "SELECT `id`,`category` FROM newsletter_category";
                                                 $res = mysql_query($sql) or die(mysql_error());

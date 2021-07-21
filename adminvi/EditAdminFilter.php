@@ -130,7 +130,7 @@
                            $keyword="";
                            $keyword=$_POST['repDBtype'];
                            
-                           $nanoSql="SELECT * FROM `saved_filter` where company_name IN('Pranion','Venture')  order by filter_order_no asc,id desc";
+                           $nanoSql="SELECT * FROM `saved_filter` where company_name IN('Pranion','VI-Research','Venture')  order by filter_order_no asc,id desc";
                            if ($reportrs = mysql_query($nanoSql))
                            {
                            $report_cnt = mysql_num_rows($reportrs);
