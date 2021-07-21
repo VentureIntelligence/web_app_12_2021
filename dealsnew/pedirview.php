@@ -9910,12 +9910,6 @@ $(document).ready(function(){
 
 <script type="text/javascript"> 
 $(document).ready(function(){
-    var nav = $('.show-by-list');
-
-            nav.find('a').on('click',function(e){
-                localStorage.removeItem("pageno");
-
-            });
     // $('#city').on("change",function(){
     //                 var citytotalcount = $('#city option').length; 
     //                   var citytotalcount_selected = $('#city option:selected').length;
