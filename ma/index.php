@@ -2231,7 +2231,7 @@
             <!-- </div> -->
 
                         <center>
-            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "PageNo" onkeyup = "paginationfun(this.value)">
              <button class = "jp-page1 button pagevalue" name="pagination"  id="pagination" type="submit" onclick = "validpagination()"> Go</button>
             </div>
             </center>
@@ -2559,9 +2559,24 @@
                         ordertype="asc";
                     loadhtml(1,orderby,ordertype);
                     return  false;
-                });        
+                });     
+
+                $( document ).ready(function() {
+
+                    var x = localStorage.getItem("pageno");
+                    //alert(x);
+                    if(x != 'null' && x != null)
+                    {
+                    loadhtml(x,orderby,ordertype)
+                    }
+                });
+
                function loadhtml(pageno,orderby,ordertype)
                {
+                localStorage.setItem("pageno", pageno);
+                $('#paginationinput').val(pageno)
+
+
                var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                     var full_check_flag =  $( '#all_checkbox_search' ).val();
                     var pecheckedVal = $( '#pe_checkbox_enable' ).val();
@@ -4273,7 +4288,9 @@ if($type==1){?>
                $(document).ready(function(){
                             $('.popup_close a').click(function(){
                                 $(".popup_main").hide();
+                                localStorage.removeItem("pageno");
                              });
+                       
                });
             </script>
             <style>
@@ -4544,12 +4561,8 @@ if($countryheight>'100')
     <style>
         
 .paginationtextbox{
-        width:3.8%;
+        width:6%;
         padding: 3px;
-    }
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
     }
         .button{
             background-color: #a2753a; /* Green */
