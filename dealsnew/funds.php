@@ -810,7 +810,7 @@ if($notable==false)
                 <!-- Pagination Section -->
                 <center>
                 <div class="pagination-section">
-                    <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+                    <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
                     <button class = "jp-page1 button pagevalue" name="pagination"  id="pagination" type="submit" onclick = "validpagination()">Go</button>
                 </div> 
                 </center>
@@ -1305,7 +1305,7 @@ if($notable==false)
     <style>
 
 .paginationtextbox{
-        width:6%;
+        width:2.5%;
         padding: 3px;
     }
     .button{
@@ -1318,6 +1318,16 @@ if($notable==false)
         display: inline-block;
         font-size: 16px;
     }
+
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
+       
 
     .pageinationManual{
         display: flex;

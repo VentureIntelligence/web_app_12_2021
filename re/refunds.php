@@ -801,7 +801,7 @@
 			<!-- </div> -->
 
 						<center>
-			<div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+			<div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
             <button class = "jp-page1 button pagevalue" name="pagination" id="pagination"  type="submit" onclick = "validpagination()">Go</button></div>
 			</center>
         <?php } ?>
@@ -3014,8 +3014,15 @@ if($_GET['type']!="")
 <style>
         .paginationtextbox{
             width:6%;
-			padding: 3px;
+			padding: 2.6px;
         }
+		input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
         .button{
             background-color: #a2753a; /* Green */
             border: none;

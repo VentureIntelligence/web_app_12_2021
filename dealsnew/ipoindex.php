@@ -2118,7 +2118,7 @@
 
                     <!-- </div> -->
                         <center>
-                    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+                    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
                     <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit" onclick = "validpagination()">Go</button></div>
                     </center>
   <?php 
@@ -10185,7 +10185,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     <style>
 
     .paginationtextbox{
-        width:6%;
+        width:3%;
         padding: 3px;
     }
         .button{
@@ -10206,5 +10206,13 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 left: 44%;
 
     }
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>
    

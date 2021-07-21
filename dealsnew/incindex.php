@@ -2694,7 +2694,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     <style>
 
 .paginationtextbox{
-        width:6%;
+        width:3%;
         padding: 3px;
     }
         .button{
@@ -2713,7 +2713,20 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         position: absolute;
 
 left: 42%;
+
+
+
     }
+
+
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>
     
     
