@@ -643,7 +643,10 @@
                        
                              
                 </div>	
-     <div class="holder">
+
+                <!-- <div class="pageinationManual"> -->
+                <div class="holder" style="float:none; text-align: center;">
+             <div class="paginate-wrapper" style="display: inline-block;">
                  <?php
                     $totalpages=  ceil($totalrecords/$rec_limit);
                     $firstpage=1;
@@ -680,7 +683,15 @@
                                         
                   <a class="jp-next jp-disabled">Next &#8594;</a>
                      <?php  } ?>
-    </div>
+    </div></div>
+                <!-- </div> -->
+
+                    <center>
+    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+   <button class = "jp-page1 button pagevalue" name="pagination"  id="pagination"  type="submit" onclick = "validpagination()">Go</button></div>
+   </center>
+
+
          
                         <?php if(($exportToExcel==1)){ ?>
                     
@@ -749,17 +760,25 @@
            $(".jp-next").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#next").val();
+               $("#paginationinput").val('');
                loadhtml(pageno,orderby,ordertype);}
                return  false;
            });
            $(".jp-page").live("click",function(){
                pageno=$(this).text();
+               $("#paginationinput").val('');
+                loadhtml(pageno,orderby,ordertype);
+               return  false;
+           });
+           $(".jp-page1").live("click",function(){
+               pageno=$(this).val();
                 loadhtml(pageno,orderby,ordertype);
                return  false;
            });
            $(".jp-previous").live("click",function(){
                if(!$(this).hasClass('jp-disabled')){
                pageno=$("#prev").val();
+               $("#paginationinput").val('');
                 loadhtml(pageno,orderby,ordertype);
                }
                return  false;
@@ -1139,3 +1158,61 @@ $(function() {
            
         </script>
         <?php mysql_close(); ?>
+
+
+
+    <script>
+
+        function paginationfun(val)
+        {
+            $(".pagevalue").val(val);
+        }
+        function validpagination()
+            {
+                var pageval = $("#paginationinput").val();
+                if(pageval == "")
+                {
+                    alert('Please enter the page Number...');
+                    location.reload();
+                }else{
+                    
+                }
+            }
+
+        var wage = document.getElementById("paginationinput");
+        wage.addEventListener("keydown", function (e) {debugger;
+            if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                //paginationForm();
+                event.preventDefault();
+                document.getElementById("pagination").click();
+
+            }
+        });
+    </script>
+
+    <style>  
+        .paginationtextbox{
+            width:3.4%;
+            padding: 3px;
+        }
+
+        input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
+        .button{
+            background-color: #a2753a; /* Green */
+            border: none;
+            color: white;
+            padding: 4px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        .pageinationManual{
+            display: flex;
+            position: absolute;
+            left: 35%;
+        }
+    </style>
