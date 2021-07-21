@@ -1529,44 +1529,50 @@
             $dt2 = $year2."-".$month2."-31";
             
                 /*$tagsval = "pec.city LIKE '%$searchallfield%' OR pec.companyname LIKE '%$searchallfield%' OR sector_business LIKE '%$searchallfield%'  or  pe.MoreInfor LIKE '%$searchallfield%' or  InvestmentDeals LIKE '%$searchallfield%' or pec.tags like '%$searchallfield%'";*/
-            $searchExplode = explode( ' ', $searchallfield );
-            foreach( $searchExplode as $searchFieldExp ) {
-
-              /*  $cityLike .= "pec.city LIKE '$searchallfield%' AND ";
-                $companyLike .= "pec.companyname LIKE '%$searchallfield%' AND ";
-                $sectorLike .= "sector_business LIKE '%$searchallfield%' AND ";
-                $moreInfoLike .= "MoreInfor LIKE '%$searchallfield%' AND ";
-                $investmentDealsLike .= "InvestmentDeals LIKE '%$searchallfield%' AND ";
-                $industryLike .= "i.industry LIKE '%$searchallfield%' AND ";
-                $websiteLike .= "pec.website LIKE '%$searchallfield%' AND ";*/
-                $cityLike .= "pec.city REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                $companyLike .= "pec.companyname REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                $sectorLike .= "sector_business REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                $moreInfoLike .= "MoreInfor REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                $investmentDealsLike .= "InvestmentDeals REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                $industryLike .= "i.industry REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-                $websiteLike .= "pec.website REGEXP '[[:<:]]".$searchFieldExp."[[:>:]]' AND ";
-
-                $tagsLike .= "(pec.tags REGEXP '[[.colon.]]$searchFieldExp$' or pec.tags REGEXP '[[.colon.]]$searchFieldExp,') and ";
-            }
-            $tagsLike .= "pec.tags REGEXP '[[.colon.]]$searchallfield$' OR pec.tags REGEXP '[[.colon.]]$searchallfield,'";
-            $cityLike = '('.trim($cityLike,'AND ').')';
-            $companyLike = '('.trim($companyLike,'AND ').')';
-            $sectorLike = '('.trim($sectorLike,'AND ').')';
-            $moreInfoLike = '('.trim($moreInfoLike,'AND ').')';
-            $investmentDealsLike = '('.trim($investmentDealsLike,'AND ').')';
-            $industryLike = '('.trim($industryLike,'AND ').')';
-            $websiteLike = '('.trim($websiteLike,'AND ').')';
-            $tagsLike = '('.trim($tagsLike,'AND ').')';
-            $tagsval = $cityLike . ' OR ' . $companyLike . ' OR ' . $sectorLike . ' OR ' . $moreInfoLike . ' OR ' . $investmentDealsLike . ' OR ' . $industryLike . ' OR ' . $websiteLike . ' OR ' . $tagsLike;                               
+                // if($_SESSION['PE_industries']!=''){
             
-            $companysql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, sector_business as sector_business,
-            pe.DealAmount,pec.website, pe.MandAId,pe.Comment,MoreInfor,hideamount,ExitStatus,DATE_FORMAT(DealDate,'%b-%Y') as period,DealDate as DealDate,
-            (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others' separator ', ') FROM manda_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.MandAId=pe.MandAId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor 
-            FROM manda AS pe, industry AS i, pecompanies AS pec ,dealtypes dt
-            WHERE DealDate between '" . $dt1. "' and '" . $dt2 . "' and   pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID
-            AND pe.Deleted =0 and pec.industry != 15 " .$addedflagQry . $addedhide_pms_qry . $addDelind.
-            " AND ( $tagsval ) $comp_industry_id_where GROUP BY pe.MandAId ";
+                //     $comp_industry_id_where = ' AND pec.industry IN ('.$_SESSION['PE_industries'].') ';
+                // }
+                $searchExplode = explode(' ', $searchallfield);
+                foreach ($searchExplode as $searchFieldExp) {
+                    
+                    $cityLike .= "pec.city REGEXP '[[:<:]]" . $searchFieldExp . "[[:>:]]' AND ";
+                    $companyLike .= "pec.companyname REGEXP '[[:<:]]" . $searchFieldExp . "[[:>:]]' AND ";
+                    $sectorLike .= "sector_business REGEXP '[[:<:]]" . $searchFieldExp . "[[:>:]]' AND ";
+                    $moreInfoLike .= "ma.MoreInfor REGEXP '[[:<:]]" . $searchFieldExp . "[[:>:]]' AND ";
+                    $investorLike .="ma.InvestmentDeals REGEXP '[[:<:]]" . $searchFieldExp . "[[:>:]]' AND ";
+                    $industryLike .= "ind.industry REGEXP '[[:<:]]" . $searchFieldExp . "[[:>:]]' AND ";
+                    $websiteLike .= "pec.website REGEXP '[[:<:]]" . $searchFieldExp . "[[:>:]]' AND ";
+                    $tagsLike .= "(pec.tags REGEXP '[[.colon.]]$searchFieldExp$' or pec.tags REGEXP '[[.colon.]]$searchFieldExp,') and ";
+                    
+                }
+                
+                $tagsLike .= "pec.tags REGEXP '[[.colon.]]$searchallfield$' OR pec.tags REGEXP '[[.colon.]]$searchallfield,'";
+                $cityLike = '(' . trim($cityLike, 'AND ') . ')';
+                $companyLike = '(' . trim($companyLike, 'AND ') . ')';
+                $sectorLike = '(' . trim($sectorLike, 'AND ') . ')';
+                $moreInfoLike = '(' . trim($moreInfoLike, 'AND ') . ')';
+                $investorLike = '(' . trim($investorLike, 'AND ') . ')';
+                $industryLike = '(' . trim($industryLike, 'AND ') . ')';
+                $websiteLike = '(' . trim($websiteLike, 'AND ') . ')';
+                $tagsLike = '(' . trim($tagsLike, 'and ') . ')';
+                
+                $tagsval = $cityLike . ' OR ' . $companyLike . ' OR ' . $sectorLike . ' OR ' . $moreInfoLike . ' OR ' . $investorLike . ' OR ' . $industryLike . ' OR ' . $websiteLike . ' OR ' . $tagsLike;
+
+
+                    $companysql="SELECT ma.PECompanyId, pec.companyname, pec.industry, ind.industry, sector_business as sector_business,    ma.DealAmount,pec.website, ma.MandAId,ma.Comment,ma.MoreInfor,ma.hideamount,ma.ExitStatus,DATE_FORMAT(ma.DealDate,'%b-%Y') as period,DealDate as DealDate, 
+                            (SELECT GROUP_CONCAT( inv_sub.Investor ORDER BY Investor =  'others' ) FROM manda_investors AS peinv_sub, peinvestors AS inv_sub WHERE peinv_sub.MandAId =ma.MandAId AND inv_sub.InvestorId = peinv_sub.InvestorId) as Investor FROM manda AS ma 
+                        JOIN pecompanies AS pec ON pec.PECompanyId = ma.PECompanyId
+                        JOIN industry AS ind ON ind.industryid = pec.industry
+                        JOIN dealtypes AS dt ON dt.DealTypeId =  ma.DealTypeId
+                        JOIN investortype AS itype ON itype.InvestorType = ma.InvestorType
+                        JOIN manda_investors AS minvestor ON minvestor.MandAId=ma.MandAId
+                        LEFT JOIN peinvestors as investor on investor.InvestorId=minvestor.InvestorId
+                        LEFT JOIN peinvestments_investors as invinv on invinv.InvestorId = minvestor.InvestorId
+                        LEFT JOIN peinvestments as inv on inv.PECompanyId = ma.PECompanyId AND inv.PEId = invinv.PEId
+                        LEFT JOIN acquirers AS acq ON acq.AcquirerId = ma.AcquirerId
+                        where ma.DealDate between '" . $dt1. "' and '" . $dt2 . "' and ma.Deleted=0 and pec.industry != 15 and ma.DealTypeId= dt.DealTypeId and 
+                        dt.hide_for_exit=$var_hideforexit  AND ( $tagsval ) $comp_industry_id_where group by ma.MandAId";
 
             $orderby="DealDate";
             $ordertype="desc";
@@ -1574,7 +1580,7 @@
             $fetchAggregate==false;
             $popup_search=1;
             //  echo "<br>Query for company search";
-            //echo "<br> Company search--" .$companysql;
+           // echo "<br> Company search--" .$companysql;
         }
         elseif (trim($companysearchads) != "")
         {
@@ -3448,7 +3454,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                    //  include_once("mandatrendview.php");
+                     include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -3741,9 +3747,21 @@ div.token-input-dropdown{
             $( '#month2' ).on( 'change', function() {
                 $( '#period_flag' ).val(2);
             });
-     });              
+     });        
+             $( document ).ready(function() {
+            var x = localStorage.getItem("pageno");
+            //alert(x);
+            if(x != 'null' && x != null)
+            {
+            loadhtml(x,orderby,ordertype)
+            }
+            });       
           function loadhtml(pageno,orderby,ordertype)
           {
+            localStorage.setItem("pageno", pageno);
+            $('#paginationinput').val(pageno)
+
+
             var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
             var full_check_flag =  $( '#all_checkbox_search' ).val();//junaid
             var pecheckedVal = $( '#pe_checkbox_enable' ).val();//junaid
@@ -11502,7 +11520,7 @@ mysql_close();
     <style>
 
 .paginationtextbox{
-        width:2.6%;
+    width:2.6%;
         padding: 3px;
     }
         .button{
@@ -11523,8 +11541,12 @@ mysql_close();
 left: 40%;
     }
 
+
     input[type='text']::placeholder
+
     {   
+
         text-align: center;      /* for Chrome, Firefox, Opera */
+
     }
     </style>

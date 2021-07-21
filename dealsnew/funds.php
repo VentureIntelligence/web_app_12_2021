@@ -888,9 +888,22 @@ if($notable==false)
                     }
                     loadhtml(1,orderby,ordertype);
                     return  false;
-                });        
+                }); 
+
+                $( document ).ready(function() {
+
+                var x = localStorage.getItem("pageno");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });       
                function loadhtml(pageno,orderby,ordertype)
                {
+                localStorage.setItem("pageno", pageno);
+                $('#paginationinput').val(pageno);
+
                //alert(pageno+","+orderby+","+ordertype);
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
@@ -1292,8 +1305,9 @@ if($notable==false)
     <style>
 
 .paginationtextbox{
-        width:2.5%;
+        /* width:6%; */
         padding: 3px;
+        width:2.5%;
     }
     .button{
         background-color: #a2753a; /* Green */
@@ -1315,10 +1329,14 @@ if($notable==false)
 left: 38%;
     }
 
+
     input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+    text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
 
 
     </style>

@@ -427,8 +427,8 @@
                     $month2=date('m');
                     $year2=date('Y');
                  }elseif(!isset($_POST['month1'])|| $period_flag==2){
-                     $month1=$_POST['month1'];
-                    $year1=$_POST['year1'];
+                    $month1=01; 
+                    $year1 = 1998;
                     $month2=date('m');
                     $year2=date('Y');
                  }else{
@@ -1845,9 +1845,19 @@
                     loadhtml(1,orderby,ordertype);
                     return  false;
                 });   
-           
+                $( document ).ready(function() {
+                var x = localStorage.getItem("pageno");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });
                function loadhtml(pageno,orderby,ordertype)
                {
+                localStorage.setItem("pageno", pageno);
+                $('#paginationinput').val(pageno)
+
                 var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                 var full_check_flag =  $( '#all_checkbox_search' ).val();//junaid
                  var pecheckedVal = $( '#pe_checkbox_enable' ).val();//junaid
@@ -2476,7 +2486,7 @@
     
     //if($searchallfield!=''){ ?>
         $(document).ready(function(){
-           var filed_name = "combinesearch";
+           var filed_name = "";
             <?php if ($company_cnt==0){ ?>
                               $('.other_db_search').css('margin-top','50px');
             <?php } ?>
@@ -2687,11 +2697,6 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         width:3%;
         padding: 3px;
     }
-
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
         .button{
             background-color: #a2753a; /* Green */
             border: none;
@@ -2708,6 +2713,14 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         position: absolute;
 
 left: 42%;
+    }
+
+    input[type='text']::placeholder
+
+    {   
+
+        text-align: center;      /* for Chrome, Firefox, Opera */
+
     }
     </style>
     

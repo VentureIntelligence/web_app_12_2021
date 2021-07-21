@@ -897,6 +897,8 @@ if ($resetfield == "sectorsearch") {
         $searchallfield = '';
     } else if (isset($_POST['popup_select']) && $_POST['popup_select'] == 'sector') {
         $sectorsearch = trim($_POST['popup_keyword']);
+        $sectorsearchArray = explode(",", str_replace("'", "", $sectorsearch));
+
         $response = array();
         /* $sql_sector = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
 
@@ -1624,7 +1626,24 @@ if ($sector != '' && (count($sector) > 0)) {
     $sector_hide = implode($sector, ',');
     // $industry_hide = implode($industry, ',');
 }
-
+if ($sectorsearchArray != '' && (count($sectorsearchArray) > 0)) {
+    //echo 'hai';
+    $sectorvalue = '';
+    $sectorstr = implode(',',$sectorsearchArray); 
+    $sectorssql = "select sector_name,sector_id from pe_sectors where sector_name IN ('$sectorstr')";
+    //echo $sectorssql;exit();
+   
+    if ($sectors = mysql_query($sectorssql)) {
+        while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
+            $sectorvalue .= $myrow["sector_name"] . ',';
+            $sectorvalueid .= $myrow["sector_id"] . ',';
+        }
+    }
+   
+    $sectorvalue = trim($sectorvalue, ',');
+    $sector_hide =  trim($sectorvalueid, ',');
+    // $industry_hide = implode($industry, ',');
+}
 if ($subsector != '' && (count($subsector) > 0)) {
     $subsectorvalue = '';
     $subsectorvalue = implode(',',$subsector); 
@@ -3001,7 +3020,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                         $invreg=trim($invreg,".*");
                                  $invreg.="'";
                                   
-                                 $invregsubquery=" and (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) ".$invreg;
+                               //  $invregsubquery=" and (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) ".$invreg;
         }
         
         $combineSearchFlag = true;
@@ -4660,8 +4679,9 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
          
         <!-- </div>   -->
         <center>
-        <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
-        <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
+            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div>
+        </center>
 
             <?php
 
@@ -4801,6 +4821,7 @@ if ($exportToExcel == 1) {
 if (!isset($_POST['tagsfield'])) {
     include "tag_report.php";
 }
+
 ?>
     <!--<div class="overview-cnt mt-trend-tab">
         <div class="showhide-link-wrap">
@@ -5184,10 +5205,26 @@ if ($type != 1) {
                     jQuery('#maskscreen').fadeOut(1000);
                     return false;
                 });
+
+                $( document ).ready(function() {
+            
+
+                var x = localStorage.getItem("pageno");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });
+
                 // T960 End ------------------------------------------------------
 
                 function loadhtml(pageno,orderby,ordertype)
-                {debugger;
+                {
+                    localStorage.setItem("pageno", pageno);
+                    $('#paginationinput').val(pageno)
+
+
                     var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                     var full_check_flag =  $( '#all_checkbox_search' ).val();
                     var pecheckedVal = $( '#pe_checkbox_enable' ).val();
@@ -11343,8 +11380,11 @@ if ($tourautostart != 'ON' && $popup_search == 0) {?>
                 $(document).ready(function(){
                  $('.popup_close a').click(function(){
                      $(".popup_main").hide();
+                     localStorage.removeItem("pageno");
+
                   });
                 });
+              
             </script>
             <style>
                 div.token-input-dropdown-facebook{
@@ -11993,9 +12033,13 @@ echo $user_browser;?>
     }
 
     input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+    text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
+
 
     .button{
     background-color: #a2753a; /* Green */
