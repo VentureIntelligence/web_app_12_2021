@@ -2836,6 +2836,8 @@ if($_GET['type']!="")
         .paginationtextbox{
             width:3%;
             padding: 3px;
+
+            
         }
         input[type='text']::placeholder
 
