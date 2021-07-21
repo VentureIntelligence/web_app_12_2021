@@ -12,7 +12,19 @@
 <html><head>
 <title>Add MA_MA Exit Deal Info</title>
 
-<!--<link href="../style.css" rel="stylesheet" type="text/css">-->
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script>
+<link rel="stylesheet" href="styles/token-input.css" type="text/css" />
+<link rel="stylesheet" href="styles/token-input-facebook.css" type="text/css" />
+
+
+
+
+
 </head>
 
 <body>
@@ -27,7 +39,7 @@
 
 				<tr style="font-family: Arial; font-size: 8pt">
 				<td >&nbsp;Target Company</td>
-				<td><input type="text" name="txtcompanyname" size="50" value="<?php echo $mycomprow["companyname"]; ?>"> </td>
+				<td><input type="text" name="txtcompanyname" id = "txtcompanyname" class ="company_name" size="50" value="<?php echo $mycomprow["companyname"]; ?>" onkeyup = "nocompanyname(this.value);"> </td>
 				</tr>
 
                                 <tr>
@@ -39,7 +51,7 @@
                                  </select></td> </tr>
 
 				<tr><td >&nbsp;Industry</td><td>
-					<SELECT name="txtindustry" style="font-family: Arial; color: #004646;font-size: 8pt">
+					<SELECT name="txtindustry"  id = "txtindustry"  style="font-family: Arial; color: #004646;font-size: 8pt">
 				<OPTION id=0 value="--" selected> Choose Industry  </option>
 				<?php
 					 $industrysql="select industryid,industry from industry where industryid !=15 order by industry";
@@ -60,7 +72,7 @@
 				?></select></td></tr>
 
 								<tr><td >&nbsp;Sector</td>
-								<td><input type="text" name="txtsector" size="50" value=""> </td></tr>
+								<td><input type="text" name="txtsector"  id = "txtsector"  size="50" value=""> </td></tr>
 
 
 								<tr><td >&nbsp;Amount(US $M)</td>
@@ -143,7 +155,7 @@
 						<tr>
 					<td >&nbsp;City (Target)</td>
 					<td>
-						<input name="txtTargetCity" type="text" size="50" value=""  >
+						<input name="txtTargetCity" id = "txtTargetCity" type="text" size="50" value=""  >
 					</td></tr>
 
 
@@ -195,13 +207,13 @@
 					<tr>
 					<td >&nbsp;Website (Target)</td>
 					<td >
-					<input type="text" name="txtTargetwebsite" size="50" value=""> </td>
+					<input type="text" name="txtTargetwebsite" id = "txtTargetwebsite" size="50" value=""> </td>
 						</tr>
 
 				<tr>
                                     <td >&nbsp;Acquirer</td>
-                                    <td>
-					<input type="text" name="txtacquirer" size="50" value="">
+
+                                    <td><input type="text" name="txtacquirer"  id = "txtacquirer" class = "acquirer" size="50" value=""  onkeyup = "noacquirername(this.value)">
 					</td>
 				</tr>
                                  <tr>
@@ -213,7 +225,7 @@
                                     </select></td> 
                                 </tr>
                                   <tr><td >&nbsp;Industry (Acquirer)</td><td>
-                                        <SELECT name="txtacqindustry" style="font-family: Arial; color: #004646;font-size: 8pt">
+                                        <SELECT name="txtacqindustry" id = "txtacqindustry" style="font-family: Arial; color: #004646;font-size: 8pt">
                                 <OPTION id=0 value="--" selected> Choose Industry  </option>
                                 <?php
                                          $industrysql="select industryid,industry from industry where industryid !=15 order by industry";
@@ -242,7 +254,7 @@
 					<td >&nbsp;City (Acquirer)</td>
 					<td>
                                             
-						<input name="txtAcquirorCity" type="text" size="50" value=""  >
+						<input name="txtAcquirorCity"  id= "txtAcquirorCity" type="text" size="50" value=""  >
 					</td></tr>
 
 
@@ -401,8 +413,7 @@
      _uacct = "UA-1492351-1";
      urchinTracker();
    </script>
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-   
+		<!-- <script src="//code.jquery.com/jquery-1.11.3.min.js"></script> -->
    <script>
     $( document ).ready(function() {
         
@@ -483,6 +494,133 @@
         
         });
     });
+
+
+
+
+	// Company Name Search
+    $( ".company_name" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+            type: "POST",
+            url: "ajax_companyname_search_ma.php?dbtype=PE&opt=investor",
+            dataType: "json",
+            data: {
+                search: request.term
+            },
+            success: function( data ) {
+			
+				response( $.map( data, function( item ) {
+					return {
+						label: item.label,
+						value: item.value,
+						city: item.city,
+						stateid: item.stateid,
+						RegionId: item.RegionId,
+						industry: item.industry,
+						sector_business: item.sector_business,
+						website: item.website,
+					}
+				}));
+             }
+            });
+        },
+        minLength: 1,
+		select: function( event, ui ) {
+			
+			$('#txtTargetCity').val(ui.item.city);
+			$('#txtTargetCity').val(ui.item.city);
+			$('#txtsector').val(ui.item.sector_business);
+			$('#txtTargetwebsite').val(ui.item.website);
+			
+			if(ui.item.RegionId > 0){
+				$("#region option[value="+ui.item.RegionId+"]").prop('selected', true); 
+			}else{
+				$("#region option[value=1]").prop('selected', true);
+				$("#region").prop("disabled", false);
+			}
+
+			if(ui.item.stateid > 0){
+				$("#state option[value="+ui.item.stateid+"]").prop('selected', true);  
+			}else{
+				$("#state option[value='--']").prop('selected', true);
+				$("#state").prop("disabled", false);
+			}
+
+			if(ui.item.industry > 0){
+				$("#txtindustry option[value="+ui.item.industry+"]").prop('selected', true);  
+				// $(".industry").prop('disabled',true);
+			}else{
+				$("#txtindustry option[value='--']").prop('selected', true);
+				$("#txtindustry").prop("disabled", false);
+			}
+		},
+		open: function() {
+		},
+		close: function() {
+			$('.company_name').val()=="";
+		}
+    }); 
+
+
+	// Acquirer Name Search
+	$( ".acquirer" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+            type: "POST",
+            url: "ajax_acquirer_search_ma.php?dbtype=PE&opt=investor",
+            dataType: "json",
+            data: {
+                search: request.term
+            },
+            success: function( data ) {
+			
+				response( $.map( data, function( item ) {
+					return {
+						label: item.label,
+						value: item.value,
+						city: item.city,
+						industry: item.industry,
+					}
+				}));
+             }
+            });
+        },
+        minLength: 1,
+		select: function( event, ui ) {
+			
+			$('#txtAcquirorCity').val(ui.item.city);
+			$('#txtAcquirorCity').val(ui.item.city);
+
+			if(ui.item.industry > 0){
+				$("#txtacqindustry option[value="+ui.item.industry+"]").prop('selected', true);  
+				// $(".industry").prop('disabled',true);
+			}else{
+				$("#txtacqindustry option[value='--']").prop('selected', true);
+				$("#txtacqindustry").prop("disabled", false);
+			}
+		},
+		open: function() {
+		},
+		close: function() {
+			$('.acquirer').val()=="";
+		}
+    });
+
+	function nocompanyname(val)
+	{
+		$('#txtTargetCity').val("");
+		$('#txtsector').val("");		
+		$('#txtindustry').val("");
+		$('#txtTargetwebsite').val("");
+	}
+
+	function noacquirername(val)
+	{
+		$('#txtAcquirorCity').val("");
+		$('#txtacqindustry').val("");	
+	}
+
  
     
     </script>

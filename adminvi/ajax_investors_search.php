@@ -1,6 +1,9 @@
 <?php
     require_once("../dbconnectvi.php");
     $Db = new dbInvestments();
+
+    // echo '<pre>'; print_r($_REQUEST); echo '</pre>';
+
     $search=$searchval=trim($_REQUEST['search']);
     $req = $_REQUEST['opt'];
     $dbtype = $_REQUEST['dbtype'];
