@@ -6174,22 +6174,23 @@ try {
 
                                                                                 $InvestorsName = explode(",",$myInvestorrow["Investors"]);
                                                                                 $InvestorIds = explode(",",$myInvestorrow["InvestorIds"]);
-                                                                                if($myInvestorrow["hidestake"]!=1)
-                                                                                {
+                                                                                if($valInfo !=1) {
                                                                                 if($myInvestorrow["stakepercentage"]>0) {
                                                                                     $hidestake=$myInvestorrow["stakepercentage"]." %";
                                                                                 } else {
                                                                                     $hidestake="&nbsp;";
                                                                                 }
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $hidestake="&nbsp;";  
-                                                                                }
+                                                                            }
+                                                                            else{
+                                                                                $hidestake="&nbsp;";
+                                                                            }
+                                                                                if($valInfo !=1) {
                                                                                 if($myInvestorrow["Company_Valuation"]>0) {
                                                                                     $companyValuation=$myInvestorrow["Company_Valuation"];
                                                                                 } else {
                                                                                     $companyValuation="&nbsp;";
+                                                                                }
+
                                                                                 }
                                                                                 // if($myInvestorrow["hideamount"] ==1 ) {
                                                                                 //     $Amount_INR=$myInvestorrow["Amount_INR"];
@@ -7559,6 +7560,8 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
 <input type="hidden" name="company_name" value="<?php echo $ped["companyname"];?>" >
 <input type="hidden" name="deal_date" value="<?php echo $ped["dates"];?>" >
+<input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
+
 </form>
 <script type="text/javascript">
 
