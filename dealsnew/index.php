@@ -3020,7 +3020,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                         $invreg=trim($invreg,".*");
                                  $invreg.="'";
                                   
-                                 //$invregsubquery=" and (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) ".$invreg;
+                                 $invregsubquery=" and (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) ".$invreg;
         }
         
         $combineSearchFlag = true;
@@ -4679,8 +4679,8 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
          
         <!-- </div>   -->
         <center>
-        <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
+        <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+        <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
 
             <?php
 
@@ -5220,10 +5220,6 @@ if ($type != 1) {
 
                 function loadhtml(pageno,orderby,ordertype)
                 {
-                    localStorage.setItem("pageno", pageno);
-                    $('#paginationinput').val(pageno)
-
-
                     var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                     var full_check_flag =  $( '#all_checkbox_search' ).val();
                     var pecheckedVal = $( '#pe_checkbox_enable' ).val();
@@ -12027,9 +12023,15 @@ echo $user_browser;?>
 
 <style>
     .paginationtextbox{
-        width:6%;
+        width:3%;
         padding: 3px;
     }
+
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
+
     .button{
     background-color: #a2753a; /* Green */
   border: none;

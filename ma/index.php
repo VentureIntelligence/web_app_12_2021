@@ -2231,7 +2231,7 @@
             <!-- </div> -->
 
                         <center>
-            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "PageNo" onkeyup = "paginationfun(this.value)">
+            <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
              <button class = "jp-page1 button pagevalue" name="pagination"  id="pagination" type="submit" onclick = "validpagination()"> Go</button>
             </div>
             </center>
@@ -4561,8 +4561,12 @@ if($countryheight>'100')
     <style>
         
 .paginationtextbox{
-        width:6%;
+        width:3.8%;
         padding: 3px;
+    }
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
     }
         .button{
             background-color: #a2753a; /* Green */
