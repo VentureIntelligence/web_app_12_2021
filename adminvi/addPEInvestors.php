@@ -368,9 +368,9 @@ function addMorefundRow(fundval,event){
 		{
             $rowvalue=mysql_num_rows($rsinvestors)+$k;
 ?>
-        <tr><td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" placeholder="Investor Name" size="30" >
-            <!-- <div class="fundname echo $k.$k.$k; ?>  fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign" onClick="addMorefundRow( echo $k.$k.$k;?>);" style="cursor:pointer">+</span></div> -->
-         </td>
+        <tr>
+                <td valign=top> <input type="text" name="txtinvestor[]" class="txtinvestor" placeholder="Investor Name" size="30" ></td>
+                <!-- <div class="fundname echo $k.$k.$k; ?>  fundsection" > <input type="text" name="txtfundname[]"  class="txtfundname"  size="30" ><span class="addsign" onClick="addMorefundRow( echo $k.$k.$k;?>);" style="cursor:pointer">+</span></div> -->
                 <td valign=top> <input type="text" name="txtReturnMultiple[]"  size="5" value=0.00 class="txtReturnMultiple">  </td>
                 <td valign=top> <input type="text" name="txtReturnMultipleINR[]"  size="5" value=0.00 class="txtReturnMultipleINR"> </td>
                 <td style="valign:center;text-align: center;"> <input type="checkbox"  class="txthideamount" name="txthideamount[]"  value="1" size="5"> </td>
@@ -595,6 +595,7 @@ var ipo_mandaflag = `<?php echo $IPO_MandA_flag;?>`;
     let fundArray = [];
     let dummy = [];
     let funds = [];
+
     $( ".txtinvestor" ).autocomplete({
         source: function( request, response ) {
             //$('#citysearch').val('');
@@ -638,6 +639,7 @@ var ipo_mandaflag = `<?php echo $IPO_MandA_flag;?>`;
             //$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
         }
     }); 
+
     $( document ).on( "keyup",".txtinvestor", function( event, ui ) {
         var client = event.clientX;
         var inv=$(this).next().length;
