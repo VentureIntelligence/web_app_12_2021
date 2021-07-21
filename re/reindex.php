@@ -2049,7 +2049,7 @@
                      <!-- </div> -->
 
                         <center>
-                     <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+                     <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
             <button class = "jp-page1 button pagevalue" name="pagination"  id= "pagination" type="submit" onclick = "validpagination()">Go</button></div>
             </center>
 
@@ -2184,7 +2184,7 @@
                        <div class="showhide-link" id="trendnav" style="z-index: 100000"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
                             <div  id="slidingTable" style="display: none;overflow:hidden;">
                                <?php
-                                 include_once("trendviewre.php");
+                                //  include_once("trendviewre.php");
                                ?>   
                                <table width="100%">
 									<?php
@@ -2386,22 +2386,8 @@
                     loadhtml(1,orderby,ordertype);
                     return  false;
                 });        
-                $( document ).ready(function() {
-            
-
-                var x = localStorage.getItem("pageno");
-                //alert(x);
-                if(x != 'null' && x != null)
-                {
-                loadhtml(x,orderby,ordertype)
-                }
-                });
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pageno", pageno);
-                $('#paginationinput').val(pageno)
-
-
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
                 type : 'POST',
@@ -4669,7 +4655,6 @@ $(".result-cnt").css("width",test);
 			   $(document).ready(function(){
                             $('.popup_close a').click(function(){
                                 $(".popup_main").hide();
-                                localStorage.removeItem("pageno");
                              });
 			   });
 			</script>
@@ -4902,9 +4887,14 @@ div.token-input-dropdown{
 
     <style>
         .paginationtextbox{
-            width:6%;
+            width:3%;
             padding: 3px;
         }
+
+        input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
         .button{
             background-color: #a2753a; /* Green */
             border: none;
