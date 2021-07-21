@@ -2362,7 +2362,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-    // include_once("ipotrendview.php");
+    include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php
@@ -2555,8 +2555,21 @@
 
 
      });              
+        $( document ).ready(function() {
+        var x = localStorage.getItem("pageno");
+        //alert(x);
+        if(x != 'null' && x != null)
+        {
+        loadhtml(x,orderby,ordertype)
+        }
+        });
         function  loadhtml(pageno,orderby,ordertype)
         {
+
+            localStorage.setItem("pageno", pageno);
+            $('#paginationinput').val(pageno)
+
+
             var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
             var full_check_flag =  $( '#all_checkbox_search' ).val();//junaid
             var pecheckedVal = $( '#pe_checkbox_enable' ).val();//junaid
@@ -10175,11 +10188,6 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         width:3%;
         padding: 3px;
     }
-
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
         .button{
         background-color: #a2753a; /* Green */
     border: none;
@@ -10198,5 +10206,13 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 left: 44%;
 
     }
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>
    

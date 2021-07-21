@@ -892,8 +892,21 @@
                     loadhtml(1,orderby,ordertype);
                     return  false;
                 });        
+				$( document ).ready(function() {
+
+				var x = localStorage.getItem("pageno");
+				//alert(x);
+				if(x != 'null' && x != null)
+				{
+				loadhtml(x,orderby,ordertype)
+				}
+				}); 
                function loadhtml(pageno,orderby,ordertype)
                {
+				localStorage.setItem("pageno", pageno);
+				$('#paginationinput').val(pageno)
+
+
                //alert(pageno+","+orderby+","+ordertype);
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
@@ -3000,14 +3013,16 @@ if($_GET['type']!="")
 
 <style>
         .paginationtextbox{
-            width:2.6%;
-			padding: 3px;
+            width:6%;
+			padding: 2.6px;
         }
-
 		input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
         .button{
             background-color: #a2753a; /* Green */
             border: none;
