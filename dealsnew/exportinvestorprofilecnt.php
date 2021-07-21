@@ -163,18 +163,21 @@ function updateDownload($res){
                             $filetitle="VCPMS";
                     }
                     
-                    
+                
                                         
                     
                     if($pe_vc_flag==0 || $pe_vc_flag==1)
                     {
+                        if(($hidedateStartValue != "--") && ($hidedateStartValue != "") && ($hidedateEndValue != "--")  && ($hidedateEndValue != "")  ){
+                                $wheredatesbetween= " and Dates between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
+                           }
                         if($keyword!="")
                             {
                                     $showallsql="select distinct peinv.InvestorId,inv.Investor,inv.*
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec
                                     where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
+                                    pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> Investor search 0 or 1- ".$showallsql;
@@ -185,7 +188,7 @@ function updateDownload($res){
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec
                                     where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and pec.companyname like '%$companysearch%' order by inv.Investor ";
+                                    pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and pec.companyname like '%$companysearch%' order by inv.Investor ";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> company search-0 or 1 ".$showallsql;
@@ -196,7 +199,7 @@ function updateDownload($res){
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec
                                     where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%' order by inv.Investor ";
+                                    pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%' order by inv.Investor ";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> sector search 0 or 1- ".$showallsql;
@@ -206,11 +209,11 @@ function updateDownload($res){
                                     $showallsql="(select distinct peinv.InvestorId,inv.Investor,inv.* from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,
                                         pecompanies as pec, advisor_cias AS cia,peinvestments_advisorinvestors AS adac where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and 
                                         pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and pe.Deleted=0 
-                                        " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_legal%'  and AdvisorType='L' order by inv.Investor )
+                                        " .$addVCFlagqry. " ".$wheredatesbetween." and cia.cianame LIKE '%$advisorsearch_legal%'  and AdvisorType='L' order by inv.Investor )
                                         UNION(select distinct peinv.InvestorId,inv.Investor,inv.* 
                                         from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec, advisor_cias AS cia,
                                         peinvestments_advisorcompanies AS adac where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.StageId=s.StageId and 
-                                        pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and pe.Deleted=0 " .$addVCFlagqry. "
+                                        pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and pe.Deleted=0 " .$addVCFlagqry. " ".$wheredatesbetween."
                                         and cia.cianame LIKE '%$advisorsearch_legal%' and AdvisorType='L' order by inv.Investor )";
                                     
                                     $getInvestorSql=$showallsql;
@@ -221,11 +224,11 @@ function updateDownload($res){
                                     $showallsql="(select distinct peinv.InvestorId,inv.Investor,inv.* from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,
                                         pecompanies as pec, advisor_cias AS cia,peinvestments_advisorinvestors AS adac where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and 
                                         pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and pe.Deleted=0 
-                                        " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_trans%'  and AdvisorType='T' order by inv.Investor )
+                                        " .$addVCFlagqry. " ".$wheredatesbetween." and cia.cianame LIKE '%$advisorsearch_trans%'  and AdvisorType='T' order by inv.Investor )
                                         UNION(select distinct peinv.InvestorId,inv.Investor,inv.* 
                                         from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec, advisor_cias AS cia,
                                         peinvestments_advisorcompanies AS adac where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.StageId=s.StageId and 
-                                        pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and pe.Deleted=0 " .$addVCFlagqry. "
+                                        pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and pe.Deleted=0 " .$addVCFlagqry. " ".$wheredatesbetween."
                                         and cia.cianame LIKE '%$advisorsearch_trans%' and AdvisorType='T' order by inv.Investor )";
                                     
                                     $getInvestorSql=$showallsql;
@@ -252,7 +255,7 @@ function updateDownload($res){
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec, country as c
                                     where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and inv.countryid= c.countryid and 
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and ( $tagsval ) order by inv.Investor ";
+                                    pe.Deleted=0 " .$addVCFlagqry. " ".$wheredatesbetween." and ( $tagsval ) order by inv.Investor ";
                                     
                                     $getInvestorSql=$showallsql;                                
                             }
@@ -354,15 +357,18 @@ function updateDownload($res){
                                 
                                 $showallsql = $showallsql. " pe.PECompanyId=pec.PECompanyId and peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                 pe.StageId=s.StageId and pec.industry!=15 and
-                                pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall."  order by inv.Investor ";
+                                pe.Deleted=0 " .$addVCFlagqry. " ".$wheredatesbetween." " .$search." ".$dirsearchall."  order by inv.Investor ";
                                 
                                  $getInvestorSql=$showallsql;
                                         
-                                //echo $showallsql;
+                               // echo $showallsql;
                             }
                     }
                     else if($pe_vc_flag==2)
                        {
+                        if(($hidedateStartValue != "--") && ($hidedateStartValue != "") && ($hidedateEndValue != "--")  && ($hidedateEndValue != "")  ){
+                                $wheredatesbetween= " and DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
+                           }
                         
                                 if($_POST['txthidedv']==101)
                                 {
@@ -374,7 +380,7 @@ function updateDownload($res){
                                                  AND pec.industry !=15
                                                  AND peinv.AngelDealId = pe.AngelDealId
                                                  AND inv.InvestorId = peinv.InvestorId
-                                                 AND pe.Deleted=0 " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
+                                                 AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
 
                                              $showallsql = $showallsql;
                                          //echo "<br> Investor search- ".$showallsql;
@@ -405,7 +411,7 @@ function updateDownload($res){
                                                  AND pec.industry !=15
                                                  AND peinv.AngelDealId = pe.AngelDealId
                                                  AND inv.InvestorId = peinv.InvestorId
-                                                 AND pe.Deleted=0 " .$addVCFlagqry. " and ( $tagsval ) order by inv.Investor ";
+                                                 AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and ( $tagsval ) order by inv.Investor ";
 
                                              $totalallsql = $showallsql; 
 
@@ -418,7 +424,7 @@ function updateDownload($res){
                                                  AND pec.industry !=15
                                                  AND peinv.AngelDealId = pe.AngelDealId
                                                  AND inv.InvestorId = peinv.InvestorId
-                                                 AND pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall." order by inv.Investor ";
+                                                 AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " " .$search." ".$dirsearchall." order by inv.Investor ";
 
                                              $showallsql="SELECT DISTINCT inv.InvestorId, inv.Investor
                                                  FROM angelinvdeals AS pe, pecompanies AS pec, angel_investors AS peinv, peinvestors AS inv
@@ -426,16 +432,20 @@ function updateDownload($res){
                                                  AND pec.industry !=15
                                                  AND peinv.AngelDealId = pe.AngelDealId
                                                  AND inv.InvestorId = peinv.InvestorId
-                                                 AND pe.Deleted=0 " .$addVCFlagqry. " ".$dirsearchall." order by inv.Investor ";
+                                                 AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " ".$dirsearchall." order by inv.Investor ";
                                      }
                                 }
                                 
 
-                                 $getInvestorSql=$showallsql;   
+                                 $getInvestorSql=$showallsql;  
+                                // echo $getInvestorSql;exit();
                                 
                 }
                     
                     elseif($pe_vc_flag==3 || $pe_vc_flag==4 || $pe_vc_flag==5){
+                        if(($hidedateStartValue != "--") && ($hidedateStartValue != "") && ($hidedateEndValue != "--")  && ($hidedateEndValue != "")  ){
+                                $wheredatesbetween= " and Dates between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
+                           }
                         
                         if($keyword!="")
                             {
@@ -443,7 +453,7 @@ function updateDownload($res){
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec,
                                     peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and  pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
+                                    pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
                                 //echo "<br> Investor search- ".$showallsql;
                                     $getInvestorSql=$showallsql;
                                     
@@ -454,7 +464,7 @@ function updateDownload($res){
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec,
                                     peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and  pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and pec.companyname like '%$companysearch%' order by inv.Investor ";
+                                    pe.Deleted=0  ".$wheredatesbetween." " .$addVCFlagqry. " and pec.companyname like '%$companysearch%' order by inv.Investor ";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> company search- ".$showallsql;
@@ -465,7 +475,7 @@ function updateDownload($res){
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec,
                                     peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and  pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%' order by inv.Investor ";
+                                    pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%' order by inv.Investor ";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> sector search- ".$showallsql;
@@ -476,12 +486,12 @@ function updateDownload($res){
                                         pecompanies as pec, advisor_cias AS cia,peinvestments_advisorinvestors AS adac,peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and 
                                         pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and
                                         pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and pe.Deleted=0 
-                                        " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_legal%'  and AdvisorType='L' order by inv.Investor)
+                                        ".$wheredatesbetween." " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_legal%'  and AdvisorType='L' order by inv.Investor)
                                         UNION(select distinct peinv.InvestorId,inv.Investor,inv.* from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,
                                         pecompanies as pec, advisor_cias AS cia,peinvestments_advisorcompanies AS adac,peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and 
                                         pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and
                                         pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and pe.Deleted=0 
-                                        " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_legal%'  and AdvisorType='L' order by inv.Investor)";
+                                        ".$wheredatesbetween." " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_legal%'  and AdvisorType='L' order by inv.Investor)";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br>advisor_legal search- ".$showallsql;
@@ -492,12 +502,12 @@ function updateDownload($res){
                                         pecompanies as pec, advisor_cias AS cia,peinvestments_advisorinvestors AS adac,peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and 
                                         pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and
                                         pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and pe.Deleted=0 
-                                        " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_trans%'  and AdvisorType='T' order by inv.Investor)
+                                        ".$wheredatesbetween." " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_trans%'  and AdvisorType='T' order by inv.Investor)
                                         UNION(select distinct peinv.InvestorId,inv.Investor,inv.* from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,
                                         pecompanies as pec, advisor_cias AS cia,peinvestments_advisorcompanies AS adac,peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and 
                                         pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and adac.CIAId = cia.CIAID AND adac.PEId = pe.PEId and pec.industry!=15 and
                                         pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and pe.Deleted=0 
-                                        " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_trans%'  and AdvisorType='T' order by inv.Investor)";
+                                        ".$wheredatesbetween." " .$addVCFlagqry. " and cia.cianame LIKE '%$advisorsearch_trans%'  and AdvisorType='T' order by inv.Investor)";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> $advisor_trans search- ".$showallsql;
@@ -525,7 +535,7 @@ function updateDownload($res){
                                     from peinvestments_investors as peinv,peinvestments as pe,stage as s,peinvestors as inv,pecompanies as pec, country as c,
                                     peinvestments_dbtypes as pedb where peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and inv.countryid= c.countryid and
                                     pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId and pec.industry!=15 and  pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and
-                                    pe.Deleted=0 " .$addVCFlagqry. " and ( $tagsval ) order by inv.Investor ";
+                                    pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and ( $tagsval ) order by inv.Investor ";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> company search- ".$showallsql;
@@ -630,7 +640,7 @@ function updateDownload($res){
                                 
                                 $showallsql = $showallsql. " pe.PECompanyId=pec.PECompanyId and peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and
                                 pe.StageId=s.StageId and pec.industry!=15  and  pedb.PEId=pe.PEId and pedb.DBTypeId='$dbtype' and
-                                pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall."  order by inv.Investor ";
+                                pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " " .$search." ".$dirsearchall."  order by inv.Investor ";
                                 
                                  $getInvestorSql=$showallsql;
                                
@@ -638,6 +648,9 @@ function updateDownload($res){
                         
                     }
                     elseif($pe_vc_flag==7 || $pe_vc_flag==8){
+                        if(($hidedateStartValue != "--") && ($hidedateStartValue != "") && ($hidedateEndValue != "--")  && ($hidedateEndValue != "")  ){
+                                $wheredatesbetween= " and IPODate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
+                           }
                         
                         if($keyword!="")
                             {
@@ -647,7 +660,7 @@ function updateDownload($res){
 				AND pec.industry !=15
 				AND peinv.IPOId = pe.IPOId
 				AND inv.InvestorId = peinv.InvestorId
-				AND pe.Deleted=0 " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and Investor like '%$keyword%' order by inv.Investor ";
                                 
                                 $getInvestorSql=$showallsql;
                                  //echo "<br> sector search- ".$showallsql;
@@ -660,7 +673,7 @@ function updateDownload($res){
 				AND pec.industry !=15
 				AND peinv.IPOId = pe.IPOId
 				AND inv.InvestorId = peinv.InvestorId
-				AND pe.Deleted=0 " .$addVCFlagqry. " and pec.companyname like '%$companysearch%' order by inv.Investor ";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and pec.companyname like '%$companysearch%' order by inv.Investor ";
                                 
                                 $getInvestorSql=$showallsql;
                                 // echo "<br> sector search- ".$showallsql;
@@ -673,7 +686,7 @@ function updateDownload($res){
 				AND pec.industry !=15
 				AND peinv.IPOId = pe.IPOId
 				AND inv.InvestorId = peinv.InvestorId
-				AND pe.Deleted=0 " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%' order by inv.Investor ";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%' order by inv.Investor ";
                                 
                                 $getInvestorSql=$showallsql;
                                 //echo "<br> sector search- ".$showallsql;
@@ -687,7 +700,7 @@ function updateDownload($res){
 				AND peinv.IPOId = pe.IPOId
 				AND inv.InvestorId = peinv.InvestorId
                                 and  inv.countryid= c.countryid 
-				AND pe.Deleted=0 " .$addVCFlagqry. " and ( inv.investor like '$searchallfield%' or inv.AdditionalInfor like '%$searchallfield%' or inv.Description like '%$searchallfield%' or inv.Address1 like '$searchallfield%' or inv.Address2 like '$searchallfield%' or inv.City like '$searchallfield%' or c.country like '$searchallfield%' or inv.Zip like '$searchallfield%' or inv.Telephone like '$searchallfield%' or inv.Email like '$searchallfield%' or inv.yearfounded like '$searchallfield%' or inv.website like '$searchallfield%' or inv.linkedIn like '$searchallfield%' or inv.FirmType like '$searchallfield%' or inv.OtherLocation like '%$searchallfield%' or inv.Assets_mgmt like '%$searchallfield%' or inv.LimitedPartners like '%$searchallfield%' or inv.NoFunds like '$searchallfield%' or inv.MinInvestment like '$searchallfield%' or pec.tags like '%$searchallfield%' ) order by inv.Investor ";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and ( inv.investor like '$searchallfield%' or inv.AdditionalInfor like '%$searchallfield%' or inv.Description like '%$searchallfield%' or inv.Address1 like '$searchallfield%' or inv.Address2 like '$searchallfield%' or inv.City like '$searchallfield%' or c.country like '$searchallfield%' or inv.Zip like '$searchallfield%' or inv.Telephone like '$searchallfield%' or inv.Email like '$searchallfield%' or inv.yearfounded like '$searchallfield%' or inv.website like '$searchallfield%' or inv.linkedIn like '$searchallfield%' or inv.FirmType like '$searchallfield%' or inv.OtherLocation like '%$searchallfield%' or inv.Assets_mgmt like '%$searchallfield%' or inv.LimitedPartners like '%$searchallfield%' or inv.NoFunds like '$searchallfield%' or inv.MinInvestment like '$searchallfield%' or pec.tags like '%$searchallfield%' ) order by inv.Investor ";
                                 
                                 $getInvestorSql=$showallsql;
                                 // echo "<br> sector search- ".$showallsql;
@@ -757,7 +770,7 @@ function updateDownload($res){
 				AND pec.industry !=15
 				AND peinv.IPOId = pe.IPOId
 				AND inv.InvestorId = peinv.InvestorId
-				AND pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall."  order by inv.Investor ";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " " .$search." ".$dirsearchall."  order by inv.Investor ";
                                 
                                  $getInvestorSql=$showallsql;
                                 
@@ -765,6 +778,9 @@ function updateDownload($res){
                         
                     }
                     elseif($pe_vc_flag==9 || $pe_vc_flag==10 || $pe_vc_flag==11 || $pe_vc_flag==12){
+                        if(($hidedateStartValue != "--") && ($hidedateStartValue != "") && ($hidedateEndValue != "--")  && ($hidedateEndValue != "")  ){
+                                $wheredatesbetween= " and DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "'";
+                           }
                         
                             $dealtype=' , dealtypes as dt '; 
                             if($pe_vc_flag==9 || $pe_vc_flag==12) { $dealcond='AND pe.DealTypeId= dt.DealTypeId  AND dt.hide_for_exit=1'; }
@@ -779,7 +795,7 @@ function updateDownload($res){
                                 AND pec.industry !=15
                                 AND peinv.MandAId = pe.MandAId
                                 AND inv.InvestorId = peinv.InvestorId
-				AND pe.Deleted=0 " .$addVCFlagqry. " and Investor like '%$keyword%'  ".$dealcond."  order by inv.Investor";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and Investor like '%$keyword%'  ".$dealcond."  order by inv.Investor";
                                 
                                 $getInvestorSql=$showallsql;
                                 //echo "<br> company search- ".$showallsql;
@@ -792,7 +808,7 @@ function updateDownload($res){
                                 AND pec.industry !=15
                                 AND peinv.MandAId = pe.MandAId
                                 AND inv.InvestorId = peinv.InvestorId
-				AND pe.Deleted=0 " .$addVCFlagqry. " and pec.companyname like '%$companysearch%'  ".$dealcond." order by inv.Investor";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and pec.companyname like '%$companysearch%'  ".$dealcond." order by inv.Investor";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> company search- ".$showallsql;
@@ -805,7 +821,7 @@ function updateDownload($res){
                                     AND pec.industry !=15
                                     AND peinv.MandAId = pe.MandAId
                                     AND inv.InvestorId = peinv.InvestorId
-                                    AND pe.Deleted=0 " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%'  ".$dealcond." order by inv.Investor";
+                                    AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and pec.sector_business like '%$sectorsearch%'  ".$dealcond." order by inv.Investor";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> sector search- ".$showallsql;
@@ -862,7 +878,7 @@ function updateDownload($res){
                                 AND pec.industry !=15
                                 AND peinv.MandAId = pe.MandAId
                                 AND inv.InvestorId = peinv.InvestorId AND  inv.countryid= c.countryid
-				AND pe.Deleted=0 " .$addVCFlagqry. " and ( inv.investor like '$searchallfield%' or inv.AdditionalInfor like '%$searchallfield%' or inv.Description like '%$searchallfield%' or inv.Address1 like '$searchallfield%' or inv.Address2 like '$searchallfield%' or inv.City like '$searchallfield%' or c.country like '$searchallfield%' or inv.Zip like '$searchallfield%' or inv.Telephone like '$searchallfield%' or inv.Email like '$searchallfield%' or inv.yearfounded like '$searchallfield%' or inv.website like '$searchallfield%' or inv.linkedIn like '$searchallfield%' or inv.FirmType like '$searchallfield%' or inv.OtherLocation like '%$searchallfield%' or inv.Assets_mgmt like '%$searchallfield%' or inv.LimitedPartners like '%$searchallfield%' or inv.NoFunds like '$searchallfield%' or inv.MinInvestment like '$searchallfield%' or pec.tags like '%$searchallfield%' ) ".$dealcond." order by inv.Investor";
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " and ( inv.investor like '$searchallfield%' or inv.AdditionalInfor like '%$searchallfield%' or inv.Description like '%$searchallfield%' or inv.Address1 like '$searchallfield%' or inv.Address2 like '$searchallfield%' or inv.City like '$searchallfield%' or c.country like '$searchallfield%' or inv.Zip like '$searchallfield%' or inv.Telephone like '$searchallfield%' or inv.Email like '$searchallfield%' or inv.yearfounded like '$searchallfield%' or inv.website like '$searchallfield%' or inv.linkedIn like '$searchallfield%' or inv.FirmType like '$searchallfield%' or inv.OtherLocation like '%$searchallfield%' or inv.Assets_mgmt like '%$searchallfield%' or inv.LimitedPartners like '%$searchallfield%' or inv.NoFunds like '$searchallfield%' or inv.MinInvestment like '$searchallfield%' or pec.tags like '%$searchallfield%' ) ".$dealcond." order by inv.Investor";
                                     
                                     $getInvestorSql=$showallsql;
                                 //echo "<br> company search- ".$showallsql;
@@ -932,7 +948,7 @@ function updateDownload($res){
 							AND pec.industry !=15
 							AND peinv.MandAId = pe.MandAId
 							AND inv.InvestorId = peinv.InvestorId
-				AND pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall."   ".$dealcond."    order by inv.Investor ";  
+				AND pe.Deleted=0 ".$wheredatesbetween." " .$addVCFlagqry. " " .$search." ".$dirsearchall."   ".$dealcond."    order by inv.Investor ";  
                                 
                                   $getInvestorSql=$showallsql;
                                 //echo $showallsql;

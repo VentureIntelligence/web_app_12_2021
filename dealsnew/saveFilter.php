@@ -29,22 +29,22 @@
             $checkboxName=$_POST['checkboxName'];
             $investorvalArray = implode (",", $investorval); 
             
-            $companytype = $_POST['companytype'];
+            $companytype = implode(",",$_POST['companytype']);
             $industry=implode(",",$_POST['Industry']);
             $dealType=implode(",",$_POST['dealType']);
-            $Intype=$_POST['Intype'];
+            $Intype=implode(",",$_POST['Intype']);
             
             $city=implode(",",$_POST['city']);
             $state=implode(",",$_POST['state']);
             $region=implode(",",$_POST['region']);
             $round=implode(",",$_POST['round']);
             $stage=implode(",",$_POST['stage']);
-            $investorType=$_POST['investorType'];
+            $investorType=implode(",",$_POST['investorType']);
             $filterType=$_POST['filterType'];
             $companyName=$_POST['companyName'];
             $filterQuery=$_POST['filterQuery'];
             
-            if($companyIdsession == 1946568266)
+            if($companyIdsession == 1470326532)
             {
                $filter_active='active';
             }
@@ -60,13 +60,9 @@
             $endYear=$_POST['end_year'];
 
             //echo $filterType;exit();
-            if($filterType == "Exit")
-            {
-            $exitStatus=$_POST['exitStatus'];
-            }
-            else{
+
             $exitStatus=implode(",",$_POST['exitStatus']);
-            }
+            
             //echo json_encode($_POST['state']);exit();
             $sqlSelCount = "SELECT *  FROM `saved_filter` WHERE `id` = '" . $EditFilter . "' ";
             //echo $sqlSelCount;exit();
@@ -118,7 +114,7 @@
         $InvestorArray=array();
         if(isset($inv_investor_id))
         {
-        $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `Investor` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filtername.'"';
+        $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filtername.'"';
         // echo $sqlquery;exit();
         $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
         
@@ -143,17 +139,17 @@
    $filterType =$_POST['filterType'];
    $companyName=$_POST['companyName'];
    // echo $filterType;exit();
-   if($filtername != "")
-   {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
-   $queryResult = mysql_query($query) or die(mysql_error());
-   }
-   else
-   {
-   $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."','".$companyName."',NOW())";
-   //echo $query;exit();
-   $queryResult = mysql_query($query) or die(mysql_error());
-   }
+//    if($filtername != "")
+//    {
+//    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."','".$companyName."',NOW())";
+//    $queryResult = mysql_query($query) or die(mysql_error());
+//    }
+//    else
+//    {
+//    $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`company_name`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."','".$companyName."',NOW())";
+//    //echo $query;exit();
+//    $queryResult = mysql_query($query) or die(mysql_error());
+//    }
    //echo $queryResult;exit();
    $sql="SELECT `investor_name` FROM `saved_filter` where id='".$filterNameId."' ";
    $sqlSelResult = mysql_query($sql) or die(mysql_error());
@@ -168,7 +164,7 @@
    $InvestorArray=array();
    if(isset($inv_investor_id))
    {
-   $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `Investor` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
+   $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
    // echo $sqlquery;exit();
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
    
@@ -202,7 +198,7 @@
           AND pec.industry !=15
           AND peinv.PEId = pe.PEId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+          AND pe.Deleted=0 AND inv.`InvestorId` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
         }else{
           $sqlquery='SELECT  DISTINCT inv.* 
           FROM manda AS pe, pecompanies AS pec, manda_investors AS peinv, peinvestors AS inv
@@ -210,7 +206,7 @@
           AND pec.industry !=15
           AND peinv.MandAId = pe.MandAId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
+          AND pe.Deleted=0 and inv.InvestorId IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
         }
    //echo $sqlquery;exit();
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
@@ -229,17 +225,17 @@
      $filtername = $_POST['filterName'];
      $filterType =$_POST['filterType'];
      // echo $filterType;exit();
-     if($filtername != "")
-     {
-     $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."',NOW())";
-     $queryResult = mysql_query($query) or die(mysql_error());
-     }
-     else
-     {
-     $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."',NOW())";
-     //echo $query;exit();
-     $queryResult = mysql_query($query) or die(mysql_error());
-     }
+     // if($filtername != "")
+     // {
+     // $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','".$filtername."','".$filterType."',NOW())";
+     // $queryResult = mysql_query($query) or die(mysql_error());
+     // }
+     // else
+     // {
+     // $query="INSERT INTO `advance_export_filter_log`(`id`, `name`, `filter_name`, `filter_type`,`created_date`)VALUES (default,'".$username."','anonymous','".$filterType."',NOW())";
+     // //echo $query;exit();
+     // $queryResult = mysql_query($query) or die(mysql_error());
+     // }
     $InvestorArray=array();
 
     $sqlquery='SELECT * FROM `saved_filter` WHERE id="'.$filterNameId.'"';
@@ -300,30 +296,6 @@
      }
 
    }
-   elseif($mode ='getTotalcount')
-   {
-        $data=array();
-     $sqlQuery="SELECT dc.DCompanyName as companyName,dc.custom_export_limit as expplimit,dm.DCompId as companyId  FROM dealmembers dm INNER JOIN dealcompanies dc on dc.DCompId=dm.DCompId WHERE EmailId='$dlogUserEmail' ";   
-     //echo $sqlQuery;exit();
-      $sqlSelResult = mysql_query($sqlQuery) or die(mysql_error());
-      while ($row = mysql_fetch_assoc($sqlSelResult)) {
-      
-      $custom_export_limit= $row['expplimit']  ;
-      array_push($data,$custom_export_limit);
 
-      }
-      
-     $query="SELECT COUNT(name) as count FROM `advance_export_filter_log` where name='$username' ";
-     $queryRes = mysql_query($query) or die(mysql_error());
-     while ($row = mysql_fetch_assoc($queryRes)) {
-     
-     $DownloadCount= $row['count']  ;
-     array_push($data,$DownloadCount);
-
-     
-     }
-
-     echo json_encode($data);
-   }
    
    ?>

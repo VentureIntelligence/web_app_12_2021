@@ -839,12 +839,21 @@ $getinvestorAmount = "select SUM(peinvestments_investors.Amount_M) as total_amou
     where peinvestments_investors.InvestorId = " . $investorId . " and peinvestments_investors.exclude_dp = 0 AND peinvestments.Deleted=0 AND 
     peinvestments.AggHide=0 and peinvestments.SPV = 0 and pecompanies.industry !=15 AND 
     peinvestments.PEId NOT IN (SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 )";
+    
+    $getexitamount="select SUM(manda_investors.Amount_M) as total_amount FROM manda 
+    JOIN manda_investors ON manda_investors.MandAId = manda.MandAId 
+    JOIN pecompanies ON pecompanies.PECompanyId = manda.PECompanyId 
+    where manda_investors.InvestorId = ".$investorId." AND manda.Deleted=0 and pecompanies.industry !=15";
+
+        $exitamountrs = mysql_query($getexitamount);
+        $exitrowrow = mysql_fetch_row($exitamountrs, MYSQL_BOTH);
+        $exit_amount = $exitrowrow['total_amount'];
 
 $investor_amount  = '';
 $investoramountrs = mysql_query($getinvestorAmount);
 $investorrowrow   = mysql_fetch_row($investoramountrs, MYSQL_BOTH);
 $investor_amount  = $investorrowrow['total_amount'];
-//echo "<br>--" .$stageSql;
+//echo "<br>--" .$getexitamount;
 
 $strIndustry = "";
 $strStage    = "";
@@ -948,6 +957,9 @@ if (isset($_REQUEST['angelco_only'])) {
     $firm_typeId      = $myrow["FirmTypeId"];
     $other_location   = $myrow["OtherLocation"];
     $assets_mgmt      = $myrow["Assets_mgmt"];
+   // $exit_amount  = $myrow["exit_amount"];
+
+    $hide_exit_amount  = $myrow["exitamount_hide"];
     $hide_dry_powder  = $myrow["dry_hide"];
     $already_invested = $myrow["AlreadyInvested"];
     $preferred_stage  = ltrim($strStage); //$myrow["PreferredStage"];
@@ -1996,6 +2008,23 @@ if (trim($assets_mgmt) != "") {
     }
 ?>
                                               <?php
+    if ($hide_exit_amount == 0) {
+?>
+                                                  <tr>
+                                                        <td>
+                                                            <h4>Already Exited (US$ Million)</h4></td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <p>
+                                                                <?php
+        echo $exit_amount;
+?>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+    }
+?>
+                                              <?php
     if ($hide_dry_powder == 0) {
 ?>
                                                   <tr>
@@ -2200,6 +2229,7 @@ if (trim($description) != "") {
 <div class="accordions">
   
         <?php
+        if ($VCFlagValue != 2) {
 if ($getcompanyinvrs = mysql_query($Investmentsql)) {
     $inv_cnt = mysql_num_rows($getcompanyinvrs);
 }
@@ -2209,6 +2239,7 @@ if ($getIFcompanyinvrs = mysql_query($IFInvestmentsql)) {
 if ($getCTcompanyinvrs = mysql_query($CTInvestmentsql)) {
     $investmentct_cnt = mysql_num_rows($getCTcompanyinvrs);
 }
+        }
 
 if ($getANGLcompInv = mysql_query($angInvestmentsql)) {
     $angelinv_cnt = mysql_num_rows($getANGLcompInv);
@@ -2223,9 +2254,9 @@ if ($inv_cnt > 0 || $investmentIf_cnt > 0 || $investmentct_cnt > 0 || $angelinv_
 
                                                                 <li id="tabz1">PE/VC Investments</li>
         <?php
-    } else if ($angelinv_cnt > 0) {
+    } if ($angelinv_cnt > 0) {
 ?>
-                                                              <li id="tabz1">Investments</li>
+                                                              <li id="tabz2">Investments</li>
         <?php
     }
     
@@ -2354,11 +2385,12 @@ if ($inv_cnt > 0 || $investmentIf_cnt > 0 || $investmentct_cnt > 0 || $angelinv_
                                                                 </div>
                                                             
                                                                 <?php
-    } else if ($angelinv_cnt > 0) {
-?> <div class="accordions_content">
-    <p>
+    }  if ($angelinv_cnt > 0) {
+?> 
+<!-- <div class="accordions_content">
+    <p> -->
 <div  class=" for-nai">
-                                                                <div id="contentz1" class="tabscontent work-masonry-thumb"> 
+                                                                <div id="contentz2" class="tabscontent work-masonry-thumb"> 
                                                                     <table width="100%" cellspacing="0" cellpadding="0" class="tableview">
                                                                         <thead><tr><th>Company Name</th><th>Industry Name</th><th style="text-align: left;">Sector</th><th>Deal Period</th><!-- <th>Exited</th> --></tr></thead>
                                                                         <tbody>
@@ -2412,7 +2444,7 @@ if ($inv_cnt > 0 || $investmentIf_cnt > 0 || $investmentct_cnt > 0 || $angelinv_
 ?>
 
                                                                         </tbody>
-                                                                    </table></div></div></p></div>
+                                                                    </table></div></div>
 
 
         <?php
@@ -3501,10 +3533,8 @@ function curPageURL()
         $pageURL .= "s";
     }
     $URL .= "://";
-    if ($_SERVER["SERVER_PORT"] != "80" || $_SERVER["SERVER_PORT"] != "443") {
-        //$URL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-        $URL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $URL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
     } else {
         $URL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }

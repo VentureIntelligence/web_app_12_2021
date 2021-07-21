@@ -3532,7 +3532,7 @@ include_once($refineUrl); ?>
      amount, round, s.Stage, stakepercentage, DATE_FORMAT( dates, '%b-%y' ) as dt,pe.dates, pec.website, pec.linkedIn, pec.city,
      pec.region,pe.PEId,comment,MoreInfor,hideamount,hidestake,pec.countryid,pec.CINNo,
     pe.InvestorType, its.InvestorTypeName,pe.StageId,pe.Link,pe.uploadfilename,pe.source,
-        pe.Valuation,pe.FinLink,pec.RegionId, pe.AggHide, pe.Company_Valuation,pe.Revenue_Multiple,pe.EBITDA_Multiple,pe.PAT_Multiple,pe.listing_status,Exit_Status,
+        pe.Valuation,pe.crossBorder,pe.FinLink,pec.RegionId, pe.AggHide, pe.Company_Valuation,pe.Revenue_Multiple,pe.EBITDA_Multiple,pe.PAT_Multiple,pe.listing_status,Exit_Status,
         pe.SPV,pe.Revenue,pe.EBITDA,pe.PAT,pe.Amount_INR, pe.Company_Valuation_pre,pe.Revenue_Multiple_pre,pe.EBITDA_Multiple_pre,pe.PAT_Multiple_pre, 
         pe.Company_Valuation_EV,pe.Revenue_Multiple_EV,pe.EBITDA_Multiple_EV,pe.PAT_Multiple_EV,pe.Total_Debt,pe.Cash_Equ,pe.financial_year,pec.CINNo, pec.Address1, pec.Address2, pec.Telephone,pec.Email,pec.tags,pec.state
      FROM peinvestments AS pe, industry AS i, pecompanies AS pec,
@@ -3572,6 +3572,7 @@ advisor_cias as cia where advinv.PEId=$SelCompRef and advinv.CIAId=cia.CIAId";
         {
                 $industryId = $myrow["industryId"];
                 $regionid=$myrow["RegionId"];
+                $crossBorder=$myrow["crossBorder"];
                 $countryid=$myrow["countryid"];
                 $Address1=$myrow["Address1"];
                 $Address2=$myrow["Address2"];
@@ -3827,6 +3828,9 @@ try {
         if($object['Size'] == 0){
             $foldername = explode("/", $object['Key']);
         } 
+        //condition check in same company
+        if($foldername[1] == $myrow["companyname"])
+        {
         $signedUrl = $client->getObjectUrl($bucket, $fileName, '+60 minutes');
 
         $pieces = explode("/", $fileName);
@@ -3851,6 +3855,7 @@ try {
     }   // foreach
 
     $result = $c2. " of ". $c1;
+}
 }
 ?>
 
@@ -5226,7 +5231,19 @@ try {
                                   </td>
                               </tr>
                                     <?php //} ?>
-                                <?php } else { ?>
+                                <?php } else { 
+                                    if($crossBorder == 1) {
+                                    ?>
+                                     <tr>
+                                        <td style="border-bottom: none !important;padding:0px !important;">
+                                            <p  style="padding: 10px;font-size:12px;">Cross border deal - The valuation details are not available since the investment is routed via foreign registered entity. Please proceed to
+                                                <!-- <a id="clickhere" href="mailto:database@ventureintelligence.com?subject=Request for more deal data-VC Investment&amp;body=http://localhost/ventureintelligence/dealsnew/dealdetails.php?value=144184063/0/&amp;scr=EMAIL " style="color: #624C34 !important;text-decoration: underline;">Click Here</a> -->
+                                                <a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle;?>&body=<?php echo $mailurl;?> " style="color: #624C34 !important;text-decoration: underline;">mail</a> if you are looking for details other than valuation.  
+                                           </p>
+                                        </td>
+                                    </tr>
+                                    <?php } else {?>
+
                                     <tr>
                                         <td style="border-bottom: none !important;padding:0px !important;">
                                             <p class="text-center" style="padding: 10px;"> No data available. 
@@ -5235,7 +5252,7 @@ try {
                                             to request.</p>
                                         </td>
                                     </tr>
-                               <?php }?>
+                               <?php }}?>
                             </tbody>
                             </table>
                     </div>
@@ -5898,14 +5915,14 @@ try {
 
                         $investor_cnt=0;
                         
-                        $investorGroupSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
+                        $investorGroupSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
                     GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from
                             peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
                             peinvestors as inv where pe.PECompanyId='$PECompanyId' and
                             peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
                             and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by DealId order by dates desc";
                             
-
+                                //echo $investorGroupSql;
                       
                          $maexitsql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business, inv.Investor,
                                         DealAmount, DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.MandAId ,pe.ExitStatus, pe.DealTypeId, dt.DealType,GROUP_CONCAT( inv.Investor ORDER BY inv.InvestorId) as Investors
@@ -6147,10 +6164,17 @@ try {
 
                                                                                 $InvestorsName = explode(",",$myInvestorrow["Investors"]);
                                                                                 $InvestorIds = explode(",",$myInvestorrow["InvestorIds"]);
+                                                                                if($myInvestorrow["hidestake"]!=1)
+                                                                                {
                                                                                 if($myInvestorrow["stakepercentage"]>0) {
                                                                                     $hidestake=$myInvestorrow["stakepercentage"]." %";
                                                                                 } else {
                                                                                     $hidestake="&nbsp;";
+                                                                                }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    $hidestake="&nbsp;";  
                                                                                 }
                                                                                 if($myInvestorrow["Company_Valuation"]>0) {
                                                                                     $companyValuation=$myInvestorrow["Company_Valuation"];
