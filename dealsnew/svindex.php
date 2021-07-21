@@ -4154,7 +4154,7 @@
 
             <center>
             <div class="pagination-section">
-                <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+                <input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
                 <button class = "jp-page1 button pagevalue" name="pagination"  id = "pagination" type="submit" onclick = "validpagination()">Go</button>
             </div>
             </center>
@@ -4852,21 +4852,12 @@ else
                     return false;
                 }
 
-                $( document ).ready(function() {
-
-                var x = localStorage.getItem("pageno");
-                //alert(x);
-                if(x != 'null' && x != null)
-                {
-                loadhtml(x,orderby,ordertype)
-                }
-                });             
+        $(document).ready(function(){ 
+           
+     
+          });              
                function loadhtml(pageno,orderby,ordertype)
                {
-                localStorage.setItem("pageno", pageno);
-                $('#paginationinput').val(pageno)
-
-
                 var peuncheckVal = $( '#pe_checkbox_disbale' ).val();
                 var full_check_flag =  $( '#all_checkbox_search' ).val();//junaid
                 var pecheckedVal = $( '#pe_checkbox_enable' ).val();//junaid
@@ -12444,7 +12435,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
     <style>
  .paginationtextbox{
-        width:6%;
+        width:3%;
         padding: 3px;
     }
         .button{
@@ -12463,5 +12454,10 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         position: absolute;
 
         left: 40%;
+    }
+
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
     }
     </style>
