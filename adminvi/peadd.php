@@ -25,15 +25,25 @@ require("../dbconnectvi.php");
 ?>
 <html><head>
 <title>Add PE Investment Deal Info</title>
-<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script> 
+<!-- <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript" src="js/jquery.multiselect.js"></script> 
+<script type="text/javascript" src="js/jquery.multiselect.js"></script>  -->
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script>
+<link rel="stylesheet" href="styles/token-input.css" type="text/css" />
+<link rel="stylesheet" href="styles/token-input-facebook.css" type="text/css" />
+
+
 <script>
     
     $(function() {
         
-        $( "#citysearch" ).autocomplete({
+        $( "#citysearch123" ).autocomplete({
 
             source: function( request, response ) {
             //$('#citysearch').val('');
@@ -55,9 +65,6 @@ require("../dbconnectvi.php");
                                 id: item.id,
                                 regionId: item.regionId,
                                 stateId:item.stateId
-                               
-                                
-
                             }
                           
                         }));
@@ -97,6 +104,8 @@ require("../dbconnectvi.php");
         });
     });
 </script>
+
+
 <style>
     .add_ul{
         padding-left: 0px;
@@ -143,15 +152,19 @@ function checkCompany()
  <form name=adddeal enctype="multipart/form-data" onSubmit="return checkCompany();" method=post action="peaddupdate.php">
  <table border=1 align=center cellpadding=0 cellspacing=0 width=55%
 	        style="font-family: Arial; font-size: 8pt; border-collapse: collapse" bordercolor="#111111" cellspacing="0" bgcolor="#F5F0E4">
+
+			
 <?php
-	
 ?>
+
+
 
    		<tr bgcolor="#808000"><td colspan=2 align=center style="color: #FFFFFF" ><b> Add Deal</b></td></tr>
 		   						<tr style="display:none;"><td><input type="hidden" name="peid" value="<?php echo $IPO_MandAId;?>"/></td></tr>
 								<tr style="font-family: Verdana; font-size: 8pt">
 								<td >Company</td>
-								<td><input type="text" name="txtcompanyname" size="50" value="<?php echo $mycomprow["companyname"]; ?>"> </td>
+								<td><input type="text" name="txtcompanyname" size="50" value="<?php echo 
+								$mycomprow["companyname"]; ?>"  class = "company_name" placeholder = "Companyname" onkeyup = "nocompanyname(this.value)"> </td>
 								</tr>
                                                                 <tr>
                                                                     <td>Period</td>
@@ -244,7 +257,7 @@ function checkCompany()
                                                         </tr>
 
 							<tr><td >Industry</td><td>
-								<SELECT name="txtindustry" style="font-family: Arial; color: #004646;font-size: 8pt">
+								<SELECT name="txtindustry" id="txtindustry"  class = "industry" style="font-family: Arial; color: #004646;font-size: 8pt" >
 							<OPTION id=0 value="--" selected> Choose Industry  </option>
 							<?php
 								 $industrysql="select industryid,industry from industry where industryid !=15 order by industry";
@@ -272,7 +285,7 @@ function checkCompany()
 								
 								<tr><td >Sector</td>
 								<td>
-								<input type="text" name="txtmainsector" size="50" value=""> </td>
+								<input type="text" name="txtmainsector" id = "txtmainsector" size="50" value=""> </td>
 								</tr>
 								<tr><td >Sub Sector</td>
 								<td>
@@ -786,6 +799,89 @@ function checkCompany()
 	         $(".Venture").removeAttr('disabled');
 	        }
     });
+
+
+
+	// Company Name Search
+    $( ".company_name" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+            type: "POST",
+            url: "ajax_companyname_search.php?dbtype=PE&opt=investor",
+            dataType: "json",
+            data: {
+                search: request.term
+            },
+            success: function( data ) {
+				// if(data == "")
+				// {
+					// $('#txtmainsector').val("");
+				// }else{
+					response( $.map( data, function( item ) {
+						return {
+							label: item.label,
+							value: item.value,
+							city: item.city,
+							stateid: item.stateid,
+							RegionId: item.RegionId,
+							industry: item.industry,
+							sector_business: item.sector_business,
+						}
+                	}));
+				// }
+             }
+            });
+        },
+        minLength: 1,
+		select: function( event, ui ) {
+			
+			$('#citysearch').val(ui.item.city);
+			$('#cityauto').val(ui.item.city);
+			$('#txtmainsector').val(ui.item.sector_business);
+			
+			if(ui.item.RegionId > 0){
+				$("#region option[value="+ui.item.RegionId+"]").prop('selected', true); 
+			}else{
+				$("#region option[value=1]").prop('selected', true);
+				$("#region").prop("disabled", false);
+			}
+
+			if(ui.item.stateid > 0){
+				$("#state option[value="+ui.item.stateid+"]").prop('selected', true);  
+			}else{
+				$("#state option[value='--']").prop('selected', true);
+				$("#state").prop("disabled", false);
+			}
+
+			if(ui.item.industry > 0){
+				$("#txtindustry option[value="+ui.item.industry+"]").prop('selected', true);  
+				// $(".industry").prop('disabled',true);
+			}else{
+				$("#txtindustry option[value='--']").prop('selected', true);
+				$("#txtindustry").prop("disabled", false);
+			}
+		},
+		open: function() {
+		},
+		close: function() {
+			$('#company_name').val()=="";
+		}
+    }); 
+
+
+	function nocompanyname(val){
+
+		$('#citysearch').val("");
+		$('#txtmainsector').val("");
+		$('#state').val("");
+		$('#region').val("");
+		$('#txtindustry').val("");
+	}
+    
+    
+
+
+
     
     </script>
 
