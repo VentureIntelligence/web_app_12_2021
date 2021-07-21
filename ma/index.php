@@ -4288,6 +4288,7 @@ if($type==1){?>
                $(document).ready(function(){
                             $('.popup_close a').click(function(){
                                 $(".popup_main").hide();
+                                localStorage.removeItem("pageno");
                              });
                        
                });
@@ -4560,7 +4561,7 @@ if($countryheight>'100')
     <style>
         
 .paginationtextbox{
-        width:3.5%;
+        width:3.8%;
         padding: 3px;
     }
     input[type='text']::placeholder

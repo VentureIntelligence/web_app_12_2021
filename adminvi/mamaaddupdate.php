@@ -26,6 +26,8 @@
 
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
 	 	{
+			$user=$_SESSION['UserNames'];
+
 	 				$portfoliocompany = $_POST['txtcompanyname'];
 				//echo "<br>company. ".$portfoliocompany;
 				$target_listingstatusvalue=$_POST['target_listingstatus'];
@@ -230,10 +232,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 				if (trim($portfoliocompany) !="")
 				{
 
-					$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$targetCountryId,$targetcity,$regionId,$region);
+					$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$targetCountryId,$targetcity,$regionId,$region,$user);
 					if($companyId==0)
 					{
-						$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$targetCountryId,$targetcity,$regionId,$region);
+						$companyId=insert_company($portfoliocompany,$indid,$sector,$website,$targetCountryId,$targetcity,$regionId,$region,$user);
 					}
 
 					if ($companyId >0)
@@ -381,7 +383,7 @@ function returnAcquirerId($acquirername,$cityid,$countryid,$industryid,$group)
 }
 
 /* function to insert the companies and return the company id if exists */
-	function insert_company($companyname,$industryId,$sector,$web,$countryid,$cityid,$regionId,$region)
+	function insert_company($companyname,$industryId,$sector,$web,$countryid,$cityid,$regionId,$region,$user)
 	{
 		$dbpecomp = new dbInvestments();
 		$getPECompanySql = "select PECompanyId from pecompanies where companyname= '$companyname'";
@@ -392,8 +394,8 @@ function returnAcquirerId($acquirername,$cityid,$countryid,$industryid,$group)
 			if ($pecomp_cnt==0)
 			{
 					//insert pecompanies
-                        $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,RegionId,region)
-                            values('$companyname','$industryId','$sector','$web','$countryid','$cityid',$regionId,'$region')";
+                        $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,RegionId,region,created_by)
+                            values('$companyname','$industryId','$sector','$web','$countryid','$cityid',$regionId,'$region','$user')";
 					echo "<br>Ins company sql=" .$insPECompanySql;
 					if($rsInsPECompany = mysql_query($insPECompanySql))
 					{

@@ -793,6 +793,12 @@
                     return  false;
             }); 
             $( document ).ready(function() {
+                var nav = $('.show-by-list');
+
+                nav.find('a').on('click',function(e){
+                    localStorage.removeItem("pageno");
+
+                });
             var x = localStorage.getItem("pageno");
             //alert(x);
             if(x != 'null' && x != null)
@@ -1203,7 +1209,7 @@ $(function() {
 
     <style>  
         .paginationtextbox{
-            width:3%;
+            width:3.4%;
             padding: 3px;
         }
 
