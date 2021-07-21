@@ -505,6 +505,7 @@ function sendAuthEmail($companyId,$userEmail,$allowedDevices){
 <script language="JavaScript" type="text/javascript">
 function checkFields()
  {
+    localStorage.removeItem("pageno");
   	if((document.relogin.emailid.value == "") || (document.relogin.emailpassword.value == ""))
     {
 		alert("Please enter both Email Id and Password");

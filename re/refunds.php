@@ -892,8 +892,21 @@
                     loadhtml(1,orderby,ordertype);
                     return  false;
                 });        
+				$( document ).ready(function() {
+
+				var x = localStorage.getItem("pageno");
+				//alert(x);
+				if(x != 'null' && x != null)
+				{
+				loadhtml(x,orderby,ordertype)
+				}
+				}); 
                function loadhtml(pageno,orderby,ordertype)
                {
+				localStorage.setItem("pageno", pageno);
+				$('#paginationinput').val(pageno)
+
+
                //alert(pageno+","+orderby+","+ordertype);
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({

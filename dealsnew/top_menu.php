@@ -189,54 +189,54 @@ $usrRgs = mysql_fetch_array($usrRgres);
 Deals</a>
 <div class="subnav-content">
     <ul style="display:grid">
-      <li class="subnav1 border-btm-head"><a id="pevchover" href="index.php?value=0" >PE-VC Investments</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav1 border-btm-head"><a id="pevchover" class="index" href="index.php?value=0" >PE-VC Investments</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                             aria-hidden="true"></i>
     <div class="subnav-content1">
         <ul style="display:grid">
-            <li class="border-btm-head"><a href="index.php?value=1" >Venture Capital Only</a></li>
-            <li class="border-btm-head"><a id="svhover" href="svindex.php?value=3">Social VC / Impact</a></li>
-            <li class="border-btm-head"><a href="svindex.php?value=5">Infrastructure</a></li>
-            <li><a href="svindex.php?value=4">Cleantech</a></li>
+            <li class="border-btm-head"><a class="index" href="index.php?value=1" >Venture Capital Only</a></li>
+            <li class="border-btm-head"><a class="svindex" id="svhover" href="svindex.php?value=3">Social VC / Impact</a></li>
+            <li class="border-btm-head"><a class="svindex" href="svindex.php?value=5">Infrastructure</a></li>
+            <li><a class="svindex" href="svindex.php?value=4">Cleantech</a></li>
         </ul>
     </div>
 </li>
-      <li class="subnav2 border-btm-head"><a id="pevcexit" href="mandaindex.php?value=0-2">PE-VC Exits</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav2 border-btm-head"><a class="mandaindex" href="mandaindex.php?value=0-2">PE-VC Exits</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
             <div class="subnav-content2">
                 <ul style="display:grid">
-                    <li class="subnav3 border-btm-head"><a id="mapevchover" href="mandaindex.php?value=0-0" >via M&A (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+                    <li class="subnav3 border-btm-head"><a class="mandaindex" id="mapevchover" href="mandaindex.php?value=0-0" >via M&A (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content3">
                                         <ul style="display:grid">
-                                            <li><a href="mandaindex.php?value=1-0">M&A (VC)</a></li>
+                                            <li><a  class="mandaindex" href="mandaindex.php?value=1-0">M&A (VC)</a></li>
                                         </ul>
                                     </div>
                     </li>
-                    <li class="subnav4"><a href="mandaindex.php?value=0-1">via Public Market (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+                    <li class="subnav4"><a class="mandaindex" href="mandaindex.php?value=0-1">via Public Market (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content4">
                                         <ul style="display:grid">
-                                            <li><a href="mandaindex.php?value=1-1">via Public Market (VC)</a></li>
+                                            <li><a class="mandaindex" href="mandaindex.php?value=1-1">via Public Market (VC)</a></li>
                                         </ul>
                                     </div>
                     </li>
         </ul>
     </div></li>
-      <li class="subnav5 border-btm-head"><a href="ipoindex.php?value=0">PE-VC Backed IPOs</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav5 border-btm-head"><a class="ipoindex" href="ipoindex.php?value=0">PE-VC Backed IPOs</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content5">
                                         <ul style="display:grid">
-                                            <li><a href="ipoindex.php?value=1">VC Backed IPOs</a></li>
+                                            <li><a class="ipoindex" href="ipoindex.php?value=1">VC Backed IPOs</a></li>
                                         </ul>
                                     </div>
       </li>
-      <li class="border-btm-head"><a href="angelindex.php">Angel Investments</a></li>
-      <li><a href="incindex.php">Incubation / Acceleration</a></li>
+      <li  class="border-btm-head"><a id="angelindex" href="angelindex.php">Angel Investments</a></li>
+      <li><a id="incindex" href="incindex.php">Incubation / Acceleration</a></li>
  </ul>
     </div>
 </li>
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?> id="tour_directory"><a href="pedirview.php"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0){ echo "style=pointer-events:none"; } ?> href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+<li id="funds" <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0){ echo "style=pointer-events:none"; } ?>  href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
 <script>
 $(document).ready(function() {    
     $(".vconly").hide();
@@ -255,56 +255,56 @@ $(document).ready(function() {
 <li <?php echo ($topNav=='Deals') ? 'class="active subnav"' : 'class="subnav"' ; ?>><a id="dealhover" href="javascript:void(0)" class="popup_call" data-url="index.php?value=1"><i class="i-data-deals"></i>Deals</a>
 <div class="subnav-content">
     <ul style="display:grid">
-      <li class="subnav1 border-btm-head"><a id="pevchover" href="index.php?value=0" >PE-VC Investments</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav1 border-btm-head"><a id="pevchover" class="index" href="index.php?value=0" >PE-VC Investments</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                             aria-hidden="true"></i>
     <div class="subnav-content1">
         <ul style="display:grid">
-            <li class="border-btm-head"><a href="index.php?value=1" >Venture Capital Only</a></li>
-            <li class="border-btm-head"><a id="svhover" href="svindex.php?value=3">Social VC / Impact</a></li>
-            <li class="border-btm-head"><a href="svindex.php?value=5">Infrastructure</a></li>
-            <li><a href="svindex.php?value=4">Cleantech</a></li>
+            <li class="border-btm-head"><a class="index" href="index.php?value=1" >Venture Capital Only</a></li>
+            <li class="border-btm-head"><a id="svhover" class="svindex" href="svindex.php?value=3">Social VC / Impact</a></li>
+            <li class="border-btm-head"><a class="svindex" href="svindex.php?value=5">Infrastructure</a></li>
+            <li><a class="svindex" href="svindex.php?value=4">Cleantech</a></li>
         </ul>
     </div>
 </li>
-      <li class="subnav2 border-btm-head"><a id="pevcexit" href="mandaindex.php?value=0-2">PE-VC Exits</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav2 border-btm-head"><a id="pevcexit" class="mandaindex" href="mandaindex.php?value=0-2">PE-VC Exits</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
             <div class="subnav-content2">
                 <ul style="display:grid">
-                    <li class="subnav3 border-btm-head"><a id="mapevchover" href="mandaindex.php?value=0-0" >via M&A (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+                    <li class="subnav3 border-btm-head"><a class="mandaindex" id="mapevchover" href="mandaindex.php?value=0-0" >via M&A (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content3">
                                         <ul style="display:grid">
-                                            <li><a href="mandaindex.php?value=1-0">M&A (VC)</a></li>
+                                            <li><a class="mandaindex" href="mandaindex.php?value=1-0">M&A (VC)</a></li>
                                         </ul>
                                     </div>
                     </li>
-                    <li class="subnav4"><a href="mandaindex.php?value=0-1">via Public Market (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+                    <li class="subnav4"><a class="mandaindex" href="mandaindex.php?value=0-1">via Public Market (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content4">
                                         <ul style="display:grid">
-                                            <li><a href="mandaindex.php?value=1-1">via Public Market (VC)</a></li>
+                                            <li><a class="mandaindex" href="mandaindex.php?value=1-1">via Public Market (VC)</a></li>
                                         </ul>
                                     </div>
                     </li>
         </ul>
     </div></li>
-      <li class="subnav5 border-btm-head"><a href="ipoindex.php?value=0">PE-VC Backed IPOs</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav5 border-btm-head"><a class="ipoindex" href="ipoindex.php?value=0">PE-VC Backed IPOs</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content5">
                                         <ul style="display:grid">
-                                            <li><a href="ipoindex.php?value=1">VC Backed IPOs</a></li>
+                                            <li><a class="ipoindex" href="ipoindex.php?value=1">VC Backed IPOs</a></li>
                                         </ul>
                                     </div>
       </li>
-      <li class="border-btm-head"><a href="angelindex.php">Angel Investments</a></li>
-      <li><a href="incindex.php">Incubation / Acceleration</a></li>
+      <li class="border-btm-head"><a id="angelindex" href="angelindex.php">Angel Investments</a></li>
+      <li><a id="incindex" href="incindex.php">Incubation / Acceleration</a></li>
  </ul>
     </div>
 </li>
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?> id="tour_directory"><a href="pedirview.php?value=1"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['VCInv'] == 0){ echo "style=pointer-events:none"; } ?> href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['VCInv'] == 0){ echo "style=pointer-events:none"; } ?> id="funds" href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
 <script>
-$(document).ready(function() {    
+$(document).ready(function() {
     $(".peonly").hide();
     $(".peonly").attr('disabled','disabled');
     $(".vconly").attr('selected','selected');
@@ -320,59 +320,60 @@ $(document).ready(function() {
 <li  <?php echo ($topNav=='Deals') ? 'class="active subnav"' : 'class="subnav"' ; ?>><a id="dealhover" href="javascript:void(0)" class="popup_call" data-url="index.php"><i class="i-data-deals"></i>Deals</a>
 <div class="subnav-content">
     <ul style="display:grid">
-      <li class="subnav1 border-btm-head"><a id="pevchover" href="index.php?value=0" >PE-VC Investments</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav1 border-btm-head"><a id="pevchover" class="index" href="index.php?value=0" >PE-VC Investments</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
 														aria-hidden="true"></i>
     <div class="subnav-content1">
         <ul style="display:grid">
-            <li class="border-btm-head"><a href="index.php?value=1" >Venture Capital Only</a></li>
-            <li class="border-btm-head"><a id="svhover" href="svindex.php?value=3">Social VC / Impact</a></li>
-            <li class="border-btm-head"><a href="svindex.php?value=5">Infrastructure</a></li>
-            <li><a href="svindex.php?value=4">Cleantech</a></li>
+            <li class="border-btm-head"><a class="index" href="index.php?value=1" >Venture Capital Only</a></li>
+            <li class="border-btm-head"><a id="svhover" class="svindex" href="svindex.php?value=3">Social VC / Impact</a></li>
+            <li class="border-btm-head"><a class="svindex" href="svindex.php?value=5">Infrastructure</a></li>
+            <li><a  class="svindex" href="svindex.php?value=4">Cleantech</a></li>
         </ul>
     </div>
 </li>
-      <li class="subnav2 border-btm-head"><a id="pevcexit" href="mandaindex.php?value=0-2">PE-VC Exits</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav2 border-btm-head"><a id="pevcexit" class="mandaindex"  href="mandaindex.php?value=0-2">PE-VC Exits</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
             <div class="subnav-content2">
                 <ul style="display:grid">
-                    <li class="subnav3 border-btm-head"><a id="mapevchover" href="mandaindex.php?value=0-0" >via M&A (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+                    <li class="subnav3 border-btm-head"><a id="mapevchover" class="mandaindex" href="mandaindex.php?value=0-0" >via M&A (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content3">
                                         <ul style="display:grid">
-                                            <li><a href="mandaindex.php?value=1-0">M&A (VC)</a></li>
+                                            <li><a class="mandaindex" href="mandaindex.php?value=1-0">M&A (VC)</a></li>
                                         </ul>
                                     </div>
                     </li>
-                    <li class="subnav4"><a href="mandaindex.php?value=0-1">via Public Market (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+                    <li class="subnav4"><a class="mandaindex" href="mandaindex.php?value=0-1">via Public Market (PE-VC)</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content4">
                                         <ul style="display:grid">
-                                            <li><a href="mandaindex.php?value=1-1">via Public Market (VC)</a></li>
+                                            <li><a class="mandaindex" href="mandaindex.php?value=1-1">via Public Market (VC)</a></li>
                                         </ul>
                                     </div>
                     </li>
         </ul>
     </div></li>
-      <li class="subnav5 border-btm-head"><a href="ipoindex.php?value=0">PE-VC Backed IPOs</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav5 border-btm-head"><a class="ipoindex" href="ipoindex.php?value=0">PE-VC Backed IPOs</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
                                     <div class="subnav-content5">
                                         <ul style="display:grid">
-                                            <li><a href="ipoindex.php?value=1">VC Backed IPOs</a></li>
+                                            <li><a class="ipoindex" href="ipoindex.php?value=1">VC Backed IPOs</a></li>
                                         </ul>
                                     </div>
       </li>
-      <li class="border-btm-head"><a href="angelindex.php">Angel Investments</a></li>
-      <li><a href="incindex.php">Incubation / Acceleration</a></li>
+      <li class="border-btm-head"><a id="angelindex" href="angelindex.php">Angel Investments</a></li>
+      <li><a  id="incindex" href="incindex.php">Incubation / Acceleration</a></li>
  </ul>
     </div>
  </li>
 <li <?php echo ($topNav=='Directory') ? 'class="active"' : '' ; ?> id="tour_directory"><a href="pedirview.php?value=0"><i class="i-directory"></i>Directory</a></li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0 && $usrRgs['VCInv'] == 0){ echo "style=pointer-events:none"; } ?> href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+<li id="funds" <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a <?php if($usrRgs['PEInv'] == 0 && $usrRgs['VCInv'] == 0){ echo "style=pointer-events:none"; } ?>  href="funds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
  <?php } ?>
 </ul>
 <script>
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
+        localStorage.removeItem("pageno");
         var url = $(this).attr('data-url'); 
         $.ajax({
             url: 'ajax_set_session.php',
@@ -383,6 +384,12 @@ $(document).ready(function() {
                 return true;
             }
         });
+    });
+    $(".tour-lock").on('click', function(e) {
+        //alert('hello');
+        localStorage.removeItem("pageno");
+
+
     });
 </script>
 

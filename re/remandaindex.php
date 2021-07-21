@@ -1628,7 +1628,7 @@
         <div class="showhide-link" id="trendnav" style="z-index: 100000"> <a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
             <div  id="slidingTable" style="display: none;overflow:hidden;">
                 <?php
-                // include_once("remandatrendview.php");
+                include_once("remandatrendview.php");
                 ?> 
                     <table width="100%">
 									<?php
@@ -1803,10 +1803,22 @@
                         ordertype="asc";
                     loadhtml(1,orderby,ordertype);
                     return  false;
-                });        
+                });    
+                $( document ).ready(function() {
+
+                var x = localStorage.getItem("pageno");
+                //alert(x);
+                if(x != 'null' && x != null)
+                {
+                loadhtml(x,orderby,ordertype)
+                }
+                });     
                function loadhtml(pageno,orderby,ordertype)
                {
-               
+                localStorage.setItem("pageno", pageno);
+                $('#paginationinput').val(pageno)
+
+
                 jQuery('#preloading').fadeIn(1000);   
                 $.ajax({
                 type : 'POST',

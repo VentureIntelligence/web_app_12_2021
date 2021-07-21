@@ -142,8 +142,8 @@
 				 $result = @mysql_query($sql)
 				     or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());
 
-                                 echo mysql_num_rows($result);
-                                 exit;
+                                //  echo mysql_num_rows($result);
+                                //  exit;
 				 //if this parameter is included ($w=1), file returned will be in word format ('.doc')
 				 //if parameter is not included, file returned will be in excel format ('.xls')
 				 	if (isset($w) && ($w==1))
@@ -157,10 +157,13 @@
 				 		$file_ending = "xls";
 					}
 				 //header info for browser: determines file type ('.doc' or '.xls')
-				 header("Content-Type: application/$file_type");
-				 header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
-				 header("Pragma: no-cache");
-				 header("Expires: 0");
+
+
+				//  header("Content-Type: application/$file_type");
+				//  header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
+				//  header("Pragma: no-cache");
+				//  header("Expires: 0");
+				
 
 				 /*    Start of Formatting for Word or Excel    */
 				 /*    FORMATTING FOR EXCEL DOCUMENTS ('.xls')   */
@@ -200,6 +203,8 @@
 
 				     while($row = mysql_fetch_row($result))
 				     {
+
+						// echo '<pre>'; print_r($row[2]); echo '</pre>'; exit;
 				         //set_time_limit(60); // HaRa
                                         $schema_insert = "";
 				         

@@ -792,9 +792,26 @@
                     loadhtml(1,orderby,ordertype);
                     return  false;
             }); 
+            $( document ).ready(function() {
+                var nav = $('.show-by-list');
 
+                nav.find('a').on('click',function(e){
+                    localStorage.removeItem("pageno");
+
+                });
+            var x = localStorage.getItem("pageno");
+            //alert(x);
+            if(x != 'null' && x != null)
+            {
+            loadhtml(x,orderby,ordertype)
+            }
+            });
           function  loadhtml(pageno,orderby,ordertype)
           {
+            localStorage.setItem("pageno", pageno);
+            $('#paginationinput').val(pageno)
+
+
            jQuery('#preloading').fadeIn(1000);   
            $.ajax({
            type : 'POST',

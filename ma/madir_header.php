@@ -316,7 +316,9 @@ $(document).ready(function(){
        $("#disselect").find(':input').prop("disabled", true);  
        
         $('.show-nav').on('ifChecked', function(event){
-            
+            //remove page no 
+          localStorage.removeItem("pageno");
+
             $("#pesearch").submit();
         });
 });
@@ -478,8 +480,11 @@ if($passwrd != 'P')
 }
 ?>
 <script>
+
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
+        localStorage.removeItem("pageno");
+
         var url = $(this).attr('data-url');
         $.ajax({
             url: 'ajax_set_session.php',
@@ -490,6 +495,12 @@ if($passwrd != 'P')
                 return true;
             }
         });
+    });
+    $(".tour-lock").on('click', function(e) {
+        //alert('hello');
+        localStorage.removeItem("pageno");
+
+
     });
 </script>
 

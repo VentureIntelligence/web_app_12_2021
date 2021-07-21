@@ -270,10 +270,10 @@ $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/
       <li class="subnav2 border-btm-head"><a id="pevcexit" href="reipoindex.php?value=1">PE backed IPO</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
     </li>
-      <li class="subnav5 border-btm-head"><a href="remandaindex.php?value=2">PE Exits via M&A </a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav5 border-btm-head"><a id="remandaindex" href="remandaindex.php?value=2">PE Exits via M&A </a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
       </li>
-      <li class=""><a href="remaindex.php?value=3">Other M&A</a></li>
+      <li class=""><a id="remaindex" href="remaindex.php?value=3">Other M&A</a></li>
  </ul>
     </div>
 </li>
@@ -293,7 +293,7 @@ $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/
  </ul>
     </div>
 </li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a id="refunds" href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
 <script>
 $(document).ready(function() {    
     $(".vconly").hide();
@@ -318,10 +318,10 @@ $(document).ready(function() {
       <li class="subnav2 border-btm-head"><a id="pevcexit" href="reipoindex.php?value=1">PE backed IPO</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
     </li>
-      <li class="subnav5 border-btm-head"><a href="remandaindex.php?value=2">PE Exits via M&A </a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav5 border-btm-head"><a id="remandaindex" href="remandaindex.php?value=2">PE Exits via M&A </a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
       </li>
-      <li class=""><a href="remaindex.php?value=3">Other M&A</a></li>
+      <li class=""><a id="remaindex" href="remaindex.php?value=3">Other M&A</a></li>
  </ul>
     </div>
 </li>
@@ -342,7 +342,7 @@ $(document).ready(function() {
     </div>
 </li>
 <?php if($topNav=='Directory'){?>
-  <li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+  <li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a id="refunds" href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
 <?php } ?>
  <?php } else{ ?>
 
@@ -356,10 +356,10 @@ $(document).ready(function() {
       <li class="subnav2 border-btm-head"><a id="pevcexit" href="reipoindex.php?value=1">PE backed IPO</a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
     </li>
-      <li class="subnav5 border-btm-head"><a href="remandaindex.php?value=2">PE Exits via M&A </a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
+      <li class="subnav5 border-btm-head"><a id="remandaindex" href="remandaindex.php?value=2">PE Exits via M&A </a><i class="fa fa-angle-right arrow-pe-vc arrow-weight"
                                                         aria-hidden="true"></i>
       </li>
-      <li class=""><a href="remaindex.php?value=3">Other M&A</a></li>
+      <li class=""><a id="remaindex" href="remaindex.php?value=3">Other M&A</a></li>
  </ul>
     </div>
 </li>
@@ -379,13 +379,15 @@ $(document).ready(function() {
  </ul>
     </div>
 </li>
-<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
+<li <?php echo ($topNav=='Funds') ? 'class="active"' : '' ; ?>><a  id="refunds" href="refunds.php"><i class="i-directory"></i>Funds <span class="betaversion">Beta</span></a></li>
  <?php }?>
 </ul>
 <script>
     $(".tour-lock").on('click', '.popup_call', function(e) {
         e.preventDefault();
         var url = $(this).attr('data-url'); 
+        localStorage.removeItem("pageno");
+
         $.ajax({
             url: 'ajax_set_session.php',
             type: 'POST',
@@ -395,6 +397,12 @@ $(document).ready(function() {
                 return true;
             }
         });
+    });
+    $(".tour-lock").on('click', function(e) {
+        //alert('hello');
+        localStorage.removeItem("pageno");
+
+
     });
 </script>
 
