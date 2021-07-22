@@ -75,6 +75,7 @@ if(count($industry) == 0){ ?>
         $(document).ready(function(){ 
             onsectordisable();
             $("#sltindustry").on('change',function(){
+                localStorage.removeItem("pageno");
             if(($('#sltindustry').val())!=''||($('#sltindustry').val())!= null)
                 {
                     /*$('.selectgroup.sltsector button').attr('style', 'width: 223px; background-color: #fff !important').prop("disabled", false);
@@ -105,10 +106,14 @@ if(count($industry) == 0){ ?>
 <script>
   $(document).ready(function(){ 
     $("#firstrefinesv select, #firstrefinesv input").on('change',function(){
+        localStorage.removeItem("pageno");
+
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
     }); 
     $("#comptype, #dealtype_debtequity, #Syndication, #invType,#invhead").on('change',function(){
+        localStorage.removeItem("pageno");
+
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
           $("#pesearch").submit();
@@ -1883,6 +1888,8 @@ function enableFileds(){
     $(document).ready(function(){ 
     
     $(document).on('change', '#sltsector', function() {
+        localStorage.removeItem("pageno");
+
         var sector=$("#sltsector").val();
         var industry=$("#sltindustry").val();
         if(sector!=null)
@@ -1927,6 +1934,8 @@ function enableFileds(){
     });
 
     $(document).on('change', '#sltindustry', function() {
+        localStorage.removeItem("pageno");
+
         var industry=$("#sltindustry").val();
         
         if(industry!=null)
@@ -1976,6 +1985,8 @@ function enableFileds(){
     $('#city').select2();
     //$( document ).select("#citysearch1",function() {
         $(document).on('change', '#sltstate', function() {
+            localStorage.removeItem("pageno");
+
         var state=$("#sltstate").val();
         // if(state!=null){
             $.ajax({

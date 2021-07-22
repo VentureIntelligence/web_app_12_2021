@@ -1279,6 +1279,7 @@ if($notable==false)
 
     function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
@@ -1326,11 +1327,6 @@ if($notable==false)
         position: absolute;
 
 left: 38%;
-    }
-
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
     }
 
 

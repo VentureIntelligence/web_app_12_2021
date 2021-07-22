@@ -2812,6 +2812,7 @@ if($_GET['type']!="")
         }
         function validpagination()
         {
+            localStorage.removeItem("pageno");
             var pageval = $("#paginationinput").val();
             if(pageval == "")
             {
@@ -2838,9 +2839,12 @@ if($_GET['type']!="")
             padding: 3px;
         }
         input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
         .button{
             background-color: #a2753a; /* Green */
             border: none;

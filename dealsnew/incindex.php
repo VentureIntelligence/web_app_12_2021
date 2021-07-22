@@ -2670,6 +2670,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
         function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
@@ -2697,11 +2698,6 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         width:3%;
         padding: 3px;
     }
-
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
         .button{
             background-color: #a2753a; /* Green */
             border: none;
@@ -2718,7 +2714,20 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         position: absolute;
 
 left: 42%;
+
+
+
     }
+
+
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>
     
     

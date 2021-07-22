@@ -550,7 +550,15 @@ function indchange(list)
                    $("#companyauto").val('');
              }
         });
-    
+        function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.reinvestment.action = 'reindex.php';
+document.reinvestment.submit();
+
+return true;
+}
      $('.company_slt').live("click", function() {  //on click 
                       // T993
                     //    clear_keywordsearch();
@@ -948,13 +956,13 @@ $showdealsbyflag=0;
  ?>
 </select> </div>
     
-<input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="this.form.submit();">
+<input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="submitfilter();">
  
 </li>		
 
 
 <li class="odd"><h4>Region</h4>
-    <SELECT NAME="txtregion" id="txtregion" onchange="this.form.submit();" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <SELECT NAME="txtregion" id="txtregion" onchange="submitfilter();" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
 	<OPTION id=5 value="--" selected> ALL </option>
      <?php
         /* populating the region from the Region table */
@@ -999,7 +1007,7 @@ $showdealsbyflag=0;
 <!-- <label><input name="comptype[]" type="checkbox" value="L" />  Listed</label> 
  <label><input name="comptype[]" type="checkbox" value="U" /> Un-Listed</label>  -->
 
- <SELECT NAME="EntityProjectType" onchange="this.form.submit();" id="EntityProjectType" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+ <SELECT NAME="EntityProjectType" onchange="submitfilter();" id="EntityProjectType" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     <OPTION  value="--" selected> ALL </option>
     <OPTION value="1" <?php echo ($entityProject=="1") ? 'SELECTED' : ""; ?>> Entity </option>
     <OPTION  value="2" <?php echo ($entityProject=="2") ? 'SELECTED' : ""; ?>> Project </option>
@@ -1009,7 +1017,7 @@ $showdealsbyflag=0;
 
 <li class="odd"><h4>Company Type</h4>
 
- <SELECT NAME="comptype" onchange="this.form.submit();" id="comptype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+ <SELECT NAME="comptype" onchange="submitfilter();" id="comptype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     <OPTION  value="--" selected> Both </option>
     <OPTION value="L" <?php echo ($companyType=="L") ? 'SELECTED' : ""; ?>> Listed </option>
     <OPTION  value="U" <?php echo ($companyType=="U") ? 'SELECTED' : ""; ?>> Unlisted </option>
@@ -1029,7 +1037,7 @@ $showdealsbyflag=0;
            </a>
     </span>
                                         </h4>
-    <SELECT NAME="invType" id="invType" onchange="this.form.submit();" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <SELECT NAME="invType" id="invType" onchange="submitfilter();" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
        <OPTION id="5" value="--" selected> ALL </option>
          <?php
             /* populating the investortype from the investortype table */
@@ -1081,7 +1089,7 @@ $showdealsbyflag=0;
         ?> 
 </select>
 <span class="range-text"> to</span>
-<SELECT name="invrangeend" id="invrangeend" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();"><OPTION id=5 value="--" selected>ALL  </option>
+<SELECT name="invrangeend" id="invrangeend" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="submitfilter();"><OPTION id=5 value="--" selected>ALL  </option>
 	<?php
         $counter=0;
         $endRangeValue=$endRangeValue+0.01;
@@ -1110,7 +1118,7 @@ $showdealsbyflag=0;
 <li class="odd"><h4>Exit Status</h4>
 
    
-    <select NAME="exitstatus" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();">
+    <select NAME="exitstatus" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="submitfilter();">
        <OPTION  value="--" selected>All</option>
         <?php
             $exitstatusSql = "select id,status from exit_status";
@@ -1139,7 +1147,7 @@ $showdealsbyflag=0;
     
 </li>
 
-<li><input type="button" name="fliter_stage" class="fliter_stage" value="Filter" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onclick="this.form.submit();"></li>
+<li><input type="button" name="fliter_stage" class="fliter_stage" value="Filter" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onclick="submitfilter();"></li>
 </ul></div>
 	</div>
 	
@@ -1410,7 +1418,7 @@ $showdealsbyflag=0;
 	</SELECT>
     </li>
     <li><input name="reset" id="resetall" class="refine reset-btn" type="button" value="Reset" style="float: left;" />
-        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
     
 </ul></div>
@@ -1427,7 +1435,7 @@ $showdealsbyflag=0;
     <input type="text" id="searchKeywordLeft" name="searchKeywordLeft" value="<?php //if(isset($searchallfield)) echo  $searchallfield;  ?>" placeholder="" style="width:220px;">
 </li>
     <li>
-        <input type="button" name="fliter_stage" value="Search" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Search" onclick="submitfilter();" style="float: right;">
     </li>
     
 </ul>

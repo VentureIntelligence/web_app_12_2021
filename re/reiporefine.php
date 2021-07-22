@@ -106,7 +106,15 @@ function indchange(list)
         }
         
     });    
-    
+    function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.reinvestment.action = "reipoindex.php?value=1"
+document.reinvestment.submit();
+
+return true;
+}
       $("#inv_selectall").live("click", function() {
       
             clear_companysearch();
@@ -449,7 +457,7 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
 
 <li class="odd"><h4>Exit Status</h4>
 
-   <select NAME="exitstatus" onchange="this.form.submit();" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+   <select NAME="exitstatus" onchange="submitfilter();" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
        <option  value="--" selected>All</option>
        <option value="0" <?php if(isset($exitstatusvalue) && $exitstatusvalue=="0"){ echo 'selected="selected"'; } ?> >Partial</option>
        <option value="1" <?php if(isset($exitstatusvalue) && $exitstatusvalue=="1"){ echo 'selected="selected"'; } ?> >Complete</option>
@@ -559,7 +567,7 @@ if($keyword!="" || $companysearch!="" || $sectorsearch!="" || $advisorsearchstri
     
 </li>
     <li><input name="reset" id="resetall" class="refine reset-btn" type="button" value="Reset" style="float: left;" />
-        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
     
 </ul></div>
