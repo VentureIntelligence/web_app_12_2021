@@ -2333,7 +2333,7 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
 
                 $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li>  <br /> <br /><center> <ul class = "pageul"> <li><input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "P.no"> </li> &nbsp;&nbsp; <li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();"></li> </ul></center>';
 
-                //echo $nextpage;
+                //echo $nextpage; 
 
             } else {  
                 $paginationdiv.='<li class="arrow"><a  class="postlink"  href="home.php?'.$pagination_search.'&page='.$nextpage.'">&raquo;</a></li>  <br /> <br /><center> <ul class = "pageul"> <li><input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "'.$page.'" placeholder = "P.no"> </li> &nbsp;&nbsp; <li><input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc();"></li> </ul></center>';
