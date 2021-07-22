@@ -12467,10 +12467,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     }
 
     input[type='text']::placeholder
-
-{   
-
-text-align: center;      /* for Chrome, Firefox, Opera */
-
-}
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
     </style>

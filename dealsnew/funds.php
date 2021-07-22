@@ -1320,16 +1320,6 @@ if($notable==false)
         font-size: 16px;
     }
 
-
-    input[type='text']::placeholder
-
-{   
-
-text-align: center;      /* for Chrome, Firefox, Opera */
-
-}
-       
-
     .pageinationManual{
         display: flex;
         /* margin: auto;

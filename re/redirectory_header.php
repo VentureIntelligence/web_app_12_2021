@@ -391,7 +391,9 @@ $(document).ready(function(){
 		skin : "big-shadow"
            });
 $('.show-nav').on('ifChecked', function(event){
-            
+  //remove page no 
+  localStorage.removeItem("pageno");
+
             if(demotour==1)
                 {  showErrorDialog(warmsg); return false; }
                 
@@ -665,6 +667,8 @@ jQuery('#maskscreen').fadeOut(1000);
 </div>
 <script>
     $(".tour-lock").on('click', '.popup_call', function(e) {
+      localStorage.removeItem("pageno");
+
         e.preventDefault();
         var url = $(this).attr('data-url'); 
         $.ajax({
@@ -676,6 +680,9 @@ jQuery('#maskscreen').fadeOut(1000);
                 return true;
             }
         });
+    });
+    $(".tour-lock").on('click', function(e) {
+        localStorage.removeItem("pageno");
     });
 </script>
  

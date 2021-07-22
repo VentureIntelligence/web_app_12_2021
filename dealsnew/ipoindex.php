@@ -2362,7 +2362,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-    include_once("ipotrendview.php");
+    // include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php

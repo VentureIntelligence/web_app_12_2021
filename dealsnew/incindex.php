@@ -427,8 +427,8 @@
                     $month2=date('m');
                     $year2=date('Y');
                  }elseif(!isset($_POST['month1'])|| $period_flag==2){
-                    $month1=01; 
-                    $year1 = 1998;
+                     $month1=$_POST['month1'];
+                    $year1=$_POST['year1'];
                     $month2=date('m');
                     $year2=date('Y');
                  }else{
@@ -1598,7 +1598,7 @@
                      <!-- </div> -->
 
                         <center>
-    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
+    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
     <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit" onclick = "validpagination()">Go</button></div>
     </center>
 
@@ -2486,7 +2486,7 @@
     
     //if($searchallfield!=''){ ?>
         $(document).ready(function(){
-           var filed_name = "";
+           var filed_name = "combinesearch";
             <?php if ($company_cnt==0){ ?>
                               $('.other_db_search').css('margin-top','50px');
             <?php } ?>

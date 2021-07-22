@@ -3824,6 +3824,14 @@ function writeSql_for_no_records($sqlqry,$mailid)
  <script src="demo.js"></script> -->
     
      <script type="text/javascript" >
+       $( document ).ready(function() {
+                var nav = $('.show-by-list');
+
+                nav.find('a').on('click',function(e){
+                    localStorage.removeItem("pageno");
+
+                });
+            });
     $(document).ready(function(){       
     
      <?php
