@@ -594,7 +594,15 @@ disableFileds();
 //    $("#testacquire").hide();
 //    $("#testSector").hide();
 //});
+function submitfilter() {
 
+localStorage.removeItem("pageno");
+
+document.pesearch.action = 'index.php';
+document.pesearch.submit();
+
+return true;
+}
    
 function clear_chholder(){
      $("#companysearch").removeAttr('readonly');  
@@ -923,7 +931,7 @@ function clear_sectorSearch1(){
 
 <li class="odd"><h4>Target Company Type</h4>
 
-    <SELECT NAME="targetcompanytype" onchange="this.form.submit();" id="targetcompanytype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <SELECT NAME="targetcompanytype" onchange="submitfilter()" id="targetcompanytype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     <OPTION  value="--" selected> Both </option>
     <OPTION value="L" <?php echo ($_POST['targetcompanytype']=="L") ? 'SELECTED' : ""; ?>> Listed </option>
     <OPTION  value="U" <?php echo ($_POST['targetcompanytype']=="U") ? 'SELECTED' : ""; ?>> Unlisted </option>
@@ -932,7 +940,7 @@ function clear_sectorSearch1(){
 </li>
 <li class="odd"><h4>Acquirer Company Type</h4>
 
-    <SELECT NAME="acquirercompanytype" onchange="this.form.submit();" id="acquirercompanytype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <SELECT NAME="acquirercompanytype" onchange="submitfilter();" id="acquirercompanytype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     <OPTION  value="--" selected> Both </option>
     <OPTION value="L" <?php echo ($_POST['acquirercompanytype']=="L") ? 'SELECTED' : ""; ?>> Listed </option>
     <OPTION  value="U" <?php echo ($_POST['acquirercompanytype']=="U") ? 'SELECTED' : ""; ?>> Unlisted </option>
@@ -1019,7 +1027,7 @@ function clear_sectorSearch1(){
         ?> 
 </select>
 <span class="range-text"> to</span>
-<SELECT name="invrangeend" id="invrangeend" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();"><OPTION  value="--" selected>ALL  </option>
+<SELECT name="invrangeend" id="invrangeend" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="submitfilter();"><OPTION  value="--" selected>ALL  </option>
 	<?php
                 for ($counterTo = 5; $counterTo <= 100; $counterTo += 5)
                 {
@@ -1148,7 +1156,7 @@ function clear_sectorSearch1(){
     <input type="text" id="searchKeywordLeft" name="searchKeywordLeft" value="<?php //if(isset($searchallfield)) echo  $searchallfield;  ?>" placeholder="" style="width:220px;">
 </li>
     <li>
-        <input type="button" name="fliter_stage" value="Search" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Search" onclick="submitfilter()" style="float: right;">
     </li>
 
 </ul>
@@ -1163,6 +1171,7 @@ function clear_sectorSearch1(){
     });
 
     function submitSearchRemove(){
+        localStorage.removeItem("pageno");
         $('#hide_company_array').val('');
         $('#pe_checkbox_disbale').val('');
         $('#pe_checkbox_enable').val('');

@@ -41,6 +41,8 @@ else
             $('#tagsearch_auto').val("");
         }); 
         $("#industry, #statusid, #txtfirmtype, #followonFund, #txtregion").on('change',function(){
+          localStorage.removeItem("pageno");
+
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
           $("#pesearch").submit();
@@ -603,6 +605,8 @@ function enableFileds(){
       $('#real_total_inv_amount').val('');
       $('#real_total_inv_inr_amount').val('');
       $('#real_total_inv_company').val('');
+      localStorage.removeItem("pageno");
+
       $("#pesearch").submit();
   }
 

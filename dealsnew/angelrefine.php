@@ -30,10 +30,14 @@ $Db = new dbInvestments();
 <script>
   $(document).ready(function(){ 
         $("#firstrefineangel select, #firstrefineangel input").on('change',function(){
+            localStorage.removeItem("pageno");
+
             $("#tagsearch").val("");
             $('#tagsearch_auto').val("");
         }); 
         $("#followonVCFund, #exitedstatus").on('change',function(){
+            localStorage.removeItem("pageno");
+
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
           $("#pesearch").submit();
