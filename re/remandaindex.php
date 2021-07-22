@@ -2812,6 +2812,7 @@ if($_GET['type']!="")
         }
         function validpagination()
         {
+            localStorage.removeItem("pageno");
             var pageval = $("#paginationinput").val();
             if(pageval == "")
             {
