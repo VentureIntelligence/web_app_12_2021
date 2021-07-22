@@ -1869,6 +1869,8 @@ function enableFileds(){
     });
 
      function submitSearchRemove(){
+        localStorage.removeItem("pageno");
+
         $('#hide_company_array').val('');
         $('#pe_checkbox_disbale').val('');
         $('#pe_checkbox_enable').val('');

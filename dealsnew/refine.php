@@ -1905,7 +1905,7 @@ $(function() {
                     <label for="or" class="cb-disable"><span>OR</span></label>
                 </div>
             </div>
-            <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+            <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
     
 </ul>
@@ -2165,9 +2165,26 @@ $( ".fliter_stage1" ).click(function() {
     clear_searchallfield();
     var searchKeywordLeft = $("#searchKeywordLeft").val();
      $("#searchallfield").val(searchKeywordLeft);
-    this.form.submit();
+    submitfilter();
 });
+function submitfilter() {
 
+localStorage.removeItem("pageno");
+<?php if($vcflagValue=="0" || $vcflagValue=="1" || $vcflagValue=="2")
+{
+    $actionlink="index.php?value=".$vcflagValue;
+}
+else 
+{
+        $actionlink="svindex.php?value=".$vcflagValue;
+}
+?>
+
+document.pesearch.action = $actionlink;
+document.pesearch.submit();
+
+return true;
+}
 $( "#filter-refine" ).click(function() {
     submitSearchRemove();
 });
