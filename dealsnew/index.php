@@ -5108,7 +5108,7 @@ if ($type != 1) {
              <script type="text/javascript">
     
                 var wage = document.getElementById("paginationinput");
-                wage.addEventListener("keydown", function (e) {debugger;
+                wage.addEventListener("keydown", function (e) {
                     if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
                         //paginationForm();
                         event.preventDefault();
@@ -12009,6 +12009,7 @@ echo $user_browser;?>
 
             function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {

@@ -11497,6 +11497,7 @@ mysql_close();
     }
     function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {

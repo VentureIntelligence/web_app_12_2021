@@ -52,12 +52,14 @@ else
 <script>
 $(document).ready(function(){ 
         $("#firstrefineipo select, #firstrefineipo input").on('change',function(){
+            localStorage.removeItem("pageno");
             $("#tagsearch").val("");
             $('#tagsearch_auto').val("");
         }); 
         $("#industry, #invType,#invhead, #invSale, #exitstatus, #txtmultipleReturnFrom, #txtmultipleReturnTo").on('change',function(){
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
+          localStorage.removeItem("pageno");
           $("#pesearch").submit();
         });
     });

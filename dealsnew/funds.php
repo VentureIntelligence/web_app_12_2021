@@ -1279,6 +1279,7 @@ if($notable==false)
 
     function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
