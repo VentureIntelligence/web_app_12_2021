@@ -2184,7 +2184,7 @@
                        <div class="showhide-link" id="trendnav" style="z-index: 100000"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
                             <div  id="slidingTable" style="display: none;overflow:hidden;">
                                <?php
-                                //  include_once("trendviewre.php");
+                                 include_once("trendviewre.php");
                                ?>   
                                <table width="100%">
 									<?php
@@ -4880,6 +4880,7 @@ div.token-input-dropdown{
         }
         function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
@@ -4907,9 +4908,12 @@ div.token-input-dropdown{
         }
 
         input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
         .button{
             background-color: #a2753a; /* Green */
             border: none;

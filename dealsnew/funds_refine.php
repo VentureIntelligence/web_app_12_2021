@@ -43,6 +43,23 @@ else
         });
 
     });
+    $(function() {
+    $('#type').change(function(e) {
+        localStorage.removeItem("pageno");
+            }); 
+    $('#type2').change(function(e) {
+        localStorage.removeItem("pageno");
+            }); 
+    $('#sizestart').change(function(e) {
+        localStorage.removeItem("pageno");
+            }); 
+    $('#sizeend').change(function(e) {
+        localStorage.removeItem("pageno");
+            }); 
+    $('#capital').change(function(e) {
+        localStorage.removeItem("pageno");
+            }); 
+});
 </script> 
 <h2 class="acc_trigger"><a href="#">Refine Search</a></h2>
 <div class="acc_container" >
@@ -118,7 +135,7 @@ else
             </li>
             <li class="odd range-to"><h4>Size (US $ M)</h4>
 
-                <SELECT name="sizestart"><OPTION id=4 value="" selected>ALL  </option>
+                <SELECT name="sizestart" id="sizestart"><OPTION id=4 value="" selected>ALL  </option>
                         <?php
                             $counter=0;
 
@@ -141,7 +158,7 @@ else
                         ?> 
                 </select>
                 <span class="range-text"> to</span>
-                <SELECT name="sizeend" onchange="this.form.submit();"><OPTION id=5 value="" selected>ALL  </option>
+                <SELECT name="sizeend" onchange="this.form.submit();" id="sizeend"><OPTION id=5 value="" selected>ALL  </option>
                         <?php
                             $counter=0;
 
