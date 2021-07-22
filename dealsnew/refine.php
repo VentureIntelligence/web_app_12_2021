@@ -74,6 +74,8 @@ if(count($industry) == 0){ ?>
         $(document).ready(function(){ 
             onsectordisable();
             $("#sltindustry").on('change',function(){
+                localStorage.removeItem("pageno");
+
             if(($('#sltindustry').val())!=''||($('#sltindustry').val())!= null)
                 {
                     /*$('.selectgroup.sltsector button').attr('style', 'width: 223px; background-color: #fff !important').prop("disabled", false);
@@ -105,6 +107,8 @@ if(count($industry) == 0){ ?>
 $(document).ready(function(){ 
     
     $("#firstrefine select, #firstrefine input").on('change',function(){
+        localStorage.removeItem("pageno");
+
         $("#tagsearch").val("");
         $('#tagsearch_auto').val("");
     });    
@@ -112,6 +116,7 @@ $(document).ready(function(){
         $("#tagsearch").val("");
         $('#tagsearch_auto').val("");
         $("#pesearch").submit();
+        localStorage.removeItem("pageno");
     });
     
     $( "#searchallfield" ).keyup(function() {
@@ -1764,7 +1769,7 @@ $(function() {
      <input type="hidden" id="keywordsearch" name="keywordsearch" value="<?php if(isset($_POST['keywordsearch'])) echo  $_POST['keywordsearch'];  ?>" placeholder="" style="width:220px;">-->
         <?php if($_POST['popup_select'] == 'investor'){
             $isearch = $_POST['popup_keyword'];
-            $iauto = $invester_filter_id;
+            $iauto = $invester_filter;
         }else  if($_POST['investorauto_sug_other'] != ''){
             $isearch = $_POST['keywordsearch_other'];
             $iauto = $investorauto;
@@ -2186,11 +2191,14 @@ $( "#fliter_stage" ).click(function() {
     $('#real_total_inv_inr_amount').val('');
     $('#real_total_inv_company').val('');
     $("#pesearch").submit();
+    localStorage.removeItem("pageno");
 }
 
 $(document).ready(function(){ 
     
     $(document).on('change', '#sltsector', function() {
+        localStorage.removeItem("pageno");
+
         var sector=$("#sltsector").val();
         var industry=$("#sltindustry").val();
         if(sector!=null)
@@ -2235,6 +2243,8 @@ $(document).ready(function(){
     });
 
     $(document).on('change', '#sltindustry', function() {
+        localStorage.removeItem("pageno");
+
         var industry=$("#sltindustry").val();
         
         if(industry!=null)
@@ -2284,6 +2294,8 @@ $(document).ready(function(){
      $('#city').select2();
     //$( document ).select("#citysearch1",function() {
         $(document).on('change', '#sltstate', function() {
+            localStorage.removeItem("pageno");
+
         var state=$("#sltstate").val();
         // if(state!=null){
             $.ajax({

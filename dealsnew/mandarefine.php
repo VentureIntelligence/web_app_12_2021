@@ -76,6 +76,7 @@ if(count($industry) == 0){ ?>
         $(document).ready(function(){ 
             onsectordisable();
             $("#sltindustry").on('change',function(){
+                localStorage.removeItem("pageno");
             if(($('#sltindustry').val())!=''||($('#sltindustry').val())!= null)
                 {
                     /*$('.selectgroup.sltsector button').attr('style', 'width: 223px; background-color: #fff !important').prop("disabled", false);
@@ -107,10 +108,12 @@ if(count($industry) == 0){ ?>
  // Company
  $(document).ready(function(){ 
     $("#firstrefine select, #firstrefine input").on('change',function(){
+        localStorage.removeItem("pageno");
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
       });    
     $("#invType,#invhead, #exitstatus1").on('change',function(){
+        localStorage.removeItem("pageno");
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
           $("#pesearch").submit();
@@ -1992,6 +1995,7 @@ function enableFileds(){
     $(document).ready(function(){ 
        $(document).ready(function(){ 
         $(document).on('change', '#dealtype', function() {
+            localStorage.removeItem("pageno");
           // $('#InType').prop("disabled",true);
           // $('#InType').css("cursor","not-allowed");
             if(($('#dealtype').val())!='' && ($('#dealtype').val())!=null )
@@ -2003,6 +2007,7 @@ function enableFileds(){
            }
           });
           $(document).on('change', '#InType', function() {
+            localStorage.removeItem("pageno");
           //$('.dealtype button.ui-multiselect').attr('style', 'width: 223px; background-color: #dddddd !important').prop("disabled",true);
            if(($('#InType').val())!='' && ($('#InType').val())!= "--")
                 {
@@ -2043,6 +2048,7 @@ function enableFileds(){
             }
         });
     $(document).on('change', '#sltsector', function() {
+        localStorage.removeItem("pageno");
         var sector=$("#sltsector").val();
         var industry=$("#sltindustry").val();
         if(sector!=null)
@@ -2084,6 +2090,7 @@ function enableFileds(){
     });
 
     $(document).on('change', '#sltindustry', function() {
+        localStorage.removeItem("pageno");
         var industry=$("#sltindustry").val();
         
         if(industry!=null)
