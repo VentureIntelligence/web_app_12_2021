@@ -861,7 +861,7 @@ if(count($industry) == 0){ ?>
         
     });    
     
-     
+
       $('.sector_slt').live("click", function() {  //on click 
          
         
@@ -1127,7 +1127,16 @@ if(count($industry) == 0){ ?>
     });
 
   });
+  function submitfilter() {
+       // alert()
 
+localStorage.removeItem("pageno");
+
+document.pesearch.action = "mandaindex.php?value=<?php echo $flagvalue; ?>";
+document.pesearch.submit();
+
+return true;
+}
 
 
  </script>
@@ -1187,7 +1196,7 @@ if(count($industry) == 0){ ?>
                         <label for="or" class="cb-disable"><span>OR</span></label>
                     </div>
                 </div>
-                <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+                <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
         </ul>
     </div>
@@ -1549,7 +1558,7 @@ if($page_name == 'mandadealdetails.php'){
                            </select>
             </li>
     <li>
-        <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="this.form.submit();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+        <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="submitfilter();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     </li>
 
 
@@ -1683,7 +1692,7 @@ if($page_name == 'mandadealdetails.php'){
 
     <li>
         <input name="reset" id="resetall" class="reset-btn" type="button" value="Reset" style="float: left;" />
-        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
 </ul>
 </div>
@@ -1722,7 +1731,7 @@ if($page_name == 'mandadealdetails.php'){
                     <label for="or" class="cb-disable"><span>OR</span></label>
                 </div>
             </div>
-            <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+            <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
 
             </ul>

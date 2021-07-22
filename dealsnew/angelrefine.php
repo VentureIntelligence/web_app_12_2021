@@ -463,6 +463,16 @@ $Db = new dbInvestments();
     
     
   });
+
+  function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.pesearch.action = 'angelindex.php';
+document.pesearch.submit();
+
+return true;
+}
   
   </script>
 
@@ -514,7 +524,7 @@ $Db = new dbInvestments();
                             <label for="or" class="cb-disable"><span>OR</span></label>
                         </div>
                     </div>
-                    <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+                    <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
                 </li>
             </ul>
         </div>
@@ -615,7 +625,7 @@ $Db = new dbInvestments();
 </li>
 <li class="odd"><h4>Region</h4>
     <div class="selectgroup">
-    <SELECT NAME="txtregion[]" multiple="multiple" id="txtregion" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();">
+    <SELECT NAME="txtregion[]" multiple="multiple" id="txtregion" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="submitfilter();">
 	<!--<OPTION id=5 value="" selected> ALL </option>-->
      <?php
         /* populating the region from the Region table */
@@ -648,7 +658,7 @@ $Db = new dbInvestments();
      
 </li>
 <li>
-    <input type="button" <?php if($disable_flag == "1"){ echo "disabled"; } ?> class="fliter_stage" name="fliter_stage" value="Filter" onclick="this.form.submit();">
+    <input type="button" <?php if($disable_flag == "1"){ echo "disabled"; } ?> class="fliter_stage" name="fliter_stage" value="Filter" onclick="submitfilter();">
 </li>
 </ul>
        </div>
@@ -780,7 +790,7 @@ $Db = new dbInvestments();
                     <label for="or" class="cb-disable"><span>OR</span></label>
                 </div>
             </div>
-            <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+            <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
 
             </ul>
