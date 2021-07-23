@@ -586,7 +586,7 @@ $(document).ready(function(){
            <?php } ?>
           
             var slt_shows = $("input[name=showdeals]:checked").val();
-            
+            localStorage.removeItem("pageno");
             if(Directorydemotour==1){
                     if(slt_shows==103 && current_tour==12){ 
             $("#pesearch").submit();
@@ -601,7 +601,7 @@ $(document).ready(function(){
         
        
      $('.investment-nav').on('ifChecked', function(event){
-       
+      localStorage.removeItem("pageno");
                 if(Directorydemotour==1){
                     showErrorDialog(warmsg);
                      return false;
@@ -787,6 +787,7 @@ if($vcflagValue>=7){ ?>
                                                         
 function industrypesearch()
 {
+  localStorage.removeItem("pageno");
     var sltindustry = $("#sltindustry").val();
        
      if(Directorydemotour==1){

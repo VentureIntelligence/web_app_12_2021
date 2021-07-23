@@ -75,6 +75,7 @@ if(count($industry) == 0){ ?>
         $(document).ready(function(){ 
             onsectordisable();
             $("#sltindustry").on('change',function(){
+                
                 localStorage.removeItem("pageno");
             if(($('#sltindustry').val())!=''||($('#sltindustry').val())!= null)
                 {

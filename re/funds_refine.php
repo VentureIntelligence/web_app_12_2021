@@ -47,9 +47,7 @@
     
   
 function submitfilter() {
-
     localStorage.removeItem("pageno");
-
     document.reinvestment.action = 'refunds.php';
     document.reinvestment.submit();
  
