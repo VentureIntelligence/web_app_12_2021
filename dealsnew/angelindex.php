@@ -2040,6 +2040,11 @@ if (!isset($_POST['tagsfield'])) {
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });
                function loadhtml(pageno,orderby,ordertype)
                {
@@ -2907,12 +2912,9 @@ mysql_close($cnx);
     }
 
     input[type='text']::placeholder
-
-{   
-
-text-align: center;      /* for Chrome, Firefox, Opera */
-
-}
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
         .button{
         background-color: #a2753a; /* Green */
     border: none;

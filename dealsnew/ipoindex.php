@@ -2562,6 +2562,11 @@
         {
         loadhtml(x,orderby,ordertype)
         }
+        else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
         });
         function  loadhtml(pageno,orderby,ordertype)
         {
@@ -10162,6 +10167,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     }
     function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {

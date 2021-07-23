@@ -5108,7 +5108,7 @@ if ($type != 1) {
              <script type="text/javascript">
     
                 var wage = document.getElementById("paginationinput");
-                wage.addEventListener("keydown", function (e) {debugger;
+                wage.addEventListener("keydown", function (e) {
                     if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
                         //paginationForm();
                         event.preventDefault();
@@ -5128,7 +5128,7 @@ if ($type != 1) {
                 });
                 $(".jp-page").live("click",function(){
                    var pageno=$(this).text();
-                   //alert(pageno);
+                   alert(pageno);
                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     return  false;
@@ -5213,6 +5213,11 @@ if ($type != 1) {
                 if(x != 'null' && x != null)
                 {
                 loadhtml(x,orderby,ordertype)
+                }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
                 }
                 });
 
@@ -12009,6 +12014,7 @@ echo $user_browser;?>
 
             function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {

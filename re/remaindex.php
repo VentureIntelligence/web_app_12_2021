@@ -1726,6 +1726,11 @@
                     {
                     loadhtml(x,orderby,ordertype)
                     }
+                    else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                     });    
                function loadhtml(pageno,orderby,ordertype)
                {
@@ -3058,6 +3063,7 @@ if($_GET['type']!="")
 
         function validpagination()
         {
+            localStorage.removeItem("pageno");
             var pageval = $("#paginationinput").val();
             if(pageval == "")
             {

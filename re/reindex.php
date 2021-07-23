@@ -2395,6 +2395,11 @@
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });
                function loadhtml(pageno,orderby,ordertype)
                {
@@ -4880,6 +4885,7 @@ div.token-input-dropdown{
         }
         function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {

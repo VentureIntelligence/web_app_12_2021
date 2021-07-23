@@ -898,6 +898,11 @@ if($notable==false)
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });       
                function loadhtml(pageno,orderby,ordertype)
                {
@@ -1279,6 +1284,7 @@ if($notable==false)
 
     function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
