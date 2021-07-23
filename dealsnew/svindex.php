@@ -4935,7 +4935,8 @@ else
                         }
                         drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                         jQuery('#preloading').fadeOut(500); 
-                       
+                        $(".selectgroup select").multiselect('refresh') 
+
                         return  false;
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -12472,7 +12473,10 @@ $(".other_db_search").on('click', '.other_db_link', function() {
     }
 
     input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>

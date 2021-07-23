@@ -2362,7 +2362,7 @@
 
   <div  id="slidingTable" style="display: none;overflow:hidden;">  
    <?php
-    // include_once("ipotrendview.php");
+    include_once("ipotrendview.php");
    ?>
     <table width="100%">
         <?php
@@ -2617,6 +2617,7 @@
                    }
                    drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                    jQuery('#preloading').fadeOut(500); 
+                   $(".selectgroup select").multiselect('refresh') 
 
                    return  false;
            },

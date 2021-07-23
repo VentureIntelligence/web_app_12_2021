@@ -518,15 +518,7 @@ function indchange(list)
              });
      
     ////////////// sector search end //////////////////////
-    function submitfilter() {
 
-localStorage.removeItem("pageno");
-
-document.reinvestment.action = "remandaindex.php?value=2"
-document.reinvestment.submit();
-
-return true;
-}
     
     
        ////////////// acquirer search start //////////////////////    
@@ -848,6 +840,15 @@ function enableFileds(){
      $("#searchallfield").val('');
      $("#searchallfield").fadeOut();
 } 
+function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.reinvestment.action = "remandaindex.php?value=2"
+document.reinvestment.submit();
+
+return true;
+}
   </script>
   
   
