@@ -13,24 +13,50 @@
 //		print $key;
     $NotFound = "No Result Found for you Search !..";
     //echo $_POST['queryString'];exit();
-    if (preg_match('/[\^£$%*}{@#~?><>,|=+¬]/', $_POST['queryString'])) {
-        echo json_encode(array());
-        exit;
-    }
-    $searchStrings = explode( ' ', $_POST['queryString'] );
+
+
+    // echo '<pre>'; print_r($_POST['queryString']); echo '</pre>'; exit;
+
+
+   
+    
+    $searchStrings = explode( ',', $_POST['queryString'] );
     /*$where = "(FCompanyName LIKE "."'%".$_POST['queryString']."%' or SCompanyName LIKE "."'%".$_POST['queryString']."%')";
     $where .= " and  (Industry  != '' and  State  != '') ";*/
     //echo count( $searchStrings );exit();
     if( count( $searchStrings ) > 1 ) {
-        $joinStr = implode( ' ', $searchStrings );
+        // $joinStr = implode( ' ', $searchStrings );
         // `FCompanyName` REGEXP '^pri.*[[:space:]]+lim.*[[:space:]]+test.*' or `SCompanyName` REGEXP '^pri.*[[:space:]]+lim.*' or `FCompanyName` REGEXP '^lim.*[[:space:]]+pri.*' or `SCompanyName` REGEXP '^lim.*[[:space:]]+pri.*'
-        $where = 'FCompanyName like "'.$joinStr.'%"';
-        $brand_where1 = '( SCompanyName like "'.$joinStr.'%")';
+        // $where = 'FCompanyName like "'.$joinStr.'%"';
+        // $brand_where1 = '( SCompanyName like "'.$joinStr.'%")';
+
+
+        foreach($searchStrings as $as)
+        {
+            // echo '<pre>'; print_r($as); echo '</pre>';
+
+            $where1 = 'FCompanyName like "'.$as.'%"';
+            $brand_where12 = '( SCompanyName like "'.$as.'%")';
+
+
+                if($where == "")
+                {
+                    $where .= $where1;
+                    $brand_where1 .= $brand_where12;
+                    
+                }else{
+                    $where .= ' or '.$where1;
+                    $brand_where1 .= ' or '.$brand_where12;
+                }
+        }
+
     } else {
         //$where = "FCompanyName LIKE "."'%".$_POST['queryString']."%' or SCompanyName LIKE "."'%".$_POST['queryString']."%'";
        // $where = "FCompanyName REGEXP '^".$searchStrings[0]."' or FCompanyName REGEXP '[[:space:]]+".$searchStrings[0]."'";
         $where = '( FCompanyName like "'.$searchStrings[0].'%" or FCompanyName like "'.$searchStrings[0].'%" ) ' ;
         $brand_where1 = '( SCompanyName like "'.$searchStrings[0].'%" or SCompanyName like "'.$searchStrings[0].'%" )';
+
+        // echo '<pre>'; print_r($searchStrings); echo '</pre>';
     }
     // $where .= " and  Industry  != '' and  State  != '' ";
     // $brand_where1 .= " and  Industry  != '' and  State  != '' ";
@@ -39,6 +65,8 @@
     $brand_where1 .= " and  (Industry  != '' and  State  != '') ";*/
     
     $group = $grouplist->select($authAdmin->user->elements['GroupList']);
+
+    // echo '<pre>'; echo $group;  echo '</pre>'; 
 
     /*VI5-T587 Bug: CFS Sector specific user able to see all companies*/
     if($group['Industry'] != ""){
@@ -90,17 +118,21 @@
     $limit = " LIMIT 0,10";
     $brand_limit = " LIMIT 0,3";
     $Companies = $cprofile->getCompaniesAutoSuggest($where,$order,$limit);
+
+    // echo '<pre>'; print_r($Companies); echo '</pre>'; 
     
     $jsonarray=array();
     if(array_keys($Companies)){
             foreach($Companies as $id => $name) {
                // $jsonarray[]=array('countryname'=>addslashes($name),'countryid'=>$id, 'category'=>''); // special character in top autosuggest
-               $jsonarray[]=array('countryname'=>$name,'countryid'=>$id, 'category'=>'');
+            //    $jsonarray[]=array('countryname'=>$name,'countryid'=>$id, 'category'=>'');
                 $companyID[] = (int)$id;
             }
     }else{
             //$html.="[]";
     }
+
+    // echo '<pre>'; print_r($companyID); echo '</pre>'; 
 
     if( !empty( $companyID ) ) {
         $companyID = implode( ',', $companyID);    
@@ -114,10 +146,20 @@
             //$bname = addslashes($comp_brand[ 'FCompanyName' ]) . ' - ' . addslashes($comp_brand[ 'SCompanyName' ]);
             //$jsonarray[]=array('countryname'=>addslashes($bname),'countryid'=>$comp_brand[ 'id' ], 'category'=>'---------------'); // special character in top autosuggest
             $bname = $comp_brand[ 'FCompanyName' ] . ' - ' . $comp_brand[ 'SCompanyName' ];
-            $jsonarray[]=array('countryname'=>$bname,'countryid'=>$comp_brand[ 'id' ], 'category'=>'---------------');
+            $jsonarray[]=array('countryname'=>$bname,'countryid'=>$comp_brand[ 'id' ], 'category'=>'');
         }
     }else{
         //$html.="[]";
+    }
+
+    if(array_keys($Companies)){
+            foreach($Companies as $id => $name) {
+            // $jsonarray[]=array('countryname'=>addslashes($name),'countryid'=>$id, 'category'=>''); // special character in top autosuggest
+            $jsonarray[]=array('countryname'=>$name,'countryid'=>$id, 'category'=>'---------------');
+                // $companyID[] = (int)$id;
+            }
+    }else{
+            //$html.="[]";
     }
 
     echo json_encode($jsonarray);
