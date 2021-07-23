@@ -36,17 +36,16 @@
             // echo '<pre>'; print_r($as); echo '</pre>';
 
             $where1 = 'FCompanyName like "'.$as.'%"';
-            $brand_where12 = '( SCompanyName like "'.$as.'%")';
-
+            $brand_where12 = 'SCompanyName like "'.$as.'"';
 
                 if($where == "")
                 {
-                    $where .= $where1;
-                    $brand_where1 .= $brand_where12;
+                    $where .= '('.$where1;
+                    $brand_where1 .= '('.$brand_where12;
                     
                 }else{
-                    $where .= ' or '.$where1;
-                    $brand_where1 .= ' or '.$brand_where12;
+                    $where .= ' or '.$where1.')';
+                    $brand_where1 .= ' or '.$brand_where12.')';
                 }
         }
 
@@ -114,6 +113,9 @@
                     //pr($where);
             //}
     }
+
+
+    
     $where4 .= " and FYCount != 0";
     $limit = " LIMIT 0,10";
     $brand_limit = " LIMIT 0,3";
