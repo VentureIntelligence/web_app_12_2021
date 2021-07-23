@@ -2624,7 +2624,8 @@
                         }
                         drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                         jQuery('#preloading').fadeOut(500); 
-                       
+                        $(".selectgroup select").multiselect('refresh') 
+
                         return  false;
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -4569,10 +4570,6 @@ if($countryheight>'100')
         width:3.8%;
         padding: 3px;
     }
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
         .button{
             background-color: #a2753a; /* Green */
             border: none;
@@ -4589,4 +4586,12 @@ if($countryheight>'100')
         position: absolute;
         left: 40%;
     }
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>
