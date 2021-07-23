@@ -67,7 +67,9 @@ if(isset($_FILES['unicornfilepath']))
                             print_r($rowData);
                             echo '</pre>';*/
                             $id=$rowData[0][0];
-                            $company = $rowData[0][1];
+                            $txt=str_replace("'", "\\'", $rowData[0][1]);
+
+                            $company =  $txt;
                             $sector = $rowData[0][2];
                             $valuation = $rowData[0][3];
                             $entry = $rowData[0][4];
@@ -78,7 +80,7 @@ if(isset($_FILES['unicornfilepath']))
                                                 VALUES ('$id', '$company', '$sector', '$valuation', '$entry', '$location', '$selectInvestor');";
 
                                                 
-                                             //   echo $insert_Query; 
+                                                //echo $insert_Query; 
                                 $insert_exec = mysql_query($insert_Query) or die ('Error updating database: '.mysql_error());
 
                         }
