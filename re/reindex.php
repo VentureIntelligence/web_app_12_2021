@@ -2395,6 +2395,11 @@
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });
                function loadhtml(pageno,orderby,ordertype)
                {

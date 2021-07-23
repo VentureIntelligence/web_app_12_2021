@@ -5214,6 +5214,11 @@ if ($type != 1) {
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });
 
                 // T960 End ------------------------------------------------------
