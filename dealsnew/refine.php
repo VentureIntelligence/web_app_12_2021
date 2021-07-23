@@ -2168,7 +2168,6 @@ $( ".fliter_stage1" ).click(function() {
     submitfilter();
 });
 function submitfilter() {
-
 localStorage.removeItem("pageno");
 <?php if($vcflagValue=="0" || $vcflagValue=="1" || $vcflagValue=="2")
 {

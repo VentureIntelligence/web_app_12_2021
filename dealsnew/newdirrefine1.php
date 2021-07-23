@@ -21,6 +21,7 @@
     $("#sltindustry, #round, #invType, #invrangeend, #followonVCFund, #exitedstatus, #txtregion").on('change',function(){
         $("#tagsearch").val("");
         $('#tagsearch_auto').val("");
+        
         $("#pesearch").submit();
     });
   });
@@ -274,7 +275,15 @@
     });
     
   });
- 
+  function submitfilter() {
+       // alert()
+localStorage.removeItem("pageno");
+
+$("#pesearch").submit();
+
+
+return true;
+}
   </script>
   <?php if($dealvalue == 102){?>
 <style>
@@ -477,7 +486,7 @@ if($vcflagValue==0 || $vcflagValue==1 ||$vcflagValue==3 || $vcflagValue==4 || $v
 </li>
 <?php } ?>
 <li>
-<input type="button" name="fliter_stage" value="Filter" onclick="document.pesearch.submit();">
+<input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();">
 </li>
 <li class="even"><h4>Investor Type</h4>
     
@@ -1145,7 +1154,7 @@ elseif($dealvalue==104){?><li class="ui-widget"><h4>Transaction Advisor</h4>
      
 </li>
     <li>
-      <input type="button" name="fliter_stage" value="Filter" onclick="document.pesearch.submit();">
+      <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();">
     </li>
 </ul>
                     </div>
