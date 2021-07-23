@@ -2184,7 +2184,7 @@
                        <div class="showhide-link" id="trendnav" style="z-index: 100000"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
                             <div  id="slidingTable" style="display: none;overflow:hidden;">
                                <?php
-                                 include_once("trendviewre.php");
+                                 //include_once("trendviewre.php");
                                ?>   
                                <table width="100%">
 									<?php
@@ -2441,7 +2441,8 @@
                         }
                         drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                         jQuery('#preloading').fadeOut(500); 
-                       
+                        $(".selectgroup select").multiselect('refresh') 
+
                         return  false;
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown) {

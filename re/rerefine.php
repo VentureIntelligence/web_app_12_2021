@@ -550,15 +550,7 @@ function indchange(list)
                    $("#companyauto").val('');
              }
         });
-        function submitfilter() {
 
-localStorage.removeItem("pageno");
-
-document.reinvestment.action = 'reindex.php';
-document.reinvestment.submit();
-
-return true;
-}
      $('.company_slt').live("click", function() {  //on click 
                       // T993
                     //    clear_keywordsearch();
@@ -1557,5 +1549,15 @@ function enableFileds(){
     //$('#sltindustry, #stage, #round, #comptype, #dealtype_debtequity, #Syndication,#citysearch,#invType,#invrangestart,#invrangeend,#exitstatus,#valuations').css('background-color', "#ffffff !important");
     $('#sltindustry, #EntityProjectType, #comptype,#invType,#invrangestart,#invrangeend,#exitstatus,#txtregion').attr('style', 'background-color: #ffffff !important');
     $('.selectgroup button').attr('style', 'width: 223px; background-color: #ffffff !important');
+}
+
+function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.reinvestment.action = 'reindex.php';
+document.reinvestment.submit();
+
+return true;
 }
             </script>

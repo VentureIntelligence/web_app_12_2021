@@ -5291,6 +5291,7 @@ if ($type != 1) {
                                 }
                                 drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                                 jQuery('#preloading').fadeOut(500);
+                                $(".selectgroup select").multiselect('refresh') 
 
                                 return  false;
                         },
