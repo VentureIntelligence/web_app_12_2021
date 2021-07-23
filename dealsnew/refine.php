@@ -2259,7 +2259,7 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('change', '#sltindustry', function() {debugger;
+    $(document).on('change', '#sltindustry', function() {
         localStorage.removeItem("pageno");
 
         var industry=$("#sltindustry").val();
