@@ -7152,6 +7152,7 @@ if(tagsearchval == ''){
 
 
     $("input#searchsub").click(function(){
+        localStorage.removeItem("pageno");
        // console.log("check");
         if(search_filter!=1)
             {
@@ -8051,6 +8052,7 @@ if(tagsearchval == ''){
        
     }); 
             $('#autocomplete').keypress(function (e) {
+                localStorage.removeItem("pageno");
                 if (e.which == 13) {
                 //13 is the Enter Key - keycode
                 $("#pesearch").submit();
@@ -9673,7 +9675,7 @@ if(tagsearchval == ''){
                 
                 function resetinput(fieldname)
                 {
-                 
+                    localStorage.removeItem("pageno");
                 //alert($('[name="'+fieldname+'"]').val());
                   $("#resetfield").val(fieldname);
                   //alert( $("#resetfield").val(fieldname));

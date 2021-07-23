@@ -1128,8 +1128,6 @@ if(count($industry) == 0){ ?>
 
   });
   function submitfilter() {
-       // alert()
-
 localStorage.removeItem("pageno");
 
 document.pesearch.action = "mandaindex.php?value=<?php echo $flagvalue; ?>";

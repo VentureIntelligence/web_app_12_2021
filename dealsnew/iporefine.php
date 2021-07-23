@@ -368,7 +368,6 @@ $(document).ready(function(){
     });
 
     function submitfilter() {
-
 localStorage.removeItem("pageno");
 
 document.pesearch.action = 'ipoindex.php?value=<?php echo $VCFlagValue ?>';

@@ -10,7 +10,7 @@
             <ul >
                 
                 <li class="even" style="display:none;"><h4>Industry</h4>
-                <SELECT name="industry" onchange="this.form.submit();">
+                <SELECT name="industry" onchange="submitfilter();">
                                 <OPTION id=0 value="" selected> ALL  </option>
                                 <?php
                                     $industrysql_search="select industryid,industry from reindustry";
@@ -78,14 +78,14 @@
                         ?>
 </select> </div>
                     
-                <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();">
+                <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();">
                 </li>
                  <?php 
                 }
                 if($vcflagValue!=2 && $vcflagValue!=3){ ?>
                 <li class="even"><h4>Investor Type</h4>
 
-                    <SELECT NAME="invType" onchange="this.form.submit();">
+                    <SELECT NAME="invType" onchange="submitfilter();">
                            <OPTION id="5" value="" selected> ALL </option>
                              <?php
                                 /* populating the investortype from the investortype table */
@@ -113,7 +113,7 @@
                                              Definitions
                                              </span>
                                 </a></span></h4>
-                           <SELECT NAME="dealtype" onchange="this.form.submit();">
+                           <SELECT NAME="dealtype" onchange="submitfilter();">
                                    <OPTION id=5 value="" selected>ALL</option>
                                 <?php
 
@@ -154,7 +154,7 @@
                     Definitions
                     </span>
                          </a></span></h4>
-                    <SELECT NAME="dealtype" onchange="this.form.submit();">
+                    <SELECT NAME="dealtype" onchange="submitfilter();">
                             <OPTION id=5 value="" selected> ALL </option>
                          <?php
 
@@ -188,7 +188,7 @@
                     <?php } ?>
                     <li class="even"><h4>Deal Range (USM $)</h4>
 
-                    <SELECT NAME="invrange" onchange="this.form.submit();">
+                    <SELECT NAME="invrange" onchange="submitfilter();">
                            <OPTION id="5" value="" selected> ALL </option>
                              <?php
                                /* investment range populate from investment range table*/
@@ -529,8 +529,19 @@ if($vcflagValue!=3){ ?>
     </li>
 <?php } ?>
     <li><input name="reset" id="resetall" class="refine reset-btn" type="button" value="Reset" style="float: left;" />
-        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
     
 </ul></div>
 	</div>
+
+    <script>
+function submitfilter() {
+localStorage.removeItem("pageno");
+
+document.pesearch.action = 'redirview.php';
+document.pesearch.submit();
+
+return true;
+}
+    </script>
