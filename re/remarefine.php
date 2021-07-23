@@ -358,15 +358,7 @@ function indchange(list)
     
     ////////////// company search end //////////////////////
     
-    function submitfilter() {
 
-localStorage.removeItem("pageno");
-
-document.reinvestment.action = "remaindex.php?value=3"
-document.reinvestment.submit();
-
-return true;
-}
     
     
       ////////////// sector search start //////////////////////
@@ -685,6 +677,16 @@ function enableFileds(){
      $("#searchallfield").val('');
      $("#searchallfield").fadeOut();
 } 
+
+function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.reinvestment.action = "remaindex.php?value=3"
+document.reinvestment.submit();
+
+return true;
+}
   </script>
 
 
