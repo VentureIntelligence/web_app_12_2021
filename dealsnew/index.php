@@ -5128,7 +5128,7 @@ if ($type != 1) {
                 });
                 $(".jp-page").live("click",function(){
                    var pageno=$(this).text();
-                   //alert(pageno);
+                   alert(pageno);
                    $("#paginationinput").val('');
                     loadhtml(pageno,orderby,ordertype);
                     return  false;
@@ -5209,10 +5209,15 @@ if ($type != 1) {
             
 
                 var x = localStorage.getItem("pageno");
-                //alert(x);
+                alert(x);
                 if(x != 'null' && x != null)
                 {
                 loadhtml(x,orderby,ordertype)
+                }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
                 }
                 });
 
