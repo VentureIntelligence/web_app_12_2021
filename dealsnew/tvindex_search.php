@@ -16,9 +16,6 @@ else
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 <title>Private Equity Deal Database</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-       <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
 <link href="css/skin_1.css" rel="stylesheet" type="text/css" />  
 <link href="css/popstyle.css" rel="stylesheet" type="text/css" />  
 <link rel="stylesheet" type="text/css" href="css/detect800.css" />
