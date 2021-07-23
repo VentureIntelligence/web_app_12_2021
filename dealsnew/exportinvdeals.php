@@ -1432,6 +1432,8 @@ $companyIdVA = 38248720;
 $companyIdGlobal = 730002984;
 $addDelind = "";
 $hideWhere = '';
+$valInfo=$_POST['valInfo'];
+
 $dateValue=$_POST['txthidedate'];
                 $hidedateStartValue=$_POST['txthidedateStartValue'];
                 $hidedateEndValue=$_POST['txthidedateEndValue'];
@@ -3449,9 +3451,11 @@ $col = 0;
     {
         $schema_insert .= $row[13].$sep;
     }
+    if($valInfo == 0){
     if(in_array("Stake (%)", $rowArray))
     {
         $schema_insert .= $hidestake.$sep;
+    }
     }
     if(in_array("Date", $rowArray))
     {
@@ -3497,6 +3501,7 @@ $col = 0;
     {
         $schema_insert .= trim($row[24]).$sep;
     }
+    if($valInfo == 0){
     if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
     {
         $schema_insert .= $pre_company_valuation.$sep;
@@ -3545,13 +3550,16 @@ $col = 0;
     {
         $schema_insert .= $ev_pat_multiple.$sep;
     }
+    }
     if(in_array("Price to Book", $rowArray))
     {
         $schema_insert .= $price_to_book.$sep;
     }
+    if($valInfo == 0){
     if(in_array("Valuation", $rowArray))
     {
         $schema_insert .= trim($row[26]).$sep;
+    }
     }
     if(in_array("Revenue (INR Cr)", $rowArray))
     {
@@ -3565,6 +3573,7 @@ $col = 0;
     {
         $schema_insert .= $dec_pat.$sep;
     }
+
     if(in_array("Total Debt (INR Cr)", $rowArray))
     {
         $schema_insert .= $Total_Debt.$sep;

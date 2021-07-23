@@ -23,7 +23,17 @@ if($_POST['tagsearch'] != "" || $_POST['tagsearch_auto'] != ""){
    // $_POST['city'] = "";
    $_POST['city'] = "--";
 }
-
+$TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,valInfo from dealcompanies as dc,dealmembers as dm
+where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
+//echo "<br>---" .$TrialSql;
+if($trialrs=mysql_query($TrialSql))
+{
+        while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
+        {
+             $exportToExcel=$trialrow["TrialLogin"];
+             $valInfo=$trialrow["valInfo"];
+        }
+}
 $popup_search = 0;
 $listallcompany = $_POST['listallcompanies'];
 $all_keyword_other = trim($_POST['all_keyword_other']);
@@ -4891,6 +4901,8 @@ if ($type != 1) {
 </form>
             <!--input class="postlink" type="hidden" name="numberofcom" value="<?php echo $totalInv; ?>"-->
             <form name="pelisting" id="pelisting"  method="post" action="exportinvdeals.php">
+            <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
+
             <input type="hidden" name="txtsearchon" value="1" >
             <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
             <input type="hidden" name="txtmonth1" value=<?php echo $month1; ?> >
