@@ -4846,10 +4846,14 @@ try {
      <tr>
             <td><h4>Stake</h4></td> 
             <td class=""><p>
-            <?php if($hidestake!="" && $hidestake!="&nbsp;" && $hidestake !='--'){ 
+            <?php if($valInfo == 0){if($hidestake!="" && $hidestake!="&nbsp;" && $hidestake !='--'){ 
                     echo $hidestake.' %';
                 }else{
                     echo "&nbsp;";
+                }}
+                else{
+                    echo "&nbsp;";
+
                 }?> </p></td> 
         </tr>
     <tr>

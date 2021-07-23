@@ -435,8 +435,14 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('G'.$index, $row[6])
             ->setCellValue('H'.$index, $row[7])
             ->setCellValue('I'.$index, $investorString)
-            ->setCellValue('J'.$index, $row[19])
-            ->setCellValue('K'.$index, $hidestake)
+            ->setCellValue('J'.$index, $row[19]);
+            if($valInfo == 0){
+                $objPHPExcel->setActiveSheetIndex(0)
+
+            ->setCellValue('K'.$index, $hidestake);
+            }
+            $objPHPExcel->setActiveSheetIndex(0)
+
             ->setCellValue('L'.$index, $row[9])
             ->setCellValue('M'.$index, $exitstatusis)
             ->setCellValue('N'.$index, $webdisplay)
