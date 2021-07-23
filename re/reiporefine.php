@@ -106,15 +106,7 @@ function indchange(list)
         }
         
     });    
-    function submitfilter() {
 
-localStorage.removeItem("pageno");
-
-document.reinvestment.action = "reipoindex.php?value=1"
-document.reinvestment.submit();
-
-return true;
-}
       $("#inv_selectall").live("click", function() {
       
             clear_companysearch();
@@ -395,6 +387,16 @@ function enableFileds(){
     $("#exitstatus").prop("disabled", false);
     $(".fliter_stage").prop("disabled", false);
     $('#sltindustry,#exitstatus').attr('style', 'background-color: #ffffff !important');
+}
+
+function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.reinvestment.action = "reipoindex.php?value=1"
+document.reinvestment.submit();
+
+return true;
 }
   </script>
   

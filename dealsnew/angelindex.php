@@ -2103,6 +2103,7 @@ if (!isset($_POST['tagsfield'])) {
                         }
                         drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                         jQuery('#preloading').fadeOut(500);
+                        $(".selectgroup select").multiselect('refresh') 
 
                         return  false;
                 },
