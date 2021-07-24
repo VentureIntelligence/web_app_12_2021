@@ -611,7 +611,6 @@ function enableFileds(){
   }
 
   function submitfilter() {
-
   localStorage.removeItem("pageno");
 
   document.pesearch.action = 'incindex.php';

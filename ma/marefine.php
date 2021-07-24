@@ -595,9 +595,7 @@ disableFileds();
 //    $("#testSector").hide();
 //});
 function submitfilter() {
-
 localStorage.removeItem("pageno");
-
 document.pesearch.action = 'index.php';
 document.pesearch.submit();
 
