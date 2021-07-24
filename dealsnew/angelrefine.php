@@ -465,14 +465,12 @@ $Db = new dbInvestments();
   });
 
   function submitfilter() {
+    localStorage.removeItem("pageno");
+    document.pesearch.action = 'angelindex.php';
+    document.pesearch.submit();
 
-localStorage.removeItem("pageno");
-
-document.pesearch.action = 'angelindex.php';
-document.pesearch.submit();
-
-return true;
-}
+    return true;
+    }
   
   </script>
 
