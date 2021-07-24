@@ -346,7 +346,15 @@ else
     
     
   });
-  
+  function submitfilter() {
+       // alert()
+localStorage.removeItem("pageno");
+
+$("#pesearch").submit();
+
+
+return true;
+}
   </script>
 
 <?php 
@@ -433,7 +441,7 @@ else
     		?>
 </SELECT></li>
 <li class="odd"><h4>Follow on Funding Status</h4>
-    <SELECT NAME="followonVCFund" id="followonVCFund" style=" background: <?php echo $background; ?>;" onchange="this.form.submit();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <SELECT NAME="followonVCFund" id="followonVCFund" style=" background: <?php echo $background; ?>;" onchange="submitfilter();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
         <?php $followonVCFund=$followonVC; ?>
 			 <OPTION id=1 value="--" selected> All </option>
 			 <OPTION VALUE=1  <?php if($followonVCFund==1) echo "selected" ?> >Obtained</OPTION>
@@ -442,7 +450,7 @@ else
 </li>
 
 <li class="even"><h4>Exited</h4>   
-    <SELECT NAME="exitedstatus" style=" background: <?php echo $background; ?>;" id="exitedstatus" <?php if($disable_flag == "1"){ echo "disabled"; } ?>  onchange="this.form.submit();">
+    <SELECT NAME="exitedstatus" style=" background: <?php echo $background; ?>;" id="exitedstatus" <?php if($disable_flag == "1"){ echo "disabled"; } ?>  onchange="submitfilter();">
      <?php  $exitedstatus=$exitvalue; ?>
 			 <OPTION value="--" selected> All </option>
 			 <OPTION VALUE=1 <?php if($exitedstatus==1) echo "selected" ?>>Exited</OPTION>
@@ -451,7 +459,7 @@ else
 </li>
 <li class="odd"><h4>Region</h4>
     <div class="selectgroup">
-    <SELECT NAME="txtregion[]" multiple="multiple" id="txtregion" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();">
+    <SELECT NAME="txtregion[]" multiple="multiple" id="txtregion" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="submitfilter();">
 	<!--<OPTION id=5 value="" selected> ALL </option>-->
      <?php
         /* populating the region from the Region table */
@@ -565,7 +573,7 @@ else
      
 </li>
 <li>
-    <input type="button" <?php if($disable_flag == "1"){ echo "disabled"; } ?> class="fliter_stage" name="fliter_stage" value="Filter" onclick="this.form.submit();">
+    <input type="button" <?php if($disable_flag == "1"){ echo "disabled"; } ?> class="fliter_stage" name="fliter_stage" value="Filter" onclick="submitfilter();">
 </li>
 </ul>
        </div>
@@ -616,7 +624,7 @@ else
                     
                     <li>
                         <input name="reset" id="resetall" class="reset-btn" type="button" value="Reset" style="float: left;" />
-                        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+                        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
                     </li>
                 </ul>
             </div>

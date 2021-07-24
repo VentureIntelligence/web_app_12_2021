@@ -44,6 +44,7 @@ else
 
     });
     $(function() {
+
     $('#type').change(function(e) {
         localStorage.removeItem("pageno");
             }); 
