@@ -2463,6 +2463,13 @@ function isNumber(evt) {
     font-weight: bold;margin-top: 6px; display:none;
     text-indent:1px !important;
         }
+
+        
+
+            input[type='text']::placeholder
+            {   
+                text-align: right !important;      /* for Chrome, Firefox, Opera */
+            }
     </style>
 {/literal}
 
@@ -2529,7 +2536,7 @@ filter: alpha(opacity=75);
             <input type="submit" name="search_export" id="search_export" value="Go" class="search_export" style="{if $searchSubmit != '' }display:block{/if}"/>
         </form>
     </li>
-{/if}
+{/if} 
 {/if}
 <!--<li class="avt-user"><a href="javascript:;"><i></i> Welcome {$authAdmin.user.elements.username}{if $authAdmin.user_id}{$authAdmin.firstname}{else}Guest{/if}</a></li>-->
 

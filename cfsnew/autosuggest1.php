@@ -20,7 +20,13 @@
 
    
     
-    $searchStrings = explode( ',', $_POST['queryString'] );
+    $searchStrings = array_map('trim', explode( ',', $_POST['queryString'] )); 
+    // $searchStrings = explode( ' ', $_POST['queryString'] );
+
+    // $new_arr = array_map('trim', explode(',', $str));
+
+    //  echo '<pre>'; print_r($searchStrings); echo '</pre>';
+
     /*$where = "(FCompanyName LIKE "."'%".$_POST['queryString']."%' or SCompanyName LIKE "."'%".$_POST['queryString']."%')";
     $where .= " and  (Industry  != '' and  State  != '') ";*/
     //echo count( $searchStrings );exit();
@@ -151,7 +157,10 @@
         $brand_where = $brand_where1;
     }
     $Companies_brand = $cprofile->getCompaniesAutoSuggest_brand($brand_where,$order,$brand_limit);
+
+
     if(array_keys($Companies_brand)){
+        
         foreach($Companies_brand as $comp_brand) {
             //$bname = addslashes($comp_brand[ 'FCompanyName' ]) . ' - ' . addslashes($comp_brand[ 'SCompanyName' ]);
             //$jsonarray[]=array('countryname'=>addslashes($bname),'countryid'=>$comp_brand[ 'id' ], 'category'=>'---------------'); // special character in top autosuggest
@@ -162,15 +171,38 @@
         //$html.="[]";
     }
 
-    if(array_keys($Companies)){
-            foreach($Companies as $id => $name) {
-            // $jsonarray[]=array('countryname'=>addslashes($name),'countryid'=>$id, 'category'=>''); // special character in top autosuggest
-            $jsonarray[]=array('countryname'=>$name,'countryid'=>$id, 'category'=>'---------------');
-                // $companyID[] = (int)$id;
+    // echo json_encode($jsonarray).'<br />';
+
+        if(count($jsonarray) == 0)
+        {
+           
+            // echo 'ila';
+
+            if(array_keys($Companies)){
+                foreach($Companies as $id => $name) {
+                // $jsonarray[]=array('countryname'=>addslashes($name),'countryid'=>$id, 'category'=>''); // special character in top autosuggest
+                $jsonarray[]=array('countryname'=>$name,'countryid'=>$id, 'category'=>'');
+                    // $companyID[] = (int)$id;
+                }
+            }else{
+                    //$html.="[]";
             }
-    }else{
-            //$html.="[]";
-    }
+        }else{
+            
+            // echo 'iruku';
+
+            if(array_keys($Companies)){
+                foreach($Companies as $id => $name) {
+                // $jsonarray[]=array('countryname'=>addslashes($name),'countryid'=>$id, 'category'=>''); // special character in top autosuggest
+                $jsonarray[]=array('countryname'=>$name,'countryid'=>$id, 'category'=>'---');
+                    // $companyID[] = (int)$id;
+                }
+            }else{
+                    //$html.="[]";
+            }
+        }
+
+   
 
     echo json_encode($jsonarray);
 ?>
