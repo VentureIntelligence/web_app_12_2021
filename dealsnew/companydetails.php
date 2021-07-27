@@ -522,6 +522,9 @@ if(gettype($cityid)!="string"){
             else if($VCFlagValue==5){
                $listviewurl="pedirview.php?value=5"; 
             }
+            else if($VCFlagValue==6){
+                $listviewurl="pedirview.php?value=6"; 
+            }
             else if($VCFlagValue==7){
                $listviewurl="pedirview.php?value=7"; 
             }
@@ -1137,7 +1140,7 @@ ul.tabView li {
     
     ?>
     <div class="list-tab mt-list-tab"><ul>
-             <li><a class="postlink"  href="<?php echo $listviewurl; ?>"  id="icon-grid-view"><i></i> List  View</a></li>
+             <li><a class="postlink"  href="<?php echo $listviewurl; ?>"  id="icon-grid-view"><i></i> List View</a></li>
          
         <li class="active"><a id="icon-detailed-view" class="postlink" href="companydetails.php?value=<?php echo $_GET['value'];?>" ><i></i> Detail  View</a></li> 
         </ul></div> 
