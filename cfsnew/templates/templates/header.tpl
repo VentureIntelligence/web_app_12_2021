@@ -2463,6 +2463,13 @@ function isNumber(evt) {
     font-weight: bold;margin-top: 6px; display:none;
     text-indent:1px !important;
         }
+
+        
+
+            input[type='text']::placeholder
+            {   
+                text-align: right !important;      /* for Chrome, Firefox, Opera */
+            }
     </style>
 {/literal}
 
