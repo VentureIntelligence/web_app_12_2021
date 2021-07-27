@@ -522,6 +522,9 @@ if(gettype($cityid)!="string"){
             else if($VCFlagValue==5){
                $listviewurl="pedirview.php?value=5"; 
             }
+            else if($VCFlagValue==6){
+                $listviewurl="pedirview.php?value=6"; 
+            }
             else if($VCFlagValue==7){
                $listviewurl="pedirview.php?value=7"; 
             }
