@@ -27,6 +27,9 @@ $companyflag=$_POST['company'];
 $dealtypeflag=$_POST['dealtype'];
 $syndicationflag=$_POST['syndication'];
 $regionflag=$_POST['region'];
+
+// echo '<pre>'; print_r($regionflag); echo '</pre>';
+
 $cityflag=$_POST['city'];
 $investortypeflag=$_POST['investortype'];
 $startrangeflag=$_POST['startrange'];
@@ -70,8 +73,22 @@ if($companysql!="" && $orderby!="" && $ordertype!="") {
         $orderstr="order by ".$orderby." ".$ordertype;
     
     $companysql = $companysql . " ". $orderstr ;  
+
+
+    // $fetchData = mysql_query($companysql);
+
+    // // echo '<pre>'; print_r($fetchData); echo '</pre>'; 
+
+    // while($res = mysql_fetch_array($fetchData)){
+
+    //     echo '<pre>'; print_r($res); echo '</pre>';
+
+    // }
+
+
+    
 }
-//echo $companysql;
+// echo $_POST['page'].'<br />';
 if($company_cntall > 0)
 {
     $rec_limit = 50;
@@ -91,11 +108,26 @@ if($company_cntall > 0)
     }
     
     $left_rec = $rec_count - ($page * $rec_limit);
+
+    // echo 'Total Count___'.$rec_count.'<br />';
+    // echo 'After Calculation____'.$left_rec.'<br />';
+
     $companysqlwithlimit=$companysql." limit $offset, $rec_limit";
+
+    // echo '<pre>'; print_r($companysqlwithlimit); echo '</pre>';
+
+    // echo '<pre>'; print_r(($companysqlwithlimit)); echo '</pre>'; exit;
+
     
     if ($companyrs = mysql_query($companysqlwithlimit))
     {
+        //  echo '<pre>'; print_r(($companyrs)); echo '</pre>'; 
+
+        
+
         $company_cnt = mysql_num_rows($companyrs);
+
+        // echo '<pre>'; print_r(($company_cnt)); echo '</pre>'; exit;
     }
              //$searchTitle=" List of Deals";
 }
@@ -136,24 +168,48 @@ else
     <?php
     if ($company_cnt>0)
     {
+
+        // echo $company_cnt.'<br />';
+
         $hidecount=0;  $hideBracketRow = false; 
+
         mysql_data_seek($companyrs,0);
+
+        // echo '<pre>';   print_r($companyrs);  echo '</pre>'; exit;
+
         //Code to add PREV /NEXT
         $totaldet=0;
+
+
+        // while($res = mysql_fetch_array($companyrs)){
+
+        //     echo '<pre>'; print_r($res['PECompanyId']); echo '</pre>';
+    
+        // }
+
+        // exit;
         
-        While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
-        {
+        while($myrow = mysql_fetch_array($companyrs)){
+
+            // echo '<pre>'; print_r($myrow); echo '</pre>';  
+
+            // echo '<pre>'; print_r($myrow['companyname']); echo '</pre>'; exit;
+
             $hideFlagset = 0;
             //SPV changed to AggHide
             $amtTobeDeductedforAggHide=0;
             $hidecount=0;
             $prd=$myrow["dealperiod"];
 
-            if ($myrow["AggHide"] == 1 || $myrow["SPV"] == 1) {
-                $hideBracketRow = true;
-            } else {
-                $hideBracketRow = false;
-            }
+
+            // echo '<pre>'; print_r($myrow["AggHide"]); echo '</pre>';
+            // echo '<pre>'; print_r($myrow["SPV"]); echo '</pre>';
+
+            // if ($myrow["AggHide"] == 1 || $myrow["SPV"] == 1) {
+            //     $hideBracketRow = true;
+            // } else {
+            //     $hideBracketRow = false;
+            // }
             if($myrow["AggHide"]==1)
             {
                 $openBracket="(";
