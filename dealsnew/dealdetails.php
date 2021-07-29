@@ -2,109 +2,89 @@
 
 
 <?php
-
 /*echo '<pre>';
 print_r($_POST);
 echo '</pre>';*/
-require_once("../dbconnectvi.php");
+require_once ("../dbconnectvi.php");
 $Db = new dbInvestments();
-$tagandor=$_POST['tagandor'];
-$tagradio=$_POST['tagradio'];
-    $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
-    $strvalue = explode("/", $value);
-    $IPO_MandAId = $strvalue[0];
-    $indexflagvalue = $strvalue[1];
-   
-    
-    $_SESSION['usebackaction2']=$value; 
-    setcookie("usebackaction2",$value);
-    
-    if( isset( $_POST[ 'period_flag' ] ) ) {
-        $period_flag = $_POST[ 'period_flag' ];
-    } else {
-        $period_flag = 1;
-    }
-
-    if( isset( $_POST[ 'pe_checkbox_disbale' ] ) ) {
-        $pe_checkbox = $_POST[ 'pe_checkbox_disbale' ];
-    } else {
-        $pe_checkbox = '';
-    }
-    $listallcompany = $_POST['listallcompanies'];
-    if( isset( $_POST[ 'pe_checkbox_amount' ] ) ) {
-        $pe_amount = $_POST[ 'pe_checkbox_amount' ];
-    } else {
-        $pe_amount = '';
-    }
+$tagandor = $_POST['tagandor'];
+$tagradio = $_POST['tagradio'];
+$value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
+$strvalue = explode("/", $value);
+$IPO_MandAId = $strvalue[0];
+$indexflagvalue = $strvalue[1];
+$_SESSION['usebackaction2'] = $value;
+setcookie("usebackaction2", $value);
+if (isset($_POST['period_flag'])) {
+    $period_flag = $_POST['period_flag'];
+} else {
+    $period_flag = 1;
+}
+if (isset($_POST['pe_checkbox_disbale'])) {
+    $pe_checkbox = $_POST['pe_checkbox_disbale'];
+} else {
+    $pe_checkbox = '';
+}
+$listallcompany = $_POST['listallcompanies'];
+if (isset($_POST['pe_checkbox_amount'])) {
+    $pe_amount = $_POST['pe_checkbox_amount'];
+} else {
+    $pe_amount = '';
+}
 //==================================junaid================================================
-    if( isset( $_POST[ 'pe_checkbox_company' ] ) ) {
-        $pe_company = $_POST[ 'pe_checkbox_company' ];
-    } else {
-        $pe_company = 0;
-    }
-
-    
-    if( isset( $_POST[ 'hide_company_array' ] ) ) {
-        $hideCompanyFlag = $_POST[ 'hide_company_array' ];
-    } else {
-        $hideCompanyFlag = '';
-    }
+if (isset($_POST['pe_checkbox_company'])) {
+    $pe_company = $_POST['pe_checkbox_company'];
+} else {
+    $pe_company = 0;
+}
+if (isset($_POST['hide_company_array'])) {
+    $hideCompanyFlag = $_POST['hide_company_array'];
+} else {
+    $hideCompanyFlag = '';
+}
 //==================================================================================
-    if(sizeof($strvalue)>1)
-    {   
-        $vcflagValue=$strvalue[1];
-        $VCFlagValue=$strvalue[1];
-    }
-    else
-    {
-        $vcflagValue=0;
-        $VCFlagValue=0;
-    }
-    if($VCFlagValue==0)
-    {
-      $videalPageName="PEInv";     
-    }
-    elseif($VCFlagValue==1)
-    { $videalPageName="VCInv";
-    }
-    elseif($VCFlagValue==2)
-    { $videalPageName="AngelInv";
-    }
-    elseif($VCFlagValue==3)
-    { $videalPageName="SVInv";
-    }
-    elseif($VCFlagValue==4)
-    { $videalPageName="CTech";
-    }
-    elseif($VCFlagValue==5)
-    { $videalPageName="IfTech";
-    }
+if (sizeof($strvalue) > 1) {
+    $vcflagValue = $strvalue[1];
+    $VCFlagValue = $strvalue[1];
+} else {
+    $vcflagValue = 0;
+    $VCFlagValue = 0;
+}
+if ($VCFlagValue == 0) {
+    $videalPageName = "PEInv";
+} elseif ($VCFlagValue == 1) {
+    $videalPageName = "VCInv";
+} elseif ($VCFlagValue == 2) {
+    $videalPageName = "AngelInv";
+} elseif ($VCFlagValue == 3) {
+    $videalPageName = "SVInv";
+} elseif ($VCFlagValue == 4) {
+    $videalPageName = "CTech";
+} elseif ($VCFlagValue == 5) {
+    $videalPageName = "IfTech";
+}
 include ('checklogin.php');
-$mailurl= curPageURL();
-        
-    $notable=false;
-    if($_POST['filtersector'] != ''){
-        $filtersector = $_POST['filtersector'];
-    } else {
-        $filtersector = '';
-    }
-    
-    if($_POST['filtersubsector'] != ''){
-        $filtersubsector = $_POST['filtersubsector'];
-    } else {
-        $filtersubsector = '';
-    }
-    
-    if($_POST['filtersector'] != ''){
-        $sectorsql = "select sector_id,sector_name from pe_sectors where sector_id IN ($filtersector) order by sector_name ";
-    }
-    if($_POST['filtersubsector'] != ''){
-        $subsectorsql = "select DISTINCT(subsector_name) from pe_subsectors where subsector_id IN ($filtersubsector) AND subsector_name != '' order by subsector_name";
-    }
-   // print_r($_POST);
-    if($VCFlagValue==0)
-    {
-        $getTotalQuery="SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
+$mailurl = curPageURL();
+$notable = false;
+if ($_POST['filtersector'] != '') {
+    $filtersector = $_POST['filtersector'];
+} else {
+    $filtersector = '';
+}
+if ($_POST['filtersubsector'] != '') {
+    $filtersubsector = $_POST['filtersubsector'];
+} else {
+    $filtersubsector = '';
+}
+if ($_POST['filtersector'] != '') {
+    $sectorsql = "select sector_id,sector_name from pe_sectors where sector_id IN ($filtersector) order by sector_name ";
+}
+if ($_POST['filtersubsector'] != '') {
+    $subsectorsql = "select DISTINCT(subsector_name) from pe_subsectors where subsector_id IN ($filtersubsector) AND subsector_name != '' order by subsector_name";
+}
+// print_r($_POST);
+if ($VCFlagValue == 0) {
+    $getTotalQuery = "SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
         FROM peinvestments AS pe, pecompanies AS pec
         WHERE pe.Deleted =0  and pe.PECompanyId=pec.PECompanyId
         AND pec.industry !=15 and pe.AggHide=0 and
@@ -115,14 +95,13 @@ $mailurl= curPageURL();
                             WHERE DBTypeId ='SV'
                             AND hide_pevc_flag =1
                             )";
-        $pagetitle="PE Investments -> Search";
-        $stagesql_search = "select StageId,Stage from stage ";
-        $industrysql_search="select industryid,industry from industry where industryid IN (".$_SESSION['PE_industries'].")" . $hideIndustry ." order by industry";
-                // echo "<br>***".$industrysql;
-    }
-    elseif($VCFlagValue==1)
-    {
-       $getTotalQuery= "SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
+    $pagetitle = "PE Investments -> Search";
+    $stagesql_search = "select StageId,Stage from stage ";
+    $industrysql_search = "select industryid,industry from industry where industryid IN (" . $_SESSION['PE_industries'] . ")" . $hideIndustry . " order by industry";
+    // echo "<br>***".$industrysql;
+    
+} elseif ($VCFlagValue == 1) {
+    $getTotalQuery = "SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
         FROM peinvestments AS pe, stage AS s ,pecompanies as pec
         WHERE s.VCview =1 and  pe.amount<=20 and pec.industry !=15 and pe.StageId=s.StageId and pe.PECompanyId=pec.PECompanyId
                     and pe.Deleted=0
@@ -134,492 +113,420 @@ $mailurl= curPageURL();
                             WHERE DBTypeId =  'SV'
                             AND hide_pevc_flag =1
                             )  ";
-        $pagetitle="VC Investments -> Search";
-        $stagesql_search = "select StageId,Stage from stage where VCview=1 ";
-        $industrysql_search="select industryid,industry from industry where industryid IN (".$_SESSION['PE_industries'].")" . $hideIndustry ." order by industry";
-        //echo "<Br>---" .$getTotalQuery;
-    }
-    elseif($VCFlagValue==2)
-    {
-        $getTotalQuery= " SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
+    $pagetitle = "VC Investments -> Search";
+    $stagesql_search = "select StageId,Stage from stage where VCview=1 ";
+    $industrysql_search = "select industryid,industry from industry where industryid IN (" . $_SESSION['PE_industries'] . ")" . $hideIndustry . " order by industry";
+    //echo "<Br>---" .$getTotalQuery;
+    
+} elseif ($VCFlagValue == 2) {
+    $getTotalQuery = " SELECT count( pe.PEId ) AS totaldeals, sum( pe.amount ) AS totalamount
         FROM REinvestments AS pe, pecompanies AS pec
         WHERE pec.Industry =15 and pe.Deleted=0
         AND pe.PEcompanyID = pec.PECompanyId ";
-        $pagetitle="PE Investments - Real Estate -> Search";
-        $stagesql_search="";
-        $industrysql_search="select industryid,industry from industry where  industryid IN (".$_SESSION['PE_industries'].") ";
-
-    }
-            elseif($VCFlagValue==3)
-            {
-              $dbtype='SV';
-              $pagetitle="Social Venture Investments -> Search";
-              $showallcompInvFlag=8;
-              $stagesql_search =  "SELECT DISTINCT pe.StageId, Stage
+    $pagetitle = "PE Investments - Real Estate -> Search";
+    $stagesql_search = "";
+    $industrysql_search = "select industryid,industry from industry where  industryid IN (" . $_SESSION['PE_industries'] . ") ";
+} elseif ($VCFlagValue == 3) {
+    $dbtype = 'SV';
+    $pagetitle = "Social Venture Investments -> Search";
+    $showallcompInvFlag = 8;
+    $stagesql_search = "SELECT DISTINCT pe.StageId, Stage
                                   FROM peinvestments AS pe, peinvestments_dbtypes AS pedb, stage AS s
         WHERE pedb.PEId = pe.PEId AND pe.Deleted =0 AND pedb.DBTypeId = '$dbtype'
         AND s.StageId = pe.StageId ORDER BY DisplayOrder";
-              $industrysql_search="select distinct pec.industry,i.Industry from industry as i ,pecompanies as pec,
+    $industrysql_search = "select distinct pec.industry,i.Industry from industry as i ,pecompanies as pec,
         peinvestments as pe,peinvestments_dbtypes as pedb
-        where i. industryid IN (".$_SESSION['PE_industries'].") and pedb.PEId=pe.PEId and pec.PECompanyId=pe.PECompanyId and pe.Deleted=0
+        where i. industryid IN (" . $_SESSION['PE_industries'] . ") and pedb.PEId=pe.PEId and pec.PECompanyId=pe.PECompanyId and pe.Deleted=0
         and i.IndustryId=pec.Industry and pedb.DBTypeId='$dbtype' order by i.Industry";
-            }
-            elseif($VCFlagValue==4)
-            {
-              $dbtype='CT';
-              $showallcompInvFlag=9;
-              $pagetitle="Cleantech Investments -> Search";
-              $stagesql_search="select StageId,Stage from stage order by DisplayOrder";
-              $industrysql_search="select distinct pec.industry,i.Industry from industry as i ,pecompanies as pec,
+} elseif ($VCFlagValue == 4) {
+    $dbtype = 'CT';
+    $showallcompInvFlag = 9;
+    $pagetitle = "Cleantech Investments -> Search";
+    $stagesql_search = "select StageId,Stage from stage order by DisplayOrder";
+    $industrysql_search = "select distinct pec.industry,i.Industry from industry as i ,pecompanies as pec,
         peinvestments as pe,peinvestments_dbtypes as pedb
-        where i.industryid IN (".$_SESSION['PE_industries'].") and pedb.PEId=pe.PEId and pec.PECompanyId=pe.PECompanyId and pe.Deleted=0
+        where i.industryid IN (" . $_SESSION['PE_industries'] . ") and pedb.PEId=pe.PEId and pec.PECompanyId=pe.PECompanyId and pe.Deleted=0
         and i.IndustryId=pec.Industry and pedb.DBTypeId='$dbtype' order by i.Industry";
-            }
-            elseif($VCFlagValue==5)
-            {
-              $dbtype='IF';
-              $showallcompInvFlag=10;
-              $pagetitle="Infrastructure Investments -> Search";
-              $stagesql_search="select StageId,Stage from stage order by DisplayOrder";
-              $industrysql_search="select distinct pec.industry,i.Industry from industry as i ,pecompanies as pec,
+} elseif ($VCFlagValue == 5) {
+    $dbtype = 'IF';
+    $showallcompInvFlag = 10;
+    $pagetitle = "Infrastructure Investments -> Search";
+    $stagesql_search = "select StageId,Stage from stage order by DisplayOrder";
+    $industrysql_search = "select distinct pec.industry,i.Industry from industry as i ,pecompanies as pec,
                                     peinvestments as pe,peinvestments_dbtypes as pedb
-        where i.industryid IN (".$_SESSION['PE_industries'].") and pedb.PEId=pe.PEId and pec.PECompanyId=pe.PECompanyId and pe.Deleted=0
+        where i.industryid IN (" . $_SESSION['PE_industries'] . ") and pedb.PEId=pe.PEId and pec.PECompanyId=pe.PECompanyId and pe.Deleted=0
                                     and i.IndustryId=pec.Industry and pedb.DBTypeId='$dbtype' order by i.Industry";
-            }
-
-    
-    $dbTypeSV="SV";
-    $dbTypeIF="IF";
-    $dbTypeCT="CT";
-
-    $searchString="Undisclosed";
-    $searchString=strtolower($searchString);
-
-    $searchString1="Unknown";
-    $searchString1=strtolower($searchString1);
-
-    $buttonClicked=$_POST['hiddenbutton'];
-    $fetchRecords=true;
-    $totalDisplay="";
-    //$keyword=trim($_POST['keywordsearch']);
-    $investorauto=$_POST['investorauto_sug'];
-    $keyword= trim($investorauto);
-    $sql_investorauto_sug = "select InvestorId as id,Investor as name from peinvestors where InvestorId IN($keyword) order by InvestorId";
-        
-    $sql_investorauto_sug_Exe=mysql_query($sql_investorauto_sug);
-    // print_r($getInvestorSql_Exe);
-    $response =array(); 
-    $invester_filter="";
-    $i = 0;
-    While($myrow = mysql_fetch_array($sql_investorauto_sug_Exe,MYSQL_BOTH)){
-
-    $response[$i]['id']= $myrow['id'];
-    $response[$i]['name']= $myrow['name'];
-    if($i!=0){
-
-     $invester_filter.=",";
+}
+$dbTypeSV = "SV";
+$dbTypeIF = "IF";
+$dbTypeCT = "CT";
+$searchString = "Undisclosed";
+$searchString = strtolower($searchString);
+$searchString1 = "Unknown";
+$searchString1 = strtolower($searchString1);
+$buttonClicked = $_POST['hiddenbutton'];
+$fetchRecords = true;
+$totalDisplay = "";
+//$keyword=trim($_POST['keywordsearch']);
+$investorauto = $_POST['investorauto_sug'];
+$keyword = trim($investorauto);
+$sql_investorauto_sug = "select InvestorId as id,Investor as name from peinvestors where InvestorId IN($keyword) order by InvestorId";
+$sql_investorauto_sug_Exe = mysql_query($sql_investorauto_sug);
+// print_r($getInvestorSql_Exe);
+$response = array();
+$invester_filter = "";
+$i = 0;
+While ($myrow = mysql_fetch_array($sql_investorauto_sug_Exe, MYSQL_BOTH)) {
+    $response[$i]['id'] = $myrow['id'];
+    $response[$i]['name'] = $myrow['name'];
+    if ($i != 0) {
+        $invester_filter.= ",";
     }
-    $invester_filter.=$myrow['name'];
+    $invester_filter.= $myrow['name'];
     $i++;
-
-    }
-            if($response != '')
-            {
-                $investorsug_response= json_encode($response);
-            }
-            else{
-                $investorsug_response= 'null';
-            }
-     echo "<div style='display:none' class='tesssttt1'>".$_POST['keywordsearch']."</div>";
-
-    $keywordhidden=trim($_POST['keywordsearch']);
-    //echo "<Br>--" .$keywordhidden;
-    $keywordhidden =preg_replace('/\s+/', '_', $keywordhidden);
-
-    //echo "<br>--" .$keywordhidden;
-
-    $companysearch=trim($_POST['companysearch']);
-    $companysearchhidden=preg_replace('/\s+/', '_', $companysearch);
-    $companyauto=$_POST['companyauto'];
-    $companyauto_sug=$_POST['companyauto_sug'];
-    $sectorsearch=stripslashes(trim($_POST['sectorsearch']));
-    $sectorauto=trim($_POST['sectorauto']);
-    $sectorsearchhidden=preg_replace('/\s+/', '_', $sectorsearch);
-    $advisorsearchstring_legal=trim($_POST['advisorsearch_legal']);
-    $advisorsearchhidden_legal=preg_replace('/\s+/', '_', $advisorsearchstring_legal);
-    $advisorsearchstring_trans=trim($_POST['advisorsearch_trans']);
-    $advisorsearchhidden_trans=preg_replace('/\s+/', '_', $advisorsearchstring_trans);
-    $searchallfield=$_POST['searchallfield'];
-    $searchallfieldhidden=preg_replace('/\s+/', '_', $searchallfield);
-
-    if( !empty( $companyauto_sug ) ) {
-        $sql_company_new = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companyauto_sug)";
-        $sql_company_Exe=mysql_query($sql_company_new);
-        $company_filter="";
-        $i = 0;
-        While( $myrow_new = mysql_fetch_array($sql_company_Exe,MYSQL_BOTH)){
-            $response_new[$i]['id']= $myrow_new['id'];
-            $response_new[$i]['name']= $myrow_new['name'];
-            if($i!=0){
-                $company_filter.=",";
-            }
-            $company_filter.=$myrow_new['name'];
-            $i++;
+}
+if ($response != '') {
+    $investorsug_response = json_encode($response);
+} else {
+    $investorsug_response = 'null';
+}
+echo "<div style='display:none' class='tesssttt1'>" . $_POST['keywordsearch'] . "</div>";
+$keywordhidden = trim($_POST['keywordsearch']);
+//echo "<Br>--" .$keywordhidden;
+$keywordhidden = preg_replace('/\s+/', '_', $keywordhidden);
+//echo "<br>--" .$keywordhidden;
+$companysearch = trim($_POST['companysearch']);
+$companysearchhidden = preg_replace('/\s+/', '_', $companysearch);
+$companyauto = $_POST['companyauto'];
+$companyauto_sug = $_POST['companyauto_sug'];
+$sectorsearch = stripslashes(trim($_POST['sectorsearch']));
+$sectorauto = trim($_POST['sectorauto']);
+$sectorsearchhidden = preg_replace('/\s+/', '_', $sectorsearch);
+$advisorsearchstring_legal = trim($_POST['advisorsearch_legal']);
+$advisorsearchhidden_legal = preg_replace('/\s+/', '_', $advisorsearchstring_legal);
+$advisorsearchstring_trans = trim($_POST['advisorsearch_trans']);
+$advisorsearchhidden_trans = preg_replace('/\s+/', '_', $advisorsearchstring_trans);
+$searchallfield = $_POST['searchallfield'];
+$searchallfieldhidden = preg_replace('/\s+/', '_', $searchallfield);
+if (!empty($companyauto_sug)) {
+    $sql_company_new = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companyauto_sug)";
+    $sql_company_Exe = mysql_query($sql_company_new);
+    $company_filter = "";
+    $i = 0;
+    While ($myrow_new = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
+        $response_new[$i]['id'] = $myrow_new['id'];
+        $response_new[$i]['name'] = $myrow_new['name'];
+        if ($i != 0) {
+            $company_filter.= ",";
         }
-        if( $response_new != '' ) {
-            $companysug_response= json_encode($response_new);
-        } else{
-            $companysug_response= 'null';
-        }
+        $company_filter.= $myrow_new['name'];
+        $i++;
     }
-
-    //echo "<br>Key word ---" .$keyword;
-    //$region=$_POST['region'];
-    $industry=$_POST['industry'];
-    $state=$_POST['state'];
-    $filtersector = $_POST['filtersector'];
-    $filtersubsector = $_POST['filtersubsector'];
-    $sector=$_POST['sector'];
-    $subsector=$_POST['subsector'];
-
-    $yearafter=trim($_POST['yearafter']);
-    $yearbefore=trim($_POST['yearbefore']);
-    $investor_head=$_POST['invhead'];
-    if($resetfield=="tagsearch") {
-
-        /*$_POST['tagsearch']="";
+    if ($response_new != '') {
+        $companysug_response = json_encode($response_new);
+    } else {
+        $companysug_response = 'null';
+    }
+}
+//echo "<br>Key word ---" .$keyword;
+//$region=$_POST['region'];
+$industry = $_POST['industry'];
+$state = $_POST['state'];
+$filtersector = $_POST['filtersector'];
+$filtersubsector = $_POST['filtersubsector'];
+$sector = $_POST['sector'];
+$subsector = $_POST['subsector'];
+$yearafter = trim($_POST['yearafter']);
+$yearbefore = trim($_POST['yearbefore']);
+$investor_head = $_POST['invhead'];
+if ($resetfield == "tagsearch") {
+    /*$_POST['tagsearch']="";
         $_POST['tagsearch_auto'] = "";
         $tagsearch = "";
         $tagkeyword = "";*/
-        $arrayval=explode(",",$_POST['tagsearch']);
-        $pos = array_search($_POST['resetfieldid'], $arrayval);
-        $tagsearch = $arrayval;
-        unset($tagsearch[$pos]);
-        $tagsearch = implode(",",$tagsearch);
-        /*$_POST['tagsearch'] = "";
+    $arrayval = explode(",", $_POST['tagsearch']);
+    $pos = array_search($_POST['resetfieldid'], $arrayval);
+    $tagsearch = $arrayval;
+    unset($tagsearch[$pos]);
+    $tagsearch = implode(",", $tagsearch);
+    /*$_POST['tagsearch'] = "";
         $_POST['tagsearch_auto'] = "";
         $tagsearch = "";*/
-        if($tagsearch == ""){
+    if ($tagsearch == "") {
         $tagandor = 0;
-        }else{
-             $tagsearcharray = explode(',', $tagsearch);
+    } else {
+        $tagsearcharray = explode(',', $tagsearch);
         $response = array();
         $tag_filter = "";
         $i = 0;
-
         foreach ($tagsearcharray as $tagsearchnames) {
             $response[$i]['name'] = $tagsearchnames;
             $response[$i]['id'] = $tagsearchnames;
             $i++;
         }
-
         if ($response != '') {
             $tag_response = json_encode($response);
         } else {
             $tag_response = 'null';
         }
-        }
-        
-    } else if($_POST['tagsearch']  && $_POST['tagsearch'] !='') {
-        
-        
-        $tagsearch = $_POST['tagsearch'];
-        $tagkeyword = $_POST['tagsearch'];
-        $tagsearcharray = explode(',',$tagsearch);
-        $response =array(); 
-        $tag_filter="";
-        $i = 0;
-
-        foreach ($tagsearcharray as $tagsearchnames){ 
-            $response[$i]['name']= $tagsearchnames;
-            $i++;
-        } 
-
-        if($response != '')
-        {
-            $tag_response = json_encode($response);
-        }
-        else{
-            $tag_response = 'null';
-        }
     }
-
-    $stageval=$_POST['stage'];
-    if($_POST['stage'])
-    {
-            $boolStage=true;
-            //foreach($stageval as $stage)
-            //  echo "<br>----" .$stage;
+} else if ($_POST['tagsearch'] && $_POST['tagsearch'] != '') {
+    $tagsearch = $_POST['tagsearch'];
+    $tagkeyword = $_POST['tagsearch'];
+    $tagsearcharray = explode(',', $tagsearch);
+    $response = array();
+    $tag_filter = "";
+    $i = 0;
+    foreach ($tagsearcharray as $tagsearchnames) {
+        $response[$i]['name'] = $tagsearchnames;
+        $i++;
     }
-    else
-    {
-            $stage="--";
-            $boolStage=false;
+    if ($response != '') {
+        $tag_response = json_encode($response);
+    } else {
+        $tag_response = 'null';
     }
-    $round=$_POST['round'];
-    // $cityid=$_POST['city'];
-    // if($cityid != ''){
-       
-    //         if($cityid == '--'){
-    //             $cityname = "All City";
-    //         } else {
-    //             $citysql= "select city_name from city where city_id = $cityid";
-           
-    //             if ($citytype = mysql_query($citysql))
-    //             {
-    //                 While($myrow = mysql_fetch_array($citytype, MYSQL_BOTH))
-    //                 {
-    //                     $cityname = ucwords(strtolower($myrow["city_name"] ));
-    //                     //echo $cityname;
-    //                 }
-    //             }
-    //         }
-    //     }
-      // Edited for multi select city
+}
+$stageval = $_POST['stage'];
+if ($_POST['stage']) {
+    $boolStage = true;
+    //foreach($stageval as $stage)
+    //  echo "<br>----" .$stage;
+    
+} else {
+    $stage = "--";
+    $boolStage = false;
+}
+$round = $_POST['round'];
+// $cityid=$_POST['city'];
+// if($cityid != ''){
+//         if($cityid == '--'){
+//             $cityname = "All City";
+//         } else {
+//             $citysql= "select city_name from city where city_id = $cityid";
+//             if ($citytype = mysql_query($citysql))
+//             {
+//                 While($myrow = mysql_fetch_array($citytype, MYSQL_BOTH))
+//                 {
+//                     $cityname = ucwords(strtolower($myrow["city_name"] ));
+//                     //echo $cityname;
+//                 }
+//             }
+//         }
+//     }
+// Edited for multi select city
 if ($resetfield == "city") {
     $pos = array_search($_POST['resetfieldid'], $_POST['city']);
     $city = $_POST['city'];
     unset($city[$pos]);
-     emptyhiddendata();
-    } else {
+    emptyhiddendata();
+} else {
     $city = $_POST['city'];
-   
     if ($city[0] != '--' && count($city) > 0) {
-    $searchallfield = '';
-    
+        $searchallfield = '';
     }
 }
-
-if ( (count($city) > 0)) {
-   // print_r($city);
-    $cityindusSql = $cityvalue = '';$cityvalueid = '';
+if ((count($city) > 0)) {
+    // print_r($city);
+    $cityindusSql = $cityvalue = '';
+    $cityvalueid = '';
     foreach ($city as $cities) {
-        if($cities != '--'){
-        $cityindusSql .= " city_id='".$cities."' or ";
+        if ($cities != '--') {
+            $cityindusSql.= " city_id='" . $cities . "' or ";
         }
     }
     $cityindusSql = trim($cityindusSql, ' or ');
     $citysql = "select city_id,city_name from city where $cityindusSql";
-//echo $citysql;
+    //echo $citysql;
     if ($citys = mysql_query($citysql)) {
         while ($myrow = mysql_fetch_array($citys, MYSQL_BOTH)) {
-            $cityvalue .= $myrow["city_name"] . ',';
-            $cityvalueid .= $myrow["city_id"] . ',';
+            $cityvalue.= $myrow["city_name"] . ',';
+            $cityvalueid.= $myrow["city_id"] . ',';
         }
     }
     $cityvalue = trim($cityvalue, ',');
     $cityvalueid = trim($cityvalueid, ',');
     $city_hide = implode($city, ',');
 }
-
 // End Multi selected city
-
-    if($resetfield=="exitstatus")
-    { 
-       /* $_POST['exitstatus']="";
-        $exitstatusValue="";*/
-         $pos = array_search($_POST['resetfieldid'], $_POST['exitstatus']);
-
-        $exitstatusValue = $_POST['exitstatus'];
-
-        unset($exitstatusValue[$pos]);
+if ($resetfield == "exitstatus") {
+    /* $_POST['exitstatus']="";
+     $exitstatusValue="";*/
+    $pos = array_search($_POST['resetfieldid'], $_POST['exitstatus']);
+    $exitstatusValue = $_POST['exitstatus'];
+    unset($exitstatusValue[$pos]);
+} else {
+    $exitstatusValue = $_POST['exitstatus'];
+    if ($exitstatusValue != NULL && $exitstatusValue != '--') {
+        $searchallfield = '';
     }
-    else 
-    {
-        $exitstatusValue = $_POST['exitstatus'];
-        if($exitstatusValue != NULL && $exitstatusValue != '--'){
-            $searchallfield='';
-        }
-    }
-    if ($resetfield == "dealsinvolving") {
-        if (count($_POST['dealsinvolving']) > 0) {
-             
-           foreach ($_POST['dealsinvolving'] as $dealsinvolvingvaltag) {
-               
-               if ($dealsinvolvingvaltag == 1) {
-   
-                   $dealsinvolvingfiltertag .= 'New Investor, ';
-   
-               } else if ($dealsinvolvingvaltag == 2) {
-   
-                   $dealsinvolvingfiltertag .= 'Existing Investor, ';
-   
-               } else {
-                   $dealsinvolvingfiltertag = '';
-               }
-           }
-           $dealsinvolvingfiltertag = trim($dealsinvolvingfiltertag, ', ');
-       }
-       $dealsarraytag = explode(",",$dealsinvolvingfiltertag); 
-       $pos = array_search($_POST['resetfieldid'],$dealsarraytag);
-       $dealsinvolvingvalue = $_POST['dealsinvolving'];
-       unset($dealsinvolvingvalue[$pos]);
-       emptyhiddendata();
-    } else {
-       $dealsinvolvingvalue = $_POST['dealsinvolving'];
-       if (count($dealsinvolvingvalue) > 0) {
-           $searchallfield = '';
-       }
-    }
-    if ($resetfield == "sector") {
-             $pos = array_search($_POST['resetfieldid'], $_POST['sector']);
-            $sector = $_POST['sector'];
-            unset($sector[$pos]);
-           // $_POST['sector'] = "";
-            $_POST['subsector'] = "";
-            $_POST['filtersubsector'] = "";
-            $filtersubsector = '';
-            emptyhiddendata();
-        } else {
-            $sector = $_POST['sector'];
-            if ($sector != '--' && count($sector) > 0) {
-                $searchallfield = '';
+}
+if ($resetfield == "dealsinvolving") {
+    if (count($_POST['dealsinvolving']) > 0) {
+        foreach ($_POST['dealsinvolving'] as $dealsinvolvingvaltag) {
+            if ($dealsinvolvingvaltag == 1) {
+                $dealsinvolvingfiltertag.= 'New Investor, ';
+            } else if ($dealsinvolvingvaltag == 2) {
+                $dealsinvolvingfiltertag.= 'Existing Investor, ';
+            } else {
+                $dealsinvolvingfiltertag = '';
             }
         }
-
-        if ($resetfield == "subsector") {
-             $pos = array_search($_POST['resetfieldid'], $_POST['subsector']);
-             $subsector = $_POST['subsector'];
-             unset($subsector[$pos]);
-            //$_POST['subsector'] = "";
-            emptyhiddendata();
-        } else {
-            $subsector = $_POST['subsector'];
-            if ($subsector != '--' && count($subsector) > 0) {
-                $searchallfield = '';
-            }
-        }
-    if ($resetfield == "companysearch") {
-            $arrayval=explode(",",$_POST['companyauto_sug']);
-            $pos = array_search($_POST['resetfieldid'], $arrayval);
-            $companysearch = $arrayval;
-            unset($companysearch[$pos]);
-            $companysearch=implode(",",$companysearch);
-            $_POST['companysearch'] = $companysearch;
-           
-            /*$_POST['companysearch'] = "";
+        $dealsinvolvingfiltertag = trim($dealsinvolvingfiltertag, ', ');
+    }
+    $dealsarraytag = explode(",", $dealsinvolvingfiltertag);
+    $pos = array_search($_POST['resetfieldid'], $dealsarraytag);
+    $dealsinvolvingvalue = $_POST['dealsinvolving'];
+    unset($dealsinvolvingvalue[$pos]);
+    emptyhiddendata();
+} else {
+    $dealsinvolvingvalue = $_POST['dealsinvolving'];
+    if (count($dealsinvolvingvalue) > 0) {
+        $searchallfield = '';
+    }
+}
+if ($resetfield == "sector") {
+    $pos = array_search($_POST['resetfieldid'], $_POST['sector']);
+    $sector = $_POST['sector'];
+    unset($sector[$pos]);
+    // $_POST['sector'] = "";
+    $_POST['subsector'] = "";
+    $_POST['filtersubsector'] = "";
+    $filtersubsector = '';
+    emptyhiddendata();
+} else {
+    $sector = $_POST['sector'];
+    if ($sector != '--' && count($sector) > 0) {
+        $searchallfield = '';
+    }
+}
+if ($resetfield == "subsector") {
+    $pos = array_search($_POST['resetfieldid'], $_POST['subsector']);
+    $subsector = $_POST['subsector'];
+    unset($subsector[$pos]);
+    //$_POST['subsector'] = "";
+    emptyhiddendata();
+} else {
+    $subsector = $_POST['subsector'];
+    if ($subsector != '--' && count($subsector) > 0) {
+        $searchallfield = '';
+    }
+}
+if ($resetfield == "companysearch") {
+    $arrayval = explode(",", $_POST['companyauto_sug']);
+    $pos = array_search($_POST['resetfieldid'], $arrayval);
+    $companysearch = $arrayval;
+    unset($companysearch[$pos]);
+    $companysearch = implode(",", $companysearch);
+    $_POST['companysearch'] = $companysearch;
+    /*$_POST['companysearch'] = "";
             $_POST['popup_keyword'] = "";
             $_POST['companyauto_sug'] = "";
             $companysearch = "";
             $companyauto = '';*/
-            //echo $companysearch;
-
-            $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
-            $sql_company_Exe = mysql_query($sql_company);
-            $company_filter = "";
-            $response = array();
-            $i = 0;
-            while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
-
-                $response[$i]['id'] = $myrow['id'];
-                $response[$i]['name'] = $myrow['name'];
-                if ($i != 0) {
-
-                    $company_filter .= ",";
-                    $company_id .= ",";
-                }
-                $company_filter .= $myrow['name'];
-                $company_id .=$myrow['id'];
-                $i++;
-
+    //echo $companysearch;
+    $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
+    $sql_company_Exe = mysql_query($sql_company);
+    $company_filter = "";
+    $response = array();
+    $i = 0;
+    while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
+        $response[$i]['id'] = $myrow['id'];
+        $response[$i]['name'] = $myrow['name'];
+        if ($i != 0) {
+            $company_filter.= ",";
+            $company_id.= ",";
+        }
+        $company_filter.= $myrow['name'];
+        $company_id.= $myrow['id'];
+        $i++;
+    }
+    if ($response != '') {
+        $companysug_response = json_encode($response);
+    } else {
+        $companysug_response = 'null';
+    }
+    if ($companysearch != '') {
+        $searchallfield = '';
+        $month1 = 01;
+        $year1 = 1998;
+        $month2 = date('n');
+        $year2 = date('Y');
+        $dt1 = $startyear = $year1 . "-" . $month1 . "-01";
+    }
+    //$companysearchhidden = preg_replace('/\s+/', '_', $companysearch);
+    
+} else {
+    $companysearch = trim($_POST['companysearch']);
+    $companyauto = $_POST['companyauto_sug'];
+    if (isset($_POST['popup_select']) && $_POST['popup_select'] == 'company') {
+        //$companysearch=trim($_POST['popup_keyword']);
+        $companyauto = $companysearch = trim(implode(',', $_POST['search_multi']));
+        $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
+        $sql_company_Exe = mysql_query($sql_company);
+        $company_filter = "";
+        $response = array();
+        $i = 0;
+        while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
+            $response[$i]['id'] = $myrow['id'];
+            $response[$i]['name'] = $myrow['name'];
+            if ($i != 0) {
+                $company_filter.= ",";
+                $company_id.= ",";
             }
-            if ($response != '') {
-                $companysug_response = json_encode($response);
-            } else {
-                $companysug_response = 'null';
-            }
-            if ($companysearch != '') {
-                $searchallfield = '';
-                $month1 = 01;
-                $year1 = 1998;
-                $month2 = date('n');
-                $year2 = date('Y');
-                $dt1 = $startyear = $year1 . "-" . $month1 . "-01";
-            }
-
-            //$companysearchhidden = preg_replace('/\s+/', '_', $companysearch);
-        } else {
-            $companysearch = trim($_POST['companysearch']);
-            $companyauto = $_POST['companyauto_sug'];
-            if (isset($_POST['popup_select']) && $_POST['popup_select'] == 'company') {
-                //$companysearch=trim($_POST['popup_keyword']);
-                $companyauto = $companysearch = trim(implode(',', $_POST['search_multi']));
-
-                $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
-
-                $sql_company_Exe = mysql_query($sql_company);
-                $company_filter = "";
-                $response = array();
-                $i = 0;
-                while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
-
-                    $response[$i]['id'] = $myrow['id'];
-                    $response[$i]['name'] = $myrow['name'];
-                    if ($i != 0) {
-
-                        $company_filter .= ",";
-                        $company_id .= ",";
-                    }
-                    $company_filter .= $myrow['name'];
-                    $company_id .=$myrow['id'];
-                    $i++;
-
-                }
-            } else if (isset($_POST['companyauto_sug_other']) && $_POST['companyauto_sug_other'] != '') {
-                $companyauto = $_POST['companyauto_sug_other'];
-                $companysearch = trim($_POST['companyauto_sug_other']);
-                $companysearchhidden = preg_replace('/\s+/', '_', $companysearch);
-                $month1 = 01;
-                $year1 = 1998;
-                $month2 = date('n');
-                $year2 = date('Y');
-                $dt1 = $startyear = $year1 . "-" . $month1 . "-01";
-            } else if ($_POST['searchallfieldHide'] == 'remove' || $_POST['searchallfieldHide'] != 'content_exit') {
-                if (isset($_POST['companyauto_sug'])) {
-                    $companyauto = $companysearch = trim($_POST['companyauto_sug']);
-                    $companysearchhidden = trim($_POST['companyauto_sug']);
-                } /*else {
+            $company_filter.= $myrow['name'];
+            $company_id.= $myrow['id'];
+            $i++;
+        }
+    } else if (isset($_POST['companyauto_sug_other']) && $_POST['companyauto_sug_other'] != '') {
+        $companyauto = $_POST['companyauto_sug_other'];
+        $companysearch = trim($_POST['companyauto_sug_other']);
+        $companysearchhidden = preg_replace('/\s+/', '_', $companysearch);
+        $month1 = 01;
+        $year1 = 1998;
+        $month2 = date('n');
+        $year2 = date('Y');
+        $dt1 = $startyear = $year1 . "-" . $month1 . "-01";
+    } else if ($_POST['searchallfieldHide'] == 'remove' || $_POST['searchallfieldHide'] != 'content_exit') {
+        if (isset($_POST['companyauto_sug'])) {
+            $companyauto = $companysearch = trim($_POST['companyauto_sug']);
+            $companysearchhidden = trim($_POST['companyauto_sug']);
+        } /*else {
                     $companyauto = $companysearch = $companysearchhidden = '';
                 }*/
-            } else if ($_POST['searchallfieldHide'] == '' && isset($_POST['companyauto_sug'])) {
-                $companyauto = $companysearch = trim($_POST['companyauto_sug']);
-                $companysearchhidden = trim($_POST['companyauto_sug']);
-            }
-            $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
-            $sql_company_Exe = mysql_query($sql_company);
-            $company_filter = "";
-            $response = array();
-            $i = 0;
-            while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
-
-                $response[$i]['id'] = $myrow['id'];
-                $response[$i]['name'] = $myrow['name'];
-                if ($i != 0) {
-
-                    $company_filter .= ",";
-                    $company_id .= ",";
-                }
-                $company_filter .= $myrow['name'];
-                $company_id .=$myrow['id'];
-                $i++;
-
-            }
-            if ($response != '') {
-                $companysug_response = json_encode($response);
-            } else {
-                $companysug_response = 'null';
-            }
-            if ($companysearch != '') {
-                $searchallfield = '';
-            }
-
-           
+    } else if ($_POST['searchallfieldHide'] == '' && isset($_POST['companyauto_sug'])) {
+        $companyauto = $companysearch = trim($_POST['companyauto_sug']);
+        $companysearchhidden = trim($_POST['companyauto_sug']);
+    }
+    $sql_company = "select  PECompanyId as id,companyname as name from pecompanies where PECompanyId IN($companysearch)";
+    $sql_company_Exe = mysql_query($sql_company);
+    $company_filter = "";
+    $response = array();
+    $i = 0;
+    while ($myrow = mysql_fetch_array($sql_company_Exe, MYSQL_BOTH)) {
+        $response[$i]['id'] = $myrow['id'];
+        $response[$i]['name'] = $myrow['name'];
+        if ($i != 0) {
+            $company_filter.= ",";
+            $company_id.= ",";
         }
-         $companysearchhidden = preg_replace('/\s+/', '_', $companysearch);
-
-     //valuation 
-    $valuations=$_POST['valuations'];
-    /*if($_POST['valuations'])
+        $company_filter.= $myrow['name'];
+        $company_id.= $myrow['id'];
+        $i++;
+    }
+    if ($response != '') {
+        $companysug_response = json_encode($response);
+    } else {
+        $companysug_response = 'null';
+    }
+    if ($companysearch != '') {
+        $searchallfield = '';
+    }
+}
+$companysearchhidden = preg_replace('/\s+/', '_', $companysearch);
+//valuation
+$valuations = $_POST['valuations'];
+/*if($_POST['valuations'])
     {
             $boolvaluations=true;
             
@@ -638,508 +545,410 @@ if ( (count($city) > 0)) {
             $valuations="--";
             $boolvaluations=false;
     }*/
-    if ($resetfield == "valuations") {
-
-        $pos = array_search($_POST['resetfieldid'], $_POST['valuations']);
-        $valuations = $_POST['valuations'];
-        
-         if($_POST['valuations'] == ""){
-
-             $valuations = "--";
-         }
-
-        unset($valuations[$pos]);
-     
-       emptyhiddendata();
-    } else {
-
-         
+if ($resetfield == "valuations") {
+    $pos = array_search($_POST['resetfieldid'], $_POST['valuations']);
     $valuations = $_POST['valuations'];
-       if($valuations != '') {
-            $searchallfield = '';
-        }
-    }
-
-    if ($_POST['valuations'] && $valuations != "" && $valuations != "--") {
-        $boolvaluations = true;
-         $c = 1;
-        foreach ($valuations as $v) {
-            if ($c > 1) {$coa = ',';}
-            $valuationstxt .= "$coa $v";
-            $c++;
-        }
-        
-    } else {
+    if ($_POST['valuations'] == "") {
         $valuations = "--";
-        $boolvaluations = false;
     }
-
-    
-    
-    
-    //echo "<br>**" .$stage;
-    $companyType=$_POST['comptype'];
-    //echo "<BR>---" .$companyType;
-    $debt_equity=$_POST['dealtype_debtequity'];
-    if($resetfield=="syndication")
-    { 
-        
-        $_POST['Syndication']="";
-        $syndication="--";
+    unset($valuations[$pos]);
+    emptyhiddendata();
+} else {
+    $valuations = $_POST['valuations'];
+    if ($valuations != '') {
+        $searchallfield = '';
     }
-    else 
-    {
-        $syndication=trim($_POST['Syndication']);
-        if($syndication!='--' && $syndication!=''){
-            $searchallfield='';
+}
+if ($_POST['valuations'] && $valuations != "" && $valuations != "--") {
+    $boolvaluations = true;
+    $c = 1;
+    foreach ($valuations as $v) {
+        if ($c > 1) {
+            $coa = ',';
+        }
+        $valuationstxt.= "$coa $v";
+        $c++;
     }
+} else {
+    $valuations = "--";
+    $boolvaluations = false;
+}
+//echo "<br>**" .$stage;
+$companyType = $_POST['comptype'];
+//echo "<BR>---" .$companyType;
+$debt_equity = $_POST['dealtype_debtequity'];
+if ($resetfield == "syndication") {
+    $_POST['Syndication'] = "";
+    $syndication = "--";
+} else {
+    $syndication = trim($_POST['Syndication']);
+    if ($syndication != '--' && $syndication != '') {
+        $searchallfield = '';
     }
-    if ($resetfield == "txtregion") {
+}
+if ($resetfield == "txtregion") {
     /*$_POST['txtregion'] = "";
-    $regionId = array();*/
-         $pos = array_search($_POST['resetfieldid'], $_POST['txtregion']);
+     $regionId = array();*/
+    $pos = array_search($_POST['resetfieldid'], $_POST['txtregion']);
+    $regionId = $_POST['txtregion'];
+    unset($regionId[$pos]);
+    emptyhiddendata();
+} else {
+    $regionId = $_POST['txtregion'];
+    if (count($regionId) > 0) {
+        $searchallfield = '';
+    }
+}
+if ($syndication == 0) $syndication_Display = "Yes";
+elseif ($syndication == 1) $syndication_Display = "No";
+elseif ($syndication == "--") $syndication_Display = "Both";
+$investorType = $_POST['invType'];
+$regionId = $_POST['txtregion'];
+//$range=$_POST['invrange'];
+$startRangeValue = $_POST['invrangestart'];
+$endRangeValue = $_POST['invrangeend'];
+$endRangeValueDisplay = $endRangeValue;
+//echo "<br>Stge**" .$range;
+$whereind = "";
+$whereregion = "";
+$whereinvType = "";
+$wherestage = "";
+$wheredates = "";
+$whererange = "";
+$wherelisting_status = "";
+$resetfield = $_POST['resetfield'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // echo "1";
+    if ($getyear != "") {
+        $month1 = 01;
+        $year1 = $getyear;
+        $month2 = 12;
+        $year2 = $getyear;
+        $fixstart = $year1;
+        $startyear = $fixstart . "-" . $month1 . "-01";
+        $fixend = $year2;
+        $endyear = $fixend . "-" . $month2 . "-31";
+    } else if ($getsy != '' && $getey != '') {
+        $month1 = 01;
+        $year1 = $getsy;
+        $month2 = 12;
+        $year2 = $getey;
+        $fixstart = $year1;
+        $startyear = $fixstart . "-" . $month1 . "-01";
+        $fixend = $year2;
+        $endyear = $fixend . "-" . $month2 . "-31";
+        //$getdate=" dates between '" . $getdt1. "' and '" . $getdt2 . "'";
         
-        $regionId = $_POST['txtregion'];
-        unset($regionId[$pos]);
-        emptyhiddendata();
     } else {
-        $regionId = $_POST['txtregion'];
-        if (count($regionId) > 0) {
-            $searchallfield = '';
+        // $month1= date('n', strtotime(date('Y-m')." -2   month"));
+        // $year1 = date('Y');
+        // $month2= date('n');
+        // $year2 = date('Y');
+        // if($type==1)
+        // {
+        //     $fixstart=1998;
+        //     $startyear =  $fixstart."-01-01";
+        //     $fixend=date("Y");
+        //     $endyear = $endyear = date("Y-m-d");
+        // }
+        // else
+        // {
+        //     $fixstart=2009;
+        //     $startyear =  $fixstart."-01-01";
+        //     $fixend=date("Y");
+        //     $endyear = date("Y-m-d");
+        //  }
+        if ($type == 1) {
+            $month1 = date('n', strtotime(date('Y-m') . " - 1   month"));
+            $year1 = date('Y');
+            $month2 = date('n');
+            $year2 = date('Y');
+            $fixstart = 1998;
+            $startyear = $fixstart . "-01-01";
+            $fixend = date("Y");
+            $endyear = date("Y-m-d");
+        } else {
+            $month1 = date('n');
+            $year1 = date('Y', strtotime(date('Y') . " -1  Year"));
+            $month2 = date('n');
+            $year2 = date('Y');
+            $fixstart = date('Y', strtotime(date('Y') . " -1  Year"));
+            $startyear = $fixstart . "-" . $month1 . "-01";
+            $fixend = date("Y");
+            $endyear = date("Y-m-d");
         }
     }
-    if($syndication == 0)
-        $syndication_Display="Yes";
-    elseif($syndication == 1)
-        $syndication_Display="No";
-    elseif($syndication == "--")
-        $syndication_Display="Both";
-    $investorType=$_POST['invType'];
-
-    $regionId=$_POST['txtregion'];
-
-    //$range=$_POST['invrange'];
-    $startRangeValue=$_POST['invrangestart'];
-    $endRangeValue=$_POST['invrangeend'];
-    $endRangeValueDisplay =$endRangeValue;
-    //echo "<br>Stge**" .$range;
-    $whereind="";
-    $whereregion="";
-    $whereinvType="";
-    $wherestage="";
-    $wheredates="";
-    $whererange="";
-    $wherelisting_status="";
-     $resetfield=$_POST['resetfield'];
-    if ($_SERVER['REQUEST_METHOD'] === 'GET')
-    {   
-       // echo "1";
-        if($getyear!="")
-        {
-            $month1= 01;
-            $year1 = $getyear;
-            $month2= 12;
-            $year2 = $getyear;
-            $fixstart=$year1;
-            $startyear =  $fixstart."-".$month1."-01";
-            $fixend=$year2;
-            $endyear =  $fixend."-".$month2."-31";
-        }
-        else if($getsy !='' && $getey !='')
-        {
-            $month1= 01;
-            $year1 = $getsy;
-            $month2= 12;
-            $year2 = $getey;
-            $fixstart=$year1;
-            $startyear =  $fixstart."-".$month1."-01";
-            $fixend=$year2;
-            $endyear =  $fixend."-".$month2."-31";
-            //$getdate=" dates between '" . $getdt1. "' and '" . $getdt2 . "'";
-        }
-        else
-        {
-            // $month1= date('n', strtotime(date('Y-m')." -2   month")); 
-            // $year1 = date('Y');
-            // $month2= date('n');
-            // $year2 = date('Y'); 
-            // if($type==1)
-            // {
-            //     $fixstart=1998;
-            //     $startyear =  $fixstart."-01-01";
-            //     $fixend=date("Y");
-            //     $endyear = $endyear = date("Y-m-d");
-            // }
-            // else 
-            // {
-            //     $fixstart=2009;
-            //     $startyear =  $fixstart."-01-01";
-            //     $fixend=date("Y");
-            //     $endyear = date("Y-m-d");
-            //  }
-
-            if($type == 1)
-            {
-                $month1= date('n', strtotime(date('Y-m')." - 1   month")); 
-                $year1 = date('Y');
-                $month2= date('n');
-                $year2 = date('Y'); 
-                $fixstart=1998;
-                $startyear =  $fixstart."-01-01";
-                $fixend=date("Y");
-                $endyear = date("Y-m-d");
-            }
-            else 
-            {
-                $month1= date('n');
-                $year1 = date('Y', strtotime(date('Y')." -1  Year"));
-                $month2= date('n');
-                $year2 = date('Y');
-                $fixstart=date('Y', strtotime(date('Y')." -1  Year"));
-                $startyear =  $fixstart."-".$month1."-01";
-                $fixend=date("Y");
-                $endyear = date("Y-m-d"); 
-            }
-        }
-        
-        
-        
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
-    {
-        
-        if($resetfield=="period")
-        {
-         $month1= date('n', strtotime(date('Y-m')." -2   month")); 
-         $year1 = date('Y');
-         $month2= date('n');
-         $year2 = date('Y');
-         $_POST['month1']="";
-         $_POST['year1']="";
-         $_POST['month2']="";
-         $_POST['year2']="";
-        }elseif (($resetfield=="searchallfield")||($resetfield=="keywordsearch")||($resetfield=="companysearch")||($resetfield=="advisorsearch_legal")||($resetfield=="advisorsearch_trans"))
-        {
-         $month1= date('n', strtotime(date('Y-m')." -2   month")); 
-         $year1 = date('Y');
-         $month2= date('n');
-         $year2 = date('Y');
-         $_POST['month1']="";
-         $_POST['year1']="";
-         $_POST['month2']="";
-         $_POST['year2']="";
-         $_POST['searchallfield']="";
-        }
-        else if(trim($_POST['searchallfield'])!="" || trim($_POST['keywordsearch'])!="" || trim($_POST['companysearch'])!="" || trim($_POST['advisorsearch_legal'])!="" ||  trim($_POST['advisorsearch_trans'])!="" )
-        {
-        
-         if(trim($_POST['searchallfield'])!=""){
-            if(($_POST['month1']==date('n')) && $_POST['year1']==date('Y', strtotime(date('Y')." -1  Year")) && $_POST['month2']==date('n') && $_POST['year2']==date('Y')){
-                if( $period_flag == 1 ) {
-                    $month1=01; 
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($resetfield == "period") {
+        $month1 = date('n', strtotime(date('Y-m') . " -2   month"));
+        $year1 = date('Y');
+        $month2 = date('n');
+        $year2 = date('Y');
+        $_POST['month1'] = "";
+        $_POST['year1'] = "";
+        $_POST['month2'] = "";
+        $_POST['year2'] = "";
+    } elseif (($resetfield == "searchallfield") || ($resetfield == "keywordsearch") || ($resetfield == "companysearch") || ($resetfield == "advisorsearch_legal") || ($resetfield == "advisorsearch_trans")) {
+        $month1 = date('n', strtotime(date('Y-m') . " -2   month"));
+        $year1 = date('Y');
+        $month2 = date('n');
+        $year2 = date('Y');
+        $_POST['month1'] = "";
+        $_POST['year1'] = "";
+        $_POST['month2'] = "";
+        $_POST['year2'] = "";
+        $_POST['searchallfield'] = "";
+    } else if (trim($_POST['searchallfield']) != "" || trim($_POST['keywordsearch']) != "" || trim($_POST['companysearch']) != "" || trim($_POST['advisorsearch_legal']) != "" || trim($_POST['advisorsearch_trans']) != "") {
+        if (trim($_POST['searchallfield']) != "") {
+            if (($_POST['month1'] == date('n')) && $_POST['year1'] == date('Y', strtotime(date('Y') . " -1  Year")) && $_POST['month2'] == date('n') && $_POST['year2'] == date('Y')) {
+                if ($period_flag == 1) {
+                    $month1 = 01;
                     $year1 = 1998;
-                    $month2= date('n');
-                    $year2 = date('Y');    
+                    $month2 = date('n');
+                    $year2 = date('Y');
                 } else {
-                    $month1=($_POST['month1'] || ($_POST['month1']!="")) ?  $_POST['month1'] : date('n');
-                   $year1 = ($_POST['year1'] || ($_POST['year1']!="")) ?  $_POST['year1'] : date('Y', strtotime(date('Y')." -1  Year"));
-                   $month2=($_POST['month2'] || ($_POST['month2']!="")) ?  $_POST['month2'] : date('n');
-                   $year2 = ($_POST['year2'] || ($_POST['year2']!="")) ?  $_POST['year2'] : date('Y');
+                    $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
+                    $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
+                    $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
+                    $year2 = ($_POST['year2'] || ($_POST['year2'] != "")) ? $_POST['year2'] : date('Y');
                 }
-                
-                       }else{
-                           $month1=($_POST['month1'] || ($_POST['month1']!="")) ?  $_POST['month1'] : date('n');
-                           $year1 = ($_POST['year1'] || ($_POST['year1']!="")) ?  $_POST['year1'] : date('Y', strtotime(date('Y')." -1  Year"));
-                           $month2=($_POST['month2'] || ($_POST['month2']!="")) ?  $_POST['month2'] : date('n');
-                           $year2 = ($_POST['year2'] || ($_POST['year2']!="")) ?  $_POST['year2'] : date('Y');
-               }
-            }
-            if(trim($_POST['keywordsearch'])!="" || trim($_POST['sectorsearch'])!="" || trim($_POST['companysearch'])!="" || trim($_POST['advisorsearch_legal'])!="" ||  trim($_POST['advisorsearch_trans'])!=""){
-                $month1=01; 
-                $year1 = 1998;
-                $month2= date('n');
-                $year2 = date('Y');
+            } else {
+                $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
+                $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
+                $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
+                $year2 = ($_POST['year2'] || ($_POST['year2'] != "")) ? $_POST['year2'] : date('Y');
             }
         }
-        else
-        {
-         $month1=($_POST['month1'] || ($_POST['month1']!="")) ?  $_POST['month1'] : date('n', strtotime(date('Y-m')." -2     month"));
-         $year1 = ($_POST['year1'] || ($_POST['year1']!="")) ?  $_POST['year1'] : date('Y');
-         $month2=($_POST['month2'] || ($_POST['month2']!="")) ?  $_POST['month2'] : date('n');
-         $year2 = ($_POST['year2'] || ($_POST['year2']!="")) ?  $_POST['year2'] : date('Y');
+        if (trim($_POST['keywordsearch']) != "" || trim($_POST['sectorsearch']) != "" || trim($_POST['companysearch']) != "" || trim($_POST['advisorsearch_legal']) != "" || trim($_POST['advisorsearch_trans']) != "") {
+            $month1 = 01;
+            $year1 = 1998;
+            $month2 = date('n');
+            $year2 = date('Y');
         }
-        
-        $fixstart=$year1;
-        $startyear =  $fixstart."-".$month1."-01";
-        $fixend=$year2;
-        $endyear =  $fixend."-".$month2."-31";
-        
+    } else {
+        $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n', strtotime(date('Y-m') . " -2     month"));
+        $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y');
+        $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
+        $year2 = ($_POST['year2'] || ($_POST['year2'] != "")) ? $_POST['year2'] : date('Y');
     }
-
-    /*if (!$_POST){
+    $fixstart = $year1;
+    $startyear = $fixstart . "-" . $month1 . "-01";
+    $fixend = $year2;
+    $endyear = $fixend . "-" . $month2 . "-31";
+}
+/*if (!$_POST){
             $_POST['month1'] = $month1;
             $_POST['year1']  = $year1;
             $_POST['month2'] = $month2;
             $_POST['year2']  = $year2;
     }*/
-
-$notable=false;
+$notable = false;
 // $vcflagValue=$_POST['txtvcFlagValue'];
 //echo "<br>FLAG VALIE--" .$vcflagValue;
-$datevalue = returnMonthname($month1) ."-".$year1 ."to". returnMonthname($month2) ."-" .$year2;
-$splityear1=(substr($year1,2));
-$splityear2=(substr($year2,2));
-
-if(($month1!="--") && ($month2!=="--") && ($year1!="--") &&($year2!="--"))
-{   $datevalueDisplay1 = returnMonthname($month1) ." ".$splityear1;
-$datevalueDisplay2 = returnMonthname($month2) ."  ".$splityear2;
-$wheredates1= "";
+$datevalue = returnMonthname($month1) . "-" . $year1 . "to" . returnMonthname($month2) . "-" . $year2;
+$splityear1 = (substr($year1, 2));
+$splityear2 = (substr($year2, 2));
+if (($month1 != "--") && ($month2 !== "--") && ($year1 != "--") && ($year2 != "--")) {
+    $datevalueDisplay1 = returnMonthname($month1) . " " . $splityear1;
+    $datevalueDisplay2 = returnMonthname($month2) . "  " . $splityear2;
+    $wheredates1 = "";
 }
-$whereaddHideamount="";
-
-     if($industry !='' && (count($industry) > 0))
-                    {
-        $indusSql = $industryvalue = '';
-        foreach($industry as $industrys)
-        {
-            $indusSql .= " IndustryId=$industrys or ";
-        }
-        $indusSql = trim($indusSql,' or ');
-        $industrysql= "select industry from industry where $indusSql"; 
-                                                    
-                        if ($industryrs = mysql_query($industrysql))
-                        {
-                            While($myrow=mysql_fetch_array($industryrs, MYSQL_BOTH))
-                            {
-                                $industryvalue.=$myrow["industry"].',';
-                            }
-                        }
-        $industryvalue=  trim($industryvalue,',');
-        $industry_hide = implode($industry,',');
-                }
-        if ($state != '' && (count($state) > 0)) {
-            $indusSql = $statevalue = '';$statevalueid = '';
-            foreach ($state as $states) {
-                $indusSql .= " state_id=$states or ";
-            }
-            $indusSql = trim($indusSql, ' or ');
-            $statesql = "select state_name,state_id from state where $indusSql";
-
-            if ($staters = mysql_query($statesql)) {
-                while ($myrow = mysql_fetch_array($staters, MYSQL_BOTH)) {
-                    $statevalue .= $myrow["state_name"] . ',';
-                    $statevalueid .= $myrow["state_id"] . ',';
-                }
-            }
-            $statevalue = trim($statevalue, ',');
-            $statevalueid = trim($statevalueid, ',');
-            $state_hide = implode($state, ',');
-        }
-
-
-                if ($sector != '' && (count($sector) > 0)) {
-                    $sectorvalue = '';
-                    $sectorstr = implode(',',$sector); 
-                    $sectorssql = "select sector_name,sector_id from pe_sectors where sector_id IN ($sectorstr)";
-                   
-                    if ($sectors = mysql_query($sectorssql)) {
-                        while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
-                            $sectorvalue .= $myrow["sector_name"] . ',';
-                            $sectorvalueid .= $myrow["sector_id"] . ',';
-                        }
-                    }
-                   
-                    $sectorvalue = trim($sectorvalue, ',');
-                    // $industry_hide = implode($industry, ',');
-                }
-                
-                if ($subsector != '' && (count($subsector) > 0)) {
-                    $subsectorvalue = '';
-                    $subsectorvalue = implode(',',$subsector); 
-                }
-
-
-    // Round Value
-    if($round!="--" || $round != null)
-    {
-        $roundSql = $roundTxtVal = '';
-        foreach($round as $rounds)
-        {
-            $roundSql .= " `round` like '".$rounds."' or `round` like '".$rounds."-%' or ";
-            $roundTxtVal .= $rounds.',';
-        }
-        $roundTxtVal=  trim($roundTxtVal,',');
-        $roundSqlStr = trim($roundSql,' or ');
-        $roundSql="SELECT * FROM `peinvestments` where $roundSqlStr group by `round`";
-        if ($roundQuery = mysql_query($roundSql))
-        {   
-            $roundtxt='';
-            While($myrow=mysql_fetch_array($roundQuery, MYSQL_BOTH))
-            {
-                    $roundtxt.=$myrow["round"].",";
-            }
-            $roundtxt=  trim($roundtxt,',');
+$whereaddHideamount = "";
+if ($industry != '' && (count($industry) > 0)) {
+    $indusSql = $industryvalue = '';
+    foreach ($industry as $industrys) {
+        $indusSql.= " IndustryId=$industrys or ";
+    }
+    $indusSql = trim($indusSql, ' or ');
+    $industrysql = "select industry from industry where $indusSql";
+    if ($industryrs = mysql_query($industrysql)) {
+        While ($myrow = mysql_fetch_array($industryrs, MYSQL_BOTH)) {
+            $industryvalue.= $myrow["industry"] . ',';
         }
     }
-    //
+    $industryvalue = trim($industryvalue, ',');
+    $industry_hide = implode($industry, ',');
+}
+if ($state != '' && (count($state) > 0)) {
+    $indusSql = $statevalue = '';
+    $statevalueid = '';
+    foreach ($state as $states) {
+        $indusSql.= " state_id=$states or ";
+    }
+    $indusSql = trim($indusSql, ' or ');
+    $statesql = "select state_name,state_id from state where $indusSql";
+    if ($staters = mysql_query($statesql)) {
+        while ($myrow = mysql_fetch_array($staters, MYSQL_BOTH)) {
+            $statevalue.= $myrow["state_name"] . ',';
+            $statevalueid.= $myrow["state_id"] . ',';
+        }
+    }
+    $statevalue = trim($statevalue, ',');
+    $statevalueid = trim($statevalueid, ',');
+    $state_hide = implode($state, ',');
+}
+if ($sector != '' && (count($sector) > 0)) {
+    $sectorvalue = '';
+    $sectorstr = implode(',', $sector);
+    $sectorssql = "select sector_name,sector_id from pe_sectors where sector_id IN ($sectorstr)";
+    if ($sectors = mysql_query($sectorssql)) {
+        while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
+            $sectorvalue.= $myrow["sector_name"] . ',';
+            $sectorvalueid.= $myrow["sector_id"] . ',';
+        }
+    }
+    $sectorvalue = trim($sectorvalue, ',');
+    // $industry_hide = implode($industry, ',');
     
-    $stageCnt=0;
-            $cnt=0;
-            $stageCntSql="select count(StageId) as cnt from stage";
-            if($rsStageCnt=mysql_query($stageCntSql))
-            {
-              while($mystagecntrow=mysql_fetch_array($rsStageCnt,MYSQL_BOTH))
-               {
-                 $stageCnt=$mystagecntrow["cnt"];
-               }
-            }
-             if($boolStage==true)
-    {
-        foreach($stageval as $stageid)
-        {
-            $stagesql= "select Stage,StageId from stage where StageId=$stageid";
+}
+if ($subsector != '' && (count($subsector) > 0)) {
+    $subsectorvalue = '';
+    $subsectorvalue = implode(',', $subsector);
+}
+// Round Value
+if ($round != "--" || $round != null) {
+    $roundSql = $roundTxtVal = '';
+    foreach ($round as $rounds) {
+        $roundSql.= " `round` like '" . $rounds . "' or `round` like '" . $rounds . "-%' or ";
+        $roundTxtVal.= $rounds . ',';
+    }
+    $roundTxtVal = trim($roundTxtVal, ',');
+    $roundSqlStr = trim($roundSql, ' or ');
+    $roundSql = "SELECT * FROM `peinvestments` where $roundSqlStr group by `round`";
+    if ($roundQuery = mysql_query($roundSql)) {
+        $roundtxt = '';
+        While ($myrow = mysql_fetch_array($roundQuery, MYSQL_BOTH)) {
+            $roundtxt.= $myrow["round"] . ",";
+        }
+        $roundtxt = trim($roundtxt, ',');
+    }
+}
+//
+$stageCnt = 0;
+$cnt = 0;
+$stageCntSql = "select count(StageId) as cnt from stage";
+if ($rsStageCnt = mysql_query($stageCntSql)) {
+    while ($mystagecntrow = mysql_fetch_array($rsStageCnt, MYSQL_BOTH)) {
+        $stageCnt = $mystagecntrow["cnt"];
+    }
+}
+if ($boolStage == true) {
+    foreach ($stageval as $stageid) {
+        $stagesql = "select Stage,StageId from stage where StageId=$stageid";
         //  echo "<br>**".$stagesql;
-            if ($stagers = mysql_query($stagesql))
-            {
-                While($myrow=mysql_fetch_array($stagers, MYSQL_BOTH))
-                {
-                                            $cnt=$cnt+1;
-                    $stagevaluetext= $stagevaluetext. ",".$myrow["Stage"] ;
-                    $stagevalueid .= $myrow["StageId"] . ',';
-                }
-            }
-        }
-        $stagevaluetext =substr_replace($stagevaluetext, '', 0,1);
-        if($cnt==$stageCnt)
-        {      $stagevaluetext="All Stages";}
-        }
-    else
-        $stagevaluetext="";
-    //echo "<br>*************".$stagevaluetext;
-            
-             //valuations
-                if($boolvaluations==true)
-                {
-                   $valuationsql='';
-
-                   $count = count($valuations);
-
-
-
-                    if($count==1) { $valuationsql= "pe.$valuations[0]!=0 AND "; }
-                    else if ($count==2) { $valuationsql= "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0   AND "; }
-                    else if ($count==3) { $valuationsql= "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0  AND  pe.$valuations[2]!=0  AND "; }   
-
-        //            $valuattext =substr_replace($valuattext, '', 0,1);
-                    //echo $valuationsql; exit();
-               }
-               else { $valuationsql='';}
-            //valuations
-               
-               
-               
-    if($companyType=="L")
-            $companyTypeDisplay="Listed";
-    elseif($companyType=="U")
-                    $companyTypeDisplay="UnListed";
-        elseif($companyType=="--")
-                    $companyTypeDisplay="";
-
-            if($investorType !="--")
-        {
-            $invTypeSql= "select InvestorTypeName from investortype where InvestorType='$investorType'";
-                    if ($invrs = mysql_query($invTypeSql))
-                    {
-                        While($myrow=mysql_fetch_array($invrs, MYSQL_BOTH))
-                        {
-                            $invtypevalue=$myrow["InvestorTypeName"];
-                        }
-                    }
-    }
-    if ($investor_head != "--") {
-        $invheadSql = "select country from country where countryid='$investor_head'";
-        if ($invrs = mysql_query($invheadSql)) {
-            while ($myrow = mysql_fetch_array($invrs, MYSQL_BOTH)) {
-                $invheadvalue = $myrow["country"];
+        if ($stagers = mysql_query($stagesql)) {
+            While ($myrow = mysql_fetch_array($stagers, MYSQL_BOTH)) {
+                $cnt = $cnt + 1;
+                $stagevaluetext = $stagevaluetext . "," . $myrow["Stage"];
+                $stagevalueid.= $myrow["StageId"] . ',';
             }
         }
     }
-
-    if(count($regionId) >0)
-        {
-                $region_Sql = $regionvalue = '';
-                foreach($regionId as $regionIds)
-                {
-                    $region_Sql .= " RegionId=$regionIds or ";
-                }
-                $roundSqlStr = trim($region_Sql,' or ');
-                
-                $regionSql= "select Region,RegionId from region where $roundSqlStr";
-                if ($regionrs = mysql_query($regionSql))
-                {
-                    While($myregionrow=mysql_fetch_array($regionrs, MYSQL_BOTH))
-                    {
-                                $regionvalue .= $myregionrow["Region"].', ';
-                                $regionvalueId .= $myregionrow["RegionId"] . ', ';
-                    }
-                }
-                $regionvalue = trim($regionvalue,', ');
-                $region_hide = implode($regionId, ',');
+    $stagevaluetext = substr_replace($stagevaluetext, '', 0, 1);
+    if ($cnt == $stageCnt) {
+        $stagevaluetext = "All Stages";
     }
-
-    $searchString="Undisclosed";
-$searchString=strtolower($searchString);
-
-$searchString1="Unknown";
-$searchString1=strtolower($searchString1);
-
-$searchString2="Others";
-$searchString2=strtolower($searchString2);                        
-                           
+} else $stagevaluetext = "";
+//echo "<br>*************".$stagevaluetext;
+//valuations
+if ($boolvaluations == true) {
+    $valuationsql = '';
+    $count = count($valuations);
+    if ($count == 1) {
+        $valuationsql = "pe.$valuations[0]!=0 AND ";
+    } else if ($count == 2) {
+        $valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0   AND ";
+    } else if ($count == 3) {
+        $valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0  AND  pe.$valuations[2]!=0  AND ";
+    }
+    //            $valuattext =substr_replace($valuattext, '', 0,1);
+    //echo $valuationsql; exit();
     
+} else {
+    $valuationsql = '';
+}
+//valuations
+if ($companyType == "L") $companyTypeDisplay = "Listed";
+elseif ($companyType == "U") $companyTypeDisplay = "UnListed";
+elseif ($companyType == "--") $companyTypeDisplay = "";
+if ($investorType != "--") {
+    $invTypeSql = "select InvestorTypeName from investortype where InvestorType='$investorType'";
+    if ($invrs = mysql_query($invTypeSql)) {
+        While ($myrow = mysql_fetch_array($invrs, MYSQL_BOTH)) {
+            $invtypevalue = $myrow["InvestorTypeName"];
+        }
+    }
+}
+if ($investor_head != "--") {
+    $invheadSql = "select country from country where countryid='$investor_head'";
+    if ($invrs = mysql_query($invheadSql)) {
+        while ($myrow = mysql_fetch_array($invrs, MYSQL_BOTH)) {
+            $invheadvalue = $myrow["country"];
+        }
+    }
+}
+if (count($regionId) > 0) {
+    $region_Sql = $regionvalue = '';
+    foreach ($regionId as $regionIds) {
+        $region_Sql.= " RegionId=$regionIds or ";
+    }
+    $roundSqlStr = trim($region_Sql, ' or ');
+    $regionSql = "select Region,RegionId from region where $roundSqlStr";
+    if ($regionrs = mysql_query($regionSql)) {
+        While ($myregionrow = mysql_fetch_array($regionrs, MYSQL_BOTH)) {
+            $regionvalue.= $myregionrow["Region"] . ', ';
+            $regionvalueId.= $myregionrow["RegionId"] . ', ';
+        }
+    }
+    $regionvalue = trim($regionvalue, ', ');
+    $region_hide = implode($regionId, ',');
+}
+$searchString = "Undisclosed";
+$searchString = strtolower($searchString);
+$searchString1 = "Unknown";
+$searchString1 = strtolower($searchString1);
+$searchString2 = "Others";
+$searchString2 = strtolower($searchString2);
 ?>
 
 <?php
-$tour='Allow';
-    $defpage=$vcflagValue;
-    $investdef=1;
-    $stagedef=1;
-   
-    if($strvalue[3]=='Directory'){
-        if($VCFlagValue == 10 && $usrRgs['PEMa'] == 0){
-            $accesserror = 1;
-        } else if($VCFlagValue == 11 && $usrRgs['VCMa'] == 0){
-            $accesserror = 1;
-        } else if($VCFlagValue == 7 && $usrRgs['PEIpo'] == 0){
-            $accesserror = 1;
-        } else if($VCFlagValue == 8 && $usrRgs['VCIpo'] == 0){
-            $accesserror = 1;
-        }
-        $dealvalue=$strvalue[2];
-        $topNav = 'Directory'; 
-        include_once('dirnew_header.php');
-    }else{
-        $topNav = 'Deals'; 
-        include_once('tvheader_search_detail.php');
+$tour = 'Allow';
+$defpage = $vcflagValue;
+$investdef = 1;
+$stagedef = 1;
+if ($strvalue[3] == 'Directory') {
+    if ($VCFlagValue == 10 && $usrRgs['PEMa'] == 0) {
+        $accesserror = 1;
+    } else if ($VCFlagValue == 11 && $usrRgs['VCMa'] == 0) {
+        $accesserror = 1;
+    } else if ($VCFlagValue == 7 && $usrRgs['PEIpo'] == 0) {
+        $accesserror = 1;
+    } else if ($VCFlagValue == 8 && $usrRgs['VCIpo'] == 0) {
+        $accesserror = 1;
     }
-
-// SHP 
-
+    $dealvalue = $strvalue[2];
+    $topNav = 'Directory';
+    include_once ('dirnew_header.php');
+} else {
+    $topNav = 'Deals';
+    include_once ('tvheader_search_detail.php');
+}
+// SHP
 // Main Table Values For Percentage
-$getMainTablesSql="select * from pe_shp where PEId=$IPO_MandAId limit 1";
+$getMainTablesSql = "select * from pe_shp where PEId=$IPO_MandAId limit 1";
 $mainTableValidate = mysql_query($getMainTablesSql);
 $Maintable_Valid_Count = mysql_num_rows($mainTableValidate);
-
-if($Maintable_Valid_Count != 0){
-$mainTable = mysql_fetch_array($mainTableValidate);
-$mainTable_ESOP = $mainTable['ESOP'];
-$mainTable_Others = $mainTable['Others'];
-$mainTable_investor_total = $mainTable['pe_shp_investor_total'];
-$mainTable_promoters_total = $mainTable['pe_shp_promoters_total'];
-}else{
-$mainTable_ESOP = "";
-$mainTable_Others = "";
-$mainTable_investor_total = "";
-$mainTable_promoters_total = "";
+if ($Maintable_Valid_Count != 0) {
+    $mainTable = mysql_fetch_array($mainTableValidate);
+    $mainTable_ESOP = $mainTable['ESOP'];
+    $mainTable_Others = $mainTable['Others'];
+    $mainTable_investor_total = $mainTable['pe_shp_investor_total'];
+    $mainTable_promoters_total = $mainTable['pe_shp_promoters_total'];
+} else {
+    $mainTable_ESOP = "";
+    $mainTable_Others = "";
+    $mainTable_investor_total = "";
+    $mainTable_promoters_total = "";
 }
 ?>
 <style>
@@ -3461,37 +3270,28 @@ text-decoration: underline;
 <div id="panel" style="display:block; overflow:visible; clear:both;">
 
 <?php
-if($VCFlagValue==0)
-{
-       $pageUrl="index.php?value=0";
-       $pageTitle="PE Investment";
-       $refineUrl="refine.php";
+if ($VCFlagValue == 0) {
+    $pageUrl = "index.php?value=0";
+    $pageTitle = "PE Investment";
+    $refineUrl = "refine.php";
+} elseif ($VCFlagValue == 1) {
+    $pageTitle = "VC Investment";
+    $pageUrl = "index.php?value=1";
+    $refineUrl = "refine.php";
+} elseif ($VCFlagValue == 3) {
+    $pageTitle = "Social Venture Investment";
+    $pageUrl = "svindex.php?value=3";
+    $refineUrl = "svrefine.php";
+} elseif ($VCFlagValue == 4) {
+    $pageUrl = "CleanTech Investment";
+    $pageUrl = "svindex.php?value=4";
+    $refineUrl = "svrefine.php";
+} elseif ($VCFlagValue == 5) {
+    $pageTitle = "Infrastructure Investment";
+    $pageUrl = "svindex.php?value=5";
+    $refineUrl = "svrefine.php";
 }
-elseif($VCFlagValue==1)
-{
-       $pageTitle="VC Investment";
-       $pageUrl="index.php?value=1";
-       $refineUrl="refine.php";
-}
-elseif($VCFlagValue==3)
-{
-         $pageTitle="Social Venture Investment";
-       $pageUrl="svindex.php?value=3";
-        $refineUrl="svrefine.php";
-}
-elseif($VCFlagValue==4)
-{
-       $pageUrl="CleanTech Investment";
-       $pageUrl="svindex.php?value=4";
-        $refineUrl="svrefine.php";
-}
-elseif($VCFlagValue==5)
-{
-       $pageTitle="Infrastructure Investment";
-       $pageUrl="svindex.php?value=5";
-        $refineUrl="svrefine.php";
-}
-include_once($refineUrl); ?>
+include_once ($refineUrl); ?>
  <input type="hidden" name="resetfield" value="" id="resetfield"/>
  <input type="hidden" name="resetfieldid" value="" id="resetfieldid"/>
 </div>
@@ -3499,36 +3299,30 @@ include_once($refineUrl); ?>
 </td>
 
 <?php
-    $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
-    $strvalue = explode("/", $value);
-    $SelCompRef=$strvalue[0];
-    
-    //GET PREV NEXT ID
-    $prevNextArr = array();
-    $prevNextArr = $_SESSION['resultId'];
-            $coscount = $_SESSION['coscount'];
-            $totalcount = $_SESSION['totalcount'];
-
-    $currentKey = array_search($SelCompRef,$prevNextArr);
-    $prevKey = ($currentKey == 0) ?  '-1' : $currentKey-1; 
-    $nextKey = $currentKey+1;
-    
-    $flagvalue=$strvalue[1];
-    $searchstring=$strvalue[2];
-   
-    $exportToExcel=0;
-    $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin from dealcompanies as dc,dealmembers as dm
+$value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
+$strvalue = explode("/", $value);
+$SelCompRef = $strvalue[0];
+//GET PREV NEXT ID
+$prevNextArr = array();
+$prevNextArr = $_SESSION['resultId'];
+$coscount = $_SESSION['coscount'];
+$totalcount = $_SESSION['totalcount'];
+$currentKey = array_search($SelCompRef, $prevNextArr);
+$prevKey = ($currentKey == 0) ? '-1' : $currentKey - 1;
+$nextKey = $currentKey + 1;
+$flagvalue = $strvalue[1];
+$searchstring = $strvalue[2];
+$exportToExcel = 0;
+$TrialSql = "select dm.DCompId,dc.DCompId,TrialLogin from dealcompanies as dc,dealmembers as dm
     where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
-    //echo "<br>---" .$TrialSql;
-    if($trialrs=mysql_query($TrialSql))
-    {
-            while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
-            {
-                 $exportToExcel=$trialrow["TrialLogin"];
-            }
+//echo "<br>---" .$TrialSql;
+if ($trialrs = mysql_query($TrialSql)) {
+    while ($trialrow = mysql_fetch_array($trialrs, MYSQL_BOTH)) {
+        $exportToExcel = $trialrow["TrialLogin"];
     }
-                //$SelCompRef=$value;
-        $sql="SELECT pe.PECompanyId, pe.price_to_book, pe.book_value_per_share, pe.price_per_share, pec.companyname, pec.industry as industryId, i.industry, pec.sector_business,
+}
+//$SelCompRef=$value;
+$sql = "SELECT pe.PECompanyId, pe.price_to_book, pe.book_value_per_share, pe.price_per_share, pec.companyname, pec.industry as industryId, i.industry, pec.sector_business,
      amount, round, s.Stage, stakepercentage, DATE_FORMAT( dates, '%b-%y' ) as dt,pe.dates, pec.website, pec.linkedIn, pec.city,
      pec.region,pe.PEId,comment,MoreInfor,hideamount,hidestake,pec.countryid,pec.CINNo,
     pe.InvestorType, its.InvestorTypeName,pe.StageId,pe.Link,pe.uploadfilename,pe.source,
@@ -3542,223 +3336,162 @@ include_once($refineUrl); ?>
      and pe.PEId=$SelCompRef and s.StageId=pe.StageId
      and its.InvestorType=pe.InvestorType ";
 //echo "<br>********".$sql;
-
 /*$investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,hide_amount from peinvestments_investors as peinv,
-    peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY Investor='others',InvestorId desc";*/
-    $investorSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY peinv.investorOrder ASC";
-
-
+ peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY Investor='others',InvestorId desc";*/
+$investorSql = "select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.hide_amount,peinv.exclude_dp,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where peinv.PEId=$SelCompRef and inv.InvestorId=peinv.InvestorId ORDER BY peinv.investorOrder ASC";
 //echo "<Br>Investor".$investorSql;
-
-$advcompanysql="select advcomp.PEId,advcomp.CIAId,cia.cianame,AdvisorType from peinvestments_advisorcompanies as advcomp,
+$advcompanysql = "select advcomp.PEId,advcomp.CIAId,cia.cianame,AdvisorType from peinvestments_advisorcompanies as advcomp,
 advisor_cias as cia where advcomp.PEId=$SelCompRef and advcomp.CIAId=cia.CIAId";
 //echo "<Br>".$advcompanysql;
-
-$advinvestorssql="select advinv.PEId,advinv.CIAId,cia.cianame,AdvisorType from peinvestments_advisorinvestors as advinv,
+$advinvestorssql = "select advinv.PEId,advinv.CIAId,cia.cianame,AdvisorType from peinvestments_advisorinvestors as advinv,
 advisor_cias as cia where advinv.PEId=$SelCompRef and advinv.CIAId=cia.CIAId";
-
- $onMgmtSql="select pec.PECompanyId,mgmt.PECompanyId,mgmt.ExecutiveId,
+$onMgmtSql = "select pec.PECompanyId,mgmt.PECompanyId,mgmt.ExecutiveId,
                     exe.ExecutiveName,exe.Designation,exe.Company from
                     pecompanies as pec,executives as exe,pecompanies_management as mgmt,peinvestments AS pe
     where pe.PEId=$SelCompRef and  pec.PEcompanyID = pe.PECompanyID and mgmt.PECompanyId=pec.PECompanyId and exe.ExecutiveId=mgmt.ExecutiveId";
-
-
-
-    $global_hideamount=0;
-    if ($companyrs = mysql_query($sql))
-    {  ?>
+$global_hideamount = 0;
+if ($companyrs = mysql_query($sql)) { ?>
                    
-        <?php if($myrow=mysql_fetch_array($companyrs,MYSQL_BOTH))
-        {
-                $industryId = $myrow["industryId"];
-                $regionid=$myrow["RegionId"];
-                $crossBorder=$myrow["crossBorder"];
-                $countryid=$myrow["countryid"];
-                $Address1=$myrow["Address1"];
-                $Address2=$myrow["Address2"];
-                $PECompanyId = $myrow["PECompanyId"];
-                $linkedIn=$myrow["linkedIn"];
-                $Tel=$myrow["Telephone"];
-                $Email=$myrow["Email"];
-                $CIN=$myrow["CINNo"];
-                if($regionid>0)
-                { $regionname=return_insert_get_RegionIdName($regionid); }
-                else
-                { $regionname=$myrow["region"]; }
-            //echo $countryid;
-                $countryname=return_insert_get_CountryName($countryid);
-                // if($countryid != '')
-                // { $countryname=return_insert_get_CountryName($countryid); }
-                // else
-                // { $countryname=$myrow["countryid"]; }
-
-                if($myrow["SPV"]==1)
-                {
-                    $openDebtBracket="[";
-                    $closeDebtBracket="]";
-                }
-                else
-                {
-                    $openDebtBracket="";
-                    $closeDebtBracket="";
-                
-                }
-                if($myrow["AggHide"]==1)
-                {
-                    $openBracket="(";
-                    $closeBracket=")";
-                }
-                else
-                {
-                    $openBracket="";
-                    $closeBracket="";
-                }
-
-                if($myrow["hideamount"]==1)
-                {
-                    $hideamount="--";
-                    $hideamount_INR="--";
-                    $global_hideamount = 1;
-                }
-                else
-                {
-                    $hideamount=$myrow["amount"];
-                    $hideamount_INR=$myrow["Amount_INR"];
-                }
-
-                if($myrow["hidestake"]==1)
-                {
-                    $hidestake="--";
-                }
-                else
-                {
-                    $hidestake=$myrow["stakepercentage"];
-                    if($myrow["stakepercentage"]>0)
-                        $hidestake=$myrow["stakepercentage"];
-                    else
-                        $hidestake="&nbsp;";
-                }
-                
-                $valuation=$myrow["Valuation"];
-                if($valuation!="")
-                {
-                    $valuationdata = explode("\n", $valuation);
-                }
-                                    
-//                                        if($myrow["Revenue"]<=0)
-//                                            $dec_revenue=0.00;
-//                                        else
-                                        $dec_revenue=$myrow["Revenue"];
-
-//                                        if($myrow["EBITDA"]<=0)
-//                                            $dec_ebitda=0.00;
-//                                        else
-                                        $dec_ebitda=$myrow["EBITDA"];
-//                                        if($myrow["PAT"]<=0)
-//                                            $dec_pat=0.00;
-//                                        else
-                                        $dec_pat=$myrow["PAT"];
-                                    
-                                    if($myrow["CINNo"] != ''){
-                                        $cinno = $myrow["CINNo"];
-                                    }else{
-                                        $cinno = 0;
-                                    }
-    /*if($myrow["Company_Valuation"]<=0)
+        <?php if ($myrow = mysql_fetch_array($companyrs, MYSQL_BOTH)) {
+        $industryId = $myrow["industryId"];
+        $regionid = $myrow["RegionId"];
+        $crossBorder = $myrow["crossBorder"];
+        $countryid = $myrow["countryid"];
+        $Address1 = $myrow["Address1"];
+        $Address2 = $myrow["Address2"];
+        $PECompanyId = $myrow["PECompanyId"];
+        $linkedIn = $myrow["linkedIn"];
+        $Tel = $myrow["Telephone"];
+        $Email = $myrow["Email"];
+        $CIN = $myrow["CINNo"];
+        if ($regionid > 0) {
+            $regionname = return_insert_get_RegionIdName($regionid);
+        } else {
+            $regionname = $myrow["region"];
+        }
+        //echo $countryid;
+        $countryname = return_insert_get_CountryName($countryid);
+        // if($countryid != '')
+        // { $countryname=return_insert_get_CountryName($countryid); }
+        // else
+        // { $countryname=$myrow["countryid"]; }
+        if ($myrow["SPV"] == 1) {
+            $openDebtBracket = "[";
+            $closeDebtBracket = "]";
+        } else {
+            $openDebtBracket = "";
+            $closeDebtBracket = "";
+        }
+        if ($myrow["AggHide"] == 1) {
+            $openBracket = "(";
+            $closeBracket = ")";
+        } else {
+            $openBracket = "";
+            $closeBracket = "";
+        }
+        if ($myrow["hideamount"] == 1) {
+            $hideamount = "--";
+            $hideamount_INR = "--";
+            $global_hideamount = 1;
+        } else {
+            $hideamount = $myrow["amount"];
+            $hideamount_INR = $myrow["Amount_INR"];
+        }
+        if ($myrow["hidestake"] == 1) {
+            $hidestake = "--";
+        } else {
+            $hidestake = $myrow["stakepercentage"];
+            if ($myrow["stakepercentage"] > 0) $hidestake = $myrow["stakepercentage"];
+            else $hidestake = "&nbsp;";
+        }
+        $valuation = $myrow["Valuation"];
+        if ($valuation != "") {
+            $valuationdata = explode("\n", $valuation);
+        }
+        //                                        if($myrow["Revenue"]<=0)
+        //                                            $dec_revenue=0.00;
+        //                                        else
+        $dec_revenue = $myrow["Revenue"];
+        //                                        if($myrow["EBITDA"]<=0)
+        //                                            $dec_ebitda=0.00;
+        //                                        else
+        $dec_ebitda = $myrow["EBITDA"];
+        //                                        if($myrow["PAT"]<=0)
+        //                                            $dec_pat=0.00;
+        //                                        else
+        $dec_pat = $myrow["PAT"];
+        if ($myrow["CINNo"] != '') {
+            $cinno = $myrow["CINNo"];
+        } else {
+            $cinno = 0;
+        }
+        /*if($myrow["Company_Valuation"]<=0)
                 $dec_company_valuation=0.00;
             else
                 $dec_company_valuation=$myrow["Company_Valuation"];*/
-           $dec_company_valuation=$myrow["Company_Valuation_pre"];
-           $dec_company_valuation1=$myrow["Company_Valuation"];
-           $dec_company_valuation2=$myrow["Company_Valuation_EV"];
-                                        
-            /*if($myrow["Revenue_Multiple"]<=0)
+        $dec_company_valuation = $myrow["Company_Valuation_pre"];
+        $dec_company_valuation1 = $myrow["Company_Valuation"];
+        $dec_company_valuation2 = $myrow["Company_Valuation_EV"];
+        /*if($myrow["Revenue_Multiple"]<=0)
                 $dec_revenue_multiple=0.00;
             else
                 $dec_revenue_multiple=$myrow["Revenue_Multiple"];*/
-            $dec_revenue_multiple=$myrow["Revenue_Multiple_pre"];
-            $dec_revenue_multiple1=$myrow["Revenue_Multiple"];
-            $dec_revenue_multiple2=$myrow["Revenue_Multiple_EV"];
-
-            /*if($myrow["EBITDA_Multiple"]<=0)
+        $dec_revenue_multiple = $myrow["Revenue_Multiple_pre"];
+        $dec_revenue_multiple1 = $myrow["Revenue_Multiple"];
+        $dec_revenue_multiple2 = $myrow["Revenue_Multiple_EV"];
+        /*if($myrow["EBITDA_Multiple"]<=0)
                 $dec_ebitda_multiple=0.00;
             else
                 $dec_ebitda_multiple=$myrow["EBITDA_Multiple"];*/
-            $dec_ebitda_multiple=$myrow["EBITDA_Multiple_pre"];
-            $dec_ebitda_multiple1=$myrow["EBITDA_Multiple"];
-            $dec_ebitda_multiple2=$myrow["EBITDA_Multiple_EV"];
-            
-    /*if($myrow["PAT_Multiple"]<=0)
+        $dec_ebitda_multiple = $myrow["EBITDA_Multiple_pre"];
+        $dec_ebitda_multiple1 = $myrow["EBITDA_Multiple"];
+        $dec_ebitda_multiple2 = $myrow["EBITDA_Multiple_EV"];
+        /*if($myrow["PAT_Multiple"]<=0)
                 $dec_pat_multiple=0.00;
             else
                 $dec_pat_multiple=$myrow["PAT_Multiple"];*/
-            $dec_pat_multiple=$myrow["PAT_Multiple_pre"];
-            $dec_pat_multiple1=$myrow["PAT_Multiple"];
-            $dec_pat_multiple2=$myrow["PAT_Multiple_EV"];
-                
-            $Total_Debt=$myrow["Total_Debt"];
-            $Cash_Equ=$myrow["Cash_Equ"];
-            $financial_year=$myrow["financial_year"];
-
-        // New Feature 08-08-2016 start 
-
-                if($myrow["price_to_book"]<=0)
-                        $price_to_book=0.00;
-                else
-                        $price_to_book=$myrow["price_to_book"];
-
-
-                if($myrow["book_value_per_share"]<=0)
-                        $book_value_per_share=0.00;
-                else
-                        $book_value_per_share=$myrow["book_value_per_share"];
-
-
-               if($myrow["price_per_share"]!='' && $myrow["price_per_share"] > 0){
-                    
-                    $price_per_share=$myrow["price_per_share"];
-                }else{
-                    $price_per_share='';
-                }
-
+        $dec_pat_multiple = $myrow["PAT_Multiple_pre"];
+        $dec_pat_multiple1 = $myrow["PAT_Multiple"];
+        $dec_pat_multiple2 = $myrow["PAT_Multiple_EV"];
+        $Total_Debt = $myrow["Total_Debt"];
+        $Cash_Equ = $myrow["Cash_Equ"];
+        $financial_year = $myrow["financial_year"];
+        // New Feature 08-08-2016 start
+        if ($myrow["price_to_book"] <= 0) $price_to_book = 0.00;
+        else $price_to_book = $myrow["price_to_book"];
+        if ($myrow["book_value_per_share"] <= 0) $book_value_per_share = 0.00;
+        else $book_value_per_share = $myrow["book_value_per_share"];
+        if ($myrow["price_per_share"] != '' && $myrow["price_per_share"] > 0) {
+            $price_per_share = $myrow["price_per_share"];
+        } else {
+            $price_per_share = '';
+        }
         // New Feature 08-08-2016 end
-
-                if($myrow["listing_status"]=="L")
-                    $listing_stauts_display="Listed";
-                elseif($myrow["listing_status"]=="U")
-                    $listing_stauts_display="Unlisted";
-    //echo "<bR>---".$valuationdata;
-
-
-        $moreinfor=$myrow["MoreInfor"];
-      //$moreinfor=nl2br($moreinfor);
-           //echo "<bR>".$moreinfor;
+        if ($myrow["listing_status"] == "L") $listing_stauts_display = "Listed";
+        elseif ($myrow["listing_status"] == "U") $listing_stauts_display = "Unlisted";
+        //echo "<bR>---".$valuationdata;
+        $moreinfor = $myrow["MoreInfor"];
+        //$moreinfor=nl2br($moreinfor);
+        //echo "<bR>".$moreinfor;
         $string = $moreinfor;
         /*** an array of words to highlight ***/
         $words = array($searchstring);
         //$words="warrants convertible";
         /*** highlight the words ***/
-        $moreinfor =  highlightWords($string, $words);
-
-        $col6=trim($myrow["Link"]);
-        $linkstring=str_replace('"','',$col6);
-        $linkstring=explode(";",$linkstring);
-        $uploadname=$myrow["uploadfilename"];
-        $currentdir=getcwd();
+        $moreinfor = highlightWords($string, $words);
+        $col6 = trim($myrow["Link"]);
+        $linkstring = str_replace('"', '', $col6);
+        $linkstring = explode(";", $linkstring);
+        $uploadname = $myrow["uploadfilename"];
+        $currentdir = getcwd();
         $target = $currentdir . "../uploadmamafiles/" . $uploadname;
-
         $file = "../uploadmamafiles/" . $uploadname;
     }
-    
-    }
-            
-            if($debt_equity == 0)
-        $debt_equityDisplay="Equity only";
-    elseif($debt_equity == 1)
-        $debt_equityDisplay="Debt only";
-    elseif($debt_equity == "--")
-        $debt_equityDisplay="Both";
- ?>
+}
+if ($debt_equity == 0) $debt_equityDisplay = "Equity only";
+elseif ($debt_equity == 1) $debt_equityDisplay = "Debt only";
+elseif ($debt_equity == "--") $debt_equityDisplay = "Both";
+?>
 <style>
 /*1034*/
 .details_linkma:hover{
@@ -3783,561 +3516,572 @@ advisor_cias as cia where advinv.PEId=$SelCompRef and advinv.CIAId=cia.CIAId";
     margin-top: -24px;
 }
 #deal_info table, #valuation_info table, #financials_info table {
-<?php if($uploadname == ''){ ?>
+<?php if ($uploadname == '') { ?>
     padding-bottom: 20px;
-<?php }else{ ?>
+<?php
+} else { ?>
     padding-bottom: 15px;    
-<?php } ?>
+<?php
+} ?>
 }</style>
 
-<?php 
-
-require_once('aws.php');    // load logins
-require_once('aws.phar');
-
+<?php
+require_once ('aws.php'); // load logins
+require_once ('aws.phar');
 use Aws\S3\S3Client;
-
-$client = S3Client::factory(array(
-    'key'    => $GLOBALS['key'],
-    'secret' => $GLOBALS['secret']
-));
-
+$client = S3Client::factory(array('key' => $GLOBALS['key'], 'secret' => $GLOBALS['secret']));
 $bucket = $GLOBALS['bucket'];
-
-$iterator = $client->getIterator('ListObjects', array(
-    'Bucket' => $bucket,
-    'Prefix' => $GLOBALS['root'] . $myrow["companyname"]
-));
-
-$c1=0;$c2=0;
-
-    $items = $object1 = array();
-    $foldername = '';
-    $items1 = array();
-    $filesarr = array();
-
+$iterator = $client->getIterator('ListObjects', array('Bucket' => $bucket, 'Prefix' => $GLOBALS['root'] . $myrow["companyname"]));
+$c1 = 0;
+$c2 = 0;
+$items = $object1 = array();
+$foldername = '';
+$items1 = array();
+$filesarr = array();
 try {
-        $valCount = iterator_count($iterator);
-    } catch(Exception $e){}
-
-    if($valCount > 0){
-
-    foreach($iterator as $object){
-         $fileName =  $object['Key'];
-
-        if($object['Size'] == 0){
-            $foldername = explode("/", $object['Key']);
-        } 
-        //condition check in same company
-        if($foldername[1] == $myrow["companyname"])
-        {
-        $signedUrl = $client->getObjectUrl($bucket, $fileName, '+60 minutes');
-
-        $pieces = explode("/", $fileName);
-        $pieces = $pieces[ sizeof($pieces) - 1 ];
-
-        $fileNameExt = $pieces;
-        $ex_ext = explode(".", $fileName);
-        $ext = $ex_ext[count($ex_ext)-1];
-       
-        if ( strpos($fileNameExt, $ext) + strlen($ext) != strlen($fileNameExt) ){
-            continue;
-        }
-
-        $c1 = $c1 + 1;
-
-        $c2 = $c2 + 1;
-        
-        $items1[$foldername[sizeof($foldername) - 2]][$pieces] = $signedUrl;    
-
-        array_push($items, array('name'=>$str) );
-
-    }   // foreach
-
-    $result = $c2. " of ". $c1;
+    $valCount = iterator_count($iterator);
 }
+catch(Exception $e) {
+}
+if ($valCount > 0) {
+    foreach ($iterator as $object) {
+        $fileName = $object['Key'];
+        if ($object['Size'] == 0) {
+            $foldername = explode("/", $object['Key']);
+        }
+        //condition check in same company
+        if ($foldername[1] == $myrow["companyname"]) {
+            $signedUrl = $client->getObjectUrl($bucket, $fileName, '+60 minutes');
+            $pieces = explode("/", $fileName);
+            $pieces = $pieces[sizeof($pieces) - 1];
+            $fileNameExt = $pieces;
+            $ex_ext = explode(".", $fileName);
+            $ext = $ex_ext[count($ex_ext) - 1];
+            if (strpos($fileNameExt, $ext) + strlen($ext) != strlen($fileNameExt)) {
+                continue;
+            }
+            $c1 = $c1 + 1;
+            $c2 = $c2 + 1;
+            $items1[$foldername[sizeof($foldername) - 2]][$pieces] = $signedUrl;
+            array_push($items, array('name' => $str));
+        } // foreach
+        $result = $c2 . " of " . $c1;
+    }
 }
 ?>
 
 <td class="profile-view-left" style="width:100%;">
 <div class="result-cnt"> 
     
-        <?php if ($accesserror==1){?>
+        <?php if ($accesserror == 1) { ?>
                     <div class="alert-note"><b>You are not subscribed to this database. To subscribe <a href="<?php echo BASE_URL; ?>contactus.htm" target="_blank">Click here</a></b></div>
         <?php
-                exit; 
-                } 
-        
-        $pe_industries = explode(',', $_SESSION['PE_industries']);
-        if(!in_array($industryId,$pe_industries)){
-            
-            echo '<div style="font-size:20px;padding:10px 10px 10px 10px;"><b> You dont have access to this information!</b></div>';
-            exit;
-        } ?>
+    exit;
+}
+$pe_industries = explode(',', $_SESSION['PE_industries']);
+if (!in_array($industryId, $pe_industries)) {
+    echo '<div style="font-size:20px;padding:10px 10px 10px 10px;"><b> You dont have access to this information!</b></div>';
+    exit;
+} ?>
                     
 <div class="result-title"> 
    
-    <?php if(!$_POST){ ?> 
+    <?php if (!$_POST) { ?> 
                         <!-- <h2>
                             <?php
-                             /*if($studentOption==1 || $exportToExcel==1)
-                                    {*/
-                                 ?>
+    /*if($studentOption==1 || $exportToExcel==1)
+     {*/
+?>
                                       <span class="result-no"><?php echo count($prevNextArr); ?> Results Found (across <?php echo $coscount; ?> cos) </span> 
-                            <?php   /*} 
+                            <?php /*}
                                     else 
                                     {
                                   ?>
                                          <span class="result-no"> XXX Results Found</span> 
                                <?php
                                     }*/
-                           if( $vcflagValue ==0)
-                               {
-                                 ?>
+    if ($vcflagValue == 0) {
+?>
                                       <span class="result-for">  for PE Investment</span>  
                                      
-                            <?php } 
-                                else if( $vcflagValue ==1)
-                                {?>
+                            <?php
+    } else if ($vcflagValue == 1) { ?>
                                       <span class="result-for">  for VC Investment</span>  
                                        
-                          <?php }
-                           else if( $vcflagValue ==3){ ?>
+                          <?php
+    } else if ($vcflagValue == 3) { ?>
                                 <span class="result-for">  for Social Venture Investments</span>  
                                
-                          <?php  } 
-                          else if( $vcflagValue ==4){ ?>
+                          <?php
+    } else if ($vcflagValue == 4) { ?>
                                 <span class="result-for">  for Cleantech Investments</span>  
                                
-                          <?php  }
-                          else if( $vcflagValue ==5){ ?>
+                          <?php
+    } else if ($vcflagValue == 5) { ?>
                                 <span class="result-for">  for Infrastructure Investments</span>  
                                
-                          <?php  }?>
+                          <?php
+    } ?>
                          </h2> -->
                            
                         <div class="title-links">
                             
                             <input class="senddeal" type="button" id="senddeal" value="Send this deal to your colleague" name="senddeal">
-                            <?php 
-
-                            if(($exportToExcel==1))
-                                 {
-                                 ?>
+                            <?php
+    if (($exportToExcel == 1)) {
+?>
 
                                                      <a class="export" id="expshowdeals" name="showdeal" style=" padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Export</a>
 
 
                                  <?php
-                                 }else { ?>
+    } else { ?>
                                                      <a class ="export" id="expshowdeals" target="_blank" href="../xls/Sample_Sheet_Investments.xls"  style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
-                             <?php } ?>
+                             <?php
+    } ?>
                          </div>
     
-                          <?php if($datevalueDisplay1!=""){  ?>
+                          <?php if ($datevalueDisplay1 != "") { ?>
                                       <ul class="result-select" style="max-width: 54%;">
                                           <li> 
-                                            <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                            <?php echo $datevalueDisplay1 . "-" . $datevalueDisplay2; ?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                           </li>
                                       </ul>
-                            <?php } 
-                            
-                               }
-                               else 
-                               { ?> 
+                            <?php
+    }
+} else { ?> 
                              
                         <div class="title-links">
                             
                             <input class="senddeal" type="button" id="senddeal" value="Send this deal to your colleague" name="senddeal">
-                            <?php 
-
-                            if(($exportToExcel==1))
-                                 {
-                                 ?>
+                            <?php
+    if (($exportToExcel == 1)) {
+?>
 
                                                      <a class="export" id="expshowdeals" name="showdeal" style="padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Export</a>
 
 
                                  <?php
-                                 }else { ?>
+    } else { ?>
                                                      <a class ="export" id="expshowdeals" target="_blank" href="../xls/Sample_Sheet_Investments.xls" style="float:right;padding: 7px 10px !important;"><!-- <span class="download-icon"></span> -->Sample Export</a>
-                             <?php } ?>
+                             <?php
+    } ?>
                              
                          </div>
                             <ul class="result-select" style="    max-width: 54%;">
                             <?php
-                             //echo $queryDisplayTitle;
-                             if($datevalueDisplay1!=""){ ?>
+    //echo $queryDisplayTitle;
+    if ($datevalueDisplay1 != "") { ?>
                                 <li> 
-                                    <?php echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    <?php echo $datevalueDisplay1 . "-" . $datevalueDisplay2; ?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
-                                <?php } 
-                             //echo $queryDisplayTitle;
-                            if($industry >0 && $industry!=null){ ?>
-                            <?php $industryarray = explode(",",$industryvalue); 
-                            $industryidarray = explode(",",$industryvalueid); 
-                                foreach ($industryarray as $key=>$value){  ?>
+                                <?php
+    }
+    //echo $queryDisplayTitle;
+    if ($industry > 0 && $industry != null) { ?>
+                            <?php $industryarray = explode(",", $industryvalue);
+        $industryidarray = explode(",", $industryvalueid);
+        foreach ($industryarray as $key => $value) { ?>
                                   <li>
-                                      <?php echo $value; ?><a  onclick="resetmultipleinput('industry',<?php echo $industryidarray[$key]; ?>,<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                      <?php echo $value; ?><a  onclick="resetmultipleinput('industry',<?php echo $industryidarray[$key]; ?>,<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                   </li>
-                                <?php } ?>
-                            <?php } 
-                            if ($state > 0 && $state != null) {$drilldownflag = 0;?>
-                               <?php $statearray = explode(",",$statevalue); 
-                            $stateidarray = explode(",",$statevalueid); 
-                                foreach ($statearray as $key=>$value){  ?>
+                                <?php
+        } ?>
+                            <?php
+    }
+    if ($state > 0 && $state != null) {
+        $drilldownflag = 0; ?>
+                               <?php $statearray = explode(",", $statevalue);
+        $stateidarray = explode(",", $statevalueid);
+        foreach ($statearray as $key => $value) { ?>
                                   <li>
-                                      <?php echo $value; ?><a  onclick="resetmultipleinput('state',<?php echo $stateidarray[$key]; ?>,<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                      <?php echo $value; ?><a  onclick="resetmultipleinput('state',<?php echo $stateidarray[$key]; ?>,<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                   </li>
-                                <?php } ?>
-                              <?php }
-                            if ($sector > 0 && $sector != null) {$drilldownflag = 0;?>
+                                <?php
+        } ?>
+                              <?php
+    }
+    if ($sector > 0 && $sector != null) {
+        $drilldownflag = 0; ?>
                                 <!-- <li>
                                     <?php echo $sectorvalue; ?><a  onclick="resetinput('sector');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li> -->
                                  <?php
-                                   $sectorarray = explode(",",$sectorvalue); 
-                                                   $sectoridarray = explode(",",$sectorvalueid); 
-                                                        foreach ($sectorarray as $key=>$value){  ?>
+        $sectorarray = explode(",", $sectorvalue);
+        $sectoridarray = explode(",", $sectorvalueid);
+        foreach ($sectorarray as $key => $value) { ?>
                                                           <li>
-                                                             <?php echo $value; ?><a  onclick="resetmultipleinput('sector',<?php echo $sectoridarray[$key]; ?>,<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                                             <?php echo $value; ?><a  onclick="resetmultipleinput('sector',<?php echo $sectoridarray[$key]; ?>,<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                                           </li>
-                                                        <?php } ?>
-                              <?php }
-                                if (count($dealsinvolvingvalue) > 0) {
-      
-                                    foreach ($dealsinvolvingvalue as $dealsinvolvingval) {
-                                        
-                                        if ($dealsinvolvingval == 1) {
-                        
-                                            $dealsinvolvingfilter .= 'New Investor, ';
-                        
-                                        } else if ($dealsinvolvingval == 2) {
-                        
-                                            $dealsinvolvingfilter .= 'Existing Investor, ';
-                        
-                                        } else {
-                                            $dealsinvolvingfilter = '';
-                                        }
-                                    }
-                                    $dealsinvolvingfilter = trim($dealsinvolvingfilter, ', ');
-                                }
-                                  if ($dealsinvolvingfilter != '') {?>
+                                                        <?php
+        } ?>
+                              <?php
+    }
+    if (count($dealsinvolvingvalue) > 0) {
+        foreach ($dealsinvolvingvalue as $dealsinvolvingval) {
+            if ($dealsinvolvingval == 1) {
+                $dealsinvolvingfilter.= 'New Investor, ';
+            } else if ($dealsinvolvingval == 2) {
+                $dealsinvolvingfilter.= 'Existing Investor, ';
+            } else {
+                $dealsinvolvingfilter = '';
+            }
+        }
+        $dealsinvolvingfilter = trim($dealsinvolvingfilter, ', ');
+    }
+    if ($dealsinvolvingfilter != '') { ?>
                                       
                                       
-                                       <?php $dealsarray = explode(",",$dealsinvolvingfilter); 
-                        
-                                   
-                                        foreach ($dealsarray as $key=>$value){ ?>
+                                       <?php $dealsarray = explode(",", $dealsinvolvingfilter);
+        foreach ($dealsarray as $key => $value) { ?>
                                           <li>
-                                              <?php echo $value; ?><a  onclick="resetmultipleinput('dealsinvolving','<?php echo $dealsarray[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                              <?php echo $value; ?><a  onclick="resetmultipleinput('dealsinvolving','<?php echo $dealsarray[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                           </li>
-                                        <?php } ?>
+                                        <?php
+        } ?>
                                      
-                                      <?php }
-                                if ($subsector > 0 && $subsector != null) {$drilldownflag = 0;?>
+                                      <?php
+    }
+    if ($subsector > 0 && $subsector != null) {
+        $drilldownflag = 0; ?>
                               <!--   <li>
                                     <?php echo $subsectorvalue; ?><a  onclick="resetinput('subsector');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li> -->
                                  <?php
-                                foreach ($subsector as $key=>$value){  ?>
+        foreach ($subsector as $key => $value) { ?>
                                   <li>
-                                     <?php echo $value; ?><a  onclick="resetmultipleinput('subsector','<?php echo $subsector[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                     <?php echo $value; ?><a  onclick="resetmultipleinput('subsector','<?php echo $subsector[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                  </li>
-                                <?php } ?>
+                                <?php
+        } ?>
                               
-                                <?php }
-                                
-                            if($stagevaluetext!="" && $stagevaluetext!=null) { ?>
+                                <?php
+    }
+    if ($stagevaluetext != "" && $stagevaluetext != null) { ?>
                             <!-- <li> 
                                 <?php echo $stagevaluetext ?><a  onclick="resetinput('stage');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li> -->
-                            <?php $stagearray = explode(",",$stagevaluetext); 
-                           $stageidarray = explode(",",$stagevalueid); 
-                                foreach ($stagearray as $key=>$value){  ?>
+                            <?php $stagearray = explode(",", $stagevaluetext);
+        $stageidarray = explode(",", $stagevalueid);
+        foreach ($stagearray as $key => $value) { ?>
                                   <li>
-                                     <?php echo $value; ?><a  onclick="resetmultipleinput('stage',<?php echo $stageidarray[$key]; ?>,<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                     <?php echo $value; ?><a  onclick="resetmultipleinput('stage',<?php echo $stageidarray[$key]; ?>,<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
          </li>
-                                <?php } ?>
+                                <?php
+        } ?>
             
                             <!-- Round -->
-                            <?php } 
-          if($round!="--" && $round!=null && $roundTxtVal !=''){ $drilldownflag=0; ?>
+                            <?php
+    }
+    if ($round != "--" && $round != null && $roundTxtVal != '') {
+        $drilldownflag = 0; ?>
                             <!-- <li> 
               <?php echo $roundTxtVal; ?><a  onclick="resetinput('round');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li> -->
-                             <?php $roundarray = explode(",",$roundTxtVal); 
-                           
-                                foreach ($roundarray as $key=>$value){  ?>
+                             <?php $roundarray = explode(",", $roundTxtVal);
+        foreach ($roundarray as $key => $value) { ?>
                                   <li>
-                                     <?php echo $value; ?><a  onclick="resetmultipleinput('round','<?php echo $roundarray[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                     <?php echo $value; ?><a  onclick="resetmultipleinput('round','<?php echo $roundarray[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
          </li>
-                                <?php } ?>
+                                <?php
+        } ?>
                             <!-- -->
-                            <?php }
-                            if($companyType!="--" && $companyType!=null){ ?>
+                            <?php
+    }
+    if ($companyType != "--" && $companyType != null) { ?>
                             <li> 
                                 <?php echo $companyTypeDisplay; ?><a  onclick="resetinput('comptype');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                            <?php } 
-                            if($investorType !="--" && $investorType!=null){ ?>
+                            <?php
+    }
+    if ($investorType != "--" && $investorType != null) { ?>
                             <li> 
                                 <?php echo $invtypevalue; ?><a  onclick="resetinput('invType');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                            <?php }  
-                            if ($investor_head != "--" && $investor_head != null) {$drilldownflag = 0;?>
+                            <?php
+    }
+    if ($investor_head != "--" && $investor_head != null) {
+        $drilldownflag = 0; ?>
                               <li>
                                   <?php echo $invheadvalue; ?><a  onclick="resetinput('invhead');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                               </li>
-                              <?php }
-                            if($regionId>0){ ?>
+                              <?php
+    }
+    if ($regionId > 0) { ?>
                             <!-- <li> 
                                 <?php echo $regionvalue; ?><a  onclick="resetinput('txtregion');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li> -->
-                            <?php $regionarray = explode(",",$regionvalue); 
-                            $regionidarray = explode(",",$regionvalueId);
-                                foreach ($regionarray as $key=>$value){  ?>
+                            <?php $regionarray = explode(",", $regionvalue);
+        $regionidarray = explode(",", $regionvalueId);
+        foreach ($regionarray as $key => $value) { ?>
                                   <li>
-                                     <?php echo $value; ?><a  onclick="resetmultipleinput('txtregion','<?php echo $regionidarray[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                     <?php echo $value; ?><a  onclick="resetmultipleinput('txtregion','<?php echo $regionidarray[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                   </li>
-                                <?php } ?>
+                                <?php
+        } ?>
                             <!-- City -->
-                            <?php }  
-                            /*if($city!=""){ $drilldownflag=0; ?>
+                            <?php
+    }
+    /*if($city!=""){ $drilldownflag=0; ?>
                             <li> 
                                 <?php echo $city; ?><a  onclick="resetinput('city');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
                             <!-- -->
                             <?php }  */
-                            /*if ($cityid != "--" && $cityname !=""){$drilldownflag = 0;?>
+    /*if ($cityid != "--" && $cityname !=""){$drilldownflag = 0;?>
                               <li>
                                   <?php echo $cityname; ?><a  onclick="resetinput('city');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                               </li>
                               <?php }*/
-                               //city multiselect
-                            $cityflag=$_POST['cityflag'];
-                            if ($city > 0 && $city != null  && $cityflag !=0) {$drilldownflag = 0;?>
-                                <?php $cityarray = explode(",",$cityvalue); 
-                            $cityidarray = explode(",",$cityvalueid); 
-                              foreach ($cityarray as $key=>$value){?>
+    //city multiselect
+    $cityflag = $_POST['cityflag'];
+    if ($city > 0 && $city != null && $cityflag != 0) {
+        $drilldownflag = 0; ?>
+                                <?php $cityarray = explode(",", $cityvalue);
+        $cityidarray = explode(",", $cityvalueid);
+        foreach ($cityarray as $key => $value) { ?>
                                 <li>
-                                    <?php echo ucwords(strtolower($value)); ?><a  onclick="resetmultipleinput('city','<?php echo $cityidarray[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    <?php echo ucwords(strtolower($value)); ?><a  onclick="resetmultipleinput('city','<?php echo $cityidarray[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
-                                <?php } ?>
+                                <?php
+        } ?>
                             
-                            <?php }
-                            if (($startRangeValue!= "--") && ($endRangeValue != "")){ ?>
+                            <?php
+    }
+    if (($startRangeValue != "--") && ($endRangeValue != "")) { ?>
                             <li> 
-                                <?php echo "(USM)".$startRangeValue ."-" .$endRangeValueDisplay ?><a  onclick="resetinput('range');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo "(USM)" . $startRangeValue . "-" . $endRangeValueDisplay ?><a  onclick="resetinput('range');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                            <?php } 
-                            if (($yearafter!= "" || $yearbefore != "")){$drilldownflag=0; ?>
+                            <?php
+    }
+    if (($yearafter != "" || $yearbefore != "")) {
+        $drilldownflag = 0; ?>
                                 <li> 
-                                    <?php echo $yearafter ."-" .$yearbefore ?><a  onclick="resetinput('yearfounded');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                    <?php echo $yearafter . "-" . $yearbefore ?><a  onclick="resetinput('yearfounded');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
-                            <?php }  
-                             if($valuationstxt!=""){  ?>
+                            <?php
+    }
+    if ($valuationstxt != "") { ?>
                               <!-- <li> 
-                                <?php echo str_replace('_', ' ', $valuationstxt);?><a  onclick="resetinput('valuations');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo str_replace('_', ' ', $valuationstxt); ?><a  onclick="resetinput('valuations');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                               </li> -->
-                              <?php $valuationarray = explode(",",$valuationstxt); 
-                            //print_r($valuations);
-                                foreach ($valuationarray as $key=>$value){  ?>
+                              <?php $valuationarray = explode(",", $valuationstxt);
+        //print_r($valuations);
+        foreach ($valuationarray as $key => $value) { ?>
                                   <li>
-                                     <?php echo str_replace('_', ' ', $value); ?><a  onclick="resetmultipleinput('valuations','<?php echo $valuations[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                     <?php echo str_replace('_', ' ', $value); ?><a  onclick="resetmultipleinput('valuations','<?php echo $valuations[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                                 </li>
-                                <?php } ?>
-                            <?php } 
-                            
-                           // if($datevalueDisplay1!=""){ ?>
+                                <?php
+        } ?>
+                            <?php
+    }
+    // if($datevalueDisplay1!=""){
+     ?>
                             <!-- <li> 
-                                <?php //echo $datevalueDisplay1. "-" .$datevalueDisplay2;?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php //echo $datevalueDisplay1. "-" .$datevalueDisplay2;
+     ?><a  onclick="resetinput('period');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li> -->
-                            <?php //} 
-                            if($debt_equity!="--" && $debt_equity!=null) { ?>
+                            <?php //}
+    if ($debt_equity != "--" && $debt_equity != null) { ?>
                             <li> 
-                                <?php echo  $debt_equityDisplay;?><a  onclick="resetinput('dealtype_debtequity');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo $debt_equityDisplay; ?><a  onclick="resetinput('dealtype_debtequity');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                            <?php } 
-                            if($keyword!="") { $drilldownflag=0; ?>
-                            <?php $investerarray = explode(",",$invester_filter); 
-
-                            $investeridarray = explode(",",$invester_filter_id); 
-                            foreach ($investerarray as $key=>$value){  ?>
+                            <?php
+    }
+    if ($keyword != "") {
+        $drilldownflag = 0; ?>
+                            <?php $investerarray = explode(",", $invester_filter);
+        $investeridarray = explode(",", $invester_filter_id);
+        foreach ($investerarray as $key => $value) { ?>
                               <li>
-                                  <?php echo $value; ?><a  onclick="resetmultipleinput('keywordsearch',<?php echo $investeridarray[$key]; ?>,<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                  <?php echo $value; ?><a  onclick="resetmultipleinput('keywordsearch',<?php echo $investeridarray[$key]; ?>,<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                               </li>
-                            <?php } ?>
-                            <?php } 
-            if($syndication!="--" && $syndication!=null) { $drilldownflag=0; ?>
+                            <?php
+        } ?>
+                            <?php
+    }
+    if ($syndication != "--" && $syndication != null) {
+        $drilldownflag = 0; ?>
           <li> 
-              <?php echo  $syndication_Display;?><a  onclick="resetinput('syndication');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+              <?php echo $syndication_Display; ?><a  onclick="resetinput('syndication');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
           </li>
-          <?php } 
-                            if($companysearch!=""){ $drilldownflag=0; ?>
+          <?php
+    }
+    if ($companysearch != "") {
+        $drilldownflag = 0; ?>
                             <!-- <li> 
-                                <?php echo trim($company_filter);?><a  onclick="resetinput('companysearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo trim($company_filter); ?><a  onclick="resetinput('companysearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li> -->
-                            <?php $companyarray = explode(",",$company_filter); 
-
-                        $companyidarray = explode(",",$company_id); 
-                            foreach ($companyarray as $key=>$value){  ?>
+                            <?php $companyarray = explode(",", $company_filter);
+        $companyidarray = explode(",", $company_id);
+        foreach ($companyarray as $key => $value) { ?>
                               <li>
-                                  <?php echo $value; ?><a  onclick="resetmultipleinput('companysearch',<?php echo $companyidarray[$key]; ?>,<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                  <?php echo $value; ?><a  onclick="resetmultipleinput('companysearch',<?php echo $companyidarray[$key]; ?>,<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                               </li>
-                            <?php } ?> 
-                            <?php } 
-                            if($sectorsearch!=""){ $drilldownflag=0; ?>
+                            <?php
+        } ?> 
+                            <?php
+    }
+    if ($sectorsearch != "") {
+        $drilldownflag = 0; ?>
                             <li> 
-                                <?php echo  trim($sectorauto);?><a  onclick="resetinput('sectorsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo trim($sectorauto); ?><a  onclick="resetinput('sectorsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                            <?php } 
-                            if($advisorsearchstring_legal!="") { $drilldownflag=0; ?>
+                            <?php
+    }
+    if ($advisorsearchstring_legal != "") {
+        $drilldownflag = 0; ?>
                             <li> 
-                                <?php echo trim($advisorsearchstring_legal);?><a  onclick="resetinput('advisorsearch_legal');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo trim($advisorsearchstring_legal); ?><a  onclick="resetinput('advisorsearch_legal');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                            <?php } 
-                            if($advisorsearchstring_trans!=""){ $drilldownflag=0; ?>
+                            <?php
+    }
+    if ($advisorsearchstring_trans != "") {
+        $drilldownflag = 0; ?>
                             <li> 
-                                <?php echo trim($advisorsearchstring_trans);?><a  onclick="resetinput('advisorsearch_trans');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo trim($advisorsearchstring_trans); ?><a  onclick="resetinput('advisorsearch_trans');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                            <?php }  if($searchallfield!=""){ $drilldownflag=0; ?>
+                            <?php
+    }
+    if ($searchallfield != "") {
+        $drilldownflag = 0; ?>
                             <li> 
-                                <?php echo trim($searchallfield)?><a  onclick="resetinput('searchallfield');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                                <?php echo trim($searchallfield) ?><a  onclick="resetinput('searchallfield');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
                             </li>
-                             <?php }
-    
-            if(count($exitstatusValue) > 0){
-                foreach($exitstatusValue as $exitstatusValues)
-                {
-                    if($exitstatusValues==1){
-
-                        $exitstatusfilter .= 'Unexited, ';
-
-                }
-                    else if($exitstatusValues==2){
-
-                        $exitstatusfilter .= 'Partially Exited, ';
-
-                }
-                    else if($exitstatusValues==3){
-
-                        $exitstatusfilter .= 'Fully Exited, ';
-
-                }else {
-                        $exitstatusfilter = '';
-                }
+                             <?php
+    }
+    if (count($exitstatusValue) > 0) {
+        foreach ($exitstatusValue as $exitstatusValues) {
+            if ($exitstatusValues == 1) {
+                $exitstatusfilter.= 'Unexited, ';
+            } else if ($exitstatusValues == 2) {
+                $exitstatusfilter.= 'Partially Exited, ';
+            } else if ($exitstatusValues == 3) {
+                $exitstatusfilter.= 'Fully Exited, ';
+            } else {
+                $exitstatusfilter = '';
             }
-                $exitstatusfilter = trim($exitstatusfilter,', ');
-            }
-           if($exitstatusfilter!=''){ ?>
+        }
+        $exitstatusfilter = trim($exitstatusfilter, ', ');
+    }
+    if ($exitstatusfilter != '') { ?>
             <!-- <li> 
                <?php echo $exitstatusfilter; ?><a  onclick="resetinput('exitstatus');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
             </li> -->
-             <?php $exitarray = explode(",",$exitstatusfilter); 
-
-        //$exitidarray = explode(",",$exitstatusValue); 
-            foreach ($exitarray as $key=>$value){  ?>
+             <?php $exitarray = explode(",", $exitstatusfilter);
+        //$exitidarray = explode(",",$exitstatusValue);
+        foreach ($exitarray as $key => $value) { ?>
               <li>
-                  <?php echo $value; ?><a  onclick="resetmultipleinput('exitstatus','<?php echo $exitstatusValue[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                  <?php echo $value; ?><a  onclick="resetmultipleinput('exitstatus','<?php echo $exitstatusValue[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
               </li>
-            <?php } ?>
+            <?php
+        } ?>
          
-          <?php }?>
-          <?php   if($tagsearch!=''){ ?>
+          <?php
+    } ?>
+          <?php if ($tagsearch != '') { ?>
             <!-- <li> 
-               <?php echo "tag:".$tagsearch; ?><a  onclick="resetinput('tagsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+               <?php echo "tag:" . $tagsearch; ?><a  onclick="resetinput('tagsearch');"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
             </li> -->
-              <?php $tagarray = explode(",",$tagsearch); 
-              foreach ($tagarray as $key=>$value){  ?>
+              <?php $tagarray = explode(",", $tagsearch);
+        foreach ($tagarray as $key => $value) { ?>
               <li>
-                  <?php echo "tag:".$value; ?><a  onclick="resetmultipleinput('tagsearch','<?php echo $tagarray[$key]; ?>',<?php echo $indexflagvalue;?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
+                  <?php echo "tag:" . $value; ?><a  onclick="resetmultipleinput('tagsearch','<?php echo $tagarray[$key]; ?>',<?php echo $indexflagvalue; ?>);"><img src="images/icon-close.png" width="9" height="8" border="0"></a>
               </li>
-            <?php } ?>
-          <?php  }
-                            ?>
+            <?php
+        } ?>
+          <?php
+    }
+?>
                          </ul>
     
     
     
-                               <?php }?>
+                               <?php
+} ?>
     
 </div>
     <?php
-        $companyName=trim($myrow["companyname"]);
-        $companyName=strtolower($companyName);
-        $compResult=substr_count($companyName,$searchString);
-        $compResult1=substr_count($companyName,$searchString1);
-        
-        
-    ?>
+$companyName = trim($myrow["companyname"]);
+// $dealdate123 = $myrow["dealdate"];
+// echo 'dealsdate____'.$dealdate123;
+$companyName = strtolower($companyName);
+$compResult = substr_count($companyName, $searchString);
+$compResult1 = substr_count($companyName, $searchString1);
+?>
 <!--  <div class="list-tab mt-list-tab " style="max-width:1440;background: #fff !important;"> -->
 <div class="list-tab mt-list-tab " style="background: #fff !important;">
             <?php
-                       if(($compResult==0) && ($compResult1==0))
-                       {
-                           $display = 'no';
-                           $string =rtrim($myrow["companyname"]);
-                           $string = strip_tags($string);
-                           if (strlen($string) > 40) { 
-                               $pos=strpos($string, ' ', 40);
-                               if($pos != ''){
-                                   $string = substr($string,0,$pos );
-                               }else{
-                                   $string = substr($string,0,40 );                            
-                               }
-                               $string = trim($string).'...';
-                               $display = 'yes';
-                           }
-                   ?>
-                   <!--companydetails.php?value=<?php echo $myrow["PECompanyId"].'/'.$VCFlagValue.'/';?>-->
-                           <h2 class="detailtitle text-center"> <a class="postlink companyProfileBox" href='javascript:void(0)'><?php echo stripslashes($string);?>
-                               <?php if($display == 'yes'){ ?>
+if (($compResult == 0) && ($compResult1 == 0)) {
+    $display = 'no';
+    $string = rtrim($myrow["companyname"]);
+    $string = strip_tags($string);
+    if (strlen($string) > 40) {
+        $pos = strpos($string, ' ', 40);
+        if ($pos != '') {
+            $string = substr($string, 0, $pos);
+        } else {
+            $string = substr($string, 0, 40);
+        }
+        $string = trim($string) . '...';
+        $display = 'yes';
+    }
+?>
+                   <!--companydetails.php?value=<?php echo $myrow["PECompanyId"] . '/' . $VCFlagValue . '/'; ?>-->
+                           <h2 class="detailtitle text-center"> <a class="postlink companyProfileBox" href='javascript:void(0)'><?php echo stripslashes($string); ?>
+                               <?php if ($display == 'yes') { ?>
                                     <div class="tooltip-box">
-                                         <?php echo trim($myrow["companyname"]);?>
+                                         <?php echo trim($myrow["companyname"]); ?>
                                     </div>
-                               <?php } ?>                                   
+                               <?php
+    } ?>                                   
                             </a>
 
                           </h2>
                   <?php
-                       }else{
-                  ?>
-                          <h2 class="detailtitle text-center">  <?php echo rtrim($searchString);?></h2>
+} else {
+?>
+                          <h2 class="detailtitle text-center">  <?php echo rtrim($searchString); ?></h2>
                   <?php
-                       }
-                       ?>
+}
+?>
                        <div>
                   <ul class="inner-list inner-list_width1">
                     <li><a class="postlink list-view"  href="<?php echo $actionlink; ?>"  id="icon_grid-view"><!--<img src="images/list-icon.png" />--><i></i> <!-- List View --></a></li>
-                    <li class="active"><a id="icon_detailed-view" class="postlink detail-view"  href="dealdetails.php?value=<?php echo $_GET['value'];?>" ><!--<img src="images/bar-icon.png" />--><i></i> <!-- Detail View --></a></li> 
+                    <li class="active"><a id="icon_detailed-view" class="postlink detail-view"  href="dealdetails.php?value=<?php echo $_GET['value']; ?>" ><!--<img src="images/bar-icon.png" />--><i></i> <!-- Detail View --></a></li> 
                     </ul> 
   
         <?php
-        //if($strvalue[3]!='Directory'){ ?>
+//if($strvalue[3]!='Directory'){
+ ?>
             
                 <div class="inner-section inner-section-width1 redirection-icon">
                     <div class="action-links">
-                    <?php if ($prevKey!='-1') {?> 
-                        <a  class="postlink" id="previous" href="dealdetails.php?value=<?php echo $prevNextArr[$prevKey]; ?>/<?php echo $VCFlagValue;?>/"> 
+                    <?php if ($prevKey != '-1') { ?> 
+                        <a  class="postlink" id="previous" href="dealdetails.php?value=<?php echo $prevNextArr[$prevKey]; ?>/<?php echo $VCFlagValue; ?>/"> 
                         <!-- <img src="images/back_black.png" title="Previous" alt="Previous" /> -->
                         <span class="previous-icon"></span>
                         </a>
-                    <?php }else{ ?>
+                    <?php
+} else { ?>
                         <!-- <img src="images/back_grey.png" style="cursor:no-drop; margin-right:10px;" /> -->
-                         <?php } ?>
+                         <?php
+} ?>
                     <?php if ($nextKey < count($prevNextArr)) { ?>
-                        <a class="postlink" id="next" href="dealdetails.php?value=<?php echo $prevNextArr[$nextKey]; ?>/<?php echo $VCFlagValue;?>/">
+                        <a class="postlink" id="next" href="dealdetails.php?value=<?php echo $prevNextArr[$nextKey]; ?>/<?php echo $VCFlagValue; ?>/">
                            <!--  <img src="images/forward_black.png" title="Next" alt="Next" />    -->
                            <span class="next-icon"></span>
                         </a>  
-                        <?php }else{ ?><!-- <img src="images/forward_grey.png" style="cursor:no-drop;" />  -->
-                    <?php } ?>
+                        <?php
+} else { ?><!-- <img src="images/forward_grey.png" style="cursor:no-drop;" />  -->
+                    <?php
+} ?>
                     </div>
                 </div>
            
        
-        <?php //} ?>
+        <?php //}
+ ?>
         </div> 
          </div>
 <div class="lb" id="popup-box">
@@ -4355,7 +4099,7 @@ try {
         </div>
         <div class="entry">
                 <h5>Link</h5>
-                <p><?php  echo curPageURL(); ?>   <input type="hidden" name="message" id="message" value="<?php  echo curPageURL(); ?>"  />   <input type="hidden" name="useremail" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"  /> </p>
+                <p><?php echo curPageURL(); ?>   <input type="hidden" name="message" id="message" value="<?php echo curPageURL(); ?>"  />   <input type="hidden" name="useremail" id="useremail" value="<?php echo $_SESSION['UserEmail']; ?>"  /> </p>
         </div>
         <div class="entry">
                 <h5>Your Message</h5><span style='float:right;display: block;margin-top: -20px;'>Words left: <span id="word_left">200</span></span>
@@ -4382,7 +4126,7 @@ try {
         </div>
         <div class="entry">
                 <h5>Link</h5>
-                <p><?php  echo curPageURL(); ?>   <input type="hidden" name="message_fc" id="message_fc" value="<?php  echo curPageURL(); ?>"  />   <input type="hidden" name="useremail_fc" id="useremail_fc" value="<?php echo $_SESSION['UserEmail']; ?>"  /> </p>
+                <p><?php echo curPageURL(); ?>   <input type="hidden" name="message_fc" id="message_fc" value="<?php echo curPageURL(); ?>"  />   <input type="hidden" name="useremail_fc" id="useremail_fc" value="<?php echo $_SESSION['UserEmail']; ?>"  /> </p>
         </div>
          <div class="entry">
                 <label> Comments </label>
@@ -4405,12 +4149,14 @@ try {
          <div  class="work-masonry-thumb1 col-p-12 companyinfo" id="company_info" style="background: #f4f4f4 !important">
              <div class="accordions">
 
-                <!-- <?php if(sizeof($items1) > 0){ ?>
+                <!-- <?php if (sizeof($items1) > 0) { ?>
                     <div class="linkpecfs" id="allfinancial">Financials</div>
-                    <div class="linkfillings"><span> | </span><a href="pefillings.php?cname=<?php echo $myrow['companyname'];?>&value=<?php echo $value;?>" class="postlink">Filings</a></div>
-                <?php } else { ?>
+                    <div class="linkfillings"><span> | </span><a href="pefillings.php?cname=<?php echo $myrow['companyname']; ?>&value=<?php echo $value; ?>" class="postlink">Filings</a></div>
+                <?php
+} else { ?>
                     <div class="linkpecfs" id="allfinancial" style="right: 0px;">Financials</div>
-               <?php }?> -->
+               <?php
+} ?> -->
                <div class="linkpecfs" id="allfinancial" style="right: 0px;">Financials</div>
 
                 <div class="accordions_dealtitle"><span></span>
@@ -4421,95 +4167,96 @@ try {
                 <tbody> 
                   <tr>  
                  <?php
-                    $companyName=trim($myrow["companyname"]);
-                    $companyName=strtolower($companyName);
-                    $compResult=substr_count($companyName,$searchString);
-                    $compResult1=substr_count($companyName,$searchString1);
-                    $webdisplay="";
-                    $finlink=$myrow["FinLink"];
-                        if(($compResult==0) && ($compResult1==0))
-                        {
-                            $webdisplay=$myrow["website"];
-                ?>
+$companyName = trim($myrow["companyname"]);
+$companyName = strtolower($companyName);
+$compResult = substr_count($companyName, $searchString);
+$compResult1 = substr_count($companyName, $searchString1);
+$webdisplay = "";
+$finlink = $myrow["FinLink"];
+if (($compResult == 0) && ($compResult1 == 0)) {
+    $webdisplay = $myrow["website"];
+?>
                       <td style=""><h4>Company</h4></td>
                       
                       <td class="" style=""> 
                  <?php
-                        $display = 'no';
-                        $string =trim($myrow["companyname"]);
-                     //    $string = strip_tags($string);
-                     //    if (strlen($string) > 29) { 
-                     //        $string = substr($string,0,29);
-                     //        $string = trim($string).'...';
-                     //        $display = 'no';
-                     // }
-                  ?>
-                    <div class="tooltip-4" style="float:left;"><p> <?php echo $openDebtBracket;?><?php echo $openBracket;?>
-                    <?php /* 
+    $display = 'no';
+    $string = trim($myrow["companyname"]);
+    //    $string = strip_tags($string);
+    //    if (strlen($string) > 29) {
+    //        $string = substr($string,0,29);
+    //        $string = trim($string).'...';
+    //        $display = 'no';
+    // }
+    
+?>
+                    <div class="tooltip-4" style="float:left;"><p> <?php echo $openDebtBracket; ?><?php echo $openBracket; ?>
+                    <?php /*
                     <a class="postlink" href='companydetails.php?value=<?php echo $myrow["PECompanyId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' >
                     <?php echo $string;?></a>
-                    */ 
-                    ?>
+    */
+?>
                     
                     
                     <?php /* <a class="postlink"  href='companydetails.php?value=<?php echo $myrow["PECompanyId"].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3].'/0/102/Directory';?>' >
                     <?php echo $string;?></a>
-                    */ ?>
+    */ ?>
                     
-                    <a  href='companydetails.php?value=<?php echo $myrow["PECompanyId"].'/'.$strvalue[1].'/'.'102/Directory';?>' target="_blank" >
-                    <?php echo trim($string);?></a>
+                    <a  href='companydetails.php?value=<?php echo $myrow["PECompanyId"] . '/' . $strvalue[1] . '/' . '102/Directory'; ?>' target="_blank" >
+                    <?php echo trim($string); ?></a>
                     
                     
-            <?php echo $closeBracket;?><?php echo $closeDebtBracket;?>
+            <?php echo $closeBracket; ?><?php echo $closeDebtBracket; ?>
                         </p>
                     </div>
                     <p style="float:right;">
-                        <span><a  onclick="window.open ('<?php echo BASE_URL; ?>malogin.php?search=<?php echo $string;?>', ''); return false" href="javascript:void(0);" target="_blank" style="    text-decoration: none;">
+                        <span><a  onclick="window.open ('<?php echo BASE_URL; ?>malogin.php?search=<?php echo $string; ?>', ''); return false" href="javascript:void(0);" target="_blank" style="    text-decoration: none;">
                             M&A Search</a></span>
                     </p>
-                          <?php 
-                          if($display == 'yes'){ ?>
+                          <?php
+    if ($display == 'yes') { ?>
                       <div class="tooltip-box4">
-                <?php echo trim($myrow["companyname"]);?>
+                <?php echo trim($myrow["companyname"]); ?>
                     </div>
-                          <?php } ?>
+                          <?php
+    } ?>
                       </td>
     <?php
-            }
-            else
-            {
-                $webdisplay="";
-    ?>
-                                    <td style=""><h4>Company</h4> </td><td><p><b>&nbsp;<?php echo ucfirst("$searchString") ;?></b></p></td>
+} else {
+    $webdisplay = "";
+?>
+                                    <td style=""><h4>Company</h4> </td><td><p><b>&nbsp;<?php echo ucfirst("$searchString"); ?></b></p></td>
     <?php
-            }
-    ?>
+}
+?>
                                     
                   </tr>
                     <tr>  
-                        <?php if($myrow["industry"]!="") { ?>  <td><h4>Industry</h4> </td>
-                        <td class=""><p><?php echo $myrow["industry"];?></p></td>  <?php } ?>
+                        <?php if ($myrow["industry"] != "") { ?>  <td><h4>Industry</h4> </td>
+                        <td class=""><p><?php echo $myrow["industry"]; ?></p></td>  <?php
+} ?>
                         
                   </tr>
                     <tr>  
                        <td>
                             <h4>Sector </h4>
                        </td>
-                        <?php 
-                        $display = 'no';
-                        $string =trim($myrow["sector_business"]);
-                        $string = strip_tags($string);
-                        if (strlen($string) > $_COOKIE['hidestringval']) { 
-                            $string = substr($string,0,$_COOKIE['hidestringval']);
-                            $string = trim($string).'...';
-                            $display = 'no';
-            }
-                        ?>
+                        <?php
+$display = 'no';
+$string = trim($myrow["sector_business"]);
+$string = strip_tags($string);
+if (strlen($string) > $_COOKIE['hidestringval']) {
+    $string = substr($string, 0, $_COOKIE['hidestringval']);
+    $string = trim($string) . '...';
+    $display = 'no';
+}
+?>
                         <td class="tooltip5"> 
-                          <p><?php echo $myrow["sector_business"];?></p>
-                          <?php   if($display == 'yes'){ ?>
-                              <div class="tooltip-box5"><?php echo $myrow["sector_business"];?></div>
-                          <?php } ?>
+                          <p><?php echo $myrow["sector_business"]; ?></p>
+                          <?php if ($display == 'yes') { ?>
+                              <div class="tooltip-box5"><?php echo $myrow["sector_business"]; ?></div>
+                          <?php
+} ?>
                           
                         </td>
                    
@@ -4525,51 +4272,64 @@ try {
                      <td style=""><h4>Location</h4></td>
                      <td class="" style="">
                        <!--  <p>
-                            <?php echo  $myrow["city"];?>,<?php echo $myrow["state"];?>, 
-                            <?php echo $regionname;?><?php if($countryname != '--' ) { echo ', '.$countryname;}
-                            ?>                    
+                            <?php echo $myrow["city"]; ?>,<?php echo $myrow["state"]; ?>, 
+                            <?php echo $regionname; ?><?php if ($countryname != '--') {
+    echo ', ' . $countryname;
+}
+?>                    
                         </p> -->
                          <p>
-                             <?php echo $myrow["city"]; 
-                             if($myrow["city"]!="" && $myrow["state"] !=""){ echo ', '; } 
-                             echo $myrow["state"]; 
-                             if($regionname!="" && $myrow["state"] !=""){ echo ', '; } 
-                             else if($myrow["city"]!="" && $myrow["state"] == "" && $regionname !=''){ echo ', ';}
-                             echo $regionname; 
-                             if($countryname != '--' && $countryname!="" ) { echo ', '.$countryname;}else{echo "";}
-                            ?>                   
+                             <?php echo $myrow["city"];
+if ($myrow["city"] != "" && $myrow["state"] != "") {
+    echo ', ';
+}
+echo $myrow["state"];
+if ($regionname != "" && $myrow["state"] != "") {
+    echo ', ';
+} else if ($myrow["city"] != "" && $myrow["state"] == "" && $regionname != '') {
+    echo ', ';
+}
+echo $regionname;
+if ($countryname != '--' && $countryname != "") {
+    echo ', ' . $countryname;
+} else {
+    echo "";
+}
+?>                   
                         </p>
                      </td>
                  </tr>
                  <!-- <tr>
-                     <?php if($regionname!="") { ?><td><h4>Region</h4></td><td class=""> <p><?php echo $regionname;?></p> </td> <?php } ?> 
+                     <?php if ($regionname != "") { ?><td><h4>Region</h4></td><td class=""> <p><?php echo $regionname; ?></p> </td> <?php
+} ?> 
                  </tr> -->
                  <tr>
                       <td>
                         <h4>Website</h4>
                 <div style="display:none"><?php echo $webdisplay; ?></div>
                     </td>
-                    <?php 
-                        $display = 'no';
-                        $string =$webdisplay;
-                        $string = strip_tags($string);
-                        if (strlen($string) > $_COOKIE['hidestringval']) { 
-                            $string = substr($string,0,$_COOKIE['hidestringval']);
-                            $string = trim($string).'...';
-                            $display = 'no';
-                        }
-                    ?>
+                    <?php
+$display = 'no';
+$string = $webdisplay;
+$string = strip_tags($string);
+if (strlen($string) > $_COOKIE['hidestringval']) {
+    $string = substr($string, 0, $_COOKIE['hidestringval']);
+    $string = trim($string) . '...';
+    $display = 'no';
+}
+?>
                      <td class="toolbox6"> 
                         <p class="linktooltip"><a href=<?php echo $webdisplay; ?> target="_blank"><?php echo $webdisplay; ?></a></p> 
-                          <?php   if($display == 'yes'){ ?>
+                          <?php if ($display == 'yes') { ?>
                                 <div class="tooltip-box6"><a href=<?php echo $webdisplay; ?> target="_blank"><?php echo $webdisplay; ?></a></div>
-                          <?php } ?>
+                          <?php
+} ?>
                            
                     </td>
                  </tr>
                  <tr>
                      <td><h4>Type</h4></td>
-                    <td class=""> <p><?php echo $listing_stauts_display;?></p></td>
+                    <td class=""> <p><?php echo $listing_stauts_display; ?></p></td>
                
                  </tr>
                  <!-- <tr>
@@ -4578,115 +4338,118 @@ try {
                 <td class="toolbox6">
                     
                     <p class="linktooltip">
-                            <?php 
-                        $display = 'no'; $news_link='';
-                        if(count($linkstring)>0 && $col6 !='') { 
-                            $string = $stortlink = '';
-                            foreach ($linkstring as $linkstr) {
-                                if(trim($linkstr)!=="") {
-                                    if($string == '' && $display == 'no'){
-                                        // strip tags to avoid breaking any html
-                                        $string = strip_tags($linkstr);
-
-                                        if (strlen($string) > $_COOKIE['hidestringval']) {
-                                            $string = substr($string,0,$_COOKIE['hidestringval']);  
-                                            $string = trim($string).'...';
-                                            $display = 'no';
-                                         }
-                                        $stortlink = "<a href='".$linkstr."' target='_blank'>".$string."</a>";
-                                    }
-
-                                    if($news_link != ''){
-                                        //$news_link .= "<br/>";
-                                        $display = 'no';
-                                    }
-                                    $news_link .= "<a href='".$linkstr."' target='_blank'>".$linkstr."</a>";  
-                                }
-                            }
-                            echo $news_link;
-                        }else{ echo '&nbsp;'; } ?>
+                            <?php
+$display = 'no';
+$news_link = '';
+if (count($linkstring) > 0 && $col6 != '') {
+    $string = $stortlink = '';
+    foreach ($linkstring as $linkstr) {
+        if (trim($linkstr) !== "") {
+            if ($string == '' && $display == 'no') {
+                // strip tags to avoid breaking any html
+                $string = strip_tags($linkstr);
+                if (strlen($string) > $_COOKIE['hidestringval']) {
+                    $string = substr($string, 0, $_COOKIE['hidestringval']);
+                    $string = trim($string) . '...';
+                    $display = 'no';
+                }
+                $stortlink = "<a href='" . $linkstr . "' target='_blank'>" . $string . "</a>";
+            }
+            if ($news_link != '') {
+                //$news_link .= "<br/>";
+                $display = 'no';
+            }
+            $news_link.= "<a href='" . $linkstr . "' target='_blank'>" . $linkstr . "</a>";
+        }
+    }
+    echo $news_link;
+} else {
+    echo '&nbsp;';
+} ?>
                     </p>    
-                    <?php if($display == 'yes'){ ?>
+                    <?php if ($display == 'yes') { ?>
                      <div class="tooltip-box6">
                 <?php echo $news_link; ?>
-                    </div> <?php } ?>
+                    </div> <?php
+} ?>
                 </td>
                  </tr> -->
-                 <?php if ($Address1 != "" || $Address2 != "") 
-               { ?>
+                 <?php if ($Address1 != "" || $Address2 != "") { ?>
                  <!-- <tr>
                      <td style=""><h4>Address</h4></td>
-                     <?php 
-                        $display = 'no';
-                        $string =$Address1."<br/>". $Address2;
-                        $string = strip_tags($string);
-                        if (strlen($string) > 24) { 
-                            $string = substr($string,0,24);
-                            $string = trim($string).'...';
-                            $display = 'yes';
-                        }
-                    ?>
+                     <?php
+    $display = 'no';
+    $string = $Address1 . "<br/>" . $Address2;
+    $string = strip_tags($string);
+    if (strlen($string) > 24) {
+        $string = substr($string, 0, 24);
+        $string = trim($string) . '...';
+        $display = 'yes';
+    }
+?>
                                     <td class="toolbox6">
-                                        <p><?php echo $string;?></p>
-                                        <?php if($display == 'yes'){ ?>
+                                        <p><?php echo $string; ?></p>
+                                        <?php if ($display == 'yes') { ?>
                                              <div class="tooltip-box6">
-                                       <?php echo $Address1; ?><?php //if ($Address2 != "") echo "<br/>" . $Address2; ?>
-                                            </div> <?php } ?>
+                                       <?php echo $Address1; ?><?php //if ($Address2 != "") echo "<br/>" . $Address2;
+         ?>
+                                            </div> <?php
+    } ?>
                                     </td>
                  </tr> -->
                  <?php
-              }?>
+} ?>
               
                  
 
                   
                  
-                <?php if($rsMgmt= mysql_query($onMgmtSql)) { 
-                    
-                    $rowcount=mysql_num_rows($rsMgmt);
-                     
-                    //if($rowcount > 0){ ?>  
+                <?php if ($rsMgmt = mysql_query($onMgmtSql)) {
+    $rowcount = mysql_num_rows($rsMgmt);
+    //if($rowcount > 0){
+     ?>  
                         <tr>
                              <td style=""><h4>Top Management</h4></td>
                                 <td class="toolbox6">
                                 
-                            <?php 
-                              /* While($mymgmtrow=mysql_fetch_array($rsMgmt, MYSQL_BOTH))
+                            <?php
+    /* While($mymgmtrow=mysql_fetch_array($rsMgmt, MYSQL_BOTH))
                                 {
                                     $executivename=$mymgmtrow["ExecutiveName"];
                                     $desig="";
                                     $desig=$mymgmtrow["Designation"]; ?>
                                     <p><?php echo $executivename; ?><?php if ($executivename != "" && $desig!="") echo ", " . $desig; ?></p>
                               <?php } */
-                              $string = '';$display = 'no';$toottipString = '';
-                                While($mymgmtrow=mysql_fetch_array($rsMgmt, MYSQL_BOTH))
-                                {
-                                    $executivename=$mymgmtrow["ExecutiveName"];
-                                    $desig="";
-                                    $desig=$mymgmtrow["Designation"]; 
-                                    
-                                    if ($executivename != "" && $desig!="") {
-                                        $string .=$executivename.", " .$desig.", ";
-                                        $toottipString .= '<div>'.$executivename.", " .$desig.'</div>';
-                                    } else {
-                                        $string .=$executivename.", ";
-                                        $toottipString .= '<div>'.$executivename.'</div>';
-                                    }
-                                } 
-
-                                // $string = strip_tags($string);
-                                // if (strlen($string) > $_COOKIE['hidestringval']) { 
-                                //     $string = substr($string,0,$_COOKIE['hidestringval']);
-                                //     $string = trim($string).'...';
-                                //     $display = 'yes';
-                                // } 
-                                ?>
-                                <p class="topmanagementtooltip"><?php echo rtrim($string, ', ');?></p>
-                                <?php if($string != ''){  ?>
+    $string = '';
+    $display = 'no';
+    $toottipString = '';
+    While ($mymgmtrow = mysql_fetch_array($rsMgmt, MYSQL_BOTH)) {
+        $executivename = $mymgmtrow["ExecutiveName"];
+        $desig = "";
+        $desig = $mymgmtrow["Designation"];
+        if ($executivename != "" && $desig != "") {
+            $string.= $executivename . ", " . $desig . ", ";
+            $toottipString.= '<div>' . $executivename . ", " . $desig . '</div>';
+        } else {
+            $string.= $executivename . ", ";
+            $toottipString.= '<div>' . $executivename . '</div>';
+        }
+    }
+    // $string = strip_tags($string);
+    // if (strlen($string) > $_COOKIE['hidestringval']) {
+    //     $string = substr($string,0,$_COOKIE['hidestringval']);
+    //     $string = trim($string).'...';
+    //     $display = 'yes';
+    // }
+    
+?>
+                                <p class="topmanagementtooltip"><?php echo rtrim($string, ', '); ?></p>
+                                <?php if ($string != '') { ?>
                                      <div class="tooltip-box6 topmanagement">
                                         <?php echo $toottipString; ?>
                                      </div>
-                                <?php } ?>
+                                <?php
+    } ?>
                          
                                             
                                </td>            
@@ -4695,77 +4458,76 @@ try {
                     <?php// }?>  
                 
                  
-                  <?php }?>  
+                  <?php
+} ?>  
 
                   <tr>
                      <td style=""><h4>Contact</h4></td>
-                     <?php 
-                        $display = 'no';
-                        if ($Tel != "" && $Email!="") {
-                            $string =$Email.", " .$Tel;
-                        } else {
-                            $string =$Email;
-                        }
-                        $string = strip_tags($string);
-                        if (strlen($string) > $_COOKIE['hidestringval']) { 
-                            $string = substr($string,0,$_COOKIE['hidestringval']);
-                            $string = trim($string).'...';
-                            $display = 'no';
-                        }
-                    ?>
+                     <?php
+$display = 'no';
+if ($Tel != "" && $Email != "") {
+    $string = $Email . ", " . $Tel;
+} else {
+    $string = $Email;
+}
+$string = strip_tags($string);
+if (strlen($string) > $_COOKIE['hidestringval']) {
+    $string = substr($string, 0, $_COOKIE['hidestringval']);
+    $string = trim($string) . '...';
+    $display = 'no';
+}
+?>
                                     <!-- <td class="" style=""><p><?php echo $string; ?></p></td> -->
                                     <td class="toolbox6 contacttooltip">
-                                        <p ><?php echo $Email; ?><?php if ($Tel != "" && $Email!="") echo ", " . $Tel; ?></p>
-                                        <?php if($display == 'yes'){ ?>
+                                        <p ><?php echo $Email; ?><?php if ($Tel != "" && $Email != "") echo ", " . $Tel; ?></p>
+                                        <?php if ($display == 'yes') { ?>
                                              <div class="tooltip-box6">
                                        
-                                            </div> <?php } ?>
+                                            </div> <?php
+} ?>
                                     </td>
                                    
                   </tr>
 
-                  <?php 
-                        $onBoardSql="select pec.PECompanyId,bd.PECompanyId,bd.ExecutiveId,exe.ExecutiveName,exe.Designation,exe.Company 
+                  <?php
+$onBoardSql = "select pec.PECompanyId,bd.PECompanyId,bd.ExecutiveId,exe.ExecutiveName,exe.Designation,exe.Company 
                         from pecompanies as pec,executives as exe,pecompanies_board as bd
                         where pec.PECompanyId='$PECompanyId' and bd.PECompanyId=pec.PECompanyId and exe.ExecutiveId=bd.ExecutiveId";
-                       // echo "<Br>Investor".$onBoardSql;
-
-                        if($rsBoard= mysql_query($onBoardSql))
-                        {
-                             $board_cnt = mysql_num_rows($rsBoard);
-                        }
-                        //if($board_cnt>0) { ?>
+// echo "<Br>Investor".$onBoardSql;
+if ($rsBoard = mysql_query($onBoardSql)) {
+    $board_cnt = mysql_num_rows($rsBoard);
+}
+//if($board_cnt>0) {
+ ?>
                             <tr>
                                  <td style=""><h4>Investor Board Member</h4></td>
                                     <td class="" style="">
                                 
-                               <?php  While($myboardrow=mysql_fetch_array($rsBoard, MYSQL_BOTH))
-                                {
-                                        $desig="";
-                                        $desig=$myboardrow["Designation"];
-                                        if(strlen(trim($desig))==0)
-                                                $desig="";
-                                        else
-                                                $desig=", ".$myboardrow["Designation"];
-                                        $comp=$myboardrow["Company"];
-                                        if(strlen(trim($comp))==0)
-                                                $comp="";
-                                        else
-                                                $comp=", ".$myboardrow["Company"];
-
-                                ?>
+                               <?php While ($myboardrow = mysql_fetch_array($rsBoard, MYSQL_BOTH)) {
+    $desig = "";
+    $desig = $myboardrow["Designation"];
+    if (strlen(trim($desig)) == 0) $desig = "";
+    else $desig = ", " . $myboardrow["Designation"];
+    $comp = $myboardrow["Company"];
+    if (strlen(trim($comp)) == 0) $comp = "";
+    else $comp = ", " . $myboardrow["Company"];
+?>
                                     <p>
-                                        <?php $google_sitesearch_board="https://www.google.co.in/search?q=".$myboardrow["ExecutiveName"].$desig.$comp. "+site%3Alinkedin.com"; ?>
+                                        <?php $google_sitesearch_board = "https://www.google.co.in/search?q=" . $myboardrow["ExecutiveName"] . $desig . $comp . "+site%3Alinkedin.com"; ?>
                                         <a target="_blank" href="<?php echo $google_sitesearch_board; ?>" style="text-decoration: underline;color: #624C34 !important;">
-                                         <?php echo $myboardrow["ExecutiveName"];?></a>, <?php echo $myboardrow["Designation"];
-                                         if($myboardrow["Designation"]!="" && $myboardrow["Company"]!=""){ echo ","; } ?>
+                                         <?php echo $myboardrow["ExecutiveName"]; ?></a>, <?php echo $myboardrow["Designation"];
+    if ($myboardrow["Designation"] != "" && $myboardrow["Company"] != "") {
+        echo ",";
+    } ?>
                                         <?php echo $myboardrow["Company"]; ?>
                                     </p>
-                        <?php } ?>
+                        <?php
+} ?>
                         
                                </td>
                             </tr>
-                    <?php //} ?>
+                    <?php //}
+ ?>
                  </tbody>
                 </table>
 
@@ -4776,16 +4538,17 @@ try {
     <div  class="work-masonry-thumb1 col-p-8 dealinfo" id="deal_info" style="background: #f4f4f4 !important">
              <div class="accordions">
              <!-- <div class="linkpecfs" id="allshp" style="right: 0px; cursor:pointer;">SHP</div> -->
-            <!--  <div class="linkfillings"><a href="pefillings_shp.php?cname=<?php echo $myrow['companyname'];?>&value=<?php echo $value;?>" class="postlink">Filings/SHP</a></div> -->
+            <!--  <div class="linkfillings"><a href="pefillings_shp.php?cname=<?php echo $myrow['companyname']; ?>&value=<?php echo $value; ?>" class="postlink">Filings/SHP</a></div> -->
             <!-- SHP Valid -->
                 <?php
-                $shp_valid = mysql_query("select count(*) as total from pe_shp where PEId=".$IPO_MandAId);
-                $shp_data=mysql_fetch_assoc($shp_valid);
-                $shp_count = $shp_data['total'];
-                if(sizeof($items1) > 0 || $shp_count > 0){
-                ?>
-                <div class="linkfillings"><a href="pefillings_shp.php?cname=<?php echo $myrow['companyname'];?>&value=<?php echo $IPO_MandAId;?>" class="postlink">Filings / SHP</a></div>
-                <?php } ?>
+$shp_valid = mysql_query("select count(*) as total from pe_shp where PEId=" . $IPO_MandAId);
+$shp_data = mysql_fetch_assoc($shp_valid);
+$shp_count = $shp_data['total'];
+if (sizeof($items1) > 0 || $shp_count > 0) {
+?>
+                <div class="linkfillings"><a href="pefillings_shp.php?cname=<?php echo $myrow['companyname']; ?>&value=<?php echo $IPO_MandAId; ?>" class="postlink">Filings / SHP</a></div>
+                <?php
+} ?>
                 <!-- End SHP Valid -->
                 <div class="accordions_dealtitle"><span></span>
                 <h2 id="companyinfo" class="box_heading content-box ">Deal info</h2>
@@ -4800,11 +4563,15 @@ try {
             </td>
             <td id="tourinvestor" class="">
                 <p>
-                 <?php if($myrow["hideamount"]==1){   ?>
-                      <?php echo $hideamount;?> 
-                 <?php } else { ?>
-                     <?php if($hideamount !='' && $hideamount !='0.00' ){?><?php echo $hideamount;?> <?php } else{ ?> <?php echo '&nbsp;'; } ?>
-                 <?php } ?>
+                 <?php if ($myrow["hideamount"] == 1) { ?>
+                      <?php echo $hideamount; ?> 
+                 <?php
+} else { ?>
+                     <?php if ($hideamount != '' && $hideamount != '0.00') { ?><?php echo $hideamount; ?> <?php
+    } else { ?> <?php echo '&nbsp;';
+    } ?>
+                 <?php
+} ?>
                 </p>
           </td>
       </tr>
@@ -4812,70 +4579,82 @@ try {
       <tr>
           <td><h4>Amount (&#8377; Cr) </h4></td>
           <td class="rgt"><p>
-                 <?php if($myrow["hideamount"]!=1 && $hideamount_INR !='' && $hideamount_INR !='0.00'){   ?>
-                 <?php echo $hideamount_INR; }else{
-                    echo "&nbsp;"; }?></p>
+                 <?php if ($myrow["hideamount"] != 1 && $hideamount_INR != '' && $hideamount_INR != '0.00') { ?>
+                 <?php echo $hideamount_INR;
+} else {
+    echo "&nbsp;";
+} ?></p>
         </td>
     </tr>
      <tr>
           <td><h4>Exit Status</h4></td>
           <td class=""><?php
-             $exitstatusis='';
-            $exitstatusSql = "select id,status from exit_status where id=".$myrow["Exit_Status"];
-            if ($exitstatusrs = mysql_query($exitstatusSql))
-            {
-              $exitstatus_cnt = mysql_num_rows($exitstatusrs);
-            }
-            if($exitstatus_cnt > 0)
-            {
-                    While($Exit_myrow=mysql_fetch_array($exitstatusrs, MYSQL_BOTH))
-                    {
-                            $exitstatusis = $Exit_myrow[1];
-                    }?>
-                    <p><?php echo $exitstatusis;?></p>
-            <?php } ?> </td> 
+$exitstatusis = '';
+$exitstatusSql = "select id,status from exit_status where id=" . $myrow["Exit_Status"];
+if ($exitstatusrs = mysql_query($exitstatusSql)) {
+    $exitstatus_cnt = mysql_num_rows($exitstatusrs);
+}
+if ($exitstatus_cnt > 0) {
+    While ($Exit_myrow = mysql_fetch_array($exitstatusrs, MYSQL_BOTH)) {
+        $exitstatusis = $Exit_myrow[1];
+    } ?>
+                    <p><?php echo $exitstatusis; ?></p>
+            <?php
+} ?> </td> 
         </tr>
+
+            <?php 
+            
+            $deladate123 = $myrow['dates']; 
+            ?>
+
+                      
+        
       <tr>
           <td><h4>Date</h4></td>
           <input type="hidden" name="dealdate" value="<?php echo $myrow['dates']; ?>">
-            <td class=""><p><?php echo  $myrow["dt"];?></p></td>
+            <td class=""><p><?php echo $myrow["dt"]; ?></p></td>
      </tr>
-      <?php //if($book_value_per_share > 0 || $book_value_per_share > 0) { ?>
+      <?php //if($book_value_per_share > 0 || $book_value_per_share > 0) {
+ ?>
         
      <tr>
             <td><h4>Stake</h4></td> 
             <td class=""><p>
-            <?php if($hidestake!="" && $hidestake!="&nbsp;" && $hidestake !='--'){ 
-                    echo $hidestake.' %';
-                }else{
-                    echo "&nbsp;";
-                }?> </p></td> 
+            <?php if ($hidestake != "" && $hidestake != "&nbsp;" && $hidestake != '--') {
+    echo $hidestake . ' %';
+} else {
+    echo "&nbsp;";
+} ?> </p></td> 
         </tr>
     <tr>
           <td><h4>Stage</h4></td>
-  <td class=""><p><?php echo $myrow["Stage"];?></p></td>
+  <td class=""><p><?php echo $myrow["Stage"]; ?></p></td>
       </tr>
      
         <tr>
             <td><h4>Round</h4></td>
             <td class="tooltip-1 round"><p>
                 <?php // strip tags to avoid breaking any html
-                $string = strip_tags($myrow["round"]);
-                if (strlen($string) > 12) { 
-                    $pos=strpos($string, ' ', 12);
-                    if($pos != ''){
-                        $string = substr($string,0,$pos);
-                    }else{
-                        $string = substr($string,0,12);                            
-                    }
-                    $string = trim($string).'...';
-                    //$display = 'yes';
-                } echo $myrow["round"]; ?></p>
-                <?php if($display == 'yes') { ?>
+$string = strip_tags($myrow["round"]);
+if (strlen($string) > 12) {
+    $pos = strpos($string, ' ', 12);
+    if ($pos != '') {
+        $string = substr($string, 0, $pos);
+    } else {
+        $string = substr($string, 0, 12);
+    }
+    $string = trim($string) . '...';
+    //$display = 'yes';
+    
+}
+echo $myrow["round"]; ?></p>
+                <?php if ($display == 'yes') { ?>
             <div class="tooltip-box1">
-                <?php echo $myrow["round"];?>
+                <?php echo $myrow["round"]; ?>
            </div>
-            <?php } ?>  
+            <?php
+} ?>  
                     </td>
       </tr>
      <tr>
@@ -4884,51 +4663,55 @@ try {
                 <td class="newslinktooltip">
                     
                     
-                            <?php 
-                        $display = 'no'; $news_link='';$count = 0;$showlinktext = false;
-                        if(count($linkstring)>0 && $col6 !='') { 
-                            $string = $stortlink = '';
-                            foreach ($linkstring as $linkstr) {
-                                if(trim($linkstr)!=="") {
-                                    $count = $count + 1;
-                                    if($count > 1){
-                                        $showlinktext = true;
-                                    } else {
-                                        $showlinktext = false;
-                                    }
-                                    if($string == '' && $display == 'no'){
-                                        $string = strip_tags($linkstr);
-                                        if (strlen($string) > 15) {
-                                            $string = substr($string,0,15);  
-                                            $string = trim($string).'...';
-                                            $display = 'yes';
-                                         }
-                                        $stortlink = "<a href='".$linkstr."' target='_blank' data-target='#Link".$count."'>".$string."</a>";
-                                    }
-
-                                    // if($news_link != ''){
-                                    //     $display = 'yes';
-                                    // }
-                                    $linktext .= "<a href='".$linkstr."' target='_blank' data-target='#Link".$count."'>Link ".$count."</a>".", ";
-                                    $news_link = "<a href='".$linkstr."' target='_blank'>".$linkstr."</a>";   
-                                    ?>
-                                    <div class="linkanchor" id='Link<?php echo $count;?>'>
-                                        <?php echo $news_link;?>
+                            <?php
+$display = 'no';
+$news_link = '';
+$count = 0;
+$showlinktext = false;
+if (count($linkstring) > 0 && $col6 != '') {
+    $string = $stortlink = '';
+    foreach ($linkstring as $linkstr) {
+        if (trim($linkstr) !== "") {
+            $count = $count + 1;
+            if ($count > 1) {
+                $showlinktext = true;
+            } else {
+                $showlinktext = false;
+            }
+            if ($string == '' && $display == 'no') {
+                $string = strip_tags($linkstr);
+                if (strlen($string) > 15) {
+                    $string = substr($string, 0, 15);
+                    $string = trim($string) . '...';
+                    $display = 'yes';
+                }
+                $stortlink = "<a href='" . $linkstr . "' target='_blank' data-target='#Link" . $count . "'>" . $string . "</a>";
+            }
+            // if($news_link != ''){
+            //     $display = 'yes';
+            // }
+            $linktext.= "<a href='" . $linkstr . "' target='_blank' data-target='#Link" . $count . "'>Link " . $count . "</a>" . ", ";
+            $news_link = "<a href='" . $linkstr . "' target='_blank'>" . $linkstr . "</a>";
+?>
+                                    <div class="linkanchor" id='Link<?php echo $count; ?>'>
+                                        <?php echo $news_link; ?>
                                     </div>
-                             <?php        
-
-                                }
-                            }
-                            if($showlinktext){
-                                echo rtrim(trim($linktext), ',');
-                            } else {
-                                echo $stortlink;
-                            }
-                        }else{ echo '&nbsp;'; } ?>
-                    <?php if($display == ''){ ?>
+                             <?php
+        }
+    }
+    if ($showlinktext) {
+        echo rtrim(trim($linktext), ',');
+    } else {
+        echo $stortlink;
+    }
+} else {
+    echo '&nbsp;';
+} ?>
+                    <?php if ($display == '') { ?>
                      <div class="tooltip-box6 linkanchor">
                 <?php echo $news_link; ?>
-                    </div> <?php } ?>
+                    </div> <?php
+} ?>
                 </td>
                  </tr>
         <tr>
@@ -4940,15 +4723,18 @@ try {
                     </td>
                 </tr>
          <tr>
-          <?php //if($book_value_per_share > 0) { ?>
+          <?php //if($book_value_per_share > 0) {
+ ?>
             <td>
                 <h4> BV Per Share </h4>
             </td>
             <td class="">
                 <p> <?php echo (!empty($book_value_per_share)) ? $book_value_per_share : '&nbsp;'; ?> </p>
             </td>
-                <?php //} ?>
-          <?php //if($price_to_book > 0) { ?>
+                <?php //}
+ ?>
+          <?php //if($price_to_book > 0) {
+ ?>
      </tr>
           <tr>
         <td>
@@ -4956,9 +4742,11 @@ try {
         <td class="">                
                               <p> <?php echo (!empty($price_to_book)) ? $price_to_book : '&nbsp;'; ?> </p>
                       </td>
-              <?php //} ?>
+              <?php //}
+ ?>
                 </tr>
-            <?php //} ?>
+            <?php //}
+ ?>
                         </tbody>
                     </table>
                  </div>
@@ -4970,10 +4758,10 @@ try {
                                                            
              <table class="tablelistview moreinfo_1" cellpadding="0" cellspacing="0" >
                   <tr>  <td class="more-info"><p><?php print nl2br($moreinfor); ?></p>
-                            <?php if(trim($moreinfor) != ''){
-                                echo '<br><br><br>';
-                            }?>
-                          <p><a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle;?>&body=<?php echo $mailurl;?> ">
+                            <?php if (trim($moreinfor) != '') {
+    echo '<br><br><br>';
+} ?>
+                          <p><a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle; ?>&body=<?php echo $mailurl; ?> ">
                                   Request more information</a> specifying what details you would like. Note: For recent transactions, regulatory filing based information is typically less than that for older ones.
                           </p></td></tr></table>
          </div>
@@ -4990,269 +4778,273 @@ try {
     <div class="row masonry ">
 <div class="col-6">
      <?php
-                                    if(($dec_company_valuation <= 0 && $dec_revenue_multiple <= 0 && $dec_ebitda_multiple <= 0 && $dec_pat_multiple <= 0)){
-                                        $field_class_pre = 0;
-                                    }else{
-                                        $field_class_pre = 1;
-                                    }
-                                    if($dec_company_valuation1 <= 0 && $dec_revenue_multiple1 <= 0 && $dec_ebitda_multiple1 <= 0 && $dec_pat_multiple1 <= 0){
-                                         $field_class_post = 0;
-                                    }else{
-                                        $field_class_post = 1;
-                                    }
-                                    if($dec_company_valuation2 <= 0 && $dec_revenue_multiple2 <= 0 && $dec_ebitda_multiple2 <= 0 && $dec_pat_multiple2 <= 0){
-                                         $field_class_ev = 0;
-                                    }else{
-                                        $field_class_ev = 1;
-                                    }
-                                ?>
+if (($dec_company_valuation <= 0 && $dec_revenue_multiple <= 0 && $dec_ebitda_multiple <= 0 && $dec_pat_multiple <= 0)) {
+    $field_class_pre = 0;
+} else {
+    $field_class_pre = 1;
+}
+if ($dec_company_valuation1 <= 0 && $dec_revenue_multiple1 <= 0 && $dec_ebitda_multiple1 <= 0 && $dec_pat_multiple1 <= 0) {
+    $field_class_post = 0;
+} else {
+    $field_class_post = 1;
+}
+if ($dec_company_valuation2 <= 0 && $dec_revenue_multiple2 <= 0 && $dec_ebitda_multiple2 <= 0 && $dec_pat_multiple2 <= 0) {
+    $field_class_ev = 0;
+} else {
+    $field_class_ev = 1;
+}
+?>
     <div  class="work-masonry-thumb1 accordian-group">
                  <div class="accordions">
                     
-                    <?php if($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 ){ ?>
+                    <?php if ($field_class_pre != 0 || $field_class_post != 0 || $field_class_ev != 0) { ?>
                         <div class="accordions_dealtitle"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Valuation Info</h2>
                         </div>
                         <div class="accordions_dealcontent" >
-                     <?php } else { ?>
+                     <?php
+} else { ?>
                         <div class="accordions_dealtitle active"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Valuation Info</h2>
                         </div>
                         <div class="accordions_dealcontent" style="display: none;">
-                     <?php } ?>
+                     <?php
+} ?>
 
                      
                         <table cellpadding="0" cellspacing="0" class="tableInvest tableValuation">
                             <tbody>
                          
 
-                                <?php if($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 ){ ?>
+                                <?php if ($field_class_pre != 0 || $field_class_post != 0 || $field_class_ev != 0) { ?>
 
                                 
                                     
                                 <tr class="tableValuationwidth">
                                   <td style="width: 25%;"><h4>&nbsp;</h4></td>
-                                  <?php if($field_class_pre !=0){ ?>
+                                  <?php if ($field_class_pre != 0) { ?>
                                         <td style="width: 25%;"><h4 class="<?php echo $field_class_pre; ?> ">Pre-Money</h4></td>
-                                  <?php } ?>
+                                  <?php
+    } ?>
                                         <td class="<?php echo $fields_class_both; ?>" style="width: 25%;"><h4 class="">Post-Money</h4></td>
-                                  <?php if($field_class_ev !=0){ ?>
-                                        <td class="<?php echo $fields_class_ev; echo $fields_class_both;?>" style="width: 25%;"><h4 class="">Enterprise Value</h4></td>
-                                  <?php } ?>
+                                  <?php if ($field_class_ev != 0) { ?>
+                                        <td class="<?php echo $fields_class_ev;
+        echo $fields_class_both; ?>" style="width: 25%;"><h4 class="">Enterprise Value</h4></td>
+                                  <?php
+    } ?>
                                 </tr>
                                 <tr class="tableValuationwidth">
                                     <td id="tourinvestor" class="<?php echo $valuation_label; ?>">
                                         <h4>Valuation (&#8377; Cr)</h4>
                                     </td>
-                                    <?php if($field_class_pre !=0){ ?>
+                                    <?php if ($field_class_pre != 0) { ?>
                                         
                                             <td><p class="<?php echo $field_class_pre; ?>">
                                                 <?php
-                                                   if($dec_company_valuation > 0)
-                                                   { ?>
-                                                     <?php  echo $dec_company_valuation; 
-                                                   }else{ ?>
-                                                           <?php   echo '&nbsp;';
-                                                   }  
-                                                ?></p>
+        if ($dec_company_valuation > 0) { ?>
+                                                     <?php echo $dec_company_valuation;
+        } else { ?>
+                                                           <?php echo '&nbsp;';
+        }
+?></p>
                                            </td> 
-                                   <?php } ?>
+                                   <?php
+    } ?>
                                     
                                     <td class=""><p>
                                      <?php
-                                     
-                                            if($dec_company_valuation1 > 0 && $dec_company_valuation1 !='')
-                                            { 
-                                                
-                                                ?>
-                                              <?php  echo $dec_company_valuation1; 
-                                            }else{ 
-                                                  
-                                                  ?>
-                                                    <?php   echo '&nbsp;';
-                                            }  ?></p>
+    if ($dec_company_valuation1 > 0 && $dec_company_valuation1 != '') {
+?>
+                                              <?php echo $dec_company_valuation1;
+    } else {
+?>
+                                                    <?php echo '&nbsp;';
+    } ?></p>
                                     </td> 
-                                    <?php if($field_class_ev !=0){ ?>
+                                    <?php if ($field_class_ev != 0) { ?>
                                     <td class=" <?php echo $field_class_ev; ?>"><p>
                                      <?php
-                                            if($dec_company_valuation2 >0 && $dec_company_valuation2 !='')
-                                                { ?>
-                                              <?php  echo $dec_company_valuation2; 
-                                              }else{ ?>
-                                                    <?php   echo '&nbsp;';
-                                                }  ?></p>
+        if ($dec_company_valuation2 > 0 && $dec_company_valuation2 != '') { ?>
+                                              <?php echo $dec_company_valuation2;
+        } else { ?>
+                                                    <?php echo '&nbsp;';
+        } ?></p>
                                     </td> 
-                                    <?php } ?>
+                                    <?php
+    } ?>
                                 </tr>
                                 <tr class="tableValuationwidth">
                                     <td id="tourinvestor" class="<?php echo $valuation_label; ?>">
                                         <h4>Revenue Multiple </h4>
                                     </td>
-                                    <?php if($field_class_pre !=0){ ?>
+                                    <?php if ($field_class_pre != 0) { ?>
                                     <td class="<?php echo $field_class_pre; ?>"><p>
                                      <?php
-                                            if($dec_revenue_multiple > 0)
-                                                { ?>
-                                              <?php  echo $dec_revenue_multiple; 
-                                              }else{ ?>
-                                                    <?php   echo '&nbsp;';
-                                                }  ?></p>
+        if ($dec_revenue_multiple > 0) { ?>
+                                              <?php echo $dec_revenue_multiple;
+        } else { ?>
+                                                    <?php echo '&nbsp;';
+        } ?></p>
                                     </td> 
-                                    <?php } ?>
+                                    <?php
+    } ?>
                                     <td class=""><p>
                                      <?php
-                                            if($dec_revenue_multiple1 >0 && $dec_revenue_multiple1 !='')
-                                                { ?>
-                                              <?php  echo $dec_revenue_multiple1; 
-                                              }else{ ?>
-                                                    <?php   echo '&nbsp;';
-                                                }  ?></p>
+    if ($dec_revenue_multiple1 > 0 && $dec_revenue_multiple1 != '') { ?>
+                                              <?php echo $dec_revenue_multiple1;
+    } else { ?>
+                                                    <?php echo '&nbsp;';
+    } ?></p>
                                     </td>
-                                     <?php if($field_class_ev !=0){ ?>
+                                     <?php if ($field_class_ev != 0) { ?>
                                     <td class=" <?php echo $field_class_ev; ?>"><p>
                                      <?php
-                                            if($dec_revenue_multiple2 >0 && $dec_revenue_multiple2 !='')
-                                                { ?>
-                                              <?php  echo $dec_revenue_multiple2; 
-                                              }else{ ?>
-                                                    <?php   echo '&nbsp;';
-                                                }  ?></p>
+        if ($dec_revenue_multiple2 > 0 && $dec_revenue_multiple2 != '') { ?>
+                                              <?php echo $dec_revenue_multiple2;
+        } else { ?>
+                                                    <?php echo '&nbsp;';
+        } ?></p>
                                     </td> 
-                                     <?php } ?>
+                                     <?php
+    } ?>
                                     
                                 </tr>
                                 <tr class="tableValuationwidth">
                                     <td id="tourinvestor" class="<?php echo $valuation_label; ?>" >
                                         <h4>EBITDA Multiple</h4>
                                     </td>
-                                     <?php if($field_class_pre !=0){ ?>
+                                     <?php if ($field_class_pre != 0) { ?>
                                         <td class="<?php echo $field_class_pre; ?>"><p>
                                          <?php
-                                                if($dec_ebitda_multiple >0 && $dec_ebitda_multiple !='')
-                                                    { ?>
-                                                  <?php  echo $dec_ebitda_multiple; 
-                                                  }else{ ?>
-                                                        <?php   echo '&nbsp;';
-                                                    }  ?></p>
+        if ($dec_ebitda_multiple > 0 && $dec_ebitda_multiple != '') { ?>
+                                                  <?php echo $dec_ebitda_multiple;
+        } else { ?>
+                                                        <?php echo '&nbsp;';
+        } ?></p>
                                         </td>
-                                     <?php } ?>
+                                     <?php
+    } ?>
                                     <td class=""><p class="">
                                      <?php
-                                            if($dec_ebitda_multiple1 >0 && $dec_ebitda_multiple1 !='' )
-                                                { ?>
-                                              <?php  echo $dec_ebitda_multiple1; 
-                                              }else{ ?>
-                                                    <?php   echo '&nbsp;';
-                                                }  ?></p>
+    if ($dec_ebitda_multiple1 > 0 && $dec_ebitda_multiple1 != '') { ?>
+                                              <?php echo $dec_ebitda_multiple1;
+    } else { ?>
+                                                    <?php echo '&nbsp;';
+    } ?></p>
                                     </td> 
-                                     <?php if($field_class_ev !=0){ ?>
+                                     <?php if ($field_class_ev != 0) { ?>
                                         <td class="<?php echo $field_class_ev; ?>"><p>
                                          <?php
-                                                if($dec_ebitda_multiple2 >0 && $dec_ebitda_multiple2 !='')
-                                                    { ?>
-                                                  <?php  echo $dec_ebitda_multiple2; 
-                                                  }else{ ?>
-                                                        <?php   echo '&nbsp;';
-                                                    }  ?></p>
+        if ($dec_ebitda_multiple2 > 0 && $dec_ebitda_multiple2 != '') { ?>
+                                                  <?php echo $dec_ebitda_multiple2;
+        } else { ?>
+                                                        <?php echo '&nbsp;';
+        } ?></p>
                                         </td>
-                                     <?php } ?>
+                                     <?php
+    } ?>
                                    
                                 </tr>
                                 <tr class="tableValuationwidth">
                                     <td id="tourinvestor" class="<?php echo $valuation_label; ?>">
                                         <h4>PAT Multiple</h4>
                                     </td>
-                                     <?php if($field_class_pre !=0){ ?>
+                                     <?php if ($field_class_pre != 0) { ?>
                                         <td class="<?php echo $field_class_pre; ?>"><p>
                                          <?php
-                                                if($dec_pat_multiple >0 && $dec_pat_multiple !='')
-                                                    { ?>
-                                                  <?php  echo $dec_pat_multiple; 
-                                                  }else{ ?>
-                                                        <?php   echo '&nbsp;';
-                                                    }  ?></p>
+        if ($dec_pat_multiple > 0 && $dec_pat_multiple != '') { ?>
+                                                  <?php echo $dec_pat_multiple;
+        } else { ?>
+                                                        <?php echo '&nbsp;';
+        } ?></p>
                                         </td> 
-                                     <?php } ?>
+                                     <?php
+    } ?>
                                     <td class=""><p>
                                      <?php
-                                            if($dec_pat_multiple1 >0 && $dec_pat_multiple1 !='')
-                                                { ?>
-                                              <?php  echo $dec_pat_multiple1; 
-                                              }else{ ?>
-                                                    <?php   echo '&nbsp;';
-                                                }  ?></p>
+    if ($dec_pat_multiple1 > 0 && $dec_pat_multiple1 != '') { ?>
+                                              <?php echo $dec_pat_multiple1;
+    } else { ?>
+                                                    <?php echo '&nbsp;';
+    } ?></p>
                                     </td> 
-                                     <?php if($field_class_ev !=0){ ?>
+                                     <?php if ($field_class_ev != 0) { ?>
                                     <td class=" <?php echo $field_class_ev; ?>"><p>
                                      <?php
-                                            if($dec_pat_multiple2 > 0 && $dec_pat_multiple2 !='')
-                                            { ?>
-                                                <?php  echo $dec_pat_multiple2; 
-                                            }else{ ?>
-                                                <?php   echo '&nbsp;';
-                                            }  ?></p>
+        if ($dec_pat_multiple2 > 0 && $dec_pat_multiple2 != '') { ?>
+                                                <?php echo $dec_pat_multiple2;
+        } else { ?>
+                                                <?php echo '&nbsp;';
+        } ?></p>
                                     </td> 
-                                     <?php } ?>
+                                     <?php
+    } ?>
                                 </tr>
-                            <?php    //}
-                             
-                                    $display = 'no'; $string ='';
-                                    if(trim($myrow["Valuation"])!="")
-                                    {
-                                    ?>
+                            <?php //}
+    $display = 'no';
+    $string = '';
+    if (trim($myrow["Valuation"]) != "") {
+?>
                                         <?php
-                                       /* foreach($valuationdata as $valdata)
+        /* foreach($valuationdata as $valdata)
                                         {
                                             if($valdata!="")
                                             { 
                                                 print nl2br($valdata);?><?php
                                             }
                                         }*/
-                                        $string =trim($myrow["Valuation"]);
-                                        $string = strip_tags($string);
-                                        if (strlen($string) > 60) { 
-                                            $string = substr($string,0,60);
-                                            $string = trim($string).'...';
-                                            $display = 'yes';
-                                        }
-                                    }
-                                    //if($string !=''){
-                                    ?>
+        $string = trim($myrow["Valuation"]);
+        $string = strip_tags($string);
+        if (strlen($string) > 60) {
+            $string = substr($string, 0, 60);
+            $string = trim($string) . '...';
+            $display = 'yes';
+        }
+    }
+    //if($string !=''){
+    
+?>
                               <tr>
                                   <td class="<?php echo $valuation_label; ?>"><h4>More Info </h4></td>
                                   <td  class="text-child" colspan="3">
                                       <div class="tooltip-2"><p><?php echo $string; ?></p>
                                    </div>
-                                      <?php if($display == 'yes'){ ?>
+                                      <?php if ($display == 'yes') { ?>
                                     <div class="tooltip-box2">
-                                        <?php echo trim($myrow["Valuation"]);?>
+                                        <?php echo trim($myrow["Valuation"]); ?>
                                    </div>
-                                      <?php } ?>
+                                      <?php
+    } ?>
                                   </td>
                               </tr>
-                                    <?php //} ?>
-                                <?php } else { 
-                                    if($crossBorder == 1) {
-                                    ?>
+                                    <?php //}
+     ?>
+                                <?php
+} else {
+    if ($crossBorder == 1) {
+?>
                                      <tr>
                                         <td style="border-bottom: none !important;padding:0px !important;">
                                             <p  style="padding: 10px;font-size:12px;">Cross border deal - The valuation details are not available since the investment is routed via foreign registered entity. Please proceed to
                                                 <!-- <a id="clickhere" href="mailto:database@ventureintelligence.com?subject=Request for more deal data-VC Investment&amp;body=http://localhost/ventureintelligence/dealsnew/dealdetails.php?value=144184063/0/&amp;scr=EMAIL " style="color: #624C34 !important;text-decoration: underline;">Click Here</a> -->
-                                                <a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle;?>&body=<?php echo $mailurl;?> " style="color: #624C34 !important;text-decoration: underline;">mail</a> if you are looking for details other than valuation.  
+                                                <a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle; ?>&body=<?php echo $mailurl; ?> " style="color: #624C34 !important;text-decoration: underline;">mail</a> if you are looking for details other than valuation.  
                                            </p>
                                         </td>
                                     </tr>
-                                    <?php } else {?>
+                                    <?php
+    } else { ?>
 
                                     <tr>
                                         <td style="border-bottom: none !important;padding:0px !important;">
                                             <p class="text-center" style="padding: 10px;"> No data available. 
                                                 <!-- <a id="clickhere" href="mailto:database@ventureintelligence.com?subject=Request for more deal data-VC Investment&amp;body=http://localhost/ventureintelligence/dealsnew/dealdetails.php?value=144184063/0/&amp;scr=EMAIL " style="color: #624C34 !important;text-decoration: underline;">Click Here</a> -->
-                                                <a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle;?>&body=<?php echo $mailurl;?> " style="color: #624C34 !important;text-decoration: underline;">Click Here</a>  
+                                                <a id="clickhere" href="mailto:research@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle; ?>&body=<?php echo $mailurl; ?> " style="color: #624C34 !important;text-decoration: underline;">Click Here</a>  
                                             to request.</p>
                                         </td>
                                     </tr>
-                               <?php }}?>
+                               <?php
+    }
+} ?>
                             </tbody>
                             </table>
                     </div>
@@ -5264,96 +5056,93 @@ try {
             <div  class="work-masonry-thumb1 accordian-group" >
                  <div class="accordions">
                     
-                     <?php if($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 ){ ?>
+                     <?php if ($field_class_pre != 0 || $field_class_post != 0 || $field_class_ev != 0) { ?>
                         <div class="accordions_dealtitle"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Investor Info</h2>
                         </div>
                         <div class="accordions_dealcontent" >
-                     <?php } else { ?>
+                     <?php
+} else { ?>
                         <div class="accordions_dealtitle active"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Investor Info</h2>
                         </div>
                         <div class="accordions_dealcontent" style="display: none;">
-                     <?php } ?>
+                     <?php
+} ?>
                      <!-- <div class="accordions_dealcontent"> -->
 
                         <table cellpadding="0" cellspacing="0" class="tableview tableInvest">             
             <?php
-                    $invcount = 0;
-                    $amount_val ='empty';
-                    if ($_SESSION['investId']) 
-                    unset($_SESSION['investId']); 
-                    $AddOtherAtLast="";
-                    $AddUnknowUndisclosedAtLast="";
-                    if ($getcompanyrs = mysql_query($investorSql))
-                    {
-                       
-                        if(mysql_num_rows($getcompanyrs) > 0){ 
-                                $investor_ID = $investor_Name = $Amount_INR = $Amount_M = $invID = $invName = $invAmount_INR = $invAmount_M = $investor_ID_A = $investor_Name_A = $Amount_INR_A = $Amount_M_A = $invhideamount=$invhideamount_A = array();
-                                $no_amount ='';
-                                $leadinvestor = array();
-                                $newinvestor = array();
-                                $existinvestor = array();
-                                While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
-                                {
-                                    
-                                    $Investorname=trim($myInvrow["Investor"]);
-                                    if($myInvrow["InvestorId"] != 9 ){
-                                        $leadinvestor[] = $myInvrow["leadinvestor"];
-                                        $newinvestor[] = $myInvrow["newinvestor"];
-                                        $existinvestor[] = $myInvrow["existinvestor"];
-                                    }
-                                    /*print_r($leadinvestor);
-                                      print_r($newinvestor);*/
-                                    $Investorname=strtolower($Investorname);
-
-                                    $invResult=substr_count($Investorname,$searchString);
-                                    $invResult1=substr_count($Investorname,$searchString1);
-                                    $invResult2=substr_count($Investorname,$searchString2);
-                                    if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
-                                    {
-                                         $invID[] = trim($myInvrow["InvestorId"]);
-                                         $invName[] = trim($myInvrow["Investor"]);
-                                         $invAmount_INR[] = trim($myInvrow["Amount_INR"]);
-                                         $invAmount_M[] = trim($myInvrow["Amount_M"]);            
-                                         $invhideamount[] = trim($myInvrow["hide_amount"]);
-                                    }else{
-                                         $investor_ID_A[] = trim($myInvrow["InvestorId"]);
-                                         $investor_Name_A[] = trim($myInvrow["Investor"]);
-                                         $Amount_INR_A[] = trim($myInvrow["Amount_INR"]);
-                                         $Amount_M_A[] = trim($myInvrow["Amount_M"]);      
-                                         $invhideamount_A[] = trim($myInvrow["hide_amount"]);
-                                    }
-                                    if(($myInvrow["Amount_INR"] !='' && $myInvrow["Amount_INR"] != '0.00') || ($myInvrow["Amount_M"] !='' && $myInvrow["Amount_M"] != '0.00')){
-                                       $no_amount ='yes';                                                 
-                                    }
-                                   
-                                 }
-                                 $investor_ID = array_merge($invID,$investor_ID_A);
-                                 $investor_Name = array_merge($invName,$investor_Name_A);
-                                 $Amount_INR = array_merge($invAmount_INR,$Amount_INR_A);
-                                 $Amount_M = array_merge($invAmount_M,$Amount_M_A);
-                                 $hide_amount = array_merge($invhideamount,$invhideamount_A);
-                                
-                            ?> 
+$invcount = 0;
+$amount_val = 'empty';
+if ($_SESSION['investId']) unset($_SESSION['investId']);
+$AddOtherAtLast = "";
+$AddUnknowUndisclosedAtLast = "";
+if ($getcompanyrs = mysql_query($investorSql)) {
+    if (mysql_num_rows($getcompanyrs) > 0) {
+        $investor_ID = $investor_Name = $Amount_INR = $Amount_M = $invID = $invName = $invAmount_INR = $invAmount_M = $investor_ID_A = $investor_Name_A = $Amount_INR_A = $Amount_M_A = $invhideamount = $invhideamount_A = array();
+        $no_amount = '';
+        $leadinvestor = array();
+        $newinvestor = array();
+        $existinvestor = array();
+        While ($myInvrow = mysql_fetch_array($getcompanyrs, MYSQL_BOTH)) {
+            $Investorname = trim($myInvrow["Investor"]);
+            if ($myInvrow["InvestorId"] != 9) {
+                $leadinvestor[] = $myInvrow["leadinvestor"];
+                $newinvestor[] = $myInvrow["newinvestor"];
+                $existinvestor[] = $myInvrow["existinvestor"];
+            }
+            /*print_r($leadinvestor);
+             print_r($newinvestor);*/
+            $Investorname = strtolower($Investorname);
+            $invResult = substr_count($Investorname, $searchString);
+            $invResult1 = substr_count($Investorname, $searchString1);
+            $invResult2 = substr_count($Investorname, $searchString2);
+            if (($invResult == 0) && ($invResult1 == 0) && ($invResult2 == 0)) {
+                $invID[] = trim($myInvrow["InvestorId"]);
+                $invName[] = trim($myInvrow["Investor"]);
+                $invAmount_INR[] = trim($myInvrow["Amount_INR"]);
+                $invAmount_M[] = trim($myInvrow["Amount_M"]);
+                $invhideamount[] = trim($myInvrow["hide_amount"]);
+            } else {
+                $investor_ID_A[] = trim($myInvrow["InvestorId"]);
+                $investor_Name_A[] = trim($myInvrow["Investor"]);
+                $Amount_INR_A[] = trim($myInvrow["Amount_INR"]);
+                $Amount_M_A[] = trim($myInvrow["Amount_M"]);
+                $invhideamount_A[] = trim($myInvrow["hide_amount"]);
+            }
+            if (($myInvrow["Amount_INR"] != '' && $myInvrow["Amount_INR"] != '0.00') || ($myInvrow["Amount_M"] != '' && $myInvrow["Amount_M"] != '0.00')) {
+                $no_amount = 'yes';
+            }
+        }
+        $investor_ID = array_merge($invID, $investor_ID_A);
+        $investor_Name = array_merge($invName, $investor_Name_A);
+        $Amount_INR = array_merge($invAmount_INR, $Amount_INR_A);
+        $Amount_M = array_merge($invAmount_M, $Amount_M_A);
+        $hide_amount = array_merge($invhideamount, $invhideamount_A);
+?> 
                             <tr>
                                 <th style="width: 8%;"></th>
                                 <th><h4>Name</h4></th>
-                                <th><?php if($global_hideamount==0){ ?><h4 class="title_ctr" style="text-transform: capitalize;">&#8377; Cr</h4> <?php } ?></th>
-                                <th><?php if( $global_hideamount==0){ ?><h4 class="title_ctr">$ M</h4> <?php } ?></th>
-                                <!-- <?php //if($no_amount =='yes' && $global_hideamount==0){ ?>
+                                <th><?php if ($global_hideamount == 0) { ?><h4 class="title_ctr" style="text-transform: capitalize;">&#8377; Cr</h4> <?php
+        } ?></th>
+                                <th><?php if ($global_hideamount == 0) { ?><h4 class="title_ctr">$ M</h4> <?php
+        } ?></th>
+                                <!-- <?php //if($no_amount =='yes' && $global_hideamount==0){
+         ?>
                                 <th><h4 class="title_ctr" style="text-transform: capitalize;">&#8377; Cr</h4></th>
                                 <th><h4 class="title_ctr">$ M</h4></th>
-                                <?php //} ?> -->
+                                <?php //}
+         ?> -->
   </tr>                        
-                            <?php for($l=0;$l<count($investor_ID);$l++){ ?>
+                            <?php for ($l = 0;$l < count($investor_ID);$l++) { ?>
                                 <tr class="accordions_dealtitle1 active" rowspan="2">
 
                                     <td style="text-align: right;" class="tooltip7">
                                         <div style="text-align: center;display: inline-flex;">
-                                        <?php 
-                                        $InvestornameNew = '';
-                                       /* if($leadinvestor[$l] == 1) {
+                                        <?php
+            $InvestornameNew = '';
+            /* if($leadinvestor[$l] == 1) {
                                             //$InvestornameNew = trim($investor_Name[$l]). " (L)";
                                             echo "<span class='investorlable'>L</span>";
                                          } else if($newinvestor[$l] == 1) {
@@ -5362,158 +5151,166 @@ try {
                                          } else {
                                             $InvestornameNew = trim($investor_Name[$l]);
                                          }*/
-                                         
-
-                                        
-
-                                         if($leadinvestor[$l] == 1) {
-
-                                            //$InvestornameNew = trim($investor_Name[$l]). " (L)";
-                                            echo "<span class='investorlable lead' style='margin-right: 8px;'>L</span>";
-                                            $leadinvestorvalue="Lead investor";
-                                            ?>
-                                            <div class="tooltip-box7 leadtip" ><?php echo $leadinvestorvalue;?></div>
+            if ($leadinvestor[$l] == 1) {
+                //$InvestornameNew = trim($investor_Name[$l]). " (L)";
+                echo "<span class='investorlable lead' style='margin-right: 8px;'>L</span>";
+                $leadinvestorvalue = "Lead investor";
+?>
+                                            <div class="tooltip-box7 leadtip" ><?php echo $leadinvestorvalue; ?></div>
                                             <?php
-                                         }else {
-                                            $InvestornameNew = trim($investor_Name[$l]);
-                                         } 
-                                         if($existinvestor[$l] == 1) {
-
-                                            //$InvestornameNew = trim($investor_Name[$l]). " (L)";
-                                            echo "<span class='investorlable lead'>E</span>";
-                                            $existinvestorvalue="Existing investor";
-                                            ?>
-                                            <div class="tooltip-box7 leadtip" ><?php echo $existinvestorvalue;?></div>
+            } else {
+                $InvestornameNew = trim($investor_Name[$l]);
+            }
+            if ($existinvestor[$l] == 1) {
+                //$InvestornameNew = trim($investor_Name[$l]). " (L)";
+                echo "<span class='investorlable lead'>E</span>";
+                $existinvestorvalue = "Existing investor";
+?>
+                                            <div class="tooltip-box7 leadtip" ><?php echo $existinvestorvalue; ?></div>
                                             <?php
-                                         }else {
-                                            $InvestornameNew = trim($investor_Name[$l]);
-                                         } 
-                                         if($newinvestor[$l] == 1) {
-                                            //$InvestornameNew = trim($investor_Name[$l]). " (N)";
-                                            echo "<span class='investorlable new'>N</span>";
-                                            $newinvestorvalue="New investor";
-                                            ?>
-                                            <div class="tooltip-box7 newtip" ><?php echo $newinvestorvalue;?></div>
+            } else {
+                $InvestornameNew = trim($investor_Name[$l]);
+            }
+            if ($newinvestor[$l] == 1) {
+                //$InvestornameNew = trim($investor_Name[$l]). " (N)";
+                echo "<span class='investorlable new'>N</span>";
+                $newinvestorvalue = "New investor";
+?>
+                                            <div class="tooltip-box7 newtip" ><?php echo $newinvestorvalue; ?></div>
                                             <?php
-                                         } else {
-                                            $InvestornameNew = trim($investor_Name[$l]);
-                                         }
-
-                                        ?>
+            } else {
+                $InvestornameNew = trim($investor_Name[$l]);
+            }
+?>
                                     </div>
                                     </td>
-                                    <td <?php if($no_amount !='yes'){ ?>  <?php }?> style="text-transform: capitalize; " class="investoricon">  <h4>    
+                                    <td <?php if ($no_amount != 'yes') { ?>  <?php
+            } ?> style="text-transform: capitalize; " class="investoricon">  <h4>    
                                         <?php
-                                        $deal=0;
-                                         //$AddOtherAtLast="";
-                                         $Investorname=trim($investor_Name[$l]);
-                                         $InvestornameNew = '';
-
-                                         if($leadinvestor[$l] == 1) {
-                                            $InvestornameNew = trim($investor_Name[$l]). " (L)";
-                                         } else if($newinvestor[$l] == 1) {
-                                            $InvestornameNew = trim($investor_Name[$l]). " (N)";
-                                         } else {
-                                            $InvestornameNew = trim($investor_Name[$l]);
-                                         }
-                                         $Investorname=strtolower($Investorname);
-
-                                         $invResult=substr_count($Investorname,$searchString);
-                                         $invResult1=substr_count($Investorname,$searchString1);
-                                         $invResult2=substr_count($Investorname,$searchString2);
-                                         $getfundSql ='SELECT peinv.PEId,peinv.InvestorId,fn.fundName,peinv.fundId,peinv.Amount_M,peinv.Amount_INR FROM fundNames AS fn,peinvestment_funddetail as peinv,peinvestors as inv where fn.fundId= peinv.fundId and  inv.InvestorId=peinv.InvestorId and peinv.PEId='.$IPO_MandAId.' and peinv.InvestorId='.$investor_ID[$l];  
-                                         $abcd=mysql_query($getfundSql);
-                                         $fundname_cnt=mysql_num_rows($abcd);
-                                         if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
-                                         {
-                                             $_SESSION['investId'][$invcount++] = $investor_ID[$l];
-                                         $deal=0; ?><a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='dirdetails.php?value=<?php echo $investor_ID[$l].'/'.$VCFlagValue.'/'.$deal.'/'.$strvalue[3];?>'  target="_blank"><?php echo $investor_Name[$l]; ?></a><?php if($fundname_cnt>=1){?><i class="fa fa-plus"></i><?php } ?>
+            $deal = 0;
+            //$AddOtherAtLast="";
+            $Investorname = trim($investor_Name[$l]);
+            $InvestornameNew = '';
+            if ($leadinvestor[$l] == 1) {
+                $InvestornameNew = trim($investor_Name[$l]) . " (L)";
+            } else if ($newinvestor[$l] == 1) {
+                $InvestornameNew = trim($investor_Name[$l]) . " (N)";
+            } else {
+                $InvestornameNew = trim($investor_Name[$l]);
+            }
+            $Investorname = strtolower($Investorname);
+            $invResult = substr_count($Investorname, $searchString);
+            $invResult1 = substr_count($Investorname, $searchString1);
+            $invResult2 = substr_count($Investorname, $searchString2);
+            $getfundSql = 'SELECT peinv.PEId,peinv.InvestorId,fn.fundName,peinv.fundId,peinv.Amount_M,peinv.Amount_INR FROM fundNames AS fn,peinvestment_funddetail as peinv,peinvestors as inv where fn.fundId= peinv.fundId and  inv.InvestorId=peinv.InvestorId and peinv.PEId=' . $IPO_MandAId . ' and peinv.InvestorId=' . $investor_ID[$l];
+            $abcd = mysql_query($getfundSql);
+            $fundname_cnt = mysql_num_rows($abcd);
+            if (($invResult == 0) && ($invResult1 == 0) && ($invResult2 == 0)) {
+                $_SESSION['investId'][$invcount++] = $investor_ID[$l];
+                $deal = 0; ?><a id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" href='dirdetails.php?value=<?php echo $investor_ID[$l] . '/' . $VCFlagValue . '/' . $deal . '/' . $strvalue[3]; ?>'  target="_blank"><?php echo $investor_Name[$l]; ?></a><?php if ($fundname_cnt >= 1) { ?><i class="fa fa-plus"></i><?php
+                } ?>
                                         <?php
-                                         }
-                                          elseif(($invResult==1) || ($invResult1==1)){
-                                                  echo $Investorname;
-                                          }
-                                          elseif($invResult2==1)
-                                          {
-                                                  echo $Investorname;
-                                                  } ?></h4>
+            } elseif (($invResult == 1) || ($invResult1 == 1)) {
+                echo $Investorname;
+            } elseif ($invResult2 == 1) {
+                echo $Investorname;
+            } ?></h4>
                                     </td>
                                     <td class="">
-                                    <?php if($no_amount =='yes' ){ ?>
-                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $Amount_INR[$l]!='0.00') { echo $Amount_INR[$l]; }else{ echo '';} ?></p>
-                                        <?php } ?>
+                                    <?php if ($no_amount == 'yes') { ?>
+                                        <p class="content-align"><?php if ($hide_amount[$l] == 0 && $global_hideamount == 0 && $Amount_INR[$l] != '0.00') {
+                    echo $Amount_INR[$l];
+                } else {
+                    echo '';
+                } ?></p>
+                                        <?php
+            } ?>
                                     </td>
                                     <td class="">
-                                    <?php if($no_amount =='yes' ){ ?>
-                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $Amount_M[$l]!='0.00') { echo $Amount_M[$l]; }else{ echo '';} ?></p>
-                                        <?php } ?>
+                                    <?php if ($no_amount == 'yes') { ?>
+                                        <p class="content-align"><?php if ($hide_amount[$l] == 0 && $global_hideamount == 0 && $Amount_M[$l] != '0.00') {
+                    echo $Amount_M[$l];
+                } else {
+                    echo '';
+                } ?></p>
+                                        <?php
+            } ?>
                                     </td>
-                                </tr><?php 
-                                   // if ($getcompanyrs = mysql_query($investorSql))
-                                    // {
-                                    //  While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
-                                    //  {
-                                        $_SESSION['investId'][$invcount++] = $investor_ID[$l];
-                                   
-                                    //echo $getfundSql;
-                                    $no_amountfund='';
-                                    
-                                      ?>
+                                </tr><?php
+            // if ($getcompanyrs = mysql_query($investorSql))
+            // {
+            //  While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
+            //  {
+            $_SESSION['investId'][$invcount++] = $investor_ID[$l];
+            //echo $getfundSql;
+            $no_amountfund = '';
+?>
                                       
                                       
-                                      <?php if($rsfund = mysql_query($getfundSql))
-                                    {
-                                        
-                                       while($myfundrow=mysql_fetch_array($rsfund, MYSQL_BOTH))
-                                       { 
-                                          
-                                           ?>
+                                      <?php if ($rsfund = mysql_query($getfundSql)) {
+                while ($myfundrow = mysql_fetch_array($rsfund, MYSQL_BOTH)) {
+?>
                                        <tr class="childaccordions" style="display: none;">
                                         <td style="text-align: center;" class="tooltip7">
                                         </td>
                                         <td>    
                                             <p id="investor<?php echo $investor_ID[$l]; ?>" class="tourinvestor<?php echo $investor_ID[$l]; ?>" style="color:#000 !important;text-decoration:none;" ><?php echo $myfundrow['fundName']; ?></p>
                                         </td>
-                                       <?php if(($myfundrow["Amount_INR"] !='' && $myfundrow["Amount_INR"] != '0.00' && $myfundrow["Amount_INR"] != 0.00) || ($myfundrow["Amount_M"] !='' && $myfundrow["Amount_M"] != '0.00' && $myfundrow["Amount_M"] != 0.00)){
-                                       $no_amountfund ='yes';
-                                                                            
-                                    }?>
+                                       <?php if (($myfundrow["Amount_INR"] != '' && $myfundrow["Amount_INR"] != '0.00' && $myfundrow["Amount_INR"] != 0.00) || ($myfundrow["Amount_M"] != '' && $myfundrow["Amount_M"] != '0.00' && $myfundrow["Amount_M"] != 0.00)) {
+                        $no_amountfund = 'yes';
+                    } ?>
                                         <td class="">
-                                        <?php if($no_amountfund =="yes" ){ ?>
-                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $myfundrow['Amount_INR'] !='0.00') { echo $myfundrow['Amount_INR']; }else{ echo '';} ?></p>
-                                        <?php } else{?><p></p><?php } ?>
+                                        <?php if ($no_amountfund == "yes") { ?>
+                                            <p class="content-align"><?php if ($hide_amount[$l] == 0 && $global_hideamount == 0 && $myfundrow['Amount_INR'] != '0.00') {
+                            echo $myfundrow['Amount_INR'];
+                        } else {
+                            echo '';
+                        } ?></p>
+                                        <?php
+                    } else { ?><p></p><?php
+                    } ?>
                                         </td>
                                         <td class="">
-                                        <?php if($no_amountfund =="yes" ){ ?>
-                                            <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 && $myfundrow['Amount_M'] !='0.00') { echo $myfundrow['Amount_M']; }else{ echo '';} ?></p>
-                                            <?php } else{?><p></p><?php } ?>
+                                        <?php if ($no_amountfund == "yes") { ?>
+                                            <p class="content-align"><?php if ($hide_amount[$l] == 0 && $global_hideamount == 0 && $myfundrow['Amount_M'] != '0.00') {
+                            echo $myfundrow['Amount_M'];
+                        } else {
+                            echo '';
+                        } ?></p>
+                                            <?php
+                    } else { ?><p></p><?php
+                    } ?>
                                         </td>
                                        
                                         </tr>
-                                        <?php 
-                                    } 
-                                   }?>
+                                        <?php
+                }
+            } ?>
                                        
                                         
                                             
                                     
                                        
 
-                                <?php } ?> 
-                             <?php   } ?>
-                                    <?php if($no_amount =='yes'){ ?>
+                                <?php
+        } ?> 
+                             <?php
+    } ?>
+                                    <?php if ($no_amount == 'yes') { ?>
                             <!-- <tr>
                                  <td><h4>Investor Type</h4></td>
-                                <td colspan="4" ><?php echo $myrow["InvestorTypeName"] ;?></td> 
+                                <td colspan="4" ><?php echo $myrow["InvestorTypeName"]; ?></td> 
                             </tr>  -->
-                                    <?php } else{ ?>
-                           <!--  <td colspan="2"><h4>Investor Type: <?php echo $myrow["InvestorTypeName"] ;?></h4></td> -->
+                                    <?php
+    } else { ?>
+                           <!--  <td colspan="2"><h4>Investor Type: <?php echo $myrow["InvestorTypeName"]; ?></h4></td> -->
                           <!--  <tr>
                                  <td><h4>Investor Type</h4></td>
-                                <td colspan="2"><?php echo $myrow["InvestorTypeName"] ;?></td> 
+                                <td colspan="2"><?php echo $myrow["InvestorTypeName"]; ?></td> 
                           </tr>  -->
-                                    <?php }
-                    }?>
+                                    <?php
+    }
+} ?>
                 </table>
 
                     </div>
@@ -5534,13 +5331,14 @@ try {
                         <table cellspacing="0" cellpadding="0" class="tableInvest tablefin">
                             <tbody>
 
-                                <?php if($dec_revenue == 0 && $Total_Debt == 0 && $dec_ebitda == 0 && $Cash_Equ == 0 && $dec_pat == 0){ ?>
+                                <?php if ($dec_revenue == 0 && $Total_Debt == 0 && $dec_ebitda == 0 && $Cash_Equ == 0 && $dec_pat == 0) { ?>
                                     <tr>
                                         <td style="border-bottom: none !important;">
                                             <p class="text-center" style="padding: 10px;"> No data available.</p>
                                         </td>
                                     </tr>
-                                <?php } else { ?>
+                                <?php
+} else { ?>
                                 <tr>
                                     <td>
                                         <table class="innertable">
@@ -5574,15 +5372,15 @@ try {
                                                     <td>Revenue</td>
                                                     <td>
                                                         <p>
-                                                            <?php if($dec_revenue < 0 || $dec_revenue > 0) { 
-                                                                 echo $dec_revenue;
-                                                            } else{
-                                                                if($dec_company_valuation >0 && $dec_revenue_multiple >0){ ?>
-                                                                    <?php echo  number_format($dec_company_valuation/$dec_revenue_multiple, 2, '.', '');      
-                                                                }else{ ?>
+                                                            <?php if ($dec_revenue < 0 || $dec_revenue > 0) {
+        echo $dec_revenue;
+    } else {
+        if ($dec_company_valuation > 0 && $dec_revenue_multiple > 0) { ?>
+                                                                    <?php echo number_format($dec_company_valuation / $dec_revenue_multiple, 2, '.', '');
+        } else { ?>
                                                                     <?php echo "&nbsp;";
-                                                                }
-                                                            }?>
+        }
+    } ?>
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -5608,19 +5406,18 @@ try {
                                                     <td>EBITDA</td>
                                                     <td>
                                                         <p>
-                                                             <?php 
-                                                            if($dec_ebitda < 0 || $dec_ebitda > 0)
-                                                            { ?>
+                                                             <?php
+    if ($dec_ebitda < 0 || $dec_ebitda > 0) { ?>
                                                                  <?php echo $dec_ebitda;
-                                                            }else{
-                                                                if($dec_company_valuation >0 && $dec_ebitda_multiple >0){ ?>
-                                                                 <?php 
-                                                                    echo  number_format($dec_company_valuation/$dec_ebitda_multiple, 2, '.', '');
-                                                                }else{ ?>
-                                                                <?php 
-                                                                    echo "&nbsp;";
-                                                                }            
-                                                            }?>  
+    } else {
+        if ($dec_company_valuation > 0 && $dec_ebitda_multiple > 0) { ?>
+                                                                 <?php
+            echo number_format($dec_company_valuation / $dec_ebitda_multiple, 2, '.', '');
+        } else { ?>
+                                                                <?php
+            echo "&nbsp;";
+        }
+    } ?>  
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -5647,20 +5444,18 @@ try {
                                                     <td>
                                                         <p>
                                                            <?php
-                                                            if($dec_pat < 0 || $dec_pat > 0)
-                                                            { ?>
+    if ($dec_pat < 0 || $dec_pat > 0) { ?>
                                                                 <?php
-                                                                    echo $dec_pat;                
-                                                                } 
-                                                                else{ ?>
+        echo $dec_pat;
+    } else { ?>
                                                                 <?php
-                                                                    if($dec_company_valuation >0 && $dec_pat_multiple >0){
-                                                                        echo number_format($dec_company_valuation/$dec_pat_multiple, 2, '.', '');
-                                                                    }else{ ?>
+        if ($dec_company_valuation > 0 && $dec_pat_multiple > 0) {
+            echo number_format($dec_company_valuation / $dec_pat_multiple, 2, '.', '');
+        } else { ?>
                                                                 <?php
-                                                                        echo "&nbsp;";                    
-                                                                    }
-                                                            } ?>
+            echo "&nbsp;";
+        }
+    } ?>
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -5671,7 +5466,8 @@ try {
                                         <?php echo "&nbsp;"; ?>  
                                     </td>
                                 </tr>
-                                <?php } ?>
+                                <?php
+} ?>
                             </tbody>
                         </table>
                         
@@ -5682,17 +5478,16 @@ try {
 
         <div class="col-6">
             
-           <?php 
-            if($getcompanyrs= mysql_query($advcompanysql))
-            {
-                $comp_cnt = mysql_num_rows($getcompanyrs);
-            }
-            if($rsinvcomp= mysql_query($advinvestorssql)) {
-                $compinv_cnt = mysql_num_rows($rsinvcomp);
-            }
-            $totalInvestor = count($investor_ID);
-            $totalAdvisor = $comp_cnt + $compinv_cnt;
-            ?> 
+           <?php
+if ($getcompanyrs = mysql_query($advcompanysql)) {
+    $comp_cnt = mysql_num_rows($getcompanyrs);
+}
+if ($rsinvcomp = mysql_query($advinvestorssql)) {
+    $compinv_cnt = mysql_num_rows($rsinvcomp);
+}
+$totalInvestor = count($investor_ID);
+$totalAdvisor = $comp_cnt + $compinv_cnt;
+?> 
         <div  class="work-masonry-thumb1 accordian-group" >
                  <div class="accordions">
                     <div class="accordions_dealtitle active"><span></span>
@@ -5702,8 +5497,8 @@ try {
                         
                         <table cellspacing="0" cellpadding="0" class="tableInvest advisor_Table">
                             <tbody>
-                           <?php if($comp_cnt>0 || $compinv_cnt>0){ ?>  
-                            <?php if($comp_cnt>0) { ?>
+                           <?php if ($comp_cnt > 0 || $compinv_cnt > 0) { ?>  
+                            <?php if ($comp_cnt > 0) { ?>
                                     <tr>
                                         <td style="width: 20%;">
                                                                           <h4 style="padding-top: 8px;">To Company</h4></td>
@@ -5715,16 +5510,18 @@ try {
                                                         
                                                         <td>
                                                             <table class="advisor_innerTable">
-                                                                <?php $firstChild = 0; While($myadcomprow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH)) { ?>
+                                                                <?php $firstChild = 0;
+        While ($myadcomprow = mysql_fetch_array($getcompanyrs, MYSQL_BOTH)) { ?>
                                                                     <tr>
                                                                                                                                    
                                                                         <td class="">
-                                                                            <p><a href='advisor.php?value=<?php echo $myadcomprow["CIAId"];?>/1/<?php echo $flagvalue?>' target="_blank" style="color: #666 !important;">
-                                                                            <?php echo $myadcomprow["cianame"]; ?></a> (<?php echo $myadcomprow["AdvisorType"];?>)
+                                                                            <p><a href='advisor.php?value=<?php echo $myadcomprow["CIAId"]; ?>/1/<?php echo $flagvalue ?>' target="_blank" style="color: #666 !important;">
+                                                                            <?php echo $myadcomprow["cianame"]; ?></a> (<?php echo $myadcomprow["AdvisorType"]; ?>)
                                                                             </p>
                                                                         </td>
                                                                     </tr>
-                                                                <?php } ?>
+                                                                <?php
+        } ?>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -5734,8 +5531,9 @@ try {
                                         </td>
                                         
                                     </tr>
-                                <?php } ?>
-                                <?php if($compinv_cnt>0) { ?>
+                                <?php
+    } ?>
+                                <?php if ($compinv_cnt > 0) { ?>
                                     <tr>
                                          <td style="width: 20%;">
                                                                             <h4 style="padding-top: 8px;">To Investor</h4>
@@ -5749,18 +5547,21 @@ try {
                                                         <td>
                                                             <table class="advisor_innerTable advisor_innerTable1">
                                                                <?php if ($getinvestorrs = mysql_query($advinvestorssql)) { ?>
-                                                                    <?php $firstChild = 0; While($myadinvrow=mysql_fetch_array($getinvestorrs, MYSQL_BOTH)) {  ?>
+                                                                    <?php $firstChild = 0;
+            While ($myadinvrow = mysql_fetch_array($getinvestorrs, MYSQL_BOTH)) { ?>
                                                                         <tr>
                                                                            
                                                                             <td class="">
                                                                                 <p>
-                                                                                    <a href='advisor.php?value=<?php echo  $myadinvrow["CIAId"];?>/1/<?php echo $flagvalue?>' target="_blank" style="color: #666 !important;">
-                                                                                    <?php echo $myadinvrow["cianame"]; ?> </a> (<?php echo $myadinvrow["AdvisorType"];?>)
+                                                                                    <a href='advisor.php?value=<?php echo $myadinvrow["CIAId"]; ?>/1/<?php echo $flagvalue ?>' target="_blank" style="color: #666 !important;">
+                                                                                    <?php echo $myadinvrow["cianame"]; ?> </a> (<?php echo $myadinvrow["AdvisorType"]; ?>)
                                                                                 </p>
                                                                             </td>
                                                                         </tr>
-                                                                    <?php } ?>
-                                                                <?php } ?>
+                                                                    <?php
+            } ?>
+                                                                <?php
+        } ?>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -5769,14 +5570,17 @@ try {
                                             </table>
                                         </td>
                                     </tr>
-                                <?php } ?>
-                                 <?php } else { ?>
+                                <?php
+    } ?>
+                                 <?php
+} else { ?>
                                         <tr>
                                             <td style="border-bottom: none !important;">
                                                 <p class="text-center" style="padding: 10px;"> No data available. </p>
                                             </td>
                                         </tr>
-                                 <?php } ?>
+                                 <?php
+} ?>
                             </tbody>
                         </table>
                         
@@ -5797,47 +5601,43 @@ try {
                             <h2 id="companyinfo" class="box_heading content-box ">Tags</h2>
                         </div>
                          <div class="accordions_dealcontent" style="display: none;">
-                             <?php 
-                        if ($myrow["tags"] != "") 
-                        { 
-                                ?>   
+                             <?php
+if ($myrow["tags"] != "") {
+?>   
                 <div class="">
-                 <?php $ex_tags = explode(',',$myrow["tags"]);
-                 if(count($ex_tags) > 0){
-                    for($k=0;$k<count($ex_tags);$k++){
-                        if($ex_tags[$k] !=''){
-                            $ex_tags_inner = explode(':',$ex_tags[$k]);
-                            $inner_tag = trim($ex_tags_inner[1]);
-                            if($inner_tag !='' && trim($ex_tags_inner[0]) != 'c') {  ?>
+                 <?php $ex_tags = explode(',', $myrow["tags"]);
+    if (count($ex_tags) > 0) {
+        for ($k = 0;$k < count($ex_tags);$k++) {
+            if ($ex_tags[$k] != '') {
+                $ex_tags_inner = explode(':', $ex_tags[$k]);
+                $inner_tag = trim($ex_tags_inner[1]);
+                if ($inner_tag != '' && trim($ex_tags_inner[0]) != 'c') { ?>
                                 <div class="tagelements">
                                     <span><a href="javascript:void(0)" class="tags_link"><?php echo $inner_tag; ?></a></span>
                                 </div>             
-                        <?php }
-                        }
-                    }
-                } ?>       
+                        <?php
+                }
+            }
+        }
+    } ?>       
                 <div style="clear:both"></div>              
                 </div>  
 
                 <!--Header-->
-                <?php if($vcflagValue=="0" || $vcflagValue=="1")
-                {
-                    $actionlink1="index.php?value=".$vcflagValue;
-                }
-                else if($vcflagValue=="4" || $vcflagValue=="5" || $vcflagValue=="3")
-                {
-                        $actionlink1="svindex.php?value=".$vcflagValue;
-                }
-                else if($vcflagValue=="6"){
-                        $actionlink1="incindex.php";
-                }else if($vcflagValue=="2"){
-                     $actionlink1="angelindex.php";
-                }
-                ?>
+                <?php if ($vcflagValue == "0" || $vcflagValue == "1") {
+        $actionlink1 = "index.php?value=" . $vcflagValue;
+    } else if ($vcflagValue == "4" || $vcflagValue == "5" || $vcflagValue == "3") {
+        $actionlink1 = "svindex.php?value=" . $vcflagValue;
+    } else if ($vcflagValue == "6") {
+        $actionlink1 = "incindex.php";
+    } else if ($vcflagValue == "2") {
+        $actionlink1 = "angelindex.php";
+    }
+?>
                 <?php
-                        } else { 
-                            echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No data available. </p>';
-                        }?>
+} else {
+    echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No data available. </p>';
+} ?>
     </div> 
                 </div>
       
@@ -5854,54 +5654,54 @@ try {
                    <h2 id="companyinfo" class="box_heading content-box ">Related Companies</h2>
                 </div>
                 <div class="accordions_dealcontent" style="display: none;">
-<?php 
-                                if ($myrow["tags"] != "") 
-                                { 
-                                        ?>  
+<?php
+if ($myrow["tags"] != "") {
+?>  
                         <div class="">
-                         <?php 
-                            $company_id = array();$s=0; 
-                            $ex_tags = explode(',',$myrow["tags"]);
-                            $noCompanytags = false;
-                             if(count($ex_tags) > 0){
-                                for($k=0;$k<count($ex_tags);$k++){
-                                    if($ex_tags[$k] !=''){
-                                        $ex_tags_inner = explode(':',$ex_tags[$k]);
-                                        $inner_tag = trim($ex_tags_inner[0]);
-                                        $inner_tag_val = trim($ex_tags_inner[1]);
-
-                                        if($inner_tag =='c') {
-                                            $noCompanytags = true;
-                                            $CompanyQuery = mysql_query("SELECT PECompanyId,companyname FROM pecompanies where (tags like '%c:$inner_tag_val%' or tags like '%c: $inner_tag_val%' or tags like '%c : $inner_tag_val%'     or tags like '%c : $inner_tag_val%') and PECompanyId != '$SelCompRef'");
-                                           if(mysql_num_rows($CompanyQuery) >0){ ?>
-                            <div <?php if($s != 0) { ?>style="border-top: 1px solid #d4d4d4;"<?php } ?>>
+                         <?php
+    $company_id = array();
+    $s = 0;
+    $ex_tags = explode(',', $myrow["tags"]);
+    $noCompanytags = false;
+    if (count($ex_tags) > 0) {
+        for ($k = 0;$k < count($ex_tags);$k++) {
+            if ($ex_tags[$k] != '') {
+                $ex_tags_inner = explode(':', $ex_tags[$k]);
+                $inner_tag = trim($ex_tags_inner[0]);
+                $inner_tag_val = trim($ex_tags_inner[1]);
+                if ($inner_tag == 'c') {
+                    $noCompanytags = true;
+                    $CompanyQuery = mysql_query("SELECT PECompanyId,companyname FROM pecompanies where (tags like '%c:$inner_tag_val%' or tags like '%c: $inner_tag_val%' or tags like '%c : $inner_tag_val%'     or tags like '%c : $inner_tag_val%') and PECompanyId != '$SelCompRef'");
+                    if (mysql_num_rows($CompanyQuery) > 0) { ?>
+                            <div <?php if ($s != 0) { ?>style="border-top: 1px solid #d4d4d4;"<?php
+                        } ?>>
                             <?php
-                                                while($myrow1=mysql_fetch_array($CompanyQuery, MYSQL_BOTH))
-                                                { 
-                                                    if(!in_array($myrow1["PECompanyId"], $company_id)){                                    
-                                                        $company_id[] = $myrow1["PECompanyId"]; ?>
+                        while ($myrow1 = mysql_fetch_array($CompanyQuery, MYSQL_BOTH)) {
+                            if (!in_array($myrow1["PECompanyId"], $company_id)) {
+                                $company_id[] = $myrow1["PECompanyId"]; ?>
                                                         <div class="tagelements">
-                                                            <span><a href="companydetails.php?value=<?php echo $myrow1["PECompanyId"].'/'.$VCFlagValue.'/';?>" target="_blank"><?php echo $myrow1['companyname']; ?></a></span>
+                                                            <span><a href="companydetails.php?value=<?php echo $myrow1["PECompanyId"] . '/' . $VCFlagValue . '/'; ?>" target="_blank"><?php echo $myrow1['companyname']; ?></a></span>
             </div>
-                                                <?php  }                                  
-                                                } ?>
+                                                <?php
+                            }
+                        } ?>
                                 <div style="clear:both"></div>
                             </div>
-                            <?php  $s++; 
-                                            }
-                                        }
-                                    }
-                                }
-                            } ?> 
+                            <?php $s++;
+                    }
+                }
+            }
+        }
+    } ?> 
 
-                            <?php if(!$noCompanytags){
-                                echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No data available. </p>';
-                            }?>                    
+                            <?php if (!$noCompanytags) {
+        echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No data available. </p>';
+    } ?>                    
                         </div>  
                         <?php
-                                } else {
-                                    echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No data available. </p>';
-                                }?>
+} else {
+    echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No data available. </p>';
+} ?>
                 </div>
              </div>
              
@@ -5911,103 +5711,89 @@ try {
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-12" style="margin-top: -7px;">
-                <?php 
-
-                        $investor_cnt=0;
-                        
-                        $investorGroupSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
+                <?php
+$investor_cnt = 0;
+$investorGroupSql = "select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
                     GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from
                             peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
                             peinvestors as inv where pe.PECompanyId='$PECompanyId' and
                             peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
                             and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by DealId order by dates desc";
-                            
-                                //echo $investorGroupSql;
-                      
-                         $maexitsql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business, inv.Investor,
+//echo $investorGroupSql;
+$maexitsql = "SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business, inv.Investor,
                                         DealAmount, DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.MandAId ,pe.ExitStatus, pe.DealTypeId, dt.DealType,GROUP_CONCAT( inv.Investor ORDER BY inv.InvestorId) as Investors
                                         FROM manda AS pe, industry AS i, pecompanies AS pec,manda_investors as mi ,peinvestors as inv, dealtypes AS dt
                                          WHERE  i.industryid=pec.industry
                                         AND pec.PEcompanyId = pe.PECompanyId and pe.Deleted=0 and pec.industry !=15 and pe.PECompanyId='$PECompanyId'
                                         and inv.InvestorId=mi.InvestorId and mi.MandAId=pe.MandAId and pe.DealTypeId=dt.DealTypeId 
                                         group by dt order by DealDate desc";
-
-                                      //  echo "<br>-- ".$maexitsql;
-
-                        $ipoexitsql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,inv.Investor,
+//  echo "<br>-- ".$maexitsql;
+$ipoexitsql = "SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,inv.Investor,
                                     IPOAmount, DATE_FORMAT( IPODate, '%b-%Y' ) as dt, pe.IPOId ,pe.ExitStatus,GROUP_CONCAT( inv.Investor ORDER BY inv.InvestorId) as Investors
                                     FROM ipos AS pe, industry AS i, pecompanies AS pec,ipo_investors as ipoi,peinvestors as inv
                                      WHERE  i.industryid=pec.industry
                             AND pec.PEcompanyId = pe.PECompanyId and pe.Deleted=0 and pec.industry !=15 and pe.PECompanyId='$PECompanyId'
                             and inv.InvestorId=ipoi.InvestorId and ipoi.IPOId=pe.IPOId
                              group by dt order by IPODate desc";
-                             // echo "<br>".$ipoexitsql;
-
-                      
-                                 $angelinvsql=   " SELECT pe.InvesteeId, pe.AggHide, pec.companyname, pec.industry, i.industry, pec.sector_business,
+// echo "<br>".$ipoexitsql;
+$angelinvsql = " SELECT pe.InvesteeId, pe.AggHide, pec.companyname, pec.industry, i.industry, pec.sector_business,
                                     DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.AngelDealId ,peinv.InvestorId,inv.Investor,GROUP_CONCAT( inv.InvestorId ORDER BY inv.Investor ) as InvestorIds, GROUP_CONCAT( inv.Investor ORDER BY inv.Investor) as Investors
                                     FROM angelinvdeals AS pe, industry AS i, pecompanies AS pec,
                                     angel_investors as peinv,peinvestors as inv
                                      WHERE  i.industryid=pec.industry AND pec.PEcompanyId = pe.InvesteeId and 
                                      pe.Deleted=0 and pec.industry !=15 and pe.InvesteeId='$PECompanyId'
                                      and  peinv.AngelDealId=pe.AngelDealId and inv.InvestorId=peinv.InvestorId and peinv.InvestorId!=9 group by AngelDealId order by dt desc ";
-                                  //   echo "<br> ".$angelinvsql;
-                                     $incubatorSql="SELECT pe.IncDealId,pe.IncubatorId,inc.Incubator,DATE_FORMAT( date_month_year, '%M-%Y' ) as dt FROM
+//   echo "<br> ".$angelinvsql;
+$incubatorSql = "SELECT pe.IncDealId,pe.IncubatorId,inc.Incubator,DATE_FORMAT( date_month_year, '%M-%Y' ) as dt FROM
                             `incubatordeals` as pe, incubators as inc WHERE IncubateeId =$PECompanyId
                             and pe.IncubatorId= inc.IncubatorId ";
-
-                        if($investorGroupSql!="")
-                        {
-                          if($getcompanyrs= mysql_query($investorGroupSql))
-                          {
-                              $investor_cnt = mysql_num_rows($getcompanyrs);
-                          }
-                        }
-
-                       ?>
+if ($investorGroupSql != "") {
+    if ($getcompanyrs = mysql_query($investorGroupSql)) {
+        $investor_cnt = mysql_num_rows($getcompanyrs);
+    }
+}
+?>
                             <div  class="work-masonry-thumb1 accordian-group" href="http://erikjohanssonphoto.com/work/aizone-ss13/">
                                  <div class="accordions">
                                     <div class="accordions_dealtitle active"><span></span>
                                     <h2 id="companyinfo" class="box_heading content-box ">Investments and Exits Snapshot</h2>
                                     </div>
                                      <div class="accordions_dealcontent" style="display: none;padding-top: 20px;">
-                                        <?php 
-
-                                            if($incrs= mysql_query($incubatorSql))
-                                            {
-                                                $incubator_cnt = mysql_num_rows($incrs);
-                                            }
-                                            if($rsangel= mysql_query($angelinvsql))
-                                            {
-                                                $angel_cnt = mysql_num_rows($rsangel);
-                                            }
-                                            if($rsipoexit= mysql_query($ipoexitsql))
-                                            {
-                                                $ipoexit_cnt = mysql_num_rows($rsipoexit);
-                                            }
-                                            if($rsmandaexit= mysql_query($maexitsql))
-                                            {
-                                                $mandaexit_cnt = mysql_num_rows($rsmandaexit);
-                                            }
-
-                                        ?>
+                                        <?php
+if ($incrs = mysql_query($incubatorSql)) {
+    $incubator_cnt = mysql_num_rows($incrs);
+}
+if ($rsangel = mysql_query($angelinvsql)) {
+    $angel_cnt = mysql_num_rows($rsangel);
+}
+if ($rsipoexit = mysql_query($ipoexitsql)) {
+    $ipoexit_cnt = mysql_num_rows($rsipoexit);
+}
+if ($rsmandaexit = mysql_query($maexitsql)) {
+    $mandaexit_cnt = mysql_num_rows($rsmandaexit);
+}
+?>
                                         <ul class="tabView">
                                             <?php
-                                            if($incubator_cnt>0) { ?> 
+if ($incubator_cnt > 0) { ?> 
                                                 <li href="#incubation">INCUBATION</li>
-                                            <?php } ?>
                                             <?php
-                                            if($angel_cnt>0) { ?> 
+} ?>
+                                            <?php
+if ($angel_cnt > 0) { ?> 
                                                 <li href="#angel">ANGEL INVESTMENTS</li>
-                                            <?php } ?>
                                             <?php
-                                            if($investor_cnt>0) { ?> 
+} ?>
+                                            <?php
+if ($investor_cnt > 0) { ?> 
                                                 <li href="#investments" class="current">PE/VC INVESTMENTS</li>
-                                            <?php } ?>
                                             <?php
-                                            if(($ipoexit_cnt>0)||($mandaexit_cnt>0 )) { ?> 
+} ?>
+                                            <?php
+if (($ipoexit_cnt > 0) || ($mandaexit_cnt > 0)) { ?> 
                                                 <li href="#exits">PE/VC Exits</li>
-                                            <?php } ?>
+                                            <?php
+} ?>
                                             <div class="clearfix"></div>
                                         </ul>
 
@@ -6015,112 +5801,102 @@ try {
 
                                             <div id="incubation" class="tab-items">
                                                 <?php
-                                                     
-                                                        if($incubator_cnt>0)
-                                                        {
-                                                    ?>   
+if ($incubator_cnt > 0) {
+?>   
                                                    
                                                    <div  class="col-md-6">
                                                     <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
                                                          <thead><tr><th>Incubator Name</th><th>Deal Period</th></tr></thead>
                                                         <tbody>
-                                                            <?php  
-                                                                While($incrow=mysql_fetch_array($incrs, MYSQL_BOTH))
-                                                                {
-                                                                    $incubator=$incrow["Incubator"];
-                                                                    $incubatorId=$incrow["IncubatorId"];
-                                                                    $incubatordate=$incrow["dt"];?>
-                                                            <tr><td><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$VCFlagValue;?>' title="Incubator Details" target="_blank"> <?php echo $incubator;?> </a> </td>
-                                                                <td><a href='incubatordetails.php?value=<?php echo $incubatorId.'/'.$VCFlagValue;?>' target="_blank"> <?php echo $incubatordate;?></a></td>
+                                                            <?php
+    While ($incrow = mysql_fetch_array($incrs, MYSQL_BOTH)) {
+        $incubator = $incrow["Incubator"];
+        $incubatorId = $incrow["IncubatorId"];
+        $incubatordate = $incrow["dt"]; ?>
+                                                            <tr><td><a href='incubatordetails.php?value=<?php echo $incubatorId . '/' . $VCFlagValue; ?>' title="Incubator Details" target="_blank"> <?php echo $incubator; ?> </a> </td>
+                                                                <td><a href='incubatordetails.php?value=<?php echo $incubatorId . '/' . $VCFlagValue; ?>' target="_blank"> <?php echo $incubatordate; ?></a></td>
                                                             </tr>
-                                                             <?php  }?>
+                                                             <?php
+    } ?>
                                                               </tbody>
                                                     </table>
                                                     </div>  
 
-                                                 <?php } ?>
+                                                 <?php
+} ?>
                                             </div>
 
                                             <div id="angel" class="tab-items">
                                                <?php
-                                                    
-                                                        if($angel_cnt>0)
-                                                        {                   
-                                                    ?>
+if ($angel_cnt > 0) {
+?>
                                                 
                                                     <div class="col-md-6" >
                                                         <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
                                                         <thead><tr><th>Investor Name</th> <th>Deal Period</th></tr></thead>
                                                         <tbody>
                                                          <?php
-
-                                                            While($angelrow=mysql_fetch_array($rsangel, MYSQL_BOTH))
-                                                            {
-                                                              $Investorname=trim($angelrow["Investor"]);
-                                                            //$Investorname=strtolower($Investorname);
-
-                                                            $InvestorsName = explode(",",$angelrow["Investors"]);
-                                                            $InvestorIds = explode(",",$angelrow["InvestorIds"]);
-                                                            $hide_agg = $angelrow['AggHide'];
-                                                            $invRes=substr_count($Investorname,$searchString);
-                                                                    $invRes1=substr_count($Investorname,$searchString1);
-                                                                    $invRes2=substr_count($Investorname,$searchString2);
-
-
-                                                                    if(($invRes==0) && ($invRes1==0) && ($invRes2==0))
-                                                                    {
-                                                                        if($hide_agg==0) {
-
-                                            ?>
+    While ($angelrow = mysql_fetch_array($rsangel, MYSQL_BOTH)) {
+        $Investorname = trim($angelrow["Investor"]);
+        //$Investorname=strtolower($Investorname);
+        $InvestorsName = explode(",", $angelrow["Investors"]);
+        $InvestorIds = explode(",", $angelrow["InvestorIds"]);
+        $hide_agg = $angelrow['AggHide'];
+        $invRes = substr_count($Investorname, $searchString);
+        $invRes1 = substr_count($Investorname, $searchString1);
+        $invRes2 = substr_count($Investorname, $searchString2);
+        if (($invRes == 0) && ($invRes1 == 0) && ($invRes2 == 0)) {
+            if ($hide_agg == 0) {
+?>
                                                                     <tr>
                                                                        <!--  <td class="investname">
-                                                                                        <?php 
-                                                                                        for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
-                                                                                            <a href='<?php echo $invpage;?>?value=<?php echo $InvestorIds[$i].'/'.$VCFlagValue.'/'.$deal;?>' title="Investor Details"><?php echo $InvestorsName[$i]; ?></a>
+                                                                                        <?php
+                for ($i = 0;$i < sizeof($InvestorsName);$i++) { ?>
+                                                                                            <a href='<?php echo $invpage; ?>?value=<?php echo $InvestorIds[$i] . '/' . $VCFlagValue . '/' . $deal; ?>' title="Investor Details"><?php echo $InvestorsName[$i]; ?></a>
                                                                                             <span>,</span>
-                                                                                       <?php } ?>
+                                                                                       <?php
+                } ?>
                                                                                     </td> -->
                                                                         <td style="alt" class="angelinvestname">
-                                                                             <?php 
-                                                                                        for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
-                                                                             <a href='angleinvdetails.php?value=<?php echo $InvestorIds[$i].'/'.$VCFlagValue;?>' ><?php echo $InvestorsName[$i];  ?></a><span>,</span>
-                                                                                       <?php } ?>
+                                                                             <?php
+                for ($i = 0;$i < sizeof($InvestorsName);$i++) { ?>
+                                                                             <a href='angleinvdetails.php?value=<?php echo $InvestorIds[$i] . '/' . $VCFlagValue; ?>' ><?php echo $InvestorsName[$i]; ?></a><span>,</span>
+                                                                                       <?php
+                } ?>
                                                                                     </td>
 
-                                                                    <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"].'/'.$VCFlagValue;?>" >
-                                                                                            <?php echo $angelrow["dt"];?></a></td>
+                                                                    <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"] . '/' . $VCFlagValue; ?>" >
+                                                                                            <?php echo $angelrow["dt"]; ?></a></td>
                                                                                         </tr>
 
                                             <?php
-                                                                        } else { ?>
+            } else { ?>
                                                                             <tr><td style="alt" class="angelinvestname"> 
-                                                                                <?php 
-                                                                                        for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
-                                                                             <a href='angleinvdetails.php?value=<?php echo $InvestorIds[$i].'/'.$VCFlagValue;?>' ><?php echo $InvestorsName[$i]; ?></a><span>,</span>
-                                                                                       <?php } ?></td>
+                                                                                <?php
+                for ($i = 0;$i < sizeof($InvestorsName);$i++) { ?>
+                                                                             <a href='angleinvdetails.php?value=<?php echo $InvestorIds[$i] . '/' . $VCFlagValue; ?>' ><?php echo $InvestorsName[$i]; ?></a><span>,</span>
+                                                                                       <?php
+                } ?></td>
 
-                                                                    <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"].'/'.$VCFlagValue;?>" >
-                                                                                            <?php echo $angelrow["dt"];?></a></td>
+                                                                    <td> <a href="angeldealdetails.php?value=<?php echo $angelrow["AngelDealId"] . '/' . $VCFlagValue; ?>" >
+                                                                                            <?php echo $angelrow["dt"]; ?></a></td>
                                                                                         </tr>
-                                                                    <?php } }
-                                                                    elseif(($invRes==1) || ($invRes1==1) || ($invRes2==1))
-                                                                    {
-                                                                      $AddUnknowUndisclosedAtLast=$angelrow["Investor"];
-                                                                      $dealid=$angelrow["AngelDealId"];
-                                                                            $dtdisplay=$angelrow["dt"];
-                                                                    }
-                                                                    elseif($invRes2==1)
-                                                                    {
-                                                                      $AddOtherAtLast=$angelrow["Investor"];
-                                                                      $dealid=$angelrow["AngelDealId"];
-                                                                      $dtdisplay1=$angelrow["dt"];
-                                                                      }
-
-                                                            }
-
-                                                        // if($AddUnknowUndisclosedAtLast!="")
-                                                        //{
-                                                          ?>
+                                                                    <?php
+            }
+        } elseif (($invRes == 1) || ($invRes1 == 1) || ($invRes2 == 1)) {
+            $AddUnknowUndisclosedAtLast = $angelrow["Investor"];
+            $dealid = $angelrow["AngelDealId"];
+            $dtdisplay = $angelrow["dt"];
+        } elseif ($invRes2 == 1) {
+            $AddOtherAtLast = $angelrow["Investor"];
+            $dealid = $angelrow["AngelDealId"];
+            $dtdisplay1 = $angelrow["dt"];
+        }
+    }
+    // if($AddUnknowUndisclosedAtLast!="")
+    //{
+    
+?>
                                                         </tbody>
                                                         </table> 
                                                        
@@ -6128,11 +5904,12 @@ try {
 
                                            
 
-                                            <?php } ?>
+                                            <?php
+} ?>
                                             </div>
 
                                             <div id="investments" class="tab-items activetab">
-                                                <?php if($investor_cnt > 0){ ?>
+                                                <?php if ($investor_cnt > 0) { ?>
                                                     <div class="col-md-6">
                                                     <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest">
                                                         <thead>
@@ -6153,176 +5930,161 @@ try {
                                                         </thead>
                                                         <tbody>
                                                              <?php
-
-                                                                $addTrancheWord ="";
-                                                                $addDebtWord="";
-                                                                $addTrancheWordtxt = "";
-                                                                While($myInvestorrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
-                                                                        {
-                                                                          
-                                                                                $Investorname=trim($myInvestorrow["Investor"]);
-
-                                                                                $InvestorsName = explode(",",$myInvestorrow["Investors"]);
-                                                                                $InvestorIds = explode(",",$myInvestorrow["InvestorIds"]);
-                                                                                if($myInvestorrow["hidestake"]!=1)
-                                                                                {
-                                                                                if($myInvestorrow["stakepercentage"]>0) {
-                                                                                    $hidestake=$myInvestorrow["stakepercentage"]." %";
-                                                                                } else {
-                                                                                    $hidestake="&nbsp;";
-                                                                                }
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $hidestake="&nbsp;";  
-                                                                                }
-                                                                                if($myInvestorrow["Company_Valuation"]>0) {
-                                                                                    $companyValuation=$myInvestorrow["Company_Valuation"];
-                                                                                } else {
-                                                                                    $companyValuation="&nbsp;";
-                                                                                }
-                                                                                // if($myInvestorrow["hideamount"] ==1 ) {
-                                                                                //     $Amount_INR=$myInvestorrow["Amount_INR"];
-                                                                                // } else {
-                                                                                //     $Amount_INR="--";
-                                                                                // }
-                                                                                ///$Amount_INR=$myInvestorrow["Amount_INR"];
-                                                                                if($myInvestorrow["hideamount"]!=1 && $myInvestorrow["Amount_INR"] !='' && $myInvestorrow["Amount_INR"] !='0.00'){  
-                                                                                  $Amount_INR=$myInvestorrow["Amount_INR"]; 
-                                                                                }else{
-                                                                                    $Amount_INR="&nbsp;";    
-                                                                                }
-                                                                                $Investorname=strtolower($Investorname);
-                                                                                $invResult=substr_count($Investorname,$searchString);
-                                                                                $invResult1=substr_count($Investorname,$searchString1);
-                                                                                $invResult2=substr_count($Investorname,$searchString2);
-
-                                                                                if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
-                                                                                {
-                                                                                   $addTrancheWord="";
-                                                                                   $addDebtWord="";
-                                                                                    if(($pe_re==0) || ($pe_re==1) || ($pe_re==8) )
-                                                                                    {
-                                                                                        if($myInvestorrow["AggHide"]==1){
-                                                                                            $addTrancheWord = "; NIA";
-                                                                                            $addTrancheWordtxt = $addTrancheWord;
-                                                                                        }
-                                                                                        else{
-                                                                                            $addTrancheWord="";
-                                                                                        }
-                                                                                    }
-                                                                                    else
-                                                                                        $addTrancheWord="";
-                                                                                        if($myInvestorrow["SPV"]==1)
-                                                                                            $addDebtWord="; Debt";
-                                                                                        else
-                                                                                            $addDebtWord="";
-
-                                                                ?>
-                                                            <?php $deal=0; ?>
+    $addTrancheWord = "";
+    $addDebtWord = "";
+    $addTrancheWordtxt = "";
+    While ($myInvestorrow = mysql_fetch_array($getcompanyrs, MYSQL_BOTH)) {
+        $Investorname = trim($myInvestorrow["Investor"]);
+        $InvestorsName = explode(",", $myInvestorrow["Investors"]);
+        $InvestorIds = explode(",", $myInvestorrow["InvestorIds"]);
+        if ($myInvestorrow["hidestake"] != 1) {
+            if ($myInvestorrow["stakepercentage"] > 0) {
+                $hidestake = $myInvestorrow["stakepercentage"] . " %";
+            } else {
+                $hidestake = "&nbsp;";
+            }
+        } else {
+            $hidestake = "&nbsp;";
+        }
+        if ($myInvestorrow["Company_Valuation"] > 0) {
+            $companyValuation = $myInvestorrow["Company_Valuation"];
+        } else {
+            $companyValuation = "&nbsp;";
+        }
+        // if($myInvestorrow["hideamount"] ==1 ) {
+        //     $Amount_INR=$myInvestorrow["Amount_INR"];
+        // } else {
+        //     $Amount_INR="--";
+        // }
+        ///$Amount_INR=$myInvestorrow["Amount_INR"];
+        if ($myInvestorrow["hideamount"] != 1 && $myInvestorrow["Amount_INR"] != '' && $myInvestorrow["Amount_INR"] != '0.00') {
+            $Amount_INR = $myInvestorrow["Amount_INR"];
+        } else {
+            $Amount_INR = "&nbsp;";
+        }
+        $Investorname = strtolower($Investorname);
+        $invResult = substr_count($Investorname, $searchString);
+        $invResult1 = substr_count($Investorname, $searchString1);
+        $invResult2 = substr_count($Investorname, $searchString2);
+        if (($invResult == 0) && ($invResult1 == 0) && ($invResult2 == 0)) {
+            $addTrancheWord = "";
+            $addDebtWord = "";
+            if (($pe_re == 0) || ($pe_re == 1) || ($pe_re == 8)) {
+                if ($myInvestorrow["AggHide"] == 1) {
+                    $addTrancheWord = "; NIA";
+                    $addTrancheWordtxt = $addTrancheWord;
+                } else {
+                    $addTrancheWord = "";
+                }
+            } else $addTrancheWord = "";
+            if ($myInvestorrow["SPV"] == 1) $addDebtWord = "; Debt";
+            else $addDebtWord = "";
+?>
+                                                            <?php $deal = 0; ?>
                                                             <tr>
                                                                 <td class="investname">
-                                                                    <?php 
-                                                                    for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
-                                                                        <a href='dirdetails.php?value=<?php echo $InvestorIds[$i].'/'.$VCFlagValue.'/'.$deal;?>' title="<?php echo $InvestorsName[$i]; ?>" target="_blank"><?php echo $InvestorsName[$i]; ?></a><span>,</span>
-                                                                   <?php } ?>
+                                                                    <?php
+            for ($i = 0;$i < sizeof($InvestorsName);$i++) { ?>
+                                                                        <a href='dirdetails.php?value=<?php echo $InvestorIds[$i] . '/' . $VCFlagValue . '/' . $deal; ?>' title="<?php echo $InvestorsName[$i]; ?>" target="_blank"><?php echo $InvestorsName[$i]; ?></a><span>,</span>
+                                                                   <?php
+            } ?>
                                                                 </td>
-                                                                <td><a class="postlink" href="dealdetails.php?value=<?php echo $myInvestorrow["DealId"].'/'.$VCFlagValue;?>" title="Deal Details"><?php echo $myInvestorrow["dt"];?></a><?php echo $addTrancheWord;?><?php echo $addDebtWord;?></td>                                                          
+                                                                <td><a class="postlink" href="dealdetails.php?value=<?php echo $myInvestorrow["DealId"] . '/' . $VCFlagValue; ?>" title="Deal Details"><?php echo $myInvestorrow["dt"]; ?></a><?php echo $addTrancheWord; ?><?php echo $addDebtWord; ?></td>                                                          
                                                                 <td class="table-width1"><?php echo $Amount_INR; ?></td>   
                                                                 <td class="table-width2"><?php echo $hidestake; ?></td> 
                                                                 <td class="table-width3"><?php echo $companyValuation; ?></td> 
                                                             </tr>                                                         
-                                                     <?php 
-                                                          }
-                                                           } 
-                                                    ?>  
+                                                     <?php
+        }
+    }
+?>  
                                                         </tbody>
                                                     </table> 
                                                      </div>
-                                                     <?php } ?>
+                                                     <?php
+} ?>
                                             </div>
 
                                             <div id="exits" class="tab-items">
-                                                <?php 
-
-                                                if(($ipoexit_cnt>0)||($mandaexit_cnt>0 ))
-                                                {
-
-                                                ?>  
+                                                <?php
+if (($ipoexit_cnt > 0) || ($mandaexit_cnt > 0)) {
+?>  
                                                 <div  class="col-md-6">
                                                 <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
                                                 <thead><tr><th>Deal Type</th><th style="width: 28%;">Investor(s)</th> <th>Deal Period</th> <th>Status</th></tr></thead>
                                                 <tbody>
                                                         <?php
-                                                        //if($rsipoexit= mysql_query($ipoexitsql))
-                                                        //{
-                                                        While($ipoexitrow=mysql_fetch_array($rsipoexit, MYSQL_BOTH))
-                                                        {
-                                                            $InvestorsName = explode(",",$ipoexitrow["Investors"]);
-                                                          $exitstatusvalueforIPO=$ipoexitrow["ExitStatus"];
-                                                          if($exitstatusvalueforIPO==0)
-                                                           {$exitstatusdisplayforIPO="Partial Exit";}
-                                                          elseif($exitstatusvalueforIPO==1)
-                                                          {  $exitstatusdisplayforIPO="Complete Exit";}
-                                                        ?>
+    //if($rsipoexit= mysql_query($ipoexitsql))
+    //{
+    While ($ipoexitrow = mysql_fetch_array($rsipoexit, MYSQL_BOTH)) {
+        $InvestorsName = explode(",", $ipoexitrow["Investors"]);
+        $exitstatusvalueforIPO = $ipoexitrow["ExitStatus"];
+        if ($exitstatusvalueforIPO == 0) {
+            $exitstatusdisplayforIPO = "Partial Exit";
+        } elseif ($exitstatusvalueforIPO == 1) {
+            $exitstatusdisplayforIPO = "Complete Exit";
+        }
+?>
                                                        <tr><td style="alt">IPO</td>
 
                                                           <td class="angelinvestname">
-                                                            <?php //echo $ipoexitrow["Investor"];?>
+                                                            <?php //echo $ipoexitrow["Investor"];
+         ?>
                                                           
-                                                                 <?php 
-                                                                for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
+                                                                 <?php
+        for ($i = 0;$i < sizeof($InvestorsName);$i++) { ?>
                                                                     <?php echo $InvestorsName[$i]; ?><span>,</span>
-                                                               <?php } ?>
+                                                               <?php
+        } ?>
                                                             
                                                                 
                                                             </td>
 
-                                                        <td> <a href='ipodealdetails.php?value=<?php echo $ipoexitrow["IPOId"].'/'.$VCFlagValue;?>' target="_blank"><?php echo $ipoexitrow["dt"];?></a></td>
+                                                        <td> <a href='ipodealdetails.php?value=<?php echo $ipoexitrow["IPOId"] . '/' . $VCFlagValue; ?>' target="_blank"><?php echo $ipoexitrow["dt"]; ?></a></td>
 
-                                                        <td><?php echo $exitstatusdisplayforIPO;?></td>
+                                                        <td><?php echo $exitstatusdisplayforIPO; ?></td>
                                                         </tr>
 
 
                                                         <?php
-                                                                }
-
-                                                                if($rsmandaexit= mysql_query($maexitsql))
-                                                        //{
-                                                        While($mymandaexitrow=mysql_fetch_array($rsmandaexit, MYSQL_BOTH))
-                                                        {
-                                                             $InvestorsName = explode(",",$mymandaexitrow["Investors"]);
-                                                          $exitstatusvalue=$mymandaexitrow["ExitStatus"];
-                                                          if($exitstatusvalue==0)
-                                                           {$exitstatusdisplay="Partial Exit";}
-                                                          elseif($exitstatusvalue==1)
-                                                          {  $exitstatusdisplay="Complete Exit";}
-                                                        ?>
+    }
+    if ($rsmandaexit = mysql_query($maexitsql))
+    //{
+    While ($mymandaexitrow = mysql_fetch_array($rsmandaexit, MYSQL_BOTH)) {
+        $InvestorsName = explode(",", $mymandaexitrow["Investors"]);
+        $exitstatusvalue = $mymandaexitrow["ExitStatus"];
+        if ($exitstatusvalue == 0) {
+            $exitstatusdisplay = "Partial Exit";
+        } elseif ($exitstatusvalue == 1) {
+            $exitstatusdisplay = "Complete Exit";
+        }
+?>
 
                                                         <tr><td style="alt" ><!--M&A--> <?php echo $mymandaexitrow["DealType"] ?></td>
                                                             <td class="angelinvestname">
-                                                                 <?php 
-                                                                for ($i=0; $i < sizeof($InvestorsName); $i++) { ?>
+                                                                 <?php
+        for ($i = 0;$i < sizeof($InvestorsName);$i++) { ?>
                                                                     <?php echo $InvestorsName[$i]; ?><span>,</span>
-                                                               <?php } ?>
+                                                               <?php
+        } ?>
                                                             </td>
 
-                                                            <!-- <td><?php echo $mymandaexitrow["Investor"];?></td> -->
+                                                            <!-- <td><?php echo $mymandaexitrow["Investor"]; ?></td> -->
 
-                                                        <td> <a href='mandadealdetails.php?value=<?php echo $mymandaexitrow["MandAId"].'/'.$VCFlagValue;?>' target="_blank"><?php echo $mymandaexitrow["dt"];?></a></td>
+                                                        <td> <a href='mandadealdetails.php?value=<?php echo $mymandaexitrow["MandAId"] . '/' . $VCFlagValue; ?>' target="_blank"><?php echo $mymandaexitrow["dt"]; ?></a></td>
 
-                                                        <td><?php echo $exitstatusdisplay;?></td>
+                                                        <td><?php echo $exitstatusdisplay; ?></td>
                                                         </tr>
                                                         <?php
-                                                        } 
-                                                       ?>  
+    }
+?>  
                                             </tbody>
                                             </table> 
                                             
                                             </div>
                                             <?php
-                                            }
-                                            ?>
+}
+?>
                                             </div>
 
                                         </div>
@@ -6333,9 +6095,10 @@ try {
                                      
                 
                         <div style="clear: both;"></div>
-                         <?php if($addTrancheWordtxt == "; NIA"){ ?>
+                         <?php if ($addTrancheWordtxt == "; NIA") { ?>
                                            <p class="note-nia" >*NIA - Not Included for Aggregate</p>
-                                       <?php }?>
+                                       <?php
+} ?>
                                </div>
                                
                               
@@ -6346,112 +6109,92 @@ try {
                                 <div class="col-12" >
     <div class="accordions">
    
-    <?php 
-    $acquirersql ="SELECT AcquirerId FROM acquirers WHERE Acquirer LIKE '".trim($myrow['companyname'])."%'";
-    $acquirer= mysql_query($acquirersql);
-    while($myacq=mysql_fetch_array($acquirer)){
-    $acqarr[]=$myacq['AcquirerId'];
+    <?php
+$acquirersql = "SELECT AcquirerId FROM acquirers WHERE Acquirer LIKE '" . trim($myrow['companyname']) . "%'";
+$acquirer = mysql_query($acquirersql);
+while ($myacq = mysql_fetch_array($acquirer)) {
+    $acqarr[] = $myacq['AcquirerId'];
+}
+$acqval = implode(",", $acqarr);
+$cinno = $cinno;
+$orderby = $_POST['orderby'];
+// Order by code
+if ($orderby == 'companyname') {
+    $order_query = 'companyname';
+    if ($_POST['order'] == 'asc') {
+        $order_status = $order_company = 'desc';
+    } else {
+        $order_status = $order_company = 'asc';
     }
-    
-    $acqval=implode(",",$acqarr);
-    $cinno = $cinno;
-    $orderby=$_POST['orderby'];
-
-    // Order by code
-    if($orderby=='companyname')
-    {
-        $order_query = 'companyname';
-        if($_POST['order'] == 'asc'){
-            
-            $order_status = $order_company = 'desc';
-        }else{
-            $order_status = $order_company ='asc';
-        }
-        
-    }else{
-        $order_company = 'asc';
+} else {
+    $order_company = 'asc';
+}
+if ($orderby == 'sector_business') {
+    $order_query = 'sector_business';
+    if ($_POST['order'] == 'asc') {
+        $order_status = $order_sector = 'desc';
+    } else {
+        $order_status = $order_sector = 'asc';
     }
-    
-    if($orderby=='sector_business'){
-        
-       $order_query = 'sector_business';
-        if($_POST['order']=='asc'){
-            
-            $order_status = $order_sector = 'desc';
-       }else{
-            $order_status = $order_sector = 'asc';
-        }
-    }else{
-        $order_sector = 'asc';
+} else {
+    $order_sector = 'asc';
+}
+if ($orderby == 'acquirer') {
+    $order_query = 'acquirer';
+    if ($_POST['order'] == 'asc') {
+        $order_status = $order_acquirer = 'desc';
+    } else {
+        $order_status = $order_acquirer = 'asc';
     }
-    
-    if($orderby=='acquirer'){
-        
-        $order_query = 'acquirer';
-        if($_POST['order']=='asc'){
-            
-            $order_status = $order_acquirer = 'desc';
-        }else{
-            $order_status = $order_acquirer = 'asc';
-        }
-    }else{
-        $order_acquirer = 'asc';
+} else {
+    $order_acquirer = 'asc';
+}
+if ($orderby == 'dates') {
+    $order_query = 'dates';
+    if ($_POST['order'] == 'desc') {
+        $order_status = $order_dates = 'asc';
+    } else {
+        $order_status = $order_dates = 'desc';
     }
-    
-    if($orderby=='dates'){
-        
-        $order_query = 'dates';
-        if($_POST['order'] =='desc'){
-            $order_status = $order_dates = 'asc';
-            
-        }else{
-            $order_status = $order_dates = 'desc';
-        }
-    }else{
-        $order_dates = 'desc';
+} else {
+    $order_dates = 'desc';
+}
+if ($orderby == 'amount') {
+    $order_query = 'amount';
+    if ($_POST['order'] == 'asc') {
+        $order_status = $order_amount = 'desc';
+    } else {
+        $order_status = $order_amount = 'asc';
     }
-    
-   
-    
-    if($orderby=='amount'){
-        
-        $order_query = 'amount';
-        if($_POST['order'] == 'asc'){
-            
-            $order_status = $order_amount = 'desc';
-        }else{
-            $order_status = $order_amount = 'asc';
-        }
-    }else{
-        $order_amount =  'asc';
+} else {
+    $order_amount = 'asc';
+}
+$order = $order_status ? $order_status : 'asc';
+$query_orderby = $order_query ? $order_query : 'companyname';
+if (count($myrow) > 0 && $myrow['PECompanyId'] != '') {
+    if ($order_query == "acquirer" || $order_query == "companyname" || $order_query == "sector_business" || $order_query == "amount") {
+        $order1 = 'ORDER  BY CASE WHEN c.pecompanyid = ' . $myrow['PECompanyId'] . ' THEN 1 ELSE 2 END, ' . $query_orderby . ' ' . $order . ',dealdate DESC';
+    } elseif ($order_query == "dates") {
+        $order1 = 'ORDER  BY CASE WHEN c.pecompanyid = ' . $myrow['PECompanyId'] . ' THEN 1 ELSE 2 END, dealdate ' . $order;
+    } else {
+        $order1 = 'ORDER  BY CASE WHEN c.pecompanyid = ' . $myrow['PECompanyId'] . ' THEN 1 ELSE 2 END, dealdate DESC,' . $query_orderby . ' ' . $order;
     }
-    $order = $order_status ? $order_status:'asc';
-    $query_orderby = $order_query?$order_query : 'companyname';
-            
-    if(count($myrow) > 0 && $myrow['PECompanyId']!=''){
-        if($order_query == "acquirer" || $order_query == "companyname" || $order_query == "sector_business"  || $order_query =="amount" ){
-            $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, '.$query_orderby.' '. $order .',dealdate DESC';
-        }elseif($order_query == "dates" ){
-            $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, dealdate '.$order;
-        }else{
-            $order1 ='ORDER  BY CASE WHEN c.pecompanyid = '.$myrow['PECompanyId'].' THEN 1 ELSE 2 END, dealdate DESC,'.$query_orderby.' '.$order;
-        }
-        if($acqval !=""){
-            $acqvar=" ac.acquirerid IN ( ".$acqval." )";
-        }else{
-            $acqvar="";
-        }
-        if($acqval !="" && $myrow['PECompanyId'] !=''){
-            $orcond=" or ";
-        }else{
-            $orcond="";
-        }
-        if($myrow['PECompanyId'] !=''){
-        $companyvar="  c.pecompanyid =".$myrow['PECompanyId'];
-        }else{
-            $companyvar="";
-        }
-        $sql = "SELECT peinv.pecompanyid, 
+    if ($acqval != "") {
+        $acqvar = " ac.acquirerid IN ( " . $acqval . " )";
+    } else {
+        $acqvar = "";
+    }
+    if ($acqval != "" && $myrow['PECompanyId'] != '') {
+        $orcond = " or ";
+    } else {
+        $orcond = "";
+    }
+    if ($myrow['PECompanyId'] != '') {
+        $companyvar = "  c.pecompanyid =" . $myrow['PECompanyId'];
+    } else {
+        $companyvar = "";
+    }
+    $sql = "SELECT peinv.pecompanyid, 
         peinv.mamaid, 
         c.companyname, 
         c.industry, 
@@ -6481,64 +6224,58 @@ try {
                             17, 23, 3, 21, 
                             1, 2, 10, 54, 
                             18, 11, 66, 106, 
-                            8, 12, 22 ) ".$order1;
-        ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
-        
-        $pers = mysql_query($sql);   
-           //echo $sql;    
-        //$FinanceAnnual = mysql_fetch_array($financialrs);
-        $cont=0;$pedata = array();$totalInv=0;$totalAmount=0;$totalINRAmount=0;$hidecount=0;$hideinrcount=0;
-        While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
-        {
-            
-            $amtTobeDeductedforAggHide=0;
-            $inramtTobeDeductedforAggHide=0;
-            $NoofDealsCntTobeDeducted=0;
-            
-            if($myrow["AggHide"]==1 && $myrow["SPV"]==0)
-            {
-                $NoofDealsCntTobeDeducted=1;
-                $amtTobeDeductedforAggHide=$myrow["amount"];
-                $inramtTobeDeductedforAggHide=$myrow["Amount_INR"];
-                
-            }elseif($myrow["SPV"]==1 && $myrow["AggHide"]==0){
-
-                $NoofDealsCntTobeDeducted=1;
-                $amtTobeDeductedforAggHide=$myrow["amount"];
-                $inramtTobeDeductedforAggHide=$myrow["Amount_INR"];
-            }elseif($myrow["SPV"]==1 && $myrow["AggHide"]==1){
-                $NoofDealsCntTobeDeducted=1;
-                $amtTobeDeductedforAggHide=$myrow["amount"];
-                $inramtTobeDeductedforAggHide=$myrow["Amount_INR"];
-            }
-            if($myrow["hideamount"] == 1){
-                $hidecount=$hidecount+1;
-            }
-            
-            $totalInv=$totalInv+1-$NoofDealsCntTobeDeducted;
-            $totalAmount=$totalAmount+ $myrow["amount"]-$amtTobeDeductedforAggHide;
-            $totalINRAmount=$totalINRAmount+ $myrow["Amount_INR"]-$inramtTobeDeductedforAggHide;
-
-            $pedata[$cont]=$myrow;
-            $cont++;
-            
+                            8, 12, 22 ) " . $order1;
+    ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
+    $pers = mysql_query($sql);
+    //echo $sql;
+    //$FinanceAnnual = mysql_fetch_array($financialrs);
+    $cont = 0;
+    $pedata = array();
+    $totalInv = 0;
+    $totalAmount = 0;
+    $totalINRAmount = 0;
+    $hidecount = 0;
+    $hideinrcount = 0;
+    While ($myrow = mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
+    {
+        $amtTobeDeductedforAggHide = 0;
+        $inramtTobeDeductedforAggHide = 0;
+        $NoofDealsCntTobeDeducted = 0;
+        if ($myrow["AggHide"] == 1 && $myrow["SPV"] == 0) {
+            $NoofDealsCntTobeDeducted = 1;
+            $amtTobeDeductedforAggHide = $myrow["amount"];
+            $inramtTobeDeductedforAggHide = $myrow["Amount_INR"];
+        } elseif ($myrow["SPV"] == 1 && $myrow["AggHide"] == 0) {
+            $NoofDealsCntTobeDeducted = 1;
+            $amtTobeDeductedforAggHide = $myrow["amount"];
+            $inramtTobeDeductedforAggHide = $myrow["Amount_INR"];
+        } elseif ($myrow["SPV"] == 1 && $myrow["AggHide"] == 1) {
+            $NoofDealsCntTobeDeducted = 1;
+            $amtTobeDeductedforAggHide = $myrow["amount"];
+            $inramtTobeDeductedforAggHide = $myrow["Amount_INR"];
         }
-        if($hidecount==1){
-            $totalAmount = "--";
-            $totalINRAmount = "--";
+        if ($myrow["hideamount"] == 1) {
+            $hidecount = $hidecount + 1;
         }
-
-      
-        $inrvalue = "SELECT value FROM configuration WHERE purpose='USD_INR'";
-                    $inramount = mysql_query($inrvalue);
-                    while($inrAmountRow = mysql_fetch_array($inramount,MYSQL_BOTH))
-                    {
-                        $usdtoinramount = $inrAmountRow['value'];
-                    }
-        if($hideinrcount > 0){
-            $totalINRAmount = $totalAmount * 1000000 * $usdtoinramount / 10000000;
-        } 
-    ?>
+        $totalInv = $totalInv + 1 - $NoofDealsCntTobeDeducted;
+        $totalAmount = $totalAmount + $myrow["amount"] - $amtTobeDeductedforAggHide;
+        $totalINRAmount = $totalINRAmount + $myrow["Amount_INR"] - $inramtTobeDeductedforAggHide;
+        $pedata[$cont] = $myrow;
+        $cont++;
+    }
+    if ($hidecount == 1) {
+        $totalAmount = "--";
+        $totalINRAmount = "--";
+    }
+    $inrvalue = "SELECT value FROM configuration WHERE purpose='USD_INR'";
+    $inramount = mysql_query($inrvalue);
+    while ($inrAmountRow = mysql_fetch_array($inramount, MYSQL_BOTH)) {
+        $usdtoinramount = $inrAmountRow['value'];
+    }
+    if ($hideinrcount > 0) {
+        $totalINRAmount = $totalAmount * 1000000 * $usdtoinramount / 10000000;
+    }
+?>
                                     <div class=" active matrans"><span></span>
                                     <h2 id="companyinfo" class="box_heading content-box ">M&A Transactions</h2>
                                     </div>
@@ -6551,174 +6288,134 @@ try {
 <p class="matext">For more details regarding the M&A Transactions, login / sign up for the <a href="../malogin.php" target="_blank">M&A Deals database.</a> </p>
 
 </div>      
-                                     <?php 
-                                    
-                                      
-                                         // Table to show the companies with count at the top
-                                         if(count($pedata) > 0){
-                                             $testingvariable=1;
-                                             ?>
+                                     <?php
+    // Table to show the companies with count at the top
+    if (count($pedata) > 0) {
+        $testingvariable = 1;
+?>
                                                  
                                      
                                                  
                                                  <div class="view-table view-table-list ">
                                                  <table width="100%" cellspacing="0" cellpadding="0" id="myTable">
                                                      <thead><tr>
-                                                         <th style="width: 530px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_company; ?>" id="companyname">Company</th>
-                                                         <th style="width: 850px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_sector; ?>" id="sector_business">Sector</th>
-                                                         <th style="width: 260px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_acquirer; ?>" id="acquirer">Acquirer</th>
-                                                         <th style="width: 200px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_dates; ?>" id="dates">Date</th>
-                                                         <th style="width: 200px;" class="headertbma" data-cin="<?php echo $cinno;?>" data-order="<?php echo $order_amount; ?>" id="amount">Amount</th>
+                                                         <th style="width: 530px;" class="headertbma" data-cin="<?php echo $cinno; ?>" data-order="<?php echo $order_company; ?>" id="companyname">Company</th>
+                                                         <th style="width: 850px;" class="headertbma" data-cin="<?php echo $cinno; ?>" data-order="<?php echo $order_sector; ?>" id="sector_business">Sector</th>
+                                                         <th style="width: 260px;" class="headertbma" data-cin="<?php echo $cinno; ?>" data-order="<?php echo $order_acquirer; ?>" id="acquirer">Acquirer</th>
+                                                         <th style="width: 200px;" class="headertbma" data-cin="<?php echo $cinno; ?>" data-order="<?php echo $order_dates; ?>" id="dates">Date</th>
+                                                         <th style="width: 200px;" class="headertbma" data-cin="<?php echo $cinno; ?>" data-order="<?php echo $order_amount; ?>" id="amount">Amount</th>
                                                      </tr></thead>
                                                      <tbody id="movies">
                                                      <?php
-                                                     
-                                                 foreach($pedata as $ped){ 
-                                                    $searchString4="PE Firm(s)";
-                                                    $searchString4=strtolower($searchString4);
-                                                    $searchString4ForDisplay="PE Firm(s)";
-                                                    $searchString="Undisclosed";
-                                                    $searchString=strtolower($searchString);
-                                                    $searchString3="Individual";
-                                                    $searchString3=strtolower($searchString3);
-                                                    $companyName=trim($ped["companyname"]);
-                                                    $companyName=strtolower($companyName);
-                                                    $compResult=substr_count($companyName,$searchString);
-                                                    $compResult4=substr_count($companyName,$searchString4);
-                                
-                                                    $acquirerName=$ped["acquirer"];
-                                                    $acquirerName=strtolower($acquirerName);
-                                
-                                                    $compResultAcquirer=substr_count($acquirerName,$searchString4);
-                                                    $compResultAcquirerUndisclosed=substr_count($acquirerName,$searchString);
-                                                    $compResultAcquirerIndividual=substr_count($acquirerName,$searchString3);
-                                
-                                                    if($compResult==0)
-                                                            $displaycomp=$ped["companyname"];
-                                                    elseif($compResult4==1)
-                                                            $displaycomp=ucfirst("$searchString4");
-                                                    elseif($compResult==1)
-                                                            $displaycomp=ucfirst("$searchString");
-                                
-                                                    if(($compResultAcquirer==0) && ($compResultAcquirerUndisclosed==0) && ($compResultAcquirerIndividual==0))
-                                                            $displayAcquirer=$ped["acquirer"];
-                                                    elseif($compResultAcquirer==1)
-                                                            $displayAcquirer=ucfirst("$searchString4ForDisplay");
-                                                    elseif($compResultAcquirerUndisclosed==1)
-                                                            $displayAcquirer=ucfirst("$searchString");
-                                                    elseif($compResultAcquirerIndividual==1)
-                                                            $displayAcquirer=ucfirst("$searchString3");
-                                
-                                                          if(trim($ped["sector_business"])==""){
+        foreach ($pedata as $ped) {
+            $searchString4 = "PE Firm(s)";
+            $searchString4 = strtolower($searchString4);
+            $searchString4ForDisplay = "PE Firm(s)";
+            $searchString = "Undisclosed";
+            $searchString = strtolower($searchString);
+            $searchString3 = "Individual";
+            $searchString3 = strtolower($searchString3);
+            $companyName = trim($ped["companyname"]);
+            $companyName = strtolower($companyName);
+            $compResult = substr_count($companyName, $searchString);
+            $compResult4 = substr_count($companyName, $searchString4);
+            $acquirerName = $ped["acquirer"];
+            $acquirerName = strtolower($acquirerName);
+            $compResultAcquirer = substr_count($acquirerName, $searchString4);
+            $compResultAcquirerUndisclosed = substr_count($acquirerName, $searchString);
+            $compResultAcquirerIndividual = substr_count($acquirerName, $searchString3);
+            if ($compResult == 0) $displaycomp = $ped["companyname"];
+            elseif ($compResult4 == 1) $displaycomp = ucfirst("$searchString4");
+            elseif ($compResult == 1) $displaycomp = ucfirst("$searchString");
+            if (($compResultAcquirer == 0) && ($compResultAcquirerUndisclosed == 0) && ($compResultAcquirerIndividual == 0)) $displayAcquirer = $ped["acquirer"];
+            elseif ($compResultAcquirer == 1) $displayAcquirer = ucfirst("$searchString4ForDisplay");
+            elseif ($compResultAcquirerUndisclosed == 1) $displayAcquirer = ucfirst("$searchString");
+            elseif ($compResultAcquirerIndividual == 1) $displayAcquirer = ucfirst("$searchString3");
+            if (trim($ped["sector_business"]) == "") {
+                $showindsec = $ped["industry"];
+            } else {
+                $showindsec = $ped["sector_business"];
+            }
+            if ($ped["Exit_Status"] == 1) {
+                $exitstatus_name = 'Unexited';
+            } else if ($ped["Exit_Status"] == 2) {
+                $exitstatus_name = 'Partially Exited';
+            } else if ($ped["Exit_Status"] == 3) {
+                $exitstatus_name = 'Fully Exited';
+            } else {
+                $exitstatus_name = '--';
+            }
+            //  if($ped["hideamount"]==1)
+            //  {
+            //          $hideamount="--";
+            //  }
+            //  else
+            //  {
+            //          $hideamount=$ped["amount"];
+            //  }
+            if ($ped["amount"] == 0) {
+                $hideamount = "-";
+                $amountobeAdded = 0;
+            } elseif ($ped["hideamount"] == 1) {
+                $hideamount = "-";
+                $amountobeAdded = 0;
+            } else {
+                $hideamount = $ped["amount"];
+                // $acrossDealsCnt=$acrossDealsCnt+1;
+                $amountobeAdded = $ped["Amount"];
+            }
+            if ($ped["asset"] == 1) {
+                $openBracket = "(";
+                $closeBracket = ")";
+            } else {
+                $openBracket = "";
+                $closeBracket = "";
+            }
+            if ($ped["agghide"] == 1) {
+                $opensquareBracket = "{";
+                $closesquareBracket = "}";
+                $hideFlagset = 1;
+                $amtTobeDeductedforAggHide = $ped["amount"];
+                $NoofDealsCntTobeDeducted = 1;
+                //$acrossDealsCnt=$acrossDealsCnt-1;
+                
+            } else {
+                $opensquareBracket = "";
+                $closesquareBracket = "";
+                $amtTobeDeductedforAggHide = 0;
+                $NoofDealsCntTobeDeducted = 0;
+                $cos_array = $cos_withdebt_array;
+            }
+            if ($ped["SPV"] == 1) {
+                $openDebtBracket = "[";
+                $closeDebtBracket = "]";
+            } else {
+                $openDebtBracket = "";
+                $closeDebtBracket = "";
+            }
+?>
+                                                         <tr class="details_linkma" data-row="<?php echo $ped["mamaid"]; ?>" >
                                  
-                                                             $showindsec=$ped["industry"];
-                                                          }else{
-                                                             $showindsec=$ped["sector_business"];
-                                                          }
-                                 
-                                                         if($ped["Exit_Status"]==1){
-                                                             $exitstatus_name = 'Unexited';
-                                                         }
-                                                         else if($ped["Exit_Status"]==2){
-                                                              $exitstatus_name = 'Partially Exited';
-                                                         }
-                                                         else if($ped["Exit_Status"]==3){
-                                                              $exitstatus_name = 'Fully Exited';
-                                                         }
-                                                         else{
-                                                             $exitstatus_name = '--';
-                                                         }
-                                 
-                                                        //  if($ped["hideamount"]==1)
-                                                        //  {
-                                                        //          $hideamount="--";
-                                                        //  }
-                                                        //  else
-                                                        //  {
-                                                        //          $hideamount=$ped["amount"];
-                                                        //  }
-                                                        if($ped["amount"]==0)
-                                                        {
-                                                                $hideamount="-";
-                                                                $amountobeAdded=0;
-                                                        }
-                                                        elseif($ped["hideamount"]==1)
-                                                        {
-                                                                $hideamount="-";
-                                                                $amountobeAdded=0;
-
-                                                        }
-                                                        else
-                                                        {
-                                                                $hideamount=$ped["amount"];
-                                                                // $acrossDealsCnt=$acrossDealsCnt+1;
-                                                                $amountobeAdded=$ped["Amount"];
-                                                        }
-                                                          if($ped["asset"]==1)
-                                                         {
-                                                                $openBracket="(";
-                                                                $closeBracket=")";
-                                                         }
-                                                         else
-                                                         {
-                                                                $openBracket="";
-                                                                $closeBracket="";
-                                                          }
-                                                          if($ped["agghide"]==1)
-                                                        {
-                                                                $opensquareBracket="{";
-                                                                $closesquareBracket="}";
-                                                                $hideFlagset = 1;
-                                                                $amtTobeDeductedforAggHide=$ped["amount"];
-                                                                $NoofDealsCntTobeDeducted=1;
-
-                                                                //$acrossDealsCnt=$acrossDealsCnt-1;
-                                                         }
-                                                        else
-                                                        {
-                                                                $opensquareBracket="";
-                                                                $closesquareBracket="";
-                                                                $amtTobeDeductedforAggHide=0;
-                                                                $NoofDealsCntTobeDeducted=0;
-                                                                $cos_array = $cos_withdebt_array;
-                                                        }
-                                                          if($ped["SPV"]==1)
-                                                         {
-                                                                $openDebtBracket="[";
-                                                                $closeDebtBracket="]";
-                                                         }
-                                                         else
-                                                         {
-                                                                $openDebtBracket="";
-                                                                $closeDebtBracket="";
-                                                         }
-                                                         ?>
-                                                         <tr class="details_linkma" data-row="<?php echo $ped["mamaid"];?>" >
-                                 
-                                                                 <td style="width: 530px;"><b><?php echo $openBracket.$openDebtBracket.$opensquareBracket.trim($ped["companyname"]).$closesquareBracket.$closeDebtBracket.$closeBracket;?></b></td>
-                                                                 <td style="width: 850px;"><b><?php echo trim($ped["sector_business"]);?></b></td>
-                                                                 <td style="width: 260px;"><b><?php echo $displayAcquirer;?></b></td>
-                                                                 <td style="width: 200px;"><b><?php echo $ped["dates"];?></b></td>
-                                                                 <td style="width: 200px;"><b><?php echo $hideamount;?></b></td>
+                                                                 <td style="width: 530px;"><b><?php echo $openBracket . $openDebtBracket . $opensquareBracket . trim($ped["companyname"]) . $closesquareBracket . $closeDebtBracket . $closeBracket; ?></b></td>
+                                                                 <td style="width: 850px;"><b><?php echo trim($ped["sector_business"]); ?></b></td>
+                                                                 <td style="width: 260px;"><b><?php echo $displayAcquirer; ?></b></td>
+                                                                 <td style="width: 200px;"><b><?php echo $ped["dates"]; ?></b></td>
+                                                                 <td style="width: 200px;"><b><?php echo $hideamount; ?></b></td>
                                  
                                                          </a></tr>
                                                          <?php
-                                                     }
-                                 ?>
+        }
+?>
                                                      </tbody></table></div>
                                  <?php
-                                         
-                                         }else{ 
-                                            $pageTitle="Request for more deal data- Investment";
-                                              echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" href="mailto:research@ventureintelligence.com?subject=Check for M&A Activity&body=<?php echo $mailurl;?> " style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this. </p>';
-                                        
-                                            
-                                         }
-                                     }else{ echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;" href="mailto:research@ventureintelligence.com?subject=Check for M&A Activity&body=<?php echo $mailurl;?> " >Click Here</a> to double check with Venture Intelligence on this. </p>';
-                                           
-                                     }
-                                 
-                                     ?>
+    } else {
+        $pageTitle = "Request for more deal data- Investment";
+        echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" href="mailto:research@ventureintelligence.com?subject=Check for M&A Activity&body=<?php echo $mailurl;?> " style="font-weight:bold;cursor:pointer;">Click Here</a> to double check with Venture Intelligence on this. </p>';
+    }
+} else {
+    echo '<p class="text-center" style="font-size:10pt;font-weight:600;padding: 10px;"> No M&A activity found for this company <a id="deals_data" style="font-weight:bold;cursor:pointer;" href="mailto:research@ventureintelligence.com?subject=Check for M&A Activity&body=<?php echo $mailurl;?> " >Click Here</a> to double check with Venture Intelligence on this. </p>';
+}
+?>
                                      </div>
                                      </div>
                                      </div>
@@ -6746,97 +6443,109 @@ try {
             </td>
             <td id="tourinvestor" class="">
                 <p>
-                 <?php if($myrow["hideamount"]==1){   ?>
-                      <?php echo $hideamount;?> 
-                 <?php } else { ?>
-                     <?php if($hideamount !='' && $hideamount !='0.00' ){?><?php echo $hideamount;?> <?php } else{ ?> <?php echo '&nbsp;'; } ?>
-                 <?php } ?>
+                 <?php if ($myrow["hideamount"] == 1) { ?>
+                      <?php echo $hideamount; ?> 
+                 <?php
+} else { ?>
+                     <?php if ($hideamount != '' && $hideamount != '0.00') { ?><?php echo $hideamount; ?> <?php
+    } else { ?> <?php echo '&nbsp;';
+    } ?>
+                 <?php
+} ?>
                 </p>
           </td>
             <td><h4>Stake</h4></td> 
             <td class=""><p>
-            <?php if($hidestake!="" && $hidestake!="&nbsp;" && $hidestake !='--'){ 
-                    echo $hidestake.' %';
-                }else{
-                    echo "&nbsp;";
-                }?> </p></td> 
+            <?php if ($hidestake != "" && $hidestake != "&nbsp;" && $hidestake != '--') {
+    echo $hidestake . ' %';
+} else {
+    echo "&nbsp;";
+} ?> </p></td> 
         </tr>
       <tr>
           <td><h4>Amount (&#8377; Cr) </h4></td>
           <td class="rgt"><p>
-                 <?php if($myrow["hideamount"]!=1 && $hideamount_INR !='' && $hideamount_INR !='0.00'){   ?>
-                 <?php echo $hideamount_INR; }else{
-                    echo "&nbsp;"; }?></p>
+                 <?php if ($myrow["hideamount"] != 1 && $hideamount_INR != '' && $hideamount_INR != '0.00') { ?>
+                 <?php echo $hideamount_INR;
+} else {
+    echo "&nbsp;";
+} ?></p>
         </td>
           <td><h4>Stage</h4></td>
-  <td class=""><p><?php echo $myrow["Stage"];?></p></td>
+  <td class=""><p><?php echo $myrow["Stage"]; ?></p></td>
       </tr>
       <tr>
           <td><h4>Exit Status</h4></td>
           <td class=""><?php
-             $exitstatusis='';
-            $exitstatusSql = "select id,status from exit_status where id=".$myrow["Exit_Status"];
-            if ($exitstatusrs = mysql_query($exitstatusSql))
-            {
-              $exitstatus_cnt = mysql_num_rows($exitstatusrs);
-            }
-            if($exitstatus_cnt > 0)
-            {
-                    While($Exit_myrow=mysql_fetch_array($exitstatusrs, MYSQL_BOTH))
-                    {
-                            $exitstatusis = $Exit_myrow[1];
-                    }?>
-                    <p><?php echo $exitstatusis;?></p>
-            <?php } ?> </td> 
+$exitstatusis = '';
+$exitstatusSql = "select id,status from exit_status where id=" . $myrow["Exit_Status"];
+if ($exitstatusrs = mysql_query($exitstatusSql)) {
+    $exitstatus_cnt = mysql_num_rows($exitstatusrs);
+}
+if ($exitstatus_cnt > 0) {
+    While ($Exit_myrow = mysql_fetch_array($exitstatusrs, MYSQL_BOTH)) {
+        $exitstatusis = $Exit_myrow[1];
+    } ?>
+                    <p><?php echo $exitstatusis; ?></p>
+            <?php
+} ?> </td> 
             <td><h4>Round</h4></td>
             <td class="tooltip-1"><p>
                 <?php // strip tags to avoid breaking any html
-                $string = strip_tags($myrow["round"]);
-                if (strlen($string) > 12) { 
-                    $pos=strpos($string, ' ', 12);
-                    if($pos != ''){
-                        $string = substr($string,0,$pos);
-                    }else{
-                        $string = substr($string,0,12);                            
-                    }
-                    $string = trim($string).'...';
-                    $display = 'yes';
-                } echo $string; ?></p>
-                <?php if($display == 'yes') { ?>
+$string = strip_tags($myrow["round"]);
+if (strlen($string) > 12) {
+    $pos = strpos($string, ' ', 12);
+    if ($pos != '') {
+        $string = substr($string, 0, $pos);
+    } else {
+        $string = substr($string, 0, 12);
+    }
+    $string = trim($string) . '...';
+    $display = 'yes';
+}
+echo $string; ?></p>
+                <?php if ($display == 'yes') { ?>
             <div class="tooltip-box1">
-                <?php echo $myrow["round"];?>
+                <?php echo $myrow["round"]; ?>
            </div>
-            <?php } ?>  
+            <?php
+} ?>  
                     </td>
       </tr>
       <tr>
           <td><h4>Date</h4></td>
-            <td class=""><p><?php echo  $myrow["dt"];?></p></td>
+            <td class=""><p><?php echo $myrow["dt"]; ?></p></td>
         <td>
             <h4> Price Per Share </h4></td>
         <td class="rgt">
                             <p> <?php echo $price_per_share; ?> </p>
                     </td>
                 </tr>
-          <?php //if($book_value_per_share > 0 || $book_value_per_share > 0) { ?>
+          <?php //if($book_value_per_share > 0 || $book_value_per_share > 0) {
+ ?>
                 <tr>
-          <?php //if($book_value_per_share > 0) { ?>
+          <?php //if($book_value_per_share > 0) {
+ ?>
             <td>
                 <h4> BV Per Share </h4>
             </td>
             <td class="">
                 <p> <?php echo (!empty($book_value_per_share)) ? $book_value_per_share : '&nbsp;'; ?> </p>
             </td>
-                <?php //} ?>
-          <?php //if($price_to_book > 0) { ?>
+                <?php //}
+ ?>
+          <?php //if($price_to_book > 0) {
+ ?>
         <td>
             <h4> Price to Book </h4></td>
         <td class="">                
                               <p> <?php echo (!empty($price_to_book)) ? $price_to_book : '&nbsp;'; ?> </p>
                       </td>
-              <?php //} ?>
+              <?php //}
+ ?>
                 </tr>
-            <?php //} ?>
+            <?php //}
+ ?>
     </tbody>
     </table>
     </div> -->
@@ -6947,9 +6656,7 @@ width:28%;
 
   </style>
     <?php
-    
-    
-  /*if($dec_company_valuation > 0 || $dec_revenue_multiple > 0  || $dec_ebitda_multiple > 0 || $dec_company_valuation2 > 0 || $dec_revenue_multiple2 > 0  || $dec_ebitda_multiple2 > 0)
+/*if($dec_company_valuation > 0 || $dec_revenue_multiple > 0  || $dec_ebitda_multiple > 0 || $dec_company_valuation2 > 0 || $dec_revenue_multiple2 > 0  || $dec_ebitda_multiple2 > 0)
     {
        $fields_class = "display_block";
        $valuation_label = "valuation_label";
@@ -6975,271 +6682,263 @@ width:28%;
        $pre = 0;
        $post_block = "display_block";
    }*/
-  
-   
-    
-        echo '<div style="display:none">'.$dec_company_valuation.'</div>';//pre
-        echo  '<div style="display:none">'.$dec_company_valuation1.'</div>';//Post
-        echo  '<div style="display:none">'.$dec_company_valuation2.'</div>';//EV
+echo '<div style="display:none">' . $dec_company_valuation . '</div>'; //pre
+echo '<div style="display:none">' . $dec_company_valuation1 . '</div>'; //Post
+echo '<div style="display:none">' . $dec_company_valuation2 . '</div>'; //EV
+echo '<div style="display:none">' . $dec_revenue_multiple . '</div>'; //pre
+echo '<div style="display:none">' . $dec_revenue_multiple1 . '</div>'; //Post
+echo '<div style="display:none">' . $dec_revenue_multiple2 . '</div>'; //EV
+echo '<div style="display:none">' . $dec_ebitda_multiple . '</div>'; //pre
+echo '<div style="display:none">' . $dec_ebitda_multiple1 . '</div>'; //POST
+echo '<div style="display:none">' . $dec_ebitda_multiple2 . '</div>'; //EV
+echo '<div style="display:none">' . $dec_pat_multiple . '</div>'; //pre
+echo '<div style="display:none">' . $dec_pat_multiple1 . '</div>'; //Post
+echo '<div style="display:none">' . $dec_pat_multiple2 . '</div>'; //EV
 
-        echo  '<div style="display:none">'.$dec_revenue_multiple.'</div>';//pre
-        echo  '<div style="display:none">'.$dec_revenue_multiple1.'</div>';//Post
-        echo  '<div style="display:none">'.$dec_revenue_multiple2.'</div>';//EV
-
-        echo '<div style="display:none">'. $dec_ebitda_multiple.'</div>';//pre
-        echo  '<div style="display:none">'.$dec_ebitda_multiple1.'</div>';//POST
-        echo '<div style="display:none">'. $dec_ebitda_multiple2.'</div>';//EV
-
-        echo'<div style="display:none">'. $dec_pat_multiple.'</div>';//pre
-        echo '<div style="display:none">'.$dec_pat_multiple1.'</div>';//Post
-        echo '<div style="display:none">'. $dec_pat_multiple2.'</div>';//EV
-    
-   
-   
-   ?>
+?>
 <!--  <div  class="work-masonry-thumb1 col-p-12" id="valuation_info" href="http://erikjohanssonphoto.com/work/aizone-ss13/">
   <h2 id="investmentinfo" class="box_heading content-box ">Valuation Info </h2>  
   <table cellpadding="0" cellspacing="0" class="tablelistview">
     <tbody>
     <?php
-      
-            if(($dec_company_valuation <= 0 && $dec_revenue_multiple <= 0 && $dec_ebitda_multiple <= 0 && $dec_pat_multiple <= 0)){
-                $field_class_pre = 0;
-            }else{
-                $field_class_pre = 1;
-            }
-            if($dec_company_valuation2 <= 0 && $dec_revenue_multiple2 <= 0 && $dec_ebitda_multiple2 <= 0 && $dec_pat_multiple2 <= 0){
-                 $field_class_ev = 0;
-            }else{
-                $field_class_ev = 1;
-            }
-        ?>
+if (($dec_company_valuation <= 0 && $dec_revenue_multiple <= 0 && $dec_ebitda_multiple <= 0 && $dec_pat_multiple <= 0)) {
+    $field_class_pre = 0;
+} else {
+    $field_class_pre = 1;
+}
+if ($dec_company_valuation2 <= 0 && $dec_revenue_multiple2 <= 0 && $dec_ebitda_multiple2 <= 0 && $dec_pat_multiple2 <= 0) {
+    $field_class_ev = 0;
+} else {
+    $field_class_ev = 1;
+}
+?>
             
         <tr>
           <td><h4>&nbsp;</h4></td>
-          <?php if($field_class_pre !=0){ ?>
+          <?php if ($field_class_pre != 0) { ?>
                 <td><h4 class="<?php echo $field_class_pre; ?>">Pre-Money</h4></td>
-          <?php } ?>
+          <?php
+} ?>
                 <td class="<?php echo $fields_class_both; ?>"><h4>Post-Money</h4></td>
-          <?php if($field_class_ev !=0){ ?>
-                <td class="<?php echo $fields_class_ev; echo $fields_class_both;?>"><h4>EV</h4></td>
-          <?php } ?>
+          <?php if ($field_class_ev != 0) { ?>
+                <td class="<?php echo $fields_class_ev;
+    echo $fields_class_both; ?>"><h4>EV</h4></td>
+          <?php
+} ?>
         </tr>
         <tr>
             <td id="tourinvestor" class="<?php echo $valuation_label; ?>">
                 <h4>Valuation (&#8377; Cr)</h4>
             </td>
-            <?php if($field_class_pre !=0){ ?>
+            <?php if ($field_class_pre != 0) { ?>
                 
                     <td><p class="<?php echo $field_class_pre; ?> content-align">
                         <?php
-                           if($dec_company_valuation > 0)
-                           { ?>
-                             <?php  echo $dec_company_valuation; 
-                           }else{ ?>
-                                   <?php   echo '&nbsp;';
-                           }  
-                        ?></p>
+    if ($dec_company_valuation > 0) { ?>
+                             <?php echo $dec_company_valuation;
+    } else { ?>
+                                   <?php echo '&nbsp;';
+    }
+?></p>
                    </td> 
-           <?php } ?>
+           <?php
+} ?>
             
             <td class=""><p class="content-align">
              <?php
-             
-                    if($dec_company_valuation1 > 0 && $dec_company_valuation1 !='')
-                    { 
-                        
-                        ?>
-                      <?php  echo $dec_company_valuation1; 
-                    }else{ 
-                          
-                          ?>
-                            <?php   echo '&nbsp;';
-                    }  ?></p>
+if ($dec_company_valuation1 > 0 && $dec_company_valuation1 != '') {
+?>
+                      <?php echo $dec_company_valuation1;
+} else {
+?>
+                            <?php echo '&nbsp;';
+} ?></p>
             </td> 
-            <?php if($field_class_ev !=0){ ?>
+            <?php if ($field_class_ev != 0) { ?>
             <td class=" <?php echo $field_class_ev; ?>"><p class="content-align">
              <?php
-                    if($dec_company_valuation2 >0 && $dec_company_valuation2 !='')
-                        { ?>
-                      <?php  echo $dec_company_valuation2; 
-                      }else{ ?>
-                            <?php   echo '&nbsp;';
-                        }  ?></p>
+    if ($dec_company_valuation2 > 0 && $dec_company_valuation2 != '') { ?>
+                      <?php echo $dec_company_valuation2;
+    } else { ?>
+                            <?php echo '&nbsp;';
+    } ?></p>
             </td> 
-            <?php } ?>
+            <?php
+} ?>
         </tr>
         <tr>
             <td id="tourinvestor" class="<?php echo $valuation_label; ?>">
                 <h4>Revenue Multiple </h4>
             </td>
-            <?php if($field_class_pre !=0){ ?>
+            <?php if ($field_class_pre != 0) { ?>
             <td class="<?php echo $field_class_pre; ?>"><p class="content-align">
              <?php
-                    if($dec_revenue_multiple > 0)
-                        { ?>
-                      <?php  echo $dec_revenue_multiple; 
-                      }else{ ?>
-                            <?php   echo '&nbsp;';
-                        }  ?></p>
+    if ($dec_revenue_multiple > 0) { ?>
+                      <?php echo $dec_revenue_multiple;
+    } else { ?>
+                            <?php echo '&nbsp;';
+    } ?></p>
             </td> 
-            <?php } ?>
+            <?php
+} ?>
             <td class=""><p class="content-align">
              <?php
-                    if($dec_revenue_multiple1 >0 && $dec_revenue_multiple1 !='')
-                        { ?>
-                      <?php  echo $dec_revenue_multiple1; 
-                      }else{ ?>
-                            <?php   echo '&nbsp;';
-                        }  ?></p>
+if ($dec_revenue_multiple1 > 0 && $dec_revenue_multiple1 != '') { ?>
+                      <?php echo $dec_revenue_multiple1;
+} else { ?>
+                            <?php echo '&nbsp;';
+} ?></p>
             </td>
-             <?php if($field_class_ev !=0){ ?>
+             <?php if ($field_class_ev != 0) { ?>
             <td class=" <?php echo $field_class_ev; ?>"><p class="content-align">
              <?php
-                    if($dec_revenue_multiple2 >0 && $dec_revenue_multiple2 !='')
-                        { ?>
-                      <?php  echo $dec_revenue_multiple2; 
-                      }else{ ?>
-                            <?php   echo '&nbsp;';
-                        }  ?></p>
+    if ($dec_revenue_multiple2 > 0 && $dec_revenue_multiple2 != '') { ?>
+                      <?php echo $dec_revenue_multiple2;
+    } else { ?>
+                            <?php echo '&nbsp;';
+    } ?></p>
             </td> 
-             <?php } ?>
+             <?php
+} ?>
             
         </tr>
         <tr>
             <td id="tourinvestor" class="<?php echo $valuation_label; ?>" >
                 <h4>EBITDA Multiple</h4>
             </td>
-             <?php if($field_class_pre !=0){ ?>
+             <?php if ($field_class_pre != 0) { ?>
                 <td class="<?php echo $field_class_pre; ?>"><p class="content-align">
                  <?php
-                        if($dec_ebitda_multiple >0 && $dec_ebitda_multiple !='')
-                            { ?>
-                          <?php  echo $dec_ebitda_multiple; 
-                          }else{ ?>
-                                <?php   echo '&nbsp;';
-                            }  ?></p>
+    if ($dec_ebitda_multiple > 0 && $dec_ebitda_multiple != '') { ?>
+                          <?php echo $dec_ebitda_multiple;
+    } else { ?>
+                                <?php echo '&nbsp;';
+    } ?></p>
                 </td>
-             <?php } ?>
+             <?php
+} ?>
             <td class=""><p class="content-align">
              <?php
-                    if($dec_ebitda_multiple1 >0 && $dec_ebitda_multiple1 !='' )
-                        { ?>
-                      <?php  echo $dec_ebitda_multiple1; 
-                      }else{ ?>
-                            <?php   echo '&nbsp;';
-                        }  ?></p>
+if ($dec_ebitda_multiple1 > 0 && $dec_ebitda_multiple1 != '') { ?>
+                      <?php echo $dec_ebitda_multiple1;
+} else { ?>
+                            <?php echo '&nbsp;';
+} ?></p>
             </td> 
-             <?php if($field_class_ev !=0){ ?>
+             <?php if ($field_class_ev != 0) { ?>
                 <td class="<?php echo $field_class_ev; ?>"><p class="content-align">
                  <?php
-                        if($dec_ebitda_multiple2 >0 && $dec_ebitda_multiple2 !='')
-                            { ?>
-                          <?php  echo $dec_ebitda_multiple2; 
-                          }else{ ?>
-                                <?php   echo '&nbsp;';
-                            }  ?></p>
+    if ($dec_ebitda_multiple2 > 0 && $dec_ebitda_multiple2 != '') { ?>
+                          <?php echo $dec_ebitda_multiple2;
+    } else { ?>
+                                <?php echo '&nbsp;';
+    } ?></p>
                 </td>
-             <?php } ?>
+             <?php
+} ?>
            
         </tr>
         <tr>
             <td id="tourinvestor" class="<?php echo $valuation_label; ?>">
                 <h4>PAT Multiple</h4>
             </td>
-             <?php if($field_class_pre !=0){ ?>
+             <?php if ($field_class_pre != 0) { ?>
                 <td class="<?php echo $field_class_pre; ?>"><p class="content-align">
                  <?php
-                        if($dec_pat_multiple >0 && $dec_pat_multiple !='')
-                            { ?>
-                          <?php  echo $dec_pat_multiple; 
-                          }else{ ?>
-                                <?php   echo '&nbsp;';
-                            }  ?></p>
+    if ($dec_pat_multiple > 0 && $dec_pat_multiple != '') { ?>
+                          <?php echo $dec_pat_multiple;
+    } else { ?>
+                                <?php echo '&nbsp;';
+    } ?></p>
                 </td> 
-             <?php } ?>
+             <?php
+} ?>
             <td class=""><p class="content-align">
              <?php
-                    if($dec_pat_multiple1 >0 && $dec_pat_multiple1 !='')
-                        { ?>
-                      <?php  echo $dec_pat_multiple1; 
-                      }else{ ?>
-                            <?php   echo '&nbsp;';
-                        }  ?></p>
+if ($dec_pat_multiple1 > 0 && $dec_pat_multiple1 != '') { ?>
+                      <?php echo $dec_pat_multiple1;
+} else { ?>
+                            <?php echo '&nbsp;';
+} ?></p>
             </td> 
-             <?php if($field_class_ev !=0){ ?>
+             <?php if ($field_class_ev != 0) { ?>
             <td class=" <?php echo $field_class_ev; ?>"><p class="content-align">
              <?php
-                    if($dec_pat_multiple2 > 0 && $dec_pat_multiple2 !='')
-                    { ?>
-                        <?php  echo $dec_pat_multiple2; 
-                    }else{ ?>
-                        <?php   echo '&nbsp;';
-                    }  ?></p>
+    if ($dec_pat_multiple2 > 0 && $dec_pat_multiple2 != '') { ?>
+                        <?php echo $dec_pat_multiple2;
+    } else { ?>
+                        <?php echo '&nbsp;';
+    } ?></p>
             </td> 
-             <?php } ?>
+             <?php
+} ?>
         </tr>
-    <?php    //}
-     
-            $display = 'no'; $string ='';
-            if(trim($myrow["Valuation"])!="")
-            {
-            ?>
+    <?php //}
+$display = 'no';
+$string = '';
+if (trim($myrow["Valuation"]) != "") {
+?>
                 <?php
-               /* foreach($valuationdata as $valdata)
+    /* foreach($valuationdata as $valdata)
                 {
                     if($valdata!="")
                     { 
                         print nl2br($valdata);?><?php
                     }
                 }*/
-                $string =trim($myrow["Valuation"]);
-                $string = strip_tags($string);
-                if (strlen($string) > 40) { 
-                    $string = substr($string,0,40);
-                    $string = trim($string).'...';
-                    $display = 'yes';
-                }
-            }
-            //if($string !=''){
-            ?>
+    $string = trim($myrow["Valuation"]);
+    $string = strip_tags($string);
+    if (strlen($string) > 40) {
+        $string = substr($string, 0, 40);
+        $string = trim($string) . '...';
+        $display = 'yes';
+    }
+}
+//if($string !=''){
+
+?>
       <tr>
           <td class="<?php echo $valuation_label; ?>"><h4>More Info </h4></td>
           <td  class="last-child">
               <div class="tooltip-2"><p><?php echo $string; ?></p>
            </div>
-              <?php if($display == 'yes'){ ?>
+              <?php if ($display == 'yes') { ?>
             <div class="tooltip-box2">
-                <?php echo trim($myrow["Valuation"]);?>
+                <?php echo trim($myrow["Valuation"]); ?>
            </div>
-              <?php } ?>
+              <?php
+} ?>
           </td>
       </tr>
-            <?php //} ?>
+            <?php //}
+ ?>
     </tbody>
     </table>
     </div>  --> 
             <?php
-    if($Cash_Equ !=''){
-        $financial_label = "financial_label";
-    }else{
-        $financial_label = "financial_label1";
-    }?>  
+if ($Cash_Equ != '') {
+    $financial_label = "financial_label";
+} else {
+    $financial_label = "financial_label1";
+} ?>  
   <?php
-  $file = '';
-        if($exportToExcel==1)
-         {          
-            $uploadfilename = $myrow["uploadfilename"];
-            if($uploadfilename!="")
-            {
-                $uploadname=$uploadfilename;
-                $currentdir=getcwd();
-                $target = $currentdir . "../uploadmamafiles/" . $uploadname;
-                $file = "../../uploadmamafiles/" . $uploadname;
-            }
-         } ?>
+$file = '';
+if ($exportToExcel == 1) {
+    $uploadfilename = $myrow["uploadfilename"];
+    if ($uploadfilename != "") {
+        $uploadname = $uploadfilename;
+        $currentdir = getcwd();
+        $target = $currentdir . "../uploadmamafiles/" . $uploadname;
+        $file = "../../uploadmamafiles/" . $uploadname;
+    }
+} ?>
   <input type="hidden" name="financial_label_hide" id="financial_label_hide" value="<?php echo $financial_label; ?>" />
-        <!-- <div  class="work-masonry-thumb1  <?php if($financial_label == "financial_label1") { echo "col-p-11_1"; }else{ echo "col-p-11"; echo " fullBox"; } ?>" id="financials_info" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
+        <!-- <div  class="work-masonry-thumb1  <?php if ($financial_label == "financial_label1") {
+    echo "col-p-11_1";
+} else {
+    echo "col-p-11";
+    echo " fullBox";
+} ?>" id="financials_info" href="http://erikjohanssonphoto.com/work/aishti-ss13/">
         <div class="box_heading content-box ">
         <h2 style="padding-right:5px; width:95%;">Financials&nbsp;<span id="allfinancial">(Latest P&amp;L)</span></h2>
 
@@ -7254,78 +6953,82 @@ width:28%;
         </tr>
             <tr>
                     
-                <td class="<?php //echo $financial_label; ?>"><h4>Revenue
+                <td class="<?php //echo $financial_label;
+ ?>"><h4>Revenue
                     </h4></td>
                     <td class="">
         <p class="content-align">
                 <?php
-               if($dec_revenue < 0 || $dec_revenue > 0)
-                { ?><?php
-                   echo $dec_revenue;
-                }
-                else{
-                    if($dec_company_valuation >0 && $dec_revenue_multiple >0){ ?>
+if ($dec_revenue < 0 || $dec_revenue > 0) { ?><?php
+    echo $dec_revenue;
+} else {
+    if ($dec_company_valuation > 0 && $dec_revenue_multiple > 0) { ?>
         <?php
-                        echo  number_format($dec_company_valuation/$dec_revenue_multiple, 2, '.', '');      
-                    }else{ ?>
+        echo number_format($dec_company_valuation / $dec_revenue_multiple, 2, '.', '');
+    } else { ?>
         <?php
-                        echo "&nbsp;";
-                    }
-                }?>
+        echo "&nbsp;";
+    }
+} ?>
                 </p></td>
             </tr>
             <tr>
-                <td class="<?php //echo $financial_label; ?>"><h4>EBITDA</h4></td>
+                <td class="<?php //echo $financial_label;
+ ?>"><h4>EBITDA</h4></td>
                 <td class=""><p class="content-align">
-                 <?php 
-                if($dec_ebitda < 0 || $dec_ebitda > 0)
-                { ?>
+                 <?php
+if ($dec_ebitda < 0 || $dec_ebitda > 0) { ?>
                      <?php echo $dec_ebitda;
-                }else{
-                    if($dec_company_valuation >0 && $dec_ebitda_multiple >0){ ?>
-                     <?php 
-                        echo  number_format($dec_company_valuation/$dec_ebitda_multiple, 2, '.', '');
-                    }else{ ?>
-                    <?php 
-                        echo "&nbsp;";
-                    }            
-                }?>  
+} else {
+    if ($dec_company_valuation > 0 && $dec_ebitda_multiple > 0) { ?>
+                     <?php
+        echo number_format($dec_company_valuation / $dec_ebitda_multiple, 2, '.', '');
+    } else { ?>
+                    <?php
+        echo "&nbsp;";
+    }
+} ?>  
                 </p></td>
             </tr>
             <tr>
-                <td class="<?php //echo $financial_label; ?>"><h4>PAT</h4></td>
+                <td class="<?php //echo $financial_label;
+ ?>"><h4>PAT</h4></td>
                 <td class="">
             <p class="content-align">
            <?php
-        if($dec_pat < 0 || $dec_pat > 0)
-        { ?>
+if ($dec_pat < 0 || $dec_pat > 0) { ?>
         <?php
-            echo $dec_pat;                
-        } 
-        else{ ?>
+    echo $dec_pat;
+} else { ?>
         <?php
-            if($dec_company_valuation >0 && $dec_pat_multiple >0){
-                echo number_format($dec_company_valuation/$dec_pat_multiple, 2, '.', '');
-            }else{ ?>
+    if ($dec_company_valuation > 0 && $dec_pat_multiple > 0) {
+        echo number_format($dec_company_valuation / $dec_pat_multiple, 2, '.', '');
+    } else { ?>
         <?php
-                echo "&nbsp;";                    
-            }
-        } ?>
+        echo "&nbsp;";
+    }
+} ?>
         </p>
         </td>
         </tr>
-        <?php //if($Total_Debt !=''){ ?>
+        <?php //if($Total_Debt !=''){
+ ?>
         <tr>
-            <td class="<?php //echo $financial_label; ?>"> <h4>Total Debt</h4></td>
+            <td class="<?php //echo $financial_label;
+ ?>"> <h4>Total Debt</h4></td>
             <td class=""><p class="content-align"><?php echo (!empty($Total_Debt)) ? $Total_Debt : '&nbsp;'; ?></p></td>
         </tr>
-            <?php //} ?>
-        <?php //if($Cash_Equ !=''){ ?>
+            <?php //}
+ ?>
+        <?php //if($Cash_Equ !=''){
+ ?>
         <tr>
-            <td class="<?php //echo $financial_label; ?>"> <h4>Cash & Cash Equ.</h4></td>
+            <td class="<?php //echo $financial_label;
+ ?>"> <h4>Cash & Cash Equ.</h4></td>
             <td class=""><p class="content-align"><?php echo (!empty($Cash_Equ)) ? $Cash_Equ : '&nbsp;'; ?></p></td>
         </tr>
-            <?php //} ?>
+            <?php //}
+ ?>
           
  </tbody>
     </table> 
@@ -7336,143 +7039,143 @@ width:28%;
   <h2 id="investmentinfo" class="box_heading content-box ">Investor Info</h2> 
   <table cellpadding="0" cellspacing="0" class="tablelistview2">             
             <?php
-                    $invcount = 0;
-                    $amount_val ='empty';
-                    if ($_SESSION['investId']) 
-                    unset($_SESSION['investId']); 
-                    $AddOtherAtLast="";
-                    $AddUnknowUndisclosedAtLast="";
-                    if ($getcompanyrs = mysql_query($investorSql))
-                    {
-                       
-                        if(mysql_num_rows($getcompanyrs) > 0){ 
-                                $investor_ID = $investor_Name = $Amount_INR = $Amount_M = $invID = $invName = $invAmount_INR = $invAmount_M = $investor_ID_A = $investor_Name_A = $Amount_INR_A = $Amount_M_A = $invhideamount=$invhideamount_A = array();
-                                $no_amount ='';
-                                $leadinvestor = array();
-                                $newinvestor = array();
-                                While($myInvrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
-                                {
-                                    
-                                    $Investorname=trim($myInvrow["Investor"]);
-                                    $leadinvestor[] = $myInvrow["leadinvestor"];
-                                    $newinvestor[] = $myInvrow["newinvestor"];
-
-                                    $Investorname=strtolower($Investorname);
-
-                                    $invResult=substr_count($Investorname,$searchString);
-                                    $invResult1=substr_count($Investorname,$searchString1);
-                                    $invResult2=substr_count($Investorname,$searchString2);
-                                    if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
-                                    {
-                                         $invID[] = trim($myInvrow["InvestorId"]);
-                                         $invName[] = trim($myInvrow["Investor"]);
-                                         $invAmount_INR[] = trim($myInvrow["Amount_INR"]);
-                                         $invAmount_M[] = trim($myInvrow["Amount_M"]);            
-                                         $invhideamount[] = trim($myInvrow["hide_amount"]);
-                                    }else{
-                                         $investor_ID_A[] = trim($myInvrow["InvestorId"]);
-                                         $investor_Name_A[] = trim($myInvrow["Investor"]);
-                                         $Amount_INR_A[] = trim($myInvrow["Amount_INR"]);
-                                         $Amount_M_A[] = trim($myInvrow["Amount_M"]);      
-                                         $invhideamount_A[] = trim($myInvrow["hide_amount"]);
-                                    }
-                                    if(($myInvrow["Amount_INR"] !='' && $myInvrow["Amount_INR"] != '0.00') || ($myInvrow["Amount_M"] !='' && $myInvrow["Amount_M"] != '0.00')){
-                                       $no_amount ='yes';                                                 
-                                    }
-                                   
-                                 }
-                                 $investor_ID = array_merge($invID,$investor_ID_A);
-                                 $investor_Name = array_merge($invName,$investor_Name_A);
-                                 $Amount_INR = array_merge($invAmount_INR,$Amount_INR_A);
-                                 $Amount_M = array_merge($invAmount_M,$Amount_M_A);
-                                 $hide_amount = array_merge($invhideamount,$invhideamount_A);
-                            ?> 
+$invcount = 0;
+$amount_val = 'empty';
+if ($_SESSION['investId']) unset($_SESSION['investId']);
+$AddOtherAtLast = "";
+$AddUnknowUndisclosedAtLast = "";
+if ($getcompanyrs = mysql_query($investorSql)) {
+    if (mysql_num_rows($getcompanyrs) > 0) {
+        $investor_ID = $investor_Name = $Amount_INR = $Amount_M = $invID = $invName = $invAmount_INR = $invAmount_M = $investor_ID_A = $investor_Name_A = $Amount_INR_A = $Amount_M_A = $invhideamount = $invhideamount_A = array();
+        $no_amount = '';
+        $leadinvestor = array();
+        $newinvestor = array();
+        While ($myInvrow = mysql_fetch_array($getcompanyrs, MYSQL_BOTH)) {
+            $Investorname = trim($myInvrow["Investor"]);
+            $leadinvestor[] = $myInvrow["leadinvestor"];
+            $newinvestor[] = $myInvrow["newinvestor"];
+            $Investorname = strtolower($Investorname);
+            $invResult = substr_count($Investorname, $searchString);
+            $invResult1 = substr_count($Investorname, $searchString1);
+            $invResult2 = substr_count($Investorname, $searchString2);
+            if (($invResult == 0) && ($invResult1 == 0) && ($invResult2 == 0)) {
+                $invID[] = trim($myInvrow["InvestorId"]);
+                $invName[] = trim($myInvrow["Investor"]);
+                $invAmount_INR[] = trim($myInvrow["Amount_INR"]);
+                $invAmount_M[] = trim($myInvrow["Amount_M"]);
+                $invhideamount[] = trim($myInvrow["hide_amount"]);
+            } else {
+                $investor_ID_A[] = trim($myInvrow["InvestorId"]);
+                $investor_Name_A[] = trim($myInvrow["Investor"]);
+                $Amount_INR_A[] = trim($myInvrow["Amount_INR"]);
+                $Amount_M_A[] = trim($myInvrow["Amount_M"]);
+                $invhideamount_A[] = trim($myInvrow["hide_amount"]);
+            }
+            if (($myInvrow["Amount_INR"] != '' && $myInvrow["Amount_INR"] != '0.00') || ($myInvrow["Amount_M"] != '' && $myInvrow["Amount_M"] != '0.00')) {
+                $no_amount = 'yes';
+            }
+        }
+        $investor_ID = array_merge($invID, $investor_ID_A);
+        $investor_Name = array_merge($invName, $investor_Name_A);
+        $Amount_INR = array_merge($invAmount_INR, $Amount_INR_A);
+        $Amount_M = array_merge($invAmount_M, $Amount_M_A);
+        $hide_amount = array_merge($invhideamount, $invhideamount_A);
+?> 
                             <tr>
                                 <td><h4>Name</h4></td>
-                                <?php if($no_amount =='yes' && $global_hideamount==0){ ?>
+                                <?php if ($no_amount == 'yes' && $global_hideamount == 0) { ?>
                                 <td><h4 class="title_ctr">&#8377; Cr</h4></td>
                                 <td><h4 class="title_ctr">$ Mn</h4></td>
-                                <?php } ?>
+                                <?php
+        } ?>
   </tr>                        
-                            <?php for($l=0;$l<count($investor_ID);$l++){ ?>
+                            <?php for ($l = 0;$l < count($investor_ID);$l++) { ?>
                                 <tr>
-                                    <td <?php if($no_amount !='yes'){ ?> style="padding-top:5px; padding-bottom: 5px; " <?php }?>>  <h4>    
+                                    <td <?php if ($no_amount != 'yes') { ?> style="padding-top:5px; padding-bottom: 5px; " <?php
+            } ?>>  <h4>    
                                         <?php
-                                         //$AddOtherAtLast="";
-                                         $Investorname=trim($investor_Name[$l]);
-                                         $InvestornameNew = '';
-
-                                         if($leadinvestor[$l] == 1) {
-                                            $InvestornameNew = trim($investor_Name[$l]). " (L)";
-                                         } else if($newinvestor[$l] == 1) {
-                                            $InvestornameNew = trim($investor_Name[$l]). " (N)";
-                                         } else {
-                                            $InvestornameNew = trim($investor_Name[$l]);
-                                         }
-                                         $Investorname=strtolower($Investorname);
-
-                                         $invResult=substr_count($Investorname,$searchString);
-                                         $invResult1=substr_count($Investorname,$searchString1);
-                                         $invResult2=substr_count($Investorname,$searchString2);
-                                         if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
-                                         {
-                                             $_SESSION['investId'][$invcount++] = $investor_ID[$l];
-                                             $deal=0; ?><a id="investor<?php echo $investor_ID[$l]; ?>" class="postlink  tourinvestor<?php echo $investor_ID[$l]; ?>" href='investordetails.php?value=<?php echo $investor_ID[$l].'/'.$strvalue[1].'/'.$strvalue[2].'/'.$strvalue[3];?>' ><?php echo $InvestornameNew; ?></a>
+            //$AddOtherAtLast="";
+            $Investorname = trim($investor_Name[$l]);
+            $InvestornameNew = '';
+            if ($leadinvestor[$l] == 1) {
+                $InvestornameNew = trim($investor_Name[$l]) . " (L)";
+            } else if ($newinvestor[$l] == 1) {
+                $InvestornameNew = trim($investor_Name[$l]) . " (N)";
+            } else {
+                $InvestornameNew = trim($investor_Name[$l]);
+            }
+            $Investorname = strtolower($Investorname);
+            $invResult = substr_count($Investorname, $searchString);
+            $invResult1 = substr_count($Investorname, $searchString1);
+            $invResult2 = substr_count($Investorname, $searchString2);
+            if (($invResult == 0) && ($invResult1 == 0) && ($invResult2 == 0)) {
+                $_SESSION['investId'][$invcount++] = $investor_ID[$l];
+                $deal = 0; ?><a id="investor<?php echo $investor_ID[$l]; ?>" class="postlink  tourinvestor<?php echo $investor_ID[$l]; ?>" href='investordetails.php?value=<?php echo $investor_ID[$l] . '/' . $strvalue[1] . '/' . $strvalue[2] . '/' . $strvalue[3]; ?>' ><?php echo $InvestornameNew; ?></a>
                                         <?php
-                                         }
-                                          elseif(($invResult==1) || ($invResult1==1)){
-                                                  echo $Investorname;
-                                          }
-                                          elseif($invResult2==1)
-                                          {
-                                                  echo $Investorname;
-                                                  } ?></h4>
+            } elseif (($invResult == 1) || ($invResult1 == 1)) {
+                echo $Investorname;
+            } elseif ($invResult2 == 1) {
+                echo $Investorname;
+            } ?></h4>
                                     </td>
-                                    <?php if($no_amount =='yes' ){ ?>
+                                    <?php if ($no_amount == 'yes') { ?>
                                     <td class="">
-                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_INR[$l]; }else{ echo '';} ?></p>
+                                        <p class="content-align"><?php if ($hide_amount[$l] == 0 && $global_hideamount == 0) {
+                    echo $Amount_INR[$l];
+                } else {
+                    echo '';
+                } ?></p>
                                     </td>
                                     <td class="">
-                                        <p class="content-align"><?php if($hide_amount[$l]==0 && $global_hideamount==0 ) { echo $Amount_M[$l]; }else{ echo '';} ?></p>
+                                        <p class="content-align"><?php if ($hide_amount[$l] == 0 && $global_hideamount == 0) {
+                    echo $Amount_M[$l];
+                } else {
+                    echo '';
+                } ?></p>
                                     </td>
-                                        <?php } ?>
+                                        <?php
+            } ?>
                                 </tr>
-                            <?php }?> 
-                        <?php   } ?>
-                                    <?php if($no_amount =='yes'){ ?>
+                            <?php
+        } ?> 
+                        <?php
+    } ?>
+                                    <?php if ($no_amount == 'yes') { ?>
   <tr>
                                 <td><h4>Investor Type</h4></td>
-                                <td colspan="2" style="width:48%;" class="<?php if(mysql_num_rows($getcompanyrs) > 0) echo "ammountStyle"; ?>"><p class="content-align"><?php echo $myrow["InvestorTypeName"] ;?></p></td>
+                                <td colspan="2" style="width:48%;" class="<?php if (mysql_num_rows($getcompanyrs) > 0) echo "ammountStyle"; ?>"><p class="content-align"><?php echo $myrow["InvestorTypeName"]; ?></p></td>
                           </tr>
-                                    <?php } else{ ?>
+                                    <?php
+    } else { ?>
                         <tr>
-                            <td style="width:100%;"><h4>Investor Type: <?php echo $myrow["InvestorTypeName"] ;?></h4></td>
+                            <td style="width:100%;"><h4>Investor Type: <?php echo $myrow["InvestorTypeName"]; ?></h4></td>
                       </tr>
-                                    <?php }
-                    }?>
+                                    <?php
+    }
+} ?>
                 </table>
                 </div>  --> 
 <?php
-                    if($getcompanyrs= mysql_query($advcompanysql))
-    {
-                        $comp_cnt = mysql_num_rows($getcompanyrs);
-    }
-    if($rsinvcomp= mysql_query($advinvestorssql)) {
-              $compinv_cnt = mysql_num_rows($rsinvcomp);
-    }
-                    $totalInvestor = count($investor_ID);
-                    $totalAdvisor = $comp_cnt + $compinv_cnt;
-                    if($totalInvestor > 2 && $totalAdvisor >4){
-                     //   include_once 'advisor_box.php';
-                }
-    ?>
+if ($getcompanyrs = mysql_query($advcompanysql)) {
+    $comp_cnt = mysql_num_rows($getcompanyrs);
+}
+if ($rsinvcomp = mysql_query($advinvestorssql)) {
+    $compinv_cnt = mysql_num_rows($rsinvcomp);
+}
+$totalInvestor = count($investor_ID);
+$totalAdvisor = $comp_cnt + $compinv_cnt;
+if ($totalInvestor > 2 && $totalAdvisor > 4) {
+    //   include_once 'advisor_box.php';
+    
+}
+?>
                
                   <!--   <div  class="work-masonry-thumb1 col-p-4" href="http://erikjohanssonphoto.com/work/tac-3/" style="float:left;">
              <h2 id="moreinfo" class="moreinfo more-content">More Info</h2>
                                                            
              <table class="tablelistview" cellpadding="0" cellspacing="0" style="background:#fff;">
                   <tr>  <td class="more-info"><p><?php print nl2br($moreinfor); ?></p>
-                          <p><a id="clickhere" href="mailto:database@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle;?>&body=<?php echo $mailurl;?> ">
+                          <p><a id="clickhere" href="mailto:database@ventureintelligence.com?subject=Request for more deal data-<?php echo $pageTitle; ?>&body=<?php echo $mailurl; ?> ">
                                   Click Here</a> to request more details for this deal. Please specify what details you would like - financials, valuations, etc. - and we will revert with the data points as available. Note: For recent transactions (say within last 6 months), additional information availablity is typically less than for older ones.
                           </p></td></tr></table>
        </div> -->
@@ -7481,18 +7184,18 @@ width:28%;
                     <div style="clear:both"></div>
                     
                     
-<?php //include('dealcompanydetails.php'); ?> 
+<?php //include('dealcompanydetails.php');
+ ?> 
                     
-        <?php if(($exportToExcel==1))
-         {
-         ?>
+        <?php if (($exportToExcel == 1)) {
+?>
                          <div class="title-links">
                                          <a class="export" id="expshowdealsbtn" name="showdeal" style="padding: 5px 10px !important;"><!-- <span class="download-icon"></span> -->Export</a>
                          </div>
 
          <?php
-         }
-     ?>
+}
+?>
     </div>
 </td>
 </tr>
@@ -7502,53 +7205,78 @@ width:28%;
 <!--<input type="hidden" name="pe_checkbox" id="pe_checkbox" value="<?php echo $pe_checkbox; ?>" />-->
 <input type="hidden" name="pe_amount" id="pe_amount" value="<?php echo $pe_amount; ?>" />
 <input type="hidden" name="pe_hide_companies" id="pe_hide_companies" value="<?php echo $hideCompanyFlag; ?>" />
-<?php if($_POST['all_checkbox_search']==1){ ?>
+<?php if ($_POST['all_checkbox_search'] == 1) { ?>
 <input type="hidden" name="pe_company" id="pe_company" value="" />
 
-<?php }else{ ?>
+<?php
+} else { ?>
 
-<input type="hidden" name="pe_company" id="pe_company" value="<?php if($pe_company!=''){ echo $pe_company; }else{ echo ""; } ?>" />
-<?php } ?>
-<input type="hidden" name="hide_pe_company" id="hide_pe_company" value="<?php if($pe_company!=''){ echo $pe_company; }else{ echo ""; } ?>" />
+<input type="hidden" name="pe_company" id="pe_company" value="<?php if ($pe_company != '') {
+        echo $pe_company;
+    } else {
+        echo "";
+    } ?>" />
+<?php
+} ?>
+<input type="hidden" name="hide_pe_company" id="hide_pe_company" value="<?php if ($pe_company != '') {
+    echo $pe_company;
+} else {
+    echo "";
+} ?>" />
 <input type="hidden" name="uncheckRows" id="uncheckRows" value="<?php echo $_POST['pe_checkbox_disbale']; ?>" /> 
 <input type="hidden" name="full_uncheck_flag" id="full_uncheck_flag" value="<?php echo $_POST['all_checkbox_search']; ?>" />
 
-<?php if($_POST['real_total_inv_deal']!=''){ ?>
+<?php if ($_POST['real_total_inv_deal'] != '') { ?>
 <input type="hidden" name="real_total_inv_deal" id="real_total_inv_deal" value="<?php echo $_POST['real_total_inv_deal']; ?>" />
-<?php }
-if($_POST['real_total_inv_amount']!='') { ?>
+<?php
+}
+if ($_POST['real_total_inv_amount'] != '') { ?>
 <input type="hidden" name="real_total_inv_amount" id="real_total_inv_amount" value="<?php echo $_POST['real_total_inv_amount']; ?>" />
-<?php } 
-if($_POST['real_total_inv_inr_amount']!='') { ?>
+<?php
+}
+if ($_POST['real_total_inv_inr_amount'] != '') { ?>
 <input type="hidden" name="real_total_inv_inr_amount" id="real_total_inv_inr_amount" value="<?php echo $_POST['real_total_inv_inr_amount']; ?>" />
-<?php } 
-if($_POST['real_total_inv_company']!='') { ?>
+<?php
+}
+if ($_POST['real_total_inv_company'] != '') { ?>
 <input type="hidden" name="real_total_inv_company" id="real_total_inv_company" value="<?php echo $_POST['real_total_inv_company']; ?>" />
-<?php }
-
-/*if($_POST['all_checkbox_search']==1){ */?>
+<?php
+}
+/*if($_POST['all_checkbox_search']==1){ */
+?>
 
 <input type="hidden" name="total_inv_deal" id="total_inv_deal" value="<?php echo $_POST['total_inv_deal']; ?>">
 <input type="hidden" name="total_inv_amount" id="total_inv_amount" value="<?php echo $_POST['total_inv_amount']; ?>">
 <input type="hidden" name="total_inv_inr_amount" id="total_inv_inr_amount" value="<?php echo $_POST['total_inv_inr_amount']; ?>">
 <input type="hidden" name="total_inv_company" id="total_inv_company" value="<?php echo $_POST['total_inv_company']; ?>">
 
-<?php //} 
-
-if($_POST['pe_checkbox_enable']!=''){ ?>
+<?php //}
+if ($_POST['pe_checkbox_enable'] != '') { ?>
 <input type="hidden" name="pe_checkbox_enable" id="pe_checkbox_enable" value="<?php echo $_POST['pe_checkbox_enable']; ?>">
-<?php }
+<?php
+}
 ?>
 </form>
 <form action="<?php echo $actionlink1; ?>" name="tagForm" id="tagForm"  method="post">
             <input type="hidden" value="" name="searchTagsField" id="searchTagsField" />
    </form>
 <!-- <form name="companyDisplay" method="post" id="exportform" action="exportdealinfo.php"> -->
+
+
+<?php
+//  echo '<pre>'; print_r($pedata); echo '</pre>'; exit;
+// foreach($pedata as $ped){
+//     // echo '<pre>'; print_r($ped); echo '</pre>'; exit;
+//    $companyname .=  $ped["companyname"];
+//    $deladate .=  $ped["dates"];
+// }
+
+?>
 <form name="companyDisplay" method="post" id="exportform" action="dealdetailexport.php">
-<input type="hidden" name="txthidePEId" value="<?php echo $SelCompRef;?>" >
-<input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
-<input type="hidden" name="company_name" value="<?php echo $ped["companyname"];?>" >
-<input type="hidden" name="deal_date" value="<?php echo $ped["dates"];?>" >
+<input type="hidden" name="txthidePEId" value="<?php echo $SelCompRef; ?>" >
+<input type="hidden" name="txthideemail" value="<?php echo $emailid; ?>" >
+<input type="hidden" name="company_name" value="<?php echo $companyName; ?>" >
+<input type="hidden" name="deal_date" value="<?php echo $deladate123; ?>" >
 </form>
 <script type="text/javascript">
 
@@ -7791,7 +7519,7 @@ $.ajax({
                 $("#exportform").submit();
                 return false;
             });*/
-            <?php if(($exportToExcel==1))    {  ?> 
+            <?php if (($exportToExcel == 1)) { ?> 
             
             $('#expshowdeals').click(function(){ 
             
@@ -7799,7 +7527,8 @@ $.ajax({
                 jQuery('#popup-box-copyrights').fadeIn();   
                 return false;
             });
-            <?php } ?>
+            <?php
+} ?>
                
             $('#expshowdealsbtn').click(function(){ 
                
@@ -8627,26 +8356,24 @@ td.investname {
                 </tr>
                 <!-- Edit Investor -->
                 <?php
-                    $getInvestorsSql="select * from pe_shp_investor where PEId=$IPO_MandAId ORDER BY id ASC";
-                    if ($rsinvestors = mysql_query($getInvestorsSql))
-                    {
-                        $validate_investor = mysql_num_rows($rsinvestors);
-                        if($validate_investor != 0){
-                        $i=0;
-                        While($myInvrow=mysql_fetch_array($rsinvestors, MYSQL_BOTH))
-                        {
-                ?>
+$getInvestorsSql = "select * from pe_shp_investor where PEId=$IPO_MandAId ORDER BY id ASC";
+if ($rsinvestors = mysql_query($getInvestorsSql)) {
+    $validate_investor = mysql_num_rows($rsinvestors);
+    if ($validate_investor != 0) {
+        $i = 0;
+        While ($myInvrow = mysql_fetch_array($rsinvestors, MYSQL_BOTH)) {
+?>
             <tr>
                 <td valign=top> <input type="text" style="width:100%;" name="txtinvestor[]" value="<?php echo $myInvrow["investor_name"]; ?>"> </td>
                 <td valign=top> <input type="text" name="txtinvestoramount[]" value="<?php echo $myInvrow["stake_held"]; ?>" style="width:100%;"> </td>
             </tr>
 
             <?php
-                $i++;
-                        }
-                }
-                }
-            ?>
+            $i++;
+        }
+    }
+}
+?>
             <!-- End edit Investor -->
                 <!-- <tr>
                     <td valign=top> <input type="text" style="width:100%;" name="txtinvestor[]"> </td>
@@ -8666,26 +8393,24 @@ td.investname {
             </thead>
             <tbody id="mutirow_promoters">
             <?php
-                    $getPromotorsSql="select * from pe_shp_promoters where PEId=$IPO_MandAId ORDER BY id ASC";
-                    if ($rspromotors = mysql_query($getPromotorsSql))
-                    {
-                        $validate_promoters = mysql_num_rows($rspromotors);
-                        if($validate_promoters != 0){
-                        $i=0;
-                        While($myProrow=mysql_fetch_array($rspromotors, MYSQL_BOTH))
-                        {
-                ?>
+$getPromotorsSql = "select * from pe_shp_promoters where PEId=$IPO_MandAId ORDER BY id ASC";
+if ($rspromotors = mysql_query($getPromotorsSql)) {
+    $validate_promoters = mysql_num_rows($rspromotors);
+    if ($validate_promoters != 0) {
+        $i = 0;
+        While ($myProrow = mysql_fetch_array($rspromotors, MYSQL_BOTH)) {
+?>
             <tr>
                     <td valign=top> <input type="text" name="txtpromoters[]" style="width:100%;" value="<?php echo $myProrow["promoters_name"]; ?>"> </td>
                     <td valign=top> <input type="text" name="txtpromotersamount[]" value="<?php echo $myProrow["stake_held"]; ?>" style="width:100%;"> </td>
                 </tr>
 
             <?php
-                $i++;
-                        }
-                }
-                }
-            ?>
+            $i++;
+        }
+    }
+}
+?>
             
                 <!-- <tr>
                     <td valign=top> <input type="text" name="txtpromoters[]" style="width:100%;"> </td>
@@ -8746,10 +8471,10 @@ $(document).ready(function(){
      
 });
 $(document).on('click','#pop_menu li',function(){
-       window.open('<?php echo BASE_URL;?>cfsnew/details.php?vcid='+$(this).attr("data-row")+'&pe=1', '_blank');
+       window.open('<?php echo BASE_URL; ?>cfsnew/details.php?vcid='+$(this).attr("data-row")+'&pe=1', '_blank');
 });
 $(document).on('click','.details_linkma',function(){
-       window.open('<?php echo BASE_URL;?>ma/madealdetails.php?value='+$(this).attr("data-row")+'&pe=1', '_blank');
+       window.open('<?php echo BASE_URL; ?>ma/madealdetails.php?value='+$(this).attr("data-row")+'&pe=1', '_blank');
 });
 /* $(document).on('click','#popup_main',function(e) {
 
@@ -8782,121 +8507,86 @@ $(document).on('click','.details_linkma',function(){
 </html>
 
 <?php
-function returnMonthname($mth)
-    {
-        if($mth==1)
-            return "Jan";
-        elseif($mth==2)
-            return "Feb";
-        elseif($mth==3)
-            return "Mar";
-        elseif($mth==4)
-            return "Apr";
-        elseif($mth==5)
-            return "May";
-        elseif($mth==6)
-            return "Jun";
-        elseif($mth==7)
-            return "Jul";
-        elseif($mth==8)
-            return "Aug";
-        elseif($mth==9)
-            return "Sep";
-        elseif($mth==10)
-            return "Oct";
-        elseif($mth==11)
-            return "Nov";
-        elseif($mth==12)
-            return "Dec";
+function returnMonthname($mth) {
+    if ($mth == 1) return "Jan";
+    elseif ($mth == 2) return "Feb";
+    elseif ($mth == 3) return "Mar";
+    elseif ($mth == 4) return "Apr";
+    elseif ($mth == 5) return "May";
+    elseif ($mth == 6) return "Jun";
+    elseif ($mth == 7) return "Jul";
+    elseif ($mth == 8) return "Aug";
+    elseif ($mth == 9) return "Sep";
+    elseif ($mth == 10) return "Oct";
+    elseif ($mth == 11) return "Nov";
+    elseif ($mth == 12) return "Dec";
 }
-function writeSql_for_no_records($sqlqry,$mailid)
-{
-    $write_filename="pe_query_no_records.txt";
+function writeSql_for_no_records($sqlqry, $mailid) {
+    $write_filename = "pe_query_no_records.txt";
     //echo "<Br>***".$sqlqry;
-    $schema_insert="";
+    $schema_insert = "";
     //TRYING TO WRIRE IN EXCEL
     //define separator (defines columns in excel & tabs in word)
-        $sep = "\t"; //tabbed character
-        $cr = "\n"; //new line
-
-        //start of printing column names as names of MySQL fields
-
-    print("\n");
-    print("\n");
+    $sep = "\t"; //tabbed character
+    $cr = "\n"; //new line
+    //start of printing column names as names of MySQL fields
+    print ("\n");
+    print ("\n");
     //end of printing column names
-    $schema_insert .=$cr;
-    $schema_insert .=$mailid.$sep;
-    $schema_insert .=$sqlqry.$sep;
-    $schema_insert = str_replace($sep."$", "", $schema_insert);
-    $schema_insert .= ""."\n";
-
-    if (file_exists($write_filename))
-    {
+    $schema_insert.= $cr;
+    $schema_insert.= $mailid . $sep;
+    $schema_insert.= $sqlqry . $sep;
+    $schema_insert = str_replace($sep . "$", "", $schema_insert);
+    $schema_insert.= "" . "\n";
+    if (file_exists($write_filename)) {
         //echo "<br>break 1--" .$file;
-         $fp = fopen($write_filename,"a+"); // $fp is now the file pointer to file
-         if($fp)
-         {//echo "<Br>-- ".$schema_insert;
-                fwrite($fp,$schema_insert);    //    Write information to the file
-                  fclose($fp);  //    Close the file
-                // echo "File saved successfully";
-         }
-         else
-         {
-             echo "Error saving file!"; }
+        $fp = fopen($write_filename, "a+"); // $fp is now the file pointer to file
+        if ($fp) { //echo "<Br>-- ".$schema_insert;
+            fwrite($fp, $schema_insert); //    Write information to the file
+            fclose($fp); //    Close the file
+            // echo "File saved successfully";
+            
+        } else {
+            echo "Error saving file!";
+        }
     }
-
     print "\n";
-
 }
-function highlightWords($text, $words)
-{
-
-     /*** loop of the array of words ***/
-     foreach ($words as $worde)
-     {
-
-             /*** quote the text for regex ***/
-             $word = preg_quote($worde);
-             /*** highlight the words ***/
-             $text = preg_replace("/\b($worde)\b/i", '<span class="highlight_word">\1</span>', $text);
-     }
-     /*** return the text ***/
-     return $text;
+function highlightWords($text, $words) {
+    /*** loop of the array of words ***/
+    foreach ($words as $worde) {
+        /*** quote the text for regex ***/
+        $word = preg_quote($worde);
+        /*** highlight the words ***/
+        $text = preg_replace("/\b($worde)\b/i", '<span class="highlight_word">\1</span>', $text);
+    }
+    /*** return the text ***/
+    return $text;
 }
-
-function return_insert_get_RegionIdName($regionidd)
-{
+function return_insert_get_RegionIdName($regionidd) {
     $dbregionlink = new dbInvestments();
     $getRegionIdSql = "select Region,RegionId from region where RegionId=$regionidd";
-
-            if ($rsgetInvestorId = mysql_query($getRegionIdSql))
-    {
-        $regioncnt=mysql_num_rows($rsgetInvestorId);
+    if ($rsgetInvestorId = mysql_query($getRegionIdSql)) {
+        $regioncnt = mysql_num_rows($rsgetInvestorId);
         //echo "<br>Investor count-- " .$investor_cnt;
-
-        if($regioncnt==1)
-        {
-            While($myrow=mysql_fetch_array($rsgetInvestorId, MYSQL_BOTH))
-            {
+        if ($regioncnt == 1) {
+            While ($myrow = mysql_fetch_array($rsgetInvestorId, MYSQL_BOTH)) {
                 $regionIdname = $myrow[0];
                 //echo "<br>Insert return investor id--" .$invId;
                 return $regionIdname;
             }
         }
     }
-    $dbregionlink.close();
+    $dbregionlink . close();
 }
-
-function return_insert_get_CountryName($countryid)
-{
+function return_insert_get_CountryName($countryid) {
     $dbregionlink = new dbInvestments();
     $getRegionIdSql = "select country from country where countryid='$countryid'";
-
-     /*       if ($rsgetInvestorId = mysql_query($getRegionIdSql))
+    /*       if ($rsgetInvestorId = mysql_query($getRegionIdSql))
     {
         $regioncnt=mysql_num_rows($rsgetInvestorId);
         //echo "<br>Investor count-- " .$investor_cnt;
-
+    
         if($regioncnt==1)
         {
             While($myrow=mysql_fetch_array($rsgetInvestorId, MYSQL_BOTH))
@@ -8907,45 +8597,38 @@ function return_insert_get_CountryName($countryid)
             }
         }
     }*/
-
-    
-    if ($rsgetInvestorId = mysql_query($getRegionIdSql))
-    {
-        $regioncnt=mysql_num_rows($rsgetInvestorId);
+    if ($rsgetInvestorId = mysql_query($getRegionIdSql)) {
+        $regioncnt = mysql_num_rows($rsgetInvestorId);
         //echo "<br>Investor count-- " .$investor_cnt;
-
-        if($regioncnt==1)
-        {
-            While($myrow=mysql_fetch_array($rsgetInvestorId, MYSQL_BOTH))
-            {
+        if ($regioncnt == 1) {
+            While ($myrow = mysql_fetch_array($rsgetInvestorId, MYSQL_BOTH)) {
                 $regionIdname = $myrow[0];
                 //echo "<br>Insert return investor id--" .$invId;
                 return $regionIdname;
             }
-        }else{
-           // echo "<br>Investor count-- " .$investor_cnt;
-
-        return $investor_cnt.$countryid;
-    }
-    }
-    else{
+        } else {
+            // echo "<br>Investor count-- " .$investor_cnt;
+            return $investor_cnt . $countryid;
+        }
+    } else {
         return "";
     }
-
-    $dbregionlink.close();
+    $dbregionlink . close();
 }
 function curPageURL() {
-$URL = 'http';
-$portArray = array( '80', '443' );
-if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
-$URL .= "://";
-if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
-$URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-} else {
-$URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-}
-$pageURL=$URL."&scr=EMAIL";
-return $pageURL;
+    $URL = 'http';
+    $portArray = array('80', '443');
+    if ($_SERVER["HTTPS"] == "on") {
+        $URL.= "s";
+    }
+    $URL.= "://";
+    if (!in_array($_SERVER["SERVER_PORT"], $portArray)) {
+        $URL.= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    } else {
+        $URL.= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    }
+    $pageURL = $URL . "&scr=EMAIL";
+    return $pageURL;
 }
 mysql_close();
 ?>
@@ -8954,7 +8637,8 @@ $(document).ready(function(){
  var $mapopheight=$('.ma-ajax').height();
  $('#ma_popup').height($mapopheight);
 });
-<?php // if(!$_POST)   { ?>
+<?php // if(!$_POST)   {
+ ?>
         /* $("#panel").animate({width: 'toggle'}, 200); 
          $(".btn-slide").toggleClass("active"); 
          if ($('.left-td-bg').css("min-width") == '264px') {
@@ -8966,7 +8650,8 @@ $(document).ready(function(){
          $('.acc_main').css("width", '264px');
          } */
                                     
-    <?php // } ?>
+    <?php // }
+ ?>
                                     
 </script> 
 
@@ -8977,17 +8662,19 @@ $(document).ready(function(){
 <script src="hopscotch.js"></script>
 
 
-<?php if($_SESSION['vconly']==1){ ?>
+<?php if ($_SESSION['vconly'] == 1) { ?>
 <script src="demo_vconly.js"></script>
-<?php } else { ?>
+<?php
+} else { ?>
    <script src="demo_new.js"></script>
-<?php } ?>
+<?php
+} ?>
 
   <script type="text/javascript" > 
           
    $(document).ready(function(){
       var window_width = $(document).width();//alert(window_width); 
-   <?php if(isset($_SESSION["demoTour"]) && $_SESSION["demoTour"]=='1') { ?>  
+   <?php if (isset($_SESSION["demoTour"]) && $_SESSION["demoTour"] == '1') { ?>  
          demotour=1;     
          hopscotch.startTour(tour, 7); 
            
@@ -9000,7 +8687,8 @@ $(document).ready(function(){
                     {  showErrorDialog(warmsg); $('.ui-multiselect-menu').hide(); }     
         });
         
-  <?php  } else if(isset($_SESSION["VCdemoTour"]) && $_SESSION["VCdemoTour"]=='1') { ?>  
+  <?php
+} else if (isset($_SESSION["VCdemoTour"]) && $_SESSION["VCdemoTour"] == '1') { ?>  
           vcdemotour=1; 
           hopscotch.startTour(tour, 27);    
 
@@ -9013,7 +8701,8 @@ $(document).ready(function(){
                     {  showErrorDialog(warmsg); $('.ui-multiselect-menu').hide(); }     
         });
         
-  <?php  } ?>
+  <?php
+} ?>
      
      
      
@@ -9054,7 +8743,7 @@ $(document).ready(function(){
        });
     </script>
   <?php
-  mysql_close();
+mysql_close();
 mysql_close($cnx);
 ?>
 <script>
@@ -9177,7 +8866,7 @@ $(".accordions_dealtitle1 i").on("click", function() {
  $(".matrans").on("click", function() {
     $(this).toggleClass("active").next().next().slideToggle();
     //alert($(this).hasClass("active"));
-    <?php if($testingvariable==1){?>
+    <?php if ($testingvariable == 1) { ?>
     if($(this).hasClass("active")== true)
     {
         jQuery('.malb').fadeOut();
@@ -9186,7 +8875,8 @@ $(".accordions_dealtitle1 i").on("click", function() {
     }else{
         openPopUp();
     }
-<?php } ?>
+<?php
+} ?>
 });
 function openPopUp() {
   setTimeout(function(){
@@ -9214,7 +8904,8 @@ jQuery('#ma_popup').fadeOut(1000);
 })(jQuery); 
 </script>
 
-<?php //if($board_cnt > 0) { ?>
+<?php //if($board_cnt > 0) {
+ ?>
  <script>
     $('.companydealcontent').mCustomScrollbar({ 
             theme:"dark-3"        
@@ -9236,7 +8927,8 @@ jQuery('#ma_popup').fadeOut(1000);
                     $(this).next().css("display","none");
                 });    
  </script>
-<?php //}?>
+<?php //}
+ ?>
 <style>
 /* .row.masonry{
 
