@@ -973,6 +973,8 @@ $(document).ready(function(){
                                             <th>SV-<br>Inv</th>
                                             <th>If-<br>Tech</th>
                                             <th>CTech</th>
+                                            <th>W/0 val.</th>
+
                                             <!--<th> </th> -->
                                         </tr>
                                     <?php
@@ -1047,6 +1049,8 @@ $(document).ready(function(){
                                                         $itech="checked";
                                                     if($myrow["CTech"]==1)
                                                         $ctech="checked";
+                                                        if($myrow["valInfo"]==1)
+                                                        $valInfo="checked";
                                                    
                                             ?>
                                                 <tr>
@@ -1070,6 +1074,8 @@ $(document).ready(function(){
                                                     <td align=center><input name="SVInv" class="vconly" type="checkbox" value="<?php echo $myrow["DCompId"]; ?>" <?php echo $sv; ?> ></td>
                                                     <td align=center><input name="IfTech" class="peonly" type="checkbox" value="<?php echo $myrow["DCompId"]; ?>" <?php echo $itech; ?> ></td>
                                                     <td align=center><input name="CTech" class="peonly" type="checkbox" value="<?php echo $myrow["DCompId"]; ?>" <?php echo $ctech; ?> ></td>
+                                                    <td align=center><input name="valInfo" class="peonly" type="checkbox" value="<?php echo $myrow["DCompId"]; ?>" <?php echo $valInfo; ?> ></td>
+
                                                 </tr> 
                                             </table>
                                         <?php
