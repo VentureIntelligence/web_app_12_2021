@@ -50,6 +50,7 @@ $sesID=session_id();
 					$company_name=$_POST['company_name'];
 					$deal_date=$_POST['deal_date'];
 					$SelCompRef=$PEId;
+                    $valInfo=$_POST['valInfo'];
         $sql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,
 				amount, round, s.Stage, stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dt, pec.website, pec.city,
 				r.Region,pe.PEId,comment,MoreInfor,hideamount,hidestake,
@@ -434,8 +435,14 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('G'.$index, $row[6])
             ->setCellValue('H'.$index, $row[7])
             ->setCellValue('I'.$index, $investorString)
-            ->setCellValue('J'.$index, $row[19])
-            ->setCellValue('K'.$index, $hidestake)
+            ->setCellValue('J'.$index, $row[19]);
+            if($valInfo == 0){
+                $objPHPExcel->setActiveSheetIndex(0)
+
+            ->setCellValue('K'.$index, $hidestake);
+            }
+            $objPHPExcel->setActiveSheetIndex(0)
+
             ->setCellValue('L'.$index, $row[9])
             ->setCellValue('M'.$index, $exitstatusis)
             ->setCellValue('N'.$index, $webdisplay)
@@ -446,7 +453,9 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('S'.$index, $advisorCompanyString)
             ->setCellValue('T'.$index, $advisorInvestorString)
             ->setCellValue('U'.$index, $resmoreinfo)
-            ->setCellValue('V'.$index, $row[21])
+            ->setCellValue('V'.$index, $row[21]);
+            if($valInfo == 0){
+                $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('W'.$index, $row[39])
             ->setCellValue('X'.$index, $row[40])
             ->setCellValue('Y'.$index, $row[41])
@@ -458,9 +467,16 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('AE'.$index, $row[43])
             ->setCellValue('AF'.$index, $row[44])
             ->setCellValue('AG'.$index, $row[45])
-            ->setCellValue('AH'.$index, $row[46])
-            ->setCellValue('AI'.$index, $price_to_book)
-            ->setCellValue('AJ'.$index, trim($row[22]))
+            ->setCellValue('AH'.$index, $row[46]);
+            }
+            $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('AI'.$index, $price_to_book);
+            if($valInfo == 0){
+            $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('AJ'.$index, trim($row[22]));
+            }
+            $objPHPExcel->setActiveSheetIndex(0)
+
             ->setCellValue('AK'.$index, $dec_revenue)
             ->setCellValue('AL'.$index, $dec_ebitda)
             ->setCellValue('AM'.$index, $dec_pat)
