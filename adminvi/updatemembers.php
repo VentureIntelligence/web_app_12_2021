@@ -21,6 +21,7 @@ session_start();
         <link href="../css/vistyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        
         <form name="admin"  method="post" action="" >
             <div id="containerproductproducts">
                 <!-- Starting Left Panel -->

@@ -20,6 +20,7 @@ if ($cntUserLogSel > 0) {
         header('Location: logoff.php?value=caccess');
     }
 }
+
 $DcompanyId = $_SESSION['DcompanyId'];
 if($DcompanyId == 697447099){
     $comp_industry_id_where = "and  pec.industry=3 ";

@@ -4837,6 +4837,7 @@ try {
             <?php } ?> </td> 
         </tr>
       <tr>
+          
           <td><h4>Date</h4></td>
           <input type="hidden" name="dealdate" value="<?php echo $myrow['dates']; ?>">
             <td class=""><p><?php echo  $myrow["dt"];?></p></td>
