@@ -349,13 +349,10 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                 echo "<script language='javascript'>document.location.href='".BASE_URL."cfsnew/details.php?vcid=".$_REQUEST['vcid']."'</script>";
             }else
             {
-                // echo 'Hi';
-                // print_r( $_SESSION); exit;
-                echo "<script language='javascript'>document.location.href='home.php'</script>";
-                // echo "<script language='javascript'> window.history.back();'</script>";
-
-                // echo "<script language='javascript'>document.location.href= '".$_COOKIE["backpage"]."' </script>";
                 
+                
+                    // echo "<script language='javascript'>document.location.href='home.php'</script>";
+                    echo "<script language='javascript'>document.location.href= '".$_COOKIE["backpage"]."' </script>";
                 
             }
                 exit();
