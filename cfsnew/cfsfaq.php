@@ -1,6 +1,6 @@
 <?php
 
-    // setcookie('backpage', $_SERVER['PHP_SELF']);
+    setcookie('backpage', $_SERVER['PHP_SELF']);
 
 //   print_r('cfsfaq___'.$_COOKIE["backpage"].'<br />');
 

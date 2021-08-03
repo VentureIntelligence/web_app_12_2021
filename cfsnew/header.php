@@ -1,12 +1,14 @@
 <?php 
 
 
-$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+// $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-if( $uriSegments[3] != 'login.php')
-{
-	setcookie('backpage', $_SERVER['PHP_SELF']);
-} 
+// if( $uriSegments[3] != 'login.php')
+// {
+// 	setcookie('backpage', $_SERVER['PHP_SELF']);
+// } else{
+// 	// setcookie('backpage', 'login.php');
+// }
 
 //  echo 'Header Cookie Value___'.$_COOKIE['backpage'].'<br />';
 
