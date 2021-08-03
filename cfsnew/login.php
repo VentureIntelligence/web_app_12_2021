@@ -3,19 +3,9 @@ if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();
 }
-// print_r($_SESSION);
 
-
-
+//echo "cookie=".$_COOKIE['cfsLoginAuth'];
 include "header.php";
-
-// echo "cookieauth=".$_COOKIE['cfsLoginAuth'].'<br />';
-// echo "cookie=".$_COOKIE[]; 
-
-// echo '<pre>'; print_r($_COOKIE); echo '</pre>';
-//returns bar
-
-
 
 require_once MODULES_DIR."users.php";
 $users = new users();
@@ -360,11 +350,12 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
             }else
             {
                 // echo 'Hi';
-              
+                // print_r( $_SESSION); exit;
                 // echo "<script language='javascript'>document.location.href='home.php'</script>";
                 // echo "<script language='javascript'> window.history.back();'</script>";
+
+                echo "<script language='javascript'>document.location.href= '".$_COOKIE["backpage"]."' </script>";
                 
-                 echo "<script language='javascript'>document.location.href= '".$_COOKIE["backpage"]."' </script>";
                 
             }
                 exit();
