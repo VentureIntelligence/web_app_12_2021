@@ -6,12 +6,16 @@
 			
             if( $uriSegments[3] == 'login.php' || $uriSegments[3] == 'logout.php')
             {
-				// echo 'No';
+				echo 'No';
 				// unset($_COOKIE['backpage']);
 				//test
             } else{
-                // echo 'Yes';
-                setcookie('backpage', $_SERVER['PHP_SELF']);
+                echo 'Yes';
+
+
+				$_SESSION['backpage'] = $_SERVER['PHP_SELF'];
+
+                // setcookie('backpage', $_SERVER['PHP_SELF']);
             }
 
 
