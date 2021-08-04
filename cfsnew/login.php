@@ -4,7 +4,7 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-// echo "cookie=".$_COOKIE['backpage'];
+echo "Session123=".$_SESSION['backpage'];
 
 include "header.php";
 
@@ -362,12 +362,12 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                     // print_r($_SERVER['PHP_SELF']);
 
                    
-                    
 
 
-                    if($_COOKIE["backpage"] != "")
+
+                    if($_SESSION["backpage"] != "")
                     {
-                        echo "<script language='javascript'>document.location.href= '".$_COOKIE["backpage"]."' </script>";
+                        echo "<script language='javascript'>document.location.href= '".$_SESSION["backpage"]."' </script>";
                     }else{
                         echo "<script language='javascript'>document.location.href='home.php'</script>";
                     }
