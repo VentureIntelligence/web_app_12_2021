@@ -1,16 +1,23 @@
 <?php 
 
-			$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+			// $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-			// echo $uriSegments[3].'<br />';
+
+			$urlArray = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+			$segments = explode('/', $urlArray);
+			$numSegments = count($segments); 
+			$currentSegment = $segments[$numSegments - 1];
+
+
+			// echo $currentSegment.'<br />';
 			
-            if( $uriSegments[3] == 'login.php' || $uriSegments[3] == 'logout.php')
+            if( $currentSegment == 'login.php' || $currentSegment == 'logout.php')
             {
-				echo 'No';
+				// echo 'No';
 				// unset($_COOKIE['backpage']);
 				//test
             } else{
-                echo 'Yes';
+                // echo 'Yes';
 
 
 				$_SESSION['backpage'] = $_SERVER['PHP_SELF'];
