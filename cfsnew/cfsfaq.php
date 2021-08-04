@@ -1,13 +1,20 @@
 <?php
 
-// setcookie('backpage', $_SERVER['PHP_SELF']);
+    // setcookie('backpage', $_SERVER['PHP_SELF']);
+
+//   print_r('cfsfaq___'.$_COOKIE["backpage"].'<br />');
 
     if(!isset($_SESSION)){
         session_save_path("/tmp");
         session_start();
     }
     
-    include "header.php";
+    include "header.php";  
+    // print_r($_COOKIE["backpage"]);
+
+
+   
+
     include "sessauth.php";
    
      require_once MODULES_DIR."faq.php";

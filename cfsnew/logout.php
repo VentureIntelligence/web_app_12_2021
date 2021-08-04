@@ -8,6 +8,7 @@ if (isset($_COOKIE['backpage'])) {
     // return false;
 }
 
+
 include_once('header.php');
 
 if($isAuth) {

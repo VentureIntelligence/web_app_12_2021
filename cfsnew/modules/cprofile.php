@@ -359,6 +359,7 @@ class cprofile extends database {
 		}
 		return $return_array;
 	}
+	 
 
 	function getCompaniesAutoSuggest_brand($where,$order,$limit = ''){
 

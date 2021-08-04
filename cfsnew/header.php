@@ -1,7 +1,5 @@
 <?php 
 
-
-
 			$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
 			// echo $uriSegments[3].'<br />';
@@ -10,10 +8,12 @@
             {
 				// echo 'No';
 				// unset($_COOKIE['backpage']);
+				//test
             } else{
                 // echo 'Yes';
                 setcookie('backpage', $_SERVER['PHP_SELF']);
             }
+
 
 if(!isset($_SESSION)){
     session_save_path("/tmp");

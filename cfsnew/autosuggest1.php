@@ -20,7 +20,7 @@
 
    
     
-    $searchStrings = array_map('trim', explode( ',', $_POST['queryString'] ));
+    $searchStrings = array_map('trim', explode( ',', $_POST['queryString'] )); 
     // $searchStrings = explode( ' ', $_POST['queryString'] );
 
     // $new_arr = array_map('trim', explode(',', $str));
