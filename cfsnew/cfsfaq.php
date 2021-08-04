@@ -1,4 +1,7 @@
 <?php
+
+// setcookie('backpage', $_SERVER['PHP_SELF']);
+
     if(!isset($_SESSION)){
         session_save_path("/tmp");
         session_start();

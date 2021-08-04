@@ -1,4 +1,20 @@
 <?php 
+
+
+
+			$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+			// echo $uriSegments[3].'<br />';
+			
+            if( $uriSegments[3] == 'login.php' || $uriSegments[3] == 'logout.php')
+            {
+				// echo 'No';
+				// unset($_COOKIE['backpage']);
+            } else{
+                // echo 'Yes';
+                setcookie('backpage', $_SERVER['PHP_SELF']);
+            }
+
 if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();
