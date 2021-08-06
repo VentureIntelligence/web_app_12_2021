@@ -41,7 +41,7 @@ window.onload = function() {
   "info": {
     "title": "Venture Intelligence -  Third Party API Documentation - BASIC API - PE",
     "version": "1.0.0",
-    "description": "This is the specification for the BASIC API - PE, which have clear request and response details\n\n## Changelog\n\nAPI version | Date | Changes\n------------|------|--------\n1.0.0 | 08-July-2021 | Consolidated Request, Response for BASIC API - CFS & PE \n"
+    "description": "This is the specification for the BASIC API - PE, which have clear request and response details\n\n## Changelog\n\nAPI version | Date | Changes\n------------|------|--------\n1.0.0 | 08-July-2021 | Consolidated Request, Response for BASIC API - PE \n"
   },
   "servers": [
     {
@@ -55,7 +55,7 @@ window.onload = function() {
         "tags": [
           "pecompanies"
         ],
-        "summary": "Service used to optain the consolidated view of pecompanie's detail",
+        "summary": "Service used to optain the consolidated view of pecompanies detail",
         "requestBody": {
           "description": "Input parameters are:",
           "content": {
@@ -66,9 +66,10 @@ window.onload = function() {
                   "token",
                   "userName",
                   "password",
-                  "fromTimeStamp",
+                  "fromDate",
                   "toDate",
                   "userType",
+                  "companyName"
                 ],
                 "properties": {
                   "token": {
@@ -83,13 +84,11 @@ window.onload = function() {
                     "type": "string",
                     "description": "Password of the user"
                   },
-                  "fromTimeStamp": {
-                    "type": "string",
-                    "description": "Example, 2017-07-21T17:32:28Z"
-                  }, 
                   "userType": {
                     "type": "string",
-                    "description": "External_partner"
+                    "enum": [
+                      "External_partner"
+                    ]
                   }
                 }
               }
@@ -135,116 +134,6 @@ window.onload = function() {
                           }
                         }
                       }
-                    },
-                    'hasMore': {
-                      "type": "boolean",
-                      "default": true
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Access",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/cfs/cfscompanies": {
-      "get": {
-        "tags": [
-          "pecompanies"
-        ],
-        "summary": "Service used to optain the consolidated view of cfscompanie's detail",
-        "requestBody": {
-          "description": "Input parameters are:",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "token",
-                  "userName",
-                  "password",
-                  "fromTimeStamp",
-                  "toDate",
-                  "userType",
-                ],
-                "properties": {
-                  "token": {
-                    "type": "string",
-                    "description": "Dynamic token"
-                  },
-                  "userName": {
-                    "type": "string",
-                    "description": "Email of the user"
-                  },
-                  "password": {
-                    "type": "string",
-                    "description": "Password of the user"
-                  },
-                  "fromTimeStamp": {
-                    "type": "string",
-                    "description": "Example, 2017-07-21T17:32:28Z"
-                  }, 
-                  "userType": {
-                    "type": "string",
-                    "description": "External_partner"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "PECompanyId": {
-                            "type": "integer"
-                          },
-                          "companyname": {
-                            "type": "string"
-                          },
-                          "industry": {
-                            "type": "string"
-                          },
-                          "sector_business": {
-                            "type": "string"
-                          },
-                          "website": {
-                            "type": "string"
-                          },
-                          "city": {
-                            "type": "string"
-                          },
-                          "action": {
-                            "type": "string"
-                          },
-                          "modified_at": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    'hasMore': {
-                      "type": "boolean",
-                      "default": true
                     }
                   }
                 }
@@ -262,7 +151,7 @@ window.onload = function() {
         }
       }
     }
-  },
+  }
 }
   
   // Build a system
