@@ -188,8 +188,12 @@
                             $city = $rowData[0][16];
 
                             $txtregion = $rowData[0][17];
+
+                            // echo 'text_region____:'.$txtregion.'<br />';
+
                             $regionId= '';
                             $regionSql = "select RegionId,Region from region where Region='".$txtregion."'";
+                            
                             if ($regionrs = mysql_query($regionSql))
                             {
                               $region_cnt = mysql_num_rows($regionrs);
@@ -201,6 +205,8 @@
                                     $regionId = $myregionrow[0];
                                 }
                             }
+
+                            // echo 'regionId:'.$regionId.'<br />';
 
                             $Advisor_company = $rowData[0][18];
                             $advisor_companyString = str_replace('"','',$Advisor_company);
@@ -622,20 +628,20 @@
 
                         $rsgetPECompanyId = mysql_query($getPECompanySql);
                         $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+                        
+                        // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
 
+                        // echo 'Industry__'.$industryId.'<br />';
+                        // echo 'City__'.$city.'<br />';
+                        // echo 'Sector__'.$sector.'<br />';
+                        // echo 'Region__ : '.$regionId.'<br />';
+                        //  exit;
 
-
-                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
-                    // echo 'Industry__'.$industryId.'<br />';
-                    // echo 'City__'.$city.'<br />';
-                    // echo 'Sector__'.$sector.'<br />';
-                    // echo 'Region__'.$regionId.'<br />';
-                    //  exit;
-
-
-                        if($seperate_field['city'] == $city && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId)
+                        if(($seperate_field['city'] == $city || $city == "") &&  
+                        ($seperate_field['sector_business'] == $sector || $sector == "") &&  
+                        ($seperate_field['industry'] == $industryId || $industryId == "") && 
+                        ($seperate_field['RegionId'] == $regionId || $regionId == 1))
                         {
-                            
                             $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
 
                             echo 'Successfully Added';
@@ -645,13 +651,14 @@
                                 //		echo "<br>Update Company- " .$updateCityCountrySql;
                             }
                                 //echo "<br>Insert return industry id--" .$companyId;
+                            
                             return $companyId;
 
                         }else{
-                          echo "Mismatch Records";
+                            echo 'Mismatch Records';
+                            return $companyId;
                         }
-
-                        // exit;
+                        exit;
                         
                     }
                 }
