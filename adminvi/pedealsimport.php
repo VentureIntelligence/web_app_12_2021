@@ -601,23 +601,34 @@
         {
             $dbpecomp = new dbInvestments();
             $getPECompanySql = "select PECompanyId,industry,sector_business,RegionId,city from pecompanies where companyname= '$companyname'";
+
+
             //echo "<br>select--" .$getPECompanySql;
 
             
             if ($rsgetPECompanyId = mysql_query($getPECompanySql))
             {
                 $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
-                //echo "<br>%%%%%".$pecomp_cnt;
+
+
+                // echo "<br>%%%%%".$pecomp_cnt; exit;
+
+                // echo $industryId.'<br />';
+
+
                 if ($pecomp_cnt==0)
                 {
                     //insert pecompanies
                     $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,AdCity,region,RegionId)
-                    values('$companyname',$industryId,'$sector','$web','$city','$city','$region',$regionId)";
-                   // echo "<br>Ins company sql=" .$insPECompanySql;
+                    values('$companyname','$industryId','$sector','$web','$city','$city','$region',$regionId)";
+                //    echo "<br>Ins company sql=" .$insPECompanySql;
                     if($rsInsPECompany = mysql_query($insPECompanySql))
                     {
+                        echo 'Insterted';
                         $companyId=0;
                         return $companyId;
+                    }else{
+                        echo 'Error';
                     }
                 }
                 elseif($pecomp_cnt>=1)
