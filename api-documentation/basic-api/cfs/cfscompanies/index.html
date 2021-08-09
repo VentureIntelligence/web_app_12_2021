@@ -41,7 +41,7 @@ window.onload = function() {
   "info": {
     "title": "Venture Intelligence -  Third Party API Documentation - BASIC API - PE",
     "version": "1.0.0",
-    "description": "This is the specification for the BASIC API - PE, which have clear request and response details\n\n## Changelog\n\nAPI version | Date | Changes\n------------|------|--------\n1.0.0 | 08-July-2021 | Consolidated Request, Response for BASIC API - PE \n"
+    "description": "This is the specification for the BASIC API - PE, which have clear request and response details\n\n## Changelog\n\nAPI version | Date | Changes\n------------|------|--------\n1.0.0 | 08-July-2021 | Consolidated Request, Response for BASIC API - CFS & PE \n"
   },
   "servers": [
     {
@@ -50,12 +50,12 @@ window.onload = function() {
     }
   ],
   "paths": {
-    "/pe/pecompanies": {
+    "/cfs/cfscompanies": {
       "get": {
         "tags": [
           "pecompanies"
         ],
-        "summary": "Service used to optain the consolidated view of pecompanies detail",
+        "summary": "Service used to optain the consolidated view of cfscompanie's detail",
         "requestBody": {
           "description": "Input parameters are:",
           "content": {
@@ -66,10 +66,9 @@ window.onload = function() {
                   "token",
                   "userName",
                   "password",
-                  "fromDate",
+                  "fromTimeStamp",
                   "toDate",
                   "userType",
-                  "companyName"
                 ],
                 "properties": {
                   "token": {
@@ -84,11 +83,13 @@ window.onload = function() {
                     "type": "string",
                     "description": "Password of the user"
                   },
+                  "fromTimeStamp": {
+                    "type": "string",
+                    "description": "Example, 2017-07-21T17:32:28Z"
+                  }, 
                   "userType": {
                     "type": "string",
-                    "enum": [
-                      "External_partner"
-                    ]
+                    "description": "External_partner"
                   }
                 }
               }
@@ -108,16 +109,13 @@ window.onload = function() {
                       "items": {
                         "type": "object",
                         "properties": {
-                          "PECompanyId": {
+                          "CFSCompanyId": {
                             "type": "integer"
                           },
                           "companyname": {
                             "type": "string"
                           },
                           "industry": {
-                            "type": "string"
-                          },
-                          "sector_business": {
                             "type": "string"
                           },
                           "website": {
@@ -134,6 +132,10 @@ window.onload = function() {
                           }
                         }
                       }
+                    },
+                    'hasMore': {
+                      "type": "boolean",
+                      "default": true
                     }
                   }
                 }
@@ -151,7 +153,7 @@ window.onload = function() {
         }
       }
     }
-  }
+  },
 }
   
   // Build a system
