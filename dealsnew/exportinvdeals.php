@@ -190,6 +190,7 @@ $tsjtitle = "� TSJ Media Pvt. Ltd. This data is meant for the internal and non
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE.";
 $exportstatusdisplay = "Pls Note : Excel Export is available for transactions from Jan.2004 only, as part of search results. You can export transactions prior  to 2004 on a deal by deal basis from the deal details popup.";
 //echo "<bR>&&&&".$searchtitle;
+
 if ($searchtitle == 0) {
     $addVCFlagqry = " and pec.industry !=15 ";
     $checkForStage = ' && (' . '$stage' . ' =="--")';
@@ -1434,6 +1435,11 @@ $addDelind = "";
 $hideWhere = '';
 $valInfo=$_POST['valInfo'];
 
+
+// echo '<pre>'; print_r($_POST); echo '</pre>'; 
+// exit;
+
+
 $dateValue=$_POST['txthidedate'];
                 $hidedateStartValue=$_POST['txthidedateStartValue'];
                 $hidedateEndValue=$_POST['txthidedateEndValue'];
@@ -1467,7 +1473,33 @@ $dateValue=$_POST['txthidedate'];
                 $advisorsearchstring_trans=$_POST['txthideadvisor_trans'];
 
                 $tagsearch=$_POST['tagsearch'];
-                $searchallfield=$_POST['txthidesearchallfield'];
+                $searchallfield = $_POST['txthidesearchallfield'];
+
+
+    $searchtitle = $_POST['txttitle'];
+
+    if ($searchtitle == 0) {
+        $addVCFlagqry = " and pec.industry !=15 ";
+        $checkForStage = ' && (' . '$stage' . ' =="--")';
+        //$checkForStage = " && (" .'$stage'."=='--') ";
+        //$checkForStageValue = " || (" .'$stage'.">0) ";
+        $searchTitle = "List of PE Investments ";
+    } elseif ($searchtitle == 1) {
+        $addVCFlagqry = " and pec.industry!=15  and s.VCview=1 and amount <=20 ";
+
+        $checkForStage = '&& (' . '$stage' . '=="--") ';
+        //$checkForStage = " && (" .'$stage'."=='--') ";
+        //$checkForStageValue =  " || (" .'$stage'.">0) ";
+        $searchTitle = "List of VC Investments ";
+    } elseif ($searchtitle == 2) {
+        $addVCFlagqry = " and pec.industry =15 ";
+        $stage = "--";
+        $checkForStage = "";
+        $checkForStageValue = "";
+        $searchTitle = "List of PE Investments - Real Estate";
+    }
+
+                // $vcflagValue = $_POST['txthidesearchallfield'];
                
 if ($listallcompany != 1) {
      $isAggregate = 'AND pe.SPV=0 and pe.AggHide=0';
@@ -1709,6 +1741,7 @@ if (!$_POST || $sectorsearch != '' || $tagsearch != '') {
     $yearbefore='';
     $yearafter='';
 }
+
 
 if ($_SESSION['PE_industries'] != '') {
 
@@ -2517,6 +2550,13 @@ $valuationsql  $sectorcondition
 
                             } 
     if (($startRangeValue != "--") && ($endRangeValue != "") && ($startRangeValue != "") && ($endRangeValue != "--")) {
+
+        // echo 'Start Range : '.$startRangeValue.'<br />';
+        // echo 'End Range : '.$endRangeValue.'<br />';
+
+        // exit;
+
+
         $startRangeValue = $startRangeValue;
        // $endRangeValue = $endRangeValue - 0.01;
         $qryRangeTitle = "Deal Range (M$) - ";
@@ -2531,6 +2571,14 @@ $valuationsql  $sectorcondition
      //   $endRangeValue = $endRangeValue - 0.01;
        // $whererange = " pe.amount between  " . $startRangeValue . " and " . $endRangeValue;
        $whererange = " pe.amount >=  ".$startRangeValue ." and  pe.amount <". $endRangeValue ."";
+
+    //    echo 'Start Range : '.$startRangeValue.'<br />';
+    //    echo 'End Range : '.$endRangeValue.'<br />';
+
+    //    exit;
+
+
+
     }
     //echo "<Br>***".$whererange;
     $exitstatusValue=explode(",",$exitstatusValue);
@@ -2745,6 +2793,7 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 //  echo $companysql;
 //  exit();
+
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
@@ -3105,6 +3154,10 @@ $col = 0;
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
     
     $result2 = mysql_query($companiessql) or die( mysql_error() );
+
+
+    // echo '<pre>'; print_r($result2); echo '</pre>'; exit;
+
     $row = mysql_fetch_row($result2);
     
     if ($row[35] == 1) {     //Agghide
