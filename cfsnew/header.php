@@ -9,7 +9,10 @@
 			$currentSegment = $segments[$numSegments - 1];
 
 
-			// echo $currentSegment.'<br />';
+			// echo 'URL CURRENT PAGE ___ '.$currentSegment.'<br />';
+			// echo 'SEREVR PAGE ___ '.$_SERVER['REQUEST_URI'].'<br />';
+			// echo 'SEREVR PAGE PHP SELF ___ '.$_SERVER['PHP_SELF'];
+			// echo 'SEREVR PAGE ___ '.$_SERVER['QUERY_STRING'];
 			
             if( $currentSegment == 'login.php' || $currentSegment == 'logout.php')
             {
@@ -20,7 +23,7 @@
                 // echo 'Yes';
 
 
-				$_SESSION['backpage'] = $_SERVER['PHP_SELF'];
+				$_SESSION['backpage'] = $_SERVER['REQUEST_URI'];
 
                 // setcookie('backpage', $_SERVER['PHP_SELF']);
             }
