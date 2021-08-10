@@ -1436,11 +1436,8 @@ $hideWhere = '';
 $valInfo=$_POST['valInfo'];
 
 
-// echo '<pre>'; print_r($_POST); echo '</pre>'; 
-// exit;
 
-
-$dateValue=$_POST['txthidedate'];
+                $dateValue=$_POST['txthidedate'];
                 $hidedateStartValue=$_POST['txthidedateStartValue'];
                 $hidedateEndValue=$_POST['txthidedateEndValue'];
                 $industry=$_POST['txthideindustryid'];
@@ -2810,6 +2807,11 @@ $expval=explode(",",$exportvalue);
 
 
 $rowArray=$expval;
+
+
+// echo '<pre>'; print_r($rowArray); echo '</pre>'; exit;
+
+
 // end T960
 
 
@@ -3159,6 +3161,12 @@ $col = 0;
     // echo '<pre>'; print_r($result2); echo '</pre>'; exit;
 
     $row = mysql_fetch_row($result2);
+
+    // date("d-m-Y", strtotime($orgDate));  
+
+
+        // echo '<pre>'; print_r(date("M-Y",strtotime($row[15]))); echo '</pre>'; exit;
+   
     
     if ($row[35] == 1) {     //Agghide
         //echo "<br>***".$row[7];
@@ -3458,7 +3466,14 @@ $col = 0;
         }
     }
 
-//echo json_encode($rowArray).'hai';exit();
+// echo json_encode($rowArray).'hai';exit();
+
+    // date("d-m-Y", strtotime($originalDate));
+
+    // echo '<pre>'; print_r(date("M-Y", $row[15])); echo '</pre>'; exit;
+
+
+
     // T960
     if(in_array("Company", $rowArray))
     {
@@ -3512,7 +3527,9 @@ $col = 0;
     }
     if(in_array("Date", $rowArray))
     {
-        $schema_insert .= $row[15].$sep;
+        // date_format($exd, 'Y-m-d');
+        // $schema_insert .= date_format($row[15].$sep, 'm-Y');
+        $schema_insert .= date("M-Y",strtotime($row[15])).$sep;
     }
     if(in_array("Exit Status", $rowArray))
     {
