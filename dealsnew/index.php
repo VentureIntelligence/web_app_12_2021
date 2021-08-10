@@ -241,6 +241,7 @@ if (isset($_POST['popup_select'])) {
     $month1 = 01;
     $year1 = 1998;
     $month2 = date('n');
+    
     $year2 = date('Y');
     $fixstart = $year1;
     $startyear = $fixstart . "-" . $month1 . "-01";

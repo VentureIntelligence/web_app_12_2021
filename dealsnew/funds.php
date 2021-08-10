@@ -1330,6 +1330,7 @@ if($notable==false)
 
 {   
 
+    
 text-align: center;      /* for Chrome, Firefox, Opera */
 
 }

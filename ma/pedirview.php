@@ -1215,6 +1215,7 @@ $(function() {
 
     <style>  
         .paginationtextbox{
+            
             width:3.4%;
             padding: 3px;
         }

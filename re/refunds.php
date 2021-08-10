@@ -3015,6 +3015,7 @@ if($_GET['type']!="")
 
             }
         });
+		
     </script>
 
 <style>
