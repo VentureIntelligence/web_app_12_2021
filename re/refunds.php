@@ -3019,16 +3019,14 @@ if($_GET['type']!="")
 
 <style>
         .paginationtextbox{
-            width:2.5%;
-			padding: 2.6px;
+            width:2.6%;
+			padding: 3px;
         }
+
 		input[type='text']::placeholder
-
-{   
-
-text-align: center;      /* for Chrome, Firefox, Opera */
-
-}
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
         .button{
             background-color: #a2753a; /* Green */
             border: none;

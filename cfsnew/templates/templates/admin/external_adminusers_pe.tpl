@@ -110,6 +110,7 @@ function ChangeStatus1(op1,status1,msg1)
             <td>{$AdminUserList[i].created_on}</td>
             <td width="10%" align="center"><a href="external_editadminusers_pe.php?auid={$AdminUserList[i].id}"><img src="images/edit.png" width="16" height="16" title="Click to Edit" alt="Click to Edit" style="cursor:pointer;" /></a>
            <!-- <td width="3%"><img src="images/close.gif" width="16" height="16"  onClick="deleteReg('delete','{$AdminUserList[i].Ident}');" alt="delete" title="delete"/></td>-->
+           
            <img src="images/delete.svg" width="16" height="16" alt="Click to Disable" title="Click to Delete"  onClick="deleteReg('delete','{$AdminUserList[i].id}');"  style="cursor:pointer; margin-left:10px;"/></td>
 			{* <td width="3%" align="center">
   		{if $AdminUserList[i].usr_flag neq "0"}

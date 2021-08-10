@@ -537,6 +537,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
     }
     elseif($advisorsearch_legal!="")
     {
+        // echo 'Ist Else if';
 
         if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
@@ -558,39 +559,41 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
              $hideWhere = " ";
         }
 
-            $companysql="(select pe.MandAId,pe.PECompanyId,c.industry,pe.DealTypeId,adac.CIAId AS AcqCIAId,cia.CIAId,pe.AcquirerId,
-            c.companyname,i.industry,c.sector_business,
-            dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
-            pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,cia.cianame,pe.InvestmentDeals,Link,
-            EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded,c.CINNo
-            from manda AS pe, pecompanies AS c, industry AS i,advisor_cias AS cia,
-            peinvestments_advisoracquirer AS adac,acquirers as ac,dealtypes as dt,investortype as it
-            where DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and pe.Deleted=0 and
-            c.industry=i.industryid
-            and ac.AcquirerId=pe.AcquirerId and c.PECompanyId=pe.PECompanyId and it.InvestorType=pe.InvestorType   and AdvisorType='L'
-            and adac.CIAId=cia.CIAID " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere.$comp_industry_id_where.
-            " AND adac.PEId=pe.MandAId and cia.cianame LIKE '%$advisorsearch_legal%')
-            UNION
-            (SELECT pe.MandAId, pe.PECompanyId,c.industry,pe.DealTypeId,adcomp.CIAId AS CompCIAId,cia.CIAId,pe.AcquirerId,
-            c.companyname, i.industry, c.sector_business,
-            dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
-            pe.DealAmount,c.website,MoreInfor,hideamount,hidemoreinfor,
-            cia.cianame,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,
-            Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,c.yearfounded
-            FROM manda AS pe, pecompanies AS c, industry AS i, advisor_cias AS cia,
-            peinvestments_advisorcompanies AS adcomp, acquirers AS ac,dealtypes as dt,investortype as it
-            WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pe.Deleted=0 and
-            c.industry = i.industryid
-            AND ac.AcquirerId = pe.AcquirerId and dt.DealTypeId=pe.DealTypeId   and AdvisorType='L'
-            AND c.PECompanyId = pe.PECompanyId  and it.InvestorType=pe.InvestorType
-            AND adcomp.CIAId = cia.CIAID " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere.$comp_industry_id_where.
-            " AND adcomp.PEId = pe.MandAId AND cianame LIKE '%$advisorsearch_legal%')
-            ORDER BY companyname";
-            /*echo "<br>Advisor search-- " .$companysql;
-            exit();*/
+        $companysql="(select pe.MandAId,pe.PECompanyId,pec.industry,pe.DealTypeId,adac.CIAId AS AcqCIAId,cia.CIAId,pe.AcquirerId,
+        pec.companyname,i.industry,pec.sector_business,
+        dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
+        pe.DealAmount,pec.website,MoreInfor,hideamount,hidemoreinfor,cia.cianame,pe.InvestmentDeals,Link,
+        EstimatedIRR,MoreInfoReturns, it.InvestorTypeName,Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
+        from manda AS pe, pecompanies AS pec,industry AS i,advisor_cias AS cia,
+        peinvestments_advisoracquirer AS adac,acquirers as ac,dealtypes as dt,investortype as it
+        where DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and pe.Deleted=0 and
+        pec.industry=i.industryid
+        and ac.AcquirerId=pe.AcquirerId and pec.PECompanyId=pe.PECompanyId and it.InvestorType=pe.InvestorType   and AdvisorType='L'
+        and adac.CIAId=cia.CIAID " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere.$comp_industry_id_where.
+        " AND adac.PEId=pe.MandAId and cia.cianame LIKE '%$advisorsearch_legal%' GROUP BY pe.MandAId)
+        UNION
+        (SELECT pe.MandAId, pe.PECompanyId,pec.industry,pe.DealTypeId,adcomp.CIAId AS AcqCIAId,cia.CIAId,pe.AcquirerId,
+        pec.companyname, i.industry, pec.sector_business,
+        dt.DealType,DATE_FORMAT( DealDate, '%M-%Y' ) as DealDate,
+        pe.DealAmount,pec.website,MoreInfor,hideamount,hidemoreinfor,
+        cia.cianame,pe.InvestmentDeals,Link,EstimatedIRR,MoreInfoReturns,it.InvestorTypeName,
+        Valuation,FinLink ,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,ExitStatus,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,type,pec.yearfounded,pec.CINNo
+        FROM manda AS pe, pecompanies AS pec, industry AS i, advisor_cias AS cia,
+        peinvestments_advisorcompanies AS adcomp, acquirers AS ac,dealtypes as dt,investortype as it
+        WHERE DealDate between '" . $hidedateStartValue. "' and '" . $hidedateEndValue . "' and  pe.Deleted=0 and
+        pec.industry = i.industryid
+        AND ac.AcquirerId = pe.AcquirerId and dt.DealTypeId=pe.DealTypeId   and AdvisorType='L'
+        AND pec.PECompanyId = pe.PECompanyId  and it.InvestorType=pe.InvestorType
+        AND adcomp.CIAId = cia.CIAID " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere.$comp_industry_id_where.
+        " AND adcomp.PEId = pe.MandAId AND cianame LIKE '%$advisorsearch_legal%' GROUP BY pe.MandAId)
+        ORDER BY companyname";
+            // echo "<br>Advisor search-- " .$companysql;
+            // exit();
     }
     elseif($advisorsearch_trans!="")
     {
+        // echo '2nd Else if';
+
         if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
             $hideWhere = " and pe.MandAId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
@@ -639,7 +642,7 @@ $addhide_pms_qry ="  and dt.hide_for_exit in (".$var_hideforexit.")";
         AND adcomp.CIAId = cia.CIAID " .$addVCFlagqry.$addhide_pms_qry .$addDelind.$hideWhere.$comp_industry_id_where.
         " AND adcomp.PEId = pe.MandAId AND cianame LIKE '%$advisorsearch_trans%')
         ORDER BY companyname";
-                //echo "<br>Advisor search-- " .$companysql;
+                // echo "<br>2Advisor search-- " .$companysql;
     }
     elseif ($tagsearch != "")
         {

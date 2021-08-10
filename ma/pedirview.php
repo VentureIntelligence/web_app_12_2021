@@ -1218,6 +1218,11 @@ $(function() {
             width:3.4%;
             padding: 3px;
         }
+
+        input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
         .button{
             background-color: #a2753a; /* Green */
             border: none;
@@ -1233,13 +1238,4 @@ $(function() {
             position: absolute;
             left: 35%;
         }
-
-
-    input[type='text']::placeholder
-
-{   
-
-text-align: center;      /* for Chrome, Firefox, Opera */
-
-}
     </style>
