@@ -4,7 +4,7 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-echo "Session123=".$_SESSION['backpage'];
+// echo "Session123=".$_SESSION['backpage'];
 
 include "header.php";
 
