@@ -44,7 +44,7 @@ window.onload = function() {
   },
   "servers": [
     {
-      "url": "https://api.vionweb.com/partnerapi/cfs/",
+      "url": "https://api.vionweb.com/partner/cfs/",
       "description": "PROD"
     }
   ],
@@ -66,7 +66,8 @@ window.onload = function() {
                   "userName",
                   "password",
                   "userType",
-                  "companyName"
+                  "companyName",
+                  "brandName"
                 ],
                 "properties": {
                   "token": {
@@ -89,6 +90,10 @@ window.onload = function() {
                     ]
                   },
                   "companyName": {
+                    "type": "string",
+                    "description": "User input of company name"
+                  },
+                  "brandName":  {
                     "type": "string",
                     "description": "User input of company name"
                   }
