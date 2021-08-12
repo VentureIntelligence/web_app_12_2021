@@ -189,6 +189,7 @@ $whereexitstatus = "";
 $tsjtitle = "� TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE.";
 $exportstatusdisplay = "Pls Note : Excel Export is available for transactions from Jan.2004 only, as part of search results. You can export transactions prior  to 2004 on a deal by deal basis from the deal details popup.";
+
 //echo "<bR>&&&&".$searchtitle;
 if ($searchtitle == 0) {
     $addVCFlagqry = " and pec.industry !=15 ";
@@ -3000,6 +3001,10 @@ $dbTypeSV='PE';
 $tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
+
+// echo $tsjtitle;
+
+
 $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
 /** Error reporting */
 // error_reporting(E_ALL);
@@ -3457,6 +3462,7 @@ $col = 0;
         $schema_insert .= $hidestake.$sep;
     }
     }
+    // Date
     if(in_array("Date", $rowArray))
     {
         $schema_insert .= $row[15].$sep;
@@ -3653,7 +3659,10 @@ $col = 0;
     $schema_insert .= "\t";
     print(trim($schema_insert));
     print "\n";
-}exit();
+}
+
+// exit();
+
 print("\n");
     print("\n");
     print("\n");
