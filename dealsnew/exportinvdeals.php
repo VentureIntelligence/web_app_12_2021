@@ -3141,8 +3141,10 @@ $col = 0;
     }else{
         $PEId = $rows[13];
     }
+
+   
     
-    $companiessql = "select pe.PEId,pe.PEId, pe.PEId, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,DATE_FORMAT(dates,'%M-%y') as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
+    $companiessql = "select pe.PEId,pe.PEId, pe.PEId, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,dates as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
             LEFT JOIN pecompanies as pec
             ON pec.PEcompanyID = pe.PECompanyID
             LEFT JOIN industry as i
@@ -3155,6 +3157,13 @@ $col = 0;
             ON r.RegionId=pec.RegionId OR (pec.RegionId=0 and r.RegionId=1)
             LEFT JOIN investortype as it ON it.InvestorType = pe.InvestorType 
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
+
+
+            
+
+            // echo $companiessql; exit;
+
+
     
     $result2 = mysql_query($companiessql) or die( mysql_error() );
 
@@ -3163,10 +3172,6 @@ $col = 0;
 
     $row = mysql_fetch_row($result2);
 
-    // date("d-m-Y", strtotime($orgDate));  
-
-
-        // echo '<pre>'; print_r(date("M-Y",strtotime($row[15]))); echo '</pre>'; exit;
    
     
     if ($row[35] == 1) {     //Agghide
@@ -3467,11 +3472,21 @@ $col = 0;
         }
     }
 
-// echo json_encode($rowArray).'hai';exit();
+    // echo json_encode($rowArray).'hai';exit();
 
     // date("d-m-Y", strtotime($originalDate));
 
     // echo '<pre>'; print_r(date("M-Y", $row[15])); echo '</pre>'; exit;
+
+
+    // $month1 = 01;
+    // $year1 = 1998;
+    // $month2 = date('n');
+    // $year2 = date('Y');
+    // $fixstart = $year1;
+    // $startyear = $fixstart . "-" . $month1 . "-01";
+    // $fixend = $year2;
+    // $endyear = $fixend . "-" . $month2 . "-31";
 
 
 
@@ -3531,6 +3546,9 @@ $col = 0;
         // date_format($exd, 'Y-m-d');
         // $schema_insert .= date_format($row[15].$sep, 'm-Y');
         $schema_insert .= date("M-Y",strtotime($row[15])).$sep;
+        // $schema_insert .= $row[15].$sep;
+        // $schema_insert .= date("M-y",strtotime($row[15])).$sep;
+
     }
     if(in_array("Exit Status", $rowArray))
     {
