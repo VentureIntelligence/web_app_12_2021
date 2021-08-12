@@ -25,7 +25,17 @@ if($_POST['tagsearch'] != "" || $_POST['tagsearch_auto'] != ""){
    // $_POST['city'] = "";
    $_POST['city'] = "--";
 }
-
+$TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,valInfo from dealcompanies as dc,dealmembers as dm
+where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
+//echo "<br>---" .$TrialSql;
+if($trialrs=mysql_query($TrialSql))
+{
+        while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
+        {
+             $exportToExcel=$trialrow["TrialLogin"];
+             $valInfo=$trialrow["valInfo"];
+        }
+}
 $popup_search = 0;
 $listallcompany = $_POST['listallcompanies'];
 $all_keyword_other = trim($_POST['all_keyword_other']);
@@ -4688,7 +4698,7 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
         <!-- </div>   -->
         <center>
         <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
-            <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
+        <button class = "jp-page1 button pagevalue" id="pagination" name="pagination" type="submit"  onclick = "validpagination()">Go</button></div></center>
 
             <?php
 
@@ -4901,6 +4911,8 @@ if ($type != 1) {
 </form>
             <!--input class="postlink" type="hidden" name="numberofcom" value="<?php echo $totalInv; ?>"-->
             <form name="pelisting" id="pelisting"  method="post" action="exportinvdeals.php">
+            <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
+
             <input type="hidden" name="txtsearchon" value="1" >
             <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
             <input type="hidden" name="txtmonth1" value=<?php echo $month1; ?> >
@@ -5119,7 +5131,7 @@ if ($type != 1) {
              <script type="text/javascript">
     
                 var wage = document.getElementById("paginationinput");
-                wage.addEventListener("keydown", function (e) {
+                wage.addEventListener("keydown", function (e) {debugger;
                     if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
                         //paginationForm();
                         event.preventDefault();
@@ -5225,11 +5237,6 @@ if ($type != 1) {
                 {
                 loadhtml(x,orderby,ordertype)
                 }
-                else
-                {
-                    loadhtml(1,orderby,ordertype)
- 
-                }
                 });
 
                 // T960 End ------------------------------------------------------
@@ -5302,7 +5309,6 @@ if ($type != 1) {
                                 }
                                 drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                                 jQuery('#preloading').fadeOut(500);
-                                $(".selectgroup select").multiselect('refresh') 
 
                                 return  false;
                         },
@@ -12026,7 +12032,6 @@ echo $user_browser;?>
 
             function validpagination()
             {
-                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
@@ -12048,6 +12053,12 @@ echo $user_browser;?>
         width:3%;
         padding: 3px;
     }
+
+    input[type='text']::placeholder
+    {   
+        text-align: center;      /* for Chrome, Firefox, Opera */
+    }
+
     .button{
     background-color: #a2753a; /* Green */
   border: none;
@@ -12065,13 +12076,4 @@ echo $user_browser;?>
 
 left: 40%;
     }
-
-
-    input[type='text']::placeholder
-
-{   
-
-text-align: center;      /* for Chrome, Firefox, Opera */
-
-}
 </style>

@@ -153,6 +153,8 @@ session_start();
                                             $sv=0;
                                             $itech=0;
                                             $ctech=0;
+                                            $valInfo=0;
+
                                             
                                             $PEInvArray=$_POST['PEInv'];
                                             if($_POST['PEInv']){
@@ -271,6 +273,13 @@ session_start();
                                             }else{
                                                 $ctech=0;
                                             }
+                                            $valInfo=$_POST['valInfo'];
+                                            if($_POST['valInfo']){
+                                                $valInfo=1;
+                                            }else{
+                                                $valInfo=0;
+                                            }
+                                            
                                             $mobappArray=$_POST['mobappaccess'];
                                             if($_POST['mobappaccess']){
                                                 $mobapp=1;
@@ -319,7 +328,7 @@ session_start();
                                             PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MaMa,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,
                                             Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry' where DCompId=$companyId ";*/
                                             $UpdateCompSql= "Update dealcompanies set DCompanyName='$companyName',ExpiryDate='$expDate',TrialLogin=$trial, PEInv=$PEInv,VCInv=$VCInv,REInv=$REInv,PEIpo=$PEIpo,VCIpo=$VCIpo,
-                                            PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MAlogin,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,
+                                            PEMa=$PEMa,VCMa=$VCMa,PEDir=$PEDir,VCDir=$CODir,SPDir=$SPDir,MAMA=$MAlogin,Inc=$Inc,AngelInv=$angelInv,SVInv=$sv,IfTech=$itech,CTech=$ctech,valInfo=$valInfo,
                                             Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry',LPDir=$LPDir, mobile_access=$mobapp,custom_limit_enable=$limit_enable,custom_export_limit=$exp_limit where DCompId=$companyId ";
                                             //echo "<br>--" .$UpdateCompSql;
                                             
