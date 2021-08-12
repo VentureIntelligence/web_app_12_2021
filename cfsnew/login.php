@@ -351,7 +351,8 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
             {
                 
                 
-                    echo "<script language='javascript'>document.location.href='home.php'</script>";
+                    // echo "<script language='javascript'>document.location.href='home.php'</script>";
+                    echo "<script language='javascript'>document.location.href= '".$_COOKIE["backpage"]."' </script>";
                 
             }
                 exit();
