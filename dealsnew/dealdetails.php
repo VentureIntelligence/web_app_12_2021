@@ -3517,7 +3517,7 @@ include_once($refineUrl); ?>
     $searchstring=$strvalue[2];
    
     $exportToExcel=0;
-    $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin from dealcompanies as dc,dealmembers as dm
+    $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,valInfo from dealcompanies as dc,dealmembers as dm
     where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
     //echo "<br>---" .$TrialSql;
     if($trialrs=mysql_query($TrialSql))
@@ -3525,6 +3525,7 @@ include_once($refineUrl); ?>
             while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
             {
                  $exportToExcel=$trialrow["TrialLogin"];
+                 $valInfo=$trialrow["valInfo"];
             }
     }
                 //$SelCompRef=$value;
@@ -4845,10 +4846,14 @@ try {
      <tr>
             <td><h4>Stake</h4></td> 
             <td class=""><p>
-            <?php if($hidestake!="" && $hidestake!="&nbsp;" && $hidestake !='--'){ 
+            <?php if($valInfo == 0){if($hidestake!="" && $hidestake!="&nbsp;" && $hidestake !='--'){ 
                     echo $hidestake.' %';
                 }else{
                     echo "&nbsp;";
+                }}
+                else{
+                    echo "&nbsp;";
+
                 }?> </p></td> 
         </tr>
     <tr>
@@ -5009,7 +5014,7 @@ try {
     <div  class="work-masonry-thumb1 accordian-group">
                  <div class="accordions">
                     
-                    <?php if($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 ){ ?>
+                    <?php  if(($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0) && $valInfo != 1 ){ ?>
                         <div class="accordions_dealtitle"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Valuation Info</h2>
                         </div>
@@ -5024,7 +5029,15 @@ try {
                      
                         <table cellpadding="0" cellspacing="0" class="tableInvest tableValuation">
                             <tbody>
-                         
+                            
+                                <?php if($valInfo == 1) {?>
+                                    <tr>
+                                        <td style="border-bottom: none !important;padding:0px !important;">
+                                            <p class="text-center" style="padding: 10px;">You do not have permission to access valuation info </p> 
+                                                
+                                        </td>
+                                    </tr>
+                                <?php } else {?>
 
                                 <?php if($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 ){ ?>
 
@@ -5252,7 +5265,8 @@ try {
                                             to request.</p>
                                         </td>
                                     </tr>
-                               <?php }}?>
+                               <?php } }?>
+                               <?php }?>
                             </tbody>
                             </table>
                     </div>
@@ -5264,7 +5278,7 @@ try {
             <div  class="work-masonry-thumb1 accordian-group" >
                  <div class="accordions">
                     
-                     <?php if($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 ){ ?>
+                     <?php if(($field_class_pre !=0 || $field_class_post !=0 || $field_class_ev !=0 )  && $valInfo != 1){ ?>
                         <div class="accordions_dealtitle"><span></span>
                             <h2 id="companyinfo" class="box_heading content-box ">Investor Info</h2>
                         </div>
@@ -6164,22 +6178,23 @@ try {
 
                                                                                 $InvestorsName = explode(",",$myInvestorrow["Investors"]);
                                                                                 $InvestorIds = explode(",",$myInvestorrow["InvestorIds"]);
-                                                                                if($myInvestorrow["hidestake"]!=1)
-                                                                                {
+                                                                                if($valInfo !=1) {
                                                                                 if($myInvestorrow["stakepercentage"]>0) {
                                                                                     $hidestake=$myInvestorrow["stakepercentage"]." %";
                                                                                 } else {
                                                                                     $hidestake="&nbsp;";
                                                                                 }
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $hidestake="&nbsp;";  
-                                                                                }
+                                                                            }
+                                                                            else{
+                                                                                $hidestake="&nbsp;";
+                                                                            }
+                                                                                if($valInfo !=1) {
                                                                                 if($myInvestorrow["Company_Valuation"]>0) {
                                                                                     $companyValuation=$myInvestorrow["Company_Valuation"];
                                                                                 } else {
                                                                                     $companyValuation="&nbsp;";
+                                                                                }
+
                                                                                 }
                                                                                 // if($myInvestorrow["hideamount"] ==1 ) {
                                                                                 //     $Amount_INR=$myInvestorrow["Amount_INR"];
@@ -7549,6 +7564,8 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
 <input type="hidden" name="company_name" value="<?php echo $ped["companyname"];?>" >
 <input type="hidden" name="deal_date" value="<?php echo $ped["dates"];?>" >
+<input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
+
 </form>
 <script type="text/javascript">
 

@@ -1557,16 +1557,16 @@ var libFuncName=null;if(typeof jQuery=="undefined"&&typeof Zepto=="undefined"&&t
 
         if(n==true && $count == 1){
 
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        $th.val( $th.val().replace(/[^a-zA-Z0-9,_ _]/g, function(str) { alert('You typed  ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
 
         }
 
         else{
         var charcheck = allowedarray.includes($th.val());
         if(charcheck == false){
-        $th.val( $th.val().replace(/[^a-zA-Z0-9&_ _()'./-]/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        $th.val( $th.val().replace(/[^a-zA-Z0-9&,_ _()'./-]/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
         }else{
-        $th.val( $th.val().replace(/[^a-zA-Z0-9_ _]/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
+        $th.val( $th.val().replace(/[^a-zA-Z0-9,_ _]/g, function(str) { alert('You typed ' + str + ' \n\nPlease use only letters, space and numbers.'); return ''; } ) );
         }
         }
         });
@@ -2463,6 +2463,13 @@ function isNumber(evt) {
     font-weight: bold;margin-top: 6px; display:none;
     text-indent:1px !important;
         }
+
+        
+
+            input[type='text']::placeholder
+            {   
+                text-align: right !important;      /* for Chrome, Firefox, Opera */
+            }
     </style>
 {/literal}
 

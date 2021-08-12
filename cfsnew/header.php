@@ -1,4 +1,12 @@
 <?php 
+
+
+$uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+if( $uriSegments[3] != 'login.php')
+{
+    setcookie('backpage', $_SERVER['PHP_SELF']); 
+} 
+
 if(!isset($_SESSION)){
     session_save_path("/tmp");
     session_start();
