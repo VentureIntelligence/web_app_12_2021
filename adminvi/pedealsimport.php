@@ -655,14 +655,13 @@
                         {
                             $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
 
-                            echo 'Successfully Added';
+                            echo 'Successfully Added';  
                                 
                             if($rscityCountrySql=mysql_query($updateCityCountrySql))
                             {
                                 //		echo "<br>Update Company- " .$updateCityCountrySql;
                             }
-                                //echo "<br>Insert return industry id--" .$companyId;
-                            
+                              
                             return $companyId;
 
                         }else{
