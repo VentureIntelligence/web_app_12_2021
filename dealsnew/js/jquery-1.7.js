@@ -222,6 +222,7 @@ jQuery.fn = jQuery.prototype = {
 	size: function() {
 		return this.length;
 	},
+	
 
 	toArray: function() {
 		return slice.call( this, 0 );
