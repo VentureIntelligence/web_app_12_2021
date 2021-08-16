@@ -3,31 +3,31 @@
 			// $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
 
-			$urlArray = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-			$segments = explode('/', $urlArray);
-			$numSegments = count($segments); 
-			$currentSegment = $segments[$numSegments - 1];
+			// $urlArray = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+			// $segments = explode('/', $urlArray);
+			// $numSegments = count($segments); 
+			// $currentSegment = $segments[$numSegments - 1];
 
 			
 
-			// echo 'URL CURRENT PAGE ___ '.$currentSegment.'<br />';
-			// echo 'SEREVR PAGE ___ '.$_SERVER['REQUEST_URI'].'<br />';
-			// echo 'SEREVR PAGE PHP SELF ___ '.$_SERVER['PHP_SELF'];
-			// echo 'SEREVR PAGE ___ '.$_SERVER['QUERY_STRING'];
+			// // echo 'URL CURRENT PAGE ___ '.$currentSegment.'<br />';
+			// // echo 'SEREVR PAGE ___ '.$_SERVER['REQUEST_URI'].'<br />';
+			// // echo 'SEREVR PAGE PHP SELF ___ '.$_SERVER['PHP_SELF'];
+			// // echo 'SEREVR PAGE ___ '.$_SERVER['QUERY_STRING'];
 			
-            if( $currentSegment == 'login.php' || $currentSegment == 'logout.php')
-            {
-				// echo 'No';
-				// unset($_COOKIE['backpage']);
-				//test
-            } else{
-                // echo 'Yes';
+            // if( $currentSegment == 'login.php' || $currentSegment == 'logout.php')
+            // {
+			// 	// echo 'No';
+			// 	// unset($_COOKIE['backpage']);
+			// 	//test
+            // } else{
+            //     // echo 'Yes';
 
 
-				$_SESSION['backpage'] = $_SERVER['REQUEST_URI'];
+			// 	$_SESSION['backpage'] = $_SERVER['REQUEST_URI'];
 
-                // setcookie('backpage', $_SERVER['PHP_SELF']);
-            }
+            //     // setcookie('backpage', $_SERVER['PHP_SELF']);
+            // }
 
 
 if(!isset($_SESSION)){

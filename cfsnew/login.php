@@ -8,6 +8,7 @@ if(!isset($_SESSION)){
 
 
 include "header.php";
+// include "sessauth.php";
 
 require_once MODULES_DIR."users.php";
 $users = new users();
@@ -37,7 +38,6 @@ if(isset($_SESSION['loginusername']) && isset($_SESSION['password']) && $_POST["
   $_SESSION['loginusername'] = $username;
   $_SESSION['password'] = $password;
 }
-
 
 
 $Rs = $users->selectByUsernameNew($username,$password);
@@ -350,9 +350,15 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                 $resUpdUsrLog = mysql_query($sqlUpdUsrLog);
             }
 
+            // echo '<pre>';  print_r($_REQUEST); echo '</pre>';
+
+
 
              if ($_SESSION['redirectURL']!=''){
                 $tempUrl = $_SESSION['redirectURL'];
+
+                // echo $tempUrl;
+
                 $_SESSION['redirectURL'] = '';
                 header("location:$tempUrl");
             }else if($_REQUEST['pe']==1){
@@ -362,10 +368,6 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
             {
 
                     // print_r($_SERVER['PHP_SELF']);
-
-                   
-
-
 
                     if($_SESSION["backpage"] != "")
                     {
