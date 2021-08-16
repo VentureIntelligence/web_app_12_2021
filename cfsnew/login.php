@@ -365,7 +365,7 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                 echo "<script language='javascript'>document.location.href='".BASE_URL."cfsnew/details.php?vcid=".$_REQUEST['vcid']."'</script>";
             }else
             {
-                
+
 
                     // print_r($_SERVER['PHP_SELF']);
 

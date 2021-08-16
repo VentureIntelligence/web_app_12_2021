@@ -7,6 +7,7 @@
 			// $segments = explode('/', $urlArray);
 			// $numSegments = count($segments); 
 			// $currentSegment = $segments[$numSegments - 1];
+			
 
 
 			// // echo 'URL CURRENT PAGE ___ '.$currentSegment.'<br />';
@@ -22,7 +23,6 @@
             // } else{
             //     // echo 'Yes';
 
-			
 
 			// 	$_SESSION['backpage'] = $_SERVER['REQUEST_URI'];
 
