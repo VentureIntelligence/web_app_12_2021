@@ -628,7 +628,7 @@
                         $companyId=0;
                         return $companyId;
                     }else{
-                        echo 'Error.. Pls Check Insdutry is filled or not.. Industry is Mandantory';
+                        echo 'Error..';
                     }
                 }
                 elseif($pecomp_cnt>=1)
