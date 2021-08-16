@@ -200,6 +200,7 @@ jQuery.fn = jQuery.prototype = {
 		} else if ( jQuery.isFunction( selector ) ) {
 			return rootjQuery.ready( selector );
 		}
+		
 
 		if ( selector.selector !== undefined ) {
 			this.selector = selector.selector;
@@ -222,6 +223,7 @@ jQuery.fn = jQuery.prototype = {
 	size: function() {
 		return this.length;
 	},
+
 
 	toArray: function() {
 		return slice.call( this, 0 );
