@@ -348,6 +348,7 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                 $resUpdUsrLog = mysql_query($sqlUpdUsrLog);
             }
 
+            
 
              if ($_SESSION['redirectURL']!=''){
                 $tempUrl = $_SESSION['redirectURL'];

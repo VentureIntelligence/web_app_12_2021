@@ -9,6 +9,7 @@
 			$currentSegment = $segments[$numSegments - 1];
 
 
+			
 			// echo 'URL CURRENT PAGE ___ '.$currentSegment.'<br />';
 			// echo 'SEREVR PAGE ___ '.$_SERVER['REQUEST_URI'].'<br />';
 			// echo 'SEREVR PAGE PHP SELF ___ '.$_SERVER['PHP_SELF'];

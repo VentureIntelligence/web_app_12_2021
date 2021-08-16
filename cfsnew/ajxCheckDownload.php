@@ -10,6 +10,7 @@ $Db = new dbInvestments();
 $dlogUserEmail = $_SESSION['UserEmail'];
 
 
+
  //Get Current Downloads 
  $sqlSelCount = "SELECT sum(`recDownloaded`) as `recDownloaded` FROM `user_downloads` WHERE `emailId` = '".$dlogUserEmail."' AND `dbType`='CFS' AND ( `downloadDate` = CURRENT_DATE || `downloadDate` = DATE_SUB(CURRENT_DATE,INTERVAL 1 DAY))";
  $sqlSelResult = mysql_query($sqlSelCount) or die(mysql_error());
@@ -20,6 +21,7 @@ $dlogUserEmail = $_SESSION['UserEmail'];
     $downloads=0;
  }
  
+
  //Get Download Limit
  $dloguser_id = $_SESSION['user_id'];
  $sqlSelLimit = "SELECT `exportLimit` FROM `users` WHERE `user_id`='".$dloguser_id."'";
