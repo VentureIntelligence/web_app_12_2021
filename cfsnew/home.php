@@ -32,6 +32,7 @@
 
     require_once('aws.phar');
     include_once('conversionarray.php');
+    
    
     use Aws\S3\S3Client;
     $client = S3Client::factory(array(
