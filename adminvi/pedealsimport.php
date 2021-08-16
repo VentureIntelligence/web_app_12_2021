@@ -603,7 +603,7 @@
             $getPECompanySql = "select PECompanyId,industry,sector_business,RegionId,city from pecompanies where companyname= '$companyname'";
 
 
-            //echo "<br>select--" .$getPECompanySql;
+            // echo "<br>select--" .$getPECompanySql;
 
             
             if ($rsgetPECompanyId = mysql_query($getPECompanySql))
@@ -669,7 +669,7 @@
                             return $companyId;
                         }
                         exit;
-                        
+                        return $companyId;
                     }
                 }
                 //echo "<br>----****".$companyId;
