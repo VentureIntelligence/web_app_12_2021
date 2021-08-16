@@ -356,6 +356,7 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
              if ($_SESSION['redirectURL']!=''){
                 $tempUrl = $_SESSION['redirectURL'];
 
+
                 // echo $tempUrl;
 
                 $_SESSION['redirectURL'] = '';

@@ -7,6 +7,7 @@
 			// $segments = explode('/', $urlArray);
 			// $numSegments = count($segments); 
 			// $currentSegment = $segments[$numSegments - 1];
+			
 
 
 			// // echo 'URL CURRENT PAGE ___ '.$currentSegment.'<br />';
