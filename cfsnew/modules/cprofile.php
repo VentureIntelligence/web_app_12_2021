@@ -342,14 +342,17 @@ class cprofile extends database {
 	}
 
 	function getCompaniesAutoSuggest($where,$order,$limit = ''){
+
+		// echo '<pre>'; print_r($where); echo '</pre>';
+
 		$sql = "select Company_Id, FCompanyName, SCompanyName from ".$this->dbName;
 		if(strlen($where)) $sql.= " WHERE ".$where;
 		if(strlen($order)) $sql.= " ORDER BY ".$order;
-		if( !empty( $limit ) ) $sql .= $limit;
+		// if( !empty( $limit ) ) $sql .= $limit;
 		//$sql.= " LIMIT 0,10";
 		$this->execute($sql);
 		$return_array = array();
-		//echo $sql;
+		// echo $sql;
 		while ($rs = $this->fetch()) {
 			$return_array[$rs[0]]= $rs[1];
 			$cont++;
@@ -358,14 +361,20 @@ class cprofile extends database {
 	}
 
 	function getCompaniesAutoSuggest_brand($where,$order,$limit = ''){
+
+		// echo '<pre>'; print_r($where); echo '</pre>';
+
 		$sql = "select Company_Id, FCompanyName, SCompanyName from ".$this->dbName;
 		if(strlen($where)) $sql.= " WHERE ".$where;
 		if(strlen($order)) $sql.= " ORDER BY ".$order;
-		if( !empty( $limit ) ) $sql .= $limit;
+		// if( !empty( $limit ) ) $sql .= $limit;
 		//$sql.= " LIMIT 0,10";
-		/*echo $sql;
-		exit;*/
+		// echo $sql;
+		// exit;
 		$this->execute($sql);
+
+		// echo $sql.'<br />';
+
 		$return_array = array();
 		while ($rs = $this->fetch()) {
 			$return_array[]= array( 'id' => $rs[0], 'FCompanyName' => $rs[1], 'SCompanyName' => $rs[2] );
