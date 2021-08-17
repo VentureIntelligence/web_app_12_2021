@@ -669,10 +669,11 @@
 
                         }else{
                             echo 'Mismatch Records';
-                            return $companyId;
+                            // return $companyId;
                         }
-                        exit;
                         // return $companyId;
+                        // exit;
+                        
                     }
                 }
                 //echo "<br>----****".$companyId;
