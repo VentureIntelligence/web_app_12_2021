@@ -631,7 +631,9 @@
                         return $companyId;
                     }else{
                         echo 'Error..';
-                        return $companyId;
+                        // echo("Error description");
+                        die(mysql_error());
+                        // return $companyId;
                     }
                 }
                 elseif($pecomp_cnt>=1)
@@ -645,18 +647,22 @@
                         
                         // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
 
-                        // echo 'Industry__'.$industryId.'<br />';
-                        // echo 'City__'.$city.'<br />';
-                        // echo 'Sector__'.$sector.'<br />';
-                        // echo 'Region__ : '.$regionId.'<br />';
-                        //  exit;
+                        // echo 'Industry__'.$seperate_field['industry'].'<br />';
+                        // echo 'City__'.$seperate_field['city'].'<br />';
+                        // echo 'Sector__'.$seperate_field['sector_business'].'<br />';
+                        // echo 'Region__ : '.$seperate_field['RegionId'].'<br />';
+                        
+                        // exit;
 
-                        if(($seperate_field['city'] == $city || $city == "") &&  
-                        ($seperate_field['sector_business'] == $sector || $sector == "") &&  
-                        ($seperate_field['industry'] == $industryId || $industryId == "") && 
-                        ($seperate_field['RegionId'] == $regionId || $regionId == 1))
+                     
+
+                        if(($seperate_field['city'] == $city) && ($seperate_field['sector_business'] == $sector) &&  ($seperate_field['industry'] == $industryId) && ($seperate_field['RegionId'] == $regionId))
                         {
+                            // echo 'ulla';
+
                             $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
+
+                            // echo $updateCityCountrySql;  exit;
 
                             echo 'Successfully Added';  
                                 
@@ -665,14 +671,43 @@
                                 //		echo "<br>Update Company- " .$updateCityCountrySql;
                             }
                               
-                            return $companyId;
+                            // return $companyId;
 
                         }else{
-                            echo 'Mismatch Records';
+
+
+                            $industry = $seperate_field['industry'];
+                            $getIndName = "select industry from industry where industryid = $industry";
+                            $getIndustryName = mysql_query($getIndName);
+                            $reg = mysql_fetch_assoc($getIndustryName);
+
+                            echo 'Industry__'.$reg['industry'].'<br />';
+
+                            echo 'City__'.$seperate_field['city'].'<br />';
+
+                            echo 'Sector__'.$seperate_field['sector_business'].'<br />';
+
+                            // echo 'Region__ : '.$seperate_field['RegionId'].'<br />';
+
+                            $region_id = $seperate_field['RegionId'];
+                            $getRegionName = "select Region from region where RegionId = $region_id";
+                            $getRegName = mysql_query($getRegionName);
+                            $reg = mysql_fetch_assoc($getRegName);
+
+                            echo 'Region__'.$reg['Region'].'<br />';
+
+                            
+                            //  exit;
+
+                            // echo 'velila';
+                            echo '<br />Mismatch Records';
+                            // return $companyId;
+
+                            
                             // return $companyId;
                         }
-                        // return $companyId;
-                        // exit;
+                        return $companyId;
+                        exit;
                         
                     }
                 }
