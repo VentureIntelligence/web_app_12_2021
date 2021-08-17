@@ -611,7 +611,7 @@
                 $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
 
 
-                // echo "<br>%%%%%".$pecomp_cnt; exit;
+                // echo "<br>%%%%%".$pecomp_cnt;
 
                 // echo $industryId.'<br />';
 
@@ -620,8 +620,10 @@
                 {
                     //insert pecompanies
                     $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,AdCity,region,RegionId)
-                    values('$companyname','$industryId','$sector','$web','$city','$city','$region',$regionId)";
-                //    echo "<br>Ins company sql=" .$insPECompanySql;
+                    values('$companyname','$industryId','$sector','$web','$city','$city','$region','$regionId')";
+
+                //    echo "<br>Ins company sql=" .$insPECompanySql; 
+
                     if($rsInsPECompany = mysql_query($insPECompanySql))
                     {
                         echo 'Insterted';
@@ -629,6 +631,7 @@
                         return $companyId;
                     }else{
                         echo 'Error..';
+                        return $companyId;
                     }
                 }
                 elseif($pecomp_cnt>=1)
@@ -669,7 +672,7 @@
                             return $companyId;
                         }
                         exit;
-                        return $companyId;
+                        // return $companyId;
                     }
                 }
                 //echo "<br>----****".$companyId;
