@@ -1,4 +1,17 @@
 <?php 
+
+// if (isset($_COOKIE['backpage'])) {
+//     unset($_COOKIE['backpage']); 
+//     setcookie('backpage', null); 
+//     // return true;
+// } else {
+//     // return false;
+// }
+
+unset($_SESSION['backpage']);
+// session_destroy();
+
+
 include_once('header.php');
 
 if($isAuth) {

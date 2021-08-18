@@ -531,6 +531,7 @@ padding:0px 10px; }
             jQuery('#maskscreen').fadeOut(1000);
         });
             
+            
             function initExport(){
                     $.ajax({
                         url: 'ajxCheckDownload.php',

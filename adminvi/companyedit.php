@@ -11,6 +11,7 @@
         display: inline-block;
     }
     
+    
     .ui-multiselect-close {
         position: absolute;
         top: 5px;

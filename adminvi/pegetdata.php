@@ -62,7 +62,7 @@
             WHERE pec.industry = i.industryid
             AND pec.PEcompanyID = pe.PECompanyID and s.StageId=pe.StageId
                             and pe.Deleted=0" .$addVCFlagqry.
-                            "order by companyname";
+                            " GROUP BY pe.PECompanyID order by companyname ";
 
         }
         elseif (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--") )
@@ -76,7 +76,7 @@
             from peinvestments as pe, industry as i,pecompanies as pec,stage as s where pec.industry=i.industryid
             and dates between '".$dt1."' and '".$dt2 ."'
             and	pec.PEcompanyID = pe.PECompanyID  and s.StageId=pe.StageId
-            and pe.Deleted=0 " .$addVCFlagqry. " order by companyname  ";
+            and pe.Deleted=0 " .$addVCFlagqry. " GROUP BY pe.PECompanyID order by companyname";
         //				echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
         }
         else
@@ -84,7 +84,7 @@
             echo "<br> INVALID DATES GIVEN ";
             $fetchRecords=false;
         }
-        //echo "<br>--" .$companysql;
+        // echo "<br>--" .$companysql;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -186,6 +186,7 @@ function aggHide()
 
                                 // echo "<br> query final-----" .$companysql;
                                     /* Select queries return a resultset */
+
                                 if ($companyrs = mysql_query($companysql))
                                 {
                                    $company_cnt = mysql_num_rows($companyrs);
@@ -254,7 +255,7 @@ function aggHide()
                                                 <td width=35% bgcolor=<?php echo $bgcolor;?> ><?php echo $openBracket;?><?php echo $compDisplayOboldTag ?>
                                                     <A style="text-decoration:none" href="peeditdata.php?value=PE-<?php echo $myrow["PEId"];?> "
                                                     target="popup" onclick="window.open('peeditdata.php?value=PE-<?php echo $myrow["PEId"];?>', 'popup', 'scrollbars=1,width=600,height=500');return false">
-                                                    <?php echo $myrow["companyname"]; ?>  &nbsp;<?php echo $compDisplayOboldTag ?>
+                                                    <?php echo $myrow["companyname"];?>  &nbsp;<?php echo $compDisplayOboldTag ?>
                                                     </A><?php echo $closeBracket ; ?>
                                                 </td>
                                                 <td><?php echo $myrow["industry"];?></td>
