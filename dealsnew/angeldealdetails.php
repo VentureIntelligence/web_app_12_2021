@@ -1149,7 +1149,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
                 </p></li>
           <?php } ?>
          <?php if($exitedstatus!="") {  ?> <li><h4>Exited ?</h4><p><?php echo $exitedstatus;?></p></li> <?php } ?>
-         <?php if($followonFunding!="") {  ?> <li><h4>Follow on VC Funding ?</h4><p><?php echo $followonFunding;?></p></li> <?php } ?>
+         <?php if($followonFunding!="") {  ?> <li><h4>VC Funded</h4><p><?php echo $followonFunding;?></p></li> <?php } ?>
          <?php if($multipleround!="") {  ?> <li><h4>Multiple Angel Rounds</h4><p><?php echo $multipleround;?></p></li> <?php } ?>
          <?php if($myrow["dt"]!="") {  ?> <li><h4>Date</h4><p><?php echo  $myrow["dt"];?></p></li> <?php } ?>
        </ul>
