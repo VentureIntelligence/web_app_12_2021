@@ -680,7 +680,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
                        <td colspan="2"><h4>Deal Date</h4> <p><?php echo $yearfded;?></p>	</td></tr>
                                  <?php } ?>
                         
-                        <tr><?php if($myrow["Status"]!="") { ?><td ><h4>Status</h4> <p><?php echo $myrow["Status"] ;?></p></td><?php } if($followonFunding!="") { ?><td ><h4>Follow on Funding</h4> <p><?php echo $followonFunding;?></p></td> <?php } ?></tr>
+                        <tr><?php if($myrow["Status"]!="") { ?><td ><h4>Status</h4> <p><?php echo $myrow["Status"] ;?></p></td><?php } if($followonFunding!="") { ?><td ><h4>Angel/VC Funded</h4> <p><?php echo $ing;?></p></td> <?php } ?></tr>
                        
                      
                     </table>
