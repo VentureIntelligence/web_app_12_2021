@@ -1730,8 +1730,10 @@
          var exitglobalfilterId='';
          var exitglobalfilterDescrip='';
          var navbarTrigger=''
+
          function EditFilter(filterNameId)
          {
+            // alert(filterNameId);
          
          $('#investorauto_sug').tokenInput("clear");
          $('#expinvestorauto_sug').tokenInput("clear");
@@ -1747,6 +1749,10 @@
          var dataValue=JSON.parse(dataset);
          navbarTrigger=1;
          $('#mode').val('E');
+
+         // alert(dataValue[0].filter_type);
+
+         console.log(dataValue);
          
          if(dataValue[0].filter_type == "Exit")
          {
@@ -2042,11 +2048,21 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
+
+         // console.log($dataValue);
+
+         // alert(dataValue);
+
          if(dataValue.length != 0)
          {
          var Type=dataValue[0].filter_type
+
+            // console.log(filterType);
+
          if(filterType == "Exit")
          {
+            // console.log('hi');
+
            $('#exitfilter_name').val(filter_name);
            $('#exitfilter_type').val(filterType);
            $('#exitcompany_name').val('<?php echo $companyName?>')
