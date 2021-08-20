@@ -620,7 +620,7 @@ function updateDownload($res){
         echo "Date"."\t";
 	echo "Incubator"."\t";
 	echo "Status"."\t";
-	echo "Follow on  Funding"."\t";
+	echo "Angel/VC Funded"."\t";
 	echo "More Details"."\t";
 
 
