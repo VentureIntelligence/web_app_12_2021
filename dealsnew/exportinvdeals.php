@@ -3670,7 +3670,7 @@ print("\n");
     echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
     print("\n");
-    echo "Target in () indicates sale of asset rather than the company. Target in {} indicates a minority stake acquisition.";
+    echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
     print("\n");
     print("\n");
 // // T960
