@@ -549,7 +549,7 @@ echo "Sector"."\t";
 echo "Investors"."\t";
 echo "Date"."\t";
 echo "Multiple Angel Rounds"."\t";
-echo "Follow on VC Funding"."\t";
+echo "VC Funded"."\t"; 
 echo "Exited"."\t";
 echo "City"."\t";
 echo "Region"."\t";
