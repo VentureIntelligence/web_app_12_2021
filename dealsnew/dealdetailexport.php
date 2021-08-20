@@ -134,6 +134,7 @@ $sesID=session_id();
                 updateDownload($result);
                 $filetitle=$company_name."-".$deal_date;
                
+                
                 //echo "<Br>".$advcompanysql;
 
                 $advinvestorssql="select advinv.PEId,advinv.CIAId,cia.cianame,cia.AdvisorType from peinvestments_advisorinvestors as advinv,
