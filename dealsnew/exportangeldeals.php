@@ -594,6 +594,8 @@ $pe_inv = array();
     $regionId       =   $row['RegionId'];
     $yearfounded    =   $row['yearfounded'];
     $moreDetails    =   $row['MoreInfor'];
+
+    
             
     
     if($row["AggHide"]==1)
