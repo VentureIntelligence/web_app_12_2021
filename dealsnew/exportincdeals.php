@@ -25,6 +25,8 @@
             }
         }
 
+        
+
 function updateDownload($res){
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
