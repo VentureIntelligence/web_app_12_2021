@@ -129,10 +129,15 @@ $sesID=session_id();
 
         		
 
+                                //   $date_format = 
+
+                                  $originalDate = $deal_date;
+                                    $newDate = date("M-y", strtotime($originalDate));
+
                 $result = mysql_query($sql);
                  $result1 = mysql_query($sql1);
                 updateDownload($result);
-                $filetitle=$company_name."-".$deal_date;
+                $filetitle=$company_name."-".$newDate;
                
                 
                 //echo "<Br>".$advcompanysql;
