@@ -512,7 +512,13 @@ else if($vcflagValue==2){
        }
             ?> 
                         </SELECT>
-                        <div class="search-btn" style="float:right;margin-left:10px;" > <input name="searchpe" type="submit" value="" class="datesubmit" id="datesubmit"/></div>
+                        <div class="search-btn" style="float:right;margin-left:10px;" > 
+
+
+                        <input type="hidden" name = "flagvalue123" id = "flagvalue123" value = "<?php echo $vcflagValue; ?>" />
+                        <input name="searchpe" type="submit" value="" class="datesubmit" id="datesubmit"/>
+                    
+                    </div>
 
                         </div>
                         <div class="result-title"> 
@@ -528,6 +534,7 @@ else if($vcflagValue==2){
 
 
 </div>
+
 <div class="period-date">
 
 
