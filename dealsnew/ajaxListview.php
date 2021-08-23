@@ -154,8 +154,6 @@ else
             // } else {
             //     $hideBracketRow = false;
             // }
-
-            
             if($myrow["AggHide"]==1)
             {
                 $openBracket="(";
