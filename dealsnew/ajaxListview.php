@@ -154,6 +154,7 @@ else
             // } else {
             //     $hideBracketRow = false;
             // }
+            
             if($myrow["AggHide"]==1)
             {
                 $openBracket="(";
@@ -168,7 +169,7 @@ else
             
             if($myrow["SPV"]==1)          //Debt
             {
-                $openDebtBracket="[";
+                $openDebtBracket="[";dealsnew/ajaxListview.php
                 $closeDebtBracket="]";
                 $hideFlagset = 1;
             }
