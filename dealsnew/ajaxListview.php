@@ -148,6 +148,7 @@ else
             $amtTobeDeductedforAggHide=0;
             $hidecount=0;
             $prd=$myrow["dealperiod"];
+            
 
             // if ($myrow["AggHide"] == 1 || $myrow["SPV"] == 1) {
             //     $hideBracketRow = true;
