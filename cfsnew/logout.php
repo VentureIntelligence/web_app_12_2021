@@ -13,6 +13,7 @@ unset($_SESSION['backpage']);
 
 
 include_once('header.php');
+setcookie('URLTOREDIRECT', '');
 
 if($isAuth) {
 	$logoutUser = new users();
