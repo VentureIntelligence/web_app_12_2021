@@ -3741,7 +3741,13 @@ $col = 0;
     $schema_insert .= "\t";
     print(trim($schema_insert));
     print "\n";
-}exit();
+}
+print("\n");
+    print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
+    print("\n");
+    print("\n");
+    print("Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.");
+    exit();
 print("\n");
     print("\n");
     print("\n");
