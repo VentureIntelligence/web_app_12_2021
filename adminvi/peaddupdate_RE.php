@@ -218,6 +218,7 @@
 
 
 
+
 											// echo "<br>Insert RE investment :".$insertcompanysql;  exit;
 
 
