@@ -176,35 +176,52 @@
 
 								$companyId=insert_company($portfoliocompany,$CompanyIndustryId,$website,1);
 								//echo "<bR>####---------------------";
+
+								// echo $companyId.'<br />';
+								// exit;
+
 								if($companyId==0)
 								{
 									$companyId=insert_company($portfoliocompany,$CompanyIndustryId,$website,1);
 								}
-								//$companyId=0;
-								//echo "<br>Company id--" .$companyId;
+								// $companyId=0;
+								// echo "<br>Company id--" .$companyId;  exit;
 								if ($companyId >0)
 								{
-									$pegetInvestmentsql = "select c.PECompanyId,ma.PECompanyId,DealDate from REcompanies as c,
+									$pegetInvestmentsql = "select c.PECompanyId,ma.PECompanyId from REcompanies as c,
 									REinvestments as ma where ma.PECompanyId = c.PECompanyId and
 									ma.dates = '$fullDateAfter' and c.PECompanyId = $companyId ";
 
-									//echo "<br>checking pe record***" .$pegetInvestmentsql;
-									//echo "<br>Company id--" .$companyId;
+									// echo "<br>checking pe record***" .$pegetInvestmentsql;
+									// echo "<br>Company id--" .$companyId; 
+									// exit;
+
 									if ($rsInvestment = mysql_query($pegetInvestmentsql))
 									{
-									$investment_cnt = mysql_num_rows($rsInvestment);
-									// echo "<br>Count**********-- " .$investment_cnt ;
+										$investment_cnt = mysql_num_rows($rsInvestment);
+										// echo "<br>Count**********-- " .$investment_cnt ; exit;
 									}
 									if($investment_cnt==0)
 									{
+
+										// echo 'Hi'; 
+
+										//  exit;
+
 											$PEId= rand();
 											$createddate=date("Y-m-d")." ".date("H:i:s");
 											$modifieddate=$createddate;
 											//echo "<br>random MandAId--" .$PEId;
 											$insertcompanysql="";
 											$insertcompanysql= "INSERT INTO REinvestments (PEId,PECompanyId,dates,amount,round,StageId,stakepercentage,comment,MoreInfor,Validation,InvestorType,Deleted,hideamount,hidestake,SPV,CreatedDate,ModifiedDate,city,RegionId,sector,IndustryId,Link,uploadfilename,source,valuation,FinLink,ProjectName,ProjectDetailsFileName,listing_status,Exit_Status,AggHide)
-											VALUES ($PEId,$companyId,'$fullDateAfter',$DealAmount,'$Round',$StageId,$stakepercentage,'$comment','$moreinfor', '$validation','$investortype',$flagdeletion,$hideamount,$hidestake,$SPVtoAdd,'$createddate','$modifieddate','$city',$region,'$sector',$indid,'$link','$filename','$sourcename','$valuation','$finlink','$projectname','$filename1','$listingstatusvalue','$exitstatusvalue',$hideAggregatetoUpdate)";
-										//	echo "<br>Insert RE investment :".$insertcompanysql;
+											VALUES ($PEId,$companyId,'$fullDateAfter','$DealAmount','$Round','$StageId','$stakepercentage','$comment','$moreinfor', '$validation','$investortype','$flagdeletion','$hideamount','$hidestake','$SPVtoAdd','$createddate','$modifieddate','$city',$region,'$sector',$indid,'$link','$filename','$sourcename','$valuation','$finlink','$projectname','$filename1','$listingstatusvalue', '$exitstatusvalue','$hideAggregatetoUpdate')";
+
+
+
+											// echo "<br>Insert RE investment :".$insertcompanysql;  exit;
+
+
+
 											if ($rsinsert = mysql_query($insertcompanysql))
 											{
 												//echo " Deal inserted ";
@@ -335,12 +352,20 @@ function returnDate($mth,$yr)
 			{
 					//insert pecompanies
 					$insPECompanySql="insert into REcompanies(companyname,industry,website,RegionId)
-					values('$companyname',$industryId,'$web',$regionId)";
-					echo "<br>Ins company sql=" .$insPECompanySql;
+					values('$companyname','$industryId','$web',$regionId)";
+
+					// echo "<br>Ins company sql=" .$insPECompanySql;   
+
+
 					if($rsInsPECompany = mysql_query($insPECompanySql))
 					{
+						// echo 'Hi';
 						$companyId=0;
 						return $companyId;
+					}else{
+
+						// echo 'Error';
+
 					}
 			}
 			elseif($pecomp_cnt>=1)
@@ -352,6 +377,7 @@ function returnDate($mth,$yr)
 					return $companyId;
 				}
 			}
+			// return $companyId;
 			//echo "<br>----****".$companyId;
 		}
 		$dbpecomp.close();
