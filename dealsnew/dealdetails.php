@@ -9240,6 +9240,8 @@ jQuery('#ma_popup').fadeOut(1000);
  </script>
 <?php //}?>
 <style>
+
+    
 /* .row.masonry{
 
 
