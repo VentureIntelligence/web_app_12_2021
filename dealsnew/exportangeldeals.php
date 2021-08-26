@@ -549,7 +549,7 @@ echo "Sector"."\t";
 echo "Investors"."\t";
 echo "Date"."\t";
 echo "Multiple Angel Rounds"."\t";
-echo "Follow on VC Funding"."\t";
+echo "VC Funded"."\t"; 
 echo "Exited"."\t";
 echo "City"."\t";
 echo "Region"."\t";
@@ -594,6 +594,8 @@ $pe_inv = array();
     $regionId       =   $row['RegionId'];
     $yearfounded    =   $row['yearfounded'];
     $moreDetails    =   $row['MoreInfor'];
+
+    
             
     
     if($row["AggHide"]==1)
@@ -685,6 +687,7 @@ $pe_inv = array();
     print(trim($schema_insert));
     print "\n";
 
+    
      }
     print "\n";
     print "\n";
