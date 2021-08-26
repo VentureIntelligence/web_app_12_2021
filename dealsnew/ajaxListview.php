@@ -141,19 +141,20 @@ else
         //Code to add PREV /NEXT
         $totaldet=0;
         
-        While($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
+        while($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
         {
             $hideFlagset = 0;
             //SPV changed to AggHide
             $amtTobeDeductedforAggHide=0;
             $hidecount=0;
             $prd=$myrow["dealperiod"];
+            
 
-            if ($myrow["AggHide"] == 1 || $myrow["SPV"] == 1) {
-                $hideBracketRow = true;
-            } else {
-                $hideBracketRow = false;
-            }
+            // if ($myrow["AggHide"] == 1 || $myrow["SPV"] == 1) {
+            //     $hideBracketRow = true;
+            // } else {
+            //     $hideBracketRow = false;
+            // }
             if($myrow["AggHide"]==1)
             {
                 $openBracket="(";

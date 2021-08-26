@@ -575,151 +575,153 @@ function getallcompanies($value0,$searchTerm)
         return $getcompaniesSql;
 }
 
- function getAllAdvisor($adtype,$peorvcflg,$VCFlagValue,$searchTerm) 
-    {
-                if($adtype=="L")
-		{  
-                    $adtitledisplay ="Legal";
-                }
-		elseif($adtype=="T")
-                {  
-                    $adtitledisplay="Transaction";
-                }
-                
-                $addVCFlagqry="";
-		//0- peinvestors,1-vcinvestors in the second parameter
- 	    if($peorvcflg==1) //investment page
-		{
-			if($VCFlagValue==0)
-			{
-				$addVCFlagqry="";
-				$pagetitle="PE Advisors - ".$adtitledisplay;
-			}
-			elseif($VCFlagValue==1)
-			{
-				//$addVCFlagqry="";
-				$addVCFlagqry = "and s.VCview=1 and peinv.amount<=20 ";
-				$pagetitle="VC Advisors - ".$adtitledisplay;
-			}
-			$advisorsql="(
-				SELECT distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
-				FROM peinvestments AS peinv, pecompanies AS c, advisor_cias AS cia,
-				peinvestments_advisorinvestors AS adac, stage as s
-				WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId ".$addVCFlagqry.
-				" AND c.PECompanyId = peinv.PECompanyId
-				AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
-				AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%')
-				UNION (
-				SELECT  distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
-				FROM peinvestments AS peinv, pecompanies AS c,  advisor_cias AS cia,
-				peinvestments_advisorcompanies AS adac, stage as s
-				WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId  " .$addVCFlagqry.
-				" AND c.PECompanyId = peinv.PECompanyId
-				AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
-				AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%') order by Cianame	";
-			//echo "<Br>PE - VC---" .$advisorsql;
-		}
 
-		if($peorvcflg==2) //manda
-		{
-			if($VCFlagValue==0)
-			{
-				$addVCFlagqry="";
-				$pagetitle="PE Exits M&A - Advisors - ".$adtitledisplay;
-			}
-			elseif($VCFlagValue==1)
-			{
-				//$addVCFlagqry="";
-				$addVCFlagqry = " and VCFlag=1 ";
-				$pagetitle="VC Exits M&A - Advisors - ".$adtitledisplay;
-			}
-			$advisorsql="(SELECT DISTINCT adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
-					FROM manda AS peinv, pecompanies AS c, advisor_cias AS cia, peinvestments_advisoracquirer AS adac
-					WHERE Deleted =0
-					AND c.PECompanyId = peinv.PECompanyId
-					AND adac.CIAId = cia.CIAID  and AdvisorType='".$adtype ."'
-					AND adac.PEId = peinv.MandAId " .$addVCFlagqry.
-					"  and cia.Cianame like '".$searchTerm."%')
-					UNION (
-					SELECT DISTINCT adcomp.CIAId, cia.cianame, adcomp.CIAId AS CompCIAId
-					FROM manda AS peinv, pecompanies AS c, advisor_cias AS cia, peinvestments_advisorcompanies AS adcomp, acquirers AS ac
-					WHERE Deleted =0
-					AND c.PECompanyId = peinv.PECompanyId
-					AND adcomp.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
-					AND adcomp.PEId = peinv.MandAId " .$addVCFlagqry.
-					" and cia.Cianame like '".$searchTerm."%')	ORDER BY Cianame";
-			//echo "<Br>M&A---" .$advisorsql;
-                        }
-                	if($peorvcflg==3) //social /cleantech / infrastructure investment page
-		        {
-        			if($VCFlagValue==3)
-        			{
-        				//$addVCFlagqry="";
-        				$addVCFlagqry = "";
-        				$pagetitle="Social Venture Investments-Advisors - ".$adtitledisplay;
-        				$dbtype="SV";
-        			}
-        			elseif($VCFlagValue==4)
-        			{
-        				//$addVCFlagqry="";
-        				$addVCFlagqry = "";
-        				$pagetitle="CleanTech Investments-Advisors - ".$adtitledisplay;
-        				$dbtype="CT";
-        			}
-        			elseif($VCFlagValue==5)
-        			{
-        				//$addVCFlagqry="";
-        				$addVCFlagqry = "";
-        				$pagetitle="Infrastructure Investments-Advisors - ".$adtitledisplay;
-        				$dbtype="IF";
-        			}
-        			$advisorsql="(
-				SELECT distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
-				FROM peinvestments AS peinv, pecompanies AS c, advisor_cias AS cia,
-				peinvestments_advisorinvestors AS adac, stage as s,peinvestments_dbtypes as pedb
-				WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId ".$addVCFlagqry.
-				" AND c.PECompanyId = peinv.PECompanyId and pedb.PEId=peinv.PEId and pedb.DBTypeId='$dbtype'
-				AND adac.CIAId = cia.CIAID  and AdvisorType='".$adtype ."'
-				AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%')
-				UNION (
-				SELECT  distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
-				FROM peinvestments AS peinv, pecompanies AS c,  advisor_cias AS cia,
-				peinvestments_advisorcompanies AS adac, stage as s ,peinvestments_dbtypes as pedb
-				WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId  " .$addVCFlagqry.
-				" AND c.PECompanyId = peinv.PECompanyId  and pedb.PEId=peinv.PEId and pedb.DBTypeId='$dbtype'
-				AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
-				AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%') order by Cianame";
-			//echo "<Br>PE - VC---" .$advisorsql;
-		      }
-                // echo "<bR>--" .$peorvcflag[1];
-		 if($peorvcflg==4) //mama
-		{
-			if($VCFlagValue==1)
-			{
-				$addVCFlagqry="";
-				$pagetitle="M&A - Advisors - ".$adtitledisplay;
-			}
+}
 
-			$advisorsql="(
-					SELECT DISTINCT adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
-					FROM mama AS peinv, pecompanies AS c, advisor_cias AS cia, mama_advisoracquirer AS adac
-					WHERE Deleted =0
-					AND c.PECompanyId = peinv.PECompanyId
-					AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
-					AND adac.MAMAId = peinv.MAMAId and cia.Cianame like '".$searchTerm."%' " .$addVCFlagqry.
-					"  )
-					UNION (
-					SELECT DISTINCT adcomp.CIAId, cia.cianame, adcomp.CIAId AS CompCIAId
-					FROM mama AS peinv, pecompanies AS c, advisor_cias AS cia, mama_advisorcompanies AS adcomp, acquirers AS ac
-					WHERE Deleted =0
-					AND c.PECompanyId = peinv.PECompanyId
-					AND adcomp.CIAId = cia.CIAID  and AdvisorType='".$adtype ."'
-					AND adcomp.MAMAId = peinv.MAMAId and cia.Cianame like '".$searchTerm."%' " .$addVCFlagqry.
-					" )	ORDER BY Cianame";
-			//echo "<Br>M&A---" .$advisorsql;
-		}
+function getAllAdvisor($adtype,$peorvcflg,$VCFlagValue,$searchTerm) 
+{
+            if($adtype=="L")
+            {  
+                $adtitledisplay ="Legal";
+            }
+            elseif($adtype=="T")
+            {  
+                $adtitledisplay="Transaction";
+            }
+            
+            $addVCFlagqry="";
+            //0- peinvestors,1-vcinvestors in the second parameter
+         if($peorvcflg==1) //investment page
+            {
+                    if($VCFlagValue==0)
+                    {
+                            $addVCFlagqry="";
+                            $pagetitle="PE Advisors - ".$adtitledisplay;
+                    }
+                    elseif($VCFlagValue==1)
+                    {
+                            //$addVCFlagqry="";
+                            $addVCFlagqry = "and s.VCview=1 and peinv.amount<=20 ";
+                            $pagetitle="VC Advisors - ".$adtitledisplay;
+                    }
+                    $advisorsql="(
+                            SELECT distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
+                            FROM peinvestments AS peinv, pecompanies AS c, advisor_cias AS cia,
+                            peinvestments_advisorinvestors AS adac, stage as s
+                            WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId ".$addVCFlagqry.
+                            " AND c.PECompanyId = peinv.PECompanyId
+                            AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
+                            AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%')
+                            UNION (
+                            SELECT  distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
+                            FROM peinvestments AS peinv, pecompanies AS c,  advisor_cias AS cia,
+                            peinvestments_advisorcompanies AS adac, stage as s
+                            WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId  " .$addVCFlagqry.
+                            " AND c.PECompanyId = peinv.PECompanyId
+                            AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
+                            AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%') order by Cianame	";
+                    //echo "<Br>PE - VC---" .$advisorsql;
+            }
+
+            if($peorvcflg==2) //manda
+            {
+                    if($VCFlagValue==0)
+                    {
+                            $addVCFlagqry="";
+                            $pagetitle="PE Exits M&A - Advisors - ".$adtitledisplay;
+                    }
+                    elseif($VCFlagValue==1)
+                    {
+                            //$addVCFlagqry="";
+                            $addVCFlagqry = " and VCFlag=1 ";
+                            $pagetitle="VC Exits M&A - Advisors - ".$adtitledisplay;
+                    }
+                    $advisorsql="(SELECT DISTINCT adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
+                                    FROM manda AS peinv, pecompanies AS c, advisor_cias AS cia, peinvestments_advisoracquirer AS adac
+                                    WHERE Deleted =0
+                                    AND c.PECompanyId = peinv.PECompanyId
+                                    AND adac.CIAId = cia.CIAID  and AdvisorType='".$adtype ."'
+                                    AND adac.PEId = peinv.MandAId " .$addVCFlagqry.
+                                    "  and cia.Cianame like '".$searchTerm."%')
+                                    UNION (
+                                    SELECT DISTINCT adcomp.CIAId, cia.cianame, adcomp.CIAId AS CompCIAId
+                                    FROM manda AS peinv, pecompanies AS c, advisor_cias AS cia, peinvestments_advisorcompanies AS adcomp, acquirers AS ac
+                                    WHERE Deleted =0
+                                    AND c.PECompanyId = peinv.PECompanyId
+                                    AND adcomp.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
+                                    AND adcomp.PEId = peinv.MandAId " .$addVCFlagqry.
+                                    " and cia.Cianame like '".$searchTerm."%')	ORDER BY Cianame";
+                    //echo "<Br>M&A---" .$advisorsql;
+                    }
+                    if($peorvcflg==3) //social /cleantech / infrastructure investment page
+                    {
+                            if($VCFlagValue==3)
+                            {
+                                    //$addVCFlagqry="";
+                                    $addVCFlagqry = "";
+                                    $pagetitle="Social Venture Investments-Advisors - ".$adtitledisplay;
+                                    $dbtype="SV";
+                            }
+                            elseif($VCFlagValue==4)
+                            {
+                                    //$addVCFlagqry="";
+                                    $addVCFlagqry = "";
+                                    $pagetitle="CleanTech Investments-Advisors - ".$adtitledisplay;
+                                    $dbtype="CT";
+                            }
+                            elseif($VCFlagValue==5)
+                            {
+                                    //$addVCFlagqry="";
+                                    $addVCFlagqry = "";
+                                    $pagetitle="Infrastructure Investments-Advisors - ".$adtitledisplay;
+                                    $dbtype="IF";
+                            }
+                            $advisorsql="(
+                            SELECT distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
+                            FROM peinvestments AS peinv, pecompanies AS c, advisor_cias AS cia,
+                            peinvestments_advisorinvestors AS adac, stage as s,peinvestments_dbtypes as pedb
+                            WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId ".$addVCFlagqry.
+                            " AND c.PECompanyId = peinv.PECompanyId and pedb.PEId=peinv.PEId and pedb.DBTypeId='$dbtype'
+                            AND adac.CIAId = cia.CIAID  and AdvisorType='".$adtype ."'
+                            AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%')
+                            UNION (
+                            SELECT  distinct adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
+                            FROM peinvestments AS peinv, pecompanies AS c,  advisor_cias AS cia,
+                            peinvestments_advisorcompanies AS adac, stage as s ,peinvestments_dbtypes as pedb
+                            WHERE peinv.Deleted=0 and  s.StageId = peinv.StageId  " .$addVCFlagqry.
+                            " AND c.PECompanyId = peinv.PECompanyId  and pedb.PEId=peinv.PEId and pedb.DBTypeId='$dbtype'
+                            AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
+                            AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%') order by Cianame";
+                    //echo "<Br>PE - VC---" .$advisorsql;
+                  }
+            // echo "<bR>--" .$peorvcflag[1];
+             if($peorvcflg==4) //mama
+            {
+                    if($VCFlagValue==1)
+                    {
+                            $addVCFlagqry="";
+                            $pagetitle="M&A - Advisors - ".$adtitledisplay;
+                    }
+
+                    $advisorsql="(
+                                    SELECT DISTINCT adac.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId
+                                    FROM mama AS peinv, pecompanies AS c, advisor_cias AS cia, mama_advisoracquirer AS adac
+                                    WHERE Deleted =0
+                                    AND c.PECompanyId = peinv.PECompanyId
+                                    AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
+                                    AND adac.MAMAId = peinv.MAMAId and cia.Cianame like '".$searchTerm."%' " .$addVCFlagqry.
+                                    "  )
+                                    UNION (
+                                    SELECT DISTINCT adcomp.CIAId, cia.cianame, adcomp.CIAId AS CompCIAId
+                                    FROM mama AS peinv, pecompanies AS c, advisor_cias AS cia, mama_advisorcompanies AS adcomp, acquirers AS ac
+                                    WHERE Deleted =0
+                                    AND c.PECompanyId = peinv.PECompanyId
+                                    AND adcomp.CIAId = cia.CIAID  and AdvisorType='".$adtype ."'
+                                    AND adcomp.MAMAId = peinv.MAMAId and cia.Cianame like '".$searchTerm."%' " .$addVCFlagqry.
+                                    " )	ORDER BY Cianame";
+                    //echo "<Br>M&A---" .$advisorsql;
+            }
 //                echo "<Br>M&A---" .$advisorsql;
-                return $advisorsql;
-    }
+            return $advisorsql;
 }
     ?>
