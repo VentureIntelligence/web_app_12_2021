@@ -7566,6 +7566,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="deal_date" value="<?php echo $ped["dates"];?>" >
 <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
 
+
 </form>
 <script type="text/javascript">
 
