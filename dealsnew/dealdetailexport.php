@@ -128,7 +128,7 @@ $sesID=session_id();
 
         		
 
-                                //   $date_format = 
+                
 
                 $originalDate = $deal_date;
                 $newDate = date("M-y", strtotime($originalDate));
