@@ -1598,7 +1598,7 @@
                      <!-- </div> -->
 
                         <center>
-    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "P.no" onkeyup = "paginationfun(this.value)">
+    <div class="pagination-section"><input type="text" name = "paginaitoninput" id = "paginationinput" class = "paginationtextbox" placeholder = "Page No" onkeyup = "paginationfun(this.value)">
     <button class = "jp-page1 button pagevalue" name="pagination" id="pagination" type="submit" onclick = "validpagination()">Go</button></div>
     </center>
 
@@ -1852,6 +1852,11 @@
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });
                function loadhtml(pageno,orderby,ordertype)
                {
@@ -1910,7 +1915,8 @@
                         }
                         drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                         jQuery('#preloading').fadeOut(500); 
-                       
+                        $(".selectgroup select").multiselect('refresh') 
+
                         return  false;
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -2670,6 +2676,7 @@ $(".other_db_search").on('click', '.other_db_link', function() {
 
         function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
@@ -2697,11 +2704,6 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         width:3%;
         padding: 3px;
     }
-
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
         .button{
             background-color: #a2753a; /* Green */
             border: none;
@@ -2718,7 +2720,20 @@ $(".other_db_search").on('click', '.other_db_link', function() {
         position: absolute;
 
 left: 42%;
+
+
+
     }
+
+
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>
     
     

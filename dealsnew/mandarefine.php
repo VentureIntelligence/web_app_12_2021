@@ -76,6 +76,7 @@ if(count($industry) == 0){ ?>
         $(document).ready(function(){ 
             onsectordisable();
             $("#sltindustry").on('change',function(){
+                localStorage.removeItem("pageno");
             if(($('#sltindustry').val())!=''||($('#sltindustry').val())!= null)
                 {
                     /*$('.selectgroup.sltsector button').attr('style', 'width: 223px; background-color: #fff !important').prop("disabled", false);
@@ -107,10 +108,12 @@ if(count($industry) == 0){ ?>
  // Company
  $(document).ready(function(){ 
     $("#firstrefine select, #firstrefine input").on('change',function(){
+        localStorage.removeItem("pageno");
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
       });    
     $("#invType,#invhead, #exitstatus1").on('change',function(){
+        localStorage.removeItem("pageno");
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
           $("#pesearch").submit();
@@ -858,7 +861,7 @@ if(count($industry) == 0){ ?>
         
     });    
     
-     
+
       $('.sector_slt').live("click", function() {  //on click 
          
         
@@ -1124,7 +1127,14 @@ if(count($industry) == 0){ ?>
     });
 
   });
+  function submitfilter() {
+localStorage.removeItem("pageno");
 
+document.pesearch.action = "mandaindex.php?value=<?php echo $flagvalue; ?>";
+document.pesearch.submit();
+
+return true;
+}
 
 
  </script>
@@ -1184,7 +1194,7 @@ if(count($industry) == 0){ ?>
                         <label for="or" class="cb-disable"><span>OR</span></label>
                     </div>
                 </div>
-                <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+                <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
         </ul>
     </div>
@@ -1546,7 +1556,7 @@ if($page_name == 'mandadealdetails.php'){
                            </select>
             </li>
     <li>
-        <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="this.form.submit();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+        <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="submitfilter();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     </li>
 
 
@@ -1680,7 +1690,7 @@ if($page_name == 'mandadealdetails.php'){
 
     <li>
         <input name="reset" id="resetall" class="reset-btn" type="button" value="Reset" style="float: left;" />
-        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
 </ul>
 </div>
@@ -1719,7 +1729,7 @@ if($page_name == 'mandadealdetails.php'){
                     <label for="or" class="cb-disable"><span>OR</span></label>
                 </div>
             </div>
-            <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+            <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
 
             </ul>
@@ -1992,6 +2002,7 @@ function enableFileds(){
     $(document).ready(function(){ 
        $(document).ready(function(){ 
         $(document).on('change', '#dealtype', function() {
+            localStorage.removeItem("pageno");
           // $('#InType').prop("disabled",true);
           // $('#InType').css("cursor","not-allowed");
             if(($('#dealtype').val())!='' && ($('#dealtype').val())!=null )
@@ -2003,6 +2014,7 @@ function enableFileds(){
            }
           });
           $(document).on('change', '#InType', function() {
+            localStorage.removeItem("pageno");
           //$('.dealtype button.ui-multiselect').attr('style', 'width: 223px; background-color: #dddddd !important').prop("disabled",true);
            if(($('#InType').val())!='' && ($('#InType').val())!= "--")
                 {
@@ -2043,6 +2055,7 @@ function enableFileds(){
             }
         });
     $(document).on('change', '#sltsector', function() {
+        localStorage.removeItem("pageno");
         var sector=$("#sltsector").val();
         var industry=$("#sltindustry").val();
         if(sector!=null)
@@ -2084,6 +2097,7 @@ function enableFileds(){
     });
 
     $(document).on('change', '#sltindustry', function() {
+        localStorage.removeItem("pageno");
         var industry=$("#sltindustry").val();
         
         if(industry!=null)

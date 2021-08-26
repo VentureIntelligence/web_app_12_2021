@@ -52,12 +52,14 @@ else
 <script>
 $(document).ready(function(){ 
         $("#firstrefineipo select, #firstrefineipo input").on('change',function(){
+            localStorage.removeItem("pageno");
             $("#tagsearch").val("");
             $('#tagsearch_auto').val("");
         }); 
         $("#industry, #invType,#invhead, #invSale, #exitstatus, #txtmultipleReturnFrom, #txtmultipleReturnTo").on('change',function(){
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
+          localStorage.removeItem("pageno");
           $("#pesearch").submit();
         });
     });
@@ -364,6 +366,15 @@ $(document).ready(function(){
                      
                  
     });
+
+    function submitfilter() {
+localStorage.removeItem("pageno");
+
+document.pesearch.action = 'ipoindex.php?value=<?php echo $VCFlagValue ?>';
+document.pesearch.submit();
+
+return true;
+}
     
     ////////////// company search end //////////////////////  
 
@@ -496,7 +507,7 @@ $(document).ready(function(){
                                 <label for="or" class="cb-disable"><span>OR</span></label>
                             </div>
                         </div>
-                        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+                        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
                     </li>
                 </ul>
             </div>
@@ -685,7 +696,7 @@ $(document).ready(function(){
 
 </li>
   <li>
-        <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="this.form.submit();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+        <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="submitfilter();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     </li>
 </ul></div>
   </div>
@@ -764,7 +775,7 @@ $(document).ready(function(){
 
     <li>
       <input name="reset" id="resetall" class="reset-btn" type="button" value="Reset" style="float: left;" />
-        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
 </ul>
     </div>
@@ -803,7 +814,7 @@ $(document).ready(function(){
                     <label for="or" class="cb-disable"><span>OR</span></label>
                 </div>
             </div>
-            <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+            <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
 
             </ul>

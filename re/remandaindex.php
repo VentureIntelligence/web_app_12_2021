@@ -1628,7 +1628,7 @@
         <div class="showhide-link" id="trendnav" style="z-index: 100000"> <a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
             <div  id="slidingTable" style="display: none;overflow:hidden;">
                 <?php
-                // include_once("remandatrendview.php");
+                include_once("remandatrendview.php");
                 ?> 
                     <table width="100%">
 									<?php
@@ -1811,6 +1811,11 @@
                 if(x != 'null' && x != null)
                 {
                 loadhtml(x,orderby,ordertype)
+                }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
                 }
                 });     
                function loadhtml(pageno,orderby,ordertype)
@@ -2812,6 +2817,7 @@ if($_GET['type']!="")
         }
         function validpagination()
         {
+            localStorage.removeItem("pageno");
             var pageval = $("#paginationinput").val();
             if(pageval == "")
             {
@@ -2838,9 +2844,12 @@ if($_GET['type']!="")
             padding: 3px;
         }
         input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
         .button{
             background-color: #a2753a; /* Green */
             border: none;

@@ -4,8 +4,10 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-//echo "cookie=".$_COOKIE['cfsLoginAuth'];
+// echo "Session123=".$_SESSION['backpage'];
+
 include "header.php";
+// include "sessauth.php";
 
 require_once MODULES_DIR."users.php";
 $users = new users();
@@ -321,7 +323,15 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
              }
            }
 
+
+           
+
+           
+
+            // exit;
+
             $deviceId = $_COOKIE['cfsLoginAuth'];
+            
             $sqlUserLogSel = "SELECT `id` FROM `user_log` WHERE `emailId`='".$authAdmin['email']."' AND `dbTYpe`='CFS' AND `userId`='".$authAdmin['user_id']."'";
             $resUserLogSel = mysql_query($sqlUserLogSel);
             $cntUserLogSel = mysql_num_rows($resUserLogSel);
@@ -339,9 +349,15 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                 $resUpdUsrLog = mysql_query($sqlUpdUsrLog);
             }
 
+            // echo '<pre>';  print_r($_REQUEST); echo '</pre>';
+
+
 
              if ($_SESSION['redirectURL']!=''){
                 $tempUrl = $_SESSION['redirectURL'];
+
+                // echo $tempUrl;
+
                 $_SESSION['redirectURL'] = '';
                 header("location:$tempUrl");
             }else if($_REQUEST['pe']==1){
@@ -349,9 +365,24 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
                 echo "<script language='javascript'>document.location.href='".BASE_URL."cfsnew/details.php?vcid=".$_REQUEST['vcid']."'</script>";
             }else
             {
-                
-                
-                    echo "<script language='javascript'>document.location.href='home.php'</script>";
+
+                    // print_r($_SERVER['PHP_SELF']);
+
+                    // if($_SESSION["backpage"] != "")
+                    // {
+                    //     echo "<script language='javascript'>document.location.href= '".$_SESSION["backpage"]."' </script>";
+                    // }else{
+                    //     echo "<script language='javascript'>document.location.href='home.php'</script>";
+                    // }
+                    
+                    // echo "<script language='javascript'>document.location.href='home.php'</script>";
+
+
+                    if(!isset($_COOKIE['URLTOREDIRECT'])) {
+                        echo "<script language='javascript'>document.location.href='home.php'</script>";
+                        } else {
+                            header("Location:".$_COOKIE['URLTOREDIRECT']);
+                        }
                 
             }
                 exit();

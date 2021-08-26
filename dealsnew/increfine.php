@@ -41,6 +41,8 @@ else
             $('#tagsearch_auto').val("");
         }); 
         $("#industry, #statusid, #txtfirmtype, #followonFund, #txtregion").on('change',function(){
+          localStorage.removeItem("pageno");
+
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
           $("#pesearch").submit();
@@ -603,10 +605,19 @@ function enableFileds(){
       $('#real_total_inv_amount').val('');
       $('#real_total_inv_inr_amount').val('');
       $('#real_total_inv_company').val('');
+      localStorage.removeItem("pageno");
+
       $("#pesearch").submit();
   }
 
+  function submitfilter() {
+  localStorage.removeItem("pageno");
 
+  document.pesearch.action = 'incindex.php';
+  document.pesearch.submit();
+
+  return true;
+  }
  </script>
  <!-- Tag Search -->
  <h2 class="acc_trigger helptag" style="width: 100%;">
@@ -640,7 +651,7 @@ function enableFileds(){
                     <label for="or" class="cb-disable"><span>OR</span></label>
                 </div>
             </div>
-            <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+            <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
         </ul>
         </div>
@@ -738,7 +749,7 @@ function enableFileds(){
                 { echo "checked"; } ?> style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>> Exclude Defunct Cos</li>
 
 <li>
-    <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="this.form.submit();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" onclick="submitfilter();" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     </li>
 
 <li class="odd"><h4>Firm Type</h4>
@@ -767,7 +778,7 @@ function enableFileds(){
                 
 </li>
 
-<li class="even"><h4>Follow on Funding Status </h4>
+<li class="even"><h4>Angel/VC Funded </h4>
                  <?php //$followonFund=$incfirmtype; ?>
     <SELECT NAME="followonFund" id="followonFund"  style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
                          <OPTION  value="--" selected> All </option>

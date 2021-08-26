@@ -479,21 +479,38 @@ function updateDownload($res){
                             }
                             else
                             {
+
+
+                                // $showallsql =   "SELECT  peinvestors.Investor,peinvestors.*
+                                // FROM angel_investors AS peinv_inv, peinvestors, angelinvdeals AS peinv, pecompanies 
+                                // WHERE peinvestors.InvestorId = peinv_inv.InvestorId
+                                // AND peinv.AngelDealId = peinv_inv.AngelDealId
+                                // AND pecompanies.PECompanyId = peinv.InvesteeId
+                                // AND peinv.Deleted =0 and peinvestors.InvestorId !=9 and peinv.DealDate between '" . $dt1 . "' and '" . $dt2 . "' $addVCFlagqry $search $dirsearchall
+                                // Group by peinvestors.InvestorId  order by peinvestors.Investor";
+
+
                                     $showallsql="SELECT DISTINCT inv.InvestorId, inv.Investor,inv.*
                                         FROM angelinvdeals AS pe, pecompanies AS pec, angel_investors AS peinv, peinvestors AS inv
                                         WHERE pe.InvesteeId = pec.PEcompanyId
                                         AND pec.industry !=15
                                         AND peinv.AngelDealId = pe.AngelDealId
                                         AND inv.InvestorId = peinv.InvestorId
-                                        AND pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall." order by inv.Investor ";
+                                        AND pe.DealDate BETWEEN '" . $dt1 . "' and '" . $dt2 . "'
+                                        AND pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall." order by inv.Investor 
+                                        
+                                        ";
                                     
-                                    $showallsql="SELECT DISTINCT inv.InvestorId, inv.Investor,inv.*
-                                        FROM angelinvdeals AS pe, pecompanies AS pec, angel_investors AS peinv, peinvestors AS inv
-                                        WHERE pe.InvesteeId = pec.PEcompanyId
-                                        AND pec.industry !=15
-                                        AND peinv.AngelDealId = pe.AngelDealId
-                                        AND inv.InvestorId = peinv.InvestorId
-                                        AND pe.Deleted=0 " .$addVCFlagqry. " ".$dirsearchall." order by inv.Investor ";
+                                    // $showallsql="SELECT DISTINCT inv.InvestorId, inv.Investor,inv.*
+                                    //     FROM angelinvdeals AS pe, pecompanies AS pec, angel_investors AS peinv, peinvestors AS inv
+                                    //     WHERE pe.InvesteeId = pec.PEcompanyId
+                                    //     AND pec.industry !=15
+                                    //     AND peinv.AngelDealId = pe.AngelDealId
+                                    //     AND inv.InvestorId = peinv.InvestorId
+                                    //     AND pe.DealDate BETWEEN '" . $dt1 . "' and '" . $dt2 . "'
+                                    //     AND pe.Deleted=0 " .$addVCFlagqry. " ".$dirsearchall." order by inv.Investor ";
+
+                                        // echo $showallsql; exit;
                             }
                        
                             
@@ -1071,10 +1088,10 @@ function updateDownload($res){
                         $file_ending = "xls";
                     }
                     //header info for browser: determines file type ('.doc' or '.xls')
-                    header("Content-Type: application/$file_type");
-                    header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
-                    header("Pragma: no-cache");
-                    header("Expires: 0");
+                    // header("Content-Type: application/$file_type");
+                    // header("Content-Disposition: attachment; filename=$filetitle.$file_ending");
+                    // header("Pragma: no-cache");
+                    // header("Expires: 0");
 
                     /*    Start of Formatting for Word or Excel    */
                     /*    FORMATTING FOR EXCEL DOCUMENTS ('.xls')   */
@@ -1146,6 +1163,8 @@ function updateDownload($res){
                     */
 
 
+                    // echo $rows = mysql_num_rows($result);
+
 
                     while($row = mysql_fetch_row($result))
                      {
@@ -1165,11 +1184,13 @@ function updateDownload($res){
                          $invResult=substr_count($Investorname,$searchString);
                          $invResult1=substr_count($Investorname,$searchString1);
                          $invResult2=substr_count($Investorname,$searchString2);
+
+
                          if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
                          {
                                 $schema_insert .=trim($row[1]).$sep; //Investorname
-//                                $schema_insert .=strip_tags(str_replace(','," ",$row[4])).$sep; //address
-//                                $schema_insert .=strip_tags(str_replace(','," ",$row[5])).$sep; //address line 2
+                                // $schema_insert .=strip_tags(str_replace(','," ",$row[4])).$sep; //address
+                                // $schema_insert .=strip_tags(str_replace(','," ",$row[5])).$sep; //address line 2
                                 $schema_insert .=trim($row[4]).$sep; //address
                                 $schema_insert .=trim($row[5]).$sep; //address line 2
                                 $schema_insert .=trim($row[6]).$sep; //city

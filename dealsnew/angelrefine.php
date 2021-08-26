@@ -30,10 +30,14 @@ $Db = new dbInvestments();
 <script>
   $(document).ready(function(){ 
         $("#firstrefineangel select, #firstrefineangel input").on('change',function(){
+            localStorage.removeItem("pageno");
+
             $("#tagsearch").val("");
             $('#tagsearch_auto').val("");
         }); 
         $("#followonVCFund, #exitedstatus").on('change',function(){
+            localStorage.removeItem("pageno");
+
           $("#tagsearch").val("");
           $('#tagsearch_auto').val("");
           $("#pesearch").submit();
@@ -459,6 +463,14 @@ $Db = new dbInvestments();
     
     
   });
+
+  function submitfilter() {
+    localStorage.removeItem("pageno");
+    document.pesearch.action = 'angelindex.php';
+    document.pesearch.submit();
+
+    return true;
+    }
   
   </script>
 
@@ -510,7 +522,7 @@ $Db = new dbInvestments();
                             <label for="or" class="cb-disable"><span>OR</span></label>
                         </div>
                     </div>
-                    <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+                    <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
                 </li>
             </ul>
         </div>
@@ -592,7 +604,7 @@ $Db = new dbInvestments();
                            ?>
                            </select>
             </li>
-<li class="odd"><h4>Follow on Funding Status</h4>
+<li class="odd"><h4>VC Funded</h4>
     <SELECT NAME="followonVCFund" id="followonVCFund" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
         <?php $followonVCFund=$followonVC; ?>
 			 <OPTION id=1 value="--" selected> All </option>
@@ -611,7 +623,7 @@ $Db = new dbInvestments();
 </li>
 <li class="odd"><h4>Region</h4>
     <div class="selectgroup">
-    <SELECT NAME="txtregion[]" multiple="multiple" id="txtregion" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="this.form.submit();">
+    <SELECT NAME="txtregion[]" multiple="multiple" id="txtregion" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onchange="submitfilter();">
 	<!--<OPTION id=5 value="" selected> ALL </option>-->
      <?php
         /* populating the region from the Region table */
@@ -644,7 +656,7 @@ $Db = new dbInvestments();
      
 </li>
 <li>
-    <input type="button" <?php if($disable_flag == "1"){ echo "disabled"; } ?> class="fliter_stage" name="fliter_stage" value="Filter" onclick="this.form.submit();">
+    <input type="button" <?php if($disable_flag == "1"){ echo "disabled"; } ?> class="fliter_stage" name="fliter_stage" value="Filter" onclick="submitfilter();">
 </li>
 </ul>
        </div>
@@ -776,7 +788,7 @@ $Db = new dbInvestments();
                     <label for="or" class="cb-disable"><span>OR</span></label>
                 </div>
             </div>
-            <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+            <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
             </li>
 
             </ul>

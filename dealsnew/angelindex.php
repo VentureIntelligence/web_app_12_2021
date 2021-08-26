@@ -2040,6 +2040,11 @@ if (!isset($_POST['tagsfield'])) {
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });
                function loadhtml(pageno,orderby,ordertype)
                {
@@ -2098,6 +2103,7 @@ if (!isset($_POST['tagsfield'])) {
                         }
                         drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                         jQuery('#preloading').fadeOut(500);
+                        $(".selectgroup select").multiselect('refresh') 
 
                         return  false;
                 },
@@ -2907,9 +2913,12 @@ mysql_close($cnx);
     }
 
     input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
         .button{
         background-color: #a2753a; /* Green */
     border: none;

@@ -149,7 +149,18 @@
         
         if ($searchopt=='lgadvisor'){
             $VCFlagValue = $_REQUEST['VCFlagValue'];
+
+        //     echo '<pre>'; print_r( $searchTerm); echo '</pre>'; exit;
+
             $advisorsql= getAllAdvisor("L",2,$VCFlagValue,$searchTerm);
+
+        //      exit;
+
+        //     echo $advisorsql; exit;
+
+        //     exit;
+
+
             if ($rsadvisor = mysql_query($advisorsql)){
                     $advisor_cnt = mysql_num_rows($rsadvisor);
             }
@@ -575,8 +586,15 @@ function getallcompanies($value0,$searchTerm)
         return $getcompaniesSql;
 }
 
- function getAllAdvisor($adtype,$peorvcflg,$VCFlagValue,$searchTerm) 
+
+}
+
+
+function getAllAdvisor($adtype,$peorvcflg,$VCFlagValue,$searchTerm) 
     {
+
+                // echo 'Hi'; exit;
+
                 if($adtype=="L")
 		{  
                     $adtitledisplay ="Legal";
@@ -721,5 +739,4 @@ function getallcompanies($value0,$searchTerm)
 //                echo "<Br>M&A---" .$advisorsql;
                 return $advisorsql;
     }
-}
     ?>

@@ -898,6 +898,11 @@ if($notable==false)
                 {
                 loadhtml(x,orderby,ordertype)
                 }
+                else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
                 });       
                function loadhtml(pageno,orderby,ordertype)
                {
@@ -1279,6 +1284,7 @@ if($notable==false)
 
     function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
@@ -1319,6 +1325,16 @@ if($notable==false)
         font-size: 16px;
     }
 
+
+    input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
+       
+
     .pageinationManual{
         display: flex;
         /* margin: auto;
@@ -1326,11 +1342,6 @@ if($notable==false)
         position: absolute;
 
 left: 38%;
-    }
-
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
     }
 
 

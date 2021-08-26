@@ -3454,7 +3454,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                    //  include_once("mandatrendview.php");
+                     include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
@@ -3755,6 +3755,11 @@ div.token-input-dropdown{
             {
             loadhtml(x,orderby,ordertype)
             }
+            else
+                {
+                    loadhtml(1,orderby,ordertype)
+ 
+                }
             });       
           function loadhtml(pageno,orderby,ordertype)
           {
@@ -3805,6 +3810,7 @@ div.token-input-dropdown{
                    }
                    drawNav(<?php echo $totalpages ?>,parseInt(pageno))
                    jQuery('#preloading').fadeOut(500); 
+                   $(".selectgroup select").multiselect('refresh') 
 
                    return  false;
            },
@@ -11497,6 +11503,7 @@ mysql_close();
     }
     function validpagination()
             {
+                localStorage.removeItem("pageno");
                 var pageval = $("#paginationinput").val();
                 if(pageval == "")
                 {
@@ -11541,8 +11548,12 @@ mysql_close();
 left: 40%;
     }
 
-    input[type='text']::placeholder
-    {   
-        text-align: center;      /* for Chrome, Firefox, Opera */
-    }
+
+     input[type='text']::placeholder
+
+{   
+
+text-align: center;      /* for Chrome, Firefox, Opera */
+
+}
     </style>

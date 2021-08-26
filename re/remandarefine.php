@@ -840,6 +840,15 @@ function enableFileds(){
      $("#searchallfield").val('');
      $("#searchallfield").fadeOut();
 } 
+function submitfilter() {
+
+localStorage.removeItem("pageno");
+
+document.reinvestment.action = "remandaindex.php?value=2"
+document.reinvestment.submit();
+
+return true;
+}
   </script>
   
   
@@ -951,7 +960,7 @@ if($investorsearch!="" || $acquirersearch !="" || $companysearch!="" || $sectors
  ?>
 </select> </div>
     
-    <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onclick="this.form.submit();">
+    <input type="button" name="fliter_stage" class="fliter_stage" value="Filter" <?php if($disable_flag == "1"){ echo "disabled"; } ?> onclick="submitfilter();">
  
 </li>		
 
@@ -964,7 +973,7 @@ if($investorsearch!="" || $acquirersearch !="" || $companysearch!="" || $sectors
                                              Definitions
                                              </span>
      </a></span></h4>
-    <SELECT NAME="dealtype" id="dealtype" onchange="this.form.submit();" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <SELECT NAME="dealtype" id="dealtype" onchange="submitfilter();" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
 	<OPTION id=5 value="--" selected></option>
      <?php
            
@@ -995,7 +1004,7 @@ if($investorsearch!="" || $acquirersearch !="" || $companysearch!="" || $sectors
 </li>
 
 <li class="odd"><h4>Target Type</h4>
-    <SELECT NAME="targetType" id="targetType" onchange="this.form.submit();" id="comptype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+    <SELECT NAME="targetType" id="targetType" onchange="submitfilter();" id="comptype" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
     <OPTION  value="--" selected>  </option>
     <OPTION value="1" <?php echo ($targetProjectTypeId=="1") ? 'SELECTED' : ""; ?>> Entity </option>
     <OPTION  value="2" <?php echo ($targetProjectTypeId=="2") ? 'SELECTED' : ""; ?>> Project / Asset </option>
@@ -1004,7 +1013,7 @@ if($investorsearch!="" || $acquirersearch !="" || $companysearch!="" || $sectors
 </li>
 <li class="odd"><h4>Exit Status</h4>
 
-   <select NAME="exitstatus" onchange="this.form.submit();" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
+   <select NAME="exitstatus" onchange="submitfilter();" id="exitstatus" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
        <option  value="--" selected>All</option>
        <option value="0" <?php if(isset($exitstatusvalue) && $exitstatusvalue=="0"){ echo 'selected="selected"'; } ?> >Partial</option>
        <option value="1" <?php if(isset($exitstatusvalue) && $exitstatusvalue=="1"){ echo 'selected="selected"'; } ?> >Complete</option>
@@ -1284,7 +1293,7 @@ if($investorsearch!="" || $acquirersearch !="" || $companysearch!="" || $sectors
 	</SELECT>
     </li>
     <li><input name="reset" id="resetall" class="refine reset-btn" type="button" value="Reset" style="float: left;" />
-        <input type="button" name="fliter_stage" value="Filter" onclick="this.form.submit();" style="float: right;">
+        <input type="button" name="fliter_stage" value="Filter" onclick="submitfilter();" style="float: right;">
     </li>
     
 </ul></div>
