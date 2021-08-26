@@ -44,7 +44,6 @@ $sesID=session_id();
                $sqlIns = "INSERT INTO `user_downloads` (`user_id`,`emailId`,`downloadDate`,`dbType`,`recDownloaded`) VALUES ('0','".$dlogUserEmail."','".$today."','PE','".$recCount."')";
                mysql_query($sqlIns) or die(mysql_error());
            }
-           
         }
         $submitemail=$_POST['txthideemail'];
 					$PEId=$_POST['txthidePEId'];
