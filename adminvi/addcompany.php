@@ -373,6 +373,8 @@ require("checkaccess.php");
                    <div style="font-family: Verdana; font-size: 8pt;margin-top: 15px;"><?php echo $comp; ?>  already Exists . <a href="<?php echo $link;?>">Click here to edit this company</a></td>
                    or <tr bgcolor="C0C0C0"> <td colspan=2 width=20% style="font-family: Verdana; font-size: 8pt"><a href="admin.php">Back to Home</a></td></tr>   </div> 
                <?php  
+
+               
                
                exit();
                 }else{

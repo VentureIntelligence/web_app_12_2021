@@ -128,11 +128,18 @@ $sesID=session_id();
 
         		
 
+                
+
+        
+                $originalDate = $deal_date;
+                $newDate = date("M-y", strtotime($originalDate));
+
                 $result = mysql_query($sql);
-                 $result1 = mysql_query($sql1);
+                $result1 = mysql_query($sql1);
                 updateDownload($result);
-                $filetitle=$company_name."-".$deal_date;
+                $filetitle=$company_name."-".$newDate;
                
+                
                 //echo "<Br>".$advcompanysql;
 
                 $advinvestorssql="select advinv.PEId,advinv.CIAId,cia.cianame,cia.AdvisorType from peinvestments_advisorinvestors as advinv,

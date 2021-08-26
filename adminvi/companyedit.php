@@ -800,6 +800,7 @@ $(document).ready(function(){
             else{
                 
                 
+                
                     $('#nameGroup').text('');        
                     var fileName = $(".ip-file").val();
                     

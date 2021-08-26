@@ -332,6 +332,7 @@ session_start();
                                             Student=$student,REInv=$RElogin,IPAdd=$ipFlag,poc='$contacts',permission='$permission',peindustries='$PEindustry',maindustries='$MAindustry',LPDir=$LPDir, mobile_access=$mobapp,custom_limit_enable=$limit_enable,custom_export_limit=$exp_limit where DCompId=$companyId ";
                                             //echo "<br>--" .$UpdateCompSql;
                                             
+                                            
                                             if ($rsUpdateComp=mysql_query($UpdateCompSql))
                                             {
                                             ?>
