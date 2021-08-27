@@ -3519,7 +3519,12 @@ include_once($refineUrl); ?>
     $exportToExcel=0;
     $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,valInfo from dealcompanies as dc,dealmembers as dm
     where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
-    //echo "<br>---" .$TrialSql;
+
+
+
+    // echo "<br>---" .$TrialSql; exit;
+
+
     if($trialrs=mysql_query($TrialSql))
     {
             while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
