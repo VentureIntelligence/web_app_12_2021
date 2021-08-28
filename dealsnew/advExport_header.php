@@ -2455,6 +2455,9 @@
          
          }
          $(document).on('click','.exportimpshowdealsbt',function(){
+
+               // alert();
+
             $('#investorauto_sug').tokenInput("clear");
          $('#expinvestorauto_sug').tokenInput("clear");
             $('#file').val('')
