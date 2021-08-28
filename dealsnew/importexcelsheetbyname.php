@@ -9,7 +9,7 @@ $uploadOk = 1;
 if(isset($_FILES['leaguefilepath']))
 {
      $file_array = explode(".", $_FILES["leaguefilepath"]["name"]); 
-    //echo json_encode($file_array);exit();
+    // echo json_encode($file_array);exit();
       if($file_array[1] == "xls" || $file_array[1] == "xlsx" || $file_array[1] == "csv" )  
       {  
        $inputFile=$_FILES["leaguefilepath"]["tmp_name"];
