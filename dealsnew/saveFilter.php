@@ -228,9 +228,12 @@
    {
    $investor_id = $_POST['investorName'];
    $type = $_POST['type'];
-   //echo $investor_id;exit();
+     //    echo $investor_id;exit();
+     // echo $type; exit();
    $inv_investor_id=explode(',',$investor_id);
-   
+
+     // echo '<pre>'; print_r($inv_investor_id); echo '</pre>'; exit;
+
    $InvestorArray=array();
    if(isset($inv_investor_id))
    {
@@ -242,7 +245,7 @@
           AND pec.industry !=15
           AND peinv.PEId = pe.PEId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 AND inv.`InvestorId` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
         }else{
           $sqlquery='SELECT  DISTINCT inv.* 
           FROM manda AS pe, pecompanies AS pec, manda_investors AS peinv, peinvestors AS inv
@@ -250,9 +253,9 @@
           AND pec.industry !=15
           AND peinv.MandAId = pe.MandAId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 and inv.InvestorId IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
+          AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
         }
-   //echo $sqlquery;exit();
+//    echo $sqlquery;exit();
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
