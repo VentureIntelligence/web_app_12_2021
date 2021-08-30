@@ -628,9 +628,12 @@
     $totalDisplay="";
     $resetfield=$_POST['resetfield'];
 
+    // echo 'Hello_H'. $resetfield; 
+
     if($resetfield=="searchallfield")
     { 
         $_POST['searchallfield']="";
+        // $_POST['searchallfield']="";
         $searchallfield="";
     }
     else 
@@ -977,6 +980,9 @@
     }
     $sectorsearchhidden=preg_replace('/\s+/', '_', $sectorsearch);
 
+    // echo $resetfield; 
+    // exit;
+
     if($resetfield=="investorsearch")
     { 
         // $_POST['investorauto_sug']="";
@@ -992,6 +998,8 @@
         $investorauto=$keyword;
 
         $sql_investorauto_sug = "select  InvestorId as id,Investor as name from peinvestors where InvestorId IN($investorsearch) order by InvestorId";
+
+        // echo $sql_investorauto_sug; exit;
 
         $sql_investorauto_sug_Exe=mysql_query($sql_investorauto_sug);
         // print_r($getInvestorSql_Exe);
@@ -3454,7 +3462,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                     include_once("mandatrendview.php");
+                    //  include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
