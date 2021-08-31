@@ -189,7 +189,7 @@ $companyIdtoEdit=$stringtoExplode[1];
     $countrysql="select countryid,country from country where countryid NOT IN('','--','10','11') order by country asc";
 
 
-	//echo "<br>-------------".$getDatasql;
+//	echo "<br>-------------".$getDatasql;
 
 
 

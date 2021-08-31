@@ -3019,7 +3019,11 @@ if($_GET['type']!="")
 
 <style>
         .paginationtextbox{
+<<<<<<< HEAD
             width:6%;
+=======
+            width:2.5%;
+>>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
 			padding: 2.6px;
         }
 		input[type='text']::placeholder

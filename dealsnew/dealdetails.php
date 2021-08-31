@@ -4837,6 +4837,8 @@ try {
             <?php } ?> </td> 
         </tr>
       <tr>
+                        <?php  $dealdate123 =  $myrow['dates']; ?>
+
           <td><h4>Date</h4></td>
           <input type="hidden" name="dealdate" value="<?php echo $myrow['dates']; ?>">
             <td class=""><p><?php echo  $myrow["dt"];?></p></td>
@@ -7562,10 +7564,15 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <form name="companyDisplay" method="post" id="exportform" action="dealdetailexport.php">
 <input type="hidden" name="txthidePEId" value="<?php echo $SelCompRef;?>" >
 <input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
+<<<<<<< HEAD
 <input type="hidden" name="company_name" value="<?php echo $ped["companyname"];?>" >
 <input type="hidden" name="deal_date" value="<?php echo $ped["dates"];?>" >
 <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
 
+=======
+<input type="hidden" name="company_name" value="<?php echo $companyName; ?>" >
+<input type="hidden" name="deal_date" value="<?php echo $dealdate123; ?>" > 
+>>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
 </form>
 <script type="text/javascript">
 

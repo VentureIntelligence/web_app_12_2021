@@ -648,7 +648,11 @@
                             return $companyId;
 
                         }else{
+<<<<<<< HEAD
                           echo "Mismatch Records";
+=======
+                            return $companyId;
+>>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
                         }
 
                         // exit;
