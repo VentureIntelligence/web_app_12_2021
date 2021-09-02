@@ -228,21 +228,38 @@
    {
    $investor_id = $_POST['investorName'];
    $type = $_POST['type'];
-   //echo $investor_id;exit();
+     //    echo $investor_id;exit();
+     // echo $type; exit();
    $inv_investor_id=explode(',',$investor_id);
-   
+
+     // echo '<pre>'; print_r($inv_investor_id); echo '</pre>'; exit;
+
    $InvestorArray=array();
    if(isset($inv_investor_id))
    {
+     // SELECT DISTINCT inv.* FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s WHERE pe.PECompanyId = pec.PEcompanyId 
+     // AND inv.InvestorId = peinv.InvestorId 
+     // AND pe.Deleted=0 
+     // AND inv.`Investor` IN ("2 AM Ventures","8i Ventures","ABC World Asia","ADQ","Ananta Capital","Antara Capital","Antler India","Aroa Ventures","Augment Infrastructure","Blue Ashva Capital","Blue Impact Ventures","Cactus Venture Partners","Comvest Partners","Copenhagen Infrastructure Partners","Corinth Group","D1 Capital Partners","Eight Road Ventures","Exor","Good Fashion Fund","Griffin Gaming Partners","GrowthStory","GSV Ventures","M Venture Partners","N+1 Capital","Novo Tellus","Potencia Ventures","Starfish Growth Partners","Valar Ventures") order by inv.Investor
+
         if($type="Investments"){
+          // $sqlquery='SELECT DISTINCT inv.*
+          // FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
+          // WHERE pe.PECompanyId = pec.PEcompanyId
+          // AND s.StageId = pe.StageId
+          // AND pec.industry !=15
+          // AND peinv.PEId = pe.PEId
+          // AND inv.InvestorId = peinv.InvestorId
+          // AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+
+
           $sqlquery='SELECT DISTINCT inv.*
           FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
           WHERE pe.PECompanyId = pec.PEcompanyId
-          AND s.StageId = pe.StageId
-          AND pec.industry !=15
           AND peinv.PEId = pe.PEId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 AND inv.`InvestorId` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+
         }else{
           $sqlquery='SELECT  DISTINCT inv.* 
           FROM manda AS pe, pecompanies AS pec, manda_investors AS peinv, peinvestors AS inv
@@ -250,9 +267,9 @@
           AND pec.industry !=15
           AND peinv.MandAId = pe.MandAId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 and inv.InvestorId IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
+          AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
         }
-   //echo $sqlquery;exit();
+//    echo $sqlquery;exit();
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
