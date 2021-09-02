@@ -6360,6 +6360,7 @@ try {
     $orderby=$_POST['orderby'];
 
     $current_date = date("Y-m-d");
+    
 
     // Order by code
     if($orderby=='companyname')
