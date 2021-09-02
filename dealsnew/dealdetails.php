@@ -3519,7 +3519,12 @@ include_once($refineUrl); ?>
     $exportToExcel=0;
     $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,valInfo from dealcompanies as dc,dealmembers as dm
     where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
-    //echo "<br>---" .$TrialSql;
+
+
+
+    // echo "<br>---" .$TrialSql; exit;
+
+
     if($trialrs=mysql_query($TrialSql))
     {
             while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
@@ -4836,6 +4841,10 @@ try {
                     <p><?php echo $exitstatusis;?></p>
             <?php } ?> </td> 
         </tr>
+
+
+        <?php  $dealdate123 =  $myrow['dates']; ?>
+        
       <tr>
           <td><h4>Date</h4></td>
           <input type="hidden" name="dealdate" value="<?php echo $myrow['dates']; ?>">
@@ -7562,8 +7571,8 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <form name="companyDisplay" method="post" id="exportform" action="dealdetailexport.php">
 <input type="hidden" name="txthidePEId" value="<?php echo $SelCompRef;?>" >
 <input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
-<input type="hidden" name="company_name" value="<?php echo $ped["companyname"];?>" >
-<input type="hidden" name="deal_date" value="<?php echo $ped["dates"];?>" >
+<input type="hidden" name="company_name" value="<?php echo $companyName; ?>" >
+<input type="hidden" name="deal_date" value="<?php echo $dealdate123; ?>" > 
 <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
 
 </form>
