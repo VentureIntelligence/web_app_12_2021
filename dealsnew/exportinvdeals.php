@@ -189,7 +189,6 @@ $whereexitstatus = "";
 $tsjtitle = "� TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE.";
 $exportstatusdisplay = "Pls Note : Excel Export is available for transactions from Jan.2004 only, as part of search results. You can export transactions prior  to 2004 on a deal by deal basis from the deal details popup.";
-
 //echo "<bR>&&&&".$searchtitle;
 if ($searchtitle == 0) {
     $addVCFlagqry = " and pec.industry !=15 ";
@@ -1434,6 +1433,9 @@ $companyIdGlobal = 730002984;
 $addDelind = "";
 $hideWhere = '';
 $valInfo=$_POST['valInfo'];
+
+            // echo $valInfo; exit;
+
 
 $dateValue=$_POST['txthidedate'];
                 $hidedateStartValue=$_POST['txthidedateStartValue'];
@@ -3001,11 +3003,8 @@ $searchString2 = strtolower($searchString2);
 $dbTypeSV='PE';
 
 $tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
-$tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
-
-// echo $tsjtitle;
-
+$tranchedisplay = "Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
 $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
 /** Error reporting */
@@ -3097,7 +3096,7 @@ $col = 0;
         $PEId = $rows[13];
     }
     
-    $companiessql = "select pe.PEId,pe.PEId, pe.PEId, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,DATE_FORMAT(dates,'%M-%y') as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
+    $companiessql = "select pe.PEId,pe.PEId, pe.PEId, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,dates as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
             LEFT JOIN pecompanies as pec
             ON pec.PEcompanyID = pe.PECompanyID
             LEFT JOIN industry as i
@@ -3113,6 +3112,9 @@ $col = 0;
     
     $result2 = mysql_query($companiessql) or die( mysql_error() );
     $row = mysql_fetch_row($result2);
+
+
+    // echo date_format($row[15],"M-y");
     
     if ($row[35] == 1) {     //Agghide
         //echo "<br>***".$row[7];
@@ -3458,16 +3460,19 @@ $col = 0;
     {
         $schema_insert .= $row[13].$sep;
     }
-    if($valInfo == 0){
     if(in_array("Stake (%)", $rowArray))
     {
-        $schema_insert .= $hidestake.$sep;
+        if($valInfo == 0){
+
+            $schema_insert .= $hidestake.$sep;
+        }else{
+            $schema_insert .= ''.$sep;
+        }
     }
-    }
-    // Date
     if(in_array("Date", $rowArray))
     {
-        $schema_insert .= $row[15].$sep;
+        $date_format = date("M-Y",strtotime($row[15]));
+        $schema_insert .= $date_format.$sep;
     }
     if(in_array("Exit Status", $rowArray))
     {
@@ -3663,7 +3668,8 @@ $col = 0;
     print "\n";
 }
 
-print("\n");
+
+    print("\n");
     print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
     print("\n");
@@ -3678,8 +3684,10 @@ print("\n");
     print("\n");
     echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
-    print("\n");
-    echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
+    print("\n"); 
+    echo ( html_entity_decode( $tranchedisplay, ENT_COMPAT, 'ISO-8859-1' ) );
+
+    // echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
     print("\n");
     print("\n");
 // // T960

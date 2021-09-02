@@ -3519,7 +3519,13 @@ include_once($refineUrl); ?>
     $exportToExcel=0;
     $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin from dealcompanies as dc,dealmembers as dm
     where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
-    //echo "<br>---" .$TrialSql;
+
+
+    
+
+    // echo "<br>---" .$TrialSql; exit;
+
+
     if($trialrs=mysql_query($TrialSql))
     {
             while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
@@ -4835,6 +4841,10 @@ try {
                     <p><?php echo $exitstatusis;?></p>
             <?php } ?> </td> 
         </tr>
+
+
+        <?php  $dealdate123 =  $myrow['dates']; ?>
+        
       <tr>
                         <?php  $dealdate123 =  $myrow['dates']; ?>
 
@@ -7551,6 +7561,8 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
 <input type="hidden" name="company_name" value="<?php echo $companyName; ?>" >
 <input type="hidden" name="deal_date" value="<?php echo $dealdate123; ?>" > 
+<input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
+
 </form>
 <script type="text/javascript">
 

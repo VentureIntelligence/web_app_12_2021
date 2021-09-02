@@ -362,6 +362,7 @@ require("checkaccess.php");
                 $getcompNameSql = "select DCompId,DCompanyName from dealcompanies where DCompanyName LIKE '%".trim($comp)."%'";
                 //echo $getcompNameSql;exit();
                 $rscom = mysql_query($getcompNameSql);
+                
                 $companynum_rows = mysql_num_rows($rscom);
                 
                 if($companynum_rows > 0){  
