@@ -334,6 +334,7 @@ session_start();
                                             
                                             if ($rsUpdateComp=mysql_query($UpdateCompSql))
                                             {
+                                                
                                             ?>
                                                     <tr bgcolor="a6d39a" style="font-family: Verdana; font-size: 8pt">
                                                     <td> <?php echo $companyName; ?> -- Company Name,Expiry Date change recorded </td> </tr>

@@ -430,6 +430,7 @@ while($row = mysql_fetch_row($result))
                                                                   $dec_pat= '0';
                                                                }
                                                             }
+                                                            
                                                         
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A'.$index, $companyName)

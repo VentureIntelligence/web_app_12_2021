@@ -3469,6 +3469,7 @@ $col = 0;
             $schema_insert .= ''.$sep;
         }
     }
+    
     if(in_array("Date", $rowArray))
     {
         $date_format = date("M-Y",strtotime($row[15]));
