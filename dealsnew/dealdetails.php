@@ -6381,6 +6381,9 @@ try {
     $cinno = $cinno;
     $orderby=$_POST['orderby'];
 
+    $current_date = date("Y-m-d");
+    
+
     // Order by code
     if($orderby=='companyname')
     {
@@ -6493,7 +6496,7 @@ try {
         mama AS peinv, 
         pecompanies AS c, 
         industry AS i 
- WHERE  dealdate BETWEEN '2004-1-01' AND '2020-10-31' 
+ WHERE  dealdate BETWEEN '2004-1-01' AND '$current_date' 
         AND ac.acquirerid = peinv.acquirerid 
         AND c.industry = i.industryid 
         AND c.pecompanyid = peinv.pecompanyid 
@@ -6509,7 +6512,7 @@ try {
         ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
         
         $pers = mysql_query($sql);   
-           //echo $sql;    
+        //    echo $sql;     exit;
         //$FinanceAnnual = mysql_fetch_array($financialrs);
         $cont=0;$pedata = array();$totalInv=0;$totalAmount=0;$totalINRAmount=0;$hidecount=0;$hideinrcount=0;
         While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
@@ -6579,6 +6582,9 @@ try {
                                     
                                       
                                          // Table to show the companies with count at the top
+
+                                                // echo '<pre>'; print_r($pedata); echo '</pre>';
+
                                          if(count($pedata) > 0){
                                              $testingvariable=1;
                                              ?>
