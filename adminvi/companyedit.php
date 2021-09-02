@@ -16,6 +16,7 @@
         top: 5px;
         right: 3px;
         z-index: 1;
+        
     }
     
     .ui-widget-header .ui-helper-reset {
