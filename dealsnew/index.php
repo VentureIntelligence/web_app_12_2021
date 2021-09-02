@@ -22,6 +22,7 @@ if($_POST['tagsearch'] != "" || $_POST['tagsearch_auto'] != ""){
     $_POST['state'] = "--";
    // $_POST['city'] = "";
    $_POST['city'] = "--";
+   
 
 
   

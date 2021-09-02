@@ -25,6 +25,8 @@
             }
         }
 
+        
+
 function updateDownload($res){
     //Added By JFR-KUTUNG - Download Limit
     $recCount = mysql_num_rows($res);
@@ -378,7 +380,7 @@ function updateDownload($res){
                                         if (($followonFund =="0") || ($followonFund=="1"))
                                         {
                                             $wherefollowonFund = " pe.FollowonFund = ".$followonFund;
-                                            $qryDealTypeTitle="Follow on Funding Status  - ";
+                                            $qryDealTypeTitle="Angel/VC Funded Status  - ";
                                         }
                                         if ($regionid> 0)
                                         {
@@ -525,7 +527,7 @@ function updateDownload($res){
 									<tr><td width=1%>Industry </td><td width=99%>$hideindustrytext</td></tr>
 									<tr><td width=1%>Status</td><td width=99%>$status</td></tr>
 									<tr><td width=1%>Status</td><td width=99%>$defunctflagtext</td></tr>
-									<tr><td width=1%>Follow on funding</td><td width=99%>$followonFundText</td></tr>
+									<tr><td width=1%>Angel/VC Funded</td><td width=99%>$followonFundText</td></tr>
 									<tr><td width=1%>Incubator</td><td width=99%>$keyword</td></tr>
 									<tr><td width=1%>Company/Sector</td><td width=99%>$companysearch</td></tr>
 									<td width=29%> $CloseTableTag</td></tr>
@@ -620,7 +622,7 @@ function updateDownload($res){
         echo "Date"."\t";
 	echo "Incubator"."\t";
 	echo "Status"."\t";
-	echo "Follow on  Funding"."\t";
+	echo "Angel/VC Funded"."\t";
 	echo "More Details"."\t";
 
 

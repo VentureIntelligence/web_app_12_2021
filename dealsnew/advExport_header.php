@@ -1747,6 +1747,8 @@
          var dataValue=JSON.parse(dataset);
          navbarTrigger=1;
          $('#mode').val('E');
+
+         
          
          if(dataValue[0].filter_type == "Exit")
          {
