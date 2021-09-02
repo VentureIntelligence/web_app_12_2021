@@ -3519,13 +3519,7 @@ include_once($refineUrl); ?>
     $exportToExcel=0;
     $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin from dealcompanies as dc,dealmembers as dm
     where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
-
-
-    
-
-    // echo "<br>---" .$TrialSql; exit;
-
-
+    //echo "<br>---" .$TrialSql;
     if($trialrs=mysql_query($TrialSql))
     {
             while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
@@ -4841,10 +4835,6 @@ try {
                     <p><?php echo $exitstatusis;?></p>
             <?php } ?> </td> 
         </tr>
-
-
-        <?php  $dealdate123 =  $myrow['dates']; ?>
-        
       <tr>
                         <?php  $dealdate123 =  $myrow['dates']; ?>
 
@@ -6369,6 +6359,8 @@ try {
     $cinno = $cinno;
     $orderby=$_POST['orderby'];
 
+    $current_date = date("Y-m-d");
+
     // Order by code
     if($orderby=='companyname')
     {
@@ -6481,7 +6473,7 @@ try {
         mama AS peinv, 
         pecompanies AS c, 
         industry AS i 
- WHERE  dealdate BETWEEN '2004-1-01' AND '2020-10-31' 
+ WHERE  dealdate BETWEEN '2004-1-01' AND '$current_date' 
         AND ac.acquirerid = peinv.acquirerid 
         AND c.industry = i.industryid 
         AND c.pecompanyid = peinv.pecompanyid 
@@ -6497,7 +6489,7 @@ try {
         ///*AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = 'SV' AND hide_pevc_flag =1 ) */
         
         $pers = mysql_query($sql);   
-           //echo $sql;    
+        //    echo $sql;     exit;
         //$FinanceAnnual = mysql_fetch_array($financialrs);
         $cont=0;$pedata = array();$totalInv=0;$totalAmount=0;$totalINRAmount=0;$hidecount=0;$hideinrcount=0;
         While($myrow=mysql_fetch_array($pers, MYSQL_BOTH)) // while process to count total deals and amount and data save in array
@@ -6567,6 +6559,9 @@ try {
                                     
                                       
                                          // Table to show the companies with count at the top
+
+                                                // echo '<pre>'; print_r($pedata); echo '</pre>';
+
                                          if(count($pedata) > 0){
                                              $testingvariable=1;
                                              ?>
@@ -7561,8 +7556,6 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <input type="hidden" name="txthideemail" value="<?php echo $emailid;?>" >
 <input type="hidden" name="company_name" value="<?php echo $companyName; ?>" >
 <input type="hidden" name="deal_date" value="<?php echo $dealdate123; ?>" > 
-<input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
-
 </form>
 <script type="text/javascript">
 
