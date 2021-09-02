@@ -109,11 +109,7 @@
                     $investor_id= $row['investor_name']  ;
 
                }else{
-<<<<<<< HEAD
-                    $sql="SELECT `InvestorId` FROM `peinvestors`";
-=======
                     $sql="SELECT `InvestorId` FROM `peinvestors` WHERE InvestorId= 5217 ";
->>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
 
                     $sqlSelResult = mysql_query($sql) or die(mysql_error());
 
@@ -213,11 +209,7 @@
    if(isset($inv_investor_id))
    {
    $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
-<<<<<<< HEAD
-//    echo $sqlquery;exit();
-=======
      //    echo $sqlquery;exit();
->>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
