@@ -244,7 +244,7 @@
 
         if($type="Investments"){
           // $sqlquery='SELECT DISTINCT inv.*
-          
+
           // FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
           // WHERE pe.PECompanyId = pec.PEcompanyId
           // AND s.StageId = pe.StageId
@@ -271,6 +271,8 @@
           AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
         }
 //    echo $sqlquery;exit();
+
+
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
