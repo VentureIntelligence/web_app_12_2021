@@ -109,7 +109,7 @@
                     $investor_id= $row['investor_name']  ;
 
                }else{
-                    $sql="SELECT `InvestorId` FROM `peinvestors`";
+                    $sql="SELECT `InvestorId` FROM `peinvestors` WHERE InvestorId= 5217 ";
 
                     $sqlSelResult = mysql_query($sql) or die(mysql_error());
 
