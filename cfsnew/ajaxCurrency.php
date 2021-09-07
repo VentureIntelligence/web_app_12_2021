@@ -5252,6 +5252,8 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
                   }
                 if($_GET['queryString']!='INR'){?>
                   <td><?php
+
+                  
                  if($yearcurrency[$year] ==''){
                   if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][EquivalentEndYear],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                  }else{
