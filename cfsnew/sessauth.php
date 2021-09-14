@@ -11,7 +11,7 @@ else
 if($_SESSION['username']==''){
 
 
-        $REQUESTURL =  'http://localhost/'.$_SERVER['REQUEST_URI'];
+        $REQUESTURL =  GLOBAL_BASE_URL.$_SERVER['REQUEST_URI'];
         setcookie('URLTOREDIRECT', $REQUESTURL); // 86400 = 1 day 
         
     
