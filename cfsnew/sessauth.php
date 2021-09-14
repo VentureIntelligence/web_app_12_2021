@@ -12,7 +12,8 @@ if($_SESSION['username']==''){
 
 
         $REQUESTURL =  'http://localhost/'.$_SERVER['REQUEST_URI'];
-        setcookie('URLTOREDIRECT', $REQUESTURL); // 86400 = 1 day
+        setcookie('URLTOREDIRECT', $REQUESTURL); // 86400 = 1 day 
+        
     
         if($_REQUEST['pe']==1){
             echo "<script language='javascript'>document.location.href='login.php?vcid=".$_REQUEST['vcid']."&pe=1'</script>";
