@@ -466,7 +466,9 @@
                      $keyword=$_POST['repDBtype'];
                      
                      $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments' and  created_by='".$dlogUserEmail."' order by id desc";
-                     //echo $nanoSql;
+
+                     // echo $nanoSql; exit;
+
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
@@ -499,6 +501,10 @@
                         <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
                              <div class='col-md-6'><button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
                          </div>
+
+
+
+
                          <div class='col-md-6'><button type="button" class="btn exportFilt text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
                         </div>
                         </div>
@@ -2044,6 +2050,9 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
+
+            console.log(dataValue);
+
          if(dataValue.length != 0)
          {
          var Type=dataValue[0].filter_type

@@ -109,7 +109,7 @@
                     $investor_id= $row['investor_name']  ;
 
                }else{
-                    $sql="SELECT `InvestorId` FROM `peinvestors` WHERE InvestorId= 5217 ";
+                    $sql="SELECT `InvestorId` FROM `peinvestors` WHERE InvestorId= 5217";
 
                     $sqlSelResult = mysql_query($sql) or die(mysql_error());
 
@@ -118,6 +118,8 @@
                          $investor_id= $row['InvestorId']  ;
                               
                     }
+
+                    // $investor_id = "";
                }
         }
 
@@ -180,11 +182,12 @@
      
      //    }
 
-
+     $investor_id = array();
+     $investor_id_array = array();
    while ($row = mysql_fetch_assoc($sqlSelResult)) {
 
           if($row['investor_name'] != ""){
-               $investor_id= $row['investor_name']  ;
+               $investor_id = $row['investor_name']  ;
 
           }else{
                $sql="SELECT `InvestorId` FROM `peinvestors`";
@@ -193,30 +196,61 @@
 
                while ($row = mysql_fetch_assoc($sqlSelResult)) {
           
-                    $investor_id= $row['InvestorId']  ;
-                         
+                    $investor_id_array[] = $row['InvestorId'];
                }
+               // echo '<pre>'; print_r($investor_id); echo '</pre>'; exit;
           }
+          
+     }   
+     if(count($investor_id_array)==0)
+     {
+          $inv_investor_id=explode(',',$investor_id);
+     }
+     else{
+          $inv_investor_id = $investor_id_array;
      }
 
-
-
-
-   
-   $inv_investor_id=explode(',',$investor_id);
+     //    echo '<pre>'; print_r($inv_investor_id); echo '</pre>'; exit;
    
    $InvestorArray=array();
    if(isset($inv_investor_id))
    {
-   $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
+
+          if(count($investor_id_array)==0)
+
+          {
+               $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
+          }else{
+               $sqlquery = 'SELECT * FROM `peinvestors` WHERE 1';
+          }
+   
 //    echo $sqlquery;exit();
+
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
+
+//    echo '<pre>'; print_r($sqllResultquery); echo '</pre>'; exit;
+
+          echo 'Starting of While<br />';
+            
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
+
+
+     // echo '<pre>'; print_r($row); echo '</pre>'; 
+
    
-   array_push($InvestorArray,$row);
+     array_push($InvestorArray,$row);
    }
-   echo json_encode($InvestorArray);exit();
+
+    echo 'Ending of While<br />';
+
+     echo '<pre>'; print_r($InvestorArray); echo '</pre>'; 
+
+   echo json_encode($InvestorArray);
+
+
+   
+   exit();
    
    
    }
