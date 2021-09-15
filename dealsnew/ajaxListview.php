@@ -134,6 +134,7 @@ else
     </thead>
     <tbody id="movies">
     <?php
+    
     if ($company_cnt>0)
     {
         $hidecount=0; 
@@ -141,7 +142,7 @@ else
         mysql_data_seek($companyrs,0);
         //Code to add PREV /NEXT
         $totaldet=0;
-        
+        $sum_of_spv = 0;
         // $i = 1;
         while($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
         {
@@ -343,26 +344,21 @@ else
 
     <?php
 
-                        $sum_of_spv = $sum_of_spv  + $myrow["SPV"];
+            $sum_of_spv = $sum_of_spv  + $myrow["SPV"];
+
+
+            // echo $myrow["SPV"].'<br />';
+            
 
 
         }
 
-                    ?>
+        // echo $sum_of_spv.'<br />'; 
 
-                    <tr>
-                        <?php
-         
-
-                        if($sum_of_spv == 0)
-                        {
-                             ?>  <td colspan = 7 > <center> <?php  echo "All records are Aggregrate Data"; ?> </center></td> <?php
-                        }else{
-
-                        } ?>
-
-                    </tr>
-                    <?php
+        if($sum_of_spv == 0 )
+        {?>
+            <tr><td colspan = 7 > <center> <?php  echo "All records are Aggregrate Data"; ?> </center></td> </tr><?php
+        }else{}
 
     }
 ?>

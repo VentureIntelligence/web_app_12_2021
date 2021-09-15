@@ -2987,7 +2987,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                                     JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
                                                     JOIN industry AS i ON pec.industry = i.industryid
                                                     JOIN stage AS s ON s.StageId=pe.StageId $increg ".$joinsectortable. " WHERE " . $valuationsql . "";
-        //echo $companysql; 
+        // echo $companysql; 
 
 
     if ($keyword != '') {
@@ -3412,7 +3412,13 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
         $companysql = $companysql . $wheresyndication;
     }
     $popup_search = 1;
-                                   //echo "finalquery:".$companysql;
+
+
+
+    //    echo "Regionfinalquery:".$companysql;
+
+
+
 } else {
     echo "<br> INVALID DATES GIVEN ";
     $fetchRecords = false;
