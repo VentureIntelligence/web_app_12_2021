@@ -136,24 +136,32 @@ else
     <?php
     if ($company_cnt>0)
     {
-        $hidecount=0;  $hideBracketRow = false; 
+        $hidecount=0; 
+        $hideBracketRow = false; 
         mysql_data_seek($companyrs,0);
         //Code to add PREV /NEXT
         $totaldet=0;
         
+        // $i = 1;
         while($myrow=mysql_fetch_array($companyrs, MYSQL_BOTH))
         {
+            // echo '<pre>'; print_r($myrow['PECompanyId']); echo '</pre>';
+
+            // echo $i;
+
+            // $i++;
+
             $hideFlagset = 0;
             //SPV changed to AggHide
             $amtTobeDeductedforAggHide=0;
             $hidecount=0;
             $prd=$myrow["dealperiod"];
 
-            // if ($myrow["AggHide"] == 1 || $myrow["SPV"] == 1) {
-            //     $hideBracketRow = true;
-            // } else {
-            //     $hideBracketRow = false;
-            // }
+            if ($myrow["AggHide"] == 1 || $myrow["SPV"] == 1) {
+                $hideBracketRow = true;
+            } else {
+                $hideBracketRow = false;
+            }
 
             
             if($myrow["AggHide"]==1)
@@ -303,6 +311,15 @@ else
 		                                    
                                   
                     <tr class="details_link <?php echo $rowClass; ?>" <?php if ($hideBracketRow == true && $listallcompany != 1) {echo "style='display:none';";}?> valueId="<?php echo $myrow["PEId"]; ?>/<?php echo $vcflagValue; ?>/<?php echo $searchallfield; ?>">
+
+                    <?php
+
+                        // if($myrow["SPV"] == 0)
+                        // {
+                        //     echo "All records are Aggregrate Data";
+                        // } 
+
+                    ?>
                                          
                     <td><input type="checkbox" data-deal-amount="<?php echo $myrow[ 'amount' ]; ?>" data-deal-inramount="<?php echo $myrow["Amount_INR"]; ?>" data-hide-flag="<?php echo $hideFlagset; ?>" data-company-id="<?php echo $myrow[ 'PECompanyId' ]; ?>" class="pe_checkbox" <?php echo $checked; ?> value="<?php echo $myrow["PEId"];?>" /></td>
                     <?php } 
@@ -323,8 +340,30 @@ else
                         <td style="width: 8%; text-align: right;"><a class="postlink" href="dealdetails.php?value=<?php echo $myrow["PEId"];?>/<?php echo $vcflagValue;?>/<?php echo $searchallfield;?> "><?php echo $hideamount; ?>&nbsp;</a></td>
 
                 </tr>
+
     <?php
+
+                        $sum_of_spv = $sum_of_spv  + $myrow["SPV"];
+
+
         }
+
+                    ?>
+
+                    <tr>
+                        <?php
+         
+
+                        if($sum_of_spv == 0)
+                        {
+                             ?>  <td colspan = 7 > <center> <?php  echo "All records are Aggregrate Data"; ?> </center></td> <?php
+                        }else{
+
+                        } ?>
+
+                    </tr>
+                    <?php
+
     }
 ?>
     </tbody>
