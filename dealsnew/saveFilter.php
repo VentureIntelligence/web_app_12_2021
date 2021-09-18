@@ -225,6 +225,8 @@
                $sqlquery='SELECT * FROM `saved_filter` WHERE id="'. $filterNameId.'"';
           }
    
+
+          
 //    echo $sqlquery;exit();
 
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
