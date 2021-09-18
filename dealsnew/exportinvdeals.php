@@ -189,7 +189,6 @@ $whereexitstatus = "";
 $tsjtitle = "� TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE.";
 $exportstatusdisplay = "Pls Note : Excel Export is available for transactions from Jan.2004 only, as part of search results. You can export transactions prior  to 2004 on a deal by deal basis from the deal details popup.";
-
 //echo "<bR>&&&&".$searchtitle;
 if ($searchtitle == 0) {
     $addVCFlagqry = " and pec.industry !=15 ";
@@ -2851,6 +2850,7 @@ if ($subsector != '' && (count($subsector) > 0)) {
     $subsectorvalue = implode(',',$subsector); 
 }
 
+<<<<<<< HEAD
 
 // Round Value
 if (count($round) > 0) {
@@ -2914,6 +2914,10 @@ if ($getstage != '') {
     $getindusvalue = $getindus;
 }
 //echo "<br>*************".$stagevaluetext;
+=======
+$rowArray=$expval;
+// end T960
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
 
 //valuations
 // if ($boolvaluations == true) {
@@ -2927,11 +2931,46 @@ if ($getstage != '') {
 //     }
 //     //$valuationsql.= trim($valuationsql," and ");
     
+<<<<<<< HEAD
 //     /*if ($count == 1) {$valuationsql = "pe.$valuations[0]!=0 AND ";} else if ($count == 2) {$valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0   AND ";} else if ($count == 3) {$valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0  AND  pe.$valuations[2]!=0  AND ";} else if ($count == 4) {$valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0  AND  pe.$valuations[2]!=0  AND   pe.$valuations[3]!=0  AND ";}*/
 // //            $valuattext =substr_replace($valuattext, '', 0,1);
 //     //echo $valuationsql; exit();
 // } else { $valuationsql = '';}
 //valuations
+=======
+ if (isset($w) && ($w==1))
+ {
+         $file_type = "msword";
+         $file_ending = "doc";
+ }
+ else
+ {
+         $file_type = "vnd.ms-excel";
+         $file_ending = "xls";
+ }
+ 
+//header info for browser: determines file type ('.doc' or '.xls')
+ 
+header("Content-Type: application/$file_type");
+ header("Content-Disposition: attachment; filename=peinv_deals.$file_ending");
+ header("Pragma: no-cache");
+ header("Expires: 0");
+ if ($Use_Title == 1)
+ {
+     echo("$title\n");
+ }
+
+//  echo ("$tsjtitle");
+     /*echo ("$tsjtitle");
+
+ print("\n");
+ print("\n");
+ echo "Target in () indicates sale of asset rather than the company. Target in {} indicates a minority stake acquisition.";
+ print("\n");
+ print("\n");*/
+ 
+ //define separator (defines columns in excel & tabs in word)
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
  
 if ($companyType == "L") {
     $companyTypeDisplay = "Listed";
@@ -4665,11 +4704,8 @@ $searchString2 = strtolower($searchString2);
 $dbTypeSV='PE';
 
 $tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
-$tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
-
-// echo $tsjtitle;
-
+$tranchedisplay = "Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
 $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
 /** Error reporting */
@@ -4777,6 +4813,12 @@ $col = 0;
     
     $result2 = mysql_query($companiessql) or die( mysql_error() );
     $row = mysql_fetch_row($result2);
+<<<<<<< HEAD
+=======
+
+
+    // echo date_format($row[15],"M-y");
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     
     if ($row[35] == 1) {     //Agghide
         //echo "<br>***".$row[7];
@@ -5122,20 +5164,32 @@ $col = 0;
     {
         $schema_insert .= $row[13].$sep;
     }
-    if($valInfo == 0){
     if(in_array("Stake (%)", $rowArray))
     {
+<<<<<<< HEAD
         $schema_insert .= $hidestake.$sep;
 <<<<<<< HEAD
     }
 =======
 >>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
     }
+=======
+        if($valInfo == 0){
+
+            $schema_insert .= $hidestake.$sep;
+        }else{
+            $schema_insert .= ''.$sep;
+        }
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     }
-    // Date
     if(in_array("Date", $rowArray))
     {
+<<<<<<< HEAD
         $schema_insert .= $row[15].$sep;
+=======
+        $date_format = date("M-Y",strtotime($row[15]));
+        $schema_insert .= $date_format.$sep;
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     }
     if(in_array("Exit Status", $rowArray))
     {
@@ -5333,25 +5387,44 @@ $col = 0;
 }exit();
 =======
 }
+<<<<<<< HEAD
 print("\n");
+=======
+
+
+    print("\n");
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
     print("\n");
     print("Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.");
     exit();
+<<<<<<< HEAD
 >>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
+=======
+
+// exit();
+
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
 print("\n");
     print("\n");
     print("\n");
     print("\n");
     echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
     print("\n");
+<<<<<<< HEAD
     print("\n");
 <<<<<<< HEAD
     echo "Target in () indicates sale of asset rather than the company. Target in {} indicates a minority stake acquisition.";
 =======
     echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 >>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
+=======
+    print("\n"); 
+    echo ( html_entity_decode( $tranchedisplay, ENT_COMPAT, 'ISO-8859-1' ) );
+
+    // echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
+>>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     print("\n");
     print("\n");
 // // T960

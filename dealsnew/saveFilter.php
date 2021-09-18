@@ -279,7 +279,6 @@
 
         if($type="Investments"){
           // $sqlquery='SELECT DISTINCT inv.*
-
           // FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
           // WHERE pe.PECompanyId = pec.PEcompanyId
           // AND s.StageId = pe.StageId

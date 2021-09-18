@@ -44,7 +44,6 @@ $sesID=session_id();
                $sqlIns = "INSERT INTO `user_downloads` (`user_id`,`emailId`,`downloadDate`,`dbType`,`recDownloaded`) VALUES ('0','".$dlogUserEmail."','".$today."','PE','".$recCount."')";
                mysql_query($sqlIns) or die(mysql_error());
            }
-           
         }
         $submitemail=$_POST['txthideemail'];
 					$PEId=$_POST['txthidePEId'];
@@ -53,7 +52,7 @@ $sesID=session_id();
 					$SelCompRef=$PEId;
                     $valInfo=$_POST['valInfo'];
         $sql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business,
-				amount, round, s.Stage, stakepercentage, DATE_FORMAT( dates, '%M-%Y' ) as dt, pec.website, pec.city,
+				amount, round, s.Stage, stakepercentage, dates as dt, pec.website, pec.city,
 				r.Region,pe.PEId,comment,MoreInfor,hideamount,hidestake,
 				pe.InvestorType, its.InvestorTypeName,pe.StageId,Link,Valuation,FinLink ,AggHide,
 				Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,listing_status,Exit_Status,SPV,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,Amount_INR, Company_Valuation_pre, Revenue_Multiple_pre, EBITDA_Multiple_pre, PAT_Multiple_pre, Company_Valuation_EV, Revenue_Multiple_EV, EBITDA_Multiple_EV, PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo, pec.Telephone,pec.Email,pec.RegionId
@@ -129,11 +128,17 @@ $sesID=session_id();
 
         		
 
+                
+
+                $originalDate = $deal_date;
+                $newDate = date("M-y", strtotime($originalDate));
+
                 $result = mysql_query($sql);
-                 $result1 = mysql_query($sql1);
+                $result1 = mysql_query($sql1);
                 updateDownload($result);
-                $filetitle=$company_name."-".$deal_date;
+                $filetitle=$company_name."-".$newDate;
                
+                
                 //echo "<Br>".$advcompanysql;
 
                 $advinvestorssql="select advinv.PEId,advinv.CIAId,cia.cianame,cia.AdvisorType from peinvestments_advisorinvestors as advinv,
@@ -444,7 +449,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             }
             $objPHPExcel->setActiveSheetIndex(0)
 
-            ->setCellValue('L'.$index, $row[9])
+            ->setCellValue('L'.$index, date("M-Y",strtotime($row[9])))
             ->setCellValue('M'.$index, $exitstatusis)
             ->setCellValue('N'.$index, $webdisplay)
             ->setCellValue('O'.$index, $row[49])

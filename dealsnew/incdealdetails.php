@@ -575,7 +575,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
             <li><a class="postlink"  href="incindex.php"  id="icon-grid-view"><i></i> List  View</a></li>
             <li class="active"><a id="icon-detailed-view" class="postlink" href="incdealdetails.php?value=<?php echo $SelCompRef;?>/<?php echo $flagvalue;?>/<?php echo $searchstring;?>"><i></i> Detail View</a></li> 
             </ul></div> 
-    <div class="lb" id="popup-box" style="top:100px;">
+    <div class="lb" id="popup-box">
 	<div class="title">Send this to your Colleague</div>
         <form>
             <div class="entry">
@@ -680,7 +680,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
                        <td colspan="2"><h4>Deal Date</h4> <p><?php echo $yearfded;?></p>	</td></tr>
                                  <?php } ?>
                         
-                        <tr><?php if($myrow["Status"]!="") { ?><td ><h4>Status</h4> <p><?php echo $myrow["Status"] ;?></p></td><?php } if($followonFunding!="") { ?><td ><h4>Angel/VC Funded</h4> <p><?php echo $ing;?></p></td> <?php } ?></tr>
+                        <tr><?php if($myrow["Status"]!="") { ?><td ><h4>Status</h4> <p><?php echo $myrow["Status"] ;?></p></td><?php } if($followonFunding!="") { ?><td ><h4>Angel/VC Funded </h4> <p><?php echo $followonFunding;?> </p></td> <?php } ?></tr>
                        
                      
                     </table>
@@ -704,7 +704,7 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 <?php include('dealcompanydetails.php'); ?>   
 </td></tr></tbody>
 
-</table>
+</table> 
  
 </div>
     </form>
@@ -1375,19 +1375,18 @@ function writeSql_for_no_records($sqlqry,$mailid)
             }
             $dbregionlink.close();
     }
-    function curPageURL() {
-        $URL = 'http';
-        $portArray = array( '80', '443' );
-        if ($_SERVER["HTTPS"] == "on") {$URL .= "s";}
-        $URL .= "://";
-        if (!in_array( $_SERVER["SERVER_PORT"], $portArray)) {
-         $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-        } else {
-         $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-        }
-        $pageURL=$URL."&scr=EMAIL";
-        return $pageURL;
-       }
+function curPageURL() {
+ $URL = 'http';
+ if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ $URL .= "://";
+ if ($_SERVER["SERVER_PORT"] != "80") {
+  $URL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ } else {
+  $URL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ }
+ $pageURL=$URL."&scr=EMAIL";
+ return $pageURL;
+}
 mysql_close();
 ?>
 <script type="text/javascript" >
