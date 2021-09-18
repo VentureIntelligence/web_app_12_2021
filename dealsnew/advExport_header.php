@@ -466,7 +466,9 @@
                      $keyword=$_POST['repDBtype'];
                      
                      $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments' and  created_by='".$dlogUserEmail."' order by id desc";
-                     //echo $nanoSql;
+
+                     // echo $nanoSql; exit;
+
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
@@ -499,6 +501,10 @@
                         <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
                              <div class='col-md-6'><button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
                          </div>
+
+
+
+
                          <div class='col-md-6'><button type="button" class="btn exportFilt text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
                         </div>
                         </div>
@@ -2044,6 +2050,9 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
+
+            console.log(dataValue);
+
          if(dataValue.length != 0)
          {
          var Type=dataValue[0].filter_type
@@ -2096,19 +2105,42 @@
          $('#year1').val(dataValue[0].start_year);
          $('#year2').val(dataValue[0].end_year)   
          }
+        
+
          if(dataValue.length != 0)
          {
+            // alert('hi');
          var div='';
-         if(dataValue[0].Investor != "")
+         if(dataValue[0].Investor != "" && dataValue[0].Investor != undefined)
          {
-         for(i=0;i<dataValue.length;i++)
-         {
-         div +=dataValue[i].InvestorId
-         if(i<(dataValue.length-1))
-         {
-         div +=',' 
-         } 
-         }
+            // alert('test');
+
+            for(i=0;i<dataValue.length;i++)
+            {
+            div +=dataValue[i].InvestorId
+            if(i<(dataValue.length-1))
+            {
+            div +=',' 
+            } 
+            }
+         }else{
+
+            if(dataValue[0].filter_type =="Exit")
+            {
+               div=$('#expinvestorauto_sug').val();
+               $('#txthideinvestor').val(div);
+
+            }else{
+
+               div=$('#investorauto_sug').val();
+               $('#investorvalue').val(div);
+
+            }
+
+            
+
+            // alert(investorval);
+
          }
          
          
@@ -2455,6 +2487,9 @@
          
          }
          $(document).on('click','.exportimpshowdealsbt',function(){
+
+               // alert();
+
             $('#investorauto_sug').tokenInput("clear");
          $('#expinvestorauto_sug').tokenInput("clear");
             $('#file').val('')
@@ -2853,6 +2888,9 @@
          $('#filter_desc').val(' ')
          var investorval=$('#investorauto_sug').val();
          $('#investorvalue').val(investorval);
+
+         // alert(investorval);
+
          var Industry=$('#sltindustry').val();
          $('#industry').val(Industry);
          var city=$('#citysearch').val();
