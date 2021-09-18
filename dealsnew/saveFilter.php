@@ -221,7 +221,8 @@
           {
                $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
           }else{
-               $sqlquery = 'SELECT * FROM `peinvestors` WHERE 1';
+               // $sqlquery = 'SELECT * FROM `peinvestors` WHERE 1';
+               $sqlquery='SELECT * FROM `saved_filter` WHERE id="'. $filterNameId.'"';
           }
    
 //    echo $sqlquery;exit();
@@ -230,7 +231,7 @@
 
 //    echo '<pre>'; print_r($sqllResultquery); echo '</pre>'; exit;
 
-          echo 'Starting of While<br />';
+          // echo 'Starting of While<br />';
             
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
@@ -242,9 +243,9 @@
      array_push($InvestorArray,$row);
    }
 
-    echo 'Ending of While<br />';
+     //     echo 'Ending of While<br />';
 
-     echo '<pre>'; print_r($InvestorArray); echo '</pre>'; 
+     // echo '<pre>'; print_r($InvestorArray); echo '</pre>'; 
 
    echo json_encode($InvestorArray);
 

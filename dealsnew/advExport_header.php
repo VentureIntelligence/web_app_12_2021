@@ -2105,19 +2105,42 @@
          $('#year1').val(dataValue[0].start_year);
          $('#year2').val(dataValue[0].end_year)   
          }
+        
+
          if(dataValue.length != 0)
          {
+            // alert('hi');
          var div='';
-         if(dataValue[0].Investor != "")
+         if(dataValue[0].Investor != "" && dataValue[0].Investor != undefined)
          {
-         for(i=0;i<dataValue.length;i++)
-         {
-         div +=dataValue[i].InvestorId
-         if(i<(dataValue.length-1))
-         {
-         div +=',' 
-         } 
-         }
+            // alert('test');
+
+            for(i=0;i<dataValue.length;i++)
+            {
+            div +=dataValue[i].InvestorId
+            if(i<(dataValue.length-1))
+            {
+            div +=',' 
+            } 
+            }
+         }else{
+
+            if(dataValue[0].filter_type =="Exit")
+            {
+               div=$('#expinvestorauto_sug').val();
+               $('#txthideinvestor').val(div);
+
+            }else{
+
+               div=$('#investorauto_sug').val();
+               $('#investorvalue').val(div);
+
+            }
+
+            
+
+            // alert(investorval);
+
          }
          
          
@@ -2865,6 +2888,9 @@
          $('#filter_desc').val(' ')
          var investorval=$('#investorauto_sug').val();
          $('#investorvalue').val(investorval);
+
+         // alert(investorval);
+
          var Industry=$('#sltindustry').val();
          $('#industry').val(Industry);
          var city=$('#citysearch').val();
