@@ -12,7 +12,10 @@ include_once('simple_html_dom.php');
 
 //Data from MCA website 
 try{ 
+    // $urltopost = "https://www.mca.gov.in/mcafoportal/companyLLPMasterData.do";
+
     $urltopost = "https://www.mca.gov.in/mcafoportal/companyLLPMasterData.do";
+
     $datatopost = array ("companyID" => $cin);
     $headerArray = array( 
         "Accept-Encoding" => "gzip, deflate", 
