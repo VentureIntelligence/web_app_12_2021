@@ -31,7 +31,10 @@
 		$hideamouttoUpdate=0;
 
          $MandAIdtoUpdate = $_POST['txtMAMAId'];
-     //    echo "<br>--------" .$MandAIdtoUpdate;
+		 $editcompanygroup = $_POST['editcompanygroup'];
+
+
+        // echo "<br>--------" .$editcompanygroup; exit;
 
          $industryIdtoUpdate =$_POST['txtindustryId'];
     	 $companyIdtoUpdate = $_POST['txtcompanyid'];
@@ -269,7 +272,7 @@
 			    $modifieddate=date("Y-m-d")." ".date("H:i:s");
 			    if($existingfile!="")
 			    {
-				$UpdateInvestmentSql="update mama set DealDate='$fulldate',Amount=$dealSizetoUpadte,Stake=$staketoUpdate,AcquirerId=$NewacquirerIdtoUpdate,MADealTypeID=$dealtypetoUpdate,
+				$UpdateInvestmentSql="update mama set DealDate='$fulldate', company_group='$editcompanygroup', Amount=$dealSizetoUpadte,Stake=$staketoUpdate,AcquirerId=$NewacquirerIdtoUpdate,MADealTypeID=$dealtypetoUpdate,
 				Comment='$commenttoUpdate',MoreInfor='$moreInfortoUpdate',Asset=$assetflag,ModifiedDate='$modifieddate',
 				Validation='$validationtoUpdate',hideamount=$hideamountflag,Link='$linktoUpdate',Valuation='$valuation',FinLink='$finlink',
 				Company_Valuation=$company_valuation,Revenue_Multiple=$revenue_multiple,
@@ -278,7 +281,7 @@
 			    }
 			    else
 			    {
-				$UpdateInvestmentSql="update mama set DealDate='$fulldate',Amount=$dealSizetoUpadte,Stake=$staketoUpdate,AcquirerId=$NewacquirerIdtoUpdate,MADealTypeID=$dealtypetoUpdate,
+				$UpdateInvestmentSql="update mama set DealDate='$fulldate', company_group='$editcompanygroup',Amount=$dealSizetoUpadte,Stake=$staketoUpdate,AcquirerId=$NewacquirerIdtoUpdate,MADealTypeID=$dealtypetoUpdate,
 				Comment='$commenttoUpdate',MoreInfor='$moreInfortoUpdate',Asset=$assetflag,ModifiedDate='$modifieddate',
 				Validation='$validationtoUpdate',hideamount=$hideamountflag,Link='$linktoUpdate',uploadfilename='$filename',source='$sourcename',
 				Valuation='$valuation',FinLink='$finlink',
@@ -286,10 +289,14 @@
                                         EBITDA_Multiple=$ebitda_mutliple,PAT_Multiple=$pat_mutliple, price_to_book=$price_to_book, book_value_per_share=$book_value_per_share, price_per_share=$price_per_share, target_listing_status='$target_listingstatusvalue',acquirer_listing_status='$acquirer_listingstatusvalue',AggHide=$hideAggregatetoUpdate,Revenue=$revenue,EBITDA=$ebitda,PAT=$pat
                                  where MAMAId=$MandAIdtoUpdate";
 			    }
+
+				// echo "<br>----" .$UpdateInvestmentSql;  exit;
+
+
 					if($updatersinvestment=mysql_query($UpdateInvestmentSql))
 					{
 
-						//echo "<br>----" .$UpdateInvestmentSql;
+						// echo "<br>----" .$UpdateInvestmentSql;  exit;
 						echo "<br><br>DEAL UPDATED";
 
 						$idarray = array();
