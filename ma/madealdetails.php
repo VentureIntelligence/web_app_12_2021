@@ -630,11 +630,11 @@
                 }
         }
 					
-  	$sql="SELECT pe.PECompanyId, pe.price_to_book, pe.book_value_per_share, pe.price_per_share, pec.companyname,pe.Stake, pec.industry as industryId, i.industry, pec.sector_business,
+  	$sql="SELECT pe.PECompanyId, pe.company_group, pe.price_to_book, pe.book_value_per_share, pe.price_per_share, pec.companyname,pe.Stake, pec.industry as industryId, i.industry, pec.sector_business,
 		pec.countryid as TargetCountryId,pec.city as TargetCity,
 		Amount, DATE_FORMAT( DealDate, '%b-%Y' ) as dt,DATE_FORMAT(ModifiedDate,'%m/%d/%Y %H:%i:%s') as modifieddate,
 		pec.website,c.country as TargetCountry, pe.MAMAId,pe.Comment,MoreInfor,pe.MADealTypeId,
-		dt.MADealType,pe.AcquirerId,ac.Acquirer,pe.Asset,pe.hideamount,pe.Link,
+		dt.MADealType,pe.AcquirerId,ac.Acquirer,ac.Acqgroup,pe.Asset,pe.hideamount,pe.Link,
 		pe.uploadfilename,pe.source,pe.Valuation,pe.FinLink,
 		Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,Revenue,EBITDA,PAT
 		 FROM mama AS pe, industry AS i, pecompanies AS pec,
@@ -690,6 +690,9 @@
                         
                     <?php if($myrow=mysql_fetch_array($companyrs,MYSQL_BOTH))
                     {
+
+                        // echo '<pre>'; print_r($myrow); echo '</pre>';
+
                         
                         $uploadname=$myrow["uploadfilename"];
 			$currentdir=getcwd();
@@ -1392,6 +1395,11 @@ padding: 4px 10px 4px 35px !important;
 
                                                 
                       </tr>
+
+                      <tr>  
+                            <td><h4>Company Group</h4> </td>
+                            <td class=""><p><?php if($myrow["company_group"]!=""){  echo $myrow["company_group"];}else{echo "-";}?></p></td>                              
+                      </tr>
                       <tr>  
                             <td><h4>Company Type</h4> </td>
                             <td class=""><p><?php if($target_listing_stauts_display!=""){  echo $target_listing_stauts_display;}else{echo "-";}?></p></td>                              
@@ -1545,6 +1553,14 @@ padding: 4px 10px 4px 35px !important;
                         </td>
                                                 
                       </tr>
+
+                      <tr>  
+                            <td><h4>Acquirer Group</h4> </td>
+                            <td class=""><p><?php  if($myrow["Acqgroup"]!=""){  echo $myrow["Acqgroup"];}else{echo "-";} ?></p></td>                              
+                      </tr>
+
+
+
                       <tr>  
                             <td><h4>Acquirer Company Type</h4> </td>
                             <td class=""><p><?php if($acquirer_listing_stauts_display!=""){  echo $acquirer_listing_stauts_display;}else{echo "";}?></p></td>                              

@@ -84,6 +84,8 @@
 		}
 		$strIndustry =substr_replace($strIndustry, '', 0,1);
 	}
+
+    // echo $sql; exit;
 		
 		if ($companyrs = mysql_query($sql))
 		{  ?>

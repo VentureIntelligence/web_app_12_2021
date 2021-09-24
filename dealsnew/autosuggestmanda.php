@@ -635,7 +635,8 @@ function getAllAdvisor($adtype,$peorvcflg,$VCFlagValue,$searchTerm)
 				" AND c.PECompanyId = peinv.PECompanyId
 				AND adac.CIAId = cia.CIAID and AdvisorType='".$adtype ."'
 				AND adac.PEId = peinv.PEId and cia.Cianame like '".$searchTerm."%') order by Cianame	";
-			//echo "<Br>PE - VC---" .$advisorsql;
+
+			// echo "<Br>PE - VC---" .$advisorsql;
 		}
 
 		if($peorvcflg==2) //manda
@@ -738,5 +739,7 @@ function getAllAdvisor($adtype,$peorvcflg,$VCFlagValue,$searchTerm)
 		}
 //                echo "<Br>M&A---" .$advisorsql;
                 return $advisorsql;
+
+                // echo $advisorsql; exit;
     }
     ?>

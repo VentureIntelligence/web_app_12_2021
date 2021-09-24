@@ -384,13 +384,27 @@ function addMorefundRow(fundval,event){
 <?php
 		}
 ?>
+<?php
+    $createddate  = date("Y-m-d");
+    $createdby = $_SESSION['loginusername'];
+?>
+<input type="text" name = "created_by" id = "created_by"  class = "created_by" value = "<?php echo $createdby; ?>">
+<input type="text" name = "created_at" id = "created_at" class = "created_at" value = "<?php echo $createddate; ?>">
 </table>
     <table width=60% align=left cellpadding=1 cellspacing=0 style="margin-top: 10px;">
 <tr><td align=right><input type="button" value="Add More" name="addmore" onClick="addMoreRow();" > </td>
 <td align=left><input type="button" value="Insert Investor(s)" name="insertExitInvestors"  class="insertInvestors" > </td>
     <td align=center>&nbsp;</td>
 </tr>
+<?php
+    $createddate  = date("Y-m-d");
+    $createdby = $_SESSION['loginusername'];
+    // echo $createddate ; 
+    // exit;
+?>
+
 </table>
+
 </form>
 </body></html>
 
@@ -745,6 +759,12 @@ $('#mutiple_investor tr').each(function(a,b){
 var cele = $(this);
 var investor_id = cele.find('.txtinvestor').attr('data-invid');
 var investor_value = cele.find('.txtinvestor').val();
+
+var created_at = $('.created_at').val();
+var created_by = $('.created_by').val();
+
+// alert(created_at);
+
 var amountm = cele.find(".txtReturnMultiple").val();
 var amountinr = cele.find('.txtReturnMultipleINR').val();
 var hideamount = cele.find('.txthideamount').is(":checked") ? 1 : 0 ;
@@ -789,7 +809,12 @@ if( typeof investor_value != 'undefined'){
         invset['existinvestor'] = existinvestor;
         invset['investorOrder'] = investorOrder;
         invset['returnmultiple'] = returnmultiple;
+        invset['created_at'] = created_at;
+        invset['created_by'] = created_by;
         invset['fund'] = cur_fund;
+
+       
+
 
      invsestors.push(invset);
 }

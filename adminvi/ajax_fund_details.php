@@ -32,6 +32,8 @@
             // if ($type=="add"){
                 foreach ($jsonData as $index => $row) {
                     $data=$row;
+
+                    // echo '<pre>'; print_r($data); echo '</pre>';   exit;
                     
                     $investor= $data->{'investor_value'};
                     $fundnameval = $data->{'fund'};
@@ -46,6 +48,12 @@
                     $invMoreInfo = $data->{'returnmultiple'};
                     $investorOrder = $data->{'investorOrder'};
                     $existinvestor = $data->{'existinvestor'};
+
+                   $createdAt = $data->{'created_at'};
+                   $createdBy = $data->{'created_by'};
+
+
+
                    if($investor !=""){
                        
                     foreach($fundnameval as $index => $rowval) {
@@ -56,7 +64,7 @@
                         {
                             $fundname=$fundname1;
                         }
-                        $investorIdval=return_insert_get_Investor($investor);  
+                        $investorIdval=return_insert_get_Investor($investor,$createdAt,$createdBy);  
                         $investorId=return_insert_get_Investor_edit_update($investor,$investorIdval);
                     
                         if($fundname!=""){
@@ -73,7 +81,7 @@
                     if($investorId !=''){
                         $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$peid,$investorId,$invReturnMultiple,$invReturnMultipleINR,$invHideAmount,$invexp_dp,$invMoreInfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid,$dateperiod);
                     }else{
-                        $investorId=return_insert_get_Investor($investor);
+                        $investorId=return_insert_get_Investor($investor,$createdAt,$createdBy);
                         if($investorId !=''){
                             $ciaIdToInsert=insert_Investment_Investors($ipo_mandaflag,$peid,$investorId,$invReturnMultiple,$invReturnMultipleINR,$invHideAmount,$invexp_dp,$invMoreInfo,$investorOrder,$leadinvestor,$newinvestor,$existinvestor,$companyid,$dateperiod);
                         }
@@ -88,24 +96,27 @@
         } 
                
     }
-    function return_insert_get_Investor($investor)
+    function return_insert_get_Investor($investor,$createdAt,$createdBy)
 	{
         
 		$dblink= new dbInvestments();
 		$investor=trim($investor);
 		$getInvestorIdSql = "select InvestorId from peinvestors where Investor = '$investor'";
-		//echo "<br>select--" .$getInvestorIdSql;
+		// echo "<br>select--" .$getInvestorIdSql;
 		if ($rsgetInvestorId = mysql_query($getInvestorIdSql))
 		{
 			$investor_cnt=mysql_num_rows($rsgetInvestorId);
-			//echo "<br>Investor count-- " .$investor_cnt;
+			// echo "<br>Investor count-- " .$investor_cnt;
 			if ($investor_cnt==0)
 			{
 					//insert acquirer
-					$insAcquirerSql="insert into peinvestors(Investor) values('$investor')";
+					$insAcquirerSql="insert into peinvestors(Investor,created_by,created_at) values('$investor','$createdAt','$createdBy')";
+
+                    // echo $insAcquirerSql; exit;
+
 					if($rsInsAcquirer = mysql_query($insAcquirerSql))
 					{
-                                            $InvestorId = mysql_insert_id();
+                        $InvestorId = mysql_insert_id();
 						return $InvestorId;
 					}
 			}
