@@ -2834,10 +2834,10 @@ updateDownload($result);
  
 //header info for browser: determines file type ('.doc' or '.xls')
  
-header("Content-Type: application/$file_type");
- header("Content-Disposition: attachment; filename=peinv_deals.$file_ending");
- header("Pragma: no-cache");
- header("Expires: 0");
+// header("Content-Type: application/$file_type");
+//  header("Content-Disposition: attachment; filename=peinv_deals.$file_ending");
+//  header("Pragma: no-cache");
+//  header("Expires: 0");
  if ($Use_Title == 1)
  {
      echo("$title\n");
@@ -3166,14 +3166,15 @@ $col = 0;
 
             
 
-            // echo $companiessql; exit;
+            // echo $companiessql;
+            //   exit;
 
 
     
     $result2 = mysql_query($companiessql) or die( mysql_error() );
 
 
-    // echo '<pre>'; print_r($result2); echo '</pre>'; exit;
+    // echo '<pre>'; print_r($result2); echo '</pre>';
 
     $row = mysql_fetch_row($result2);
 
@@ -3290,6 +3291,8 @@ $col = 0;
 
     $advinvestorssql = "select advinv.PEId,advinv.CIAId,cia.cianame,cia.AdvisorType from peinvestments_advisorinvestors as advinv,
 	advisor_cias as cia where advinv.PEId=$PEId and advinv.CIAId=cia.CIAId";
+
+    // echo $advinvestorssql; exit;
 
     if ($investorrs = mysql_query($investorSql) or die(mysql_error())) {
 
@@ -3583,18 +3586,29 @@ $col = 0;
     if(in_array("Advisor-Company", $rowArray))
     {
         $schema_insert .= $advisorCompanyString.$sep;
+    }else{
+        $schema_insert .= '-';
     }
     if(in_array("Advisor-Investors", $rowArray))
     {
         $schema_insert .= $advisorInvestorString.$sep;
     }
+    else{
+        $schema_insert .= '-';
+    }
     if(in_array("More Details", $rowArray))
     {
         $schema_insert .= $resmoreinfo.$sep;
     }
+    else{
+        $schema_insert .= '-';
+    }
     if(in_array("Link", $rowArray))
     {
         $schema_insert .= trim($row[24]).$sep;
+    }
+    else{
+        $schema_insert .= '-';
     }
     if($valInfo == 0){
     if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
