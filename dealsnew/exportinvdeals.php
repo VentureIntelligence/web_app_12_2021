@@ -2583,7 +2583,7 @@ $valuationsql  $sectorcondition
         $qryDateTitle = "Period - ";
         $wheredates = " dates between '" . $dt1 . "' and '" . $dt2 . "'";
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
     }
     if ($whereind != "") {
         $companysql = $companysql . $whereind . " and ";
@@ -2850,74 +2850,8 @@ if ($subsector != '' && (count($subsector) > 0)) {
     $subsectorvalue = implode(',',$subsector); 
 }
 
-<<<<<<< HEAD
-
-// Round Value
-if (count($round) > 0) {
-    $roundSql = $roundTxtVal = '';
-    foreach ($round as $rounds) {
-        $roundSql .= " `round` like '" . $rounds . "' or `round` like '" . $rounds . "-%' or ";
-        $roundTxtVal .= $rounds . ',';
-    }
-    $roundTxtVal = trim($roundTxtVal, ',');
-    $roundSqlStr = trim($roundSql, ' or ');
-    $roundSql = "SELECT * FROM `peinvestments` where $roundSqlStr group by `round`";
-   // echo $roundSql;
-    if ($roundQuery = mysql_query($roundSql)) {
-        $roundtxt = '';
-        while ($myrow = mysql_fetch_array($roundQuery, MYSQL_BOTH)) {
-            $roundtxt .= $myrow["round"] . ",";
-        }
-        $roundtxt = trim($roundtxt, ',');
-    }
-}
-
-//
-$stageCnt = 0;
-$cnt = 0;
-$stageCntSql = "select count(StageId) as cnt from stage";
-if ($rsStageCnt = mysql_query($stageCntSql)) {
-    while ($mystagecntrow = mysql_fetch_array($rsStageCnt, MYSQL_BOTH)) {
-        $stageCnt = $mystagecntrow["cnt"];
-    }
-}
-   
-if ($boolStage == true) {
-    foreach ($stageval as $stageid) {
-        $stagesql = "select Stage,StageId from stage where StageId=$stageid";
-        //    echo "<br>**".$stagesql;
-        if ($stagers = mysql_query($stagesql)) {
-            while ($myrow = mysql_fetch_array($stagers, MYSQL_BOTH)) {
-                $cnt = $cnt + 1;
-                $stagevaluetext = $stagevaluetext . "," . $myrow["Stage"];
-                $stagevalueid .= $myrow["StageId"] . ',';
-            }
-        }
-    }
-    $stagevaluetext = substr_replace($stagevaluetext, '', 0, 1);
-    if ($cnt == $stageCnt) {$stagevaluetext = "All Stages";
-
-    }
-} else {
-    $stagevaluetext = "";
-}
-
-if ($getstage != '') {
-    $stagevaluetext = $getstage;
-} else if ($getrg != '') {
-    $getrangevalue = $getrg;
-} else if ($getinv != '') {
-    $getinvestorvalue = $getinv;
-} else if ($getreg != '') {
-    $getregionevalue = $getreg;
-} else if ($getindus != '') {
-    $getindusvalue = $getindus;
-}
-//echo "<br>*************".$stagevaluetext;
-=======
 $rowArray=$expval;
 // end T960
->>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
 
 //valuations
 // if ($boolvaluations == true) {
@@ -2931,13 +2865,6 @@ $rowArray=$expval;
 //     }
 //     //$valuationsql.= trim($valuationsql," and ");
     
-<<<<<<< HEAD
-//     /*if ($count == 1) {$valuationsql = "pe.$valuations[0]!=0 AND ";} else if ($count == 2) {$valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0   AND ";} else if ($count == 3) {$valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0  AND  pe.$valuations[2]!=0  AND ";} else if ($count == 4) {$valuationsql = "pe.$valuations[0]!=0  AND  pe.$valuations[1]!=0  AND  pe.$valuations[2]!=0  AND   pe.$valuations[3]!=0  AND ";}*/
-// //            $valuattext =substr_replace($valuattext, '', 0,1);
-//     //echo $valuationsql; exit();
-// } else { $valuationsql = '';}
-//valuations
-=======
  if (isset($w) && ($w==1))
  {
          $file_type = "msword";
@@ -2951,10 +2878,10 @@ $rowArray=$expval;
  
 //header info for browser: determines file type ('.doc' or '.xls')
  
-header("Content-Type: application/$file_type");
- header("Content-Disposition: attachment; filename=peinv_deals.$file_ending");
- header("Pragma: no-cache");
- header("Expires: 0");
+// header("Content-Type: application/$file_type");
+//  header("Content-Disposition: attachment; filename=peinv_deals.$file_ending");
+//  header("Pragma: no-cache");
+//  header("Expires: 0");
  if ($Use_Title == 1)
  {
      echo("$title\n");
@@ -2970,7 +2897,6 @@ header("Content-Type: application/$file_type");
  print("\n");*/
  
  //define separator (defines columns in excel & tabs in word)
->>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
  
 if ($companyType == "L") {
     $companyTypeDisplay = "Listed";
@@ -3040,239 +2966,12 @@ $datevalue = $_POST['txthidedate'];
 // $splityear1 = (substr($year1, 2));
 // $splityear2 = (substr($year2, 2));
 
-<<<<<<< HEAD
-$rowArray=$expval;
-// end T960
-
-
-updateDownload($result);
- //if this parameter is included ($w=1), file returned will be in word format ('.doc')
- //if parameter is not included, file returned will be in excel format ('.xls')
-    
- if (isset($w) && ($w==1))
- {
-         $file_type = "msword";
-         $file_ending = "doc";
- }
- else
- {
-         $file_type = "vnd.ms-excel";
-         $file_ending = "xls";
- }
- 
-//header info for browser: determines file type ('.doc' or '.xls')
- 
-header("Content-Type: application/$file_type");
- header("Content-Disposition: attachment; filename=peinv_deals.$file_ending");
- header("Pragma: no-cache");
- header("Expires: 0");
- if ($Use_Title == 1)
- {
-     echo("$title\n");
- }
-     /*echo ("$tsjtitle");
-
- print("\n");
- print("\n");
- echo "Target in () indicates sale of asset rather than the company. Target in {} indicates a minority stake acquisition.";
- print("\n");
- print("\n");*/
- 
- //define separator (defines columns in excel & tabs in word)
- 
- $sep = "\t"; //tabbed character
-
-//start of printing column names as names of MySQL fields
-
-if(in_array("Company", $rowArray))
-{
-    echo "Company"."\t";
-
-}
-if(in_array("CIN", $rowArray))
-{
-    echo "CIN"."\t";
-}
-if(in_array("Company Type", $rowArray))
-{
-    echo "Company Type"."\t";
-}
-if(in_array("Industry", $rowArray))
-{
-    echo "Industry"."\t";
-}
-if(in_array("Sector", $rowArray))
-{
-    echo "Sector"."\t";
-}
-if(in_array("Amount(US".'$M'.")", $rowArray))
-{
-    echo "Amount(US".'$M'.")"."\t";
-}
-if(in_array("Amount(INR Cr)", $rowArray))
-{
-    echo "Amount(INR Cr)"."\t";
-}
-if(in_array("Round", $rowArray))
-{
-    echo "Round"."\t";
-}
-if(in_array("Stage", $rowArray))
-{
-    echo "Stage"."\t";
-}
-if(in_array("Investors", $rowArray))
-{
-    echo "Investors"."\t";
-}
-if(in_array("Investor Type", $rowArray))
-{
-    echo "Investor Type"."\t";
-}
-if(in_array("Stake (%)", $rowArray))
-{
-    echo "Stake (%)"."\t";
-}
-if(in_array("Date", $rowArray))
-{
-    echo "Date"."\t";
-}
-if(in_array("Exit Status", $rowArray))
-{
-    echo "Exit Status"."\t";
-}
-if(in_array("Website", $rowArray))
-{
-    echo "Website"."\t";
-}
-if(in_array("Year Founded", $rowArray))
-{
-    echo "Year Founded"."\t";
-}
-if(in_array("City", $rowArray))
-{
-    echo "City"."\t";
-}
-if(in_array("State", $rowArray))
-{
-    echo "State"."\t";
-}
-if(in_array("Region", $rowArray))
-{
-    echo "Region"."\t";
-}
-if(in_array("Advisor-Company", $rowArray))
-{
-    echo "Advisor-Company"."\t";
-}
-if(in_array("Advisor-Investors", $rowArray))
-{
-    echo "Advisor-Investors"."\t";
-}
-if(in_array("More Details", $rowArray))
-{
-    echo "More Details"."\t";
-}
-if(in_array("Link", $rowArray))
-{
-    echo "Link"."\t";
-}
-if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
-{
-    echo "Pre Money Valuation (INR Cr)"."\t";
-}
-if(in_array("Revenue Multiple (Pre)", $rowArray))
-{
-    echo "Revenue Multiple (Pre)"."\t";
-}
-if(in_array("EBITDA Multiple (Pre)", $rowArray))
-{
-    echo "EBITDA Multiple (Pre)"."\t";
-}
-if(in_array("PAT Multiple (Pre)", $rowArray))
-{
-    echo "PAT Multiple (Pre)"."\t";
-}
-if(in_array("Post Money Valuation (INR Cr)", $rowArray))
-{
-    echo "Post Money Valuation (INR Cr)"."\t";
-}
-if(in_array("Revenue Multiple (Post)", $rowArray))
-{
-    echo "Revenue Multiple (Post)"."\t";
-}
-if(in_array("EBITDA Multiple (Post)", $rowArray))
-{
-    echo "EBITDA Multiple (Post)"."\t";
-}
-if(in_array("PAT Multiple (Post)", $rowArray))
-{
-    echo "PAT Multiple (Post)"."\t";
-}
-if(in_array("Enterprise Valuation (INR Cr)", $rowArray))
-{
-    echo "Enterprise Valuation (INR Cr)"."\t";
-}
-if(in_array("Revenue Multiple (EV)", $rowArray))
-{
-    echo "Revenue Multiple (EV)"."\t";
-}
-if(in_array("EBITDA Multiple (EV)", $rowArray))
-{
-    echo "EBITDA Multiple (EV)"."\t";
-}
-if(in_array("PAT Multiple (EV)", $rowArray))
-{
-    echo "PAT Multiple (EV)"."\t";
-}
-if(in_array("Price to Book", $rowArray))
-{
-    echo "Price to Book"."\t";
-}
-if(in_array("Valuation", $rowArray))
-{
-    echo "Valuation"."\t";
-}
-if(in_array("Revenue (INR Cr)", $rowArray))
-{
-    echo "Revenue (INR Cr)"."\t";
-}
-if(in_array("EBITDA (INR Cr)", $rowArray))
-{
-    echo "EBITDA (INR Cr)"."\t";
-}
-if(in_array("PAT (INR Cr)", $rowArray))
-{
-    echo "PAT (INR Cr)"."\t";
-}
-if(in_array("Total Debt (INR Cr)", $rowArray))
-{
-    echo "Total Debt (INR Cr)"."\t";
-}
-if(in_array("Cash & Cash Equ. (INR Cr)", $rowArray))
-{
-    echo "Cash & Cash Equ. (INR Cr)"."\t";
-}
-if(in_array("Book Value Per Share", $rowArray))
-{
-    echo "Book Value Per Share"."\t";
-}
-if(in_array("Price Per Share", $rowArray))
-{
-    echo "Price Per Share"."\t";
-}
- 
- /*print("\n");*/
- print("\n");
- //end of printing column names
-=======
 
 // if (($month1 != "--") && ($month2 !== "--") && ($year1 != "--") && ($year2 != "--")) {
 //     $sdatevalueDisplay1 = returnMonthname($month1) . " " . $splityear1;
 //     $edatevalueDisplay2 = returnMonthname($month2) . "  " . $splityear2;
 //     $wheredates1 = "";
 // }
->>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
 
 // $datevalueDisplay1 = $sdatevalueDisplay1;
 // $datevalueDisplay2 = $edatevalueDisplay2;
@@ -3322,82 +3021,6 @@ if ($DcompanyId == 697447099) {
     $comp_industry_id_where .= "and  pec.industry=3 ";
 }
 
-<<<<<<< HEAD
-$replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
-/** Error reporting */
-// error_reporting(E_ALL);
-// ini_set('display_errors', TRUE);
-// ini_set('display_startup_errors', TRUE);
-// date_default_timezone_set('Europe/London');
-// if (PHP_SAPI == 'cli')
-// 	die('This example should only be run from a Web Browser');
-// /** Include PHPExcel */
-// require_once '../PHPExcel_1.8.0_doc/Classes/PHPExcel.php';
-// // Create new PHPExcel object
-// $objPHPExcel = new PHPExcel();
-// // Set document properties
-// $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-// 							 ->setLastModifiedBy("Maarten Balliauw")
-// 							 ->setTitle("Office 2007 XLSX Test Document")
-// 							 ->setSubject("Office 2007 XLSX Test Document")
-// 							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-// 							 ->setKeywords("office 2007 openxml php")
-// 							 ->setCategory("Test result file");
-// // Add some data
-// $rowArray = $expval;
-// $objPHPExcel->getActiveSheet()
-//     ->fromArray(
-//         $rowArray,   // The data to set
-//         NULL,        // Array values with this value will not be set
-//         'A1'         // Top left coordinate of the worksheet range where
-//                      //    we want to set these values (default is A1)
-//     );
-// $objPHPExcel->setActiveSheetIndex(0)
-//             ->setCellValue('A1', 'Company')
-//             ->setCellValue('B1', 'Company Type')
-//             ->setCellValue('C1', 'Industry')
-//             ->setCellValue('D1', 'Sector')
-//             ->setCellValue('E1', 'Amount(US$M)')
-//             ->setCellValue('F1', 'Amount(INR Cr)')
-//             ->setCellValue('G1', 'Round')
-//             ->setCellValue('H1', 'Stage')
-//             ->setCellValue('I1', 'Investors')
-//             ->setCellValue('J1', 'Investor Type')
-//             ->setCellValue('K1', 'Stake (%)')
-//             ->setCellValue('L1', 'Date')
-//             ->setCellValue('M1', 'Exit Status')
-//             ->setCellValue('N1', 'Website')
-//             ->setCellValue('O1', 'Year Founded')
-//             ->setCellValue('P1', 'City')
-//             ->setCellValue('Q1', 'State')
-//             ->setCellValue('R1', 'Region')
-//             ->setCellValue('S1', 'Advisor-Company')
-//             ->setCellValue('T1', 'Advisor-Investors')
-//             ->setCellValue('U1', 'More Details')
-//             ->setCellValue('V1', 'Link')
-//             ->setCellValue('W1', 'Pre Money Valuation (INR Cr)')
-//             ->setCellValue('X1', 'Revenue Multiple')
-//             ->setCellValue('Y1', 'EBITDA Multiple')
-//             ->setCellValue('Z1', 'PAT Multiple')
-//             ->setCellValue('AA1', 'Post Money Valuation (INR Cr)')
-//             ->setCellValue('AB1', 'Revenue Multiple')
-//             ->setCellValue('AC1', 'EBITDA Multiple')
-//             ->setCellValue('AD1', 'PAT Multiple')
-//             ->setCellValue('AE1', 'Enterprise Valuation (INR Cr)')
-//             ->setCellValue('AF1', 'Revenue Multiple')
-//             ->setCellValue('AG1', 'EBITDA Multiple')
-//             ->setCellValue('AH1', 'PAT Multiple')
-//             ->setCellValue('AI1', 'Price to Book')
-//             ->setCellValue('AJ1', 'Valuation')
-//             ->setCellValue('AK1', 'Revenue (INR Cr)')
-//             ->setCellValue('AL1', 'EBITDA (INR Cr)')
-//             ->setCellValue('AM1', 'PAT (INR Cr)')
-//             ->setCellValue('AN1', 'Total Debt (INR Cr)')
-//             ->setCellValue('AO1', 'Cash & Cash Equ. (INR Cr)')
-//             ->setCellValue('AP1', 'Book Value Per Share')
-//             ->setCellValue('AQ1', 'Price Per Share')
-//             ->setCellValue('AR1', 'Link for Financials');
-=======
 if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $getreg != '' || $getrg != '') {
     
     $companysql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business,
@@ -3416,7 +3039,6 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
                                             GROUP BY pe.PEId ";
     
 } else if (!$_POST) {
->>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
 
     $yourquery = 0;
     $stagevaluetext = "";
@@ -3426,34 +3048,6 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     $dt2 = $year2 . "-" . $month2 . "-31";
     //echo "<br>Query for all records";
 
-<<<<<<< HEAD
-$arrayData = array();
-while ($rows = mysql_fetch_array($result)) {
-//$DataList = array();
-$col = 0;  
-
-    if(isset($rows['PEId'])){
-        $PEId = $rows['PEId'];
-    }else{
-        $PEId = $rows[13];
-    }
-    
-    $companiessql = "select pe.PEId,pe.PEId, pe.PEId, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,DATE_FORMAT(dates,'%M-%y') as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
-            LEFT JOIN pecompanies as pec
-            ON pec.PEcompanyID = pe.PECompanyID
-            LEFT JOIN industry as i
-            ON pec.industry = i.industryid
-            LEFT JOIN stage as s
-            ON pe.StageId=s.StageId
-            LEFT JOIN country as c
-            ON c.countryid=pec.countryid
-            LEFT JOIN region as r
-            ON r.RegionId=pec.RegionId OR (pec.RegionId=0 and r.RegionId=1)
-            LEFT JOIN investortype as it ON it.InvestorType = pe.InvestorType 
-            where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
-=======
-
->>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
     
     $companysql = "SELECT pe.PECompanyId as PECompanyId, pec.companyname, pec.industry, i.industry as industry, pec.sector_business as sector_business,amount,pe.Amount_INR, round, s.stage,  stakepercentage, 
     DATE_FORMAT( dates, '%M-%Y' ) as dealperiod , pec.website, pec.city,pec.region,pe.PEId,pe.comment,MoreInfor,hideamount,hidestake,pe.StageId ,SPV,AggHide,pe.dates as dates,pe.Exit_Status,
@@ -4813,12 +4407,9 @@ $col = 0;
     
     $result2 = mysql_query($companiessql) or die( mysql_error() );
     $row = mysql_fetch_row($result2);
-<<<<<<< HEAD
-=======
 
 
     // echo date_format($row[15],"M-y");
->>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     
     if ($row[35] == 1) {     //Agghide
         //echo "<br>***".$row[7];
@@ -4931,6 +4522,8 @@ $col = 0;
 
     $advinvestorssql = "select advinv.PEId,advinv.CIAId,cia.cianame,cia.AdvisorType from peinvestments_advisorinvestors as advinv,
 	advisor_cias as cia where advinv.PEId=$PEId and advinv.CIAId=cia.CIAId";
+
+    // echo $advinvestorssql; exit;
 
     if ($investorrs = mysql_query($investorSql) or die(mysql_error())) {
 
@@ -5166,30 +4759,22 @@ $col = 0;
     }
     if(in_array("Stake (%)", $rowArray))
     {
-<<<<<<< HEAD
+// <<<<<<< HEAD
         $schema_insert .= $hidestake.$sep;
-<<<<<<< HEAD
     }
-=======
->>>>>>> 4e8e04bd416f4f39ab266faaef4d2acf20774b84
-    }
-=======
+// =======
         if($valInfo == 0){
 
             $schema_insert .= $hidestake.$sep;
         }else{
             $schema_insert .= ''.$sep;
         }
->>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
+// >>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     }
     if(in_array("Date", $rowArray))
     {
-<<<<<<< HEAD
-        $schema_insert .= $row[15].$sep;
-=======
         $date_format = date("M-Y",strtotime($row[15]));
         $schema_insert .= $date_format.$sep;
->>>>>>> aa1ceb4c9c376fcdc5cffc622de9cc9e225a3d9d
     }
     if(in_array("Exit Status", $rowArray))
     {
@@ -5218,18 +4803,29 @@ $col = 0;
     if(in_array("Advisor-Company", $rowArray))
     {
         $schema_insert .= $advisorCompanyString.$sep;
+    }else{
+        $schema_insert .= '-';
     }
     if(in_array("Advisor-Investors", $rowArray))
     {
         $schema_insert .= $advisorInvestorString.$sep;
     }
+    else{
+        $schema_insert .= '-';
+    }
     if(in_array("More Details", $rowArray))
     {
         $schema_insert .= $resmoreinfo.$sep;
     }
+    else{
+        $schema_insert .= '-';
+    }
     if(in_array("Link", $rowArray))
     {
         $schema_insert .= trim($row[24]).$sep;
+    }
+    else{
+        $schema_insert .= '-';
     }
     if($valInfo == 0){
     if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
