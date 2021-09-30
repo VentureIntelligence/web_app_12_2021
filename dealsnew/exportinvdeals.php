@@ -3518,6 +3518,8 @@ $col = 0;
 
 
     // T960
+
+    
     if(in_array("Company", $rowArray))
     {
         $schema_insert .= $companyName.$sep;

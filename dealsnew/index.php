@@ -4919,6 +4919,7 @@ if ($type != 1) {
             <form name="pelisting" id="pelisting"  method="post" action="exportinvdeals.php">
             <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
             
+            
 
             <input type="hidden" name="txtsearchon" value="1" >
             <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
