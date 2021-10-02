@@ -30,7 +30,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $update = "UPDATE newsletter SET
                     category = '" . trim($category) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
-                   // echo $update;exit();
+                //    echo $update;exit();
         if( mysql_query( $update ) ) {
             for ($i=0;$i<count($_POST['name']);$i++){
                 $name= mysql_real_escape_string( $_POST[ 'name' ][$i] );
@@ -67,7 +67,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $numrows = mysql_num_rows( $res );
         $result = mysql_fetch_array( $res );
 
-       // echo '<pre>'; print_r($result);echo '</pre>';
+    //    echo '<pre>'; print_r($result);echo '</pre>';
     }
 ?>
 
@@ -129,30 +129,40 @@ input[type=text],textarea,input[type=date]
                                         <tr bgcolor="#808000"><td colspan="2" align="center" style="color: #FFFFFF"><b> Edit News Letter</b></td></tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
-                                                <label for="Category">Category</label>
+                                                <label for="Category">Major Category</label>
                                             </td>
                                             <td>
 
                                             <?php
-                                                $sql = "SELECT `id`,`category` FROM newsletter_category";
+                                                $sql = "SELECT `id`,`name` FROM newsletter_catogory";
                                                 $res = mysql_query($sql) or die(mysql_error());
+
+                                                // echo '<pre>'; print_r($res); echo '</pre>';
+
                                                 $option = '';
                                                 
                                                 while($rows=mysql_fetch_array($res)){ 
+
+                                                    //    echo '<pre>'; print_r($rows); echo '</pre>';
+
                                                     $id = $rows['id'];
-                                                    $cat = $rows['category'];
+                                                    $cat = $rows['name'];
+
+                                                    // echo $id.'<br />';
+                                                    // echo $cat.'<br />';
+                                                    // echo $$result['category'].'<br />';
                                                    
                                                     $selected = "";
-                                                    if($result['category'] == $cat)
+                                                    if($result['category'] == $id)
                                                     {
                                                         $selected = "selected='selected'";
                                                     }
-                                                    $option .= '<option value="'.$cat.'"'.$selected.'>'.$cat.'</option>';
+                                                    $option .= '<option value="'.$id.'"'.$selected.'>'.$cat.'</option>';
                                                  
                                                 }
                                             ?>
 
-                                            <select name="Category">
+                                            <select name="Category" onchange="getSubCat(this.value)">
                                                 <option value="">--- Select Category ---</option>
                                                 <?php echo $option; ?>
                                             </select>
@@ -190,6 +200,41 @@ input[type=text],textarea,input[type=date]
                                             <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="<?php echo $result[ 'category' ]; ?>">  -->
                                             </td>
                                         </tr>
+
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Category</label> 
+                                            </td>
+                                            <td>
+                                            <?php
+                                                $sql = "SELECT `id`,`name` FROM newsletter_subcategory";
+                                                $res = mysql_query($sql) or die(mysql_error());
+
+                                                // echo '<pre>'; print_r($res); echo '</pre>';
+
+                                                $option = '';
+                                                
+                                                while($rows=mysql_fetch_array($res)){ ;
+
+                                                    $id = $rows['id'];
+                                                    $cat = $rows['name'];
+                                                   
+                                                    $selected = "";
+                                                    if($result['sub_category'] == $id)
+                                                    {
+                                                        $selected = "selected='selected'";
+                                                    }
+                                                    $option .= '<option value="'.$cat.'"'.$selected.'>'.$cat.'</option>';
+                                                 
+                                                }
+                                            ?>
+                                                <select name="SubCategory" class = "subcategorydropdown">
+                                                    <option value="">--- Select Sub Category ---</option>
+                                                    <?php echo $option; ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="Heading">Heading</label> 
@@ -401,3 +446,31 @@ $( '#cancel_user' ).on('click', function() {
 else
     header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
+
+<script>
+    function getSubCat(val)
+    {
+        $.ajax({
+            type: "POST",
+            url: "ajax_cat_related.php",
+            data: {
+                majoy_category: val
+            },
+            success: function( data ) {
+                // alert(data);
+                if(data != "")
+                {
+                    $(".subcategorydropdown").html(data);
+
+                    // alert(data);
+                }
+                else{
+                    $(".subcategorydropdown").html('');
+                }
+             }
+        });
+
+    }
+
+
+</script>
