@@ -13,6 +13,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $successState = false;
     if( isset( $_POST[ 'add_btn' ] ) ) {
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
+        $sub_category_id  =  mysql_real_escape_string( $_POST[ 'SubCategory' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
         $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
         $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
@@ -34,8 +35,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             $result = mysql_fetch_array( $res );
            
         } else {
-            $insert = "INSERT INTO newsletter ( category, heading, slug, tags, summary, targetcmp_website, vi_database, published_at,created_on )
-                        VALUES( '" . $category . "', '" . $heading . "', '" . $slug . "',  '" . $tags . "',     '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
+            $insert = "INSERT INTO newsletter ( sub_category_id, category, sub_category, heading, slug, tags, summary, targetcmp_website, vi_database, published_at,created_on )
+                        VALUES( '" . $sub_category_id . "', '" . $category . "',  '" . $sub_category_id . "', '" . $heading . "', '" . $slug . "',  '" . $tags . "',     '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
            //echo $insert;exit();
            if( mysql_query( $insert ) ) {
                 $lastInsertId = mysql_insert_id();
@@ -118,24 +119,24 @@ input[type=text],textarea,input[type=date]
                                         <tr bgcolor="#808000"><td colspan="2" align="center" style="color: #FFFFFF"><b> Add News Letter</b></td></tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
-                                                <label for="Category">Category</label>
+                                                <label for="Category">Major Category</label>
                                             </td>
                                             <td>
                                             
                                             <?php
-                                                $sql = "SELECT `id`,`category` FROM newsletter_category";
+                                                $sql = "SELECT `id`,`name` FROM newsletter_catogory";
                                                 $res = mysql_query($sql) or die(mysql_error());
                                                 $option = '';
                                                 
                                                 while($rows=mysql_fetch_array($res)){ 
                                                     $id = $rows['id'];
-                                                    $cat = $rows['category'];
-                                                    $option .= '<option value="'.$cat.'">'.$cat.'</option>';
+                                                    $cat = $rows['name'];
+                                                    $option .= '<option value="'.$id.'">'.$cat.'</option>';
                                                 }
                                             ?>
 
-                                            <select name="Category">
-                                                <option value="">--- Select Category ---</option>
+                                            <select name="Category" onchange="getSubCat(this.value)" >
+                                                <option value="">--- Select Major Category ---</option>
                                                 <?php echo $option; ?>
                                             </select>
 
@@ -157,6 +158,16 @@ input[type=text],textarea,input[type=date]
                                                     <option value="Fund News">Fund News</option>
 
                                                 </select> -->
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Category</label> 
+                                            </td>
+                                            <td>
+                                                <select name="SubCategory" class = "subcategorydropdown">
+                                                    <option value="">--- Select Sub Category ---</option>
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
@@ -318,3 +329,29 @@ $( '#cancel_user' ).on('click', function() {
 else
     header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
+
+<script>
+    function getSubCat(val)
+    {
+        $.ajax({
+            type: "POST",
+            url: "ajax_cat_related.php",
+            data: {
+                majoy_category: val
+            },
+            success: function( data ) {
+                // alert(data.responseText);
+                if(data != "")
+                {
+                    $(".subcategorydropdown").html(data);
+                }
+                else{
+                    $(".subcategorydropdown").html('');
+                }
+             }
+        });
+
+    }
+
+
+</script>
