@@ -1,6 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
 
+
 /*//session_save_path("/tmp");
 session_start();
 
@@ -2245,7 +2246,7 @@ $exitstatusValue_hide = implode($exitstatusValue, ',');
     $dt2 = $year2 . "-" . $month2 . "-31";
     
     $companysql = "(
-                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe.amount,pe.Amount_INR,
+                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe_sectors as pec, pe.amount,pe.Amount_INR,
                                                      cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                                                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
@@ -2327,10 +2328,16 @@ $valuationsql  $sectorcondition
     // } else {
     //     $joinsectortable = '';
     // } 
+    if(count($sector) > 0 || count($subsector) > 0){
+        /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
+        $joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID JOIN pe_sectors as pe_sec on pe_sec.sector_id = pe_sub.sector_id';
+    } else {
+        $joinsectortable = '';
+    } 
     $companysql = "SELECT pe.PECompanyID as PECompanyId,pec.companyname,pec.industry,pe.dates as dates,i.industry as industry,
-                    pec.sector_business as sector_business,amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%M-%Y') as dealperiod,
+                    pec.sector_business as sector_business, amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%M-%Y') as dealperiod,
                     pec.website,pec.city,pec.region,pe.PEId,pe.comment,pe.MoreInfor,hideamount,hidestake,pe.StageId,SPV,pec.RegionId,AggHide,pe.Exit_Status,
-                                        (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
+                                        (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv  WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
                                                     FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID
                                                     JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId
@@ -2387,9 +2394,14 @@ $valuationsql  $sectorcondition
   
     if ($sectorval != '') {
         $sectorvalarray=explode(",", $sectorval);
+
+    //    echo '<pre>'; print_r( $sectorvalarray); echo '</pre>';
+
         foreach($sectorvalarray as $key=>$sectorvals)
             {
                 $sectorsql123="select sector_name from pe_sectors where sector_id=".$sectorvals;
+
+                // echo $sectorsql123;
                
                 $sectorquery=mysql_query($sectorsql123);
                 if($row=mysql_fetch_row($sectorquery))
@@ -2405,9 +2417,11 @@ $valuationsql  $sectorcondition
            }
            //$wheresectorsql = " pe_sub.sector_id IN($sectorval)";
         }
+
     if ($subsectorval != '') {
-                     $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
+            $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
     }
+
     $industry=array_filter($industry);
     if (count($industry) > 0) {
         $indusSql = '';
@@ -3819,6 +3833,8 @@ print("Note: Target/Company in () indicates the deal is not to be used for calcu
 exit();
 
 // exit();
+
+
 
 print("\n");
     print("\n");
