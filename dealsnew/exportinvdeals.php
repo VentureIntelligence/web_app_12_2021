@@ -1,6 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
 
+
 /*//session_save_path("/tmp");
 session_start();
 
@@ -20,6 +21,7 @@ if ($cntUserLogSel > 0) {
         header('Location: logoff.php?value=caccess');
     }
 }
+
 $DcompanyId = $_SESSION['DcompanyId'];
 if($DcompanyId == 697447099){
     $comp_industry_id_where = "and  pec.industry=3 ";
@@ -191,6 +193,7 @@ $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be us
 $exportstatusdisplay = "Pls Note : Excel Export is available for transactions from Jan.2004 only, as part of search results. You can export transactions prior  to 2004 on a deal by deal basis from the deal details popup.";
 
 //echo "<bR>&&&&".$searchtitle;
+
 if ($searchtitle == 0) {
     $addVCFlagqry = " and pec.industry !=15 ";
     $checkForStage = ' && (' . '$stage' . ' =="--")';
@@ -1435,7 +1438,9 @@ $addDelind = "";
 $hideWhere = '';
 $valInfo=$_POST['valInfo'];
 
-$dateValue=$_POST['txthidedate'];
+
+
+                $dateValue=$_POST['txthidedate'];
                 $hidedateStartValue=$_POST['txthidedateStartValue'];
                 $hidedateEndValue=$_POST['txthidedateEndValue'];
                 $industry=$_POST['txthideindustryid'];
@@ -1468,7 +1473,33 @@ $dateValue=$_POST['txthidedate'];
                 $advisorsearchstring_trans=$_POST['txthideadvisor_trans'];
 
                 $tagsearch=$_POST['tagsearch'];
-                $searchallfield=$_POST['txthidesearchallfield'];
+                $searchallfield = $_POST['txthidesearchallfield'];
+
+
+    $searchtitle = $_POST['txttitle'];
+
+    if ($searchtitle == 0) {
+        $addVCFlagqry = " and pec.industry !=15 ";
+        $checkForStage = ' && (' . '$stage' . ' =="--")';
+        //$checkForStage = " && (" .'$stage'."=='--') ";
+        //$checkForStageValue = " || (" .'$stage'.">0) ";
+        $searchTitle = "List of PE Investments ";
+    } elseif ($searchtitle == 1) {
+        $addVCFlagqry = " and pec.industry!=15  and s.VCview=1 and amount <=20 ";
+
+        $checkForStage = '&& (' . '$stage' . '=="--") ';
+        //$checkForStage = " && (" .'$stage'."=='--') ";
+        //$checkForStageValue =  " || (" .'$stage'.">0) ";
+        $searchTitle = "List of VC Investments ";
+    } elseif ($searchtitle == 2) {
+        $addVCFlagqry = " and pec.industry =15 ";
+        $stage = "--";
+        $checkForStage = "";
+        $checkForStageValue = "";
+        $searchTitle = "List of PE Investments - Real Estate";
+    }
+
+                // $vcflagValue = $_POST['txthidesearchallfield'];
                
 if ($listallcompany != 1) {
      $isAggregate = 'AND pe.SPV=0 and pe.AggHide=0';
@@ -1710,6 +1741,7 @@ if (!$_POST || $sectorsearch != '' || $tagsearch != '') {
     $yearbefore='';
     $yearafter='';
 }
+
 
 if ($_SESSION['PE_industries'] != '') {
 
@@ -2215,7 +2247,7 @@ $exitstatusValue_hide = implode($exitstatusValue, ',');
     $dt2 = $year2 . "-" . $month2 . "-31";
     
     $companysql = "(
-                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe.amount,pe.Amount_INR,
+                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe_sectors as pec, pe.amount,pe.Amount_INR,
                                                      cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                                                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
@@ -2291,22 +2323,30 @@ $valuationsql  $sectorcondition
         $increg = "JOIN region AS r ON r.RegionId=pec.RegionId";
     }
      
-     if(count($sector) > 0 || count($subsector) > 0){
+    //  if(count($sector) > 0 || count($subsector) > 0){
+    //     /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
+    //     $joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID JOIN pe_sectors as pe_sec on pe_sec.sector_id = pe_sub.sector_id';
+    // } else {
+    //     $joinsectortable = '';
+    // } 
+    if(count($sector) > 0 || count($subsector) > 0){
         /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
         $joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID JOIN pe_sectors as pe_sec on pe_sec.sector_id = pe_sub.sector_id';
     } else {
         $joinsectortable = '';
     } 
     $companysql = "SELECT pe.PECompanyID as PECompanyId,pec.companyname,pec.industry,pe.dates as dates,i.industry as industry,
-                    pec.sector_business as sector_business,amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%M-%Y') as dealperiod,
+                    pec.sector_business as sector_business, amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%M-%Y') as dealperiod,
                     pec.website,pec.city,pec.region,pe.PEId,pe.comment,pe.MoreInfor,hideamount,hidestake,pe.StageId,SPV,pec.RegionId,AggHide,pe.Exit_Status,
-                                        (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
+                                        (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv  WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
                                                     FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID
                                                     JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId
                                                     JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
                                                     JOIN industry AS i ON pec.industry = i.industryid
                                                     JOIN stage AS s ON s.StageId=pe.StageId $increg ".$joinsectortable. " WHERE " . $valuationsql . "";
+
+                                                    
     //    echo "<br> individual where clauses have to be merged ";
 
 
@@ -2344,7 +2384,7 @@ $valuationsql  $sectorcondition
         }
         
         $combineSearchFlag = true;
-        $whereinvestorsql = " peinv_inv.InvestorId IN('$keyword')";
+        $whereinvestorsql = " peinv_inv.InvestorId IN($keyword)";
 
     }
 
@@ -2355,9 +2395,14 @@ $valuationsql  $sectorcondition
   
     if ($sectorval != '') {
         $sectorvalarray=explode(",", $sectorval);
+
+    //    echo '<pre>'; print_r( $sectorvalarray); echo '</pre>';
+
         foreach($sectorvalarray as $key=>$sectorvals)
             {
                 $sectorsql123="select sector_name from pe_sectors where sector_id=".$sectorvals;
+
+                // echo $sectorsql123;
                
                 $sectorquery=mysql_query($sectorsql123);
                 if($row=mysql_fetch_row($sectorquery))
@@ -2373,9 +2418,11 @@ $valuationsql  $sectorcondition
            }
            //$wheresectorsql = " pe_sub.sector_id IN($sectorval)";
         }
+
     if ($subsectorval != '') {
-                     $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
+            $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
     }
+
     $industry=array_filter($industry);
     if (count($industry) > 0) {
         $indusSql = '';
@@ -2518,6 +2565,13 @@ $valuationsql  $sectorcondition
 
                             } 
     if (($startRangeValue != "--") && ($endRangeValue != "") && ($startRangeValue != "") && ($endRangeValue != "--")) {
+
+        // echo 'Start Range : '.$startRangeValue.'<br />';
+        // echo 'End Range : '.$endRangeValue.'<br />';
+
+        // exit;
+
+
         $startRangeValue = $startRangeValue;
        // $endRangeValue = $endRangeValue - 0.01;
         $qryRangeTitle = "Deal Range (M$) - ";
@@ -2532,6 +2586,14 @@ $valuationsql  $sectorcondition
      //   $endRangeValue = $endRangeValue - 0.01;
        // $whererange = " pe.amount between  " . $startRangeValue . " and " . $endRangeValue;
        $whererange = " pe.amount >=  ".$startRangeValue ." and  pe.amount <". $endRangeValue ."";
+
+    //    echo 'Start Range : '.$startRangeValue.'<br />';
+    //    echo 'End Range : '.$endRangeValue.'<br />';
+
+    //    exit;
+
+
+
     }
     //echo "<Br>***".$whererange;
     $exitstatusValue=explode(",",$exitstatusValue);
@@ -2746,6 +2808,9 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 //  echo $companysql;
 //  exit();
+
+
+
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
@@ -2762,6 +2827,11 @@ $expval=explode(",",$exportvalue);
 
 
 $rowArray=$expval;
+
+
+// echo '<pre>'; print_r($rowArray); echo '</pre>'; exit;
+
+
 // end T960
 
 
@@ -2790,8 +2860,6 @@ header("Content-Type: application/$file_type");
  {
      echo("$title\n");
  }
-
-//  echo ("$tsjtitle");
      /*echo ("$tsjtitle");
 
  print("\n");
@@ -2895,6 +2963,7 @@ if(in_array("More Details", $rowArray))
 {
     echo "More Details"."\t";
 }
+
 if(in_array("Link", $rowArray))
 {
     echo "Link"."\t";
@@ -2983,6 +3052,7 @@ if(in_array("Price Per Share", $rowArray))
 {
     echo "Price Per Share"."\t";
 }
+
  
  /*print("\n");*/
  print("\n");
@@ -3087,6 +3157,9 @@ $index = 2;
 $peidcheck = '';
 
 $arrayData = array();
+
+
+
 while ($rows = mysql_fetch_array($result)) {
 //$DataList = array();
 $col = 0;  
@@ -3096,8 +3169,10 @@ $col = 0;
     }else{
         $PEId = $rows[13];
     }
+
+   
     
-    $companiessql = "select pe.PEId,pe.PEId, pe.PEId, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,DATE_FORMAT(dates,'%M-%y') as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
+    $companiessql = "select pe.PEId,pe.PEId, pe.PEId, pe.PECompanyID, pe.StageId, pec.countryid, pec.industry, pec.companyname, i.industry,pec.sector_business,amount,round,s.stage, it.InvestorTypeName ,stakepercentage,dates as dealperiod, pec.website,pec.city,r.Region, MoreInfor,hideamount,hidestake,c.country,c.country, Link,pec.RegionId,Valuation,FinLink, Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple, listing_status,Exit_Status,SPV,AggHide,Revenue,EBITDA,PAT, price_to_book, book_value_per_share, price_per_share,pe.Amount_INR, pe.Company_Valuation_pre, pe.Revenue_Multiple_pre, pe.EBITDA_Multiple_pre, pe.PAT_Multiple_pre, pe.Company_Valuation_EV, pe.Revenue_Multiple_EV, pe.EBITDA_Multiple_EV, pe.PAT_Multiple_EV, pe.Total_Debt, pe.Cash_Equ, pec.yearfounded,pec.state,pec.CINNo from peinvestments as pe
             LEFT JOIN pecompanies as pec
             ON pec.PEcompanyID = pe.PECompanyID
             LEFT JOIN industry as i
@@ -3110,9 +3185,22 @@ $col = 0;
             ON r.RegionId=pec.RegionId OR (pec.RegionId=0 and r.RegionId=1)
             LEFT JOIN investortype as it ON it.InvestorType = pe.InvestorType 
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
+
+
+            
+
+            // echo $companiessql.'<br />'; 
+
+
     
     $result2 = mysql_query($companiessql) or die( mysql_error() );
+
+
+    // echo '<pre>'; print_r($result2); echo '</pre>'; exit;
+
     $row = mysql_fetch_row($result2);
+
+   
     
     if ($row[35] == 1) {     //Agghide
         //echo "<br>***".$row[7];
@@ -3226,6 +3314,8 @@ $col = 0;
     $advinvestorssql = "select advinv.PEId,advinv.CIAId,cia.cianame,cia.AdvisorType from peinvestments_advisorinvestors as advinv,
 	advisor_cias as cia where advinv.PEId=$PEId and advinv.CIAId=cia.CIAId";
 
+    // echo $advinvestorssql.'<br />';
+
     if ($investorrs = mysql_query($investorSql) or die(mysql_error())) {
 
         $investorString = "";
@@ -3303,18 +3393,33 @@ $col = 0;
         $advisorCompanyString = substr_replace($advisorCompanyString, '', 0, 1);
     }
 
-    if ($advisorinvestorrs = mysql_query($advinvestorssql)) {
-        $advisorInvestorString = "";
-        while ($row2 = mysql_fetch_array($advisorinvestorrs)) {
-            $advisorInvestorString = $advisorInvestorString . "," . $row2[2] . "(" . $row2[3] . ")";
+    $advisorInvestorString = "";
+    $checknumrows = mysql_query($advinvestorssql);
+    $advnumrows = mysql_num_rows($checknumrows);
+
+    if($advnumrows >= 1)
+    {
+        if ($advisorinvestorrs = mysql_query($advinvestorssql)) {
+            $advisorInvestorString = "";
+            while ($row2 = mysql_fetch_array($advisorinvestorrs)) {
+    
+                $advisorInvestorString = $advisorInvestorString . "," . $row2[2] . "(" . $row2[3] . ")";
+            }
+            $advisorInvestorString = substr_replace($advisorInvestorString, '', 0, 1);
         }
-        $advisorInvestorString = substr_replace($advisorInvestorString, '', 0, 1);
+        // echo 'Iruku<br />';
+    }else{
+        // echo 'Ila<br />';
     }
+    // echo $advisorInvestorString;  exit;
     
     $resmoreinfo = preg_replace("/\r\n|\r|\n/",'<br/>',$row[19]);
     $resmoreinfo =  str_replace($replace_array, ' ', $resmoreinfo);
     $resmoreinfo = trim($resmoreinfo);//BusinessDesc
     $resmoreinfo = preg_replace('/(\v|\s)+/', ' ', $resmoreinfo);//more details
+
+
+    $resmoreinfo1 = str_replace('$','', $resmoreinfo);
 
     $pre_company_valuation = $row[43];
     if ($pre_company_valuation <= 0)
@@ -3412,7 +3517,24 @@ $col = 0;
         }
     }
 
-//echo json_encode($rowArray).'hai';exit();
+    // echo json_encode($rowArray).'hai';exit();
+
+    // date("d-m-Y", strtotime($originalDate));
+
+    // echo '<pre>'; print_r(date("M-Y", $row[15])); echo '</pre>'; exit;
+
+
+    // $month1 = 01;
+    // $year1 = 1998;
+    // $month2 = date('n');
+    // $year2 = date('Y');
+    // $fixstart = $year1;
+    // $startyear = $fixstart . "-" . $month1 . "-01";
+    // $fixend = $year2;
+    // $endyear = $fixend . "-" . $month2 . "-31";
+
+
+
     // T960
     if(in_array("Company", $rowArray))
     {
@@ -3458,16 +3580,33 @@ $col = 0;
     {
         $schema_insert .= $row[13].$sep;
     }
-    if($valInfo == 0){
+
+    // if($valInfo == 0){
+        // if(in_array("Stake (%)", $rowArray))
+        // {
+        //     $schema_insert .= $hidestake.$sep;
+        // }
+    // }
+
     if(in_array("Stake (%)", $rowArray))
     {
-        $schema_insert .= $hidestake.$sep;
+        if($valInfo == 0){
+
+            $schema_insert .= $hidestake.$sep;
+        }else{
+            $schema_insert .= ''.$sep;
+        }
     }
-    }
+
     // Date
     if(in_array("Date", $rowArray))
     {
-        $schema_insert .= $row[15].$sep;
+        // date_format($exd, 'Y-m-d');
+        // $schema_insert .= date_format($row[15].$sep, 'm-Y');
+        $schema_insert .= date("M-Y",strtotime($row[15])).$sep;
+        // $schema_insert .= $row[15].$sep;
+        // $schema_insert .= date("M-y",strtotime($row[15])).$sep;
+
     }
     if(in_array("Exit Status", $rowArray))
     {
@@ -3493,6 +3632,7 @@ $col = 0;
     {
         $schema_insert .= $row[18].$sep;
     }
+   
     if(in_array("Advisor-Company", $rowArray))
     {
         $schema_insert .= $advisorCompanyString.$sep;
@@ -3503,101 +3643,139 @@ $col = 0;
     }
     if(in_array("More Details", $rowArray))
     {
-        $schema_insert .= $resmoreinfo.$sep;
+        // $schema_insert .= "More Information".$sep;
+        // $schema_insert .= $row[19].$sep;
+
+        $schema_insert .= $resmoreinfo1.$sep;
+
+        //  $schema_insert .= "70 Million (INR 504.84 Cr) is the investment commitment INR 320 Cr for 9.66% stake has been invested so far  Investment via Ruby QC Investment Holdings Pte Ltd  Pricing details Equity Share = FV INR 10; Issue price INR 25,480.85  On Nov 13, 2019, issue of 125,585 equity shares to Ruby QC Investment Holdings Pte Ltd  Post-deal SHP: Promoters – 90.34% Quadria India – 9.66%  Co name: Akums Drugs And Pharmaceuticals Limited (CIN: U24239DL2004PLC125888)  Healthcare-focused private equity firm has invested USD 70 million in return for a 10-15% stake in New Delhi-based contract research and manufacturing services provider Akums Drugs & Pharmaceuticals Ltd. The company plans to use the capital to fund its organic and inorganic growth opportunities.  Akums Drugs clients include pharma companies such as Cipla, Cadila Pharmaceuticals, Glenmark, Novartis and Mylan. It had reported revenues of INR 1,552 crore and a net profit of INR 90.5 crore for FY18.".$sep;
+
+         
     }
+   
     if(in_array("Link", $rowArray))
     {
         $schema_insert .= trim($row[24]).$sep;
+        // $schema_insert .= "Link".$sep;
     }
     if($valInfo == 0){
     if(in_array("Pre Money Valuation (INR Cr)", $rowArray))
     {
         $schema_insert .= $pre_company_valuation.$sep;
+        // $schema_insert .= "Pre Money Valuation (INR Cr)".$sep;
     }
     if(in_array("Revenue Multiple (Pre)", $rowArray))
     {
         $schema_insert .= $pre_revenue_multiple.$sep;
+        // $schema_insert .= "Revenue Multiple (Pre)".$sep;
     }
     if(in_array("EBITDA Multiple (Pre)", $rowArray))
     {
         $schema_insert .= $pre_ebitda_multiple.$sep;
+        // $schema_insert .= "EBITDA Multiple (Pre)".$sep;
     }
     if(in_array("PAT Multiple (Pre)", $rowArray))
     {
         $schema_insert .= $pre_pat_multiple.$sep;
+        // $schema_insert .= "PAT Multiple (Pre)".$sep;
     }
     if(in_array("Post Money Valuation (INR Cr)", $rowArray))
     {
         $schema_insert .= $dec_company_valuation.$sep;
+        // $schema_insert .= "Post Money Valuation (INR Cr)".$sep;
     }
     if(in_array("Revenue Multiple (Post)", $rowArray))
     {
         $schema_insert .= $dec_revenue_multiple.$sep;
+
+        // $schema_insert .= "Revenue Multiple (Post)".$sep;
     }
     if(in_array("EBITDA Multiple (Post)", $rowArray))
     {
         $schema_insert .= $dec_ebitda_multiple.$sep;
+        // $schema_insert .= "EBITDA Multiple (Post)".$sep;
     }
     if(in_array("PAT Multiple (Post)", $rowArray))
     {
         $schema_insert .= $dec_pat_multiple.$sep;
+        // $schema_insert .= "PAT Multiple (Post)".$sep;
     }
     if(in_array("Enterprise Valuation (INR Cr)", $rowArray))
     {
         $schema_insert .= $ev_company_valuation.$sep;
+        // $schema_insert .= "Enterprise Valuation (INR Cr)".$sep;
     }
     if(in_array("Revenue Multiple (EV)", $rowArray))
     {
         $schema_insert .= $ev_revenue_multiple.$sep;
+        // $schema_insert .= "Revenue Multiple (EV)".$sep;
     }
     if(in_array("EBITDA Multiple (EV)", $rowArray))
     {
         $schema_insert .= $ev_ebitda_multiple.$sep;
+        //  $schema_insert .= "EBITDA Multiple (EV)".$sep;
     }
     if(in_array("PAT Multiple (EV)", $rowArray))
     {
         $schema_insert .= $ev_pat_multiple.$sep;
+        // $schema_insert .= "PAT Multiple (EV)".$sep;
     }
     }
     if(in_array("Price to Book", $rowArray))
     {
         $schema_insert .= $price_to_book.$sep;
+        // $schema_insert .= "Price to Book".$sep;
     }
     if($valInfo == 0){
     if(in_array("Valuation", $rowArray))
     {
         $schema_insert .= trim($row[26]).$sep;
+        // $schema_insert .= "Valuation".$sep;
     }
     }
     if(in_array("Revenue (INR Cr)", $rowArray))
     {
         $schema_insert .= $dec_revenue.$sep;
+        // $schema_insert .= "Revenue (INR Cr)".$sep;
     }
     if(in_array("EBITDA (INR Cr)", $rowArray))
     {
         $schema_insert .= $dec_ebitda.$sep;
+        //  $schema_insert .= "EBITDA (INR Cr)".$sep;
     }
     if(in_array("PAT (INR Cr)", $rowArray))
     {
         $schema_insert .= $dec_pat.$sep;
+        //  $schema_insert .= "PAT (INR Cr)".$sep;
     }
 
     if(in_array("Total Debt (INR Cr)", $rowArray))
     {
         $schema_insert .= $Total_Debt.$sep;
+        // $schema_insert .= "Total Debt (INR Cr)".$sep;
     }
     if(in_array("Cash & Cash Equ. (INR Cr)", $rowArray))
     {
         $schema_insert .= $Cash_Equ.$sep;
+        //  $schema_insert .= "Cash & Cash Equ. (INR Cr)".$sep;
     }
     if(in_array("Book Value Per Share", $rowArray))
     {
         $schema_insert .= $book_value_per_share.$sep;
+        //  $schema_insert .= "Book Value Per Share".$sep;
     }
     if(in_array("Price Per Share", $rowArray))
     {
         $schema_insert .= $price_per_share.$sep;
+        //   $schema_insert .= "Price Per Share".$sep;
     }
+   
+
+
+
+
+
+    
     // if(in_array("Link for Financials", $rowArray))
     // {
     //     $DataList[]= $row[27];
@@ -3662,12 +3840,16 @@ $col = 0;
     print(trim($schema_insert));
     print "\n";
 }
+
 print("\n");
-    print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
-    print("\n");
-    print("\n");
-    print("Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.");
-    exit();
+print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
+print("\n");
+print("\n");
+print("Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.");
+exit();
+
+// exit();
+
 print("\n");
     print("\n");
     print("\n");
