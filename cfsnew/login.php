@@ -6,7 +6,6 @@ if(!isset($_SESSION)){
 
 // echo "Session123=".$_SESSION['backpage'];
 
-
 include "header.php";
 // include "sessauth.php";
 
@@ -369,14 +368,22 @@ if(($username == $UName ||  $username = $authAdmin['email'] ) && md5($password) 
 
                     // print_r($_SERVER['PHP_SELF']);
 
-                    if($_SESSION["backpage"] != "")
-                    {
-                        echo "<script language='javascript'>document.location.href= '".$_SESSION["backpage"]."' </script>";
-                    }else{
-                        echo "<script language='javascript'>document.location.href='home.php'</script>";
-                    }
+                    // if($_SESSION["backpage"] != "")
+                    // {
+                    //     echo "<script language='javascript'>document.location.href= '".$_SESSION["backpage"]."' </script>";
+                    // }else{
+                    //     echo "<script language='javascript'>document.location.href='home.php'</script>";
+                    // }
                     
                     // echo "<script language='javascript'>document.location.href='home.php'</script>";
+
+
+                    if(!isset($_COOKIE['URLTOREDIRECT'])) {
+                        echo "<script language='javascript'>document.location.href='home.php'</script>";
+                        } else {
+                            header("Location:".$_COOKIE['URLTOREDIRECT']);
+                        }
+                        
                 
             }
                 exit();
