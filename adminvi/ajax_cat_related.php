@@ -8,14 +8,14 @@
 
     // echo $majoy_category;
 
-    $sql = "SELECT * FROM newsletter_subcategory WHERE category_id = $majoy_category";
+    $sql = "SELECT * FROM newsletter_category WHERE category_id = $majoy_category";
     
     $option = "";
     if ($getSubCat = mysql_query($sql))
     {
         $value  = "<select name='Category' class = 'subcategorydropdown'>--- Select Major Category ---</option>";
 
-        While($myrow=mysql_fetch_array($getSubCat, MYSQL_BOTH))
+        While($myrow=mysql_fetch_assoc($getSubCat, MYSQL_BOTH))
         {
             // echo '<pre>'; print_r($myrow); echo '</pre>';
 

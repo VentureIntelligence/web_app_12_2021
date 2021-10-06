@@ -12,6 +12,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $emailExists = false;
     $successState = false;
     if( isset( $_POST[ 'add_btn' ] ) ) {
+
+        // echo '<pre>'; print_r($_POST); echo '</pre>'; exit;
+
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
         $sub_category_id  =  mysql_real_escape_string( $_POST[ 'SubCategory' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
@@ -35,9 +38,31 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             $result = mysql_fetch_array( $res );
            
         } else {
-            $insert = "INSERT INTO newsletter ( sub_category_id, category, sub_category, heading, slug, tags, summary, targetcmp_website, vi_database, published_at,created_on )
-                        VALUES( '" . $sub_category_id . "', '" . $category . "',  '" . $sub_category_id . "', '" . $heading . "', '" . $slug . "',  '" . $tags . "',     '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
-           //echo $insert;exit();
+
+            // get Major Cat Name
+            $getCatName = "SELECT `name` FROM newletter_major_category WHERE id = $category";
+            $cat_name = mysql_query( $getCatName ) or die( mysql_error() );
+            $numrows = mysql_num_rows( $cat_name );
+            if( $numrows > 0 ) {
+                $cat_result = mysql_fetch_assoc( $cat_name );
+                $category_name =  ($cat_result['name']);
+            }else{}
+
+             //    get SubCat Name
+            $getSubCatName = "SELECT `name` FROM newsletter_category WHERE id = $sub_category_id";
+            $sub_cat_name = mysql_query( $getSubCatName ) or die( mysql_error() );
+            $numrows = mysql_num_rows( $sub_cat_name );
+            if( $numrows > 0 ) {
+                $sub_cat_result = mysql_fetch_assoc( $sub_cat_name );
+                $subcategory_name =  ($sub_cat_result['name']);
+            }else{}
+
+
+            $insert = "INSERT INTO newsletter ( major_category_id, major_category, category_id, category, heading, slug, tags, summary, targetcmp_website, vi_database, published_at,created_on )
+                        VALUES( '" . $category . "', '" . $category_name . "', '" . $sub_category_id . "','" . $subcategory_name . "', '" . $heading . "', '" . $slug . "',  '" . $tags . "',     '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
+
+        //    echo $insert;exit();
+
            if( mysql_query( $insert ) ) {
                 $lastInsertId = mysql_insert_id();
                 for ($i=0;$i<count($_POST['name']);$i++){
@@ -124,7 +149,7 @@ input[type=text],textarea,input[type=date]
                                             <td>
                                             
                                             <?php
-                                                $sql = "SELECT `id`,`name` FROM newsletter_catogory";
+                                                $sql = "SELECT `id`,`name` FROM newletter_major_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
                                                 $option = '';
                                                 
@@ -132,9 +157,12 @@ input[type=text],textarea,input[type=date]
                                                     $id = $rows['id'];
                                                     $cat = $rows['name'];
                                                     $option .= '<option value="'.$id.'">'.$cat.'</option>';
+                                                    
                                                 }
+                                                
                                             ?>
 
+                                            <!-- <input type="text" name = "major_cat" id = "major_cat" value = "<?php echo $cat?>"> -->
                                             <select name="Category" onchange="getSubCat(this.value)" >
                                                 <option value="">--- Select Major Category ---</option>
                                                 <?php echo $option; ?>
@@ -166,7 +194,7 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                                 <select name="SubCategory" class = "subcategorydropdown">
-                                                    <option value="">--- Select Sub Category ---</option>
+                                                    <option value="">--- Select Category ---</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -343,6 +371,7 @@ else
                 // alert(data.responseText);
                 if(data != "")
                 {
+                    // alert(data);
                     $(".subcategorydropdown").html(data);
                 }
                 else{
