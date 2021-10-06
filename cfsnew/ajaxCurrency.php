@@ -5252,6 +5252,8 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
                   }
                 if($_GET['queryString']!='INR'){?>
                   <td><?php
+
+
                  if($yearcurrency[$year] ==''){
                   if($FinanceAnnual_cashflow[$i][EquivalentEndYear]==0){echo '-';}else{ $vale = currency_convert($FinanceAnnual_cashflow[$i][EquivalentEndYear],'INR',$_GET['queryString']);$tot=$vale/$convalue;echo round($tot,2); if($vale==''){echo '-';}} 
                  }else{
@@ -5364,6 +5366,20 @@ $RatioCalculation = $plstandard->radioFinacial($whereradio,$group1);
 //       $('.finance-filter-custom').eq(1).remove();
 //   }
 // });
+
+    $(document).ready(function(){
+      if($('.cfs_menu123').length > 1){
+      $('.cfs_menu123').eq(1).remove();
+        }
+        if($('.finance-filter-custom123').length > 1){
+            $('.finance-filter-custom123').eq(1).remove();
+        }
+    }
+
+
+
+
+
     $('input[name=plexportcompare]#plexportcompare').click(function(){
               jQuery('#maskscreen').fadeIn(1000);
               $( '#plexport-popup' ).show();

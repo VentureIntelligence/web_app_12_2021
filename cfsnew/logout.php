@@ -13,8 +13,10 @@ unset($_SESSION['backpage']);
 
 
 include_once('header.php');
+setcookie('URLTOREDIRECT', '');
 
 if($isAuth) {
+	
 	$logoutUser = new users();
 	session_start();
 	$updateUser['user_id'] = $_SESSION["user_id"];

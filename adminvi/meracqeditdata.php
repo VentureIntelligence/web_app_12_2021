@@ -45,7 +45,7 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 
 	$SelCompRef=$value;
 	//echo "<br>--".$SelCompRef;
-   	$getDatasql = "SELECT pe.PECompanyId, pec.companyname,pe.Stake, pec.industry as TargetIndustry, pec.sector_business,
+   	$getDatasql = "SELECT pe.PECompanyId, pe.company_group ,pec.companyname,pe.Stake, pec.industry as TargetIndustry, pec.sector_business,
 		pec.countryid as TargetCountryId,pec.city as TargetCity,
 		Amount,DATE_FORMAT( DealDate, '%M' )  as dates, DATE_FORMAT( DealDate, '%Y' ) as dtyear,DATE_FORMAT(ModifiedDate,'%m/%d/%Y %H:%i:%s') as modifieddate,
 		pec.website,c.country as TargetCountry,
@@ -136,6 +136,12 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 								<td >&nbsp;Target Company</td>
 								<td><input type="text" name="txtname" size="50" value="<?php echo $mycomprow["companyname"]; ?>"> </td>
 								</tr>
+
+								<tr style="font-family: Arial; font-size: 8pt">
+								<td >&nbsp;Group (Company)</td>
+								<td><input type="text" name="editcompanygroup" id = "editcompanygroup" class ="company_group" size="50" value="<?php echo $mycomprow["company_group"]; ?>" > </td>
+								</tr>
+
 								<tr>
 								<td>Target Company Type</td>
 								<td > <SELECT name="target_listingstatus">

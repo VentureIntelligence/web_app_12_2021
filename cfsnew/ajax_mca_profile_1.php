@@ -12,7 +12,10 @@ include_once('simple_html_dom.php');
 
 //Data from MCA website 
 try{ 
+    // $urltopost = "https://www.mca.gov.in/mcafoportal/companyLLPMasterData.do";
+
     $urltopost = "https://www.mca.gov.in/mcafoportal/companyLLPMasterData.do";
+
     $datatopost = array ("companyID" => $cin);
     $headerArray = array( 
         "Accept-Encoding" => "gzip, deflate", 
@@ -46,8 +49,8 @@ try{
    // print_r($headerArray);
     if( $response != false) {
         if( $httpcode != 200 ) {
-            echo $httpcode;
-            //echo '<div id="masterData_403_error"><b>Unable to connect to MCA Server, please try after sometime</b></div>';
+            // echo $httpcode;
+            echo '<div id="masterData_403_error"><b>The MCA site is not responding, please try again later.</b></div>';
         } else {
            echo $response;    
         }
