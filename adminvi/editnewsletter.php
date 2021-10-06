@@ -13,7 +13,11 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $emailExists = false;
     $successState = false;
     if( isset( $_POST[ 'add_btn' ] ) ) {
+
+        //  echo '<pre>'; print_r($_POST); echo '</pre>'; exit;
+
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
+        $subcategory = mysql_real_escape_string( $_POST[ 'SubCategory' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
         $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
         $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
@@ -27,10 +31,35 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
         //$dt   = new DateTime($date);
        // $epochtime= $dt->getTimestamp();
+
+
+
+         // get Major Cat Name
+         $getCatName = "SELECT `name` FROM newletter_major_category WHERE id = $category";
+         $cat_name = mysql_query( $getCatName ) or die( mysql_error() );
+         $numrows = mysql_num_rows( $cat_name );
+         if( $numrows > 0 ) {
+             $cat_result = mysql_fetch_assoc( $cat_name );
+             $category_name =  ($cat_result['name']);
+         }else{}
+
+          //    get SubCat Name
+         $getSubCatName = "SELECT `name` FROM newsletter_category WHERE id = $subcategory";
+         $sub_cat_name = mysql_query( $getSubCatName ) or die( mysql_error() );
+         $numrows = mysql_num_rows( $sub_cat_name );
+         if( $numrows > 0 ) {
+             $sub_cat_result = mysql_fetch_assoc( $sub_cat_name );
+             $subcategory_name =  ($sub_cat_result['name']);
+         }else{}
+
+
+
         $update = "UPDATE newsletter SET
-                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
+                    major_category_id = '" . trim($category) . "',  major_category = '" . trim($category_name) . "', category_id = '" . trim($subcategory) . "', category = '" . trim($subcategory_name) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
+
                 //    echo $update;exit();
+
         if( mysql_query( $update ) ) {
             for ($i=0;$i<count($_POST['name']);$i++){
                 $name= mysql_real_escape_string( $_POST[ 'name' ][$i] );
@@ -134,7 +163,7 @@ input[type=text],textarea,input[type=date]
                                             <td>
 
                                             <?php
-                                                $sql = "SELECT `id`,`name` FROM newsletter_catogory";
+                                                $sql = "SELECT `id`,`name` FROM newletter_major_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
 
                                                 // echo '<pre>'; print_r($res); echo '</pre>';
@@ -150,10 +179,10 @@ input[type=text],textarea,input[type=date]
 
                                                     // echo $id.'<br />';
                                                     // echo $cat.'<br />';
-                                                    // echo $$result['category'].'<br />';
+                                                    // echo $result['major_category_id'].'<br />';
                                                    
                                                     $selected = "";
-                                                    if($result['category'] == $id)
+                                                    if($result['major_category_id'] == $id)
                                                     {
                                                         $selected = "selected='selected'";
                                                     }
@@ -161,8 +190,9 @@ input[type=text],textarea,input[type=date]
                                                  
                                                 }
                                             ?>
+                                            
 
-                                            <select name="Category" onchange="getSubCat(this.value)">
+                                            <select name="Category" onchange="getSubCat(this.value)" >
                                                 <option value="">--- Select Category ---</option>
                                                 <?php echo $option; ?>
                                             </select>
@@ -207,7 +237,7 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                             <?php
-                                                $sql = "SELECT `id`,`name` FROM newsletter_subcategory";
+                                                $sql = "SELECT `id`,`name` FROM newsletter_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
 
                                                 // echo '<pre>'; print_r($res); echo '</pre>';
@@ -220,16 +250,16 @@ input[type=text],textarea,input[type=date]
                                                     $cat = $rows['name'];
                                                    
                                                     $selected = "";
-                                                    if($result['sub_category'] == $id)
+                                                    if($result['category_id'] == $id)
                                                     {
                                                         $selected = "selected='selected'";
                                                     }
-                                                    $option .= '<option value="'.$cat.'"'.$selected.'>'.$cat.'</option>';
+                                                    $option .= '<option value="'.$id.'"'.$selected.'>'.$cat.'</option>';
                                                  
                                                 }
                                             ?>
                                                 <select name="SubCategory" class = "subcategorydropdown">
-                                                    <option value="">--- Select Sub Category ---</option>
+                                                    <option value="">--- Select Category ---</option>
                                                     <?php echo $option; ?>
                                                 </select>
                                             </td>

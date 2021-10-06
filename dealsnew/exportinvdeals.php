@@ -1,6 +1,7 @@
 <?php include_once("../globalconfig.php"); ?>
 <?php
 
+
 /*//session_save_path("/tmp");
 session_start();
 
@@ -2246,7 +2247,7 @@ $exitstatusValue_hide = implode($exitstatusValue, ',');
     $dt2 = $year2 . "-" . $month2 . "-31";
     
     $companysql = "(
-                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe.amount,pe.Amount_INR,
+                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe_sectors as pec, pe.amount,pe.Amount_INR,
                                                      cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                                                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
@@ -2322,22 +2323,30 @@ $valuationsql  $sectorcondition
         $increg = "JOIN region AS r ON r.RegionId=pec.RegionId";
     }
      
-     if(count($sector) > 0 || count($subsector) > 0){
+    //  if(count($sector) > 0 || count($subsector) > 0){
+    //     /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
+    //     $joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID JOIN pe_sectors as pe_sec on pe_sec.sector_id = pe_sub.sector_id';
+    // } else {
+    //     $joinsectortable = '';
+    // } 
+    if(count($sector) > 0 || count($subsector) > 0){
         /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
         $joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID JOIN pe_sectors as pe_sec on pe_sec.sector_id = pe_sub.sector_id';
     } else {
         $joinsectortable = '';
     } 
     $companysql = "SELECT pe.PECompanyID as PECompanyId,pec.companyname,pec.industry,pe.dates as dates,i.industry as industry,
-                    pec.sector_business as sector_business,amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%M-%Y') as dealperiod,
+                    pec.sector_business as sector_business, amount,pe.Amount_INR,round,s.stage,stakepercentage,DATE_FORMAT(dates,'%M-%Y') as dealperiod,
                     pec.website,pec.city,pec.region,pe.PEId,pe.comment,pe.MoreInfor,hideamount,hidestake,pe.StageId,SPV,pec.RegionId,AggHide,pe.Exit_Status,
-                                        (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
+                                        (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv  WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
                                                     FROM peinvestments AS pe JOIN pecompanies AS pec ON pec.PEcompanyID = pe.PECompanyID
                                                     JOIN peinvestments_investors AS peinv_inv ON peinv_inv.PEId = pe.PEId
                                                     JOIN peinvestors AS inv ON inv.InvestorId = peinv_inv.InvestorId
                                                     JOIN industry AS i ON pec.industry = i.industryid
                                                     JOIN stage AS s ON s.StageId=pe.StageId $increg ".$joinsectortable. " WHERE " . $valuationsql . "";
+
+                                                    
     //    echo "<br> individual where clauses have to be merged ";
 
 
@@ -2375,7 +2384,7 @@ $valuationsql  $sectorcondition
         }
         
         $combineSearchFlag = true;
-        $whereinvestorsql = " peinv_inv.InvestorId IN('$keyword')";
+        $whereinvestorsql = " peinv_inv.InvestorId IN($keyword)";
 
     }
 
@@ -2386,9 +2395,14 @@ $valuationsql  $sectorcondition
   
     if ($sectorval != '') {
         $sectorvalarray=explode(",", $sectorval);
+
+    //    echo '<pre>'; print_r( $sectorvalarray); echo '</pre>';
+
         foreach($sectorvalarray as $key=>$sectorvals)
             {
                 $sectorsql123="select sector_name from pe_sectors where sector_id=".$sectorvals;
+
+                // echo $sectorsql123;
                
                 $sectorquery=mysql_query($sectorsql123);
                 if($row=mysql_fetch_row($sectorquery))
@@ -2404,9 +2418,11 @@ $valuationsql  $sectorcondition
            }
            //$wheresectorsql = " pe_sub.sector_id IN($sectorval)";
         }
+
     if ($subsectorval != '') {
-                     $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
+            $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
     }
+
     $industry=array_filter($industry);
     if (count($industry) > 0) {
         $indusSql = '';
@@ -2792,6 +2808,8 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 //  echo $companysql;
 //  exit();
+
+
 
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
@@ -3394,20 +3412,14 @@ $col = 0;
         // echo 'Ila<br />';
     }
     // echo $advisorInvestorString;  exit;
-
-    // floatval(preg_replace('/[^\d\.]/', '', $price[0]));
     
     $resmoreinfo = preg_replace("/\r\n|\r|\n/",'<br/>',$row[19]);
     $resmoreinfo =  str_replace($replace_array, ' ', $resmoreinfo);
     $resmoreinfo = trim($resmoreinfo);//BusinessDesc
     $resmoreinfo = preg_replace('/(\v|\s)+/', ' ', $resmoreinfo);//more details
 
-    // $removeDollor = floatval(ltrim($resmoreinfo, '$'));
 
     $resmoreinfo1 = str_replace('$','', $resmoreinfo);
-
-
-    // echo '<br /><br />More Info____ '.$resmoreinfo1;  exit;
 
     $pre_company_valuation = $row[43];
     if ($pre_company_valuation <= 0)
@@ -3568,12 +3580,24 @@ $col = 0;
     {
         $schema_insert .= $row[13].$sep;
     }
-    if($valInfo == 0){
+
+    // if($valInfo == 0){
+        // if(in_array("Stake (%)", $rowArray))
+        // {
+        //     $schema_insert .= $hidestake.$sep;
+        // }
+    // }
+
     if(in_array("Stake (%)", $rowArray))
     {
-        $schema_insert .= $hidestake.$sep;
+        if($valInfo == 0){
+
+            $schema_insert .= $hidestake.$sep;
+        }else{
+            $schema_insert .= ''.$sep;
+        }
     }
-    }
+
     // Date
     if(in_array("Date", $rowArray))
     {
@@ -3620,8 +3644,9 @@ $col = 0;
     if(in_array("More Details", $rowArray))
     {
         // $schema_insert .= "More Information".$sep;
-        $schema_insert .= $resmoreinfo1.$sep;
         // $schema_insert .= $row[19].$sep;
+
+        $schema_insert .= $resmoreinfo1.$sep;
 
         //  $schema_insert .= "70 Million (INR 504.84 Cr) is the investment commitment INR 320 Cr for 9.66% stake has been invested so far  Investment via Ruby QC Investment Holdings Pte Ltd  Pricing details Equity Share = FV INR 10; Issue price INR 25,480.85  On Nov 13, 2019, issue of 125,585 equity shares to Ruby QC Investment Holdings Pte Ltd  Post-deal SHP: Promoters – 90.34% Quadria India – 9.66%  Co name: Akums Drugs And Pharmaceuticals Limited (CIN: U24239DL2004PLC125888)  Healthcare-focused private equity firm has invested USD 70 million in return for a 10-15% stake in New Delhi-based contract research and manufacturing services provider Akums Drugs & Pharmaceuticals Ltd. The company plans to use the capital to fund its organic and inorganic growth opportunities.  Akums Drugs clients include pharma companies such as Cipla, Cadila Pharmaceuticals, Glenmark, Novartis and Mylan. It had reported revenues of INR 1,552 crore and a net profit of INR 90.5 crore for FY18.".$sep;
 
@@ -3815,8 +3840,6 @@ $col = 0;
     print(trim($schema_insert));
     print "\n";
 }
-
-
 
 print("\n");
 print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
