@@ -1,4 +1,6 @@
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script> -->
 <?php
+
 require("../dbconnectvi.php");
 $Db = new dbInvestments();
 require("checkaccess.php");
@@ -13,13 +15,56 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $successState = false;
     if( isset( $_POST[ 'add_btn' ] ) ) {
 
-        // echo '<pre>'; print_r($_POST); echo '</pre>'; exit;
+        // echo '<pre>'; print_r($_POST); echo '</pre>'; 
 
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
         $sub_category_id  =  mysql_real_escape_string( $_POST[ 'SubCategory' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
         $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
-        $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
+
+        $tags =  $_POST[ 'tags' ];
+        $tags_string = implode(',',$tags);
+
+        // echo '<pre>'; print_r($tags); echo '</pre>'; 
+
+
+        // Only News Array
+        foreach ($tags as $val1)
+        {
+            if (!is_numeric($val1))
+            {
+                $onlynew[] = $val1;
+            }else{
+            }
+        }
+
+        // Existing Array Name
+        foreach ($tags as $val)
+        {
+            if (!is_numeric($val))
+            {
+
+            }else{
+                $getTagName = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where id = $val";
+
+                if ($rstag = mysql_query($getTagName))
+                {
+                    While($myrow=mysql_fetch_array($rstag, MYSQL_BOTH)){
+                        
+                        $tag_name[] = trim($myrow["tag"]);
+                    }
+                }
+            }
+        }
+        // echo '<pre>'; print_r($tag_name); echo '</pre>';
+
+        $final_tag = array_merge($onlynew,$tag_name);
+        $tags_string = implode(',',$final_tag);
+        
+        // echo '<pre>'; print_r($tags_string); echo '</pre>';
+
+        // echo '<pre>'; print_r($final_tag); echo '</pre>';
+
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
@@ -40,7 +85,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         } else {
 
             // get Major Cat Name
-            $getCatName = "SELECT `name` FROM newletter_major_category WHERE id = $category";
+            $getCatName = "SELECT `name` FROM newsletter_major_category WHERE id = $category";
             $cat_name = mysql_query( $getCatName ) or die( mysql_error() );
             $numrows = mysql_num_rows( $cat_name );
             if( $numrows > 0 ) {
@@ -57,14 +102,15 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 $subcategory_name =  ($sub_cat_result['name']);
             }else{}
 
+                $insert = "INSERT INTO newsletter ( major_category_id, major_category, category_id, category, heading, slug, tags, summary, targetcmp_website, vi_database, published_at,created_on )
+                VALUES( '" . $category . "', '" . $category_name . "', '" . $sub_category_id . "','" . $subcategory_name . "', '" . $heading . "', '" . $slug . "',  '" . $tags_string . "',     '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
 
-            $insert = "INSERT INTO newsletter ( major_category_id, major_category, category_id, category, heading, slug, tags, summary, targetcmp_website, vi_database, published_at,created_on )
-                        VALUES( '" . $category . "', '" . $category_name . "', '" . $sub_category_id . "','" . $subcategory_name . "', '" . $heading . "', '" . $slug . "',  '" . $tags . "',     '" . $summary . "', '" . $Targetcmp_website . "', '" . $vi_database . "', '" . $publish_at . "','" . $createdOn . "' )";
-
-        //    echo $insert;exit();
+            //    echo $insert;exit();
 
            if( mysql_query( $insert ) ) {
                 $lastInsertId = mysql_insert_id();
+
+                // Insert Source
                 for ($i=0;$i<count($_POST['name']);$i++){
                 $name= mysql_real_escape_string( $_POST[ 'name' ][$i] );
                 
@@ -73,6 +119,27 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 $insert_mod = "INSERT INTO sources ( news_id, name, url )
                                 VALUES( '" . $lastInsertId . "', '" . $name . "', '" . $url . "' )";
                 mysql_query( $insert_mod ) or die( mysql_error() );
+                }
+
+
+                $selected_array = $_POST['tags'];
+                // echo '<pre>'; print_r($selected_array); echo '</pre>'; 
+                foreach ($selected_array as $value)
+                {
+                    // echo '<pre>'; print_r($value); echo '</pre>'; 
+                    // exit;
+                    if (!is_numeric($value)) // there are several ways to do this
+                    {
+                        // echo 'notInsert___'.$value.'<br />';
+                        // echo 'Insert___'.$value.'<br />';
+
+                        $insert_tag = "INSERT INTO tags ( tag_name, tag_type, created_date ) VALUES( '" . $value . "', '" . $value . "', '" . $createdOn . "' )";
+
+                        // echo $insert_tag;
+
+                        mysql_query( $insert_tag ) or die( mysql_error() );
+                    
+                    }else{}
                 }
                 $successState = true;
             }
@@ -149,7 +216,7 @@ input[type=text],textarea,input[type=date]
                                             <td>
                                             
                                             <?php
-                                                $sql = "SELECT `id`,`name` FROM newletter_major_category";
+                                                $sql = "SELECT `id`,`name` FROM newsletter_major_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
                                                 $option = '';
                                                 
@@ -251,10 +318,41 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                             <textarea type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" value=""></textarea>
-
                                                 <!-- <input type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" value=""> -->
                                             </td>
                                         </tr>
+
+
+
+                                        <!-- Tags -->
+                                        <tr style="font-family: Verdana; font-size: 8pt;">
+                                            <td>
+                                                <label for="vi_db">Tags</label> 
+                                            </td>
+                                            <td >
+                                                <?php 
+                                                    $tagsql = "SELECT substring_index(tag_name, ':', -1)as tag,id FROM `tags` where tag_name like '%".$search_tag."%' and tag_type!=''";
+
+                                                    if ($rstag = mysql_query($tagsql))
+                                                    {
+                                                        While($myrow=mysql_fetch_array($rstag, MYSQL_BOTH)){
+
+                                                            $id = $myrow["id"];
+                                                            $tag_name = trim($myrow["tag"]);
+                                                            $optiontags .= '<option value="'.$id.'">'.$tag_name.'</option>';
+                                                        }
+                                                    }
+                                                ?>
+                                                <select class="form-control js-example-tokenizer" multiple="multiple" name="tags[]" id="tags">
+                                                    <?php echo $optiontags; ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+
+                                        
+
+
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="publish_at">Published At</label> 
@@ -358,7 +456,29 @@ else
     header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
 
+<style>
+    .js-example-tokenizer {
+    width: 250px;
+}
+ 
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
+
+$(".js-example-tokenizer").select2({
+    allowClear: true,
+    width: "resolve"
+});
+
+  
+$(".js-example-tokenizer").select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+})
+
     function getSubCat(val)
     {
         $.ajax({
@@ -381,6 +501,6 @@ else
         });
 
     }
-
+    
 
 </script>
