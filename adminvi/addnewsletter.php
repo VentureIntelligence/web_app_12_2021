@@ -25,7 +25,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $tags =  $_POST[ 'tags' ];
         $tags_string = implode(',',$tags);
 
-        // echo '<pre>'; print_r($tags); echo '</pre>'; 
+        // echo '<pre>'; print_r($tags); echo '</pre>';  
+
+        // exit;
 
 
         // Only News Array
@@ -37,7 +39,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
             }else{
             }
         }
+        // echo '<pre>'; print_r($onlynew); echo '</pre>';
 
+   
         // Existing Array Name
         foreach ($tags as $val)
         {
@@ -56,14 +60,35 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 }
             }
         }
-        // echo '<pre>'; print_r($tag_name); echo '</pre>';
 
-        $final_tag = array_merge($onlynew,$tag_name);
-        $tags_string = implode(',',$final_tag);
+        //  echo '<pre>'; print_r($tag_name); echo '</pre>';
+
+       if(!empty($onlynew) && !empty($tag_name)) {
+
+            $final_tag = array_merge($onlynew,$tag_name);
+            $tags_string = implode(',',$final_tag);
+
+        }elseif(!empty($onlynew)){
+
+            $tags_string = implode(',',$onlynew);
+        }
+        elseif(!empty($tag_name)){
+            $tags_string = implode(',',$tag_name);
+        }else{
+            ?>
+            <script>
+                alert('Pls Enter the Non Numeric Value in Tags');
+                location.href = 'newsletter.php';
+            </script><?php
+        }
+
+        // echo '<pre>'; print_r($tag_name); echo '</pre>';
+        // echo '<pre>'; print_r($final_tag); echo '</pre>'; 
         
         // echo '<pre>'; print_r($tags_string); echo '</pre>';
 
-        // echo '<pre>'; print_r($final_tag); echo '</pre>';
+        // exit;
+
 
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
