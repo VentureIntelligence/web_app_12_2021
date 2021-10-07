@@ -35,7 +35,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
 
          // get Major Cat Name
-         $getCatName = "SELECT `name` FROM newletter_major_category WHERE id = $category";
+         $getCatName = "SELECT `name` FROM newsletter_major_category WHERE id = $category";
          $cat_name = mysql_query( $getCatName ) or die( mysql_error() );
          $numrows = mysql_num_rows( $cat_name );
          if( $numrows > 0 ) {
@@ -97,6 +97,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $result = mysql_fetch_array( $res );
 
     //    echo '<pre>'; print_r($result);echo '</pre>';
+
+      
     }
 ?>
 
@@ -163,23 +165,15 @@ input[type=text],textarea,input[type=date]
                                             <td>
 
                                             <?php
-                                                $sql = "SELECT `id`,`name` FROM newletter_major_category";
+                                                $sql = "SELECT `id`,`name` FROM newsletter_major_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
-
-                                                // echo '<pre>'; print_r($res); echo '</pre>';
 
                                                 $option = '';
                                                 
                                                 while($rows=mysql_fetch_array($res)){ 
 
-                                                    //    echo '<pre>'; print_r($rows); echo '</pre>';
-
                                                     $id = $rows['id'];
                                                     $cat = $rows['name'];
-
-                                                    // echo $id.'<br />';
-                                                    // echo $cat.'<br />';
-                                                    // echo $result['major_category_id'].'<br />';
                                                    
                                                     $selected = "";
                                                     if($result['major_category_id'] == $id)
@@ -356,6 +350,45 @@ input[type=text],textarea,input[type=date]
                                                 <textarea type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" ><?php echo $result[ 'vi_database' ]; ?></textarea>
                                             </td>
                                         </tr>
+
+
+            <!-- Tags -->
+            <tr style="font-family: Verdana; font-size: 8pt;">
+                <td>
+                    <label for="vi_db">Tags</label> 
+                </td>
+                <td >
+                    <?php 
+                        $array_tags = explode(',',$result['tags']);
+                        foreach($array_tags as $as1)
+                        {
+                            // echo '<pre>'; print_r($as1); echo '</pre>';
+                            $tagsql = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$search_tag."%' and tag_type!=''";
+
+                            if ($rstag = mysql_query($tagsql))
+                            {
+                                While($myrow=mysql_fetch_array($rstag, MYSQL_BOTH)){
+
+                                    $id = $myrow["tag"];
+                                    $tag_name = trim($myrow["tag"]);
+
+                                    $selected = "";
+                                    if($as1 == $tag_name)
+                                    {
+                                        $selected = "selected='selected'";
+                                    }
+                                    $option1 .= '<option value="'.$id.'"'.$selected.'>'.$tag_name.'</option>';
+                                
+                                }
+                            }
+                        }
+                    ?>
+                    <select class="form-control js-example-tokenizer" multiple="multiple" name="tags[]" id="tags">
+                        <?php echo $option1; ?>
+                    </select>
+                </td>
+            </tr>
+
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="publish_at">Published At</label> 
@@ -477,6 +510,29 @@ else
     header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
 
+<style>
+    .js-example-tokenizer {
+    width: 250px;
+}
+ 
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+$(".js-example-tokenizer").select2({
+    allowClear: true,
+    width: "resolve"
+});
+
+  
+$(".js-example-tokenizer").select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+})
+
 <script>
     function getSubCat(val)
     {
@@ -501,6 +557,8 @@ else
         });
 
     }
+
+    
 
 
 </script>
