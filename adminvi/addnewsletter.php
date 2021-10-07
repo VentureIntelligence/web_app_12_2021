@@ -270,7 +270,8 @@ input[type=text],textarea,input[type=date]
                                                 <label for="Heading">Heading</label> 
                                             </td>
                                             <td>
-                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="" onchange = "headingslug(this.value)">
+                                                <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" value="" onchange = "headingslug(this.value)" required>
+                                                <input type="hidden" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value=""
                                             </td>
                                         </tr>
                                         <!-- <tr style="font-family: Verdana; font-size: 8pt">
@@ -440,9 +441,9 @@ $( '#cancel_user' ).on('click', function() {
     <script>
         function headingslug(val)
         {
-            var html = val;
-            var slugvalue = val.replace(/ /g,"-");
-            //alert(slugvalue);
+            var slugvalue1 = val.toLowerCase();            
+            var slugvalue = slugvalue1.replace(/ /g,"-");
+
             $(".slugvalue").val(slugvalue);
         }
     </script>
