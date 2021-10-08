@@ -20,7 +20,33 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $subcategory = mysql_real_escape_string( $_POST[ 'SubCategory' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
         $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
+
         $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
+
+        $tags =  $_POST[ 'tags' ];
+        $tags_string = implode(',',$tags);
+
+
+         // New Tags in Edit
+         foreach($tags as $as)
+         {
+             $checkexisting = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$as."%' and tag_type!=''";
+
+             $tagname = mysql_query( $checkexisting ) or die( mysql_error() );
+             $numrows = mysql_num_rows( $tagname );
+             $rc = mysql_affected_rows();
+
+             // Edit New Tags
+             if($rc == 0 )
+             {
+                 $insert_tag = "INSERT INTO tags ( tag_name, tag_type, created_date ) VALUES( '" . $as . "', '" . $as . "', '" . $createdOn . "' )";
+                 mysql_query( $insert_tag ) or die( mysql_error() );                
+             }
+             else{
+             }
+         }
+
+
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
@@ -55,7 +81,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
 
         $update = "UPDATE newsletter SET
-                    major_category_id = '" . trim($category) . "',  major_category = '" . trim($category_name) . "', category_id = '" . trim($subcategory) . "', category = '" . trim($subcategory_name) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
+                    major_category_id = '" . trim($category) . "',  major_category = '" . trim($category_name) . "', category_id = '" . trim($subcategory) . "', category = '" . trim($subcategory_name) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags_string ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
 
                 //    echo $update;exit();
@@ -83,6 +109,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
 
             }
+
+           
+
             $successState = true;
         }
     }
@@ -265,6 +294,7 @@ input[type=text],textarea,input[type=date]
                                             </td>
                                             <td>
                                                 <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" onchange = "headingslug(this.value)" value="<?php echo $result[ 'heading' ]; ?>">
+                                                <input type="hidden" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value="<?php echo $result[ 'slug' ]; ?>">
                                             </td>
                                         </tr>
 
@@ -378,7 +408,6 @@ input[type=text],textarea,input[type=date]
                                         $selected = "selected='selected'";
                                     }
                                     $option1 .= '<option value="'.$id.'"'.$selected.'>'.$tag_name.'</option>';
-                                
                                 }
                             }
                         }
@@ -491,12 +520,12 @@ $( '#cancel_user' ).on('click', function() {
 
   </script>
 
-    <script>
+<script>
         function headingslug(val)
         {
-            var html = val;
-            var slugvalue = val.replace(/ /g,"-");
-            //alert(slugvalue);
+            var slugvalue1 = val.toLowerCase();            
+            var slugvalue = slugvalue1.replace(/ /g,"-");
+
             $(".slugvalue").val(slugvalue);
         }
     </script>
