@@ -456,8 +456,14 @@
             <div class="card navCard">
                <div class="container">
                   <div class="nav nav-pills myfilters mt-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                     <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
-                     <a class="nav-link col-6" id="v-pills-profiletab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
+                     
+
+                           
+
+                     <a class="nav-link col-6 <?php if ($_GET['val'] == 'inv') { echo 'active'; }?>" id="v-pills-home-tab" data-toggle="pill"  class = "Inv_Tab"  href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
+
+                     <a class="nav-link col-6  <?php if ($_GET['val'] == 'exit') { echo 'active'; }?>" id="v-pills-profiletab" data-toggle="pill" class = "Exi_Tab" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
+
                   </div>
                </div>
                <div class="tab-content" id="v-pills-tabContent">
@@ -2338,13 +2344,18 @@
          }
          
          }
+
+
+
          var investornameArray=[];
-         function saveFilterName()
+         function saveFilterName(val)
          {
-         mode=$('#mode').val();
          investornameArray=[];
          
          var filterType=$(".rightpanel").find(".active").attr('value')
+
+         // alert(filterType);
+         
          
          var filtername=$('#filter_name').val().trim();
          var filterDesc=$('#filter_desc').val().trim();
@@ -2470,7 +2481,43 @@
          icon: "success",
          //button: "Aww yiss!",
          }).then(function() {
-         location.reload();
+
+               //  location.reload();
+
+
+            if(filterType == "Exit")
+            {
+               window.location.href = 'advance_export.php?val=exit';
+            }else{
+               window.location.href = 'advance_export.php?val=inv';
+            }
+
+
+            // var filterType=$(".rightpanel").find(".active").attr('value')
+
+            // if(filterType == "Exit")
+            // {
+               
+
+            //    location.reload();
+
+            //    $('.Exi_Tab').addClass('active');
+            //    $('.Inv_Tab').removeClass('active');
+
+              
+
+            // }else{
+            //    location.reload();
+
+               
+            //    $('.Inv_Tab').addClass('active');
+            //    $('.Exi_Tab').removeClass('active');
+
+            // }
+
+
+
+         
          
          });
          $('#investorauto_sug').tokenInput("clear");
