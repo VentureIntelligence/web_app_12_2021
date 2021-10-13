@@ -158,7 +158,7 @@
         
         $sep = "\t"; //tabbed character
         //print("\n");
-        $currFY = Date('y')-1;
+        $currFY = Date('y');
 	echo "Company Name"."\t";
     echo "CIN Number"."\t";
         echo "Brand Name"."\t";
