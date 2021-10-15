@@ -458,8 +458,6 @@
                   <div class="nav nav-pills myfilters mt-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                      
 
-                           
-
                      <a class="nav-link col-6 <?php if ($_GET['val'] == 'inv') { echo 'active'; }?>" id="v-pills-home-tab" data-toggle="pill"  class = "Inv_Tab"  href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
 
                      <a class="nav-link col-6  <?php if ($_GET['val'] == 'exit') { echo 'active'; }?>" id="v-pills-profiletab" data-toggle="pill" class = "Exi_Tab" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
@@ -467,20 +465,23 @@
                   </div>
                </div>
                <div class="tab-content" id="v-pills-tabContent">
+
                   <?php
+
+                     if ($_GET['val'] == 'inv')
+                     {
+
+                        echo 'Inv';
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
                      $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments' and  created_by='".$dlogUserEmail."' order by id desc";
 
-                     // echo $nanoSql; exit;
-
                      if ($reportrs = mysql_query($nanoSql))
                      {
-                     $report_cnt = mysql_num_rows($reportrs);
+                        $report_cnt = mysql_num_rows($reportrs);
                      }
-                     
-                     ?> 
+                  ?> 
                   <div class="tab-pane fade show active" id="v-pills-investmentsfilter" role="tabpanel" aria-labelledby="v-pills-home-tab" >
                      <?php
                         if ($report_cnt>0)
@@ -525,7 +526,19 @@
                      </div>
                      <?php } ?>
                   </div>
+
                   <?php
+                     }
+                  ?>
+
+
+
+
+
+                  <?php
+
+                
+
                      $keyword="";
                      $keyword=$_POST['repDBtype'];
                      
@@ -535,6 +548,14 @@
                      $report_cnt = mysql_num_rows($reportrs);
                      }
                      ?> 
+
+                     <?php
+
+                  if ($_GET['val'] == 'exit')
+                  {
+
+                     ?>
+                     
                   <div class="tab-pane fade show " id="v-pills-exitfilters" role="tabpanel" aria-labelledby="v-pills-profile-tab" >
                      <?php
                         if ($report_cnt>0)
@@ -573,6 +594,123 @@
                      </div>
                      <?php } ?>  
                   </div>
+
+                  <?php
+                     }
+                     ?>
+
+
+                     <?php
+                        $keyword="";
+                     $keyword=$_POST['repDBtype'];
+                     
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments' and  created_by='".$dlogUserEmail."' order by id desc";
+
+                     if ($reportrs = mysql_query($nanoSql))
+                     {
+                        $report_cnt = mysql_num_rows($reportrs);
+                     }
+                  ?> 
+                  <div class="tab-pane fade show active" id="v-pills-investmentsfilter" role="tabpanel" aria-labelledby="v-pills-home-tab" >
+                     <?php
+                        if ($report_cnt>0)
+                        {
+                        While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
+                        {	
+                        if($myrow['filter_type'] == "Investments"){
+                        ?> 
+                     <div class="card invest">
+                        <div class="card-body">
+                           <div class="row">
+                              <div class="col-md-10 col-10">
+                                 <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
+                                 <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
+                                 <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?></p>
+                              </div>
+                              <div class="col-md-2 col-2">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['id'] ?>')">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
+                             <div class='col-md-6'><button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
+                         </div>
+
+
+
+
+                         <div class='col-md-6'><button type="button" class="btn exportFilt text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
+                        </div>
+                        </div>
+                     </div>
+                     <?php
+                        } } }
+                        else {?>
+                     <div class="card data">
+                        <div class="card-body" style="text-align: center;font-size:12px;color:black">
+                           No Data Found
+                        </div>
+                     </div>
+                     <?php } ?>
+                  </div>
+                  
+                              <?php
+
+                  $keyword="";
+                     $keyword=$_POST['repDBtype'];
+                     
+                     $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Exit' and  created_by='".$dlogUserEmail."' order by id desc";
+                     if ($reportrs = mysql_query($nanoSql))
+                     {
+                     $report_cnt = mysql_num_rows($reportrs);
+                     }
+                     ?> 
+                     
+                  <div class="tab-pane fade show " id="v-pills-exitfilters" role="tabpanel" aria-labelledby="v-pills-profile-tab" >
+                     <?php
+                        if ($report_cnt>0)
+                        {
+                        While($myrow=mysql_fetch_array($reportrs, MYSQL_BOTH))
+                        {	
+                        if($myrow['filter_type'] == "Exit"){
+                        ?> 
+                     <div class="card invest">
+                        <div class="card-body">
+                           <div class="row">
+                              <div class="col-md-10 col-10">
+                                 <h6 class="card-title q4"><?php echo $myrow['filter_name'] ?></h6>
+                                 <p class="redesign"><?php echo $myrow['filter_desc'] ?></p>
+                                 <p class="create">Created on <?php echo date('d M y', strtotime($myrow['created_on']));?></p>
+                              </div>
+                              <div class="col-md-2 col-2">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteFilter('<?php echo $myrow['id'] ?>')">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
+                        <div class='col-md-6'><button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button></div>
+                        <div class='col-md-6'><button type="button" class="btn exportFilt  text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button></div>
+                        </div>
+                     </div>
+                     <?php
+                        } } }
+                        else {?>
+                     <div class="card data">
+                        <div class="card-body" style="text-align: center;font-size:12px;color:black">
+                           No Data Found
+                        </div>
+                     </div>
+                     <?php } ?>  
+                  </div>
+
+
+
+
+
                </div>
             </div>
          </div>
