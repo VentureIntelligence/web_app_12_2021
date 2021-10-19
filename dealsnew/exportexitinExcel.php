@@ -1781,7 +1781,7 @@ else
           
              // Redirect output to a client’s web browser (Excel5)
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="peinv_deals.xls"');
+        header('Content-Disposition: attachment;filename="PEExits.xls"');
         header('Cache-Control: max-age=0');
         // If you're serving to IE 9, then the following may be needed
         header('Cache-Control: max-age=1');
