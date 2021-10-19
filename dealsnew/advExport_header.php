@@ -587,9 +587,15 @@
             <?php //}else{ ?>
             <div class="col-md-8 mb-2" style="    padding-left: 0px;">
                <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
-                  <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
-                  <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
-                  <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"   value=Exit>Exits</a>
+
+              
+               
+                  <a class="filter ml-3 <?php if ($_GET['val'] == '') { echo 'active'; }?>" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
+
+                  <a class="filter ml-1  <?php if ($_GET['val'] == '1') { echo 'active'; }?>" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
+
+                  <a class="filter ml-1  <?php if ($_GET['val'] == '2') { echo 'active'; }?>" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"   value=Exit>Exits</a>
+                  
                   <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
                </div>
                <?php //} ?>
@@ -606,7 +612,7 @@
                      ?> 
                   <?php //if($companyId != 1946568266)
                      //{?>
-                  <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                  <div class="tab-pane ml-3 fade show <?php if ($_GET['val'] == '') { echo 'active'; }?>" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                      <div class="card">
                         <div class="row vifilter">
                            <?php
@@ -653,7 +659,7 @@
                   <?php //} ?>
                   <?php if($companyId != 1946568266)
                      {?>
-                  <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  <div class="tab-pane ml-3 fade show <?php if ($_GET['val'] == '1') { echo 'active'; }?>" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                      <input type="hidden" name="companyName" id="companyName" value="<?php echo $companyName;?>">
                      <?php } else {?>
                      <div class="tab-pane ml-3 show " id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -1190,7 +1196,7 @@
                            </div>
                          
                         </div>
-                        <div class="tab-pane ml-3 fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                  <div class="tab-pane ml-3 fade show <?php if ($_GET['val'] == '2') { echo 'active'; }?>" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                            <div class="card">
                               <div class="ml-3 mt-3">
                                  <h6 class="invHeading">Input Investor`s Name</h6>
