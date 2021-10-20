@@ -13,10 +13,40 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $emailExists = false;
     $successState = false;
     if( isset( $_POST[ 'add_btn' ] ) ) {
+
+        //  echo '<pre>'; print_r($_POST); echo '</pre>'; exit;
+
         $category = mysql_real_escape_string( $_POST[ 'Category' ] );
+        $subcategory = mysql_real_escape_string( $_POST[ 'SubCategory' ] );
         $heading = mysql_real_escape_string( $_POST[ 'Heading' ] );
         $slug = mysql_real_escape_string( $_POST[ 'slug' ] );
+
         $tags = mysql_real_escape_string( $_POST[ 'tags' ] );
+
+        $tags =  $_POST[ 'tags' ];
+        $tags_string = implode(',',$tags);
+
+
+         // New Tags in Edit
+         foreach($tags as $as)
+         {
+             $checkexisting = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$as."%' and tag_type!=''";
+
+             $tagname = mysql_query( $checkexisting ) or die( mysql_error() );
+             $numrows = mysql_num_rows( $tagname );
+             $rc = mysql_affected_rows();
+
+             // Edit New Tags
+             if($rc == 0 )
+             {
+                 $insert_tag = "INSERT INTO tags ( tag_name, tag_type, created_date ) VALUES( '" . $as . "', '" . $as . "', '" . $createdOn . "' )";
+                 mysql_query( $insert_tag ) or die( mysql_error() );                
+             }
+             else{
+             }
+         }
+
+
         $summary = mysql_real_escape_string( $_POST[ 'Summary' ] );
         $Targetcmp_website = mysql_real_escape_string( $_POST[ 'Targetcmpweb' ] );
         $vi_database = mysql_real_escape_string( $_POST[ 'vi_db' ] );
@@ -27,10 +57,35 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
         //$dt   = new DateTime($date);
        // $epochtime= $dt->getTimestamp();
+
+
+
+         // get Major Cat Name
+         $getCatName = "SELECT `name` FROM newsletter_major_category WHERE id = $category";
+         $cat_name = mysql_query( $getCatName ) or die( mysql_error() );
+         $numrows = mysql_num_rows( $cat_name );
+         if( $numrows > 0 ) {
+             $cat_result = mysql_fetch_assoc( $cat_name );
+             $category_name =  ($cat_result['name']);
+         }else{}
+
+          //    get SubCat Name
+         $getSubCatName = "SELECT `name` FROM newsletter_category WHERE id = $subcategory";
+         $sub_cat_name = mysql_query( $getSubCatName ) or die( mysql_error() );
+         $numrows = mysql_num_rows( $sub_cat_name );
+         if( $numrows > 0 ) {
+             $sub_cat_result = mysql_fetch_assoc( $sub_cat_name );
+             $subcategory_name =  ($sub_cat_result['name']);
+         }else{}
+
+
+
         $update = "UPDATE newsletter SET
-                    category = '" . trim($category) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
+                    major_category_id = '" . trim($category) . "',  major_category = '" . trim($category_name) . "', category_id = '" . trim($subcategory) . "', category = '" . trim($subcategory_name) . "', heading = '" . trim( $heading ) . "',  slug = '" . trim( $slug ) . "',  tags = '" . trim( $tags_string ) . "',            summary = '" . trim( $summary ) . "', targetcmp_website = '" . trim( $Targetcmp_website ) . "' , vi_database = '" . trim( $vi_database ) . "', published_at = '" .  $publish_at . "'
                     WHERE id = " . $keyword;
-                   // echo $update;exit();
+
+                //    echo $update;exit();
+
         if( mysql_query( $update ) ) {
             for ($i=0;$i<count($_POST['name']);$i++){
                 $name= mysql_real_escape_string( $_POST[ 'name' ][$i] );
@@ -54,6 +109,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 
 
             }
+
+           
+
             $successState = true;
         }
     }
@@ -67,7 +125,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $numrows = mysql_num_rows( $res );
         $result = mysql_fetch_array( $res );
 
-       // echo '<pre>'; print_r($result);echo '</pre>';
+    //    echo '<pre>'; print_r($result);echo '</pre>';
+
+      
     }
 ?>
 
@@ -129,30 +189,33 @@ input[type=text],textarea,input[type=date]
                                         <tr bgcolor="#808000"><td colspan="2" align="center" style="color: #FFFFFF"><b> Edit News Letter</b></td></tr>
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
-                                                <label for="Category">Category</label>
+                                                <label for="Category">Major Category</label>
                                             </td>
                                             <td>
 
                                             <?php
-                                                $sql = "SELECT `id`,`category` FROM newsletter_category";
+                                                $sql = "SELECT `id`,`name` FROM newsletter_major_category";
                                                 $res = mysql_query($sql) or die(mysql_error());
+
                                                 $option = '';
                                                 
                                                 while($rows=mysql_fetch_array($res)){ 
+
                                                     $id = $rows['id'];
-                                                    $cat = $rows['category'];
+                                                    $cat = $rows['name'];
                                                    
                                                     $selected = "";
-                                                    if($result['category'] == $cat)
+                                                    if($result['major_category_id'] == $id)
                                                     {
                                                         $selected = "selected='selected'";
                                                     }
-                                                    $option .= '<option value="'.$cat.'"'.$selected.'>'.$cat.'</option>';
+                                                    $option .= '<option value="'.$id.'"'.$selected.'>'.$cat.'</option>';
                                                  
                                                 }
                                             ?>
+                                            
 
-                                            <select name="Category">
+                                            <select name="Category" onchange="getSubCat(this.value)" >
                                                 <option value="">--- Select Category ---</option>
                                                 <?php echo $option; ?>
                                             </select>
@@ -190,12 +253,48 @@ input[type=text],textarea,input[type=date]
                                             <!-- <input type="text" id="Category" size="26" name="Category" class="req_value" forerror="UserName" value="<?php echo $result[ 'category' ]; ?>">  -->
                                             </td>
                                         </tr>
+
+                                        <tr style="font-family: Verdana; font-size: 8pt">
+                                            <td>
+                                                <label for="Heading">Category</label> 
+                                            </td>
+                                            <td>
+                                            <?php
+                                                $sql = "SELECT `id`,`name` FROM newsletter_category";
+                                                $res = mysql_query($sql) or die(mysql_error());
+
+                                                // echo '<pre>'; print_r($res); echo '</pre>';
+
+                                                $option = '';
+                                                
+                                                while($rows=mysql_fetch_array($res)){ ;
+
+                                                    $id = $rows['id'];
+                                                    $cat = $rows['name'];
+                                                   
+                                                    $selected = "";
+                                                    if($result['category_id'] == $id)
+                                                    {
+                                                        $selected = "selected='selected'";
+                                                    }
+                                                    $option .= '<option value="'.$id.'"'.$selected.'>'.$cat.'</option>';
+                                                 
+                                                }
+                                            ?>
+                                                <select name="SubCategory" class = "subcategorydropdown">
+                                                    <option value="">--- Select Category ---</option>
+                                                    <?php echo $option; ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="Heading">Heading</label> 
                                             </td>
                                             <td>
                                                 <input type="text" id="Heading" size="26" name="Heading" class="req_value" forerror="UserName" onchange = "headingslug(this.value)" value="<?php echo $result[ 'heading' ]; ?>">
+                                                <input type="hidden" id="slug" size="26" name="slug" class="req_value slugvalue" forerror="UserName" value="<?php echo $result[ 'slug' ]; ?>">
                                             </td>
                                         </tr>
 
@@ -281,6 +380,44 @@ input[type=text],textarea,input[type=date]
                                                 <textarea type="text" id="vi_db" size="26" name="vi_db" class="req_value" forerror="UserName" ><?php echo $result[ 'vi_database' ]; ?></textarea>
                                             </td>
                                         </tr>
+
+
+            <!-- Tags -->
+            <tr style="font-family: Verdana; font-size: 8pt;">
+                <td>
+                    <label for="vi_db">Tags</label> 
+                </td>
+                <td >
+                    <?php 
+                        $array_tags = explode(',',$result['tags']);
+                        foreach($array_tags as $as1)
+                        {
+                            // echo '<pre>'; print_r($as1); echo '</pre>';
+                            $tagsql = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$search_tag."%' and tag_type!=''";
+
+                            if ($rstag = mysql_query($tagsql))
+                            {
+                                While($myrow=mysql_fetch_array($rstag, MYSQL_BOTH)){
+
+                                    $id = $myrow["tag"];
+                                    $tag_name = trim($myrow["tag"]);
+
+                                    $selected = "";
+                                    if($as1 == $tag_name)
+                                    {
+                                        $selected = "selected='selected'";
+                                    }
+                                    $option1 .= '<option value="'.$id.'"'.$selected.'>'.$tag_name.'</option>';
+                                }
+                            }
+                        }
+                    ?>
+                    <select class="form-control js-example-tokenizer" multiple="multiple" name="tags[]" id="tags">
+                        <?php echo $option1; ?>
+                    </select>
+                </td>
+            </tr>
+
                                         <tr style="font-family: Verdana; font-size: 8pt">
                                             <td>
                                                 <label for="publish_at">Published At</label> 
@@ -383,12 +520,12 @@ $( '#cancel_user' ).on('click', function() {
 
   </script>
 
-    <script>
+<script>
         function headingslug(val)
         {
-            var html = val;
-            var slugvalue = val.replace(/ /g,"-");
-            //alert(slugvalue);
+            var slugvalue1 = val.toLowerCase();            
+            var slugvalue = slugvalue1.replace(/ /g,"-");
+
             $(".slugvalue").val(slugvalue);
         }
     </script>
@@ -401,3 +538,56 @@ $( '#cancel_user' ).on('click', function() {
 else
     header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
+
+<style>
+    .js-example-tokenizer {
+    width: 250px;
+}
+ 
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+$(".js-example-tokenizer").select2({
+    allowClear: true,
+    width: "resolve"
+});
+
+  
+$(".js-example-tokenizer").select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+})
+
+<script>
+    function getSubCat(val)
+    {
+        $.ajax({
+            type: "POST",
+            url: "ajax_cat_related.php",
+            data: {
+                majoy_category: val
+            },
+            success: function( data ) {
+                // alert(data);
+                if(data != "")
+                {
+                    $(".subcategorydropdown").html(data);
+
+                    // alert(data);
+                }
+                else{
+                    $(".subcategorydropdown").html('');
+                }
+             }
+        });
+
+    }
+
+    
+
+
+</script>
