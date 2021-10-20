@@ -11,6 +11,7 @@
         display: inline-block;
     }
     
+    
     .ui-multiselect-close {
         position: absolute;
         top: 5px;
@@ -815,6 +816,7 @@ $(document).ready(function(){
                             }, 1000);
                             return false;
                         }else{
+                            
                             
                             $('#nameGroup').text('');
                         }
