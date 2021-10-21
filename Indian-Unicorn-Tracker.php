@@ -386,6 +386,7 @@ padding: 0 0px !important;
                  <th class="unicorn-space headerval <?php echo ($orderby == "id") ? $ordertype : ""; ?>" id="id" >No</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "company") ? $ordertype : ""; ?>" id="company" >Company</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "sector") ? $ordertype : ""; ?>" id="sector" >Sector</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "entryvaluation") ? $ordertype : ""; ?>" id="entryvaluation" >Entry Valuation^^ ($B)</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "valuation") ? $ordertype : ""; ?>" id="valuation" >Valuation ($B)</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "entry") ? $ordertype : ""; ?>" id="entry" >Entry</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "location") ? $ordertype : ""; ?>" id="location" >Location</th>
@@ -402,22 +403,24 @@ padding: 0 0px !important;
              $ajaxcompanysql = urlencode($sqlquery);
              $sqlquery=$sqlquery." id desc";
                     $result=mysql_query($sqlquery);
-                    while($row=mysql_fetch_array($result))
+                    while($row=mysql_fetch_assoc($result))
                     {
 
              ?>
              <tr class="unicorndata">
-               <td><?php echo $row[0];?></td>
-               <td class="unicorn-space"><?php echo $row[1];?></td>
-               <td class="unicorn-space"><?php echo $row[2];?></td>
-               <td class="valuation "><?php echo $row[3];?></td>
-               <td><?php echo $row[4];?></td>
-               <td class="unicorn-space"><?php echo $row[5];?></td>
-               <td><?php echo $row[6];?></td>
+               <td><?php echo $row['id'];?></td>
+               <td class="unicorn-space"><?php echo $row['company'];?></td>
+               <td class="unicorn-space"><?php echo $row['sector'];?></td>
+               <td class="valuation"><?php echo $row['entryvaluation'];?></td>
+               <td class="valuation "><?php echo $row['valuation'];?></td>
+               <td><?php echo date("M-Y",strtotime($row['entry']));?></td>
+               <td class="unicorn-space"><?php echo $row['location'];?></td>
+               <td><?php echo $row['selectInvestor'];?></td>
 
              </tr>
            <?php } ?>
            <tr>
+             <td></td>
              <td></td>
              <td></td>
              <td></td>
@@ -433,6 +436,21 @@ padding: 0 0px !important;
 
         </div>
       </div>
+
+      <div class="unicorn-content-2">
+        <p>
+          <b>Unicorn:</b> A unicorn company is any private company that is valued at $1-Billion or more and is Venture Capital funded.<br />
+
+          <b>^ Graduated Unicorn:</b> A startup that has now become Publicly Listed (or) has been acquired by a Publicly Listed company.<br />
+
+          <b>* Former Unicorn:</b>  A startup that lost its Unicorn status due to a valuation degrading event.<br />
+
+          ^^ The company valuation at the time it first became an Unicorn.
+        </p>
+       
+      </div>
+
+
       <div class="unicorn-content-2">
         <p>
           Interested in more information of Unicorns - including investment and valuation details, financials, return multiples, etc?
@@ -449,19 +467,68 @@ padding: 0 0px !important;
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
+
+
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
- <div class="lb" id="popup-box-copyrights-filter" style="width:100%;">
-  <div style="width: 50%;
-    margin: 0px auto;
-    background-color: #fff;">
-   <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
-    <div class="copyright-body">Interested in more information about Unicorns - including investment and valuation details, financials, return multiples, etc?
-    <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;">Click Here</a> to request a trial to our Databases.</p>
-    </div>
+ <div class="lb" id="popup-box-copyrights-filter" style="width:100%;    position: relative;
+    top: -700px;">
+  <div style="width: 60%;margin: 0px auto;background-color: #fff;">
+
+      <div class="container">
+        <div class="row">
+
+          <div class="column1" >
+            <img src="unicorn-images/horse.jpg" alt="" style="width: 80%;border: 5px solid #4d4a4a;margin-left: 30px;">
+          </div>
+          <div class="column2" >
+            <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: -21px; margin-top: 3px;">x</a> <br /><br/> <br />
+
+
+            <p style="text-align: right"> <b> Get your copy of the latest <br /> Venture intelligence - India Unicorn Report </b> </p>
+
+            <br /><br /><br/> <br /><br /><br /><br/> <br />
+
+            <div class="copyright-body">Interested in more information - including investment and valuation details, financials, return multiples, etc?
+            <p style="margin: 10px 0px;"><a href="india_unicorn_report.php" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+     
+
   </div>   
 </div>
 
+<style>
+* {
+  box-sizing: border-box;
+}
 
+/* Create two equal columns that floats next to each other */
+.column1 {
+  float: left;
+  width: 45%;
+  padding: 10px;
+  height: 450px; /* Should be removed. Only for demonstration */
+  /* margin-left: 15px; */
+
+}
+
+.column2 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
 
 <script>
 $(document).ready(function(){
@@ -569,10 +636,12 @@ $(document).ready(function(){
 //     $hrefval=$(this).attr("data-href");
 //     $('#expcancelbtn-filter').attr('href',$hrefval);
 // });
+
+
 function openPopUp() {
   setTimeout(function(){
     popup();
-  }, 20000);
+  }, 20);
 }
 function popup() {
     jQuery('#maskscreen').fadeIn();
