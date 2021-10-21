@@ -109,7 +109,7 @@
                     $investor_id= $row['investor_name']  ;
 
                }else{
-                    $sql="SELECT `InvestorId` FROM `peinvestors` WHERE InvestorId= 5217 ";
+                    $sql="SELECT `InvestorId` FROM `peinvestors` WHERE InvestorId= 5217";
 
                     $sqlSelResult = mysql_query($sql) or die(mysql_error());
 
@@ -118,6 +118,8 @@
                          $investor_id= $row['InvestorId']  ;
                               
                     }
+
+                    // $investor_id = "";
                }
         }
 
@@ -180,11 +182,12 @@
      
      //    }
 
-
+     $investor_id = array();
+     $investor_id_array = array();
    while ($row = mysql_fetch_assoc($sqlSelResult)) {
 
           if($row['investor_name'] != ""){
-               $investor_id= $row['investor_name']  ;
+               $investor_id = $row['investor_name']  ;
 
           }else{
                $sql="SELECT `InvestorId` FROM `peinvestors`";
@@ -193,30 +196,62 @@
 
                while ($row = mysql_fetch_assoc($sqlSelResult)) {
           
-                    $investor_id= $row['InvestorId']  ;
-                         
+                    $investor_id_array[] = $row['InvestorId'];
                }
+               // echo '<pre>'; print_r($investor_id); echo '</pre>'; exit;
           }
+          
+     }   
+     if(count($investor_id_array)==0)
+     {
+          $inv_investor_id=explode(',',$investor_id);
+     }
+     else{
+          $inv_investor_id = $investor_id_array;
      }
 
-
-
-
-   
-   $inv_investor_id=explode(',',$investor_id);
+     //    echo '<pre>'; print_r($inv_investor_id); echo '</pre>'; exit;
    
    $InvestorArray=array();
    if(isset($inv_investor_id))
    {
-   $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
-     //    echo $sqlquery;exit();
+
+          if(count($investor_id_array)==0)
+
+          {
+               $sqlquery='SELECT * FROM `peinvestors`,`saved_filter` WHERE `InvestorId` IN ("'. implode('","', $inv_investor_id) .'") and id="'. $filterNameId.'"';
+          }else{
+               // $sqlquery = 'SELECT * FROM `peinvestors` WHERE 1';
+               $sqlquery='SELECT * FROM `saved_filter` WHERE id="'. $filterNameId.'"';
+          }
+   
+//    echo $sqlquery;exit();
+
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
+
+//    echo '<pre>'; print_r($sqllResultquery); echo '</pre>'; exit;
+
+          // echo 'Starting of While<br />';
+            
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
+
+
+     // echo '<pre>'; print_r($row); echo '</pre>'; 
+
    
-   array_push($InvestorArray,$row);
+     array_push($InvestorArray,$row);
    }
-   echo json_encode($InvestorArray);exit();
+
+     //     echo 'Ending of While<br />';
+
+     // echo '<pre>'; print_r($InvestorArray); echo '</pre>'; 
+
+   echo json_encode($InvestorArray);
+
+
+   
+   exit();
    
    
    }
@@ -228,21 +263,38 @@
    {
    $investor_id = $_POST['investorName'];
    $type = $_POST['type'];
-   //echo $investor_id;exit();
+     //    echo $investor_id;exit();
+     // echo $type; exit();
    $inv_investor_id=explode(',',$investor_id);
-   
+
+     // echo '<pre>'; print_r($inv_investor_id); echo '</pre>'; exit;
+
    $InvestorArray=array();
    if(isset($inv_investor_id))
    {
+     // SELECT DISTINCT inv.* FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s WHERE pe.PECompanyId = pec.PEcompanyId 
+     // AND inv.InvestorId = peinv.InvestorId 
+     // AND pe.Deleted=0 
+     // AND inv.`Investor` IN ("2 AM Ventures","8i Ventures","ABC World Asia","ADQ","Ananta Capital","Antara Capital","Antler India","Aroa Ventures","Augment Infrastructure","Blue Ashva Capital","Blue Impact Ventures","Cactus Venture Partners","Comvest Partners","Copenhagen Infrastructure Partners","Corinth Group","D1 Capital Partners","Eight Road Ventures","Exor","Good Fashion Fund","Griffin Gaming Partners","GrowthStory","GSV Ventures","M Venture Partners","N+1 Capital","Novo Tellus","Potencia Ventures","Starfish Growth Partners","Valar Ventures") order by inv.Investor
+
         if($type="Investments"){
+          // $sqlquery='SELECT DISTINCT inv.*
+          // FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
+          // WHERE pe.PECompanyId = pec.PEcompanyId
+          // AND s.StageId = pe.StageId
+          // AND pec.industry !=15
+          // AND peinv.PEId = pe.PEId
+          // AND inv.InvestorId = peinv.InvestorId
+          // AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+
+
           $sqlquery='SELECT DISTINCT inv.*
           FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
           WHERE pe.PECompanyId = pec.PEcompanyId
-          AND s.StageId = pe.StageId
-          AND pec.industry !=15
           AND peinv.PEId = pe.PEId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 AND inv.`InvestorId` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+
         }else{
           $sqlquery='SELECT  DISTINCT inv.* 
           FROM manda AS pe, pecompanies AS pec, manda_investors AS peinv, peinvestors AS inv
@@ -250,9 +302,11 @@
           AND pec.industry !=15
           AND peinv.MandAId = pe.MandAId
           AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 and inv.InvestorId IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
+          AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
         }
-   //echo $sqlquery;exit();
+//    echo $sqlquery;exit();
+
+
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
    
    while ($row = mysql_fetch_assoc($sqllResultquery)) {
