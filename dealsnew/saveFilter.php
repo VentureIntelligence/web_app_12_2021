@@ -288,23 +288,39 @@
           // AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
 
 
+          // $sqlquery='SELECT DISTINCT inv.*
+          // FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
+          // WHERE pe.PECompanyId = pec.PEcompanyId
+          // AND peinv.PEId = pe.PEId
+          // AND inv.InvestorId = peinv.InvestorId
+          // AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+
+
           $sqlquery='SELECT DISTINCT inv.*
           FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
           WHERE pe.PECompanyId = pec.PEcompanyId
           AND peinv.PEId = pe.PEId
-          AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';
+          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") group by inv.Investor';
 
         }else{
-          $sqlquery='SELECT  DISTINCT inv.* 
-          FROM manda AS pe, pecompanies AS pec, manda_investors AS peinv, peinvestors AS inv
+          // $sqlquery='SELECT  DISTINCT inv.* 
+          // FROM manda AS pe, pecompanies AS pec, manda_investors AS peinv, peinvestors AS inv
+          // WHERE pe.PECompanyId = pec.PEcompanyId
+          // AND pec.industry !=15
+          // AND peinv.MandAId = pe.MandAId
+          // AND inv.InvestorId = peinv.InvestorId
+          // AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
+
+
+          $sqlquery='SELECT DISTINCT inv.*
+          FROM peinvestments AS pe, pecompanies AS pec, peinvestments_investors AS peinv, peinvestors AS inv, stage AS s
           WHERE pe.PECompanyId = pec.PEcompanyId
-          AND pec.industry !=15
-          AND peinv.MandAId = pe.MandAId
-          AND inv.InvestorId = peinv.InvestorId
-          AND pe.Deleted=0 and inv.Investor IN ("'. implode('","', $inv_investor_id) .'") order by inv.Investor';    
+          AND peinv.PEId = pe.PEId
+          AND pe.Deleted=0 AND inv.`Investor` IN ("'. implode('","', $inv_investor_id) .'") group by inv.Investor';
         }
+
 //    echo $sqlquery;exit();
+   
 
 
    $sqllResultquery = mysql_query($sqlquery) or die(mysql_error());
