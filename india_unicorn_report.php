@@ -305,6 +305,7 @@
                     status = data;
 
                     // alert(status);
+                    // return false;
 
                     if(status == 1)
                     {
@@ -323,8 +324,9 @@
                           }
                         });
                         $.get( "downloadunicorn.php", function( data ) {   });
-                    }else{
-                      alert("Error");
+                    }else if (status == 0){
+                      alert("Error... Pls Try Again...");
+                      return false;
                     }
                 },
               

@@ -3187,6 +3187,7 @@ $col = 0;
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
 
 
+
             
 
             // echo $companiessql.'<br />'; 
@@ -3862,6 +3863,10 @@ print("\n");
 
     // echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
     print("\n");
+
+
+    exit();
+
 // // T960
 // $objPHPExcel->getActiveSheet()
 //             ->fromArray(

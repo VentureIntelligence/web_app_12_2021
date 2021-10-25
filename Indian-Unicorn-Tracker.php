@@ -148,7 +148,7 @@ img.fixed-logo{display:none}
    .unicorndata .valuation{
     text-align: center;
    }
-   .unicornhead th,.unicorndata td{padding:10px;}
+   .unicornhead th,.unicorndata td{padding:8px;}
 .unicorn-inner-page{
   margin: 20px 0 60px 0 !important; 
 }
@@ -161,7 +161,7 @@ img.fixed-logo{display:none}
 .unicorn-space{
 white-space: nowrap;
 }.unicorn-content {
-  max-width: 1170px;
+  max-width: 1420px;
   margin: 0 auto;
   padding: 0 25px
 }
@@ -410,12 +410,12 @@ padding: 0 0px !important;
              <tr class="unicorndata">
                <td><?php echo $row['id'];?></td>
                <td class="unicorn-space"><?php echo $row['company'];?></td>
-               <td class="unicorn-space"><?php echo $row['sector'];?></td>
+               <td class="unicorn-space" style= "width: 25%;"><?php echo $row['sector'];?></td>
                <td class="valuation"><?php echo $row['entryvaluation'];?></td>
                <td class="valuation "><?php echo $row['valuation'];?></td>
-               <td><?php echo date("M-Y",strtotime($row['entry']));?></td>
+               <td style= "width: 25%;" ><?php echo date("M-Y",strtotime($row['entry']));?></td>
                <td class="unicorn-space"><?php echo $row['location'];?></td>
-               <td><?php echo $row['selectInvestor'];?></td>
+               <td style= "line-height:1.5"><?php echo $row['selectInvestor'];?></td>
 
              </tr>
            <?php } ?>
@@ -471,7 +471,7 @@ padding: 0 0px !important;
 
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
  <div class="lb" id="popup-box-copyrights-filter" style="width:100%;    position: relative;
-    top: -700px;">
+    top: -650px;">
   <div style="width: 60%;margin: 0px auto;background-color: #fff;">
 
       <div class="container">
@@ -641,7 +641,7 @@ $(document).ready(function(){
 function openPopUp() {
   setTimeout(function(){
     popup();
-  }, 20);
+  }, 20000);
 }
 function popup() {
     jQuery('#maskscreen').fadeIn();
