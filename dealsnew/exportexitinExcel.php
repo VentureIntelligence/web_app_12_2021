@@ -247,7 +247,8 @@ if($_POST['exitquery'] != "")
                     i.industry,
                     sector_business,
                     dt.dealtype,
-                    Date_format(dealdate, '%M-%Y') AS DealDate,
+                    -- Date_format(dealdate, '%M-%Y') AS DealDate,
+                    dealdate,
                     pe.dealamount,
                     pec.website,
                     moreinfor,
@@ -437,7 +438,8 @@ if($_POST['exitquery'] != "")
         i.industry,
         sector_business,
         dt.dealtype,
-        Date_format(dealdate, '%M-%Y') AS DealDate,
+        -- Date_format(dealdate, '%M-%Y') AS DealDate,
+        dealdate,
         pe.dealamount,
         pec.website,
         moreinfor,
@@ -705,7 +707,8 @@ else
                     i.industry,
                     sector_business,
                     dt.dealtype,
-                    Date_format(dealdate, '%M-%Y') AS DealDate,
+                    -- Date_format(dealdate, '%M-%Y') AS DealDate,
+                    dealdate,
                     pe.dealamount,
                     pec.website,
                     moreinfor,
@@ -1086,7 +1089,15 @@ else
                if(in_array("DealDate", $expval))
                {
                    //deal date
-                   $DataList[]= $row[11];
+                //    date("Y-m-d H:i:s"); 
+                   $DataList[]= date("M-Y", strtotime($row[11]));
+
+
+                //    $originalDate = "2010-03-21";
+                    // $newDate = date("d-m-Y", strtotime($originalDate));
+
+
+                    
                }
                if(in_array("DealAmount", $expval))
                {
@@ -1540,7 +1551,9 @@ else
        if(in_array("DealDate", $expval))
        {
            //deal date
-           $DataList[]= $row[11];
+           $DataList[]= date("M-Y", strtotime($row[11]));
+
+           
        }
        if(in_array("DealAmount", $expval))
        {
@@ -1768,7 +1781,7 @@ else
           
              // Redirect output to a client’s web browser (Excel5)
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="peinv_deals.xls"');
+        header('Content-Disposition: attachment;filename="PEExits.xls"');
         header('Cache-Control: max-age=0');
         // If you're serving to IE 9, then the following may be needed
         header('Cache-Control: max-age=1');

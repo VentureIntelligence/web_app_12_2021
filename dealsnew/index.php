@@ -1,3 +1,4 @@
+
 <?php
 //other database
 require_once "../dbconnectvi.php";
@@ -22,6 +23,7 @@ if($_POST['tagsearch'] != "" || $_POST['tagsearch_auto'] != ""){
     $_POST['state'] = "--";
    // $_POST['city'] = "";
    $_POST['city'] = "--";
+   
 
 
   
@@ -4917,7 +4919,7 @@ if ($type != 1) {
 </form>
             <!--input class="postlink" type="hidden" name="numberofcom" value="<?php echo $totalInv; ?>"-->
             <form name="pelisting" id="pelisting"  method="post" action="exportinvdeals.php">
-            <input type="text" name="valInfo" value="<?php echo $valInfo;?>" >
+            <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
 
             <input type="hidden" name="txtsearchon" value="1" >
             <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >

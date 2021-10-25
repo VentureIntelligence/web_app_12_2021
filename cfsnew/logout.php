@@ -1,7 +1,22 @@
 <?php 
+
+// if (isset($_COOKIE['backpage'])) {
+//     unset($_COOKIE['backpage']); 
+//     setcookie('backpage', null); 
+//     // return true;
+// } else {
+//     // return false;
+// }
+
+unset($_SESSION['backpage']);
+// session_destroy();
+
+
 include_once('header.php');
+setcookie('URLTOREDIRECT', '');
 
 if($isAuth) {
+	
 	$logoutUser = new users();
 	session_start();
 	$updateUser['user_id'] = $_SESSION["user_id"];

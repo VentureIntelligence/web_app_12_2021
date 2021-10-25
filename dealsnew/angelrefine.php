@@ -604,7 +604,7 @@ $Db = new dbInvestments();
                            ?>
                            </select>
             </li>
-<li class="odd"><h4>Follow on Funding Status</h4>
+<li class="odd"><h4>VC Funded </h4>
     <SELECT NAME="followonVCFund" id="followonVCFund" style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
         <?php $followonVCFund=$followonVC; ?>
 			 <OPTION id=1 value="--" selected> All </option>
