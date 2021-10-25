@@ -2796,8 +2796,6 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 //  echo $companysql;
 //  exit();
 
-
-
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
@@ -3174,9 +3172,10 @@ $col = 0;
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
 
 
+
             
 
-            // echo $companiessql.'<br />'; 
+            // echo $companiessql; exit;
 
 
     
@@ -3567,24 +3566,12 @@ $col = 0;
     {
         $schema_insert .= $row[13].$sep;
     }
-
-    // if($valInfo == 0){
-        // if(in_array("Stake (%)", $rowArray))
-        // {
-        //     $schema_insert .= $hidestake.$sep;
-        // }
-    // }
-
-    if(in_array("Stake (%)", $rowArray))
-    {
-        if($valInfo == 0){
-
+    if($valInfo == 0){
+        if(in_array("Stake (%)", $rowArray))
+        {
             $schema_insert .= $hidestake.$sep;
-        }else{
-            $schema_insert .= ''.$sep;
         }
     }
-
     // Date
     if(in_array("Date", $rowArray))
     {
@@ -3826,27 +3813,25 @@ $col = 0;
     $schema_insert .= "\t";
     print(trim($schema_insert));
     print "\n";
+
+
 }
 
+
 print("\n");
-print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
 print("\n");
 print("\n");
-print("Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.");
+print("\n");
+echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
+print("\n");
+print("\n");
+echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
+print("\n");
+print("\n");
+
 exit();
 
-// exit();
 
-print("\n");
-    print("\n");
-    print("\n");
-    print("\n");
-    echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
-    print("\n");
-    print("\n");
-    echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
-    print("\n");
-    print("\n");
 // // T960
 // $objPHPExcel->getActiveSheet()
 //             ->fromArray(
