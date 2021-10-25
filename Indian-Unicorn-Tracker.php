@@ -159,7 +159,9 @@ img.fixed-logo{display:none}
   line-height: 25px;
 }
 .unicorn-space{
-white-space: nowrap;
+
+/* white-space: nowrap; */
+
 }.unicorn-content {
   max-width: 1420px;
   margin: 0 auto;
@@ -384,13 +386,13 @@ padding: 0 0px !important;
              <thead>
                <tr class="unicornhead">
                  <th class="unicorn-space headerval <?php echo ($orderby == "id") ? $ordertype : ""; ?>" id="id" >No</th>
-                 <th class="unicorn-space headerval <?php echo ($orderby == "company") ? $ordertype : ""; ?>" id="company" >Company</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "company") ? $ordertype : ""; ?>" id="company" style = "width: 13%;">Company</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "sector") ? $ordertype : ""; ?>" id="sector" >Sector</th>
-                 <th class="unicorn-space headerval <?php echo ($orderby == "entryvaluation") ? $ordertype : ""; ?>" id="entryvaluation" >Entry Valuation^^ ($B)</th>
-                 <th class="unicorn-space headerval <?php echo ($orderby == "valuation") ? $ordertype : ""; ?>" id="valuation" >Valuation ($B)</th>
-                 <th class="unicorn-space headerval <?php echo ($orderby == "entry") ? $ordertype : ""; ?>" id="entry" >Entry</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "entryvaluation") ? $ordertype : ""; ?>" id="entryvaluation"  style = "width: 20%;">Entry Valuation^^ ($B)</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "valuation") ? $ordertype : ""; ?>" id="valuation" style = "width: 18%;">Valuation ($B)</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "entry") ? $ordertype : ""; ?>" id="entry" style= "width: 10%;" >Entry</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "location") ? $ordertype : ""; ?>" id="location" >Location</th>
-                 <th class="unicorn-space  <?php echo ($orderby == "selectInvestor") ? $ordertype : ""; ?>" id="selectInvestor" >Select Investors  <a  href=" <?php echo $unicornmediapath;?>" class="tooltip4" style="color:#fff;float:right;padding-left: 10px;"><i class="fa fa-download" aria-hidden="true"></i><span class=" " >
+                 <th class="unicorn-space  <?php echo ($orderby == "selectInvestor") ? $ordertype : ""; ?>" id="selectInvestor" style= "width: 25%;">Select Investors  <a  href=" <?php echo $unicornmediapath;?>" class="tooltip4" style="color:#fff;float:right;padding-left: 10px;"><i class="fa fa-download" aria-hidden="true"></i><span class=" " >
                    
                     <strong>Download</strong>
                     </span></a></th>
@@ -410,12 +412,12 @@ padding: 0 0px !important;
              <tr class="unicorndata">
                <td><?php echo $row['id'];?></td>
                <td class="unicorn-space"><?php echo $row['company'];?></td>
-               <td class="unicorn-space" style= "width: 25%;"><?php echo $row['sector'];?></td>
+               <td class="unicorn-space" style= "width: 20%;"><?php echo $row['sector'];?></td>
                <td class="valuation"><?php echo $row['entryvaluation'];?></td>
                <td class="valuation "><?php echo $row['valuation'];?></td>
-               <td style= "width: 25%;" ><?php echo date("M-Y",strtotime($row['entry']));?></td>
+               <td ><?php echo date("M-Y",strtotime($row['entry']));?></td>
                <td class="unicorn-space"><?php echo $row['location'];?></td>
-               <td style= "line-height:1.5"><?php echo $row['selectInvestor'];?></td>
+               <td style= "line-height:1.2"><?php echo $row['selectInvestor'];?></td>
 
              </tr>
            <?php } ?>
@@ -471,7 +473,7 @@ padding: 0 0px !important;
 
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
  <div class="lb" id="popup-box-copyrights-filter" style="width:100%;    position: relative;
-    top: -650px;">
+    top: -550px;">
   <div style="width: 60%;margin: 0px auto;background-color: #fff;">
 
       <div class="container">

@@ -325,7 +325,7 @@
                         });
                         $.get( "downloadunicorn.php", function( data ) {   });
                     }else if (status == 0){
-                      alert("Error... Pls Try Again...");
+                      // alert("Error... Pls Try Again...");
                       return false;
                     }
                 },
