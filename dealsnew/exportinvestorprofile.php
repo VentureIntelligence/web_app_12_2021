@@ -485,7 +485,10 @@ function updateDownload($res){
                                         AND pec.industry !=15
                                         AND peinv.AngelDealId = pe.AngelDealId
                                         AND inv.InvestorId = peinv.InvestorId
-                                        AND pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall." order by inv.Investor ";
+                                        AND pe.DealDate BETWEEN '" . $dt1 . "' and '" . $dt2 . "'
+                                        AND pe.Deleted=0 " .$addVCFlagqry. " " .$search." ".$dirsearchall." order by inv.Investor 
+                                        
+                                        ";
                                     
                                     $showallsql="SELECT DISTINCT inv.InvestorId, inv.Investor,inv.*
                                         FROM angelinvdeals AS pe, pecompanies AS pec, angel_investors AS peinv, peinvestors AS inv
@@ -493,7 +496,10 @@ function updateDownload($res){
                                         AND pec.industry !=15
                                         AND peinv.AngelDealId = pe.AngelDealId
                                         AND inv.InvestorId = peinv.InvestorId
+                                        AND pe.DealDate BETWEEN '" . $dt1 . "' and '" . $dt2 . "'
                                         AND pe.Deleted=0 " .$addVCFlagqry. " ".$dirsearchall." order by inv.Investor ";
+
+                                        // echo $showallsql; exit;
                             }
                        
                             

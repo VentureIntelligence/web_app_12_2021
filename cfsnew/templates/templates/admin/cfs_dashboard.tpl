@@ -395,6 +395,7 @@ function revenueAction() {
                 <div >
                     <label>Financial Year : </label> 
                     <select id="financial_year" class="financial_year" name="financial_year[]" multiple="multiple" onchange="revenueAction()">
+                        <option value="21">FY21</option>
                         <option value="20">FY20</option>
                         <option value="19">FY19</option>
                         <option value="18">FY18</option>
