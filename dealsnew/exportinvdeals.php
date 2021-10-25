@@ -2246,7 +2246,7 @@ $exitstatusValue_hide = implode($exitstatusValue, ',');
     $dt2 = $year2 . "-" . $month2 . "-31";
     
     $companysql = "(
-                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe_sectors as pec, pe.amount,pe.Amount_INR,
+                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe.amount,pe.Amount_INR,
                                                      cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                                                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
@@ -2808,8 +2808,6 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 //  echo $companysql;
 //  exit();
 
-
-
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
 
@@ -3183,9 +3181,10 @@ $col = 0;
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
 
 
+
             
 
-            // echo $companiessql.'<br />'; 
+            // echo $companiessql; exit;
 
 
     
@@ -3589,8 +3588,12 @@ $col = 0;
     }
     if(in_array("Date", $rowArray))
     {
-        $date_format = date("M-Y",strtotime($row[15]));
-        $schema_insert .= $date_format.$sep;
+        // date_format($exd, 'Y-m-d');
+        // $schema_insert .= date_format($row[15].$sep, 'm-Y');
+        $schema_insert .= date("M-Y",strtotime($row[15])).$sep;
+        // $schema_insert .= $row[15].$sep;
+        // $schema_insert .= date("M-y",strtotime($row[15])).$sep;
+
     }
     if(in_array("Exit Status", $rowArray))
     {
@@ -3823,31 +3826,25 @@ $col = 0;
     $schema_insert .= "\t";
     print(trim($schema_insert));
     print "\n";
+
+
 }
 
+
 print("\n");
-print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
 print("\n");
 print("\n");
-print("Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.");
+print("\n");
+echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
+print("\n");
+print("\n");
+echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
+print("\n");
+print("\n");
+
 exit();
 
-// exit();
 
-
-
-print("\n");
-    print("\n");
-    print("\n");
-    print("\n");
-    echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
-    print("\n");
-    print("\n"); 
-    echo ( html_entity_decode( $tranchedisplay, ENT_COMPAT, 'ISO-8859-1' ) );
-
-    // echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
-    print("\n");
-    print("\n");
 // // T960
 // $objPHPExcel->getActiveSheet()
 //             ->fromArray(
