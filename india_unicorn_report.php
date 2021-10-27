@@ -157,7 +157,7 @@
                     </div>
                     <div class="form-group">
                       <label for="phone">Mobile No*</label>
-                      <input name="phone" type="text" id="phone" ><span class="err-msg"></span>
+                      <input name="phone" type="number" id="phone" pattern="^\d{3}-\d{3}-\d{4}$" ><span class="err-msg" ></span>
                     </div>
                         <input type="button" value="Next" class="submit-btn" id="nextbtn">
                     </div>
@@ -276,14 +276,22 @@
                  $("#emailid").next().text('Email is Required');
                  var val=1;
              }
+              else if(!emailid.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)) {
+                $("#emailid").next().text('Please Enter Valid Email');
+                var val=1;
+            }
 
-			 else if(!emailid.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)) {
-						$("#emailid").next().text('Please Enter Valid Email');
-						var val=1;
-				}
+            if(val==1){
+                  // $("#submitbtn").val('Submit');
+                  // $('#directoryform').submit();
+                 return false;
+            }else{
+               $('#directoryform').submit();
+            }
+             
 
-            $('#directoryform').submit();
-            return false;
+            // $('#directoryform').submit();
+            // return false;
 
       });
 
