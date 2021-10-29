@@ -30,7 +30,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
          // New Tags in Edit
          foreach($tags as $as)
          {
-             $checkexisting = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$as."%' and tag_type!=''";
+             $checkexisting = "SELECT substring_index(tag_name, ':', -1)as tag FROM `news_tags` where tag_name like '%".$as."%' and tag_type!=''";
 
              $tagname = mysql_query( $checkexisting ) or die( mysql_error() );
              $numrows = mysql_num_rows( $tagname );
@@ -39,7 +39,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
              // Edit New Tags
              if($rc == 0 )
              {
-                 $insert_tag = "INSERT INTO tags ( tag_name, tag_type, created_date ) VALUES( '" . $as . "', '" . $as . "', '" . $createdOn . "' )";
+                 $insert_tag = "INSERT INTO news_tags ( tag_name, tag_type, created_date ) VALUES( '" . $as . "', '" . $as . "', '" . $createdOn . "' )";
                  mysql_query( $insert_tag ) or die( mysql_error() );                
              }
              else{
@@ -393,7 +393,7 @@ input[type=text],textarea,input[type=date]
                         foreach($array_tags as $as1)
                         {
                             // echo '<pre>'; print_r($as1); echo '</pre>';
-                            $tagsql = "SELECT substring_index(tag_name, ':', -1)as tag FROM `tags` where tag_name like '%".$search_tag."%' and tag_type!=''";
+                            $tagsql = "SELECT substring_index(tag_name, ':', -1)as tag FROM `news_tags` where tag_name like '%".$search_tag."%' and tag_type!=''";
 
                             if ($rstag = mysql_query($tagsql))
                             {
