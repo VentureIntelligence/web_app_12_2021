@@ -600,10 +600,11 @@
         function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId)
         {
             $dbpecomp = new dbInvestments();
-            $getPECompanySql = "select PECompanyId,industry,sector_business,RegionId,city from pecompanies where companyname= '$companyname'";
+
+            $getPECompanySql = "select pec.PECompanyId,pec.industry,pec.sector_business,pec.RegionId,pec.city from pecompanies as pec JOIN peinvestments as pein where pec.companyname= '$companyname' and pein.PECompanyId = pec.PECompanyId and pein.Deleted = 1";
 
 
-            // echo "<br>select--" .$getPECompanySql;
+            // echo "<br>select--" .$getPECompanySql;  exit;
 
             
             if ($rsgetPECompanyId = mysql_query($getPECompanySql))
