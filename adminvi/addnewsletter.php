@@ -158,7 +158,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                         // echo 'notInsert___'.$value.'<br />';
                         // echo 'Insert___'.$value.'<br />';
 
-                        $insert_tag = "INSERT INTO tags ( tag_name, tag_type, created_date ) VALUES( '" . $value . "', '" . $value . "', '" . $createdOn . "' )";
+                        $insert_tag = "INSERT INTO news_tags ( tag_name, tag_type, created_date ) VALUES( '" . $value . "', '" . $value . "', '" . $createdOn . "' )";
 
                         // echo $insert_tag;
 
