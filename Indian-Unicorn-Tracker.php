@@ -415,7 +415,10 @@ padding: 0 0px !important;
                <td class="unicorn-space" style= "width: 20%;"><?php echo $row['sector'];?></td>
                <td class="valuation"><?php echo $row['entryvaluation'];?></td>
                <td class="valuation "><?php echo $row['valuation'];?></td>
-               <td ><?php echo date("M-Y",strtotime($row['entry']));?></td>
+               <td ><?php 
+               $newphrase = str_replace('/', '-', $row['entry']);
+               echo $newphrase;
+               ?></td>
                <td class="unicorn-space"><?php echo $row['location'];?></td>
                <td style= "line-height:1.2"><?php echo $row['selectInvestor'];?></td>
 
