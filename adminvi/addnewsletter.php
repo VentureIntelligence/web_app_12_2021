@@ -464,6 +464,13 @@ $( '#cancel_user' ).on('click', function() {
   </script>
 
     <script>
+
+
+        // $imageName= strtolower(trim(preg_replace('/[\s-]+/', '-', preg_replace('/[^A-Za-z0-9-]+/', '-', preg_replace('/[&]/', '', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $categoryName))))), '-'))
+
+        //  $slugName= strtolower(trim(preg_replace('/[\s-]+/', '-', $headingName)))
+
+
         function headingslug(val)
         {
             var slugvalue1 = val.toLowerCase();            
