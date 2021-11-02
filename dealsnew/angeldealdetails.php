@@ -693,20 +693,26 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
 	     AND pec.PEcompanyID = pe.InvesteeId and pe.Deleted=0 and pec.industry !=15
 	     and pe.AngelDealId=$SelCompRef and r.RegionId=pec.RegionId ";
 	     
-	//echo "<br>********".$sql;
+	// echo "<br>********".$sql;
 
 	$investorSql="select peinv.AngelDealId,peinv.InvestorId,inv.Investor from angel_investors as peinv,
 		peinvestors as inv where peinv.AngelDealId=$SelCompRef and inv.InvestorId=peinv.InvestorId ";
-	//echo "<Br>Investor".$investorSql;
+
+
+	// echo "<Br>Investor".$investorSql;
 
   	if ($companyrs = mysql_query($sql))
 		{
+            
 	?>
 		
 
 		<?php
 		if($myrow=mysql_fetch_array($companyrs,MYSQL_BOTH))
 		{
+
+            // echo '<pre>'; print_r($myrow); echo '</pre>';
+
       $DealDate = $myrow["dt"];
 
 			if($myrow["MultipleRound"]==1)
@@ -1189,8 +1195,19 @@ if($_POST['pe_checkbox_enable']!=''){ ?>
                        <?php if($myrow["industry"]!="") { ?><td><h4>Industry</h4> <p><?php echo $myrow["industry"];?></p></td> <?php } ?> </tr>
                         <tr>  <?php if($myrow["sector_business"]!="") { ?> <td><h4>Sector</h4> <p><?php echo $myrow["sector_business"];?></p></td>  <?php } ?>
                               <?php if($myrow["city"]!="") { ?> <td><h4>City</h4> <p><?php echo  $myrow["city"];?></p></td> <?php } ?> </tr>
-                        <tr>  <?php if($myrow["Region"]!="") { ?> <td><h4>Region</h4> <p><?php echo $myrow["Region"];?></p></td> <?php } ?> </tr>
-                        <tr>  <?php if($webdisplay!="") { ?><td colspan="2"><h4>Website</h4> <p style="word-break: break-all;"><a href=<?php echo $webdisplay; ?> target="_blank"><?php echo $webdisplay; ?></a></td> <?php } ?> </tr> 
+                        <tr>  <?php if($myrow["Region"]!="") { ?> <td><h4>Region</h4> <p><?php echo $myrow["Region"];?></p></td> <?php } ?> 
+                    
+                        <?php if($webdisplay!="") { ?><td colspan="2"><h4>Website</h4> <p style="word-break: break-all;"><a href=<?php echo $webdisplay; ?> target="_blank"><?php echo $webdisplay; ?></a></td> <?php } ?> 
+                    
+                    </tr>
+                        <tr>  
+
+                        <?php if($myrow["Link"]!="") { ?><td colspan="2"><h4>Link</h4> <p style="word-break: break-all;"><a href=<?php echo $myrow["Link"]; ?> target="_blank"><?php echo $myrow["Link"]; ?></a></td> <?php } ?> 
+                    
+                    
+                    </tr> 
+
+                        <tr>  </tr> 
                      
                     </table>
                     </div>  
