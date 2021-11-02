@@ -35,6 +35,12 @@ if(isset($_FILES['unicornfilepath']))
                             die($e->getMessage());
                         }
                         $data = array($objPHPExcel->getActiveSheet()->toArray(null,true,true,true));
+
+                        // echo '<pre>';
+                        // print_r($data);
+                        // echo '</pre>'; 
+                        // exit;
+
                         $rowcount=0;
                         if(count($data) <= 0){ ?>
                             <Br>
@@ -55,7 +61,7 @@ if(isset($_FILES['unicornfilepath']))
                         //Get worksheet dimensions
                         $sheet = $objPHPExcel->getSheet(0); 
                         $highestRow = $rowcount; 
-                        $highestColumn = 'G';
+                        $highestColumn = 'H';
 
                         $rowData = array();
                          mysql_query("TRUNCATE table unicorn_table_data");
@@ -63,21 +69,22 @@ if(isset($_FILES['unicornfilepath']))
                         //Loop through each row of the worksheet in turn
                         for ($row = 2; $row <= $highestRow; $row++){ 
                              $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, "", TRUE, TRUE);
-                            /*echo '<pre>';
-                            print_r($rowData);
-                            echo '</pre>';*/
+                            // echo '<pre>';
+                            // print_r($rowData);
+                            // echo '</pre>'; exit;
                             $id=$rowData[0][0];
                             $txt=str_replace("'", "\\'", $rowData[0][1]);
 
                             $company =  $txt;
                             $sector = $rowData[0][2];
-                            $valuation = $rowData[0][3];
-                            $entry = $rowData[0][4];
-                            $location = $rowData[0][5];
-                            $selectInvestor = $rowData[0][6];
+                            $entryvaluation = $rowData[0][3];
+                            $valuation = $rowData[0][4];
+                            $entry = $rowData[0][5];
+                            $location = $rowData[0][6];
+                            $selectInvestor = $rowData[0][7];
                            // echo $company;
-                            $insert_Query = "INSERT INTO `unicorn_table_data` (`id`, `company`, `sector`, `valuation`, `entry`, `location`, `selectInvestor`) 
-                                                VALUES ('$id', '$company', '$sector', '$valuation', '$entry', '$location', '$selectInvestor');";
+                            $insert_Query = "INSERT INTO `unicorn_table_data` (`id`, `company`, `sector`, `entryvaluation`,`valuation`, `entry`, `location`, `selectInvestor`) 
+                                                VALUES ('$id', '$company', '$sector', '$entryvaluation','$valuation', '$entry', '$location', '$selectInvestor');";
 
                                                 
                                                 //echo $insert_Query; 
