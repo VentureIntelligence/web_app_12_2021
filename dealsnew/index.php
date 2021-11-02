@@ -1,3 +1,4 @@
+
 <?php
 //other database
 require_once "../dbconnectvi.php";
@@ -24,6 +25,11 @@ if($_POST['tagsearch'] != "" || $_POST['tagsearch_auto'] != ""){
     $_POST['state'] = "--";
    // $_POST['city'] = "";
    $_POST['city'] = "--";
+   
+
+
+  
+
 }
 $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,valInfo from dealcompanies as dc,dealmembers as dm
 where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
