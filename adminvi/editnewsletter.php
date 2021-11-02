@@ -26,6 +26,7 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
         $tags =  $_POST[ 'tags' ];
         $tags_string = implode(',',$tags);
 
+        
 
          // New Tags in Edit
          foreach($tags as $as)
