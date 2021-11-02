@@ -323,20 +323,39 @@ if (isset($_POST['popup_select'])) {
         $_POST['year2'] = "";
         $_POST['searchallfield'] = "";
     } else if (trim($_POST['searchallfield']) != "" || trim($_POST['investorauto_sug']) != "" || trim($_POST['companyauto_sug']) != "" || trim($_POST['searchKeywordLeft']) != "" || trim($_POST['searchTagsField']) != "" || trim($_POST['sectorsearch']) != "" || trim($_POST['advisorsearch_legal']) != "" || trim($_POST['advisorsearch_trans']) != "") {
-        //echo "ddddddddddddd";
+
+
+
+        // echo "ddddddddddddd"; 
+        
+        // exit;
+
+
         //   if(trim($_POST['searchallfield'])!=""){
         if (($_POST['month1'] == date('n')) && $_POST['year1'] == date('Y', strtotime(date('Y') . " -1  Year")) && $_POST['month2'] == date('n') && $_POST['year2'] == date('Y')) {
 
-//                        echo "ddddddddddd"
+                    //    echo "ulla if";
+
             //                       print_r($_POST);
            // echo $period_flag;
             if (($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || $_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
 
-                $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
-                $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
-                $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
-                $year2 = ($_POST['year2'] || ($_POST['year2'] != "")) ? $_POST['year2'] : date('Y');
+                // echo 'adhukulla iruku';
+
+                // $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
+                // $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
+                // $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
+                // $year2 = ($_POST['year2'] || ($_POST['year2'] != "")) ? $_POST['year2'] : date('Y');
+
+                $month1 = 01;
+                $year1 = 1998;
+                $month2 = date('n');
+                $year2 = date('Y');
+
+
             } else {
+
+                // echo 'velila iruku';
                 $month1 = 01;
                 $year1 = 1998;
                 $month2 = date('n');
@@ -361,21 +380,41 @@ if (isset($_POST['popup_select'])) {
         //|| ($_POST['invrangeend'] != "--") || (count($_POST['exitstatus']) > 0) || (count($_POST['valuations']) > 0 ) || $_POST['tagsearch'] != '' || $_POST['tagsearch_auto'] != '' || $_POST['city'] !="" || $_POST['state'] !="--") {
         || ($_POST['invrangeend'] != "--") || (count($_POST['exitstatus']) > 0) || (count($_POST['valuations']) > 0 ) || $_POST['tagsearch'] != '' || $_POST['tagsearch_auto'] != '' || $_POST['city'] !="--" || $_POST['state'] !="--") {
 
+            // echo 'Refine Search<br />';
+
         if (($_POST['month1'] == date('n')) && $_POST['year1'] == date('Y', strtotime(date('Y') . " -1  Year")) && $_POST['month2'] == date('n') && $_POST['year2'] == date('Y')) {
-            //echo $period_flag;
+
+            // echo 'ulla if<br />';
+
+            // echo $period_flag.'<br />';
             
             if($period_flag == 2 || $period_flag == 1 ){
-                $month1 = $_POST['month1'];
-                $year1 = $_POST['year1'];
-            } else {
+
+                // echo 'flag_1_2';
+
+                // $month1 = $_POST['month1'];
+                // $year1 = $_POST['year1'];
+
                 $month1=01;
                 $year1 = 1998;
+
+            } else {
+
+                // echo 'flag_0';
+
+                $month1=01;
+                $year1 = 1998;
+                // $month2 = date('n');
+                // $year2 = date('Y');
             }
             
             $month2 = date('n');
             $year2 = date('Y');
 
         } else {
+
+            // echo 'ulla else<br />';
+
             $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
             $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
             $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
