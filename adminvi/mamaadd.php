@@ -42,6 +42,15 @@
 				<td><input type="text" name="txtcompanyname" id = "txtcompanyname" class ="company_name" size="50" value="<?php echo $mycomprow["companyname"]; ?>" onkeyup = "nocompanyname(this.value);"> </td>
 				</tr>
 
+
+				<tr style="font-family: Arial; font-size: 8pt">
+				<td >&nbsp;Group (Company)</td>
+				<td><input type="text" name="txtcompanygroup" id = "txtcompanygroup" class ="company_group" size="50" value="" > </td>
+				</tr>
+
+
+
+
                                 <tr>
                                 <td > &nbsp;Target Company Type</td>
                                 <td > <SELECT name="target_listingstatus">

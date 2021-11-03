@@ -8,6 +8,8 @@ session_start();
 //   print_r($_POST);
 //   echo '</pre></div>';
 
+        // echo '<pre>'; print_r($_POST['searchallfield']); echo '</pre>';
+
 if($_POST['tagsearch'] != "" || $_POST['tagsearch_auto'] != ""){
     $_POST['keywordsearch'] = "";
     $_POST['searchallfield'] = "";
@@ -22,23 +24,10 @@ if($_POST['tagsearch'] != "" || $_POST['tagsearch_auto'] != ""){
     $_POST['state'] = "--";
    // $_POST['city'] = "";
    $_POST['city'] = "--";
-
-
-  
-
 }
-
-
-$emailid = $_SESSION['UserEmail'];
-
 $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,valInfo from dealcompanies as dc,dealmembers as dm
 where dm.EmailId='$emailid' and dc.DCompId=dm.DCompId";
-
-
-// echo '<pre>'; print_r($_SESSION['UserEmail']); echo '</pre>'; exit;
-
-// echo "<br>---" .$TrialSql; exit;
-
+//echo "<br>---" .$TrialSql;
 if($trialrs=mysql_query($TrialSql))
 {
         while($trialrow=mysql_fetch_array($trialrs,MYSQL_BOTH))
@@ -47,9 +36,6 @@ if($trialrs=mysql_query($TrialSql))
              $valInfo=$trialrow["valInfo"];
         }
 }
-
-// echo 'ValInfoi____'.$valInfo;
-
 $popup_search = 0;
 $listallcompany = $_POST['listallcompanies'];
 $all_keyword_other = trim($_POST['all_keyword_other']);
@@ -323,20 +309,39 @@ if (isset($_POST['popup_select'])) {
         $_POST['year2'] = "";
         $_POST['searchallfield'] = "";
     } else if (trim($_POST['searchallfield']) != "" || trim($_POST['investorauto_sug']) != "" || trim($_POST['companyauto_sug']) != "" || trim($_POST['searchKeywordLeft']) != "" || trim($_POST['searchTagsField']) != "" || trim($_POST['sectorsearch']) != "" || trim($_POST['advisorsearch_legal']) != "" || trim($_POST['advisorsearch_trans']) != "") {
-        //echo "ddddddddddddd";
+
+
+
+        // echo "ddddddddddddd"; 
+        
+        // exit;
+
+
         //   if(trim($_POST['searchallfield'])!=""){
         if (($_POST['month1'] == date('n')) && $_POST['year1'] == date('Y', strtotime(date('Y') . " -1  Year")) && $_POST['month2'] == date('n') && $_POST['year2'] == date('Y')) {
 
-//                        echo "ddddddddddd"
+                    //    echo "ulla if";
+
             //                       print_r($_POST);
            // echo $period_flag;
             if (($_POST['month1'] !="" && $_POST['month2'] !="" && $_POST['year1'] !="" && $_POST['year2'] !="" ) || $_POST['tagsfield'] == 1 || ($_POST['searchallfield'] && $period_flag == 2) || ($_POST['investorauto_sug'] && $period_flag == 2) || ($_POST['companyauto_sug'] && $period_flag == 2)) {
 
-                $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
-                $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
-                $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
-                $year2 = ($_POST['year2'] || ($_POST['year2'] != "")) ? $_POST['year2'] : date('Y');
+                // echo 'adhukulla iruku';
+
+                // $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
+                // $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
+                // $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
+                // $year2 = ($_POST['year2'] || ($_POST['year2'] != "")) ? $_POST['year2'] : date('Y');
+
+                $month1 = 01;
+                $year1 = 1998;
+                $month2 = date('n');
+                $year2 = date('Y');
+
+
             } else {
+
+                // echo 'velila iruku';
                 $month1 = 01;
                 $year1 = 1998;
                 $month2 = date('n');
@@ -361,21 +366,41 @@ if (isset($_POST['popup_select'])) {
         //|| ($_POST['invrangeend'] != "--") || (count($_POST['exitstatus']) > 0) || (count($_POST['valuations']) > 0 ) || $_POST['tagsearch'] != '' || $_POST['tagsearch_auto'] != '' || $_POST['city'] !="" || $_POST['state'] !="--") {
         || ($_POST['invrangeend'] != "--") || (count($_POST['exitstatus']) > 0) || (count($_POST['valuations']) > 0 ) || $_POST['tagsearch'] != '' || $_POST['tagsearch_auto'] != '' || $_POST['city'] !="--" || $_POST['state'] !="--") {
 
+            // echo 'Refine Search<br />';
+
         if (($_POST['month1'] == date('n')) && $_POST['year1'] == date('Y', strtotime(date('Y') . " -1  Year")) && $_POST['month2'] == date('n') && $_POST['year2'] == date('Y')) {
-            //echo $period_flag;
+
+            // echo 'ulla if<br />';
+
+            // echo $period_flag.'<br />';
             
             if($period_flag == 2 || $period_flag == 1 ){
-                $month1 = $_POST['month1'];
-                $year1 = $_POST['year1'];
-            } else {
+
+                // echo 'flag_1_2';
+
+                // $month1 = $_POST['month1'];
+                // $year1 = $_POST['year1'];
+
                 $month1=01;
                 $year1 = 1998;
+
+            } else {
+
+                // echo 'flag_0';
+
+                $month1=01;
+                $year1 = 1998;
+                // $month2 = date('n');
+                // $year2 = date('Y');
             }
             
             $month2 = date('n');
             $year2 = date('Y');
 
         } else {
+
+            // echo 'ulla else<br />';
+
             $month1 = ($_POST['month1'] || ($_POST['month1'] != "")) ? $_POST['month1'] : date('n');
             $year1 = ($_POST['year1'] || ($_POST['year1'] != "")) ? $_POST['year1'] : date('Y', strtotime(date('Y') . " -1  Year"));
             $month2 = ($_POST['month2'] || ($_POST['month2'] != "")) ? $_POST['month2'] : date('n');
@@ -3443,6 +3468,12 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
     echo "<br> INVALID DATES GIVEN ";
     $fetchRecords = false;
 }
+
+
+// echo $companysql; 
+// exit;
+
+
 $ajaxcompanysql = urlencode($companysql);
 if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
@@ -4702,6 +4733,7 @@ if ($_POST['total_inv_inr_amount'] != '' && $searchallfield != '') {echo number_
            <?php
 }
 ?>
+
          
         <!-- </div>   -->
         <center>
@@ -4738,13 +4770,15 @@ if ($studentOption == 1) {
                    
 if ($exportToExcel == 1) {
     
+    
         ?>
                         <span style="float:right" class="one">
                         <input class ="export" type="button"  value="Export" name="showdeals">
                         </span>
                               <div class="title-links" id="exportbtn"></div>
                               <script type="text/javascript">
-                            <?php  if($vcflagValue == '0'){?>
+                            <?php 
+                             if($vcflagValue == '0'){?>
                                 $('#exportbtn').html('<a class ="export_new" id="expshowdeals" data-type="multicheckbox" name="showdeals">Export</a>');
                             <?php }else{?>
                                 $('#exportbtn').html('<a class ="export_new" id="expshowdeals" data-type="nomulticheckbox" name="showdeals">Export</a>');
@@ -4917,7 +4951,7 @@ if ($type != 1) {
 </form>
             <!--input class="postlink" type="hidden" name="numberofcom" value="<?php echo $totalInv; ?>"-->
             <form name="pelisting" id="pelisting"  method="post" action="exportinvdeals.php">
-            <input type="text" name="valInfo" value="<?php echo $valInfo;?>" >
+            <input type="hidden" name="valInfo" value="<?php echo $valInfo;?>" >
 
             <input type="hidden" name="txtsearchon" value="1" >
             <input type="hidden" name="vcflagValue" value=<?php echo $vcflagValue; ?> >
@@ -4928,46 +4962,47 @@ if ($type != 1) {
             <input type="hidden" name="countryid" value=<?php echo $investor_head; ?> >
             <input type="hidden" name="invandor" value=<?php echo $invandor; ?> >
            
-    <input type="hidden" name="txtmonth2" value=<?php echo $month2; ?> >
-    <input type="hidden" name="txtyear1" value=<?php echo $year1; ?> >
-    <input type="hidden" name="txtyear2" value=<?php echo $year2; ?> >
-    <input type="hidden" name="txttitle" value=<?php echo $vcflagValue; ?> >
-    <input type="hidden" name="txthidename" value=<?php echo $username; ?> >
-    <input type="hidden" name="txthideemail" value=<?php echo $UserEmail; ?> >
-    <input type="hidden" name="txthidedate" value=<?php echo $datevalue; ?> >
-    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
-    <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
-    <input type="hidden" name="txthidedealsinvolving" value="<?php echo $dealsinvolvingValue_hide;?>" >
-    <input type="hidden" name="txthidesectorval" value=<?php echo $sector_hide; ?> >
-    <input type="hidden" name="txthidesubsector" value="<?php echo $subsectorString; ?>" >
-    <input type="hidden" name="txthidesyndication" value="<?php echo $syndication;?>" >
+            <input type="hidden" name="txtmonth2" value=<?php echo $month2; ?> >
+            <input type="hidden" name="txtyear1" value=<?php echo $year1; ?> >
+            <input type="hidden" name="txtyear2" value=<?php echo $year2; ?> >
+            <input type="hidden" name="txttitle" value=<?php echo $vcflagValue; ?> >
+            <input type="hidden" name="txthidename" value=<?php echo $username; ?> >
+            <input type="hidden" name="txthideemail" value=<?php echo $UserEmail; ?> >
+            <input type="hidden" name="txthidedate" value=<?php echo $datevalue; ?> >
+            <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+            <input type="hidden" name="txthidecompany" value=<?php echo $companysearchhidden; ?> >
+            <input type="hidden" name="txthidedealsinvolving" value="<?php echo $dealsinvolvingValue_hide;?>" >
+            <input type="hidden" name="txthidesectorval" value=<?php echo $sector_hide; ?> >
+            <input type="hidden" name="txthidesubsector" value="<?php echo $subsectorString; ?>" >
+            <input type="hidden" name="txthidesyndication" value="<?php echo $syndication;?>" >
 
 
-    <input type="hidden" name="txthidesector" value="<?php echo $sectorsearchhidden; ?>" >
-    <input type="hidden" name="txthideadvisor_legal" value=<?php echo $advisorsearchhidden_legal; ?> >
-    <input type="hidden" name="txthideadvisor_trans" value=<?php echo $advisorsearchhidden_trans; ?> >
-    <input type="hidden" name="txthideindustryid" value="<?php echo $industry_hide; ?>" >
-    <input type="hidden" name="txthidestageval" value="<?php echo $stageval_hide; ?>" >
-    <input type="hidden" name="txthideround" value="<?php echo $roundTxtVal; ?>">
-                        <input type="hidden" name="txthidevaluation" value="<?php echo $valuationsql; ?> ">
-    <input type="hidden" name="txthideregionid" value="<?php echo $region_hide; ?>" >
-    <input type="hidden" name="txthidecity" value="<?php echo $city; ?>">
-    <input type="hidden" name="txthidedateStartValue" value=<?php echo $startyear; ?> >
-    <input type="hidden" name="txthidedateEndValue" value=<?php echo $endyear; ?> >
-                        <input type="hidden" name="txthidedebt_equity" value=<?php echo $debt_equity; ?> >
-    <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
-    <input type="hidden" name="txthideinvtypeid" value=<?php echo $investorType; ?> >
+            <input type="hidden" name="txthidesector" value="<?php echo $sectorsearchhidden; ?>" >
+            <input type="hidden" name="txthideadvisor_legal" value=<?php echo $advisorsearchhidden_legal; ?> >
+            <input type="hidden" name="txthideadvisor_trans" value=<?php echo $advisorsearchhidden_trans; ?> >
+            <input type="hidden" name="txthideindustryid" value="<?php echo $industry_hide; ?>" >
+            <input type="hidden" name="txthidestageval" value="<?php echo $stageval_hide; ?>" >
+            <input type="hidden" name="txthideround" value="<?php echo $roundTxtVal; ?>">
+            <input type="hidden" name="txthidevaluation" value="<?php echo $valuationsql; ?> ">
+            <input type="hidden" name="txthideregionid" value="<?php echo $region_hide; ?>" >
+            <input type="hidden" name="txthidecity" value="<?php echo $city; ?>">
+            <input type="hidden" name="txthidedateStartValue" value=<?php echo $startyear; ?> >
+            <input type="hidden" name="txthidedateEndValue" value=<?php echo $endyear; ?> >
+            <input type="hidden" name="txthidedebt_equity" value=<?php echo $debt_equity; ?> >
+            <input type="hidden" name="txthideinvestor" value=<?php echo $keywordhidden; ?> >
+            <input type="hidden" name="txthideinvtypeid" value=<?php echo $investorType; ?> >
 
-     <input type="hidden" name="yearafter" value=<?php echo $yearafter; ?> >
-    <input type="hidden" name="yearbefore" value=<?php echo $yearbefore; ?> >
-    <input type="hidden" name="state" value=<?php echo $statevalueid; ?> >
-    <input type="hidden" name="cityid" value=<?php echo $cityvalueid; ?> >
+            <input type="hidden" name="yearafter" value=<?php echo $yearafter; ?> >
+            <input type="hidden" name="yearbefore" value=<?php echo $yearbefore; ?> >
+            <input type="hidden" name="state" value=<?php echo $statevalueid; ?> >
+            <input type="hidden" name="cityid" value=<?php echo $cityvalueid; ?> >
 
 
     <input type="hidden" name="txthiderangeStartValue" value=<?php echo $startRangeValue; ?>>
     <input type="hidden" name="txthiderangeEndValue" value=<?php echo $endRangeValue; ?> >
-                        <input type="hidden" name="txthideexitstatusValue" value=<?php echo $exitstatusValue_hide; ?> >
-    <input type="hidden" name="txthidesearchallfield" value=<?php echo $searchallfield; ?> >
+    <input type="hidden" name="txthideexitstatusValue" value=<?php echo $exitstatusValue_hide; ?> >
+    <input type="hidden" name="txthidesearchallfield" value="<?php echo $_POST['searchallfield']; ?>"> 
+
     <input type="hidden" name="txthidepe" id="txthidepe" value="<?php echo implode( ',', $pe_checkbox ); ?>">
     <input type="hidden" name="export_checkbox_enable" id="export_checkbox_enable" value="<?php echo implode( ',', $pe_checkbox_enable ); ?>">
     <input type="hidden" name="export_full_uncheck_flag" id="export_full_uncheck_flag" value="<?php if($_POST['full_uncheck_flag']!=''){ echo $_POST['full_uncheck_flag']; }else{ echo ""; } ?>">

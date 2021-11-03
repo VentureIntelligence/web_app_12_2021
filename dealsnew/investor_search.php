@@ -561,24 +561,45 @@ if($passwrd != 'P')
  --><div>    
    <?php 
 
-if($_GET['flag']==0){ ?>
-<h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> PE</h3>
-<?php }elseif($_GET['flag']==1 ){ ?>
-<h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> VC</h3>
-<?php }elseif($_GET['flag']==2 ){ ?>
-<h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Angel</h3>
-<?php }elseif($_GET['flag']==3 ){ ?>
-<h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Social VC</h3>
-<?php }elseif($_GET['flag']==4){ ?>
-<h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Cleantech</h3>
-<?php }elseif($_GET['flag']==5 ){ ?>
-<h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Infrastructure</h3>
-<?php }elseif($_GET['flag']==6){ ?>
-<h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Incubation</h3>
-<?php }
-else{ ?>
-    <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> PE</h3>
-<?php }    ?>
+
+    if ($_POST['flagvalue123'] != "")
+    {
+        if($_POST['flag']==0){ ?>
+        <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> PE </h3>
+        <?php }elseif($_POST['flag']==1 ){ ?>
+        <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> VC </h3>
+        <?php }elseif($_POST['flag']==2 ){ ?>
+        <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Angel</h3>
+        <?php }elseif($_POST['flag']==3 ){ ?>
+        <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Social VC</h3>
+        <?php }elseif($_POST['flag']==4){ ?>
+        <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Cleantech</h3>
+        <?php }elseif($_POST['flag']==5 ){ ?>
+        <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Infrastructure</h3>
+        <?php }elseif($_POST['flag']==6){ ?>
+        <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Incubation</h3>
+        <?php } 
+    }else{
+        if($_GET['flag']==0){ ?>
+            <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> PE </h3>
+            <?php }elseif($_GET['flag']==1 ){ ?>
+            <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> VC </h3>
+            <?php }elseif($_GET['flag']==2 ){ ?>
+            <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Angel</h3>
+            <?php }elseif($_GET['flag']==3 ){ ?>
+            <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Social VC</h3>
+            <?php }elseif($_GET['flag']==4){ ?>
+            <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Cleantech</h3>
+            <?php }elseif($_GET['flag']==5 ){ ?>
+            <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Infrastructure</h3>
+            <?php }elseif($_GET['flag']==6){ ?>
+            <h3 id="investmenttype">Investments <span style="padding-left: 2px;padding-right: 2px;">></span> Incubation</h3>
+            <?php } 
+    }
+
+    ?>
+
+
 
 <?php if($vcflagValue != 6){?>
 <div class="showdealsby" style="float:right;">
