@@ -19,31 +19,31 @@ session_start();
     $created_at =  date('Y-m-d H:i:s');
 
 
-    //Send Email
-    $to         = 'narasimman.p@praniontech.com'; 
-    $from 	    = 'info@ventureintelligence.in';               
-    $subject 	= "Unicorn Report";
-    $message    = 'hi';
+//     //Send Email
+//     $to         = 'narasimman.p@praniontech.com'; 
+//     $from 	    = 'info@ventureintelligence.in';               
+//     $subject 	= "Unicorn Report";
+//     $message    = 'hi';
 
 
 
-    $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $headers .= "From: $from\r\n"; 
-    $headers .= "Reply-To: $to\r\n"; 
-   // $headers .= 'Cc: subscription@ventureintelligence.com,fidelis@kutung.com' . "\r\n";
-    $headers .= 'Cc: narasimman.p@praniontech.com' . "\r\n";
+//     $headers  = 'MIME-Version: 1.0' . "\r\n";
+//     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//     $headers .= "From: $from\r\n"; 
+//     $headers .= "Reply-To: $to\r\n"; 
+//    // $headers .= 'Cc: subscription@ventureintelligence.com,fidelis@kutung.com' . "\r\n";
+//     $headers .= 'Cc: narasimman.p@praniontech.com' . "\r\n";
 
-    if (@mail($to, $subject, $message, $headers)){
-        $Status=1;
-    }else{
-        $Status=0;
-    }
+//     if (@mail($to, $subject, $message, $headers)){
+//         $Status=1;
+//     }else{
+//         $Status=0;
+//     }
     
     // echo $Status;
     
-    if($Status == 1)
-    {
+    // if($Status == 1)
+    // {
         if($emailid != "" && $name != ""  && $designation != ""  && $companyname != "" && $phone != "" )
         {
             $insunicornreport="insert into india_unicorn_report(email,name,companyname,designation,mobileno,created_at,created_by)
@@ -60,9 +60,9 @@ session_start();
         }else{
             echo 0 ;
         }
-    }else{
-        echo 0;
-    }
+    // }else{
+    //     echo 0;
+    // }
 
    
 

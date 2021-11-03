@@ -332,16 +332,23 @@
                           }
                         });
                         $.get( "downloadunicorn.php", function( data ) {   });
+                        
+                        $("#name").val('');
+                         $("#companyname").val('');
+                        $("#designation").val('');
+                         $("#emailid").val('');
+                         $("#phone").val('');
+
+                        // location.reload();
                     }else if (status == 0){
                       // alert("Error... Pls Try Again...");
                       return false;
                     }
                 },
-              
-
             });
-
             return false;
+
+              
         });
 
 
