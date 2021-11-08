@@ -25,6 +25,9 @@ require("../dbconnectvi.php");
 
 
 <?php
+
+				// echo '<pre>'; print_r($_POST); echo '</pre>';  exit;
+
 	$incDealIdtoUpdate=$_POST['txtIncDealId'];
 	// echo "<br>******".$incDealIdtoUpdate;
  // $industryIdtoUpdate =$_POST['txtindustryId'];
@@ -35,8 +38,14 @@ require("../dbconnectvi.php");
           	 $industryidtoUpdate=$_POST['industryid'];
           	 $sectortoUpdate=$_POST['txtsector'];
            	$incubatorIdhidden=$_POST['txtincubatorId'];
+
            	$incubator=$_POST['txtincubator'];
+
            	$incubatorId=return_insert_get_incubator($incubator);
+
+
+			//    echo $incubatorId.'<br />'; exit;
+
            	If($incubatorIdhidden==$incubatorId)
                     $incubatorIdtoUpdate=$incubatorIdhidden;
                else
@@ -47,6 +56,8 @@ require("../dbconnectvi.php");
 	         }
 	         else
 	         { $followonfunding=0;}
+
+
 	$yearfounded=$_POST['txtyearfounded'];
 	if($yearfounded=="")
 	  $yearfounded=0;
@@ -75,14 +86,20 @@ require("../dbconnectvi.php");
 			}
 		else
 		{ $defunctFlag=0;}
-                $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate', yearfounded='$yearfounded',sector_business='$sectortoUpdate',
-                industry =$industryidtoUpdate,modefied_by='$user'
-    	       where PECompanyId=$companyIdtoUpdate";
+
+
+                $UpdatecompanySql="update pecompanies set companyname='$companyNametoUpdate', yearfounded='$yearfounded',sector_business='$sectortoUpdate',industry =$industryidtoUpdate, modefied_by='$user' where PECompanyId=$companyIdtoUpdate";
+
+				// echo $UpdatecompanySql; exit;
+
+
 
                    if($updaterscompany=mysql_query($UpdatecompanySql))
                    {
-				 echo "<br>Company Info Updated  " ;
-                     	}
+				 		echo "<br>Company Info Updated  " ;
+					}
+
+
 
      		$UpdateIncSql="update incubatordeals set IncubateeId=$companyIdtoUpdate ,IncubatorId=$incubatorIdtoUpdate,
 				YearFounded=$yearfounded,Comment='$commenttoUpdate',MoreInfor='$moreInfortoUpdate',
@@ -90,11 +107,15 @@ require("../dbconnectvi.php");
               where IncDealId=$incDealIdtoUpdate";
 
                //echo "<BR>--" .$UpdateIncSql;
+
+			   
 				if($updatersinvestment=mysql_query($UpdateIncSql))
 				{
 						echo "<br><br>Deal Updated ";
 
 				}
+
+				// exit;
 
 
 
@@ -111,7 +132,11 @@ require("../dbconnectvi.php");
 		$incubator=rtrim($incubatorname);
 		$dblink = new dbInvestments();
 		$getInvestorIdSql = "select IncubatorId from incubators where Incubator like '$incubator'";
-		//echo "<br>select--" .$getInvestorIdSql;
+
+
+		// echo "<br>select--" .$getInvestorIdSql;  exit;
+
+
 		if ($rsgetInvestorId = mysql_query($getInvestorIdSql))
 		{
 			$investor_cnt=mysql_num_rows($rsgetInvestorId);
@@ -121,7 +146,12 @@ require("../dbconnectvi.php");
 					$insAcquirerSql="insert into incubators(Incubator) values('$incubatorname')";
 					if($rsInsAcquirer = mysql_query($insAcquirerSql))
 					{
-						$IncubatorId=0;
+						$id = mysql_insert_id();
+
+						// echo $id; 
+						// exit;
+
+						$IncubatorId=$id;
 						return $IncubatorId;
 					}
 			}
