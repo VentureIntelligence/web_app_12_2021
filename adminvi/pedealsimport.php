@@ -601,7 +601,9 @@
         {
             $dbpecomp = new dbInvestments();
 
-            $getPECompanySql = "select pec.PECompanyId,pec.industry,pec.sector_business,pec.RegionId,pec.city from pecompanies as pec JOIN peinvestments as pein where pec.companyname= '$companyname' and pein.PECompanyId = pec.PECompanyId and pein.Deleted = 1";
+            // $getPECompanySql123 = "select pec.PECompanyId,pec.industry,pec.sector_business,pec.RegionId,pec.city from pecompanies as pec JOIN peinvestments as pein where pec.companyname= '$companyname' and pein.PECompanyId = pec.PECompanyId and pein.Deleted = 0";
+
+            $getPECompanySql = "select PECompanyId,industry,city,sector_business,RegionId from pecompanies where companyname= '$companyname'";
 
 
             // echo "<br>select--" .$getPECompanySql;  exit;
@@ -611,9 +613,8 @@
             {
                 $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
 
-
-                // echo "<br>%%%%%".$pecomp_cnt;
-
+                // echo "<br>%%%%%".$pecomp_cnt; 
+                // exit;
                 // echo $industryId.'<br />';
 
 
@@ -627,11 +628,12 @@
 
                     if($rsInsPECompany = mysql_query($insPECompanySql))
                     {
-                        echo 'Insterted';
+                        echo 'Insterted<br />';
                         $companyId=0;
                         return $companyId;
+                        // exit;
                     }else{
-                        echo 'Error..';
+                        echo 'Error..<br /> Industry is Mandetory<br />';
                         // echo("Error description");
                         die(mysql_error());
                         // return $companyId;
@@ -639,8 +641,15 @@
                 }
                 elseif($pecomp_cnt>=1)
                 {
+
+
                     While($myrow=mysql_fetch_array($rsgetPECompanyId, MYSQL_BOTH))
                     {
+
+                        // echo '<pre>'; print_r($myrow); echo '<pre>';
+
+                        // exit;
+
                         $companyId = $myrow[0];
 
                         $rsgetPECompanyId = mysql_query($getPECompanySql);
@@ -648,16 +657,20 @@
                         
                         // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
 
-                        // echo 'Industry__'.$seperate_field['industry'].'<br />';
-                        // echo 'City__'.$seperate_field['city'].'<br />';
-                        // echo 'Sector__'.$seperate_field['sector_business'].'<br />';
-                        // echo 'Region__ : '.$seperate_field['RegionId'].'<br />';
+                        // echo 'Industry__First : '.$seperate_field['industry'].'<br />';
+                        // echo 'City__First : '.$seperate_field['city'].'<br />';
+                        // echo 'Sector__First : '.$seperate_field['sector_business'].'<br />';
+                        // echo 'Region__First : '.$seperate_field['RegionId'].'<br />';
                         
                         // exit;
 
-                     
+                        if($seperate_field['city'] == "" && $seperate_field['sector_business'] == "" && $seperate_field['industry'] == "" && ($seperate_field['RegionId'] == "" || $seperate_field['RegionId'] == "1"))
+                        {
+                            $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
 
-                        if(($seperate_field['city'] == $city) && ($seperate_field['sector_business'] == $sector) &&  ($seperate_field['industry'] == $industryId) && ($seperate_field['RegionId'] == $regionId))
+                            echo 'Successfully Added';  
+                        }
+                        elseif(($seperate_field['city'] == $city ) && ($seperate_field['sector_business'] == $sector ) && ($seperate_field['industry'] == $industryId) && ($seperate_field['RegionId'] == $regionId))
                         {
                             // echo 'ulla';
 
@@ -667,45 +680,47 @@
 
                             echo 'Successfully Added';  
                                 
-                            if($rscityCountrySql=mysql_query($updateCityCountrySql))
-                            {
-                                //		echo "<br>Update Company- " .$updateCityCountrySql;
-                            }
+                            // if($rscityCountrySql=mysql_query($updateCityCountrySql))
+                            // {
+                            //     //		echo "<br>Update Company- " .$updateCityCountrySql;
+                            // }
                               
                             // return $companyId;
 
                         }else{
 
+                            // if($pecomp_cnt==0)
+                            // {
+                            //     echo 'Inserted a New Deal';
+                            // }else{
 
-                            $industry = $seperate_field['industry'];
-                            $getIndName = "select industry from industry where industryid = $industry";
-                            $getIndustryName = mysql_query($getIndName);
-                            $reg = mysql_fetch_assoc($getIndustryName);
+                                $industry = $seperate_field['industry'];
+                                $getIndName = "select industry from industry where industryid = $industry";
+                                $getIndustryName = mysql_query($getIndName);
+                                $reg = mysql_fetch_assoc($getIndustryName);
 
-                            echo 'Industry__'.$reg['industry'].'<br />';
+                                echo 'Industry__'.$reg['industry'].'<br />';
 
-                            echo 'City__'.$seperate_field['city'].'<br />';
+                                echo 'City__'.$seperate_field['city'].'<br />';
 
-                            echo 'Sector__'.$seperate_field['sector_business'].'<br />';
+                                echo 'Sector__'.$seperate_field['sector_business'].'<br />';
 
-                            // echo 'Region__ : '.$seperate_field['RegionId'].'<br />';
+                                // echo 'Region__ : '.$seperate_field['RegionId'].'<br />';
 
-                            $region_id = $seperate_field['RegionId'];
-                            $getRegionName = "select Region from region where RegionId = $region_id";
-                            $getRegName = mysql_query($getRegionName);
-                            $reg = mysql_fetch_assoc($getRegName);
+                                $region_id = $seperate_field['RegionId'];
+                                $getRegionName = "select Region from region where RegionId = $region_id";
+                                $getRegName = mysql_query($getRegionName);
+                                $reg = mysql_fetch_assoc($getRegName);
 
-                            echo 'Region__'.$reg['Region'].'<br />';
+                                echo 'Region__'.$reg['Region'].'<br />';
 
-                            
-                            //  exit;
+                                
+                                //  exit;
 
-                            // echo 'velila';
-                            echo '<br />Mismatch Records';
-                            // return $companyId;
+                                // echo 'velila';
+                                echo '<br />Mismatch Records';
 
-                            
-                            // return $companyId;
+                            // }
                         }
                         return $companyId;
                         exit;
