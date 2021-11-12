@@ -62,7 +62,7 @@
             WHERE pec.industry = i.industryid
             AND pec.PEcompanyID = pe.PECompanyID and s.StageId=pe.StageId
                             and pe.Deleted=0" .$addVCFlagqry.
-                            " GROUP BY pe.PECompanyID order by companyname ";
+                            "  order by companyname ";
 
         }
         elseif (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--") )
@@ -76,7 +76,7 @@
             from peinvestments as pe, industry as i,pecompanies as pec,stage as s where pec.industry=i.industryid
             and dates between '".$dt1."' and '".$dt2 ."'
             and	pec.PEcompanyID = pe.PECompanyID  and s.StageId=pe.StageId
-            and pe.Deleted=0 " .$addVCFlagqry. " GROUP BY pe.PECompanyID order by companyname";
+            and pe.Deleted=0 " .$addVCFlagqry. "  order by companyname";
         //				echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
         }
         else
