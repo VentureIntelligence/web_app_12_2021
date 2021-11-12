@@ -602,10 +602,24 @@
                 $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,AdCity,RegionId,region)
                 values('$companyname','$industryId','$sector','$web','$countryid','$city','$city',$regionId,'$region')";
                 //echo "<br>Ins company sql=" .$insPECompanySql;
+
+                // if($rsInsPECompany = mysql_query($insPECompanySql))
+                // {
+                //         $companyId=0;
+                //         return $companyId;
+                // }
+
                 if($rsInsPECompany = mysql_query($insPECompanySql))
                 {
-                        $companyId=0;
-                        return $companyId;
+                    echo 'Insterted<br />';
+                    $companyId=0;
+                    return $companyId;
+                    // exit;
+                }else{
+                    echo 'Error..<br /> Industry is Mandetory<br />';
+                    // echo("Error description");
+                    die(mysql_error());
+                    // return $companyId;
                 }
             }
             elseif($pecomp_cnt>=1)
@@ -618,6 +632,11 @@
 
                     $rsgetPECompanyId = mysql_query($getPECompanySql);
                     $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
+
+                    $exist_industry = $seperate_field['industry'];
+                    $exist_city = $seperate_field['city'];
+                    $exist_sector_business = $seperate_field['sector_business'];
+                    $exist_RegionId = $seperate_field['RegionId'];
             
                     // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
 
@@ -627,22 +646,75 @@
                     // echo 'Web__'.$web.'<br />';
                     //  exit;
 
-                    if($seperate_field['city'] == $city && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] == $industryId &&  $seperate_field['website'] == $web)
+                    if($city == "" || $sector == "" || ($industryId == $industryId || $industryId == "") || $regionId == 1 )
                     {
-                        // echo 'Changes ila';
-                        $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city' where PECompanyId=$companyId";
+                        // echo 'Empty<br />';
+                        // exit;
 
-                        echo 'Successfully Added';
+                        $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
 
-                        if($rscityCountrySql=mysql_query($updateCityCountrySql))
+                        // echo 'Successfully Added';  
+                        // return $companyId;
+                        // exit;
+
+
+                        if($rsInsPECompany = mysql_query($updateCityCountrySql))
                         {
-                            //		echo "<br>Update Company- " .$updateCityCountrySql;
-                        }
-                            //	echo "<br>Insert return industry id--" .$companyId;
+                            echo 'Successfully Added<br />';
                             return $companyId;
+                            // exit;
+                        }else{
+                            echo 'Error..<br /> Industry is Mandetory<br />';
+                            die(mysql_error());
+                        }
+                    }
+                    elseif(($seperate_field['city'] == $city ) && ($seperate_field['sector_business'] == $sector ) && ($seperate_field['industry'] == $industryId) && ($seperate_field['RegionId'] == $regionId))
+                    {
+                        //    echo 'Same uh Iruku<br />';
+                        //    exit;
 
+                        $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                        // echo $updateCityCountrySql;  exit;
+
+                        // echo 'Successfully Added 123';
+                        // return $companyId;
+                        // exit;  
+
+                        if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                        {
+                            echo 'Successfully Updated<br />';
+                            return $companyId;
+                            // exit;
+                        }else{
+                            echo 'Error..<br /> Industry is Mandetory<br />';
+                            die(mysql_error());
+                        }
+                        
                     }else{
-                        return $companyId;
+
+                            // echo 'Vera uh Iruku<br />';
+                            // exit;
+
+                            $industry = $seperate_field['industry'];
+                            $getIndName = "select industry from industry where industryid = $industry";
+                            $getIndustryName = mysql_query($getIndName);
+                            $reg = mysql_fetch_assoc($getIndustryName);
+
+                            echo 'Industry__'.$reg['industry'].'<br />';
+
+                            echo 'City__'.$seperate_field['city'].'<br />';
+
+                            echo 'Sector__'.$seperate_field['sector_business'].'<br />';
+
+                            $region_id = $seperate_field['RegionId'];
+                            $getRegionName = "select Region from region where RegionId = $region_id";
+                            $getRegName = mysql_query($getRegionName);
+                            $reg = mysql_fetch_assoc($getRegName);
+
+                            echo 'Region__'.$reg['Region'].'<br />';
+
+                            echo '<br />The given Company Details are Mismatch with the Existing Comapny Details....';
                     }
                     // exit;
 
