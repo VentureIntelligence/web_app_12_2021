@@ -32,7 +32,6 @@
 
     require_once('aws.phar');
     include_once('conversionarray.php');
-    
    
     use Aws\S3\S3Client;
     $client = S3Client::factory(array(
@@ -912,19 +911,40 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                         $whereCountNew .= " and (".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                         $whereHomeCountNew .= " and (".$curvalue."  >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                     }else{
+
+                                        // $whereHomeCountNew .= 'Hello';
+
+                                        // echo 'value___'.$value.'<br />';
+
                                          if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
                                              if($currency !="INR"){
-                                                 $value = $value."/c.currency/1000000";
+                                                 $value = $value."/c.currency>1000000";
                                              }else{
                                                  $value = $value;
                                              }
                                          }
+
+                                        //  echo 'value123___'.$value.'<br />';
+                                         
                                         $where .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)."))" ;
                                         $whereCountNew .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)."))" ;
-                                        $whereHomeCountNew .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)."))" ;
+
+                                        //  Need to change
+                                        // $whereHomeCountNew .= " and (a.".$value." >= ".($_REQUEST[$Gtrt]*$crores)." or (a.".$value." is null and a.OptnlIncome >= ".($_REQUEST[$Gtrt]*$crores)."))" ;
+
+                                        $whereHomeCountNew.= " and (a.".$value.")" ;
+
+                                        // echo 'where count___'.$whereHomeCountNew.'<br />';
+
+
+                                        // a.TotalIncome/c.currency > 1000000
+
+
                                 
                                 }
                                 }
+
+                                
                                 else if($_REQUEST[$Gtrt] != "" && $_REQUEST[$Gtrt] >= 100)
                                 {
                                     if($value == "Total Debt"){
@@ -957,6 +977,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                         $whereCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                         $whereHomeCountNew .= " and (".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                     }else{
+
+                                            // $where .= 'hello';
+
                                         if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
                                             if($currency !="INR"){
                                                 $value = $value."/c.currency/1000000";
@@ -1053,6 +1076,10 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                         $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                         $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                     }else{
+
+                                                            // $where .= 'Hello';
+
+
                                                         if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
                                                             if($currency !="INR"){
                                                                 $value = $value."/c.currency/1000000";
@@ -1099,6 +1126,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                         $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                         $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                     }else{
+
+                                                        // $where .= 'Hello';
+
                                                         if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
                                                             if($currency !="INR"){
                                                                 $value = $value."/c.currency/1000000";
@@ -1146,6 +1176,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                                                         $whereCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                         $whereHomeCountNew .= " and ((".$curvalue." >= "  .($_REQUEST[$Gtrt]*$crores).")" ;
                                                     }else{
+
+
+                                                        // $where .= 'Hello';
                                                         if($value =="TotalIncome" || $value =="EBITDA" || $value =="PAT" ) {
                                                             if($currency !="INR"){
                                                                 $value = $value."/c.currency/1000000";
@@ -1776,6 +1809,10 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                     $whereHomeCountNew .= $yr_filter;
                 }
             }
+
+            // print_r( $whereHomeCountNew);
+
+            // exit;
             
             
 
