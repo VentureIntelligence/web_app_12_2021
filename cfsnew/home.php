@@ -1956,7 +1956,9 @@ if(isset($_REQUEST['chargeaddress']) && $_REQUEST['chargeaddress']!=''){
                         }
                        //echo $getgroup['Permissions'];exit();
                     $SearchResults = $plstandard->SearchHomeOpt($fields,$whereHomeCountNew,$order2,$group,"name",$page,$limit,$client='',$maxFYQuery,$ratio,$maxFYQueryratio);
-                //echo json_encode($SearchResults);exit();
+
+                        // echo json_encode($SearchResults);exit();
+
                 }
                 $SearchExport = $plstandard->SearchHomeExportNew($fields1,$whereHomeCountNew,$order2,$group,'','','','',$maxFYQuery,$ratio,$maxFYQueryratio);
                 
