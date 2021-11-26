@@ -670,12 +670,21 @@
                         // exit;
   
 
-                        if($city == "" && $sector == "" && ($industryId == $industryId || $industryId == "") && $regionId == 1 )
+                        if($city == "" && $sector == "" && ($exist_industry == $industryId || $industryId == "") && $regionId == 1 )
                         {
                             // echo 'Empty<br />';
                             // exit;
+                            
 
-                            $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+                            if($industryId != "")
+                            {
+
+                                $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                            }else {
+                                echo 'Error..<br /> Industry is Mandetory<br />';
+                                die(mysql_error());
+                            }
 
                             if($rsInsPECompany = mysql_query($updateCityCountrySql))
                             {
@@ -687,6 +696,7 @@
                                 die(mysql_error());
                             }
                         }
+                        
                         elseif(($seperate_field['city'] == $city ) && ($seperate_field['sector_business'] == $sector ) && ($seperate_field['industry'] == $industryId) && ($seperate_field['RegionId'] == $regionId))
                         {
                             //    echo 'Same uh Iruku<br />';
