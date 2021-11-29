@@ -84,11 +84,15 @@
     display: none;
 }
 .copyright-body {
+
+  /* padding: 6rem 4rem 3rem 0; */
+    padding:65px 4rem 30px 0;
+  line-height: 2;
     /* padding: 25px 10px 10px 20px; */
-    padding: 20px 0px 7px 15px;
+    /* padding: 20px 0px 7px 15px;
     line-height: 24px;
     font-size: 16px;
-    color: #000;
+    color: #000; */
 }
 .opne-nav-fix{ position:fixed; top:0;width:100%;background:none repeat scroll 0 0 hsla(0, 0%, 98%, 0.97);border-bottom:1px solid #E0E0E0}
 .opne-nav-fix span{display:none}
@@ -393,6 +397,8 @@ padding: 0 0px !important;
                  <th class="unicorn-space headerval <?php echo ($orderby == "entry") ? $ordertype : ""; ?>" id="entry" style= "width: 10%;" >Entry</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "location") ? $ordertype : ""; ?>" id="location" >Location</th>
                  <th class="unicorn-space  <?php echo ($orderby == "selectInvestor") ? $ordertype : ""; ?>" id="selectInvestor" style= "width: 25%;">Select Investors  <a  href=" <?php echo $unicornmediapath;?>" class="tooltip4" style="color:#fff;float:right;padding-left: 10px;"><i class="fa fa-download" aria-hidden="true"></i><span class=" " >
+
+             
                    
                     <strong>Download</strong>
                     </span></a></th>
@@ -432,8 +438,7 @@ padding: 0 0px !important;
              <td></td>
              <td></td>
              <td></td>
-             <td style="text-align: right;
-    padding-top: 20px;">* Former Unicorns</td>
+             <!-- <td style="text-align: right;padding-top: 20px;">* Former Unicorns</td> -->
            </tr>
            </table> 
           </div>
@@ -477,26 +482,59 @@ padding: 0 0px !important;
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
  <div class="lb" id="popup-box-copyrights-filter" style="width:100%;    position: relative;
     top: -550px;">
-  <div style="width: 60%;margin: 0px auto;background-color: #fff;">
+  <div style="width: 750px;margin: 0px auto;background-color: #fff;">
 
       <div class="container">
         <div class="row">
 
-          <div class="column1" >
-            <img src="unicorn-images/horse.jpg" alt="" style="width: 80%;border: 5px solid #4d4a4a;margin-left: 30px;">
-          </div>
+            <!-- <div class="column1 " >
+              <a href = "india_unicorn_report_form.php" target = '_blank'>
+                <img class="tooltipLink unicornimage" data-tooltip="Click here to download report" src="unicorn-images/horse.jpg" alt="" >
+              </a>
+            </div>
+
+
           <div class="column2" >
-            <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: -21px; margin-top: 3px;">x</a> <br /><br/> <br />
+            <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-top: 3px;">x</a> <br /><br/> <br />
 
 
-            <p style="text-align: right"> <b> Get your copy of the latest <br /> Venture intelligence - India Unicorn Report </b> </p>
+            <p style="text-align: right;font-size: 20px;margin-right: 15px;" > <b> Get your copy of the latest <br /> Venture intelligence - India Unicorn Report </b> </p>
 
-            <br /><br /><br/> <br /><br /><br /><br/> <br />
+            <br /><br /><br/> <br />
 
             <div class="copyright-body">Interested in more information - including investment and valuation details, financials, return multiples, etc?
-            <p style="margin: 10px 0px;"><a href="india_unicorn_report.php" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
+            <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
             </div>
-          </div>
+          </div> -->
+
+
+          <table style = "border: 1px solid; padding:10px">
+            <thead>
+              <th></th>
+              <th></th>
+            </thead>
+            <tbody>
+            <tr>
+              <td style = "padding:10px;width: 40%;">
+                <a href = "india_unicorn_report_form.php" target = '_blank'>
+                  <img class="tooltipLink unicornimage" data-tooltip="Click here to download report" src="unicorn-images/horse.jpg" alt="" >
+                </a>
+              </td>
+              <td style = "padding:10px;vertical-align:top;">
+                <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-top: 3px;">X</a> <br /><br/> <br />
+
+                <p  class = "getyou"> <b> Get your copy of the latest <br /> Venture intelligence - India Unicorn Report </b> </p> 
+
+                <div class="copyright-body">Interested in more information - including investment and valuation details, financials, return multiples, etc?
+                  <!-- <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p> -->
+                </div>
+                <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
+              </td>
+              
+            </tr>
+            </tbody>
+          </table>
+
 
         </div>
       </div>
@@ -506,6 +544,108 @@ padding: 0 0px !important;
 </div>
 
 <style>
+
+  .unicornimage{
+    width: 100%;
+    object-fit: cover;
+    border:4px solid #4d4a4a;
+
+  }
+
+  .getyou{
+    text-align: right;
+    font-size: 20px;
+    /* margin-right: 15px; */
+  }
+
+
+  @media screen and (max-width: 1280px) {
+
+   .getyou{
+     font-size: 16px;
+   }
+
+   .copyright-body {
+    /* padding: 4rem 4rem 2rem 0; */
+  }
+    
+  }
+
+  /* @media screen and (max-width: 1440px) {
+
+    .unicornimage{
+      width: 73%;
+      object-fit: cover;
+      border:5px solid #4d4a4a;
+
+    }
+
+  } */
+
+  .tooltip {
+    transform: translate(-50%, -200%);
+    display: none;
+    position: absolute;
+    color: #F0B015;
+    background-color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 15px 10px;
+    z-index: 9999;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    top: 0;
+    left: 50%;
+    text-align: center;
+}
+
+.tooltip:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 15px 15px 0;
+    bottom: -13px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 0;
+}
+
+
+
+</style>
+
+<script>
+   
+$('.tooltipLink').hover(function () {
+     var title = $(this).attr('data-tooltip');
+     $(this).data('tipText', title);
+     if(title == ''){}
+     else{
+        $('<p class="tooltip"></p>').fadeIn(200).text(title).appendTo('body');
+     }
+ }, function () {
+     $(this).attr('data-tooltip', $(this).data('tipText'));
+     $('.tooltip').fadeOut(200);
+ }).mousemove(function (e) {
+     var mousex = e.pageX;
+     var mousey = e.pageY;
+     $('.tooltip').css({
+         top: mousey,
+         left: mousex
+     })
+ });
+</script>
+
+<!-- 
+ //This is the image where I want to display a text.
+<td><img border="0" src="images/img1.jpg"
+alt="iphone 5s" width="304" height="228"></td> -->
+
+
+<style>
 * {
   box-sizing: border-box;
 }
@@ -513,9 +653,9 @@ padding: 0 0px !important;
 /* Create two equal columns that floats next to each other */
 .column1 {
   float: left;
-  width: 45%;
+  width: 50%;
   padding: 10px;
-  height: 450px; /* Should be removed. Only for demonstration */
+  height: 400px; /* Should be removed. Only for demonstration */
   /* margin-left: 15px; */
 
 }
@@ -524,7 +664,7 @@ padding: 0 0px !important;
   float: left;
   width: 50%;
   padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
+  height: 400px; /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
@@ -646,7 +786,7 @@ $(document).ready(function(){
 function openPopUp() {
   setTimeout(function(){
     popup();
-  }, 20000);
+  }, 20);
 }
 function popup() {
     jQuery('#maskscreen').fadeIn();
@@ -659,5 +799,9 @@ $('#expcancelbtn-filter').click(function(){
 });
 
     </script>
+
+
+
+
 </body>
 </html>
