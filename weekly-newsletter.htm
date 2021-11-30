@@ -2,6 +2,7 @@
 <html>
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
  <script>
    window.dataLayer = window.dataLayer || [];
@@ -42,6 +43,21 @@
     #download h3{
           /* font-weight: bold;*/
     }
+
+
+    .sub-btn-capcha {
+    padding: 7px 30px;
+    color: #a26f35;
+    text-align: center;
+    margin: 100px 0 0px;
+    border: 1px solid #dcb487;
+    border-radius: 3px;
+    font-size: 18px;
+    clear: both;
+    text-transform: uppercase;
+    background: #FFF;
+    cursor: pointer;
+}
 </style>  
 
 </head>
@@ -134,14 +150,37 @@
                                 <input type="text" name="phone" id="phone" /> <span class="err-msg"></span>
                             </p>
                         </div>
+                        <br />
+
+
                         <div>
-                           <p>
+                          
+                           <!-- <p> -->
                                 <label for="ref">How did you learn about our service? * </label> <br />
-                                <textarea name="ref" id="ref" ></textarea><span class="err-msg"></span>
-                            </p>
+                                <textarea name="ref" id="ref" ></textarea><span class="err-msg errorMsg2"></span>
+                            <!-- </p> -->
+
+                         
+
                         </div>
 
+
                         <div class="input-col">
+
+
+                          <!-- <p> -->
+                            <div class="g-recaptcha" name = "scaptcha" id = "scaptcha"  data-sitekey="6LdxlWodAAAAAIC0aM3BnzHbB80EK89m2sogzE6I" 
+                           data-callback="correctCaptcha"></div>
+                          
+                           <span class="err-msg "></span> 
+
+                          
+                           
+                           <!-- </p> -->
+
+                        </div>
+
+                        <!-- <div class="input-col"> -->
                           <!-- <p>
                             <label for="email">Captcha * </label> 
                             <canvas id="captcha">captcha text</canvas>
@@ -151,7 +190,7 @@
                           </p> -->
 
 
-                          <div class="input-col">
+                          <!-- <div class="input-col">
                             <p>
                               <label for="captcha">Captcha * </label> 
                               <canvas id="captcha">captcha text</canvas>
@@ -160,7 +199,7 @@
                               </p>
                               <p>
                                
-                              <!-- <button id="refreshButton" type="submit">Refresh</button> -->
+                            
                               <label for="captcha" style = "visibility:hidden">Captcha * </label> 
                               <canvas id="captcha" style = "visibility:hidden">captcha text</canvas>
                               <input type="button" id = "refreshButton" value="Refresh" type="submit" class = "sub-btn-refresh"/>
@@ -168,16 +207,18 @@
                               <span id="output"></span>
                             
                             </p>
-                          </div>
+                          </div> -->
 
-                        </div>
+                         
+
+                        <!-- </div> -->
 
 
 
 
                         <div>
                             <p>
-                                <input type="button" name="next" id = "nextbtn" value="Next" class="sub-btn" />
+                                <input type="button" name="next" id = "nextbtn" value="Next" class="sub-btn-capcha" />
                             </p>
                         </div>
                         
@@ -279,6 +320,19 @@
 </div>
 
 <style>
+
+
+.errorMsg2{
+
+
+  /* margin: 0px; */
+    /* position: absolute; */
+    /* bottom: 14px; */
+    /* top: 555px; */
+
+    margin: 0px 0px 0px 377px;
+}
+
   .incorrectCaptcha {
  color: red;
  font-size: 12px;
@@ -317,85 +371,36 @@
 </style>
 
 
-<script src="script.js"></script>
-<script>
-    // document.querySelector() is used to select an element from the document using its ID
-let captchaText = document.getElementById('captcha');
-var ctx = captchaText.getContext("2d");
-ctx.font = "30px Roboto";
-ctx.fillStyle = "grey";
-
-let userText = document.getElementById('textBox');
-let submitButton = document.querySelector('#nextbtn');
-let output = document.getElementById('output');
-let refreshButton = document.getElementById('refreshButton');
-
-// alphaNums contains the characters with which you want to create the CAPTCHA
-let alphaNums = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-let emptyArr = [];
-// This loop generates a random string of 7 characters using alphaNums
-// Further this string is displayed as a CAPTCHA
-for (let i = 1; i <= 7; i++) {
-emptyArr.push(alphaNums[Math.floor(Math.random() * alphaNums.length)]);
-}
-var c = emptyArr.join('');
-ctx.fillText(emptyArr.join(''),captchaText.width/4, captchaText.height/2);
-
-// This event listener is stimulated whenever the user press the "Enter" button
-// "Correct!" or "Incorrect, please try again" message is
-// displayed after validating the input text with CAPTCHA
-userText.addEventListener('keyup', function(e) {
-// Key Code Value of "Enter" Button is 13
-
-// alert(c);
-
-// if (e.keyCode === 13) {
-
-  // alert();
-
-if (userText.value === c) {
-
-  // alert('if');
-
-output.classList.add("correctCaptcha");
-output.innerHTML = "Correct!";
-} else {
-
-  // alert('else');
-output.classList.add("incorrectCaptcha");
-output.innerHTML = "<span style = 'color:red' >Incorrect, please try again</span>";
-}
-// }
-});
-// This event listener is stimulated whenever the user clicks the "Submit" button
-// "Correct!" or "Incorrect, please try again" message is
-// displayed after validating the input text with CAPTCHA
-
-submitButton.addEventListener('click', function() {
-if (userText.value === c) {
-output.classList.add("correctCaptcha");
-output.innerHTML = "Correct!";
-} else {
-output.classList.add("incorrectCaptcha");
-// output.innerHTML = "Incorrect, please try again";
-}
-});
-// This event listener is stimulated whenever the user press the "Refresh" button
-// A new random CAPTCHA is generated and displayed after the user clicks the "Refresh" button
-refreshButton.addEventListener('click', function() {
-userText.value = "";
-let refreshArr = [];
-for (let j = 1; j <= 7; j++) {
-refreshArr.push(alphaNums[Math.floor(Math.random() * alphaNums.length)]);
-}
-ctx.clearRect(0, 0, captchaText.width, captchaText.height);
-c = refreshArr.join('');
-ctx.fillText(refreshArr.join(''),captchaText.width/4, captchaText.height/2);
-output.innerHTML = "";
-});
-</script>
 
 <script>
+
+
+function correctCaptcha() 
+     {
+          
+
+      // var v = grecaptcha.getResponse();
+
+
+      //   alert(v);
+
+        
+
+      // if(v.length == 0)
+      // {
+      //     alert('if');
+
+      //     document.getElementById('scaptcha').innerHTML="You can't leave Captcha Code empty";
+      //     return false;
+      // }
+      // else
+      // {
+      //   alert('else');
+
+      //     document.getElementById('scaptcha').innerHTML="Captcha completed";
+      //     return true; 
+      // }
+    }
 
 
 
@@ -412,7 +417,13 @@ output.innerHTML = "";
              var phone=$("#phone").val();
              var nvalue=$.isNumeric(phone); 
              var ref = $("#ref").val();
-             var captcha = $("#textBox").val();
+            //  var captcha = $("#scaptcha").val();
+
+            //  alert(captcha);
+
+            var v = grecaptcha.getResponse();
+
+            // alert(v);
              
              var val=0;
              
@@ -426,11 +437,12 @@ output.innerHTML = "";
                  var val=1;
              }
 
-             if(captcha == "")
-             {
-                $("#textBox").next().text('Captcha is Required');
-                 var val=1;
-             }
+              if(v == '')
+              {
+                  $("#scaptcha").next().text('Captcha is Required');
+                  var val=1;
+              }
+
              
              if(email==''){
                  $("#email").next().text('Email is Required');
@@ -458,7 +470,10 @@ output.innerHTML = "";
              
              if(val==1){
 
-              // alert(val);
+              // alert('sumbit if');
+
+
+             
 
                   // var error_message = $("#output").text();
 
@@ -466,24 +481,35 @@ output.innerHTML = "";
 
                   $("#submitbtn").val('Submit');
                  return false;
+
              }else{
+               
+
+              // if(v.length == 0)
+              // {
+              //   alert('ila');
+              // }else{
+              //   alert('iruku');
+              // }
+              
 
 
-                var error_message = $("#output").text();
+
+                // var error_message = $("#scaptcha").val();
 
                 // alert(error_message);
 
-                if(error_message == 'Correct!')
-                {
+                // if(error_message != '')
+                // {
                   $("#form1, .contenthide1").toggle('slow');
                    $("#form2, .contenthide2").show();
 
-                }else{
+                // }else{
 
-                  alert('Incorrect Captcha...');
-                    return false;
+                //   alert('Pls fill the Captcha...');
+                //     return false;
                     
-                }
+                // }
                
              }
       });
