@@ -1,11 +1,17 @@
 <?php
     if( $_SESSION[ 'is_admin' ] == 0 ) {
         $fullPrevilege = false;
-        $modulesArray = explode( ',', $_SESSION[ 'modules_permission' ] );
+        $modulesArray = explode( ',', $_SESSION[ 'modules_permission'] );
     } else {
         $fullPrevilege = true;
         $modulesArray = array();
     }
+
+    // echo '<pre>'; print_r($_SESSION); echo '</pre>';
+
+    // echo '<pre>'; print_r($_SESSION[ 'is_admin']); echo '</pre>';
+    // echo '<pre>'; print_r($_SESSION[ 'modules_permission']); echo '</pre>';
+
 ?>
 <style>
 #vertbgproproducts{
@@ -84,7 +90,12 @@
             <a href="addlist.php">Add Report</a><br />
         </div>
         <?php }
-       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray ) ) { ?>
+       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray )  || in_array( 'upload_unicornTrack', $modulesArray ) ) {
+
+        // echo 'Uploads';
+
+
+            ?>
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Upload</span></div>
         </div>
