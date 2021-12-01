@@ -11,6 +11,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
     $userExists = false;
     $emailExists = false;
     $successState = false;
+
+    // echo 'sdfsdfsdfs____'.$_POST[ 'password' ];
+
     if( isset( $_POST[ 'update_btn' ] ) ) {
         $userName = mysql_real_escape_string( $_POST[ 'user_name' ] );
         $password = md5($_POST[ 'password' ]);
@@ -51,6 +54,9 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                     ON adminvi_user_module.user_id = adminvi_user.id
                 WHERE id = " . $userID;
         $res = mysql_query( $sel ) or die( mysql_error() );
+
+        // echo '<pre>'; print_r($sel); echo '</pre>';
+
         $numrows = mysql_num_rows( $res );
         $result = mysql_fetch_array( $res );
     }
@@ -212,6 +218,22 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                                 <div>
                                                     <input type="checkbox" id="LPDir" <?php echo ( in_array( 'LPDir', $modulePermission ) || !empty( $fullChecked ) ) ? 'checked' : ''; ?> name="module_permission[]" value="LPDir" />
                                                     <label for="LPDir">LPDir</label> 
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" id="newsletter" <?php echo ( in_array( 'newsletter', $modulePermission ) || !empty( $fullChecked ) ) ? 'checked' : ''; ?> name="module_permission[]" value="newsletter" />
+                                                    <label for="NewsLetter">NewsLetter</label> 
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" id="manda" <?php echo ( in_array( 'manda', $modulePermission ) || !empty( $fullChecked ) ) ? 'checked' : ''; ?> name="module_permission[]" value="manda" />
+                                                    <label for="M&A">M&A</label> 
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" id="cfs" <?php echo ( in_array( 'cfs', $modulePermission ) || !empty( $fullChecked ) ) ? 'checked' : ''; ?> name="module_permission[]" value="cfs" />
+                                                    <label for="CFS">CFS</label> 
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" id="vifilter" <?php echo ( in_array( 'vifilter', $modulePermission ) || !empty( $fullChecked ) ) ? 'checked' : ''; ?> name="module_permission[]" value="vifilter" />
+                                                    <label for="Vifilter">VI Filter</label> 
                                                 </div>
                                             </td>
                                         </tr>
