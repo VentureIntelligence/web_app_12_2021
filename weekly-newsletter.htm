@@ -319,6 +319,8 @@
   </div>
 </div>
 
+
+
 <style>
 
 
@@ -470,56 +472,19 @@ function correctCaptcha()
              
              if(val==1){
 
-              // alert('sumbit if');
-
-
-             
-
-                  // var error_message = $("#output").text();
-
-                  // alert(error_message);
 
                   $("#submitbtn").val('Submit');
                  return false;
 
              }else{
-               
-
-              // if(v.length == 0)
-              // {
-              //   alert('ila');
-              // }else{
-              //   alert('iruku');
-              // }
-              
-
-
-
-                // var error_message = $("#scaptcha").val();
-
-                // alert(error_message);
-
-                // if(error_message != '')
-                // {
+         
                   $("#form1, .contenthide1").toggle('slow');
                    $("#form2, .contenthide2").show();
 
-                // }else{
-
-                //   alert('Pls fill the Captcha...');
-                //     return false;
-                    
-                // }
                
              }
       });
 	  
-	  
-	  
-	  
-	  
-      
-      
       
        $('.valcheckbox').click(function () {
            if(this.checked){
@@ -630,7 +595,7 @@ function correctCaptcha()
                 url: 'mail_function.php?weeklynewsletter',
                 type: 'POST',
                 data: formData,
-                timeout: 30000, // in milliseconds
+                // timeout: 30000, // in milliseconds
                 success: function (data) {
                     status = data;
                     //1 - success
@@ -638,6 +603,15 @@ function correctCaptcha()
                     //3 - validation error
                     switch (status)
                     {
+
+                        case '2':
+                        
+                        alert('Invalid Captcha');
+                        return false;
+                        break;
+
+
+
                         case '1':
                            //alert("Login Success..");
                             $( "#newslettercon, .contenthide2" ).slideToggle( "slow" );
@@ -645,8 +619,9 @@ function correctCaptcha()
                           
                             
                             break;
+                            
                         case '0':
-                            alert("Check Network Connectivity and Try Again");
+                            alert("Check Network Connectivity and Try Again Success");
                             return false;
                             break;
                       
@@ -654,8 +629,11 @@ function correctCaptcha()
                     }
                 },
                 error: function (request, statusCode, err) {
-                    alert("Check Network Connectivity and Try Again");
+                    alert("Check Network Connectivity and Try Again Error");
                      $("#submitbtn").val('Submit');
+
+                    //  alert(err);
+                     
                 }
                 
             });
