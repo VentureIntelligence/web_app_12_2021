@@ -778,7 +778,7 @@ function enableFileds(){
                 
 </li>
 
-<li class="even"><h4>Follow on Funding Status </h4>
+<li class="even"><h4>Angel/VC Funded  </h4>
                  <?php //$followonFund=$incfirmtype; ?>
     <SELECT NAME="followonFund" id="followonFund"  style=" background: <?php echo $background; ?>;" <?php if($disable_flag == "1"){ echo "disabled"; } ?>>
                          <OPTION  value="--" selected> All </option>
