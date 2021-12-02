@@ -1,7 +1,36 @@
 <?php 
+
+
+
 error_reporting(0);
 require("dbconnectvi.php");
 $Db = new dbInvestments();
+
+
+    $sitekey = '6Lc8KHMdAAAAANwfV_WG0rehzBYroO6kTvCH711k';
+    $secretKey = "6Lc8KHMdAAAAAMaxm_-9CgJ3kt0qgIbSotNUEk54";
+
+    
+
+
+    $response = $_POST['g-recaptcha-response'];
+    $ip = $_SERVER['REMOTE_ADDR'];
+    // post request to server
+    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($response);
+    $response = file_get_contents($url);
+    $responseKeys = json_decode($response,true);
+    // should return JSON with success as true
+
+   echo '<pre>'; print_r( $responseKeys); echo '</pre>';
+
+    // echo 0;
+    // exit;
+
+
+    if($responseKeys["success"]) 
+    {
+            
+    
 
 
 
@@ -51,7 +80,7 @@ if( isset($_REQUEST['vcdirectory'])) {
     
     
      //Send Email
-    $to    = 'weekly@ventureintelligence.com'; 
+    $to    = 'narasimman.p@praniontech.com'; 
     //$to    = 'mathan@kutung.com'; 
    	
     $from 	= 'info@ventureintelligence.in';               
@@ -351,6 +380,16 @@ header('Content-Length: '. filesize($filename));
 readfile($filename);
 exit;
 }
+
+    }else{
+
+                $Status = 2;
+
+                echo $Status;
+
+                // exit;
+
+    }
 
 
 
