@@ -10,6 +10,8 @@ $Db = new dbInvestments();
     $sitekey = '6Lc8KHMdAAAAANwfV_WG0rehzBYroO6kTvCH711k';
     $secretKey = "6Lc8KHMdAAAAAMaxm_-9CgJ3kt0qgIbSotNUEk54";
 
+    
+
 
     $response = $_POST['g-recaptcha-response'];
     $ip = $_SERVER['REMOTE_ADDR'];
