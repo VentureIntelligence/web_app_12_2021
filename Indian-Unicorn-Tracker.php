@@ -84,11 +84,16 @@
     display: none;
 }
 .copyright-body {
+
+  /* padding: 6rem 4rem 3rem 0; */
+    /* padding:65px 4rem 30px 0; */
+    padding: 130px 4rem 30px 0;
+    line-height: 1.6;
     /* padding: 25px 10px 10px 20px; */
-    padding: 20px 0px 7px 15px;
+    /* padding: 20px 0px 7px 15px;
     line-height: 24px;
     font-size: 16px;
-    color: #000;
+    color: #000; */
 }
 .opne-nav-fix{ position:fixed; top:0;width:100%;background:none repeat scroll 0 0 hsla(0, 0%, 98%, 0.97);border-bottom:1px solid #E0E0E0}
 .opne-nav-fix span{display:none}
@@ -148,7 +153,7 @@ img.fixed-logo{display:none}
    .unicorndata .valuation{
     text-align: center;
    }
-   .unicornhead th,.unicorndata td{padding:10px;}
+   .unicornhead th,.unicorndata td{padding:8px;}
 .unicorn-inner-page{
   margin: 20px 0 60px 0 !important; 
 }
@@ -159,9 +164,11 @@ img.fixed-logo{display:none}
   line-height: 25px;
 }
 .unicorn-space{
-white-space: nowrap;
+
+/* white-space: nowrap; */
+
 }.unicorn-content {
-  max-width: 1170px;
+  max-width: 1420px;
   margin: 0 auto;
   padding: 0 25px
 }
@@ -384,12 +391,15 @@ padding: 0 0px !important;
              <thead>
                <tr class="unicornhead">
                  <th class="unicorn-space headerval <?php echo ($orderby == "id") ? $ordertype : ""; ?>" id="id" >No</th>
-                 <th class="unicorn-space headerval <?php echo ($orderby == "company") ? $ordertype : ""; ?>" id="company" >Company</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "company") ? $ordertype : ""; ?>" id="company" style = "width: 13%;">Company</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "sector") ? $ordertype : ""; ?>" id="sector" >Sector</th>
-                 <th class="unicorn-space headerval <?php echo ($orderby == "valuation") ? $ordertype : ""; ?>" id="valuation" >Valuation ($B)</th>
-                 <th class="unicorn-space headerval <?php echo ($orderby == "entry") ? $ordertype : ""; ?>" id="entry" >Entry</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "entryvaluation") ? $ordertype : ""; ?>" id="entryvaluation"  style = "width: 20%;">Entry Valuation^^ ($B)</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "valuation") ? $ordertype : ""; ?>" id="valuation" style = "width: 18%;">Valuation ($B)</th>
+                 <th class="unicorn-space headerval <?php echo ($orderby == "entry") ? $ordertype : ""; ?>" id="entry" style= "width: 10%;" >Entry</th>
                  <th class="unicorn-space headerval <?php echo ($orderby == "location") ? $ordertype : ""; ?>" id="location" >Location</th>
-                 <th class="unicorn-space  <?php echo ($orderby == "selectInvestor") ? $ordertype : ""; ?>" id="selectInvestor" >Select Investors  <a  href=" <?php echo $unicornmediapath;?>" class="tooltip4" style="color:#fff;float:right;padding-left: 10px;"><i class="fa fa-download" aria-hidden="true"></i><span class=" " >
+                 <th class="unicorn-space  <?php echo ($orderby == "selectInvestor") ? $ordertype : ""; ?>" id="selectInvestor" style= "width: 25%;">Select Investors  <a  href=" <?php echo $unicornmediapath;?>" class="tooltip4" style="color:#fff;float:right;padding-left: 10px;"><i class="fa fa-download" aria-hidden="true"></i><span class=" " >
+
+             
                    
                     <strong>Download</strong>
                     </span></a></th>
@@ -402,18 +412,22 @@ padding: 0 0px !important;
              $ajaxcompanysql = urlencode($sqlquery);
              $sqlquery=$sqlquery." id desc";
                     $result=mysql_query($sqlquery);
-                    while($row=mysql_fetch_array($result))
+                    while($row=mysql_fetch_assoc($result))
                     {
 
              ?>
              <tr class="unicorndata">
-               <td><?php echo $row[0];?></td>
-               <td class="unicorn-space"><?php echo $row[1];?></td>
-               <td class="unicorn-space"><?php echo $row[2];?></td>
-               <td class="valuation "><?php echo $row[3];?></td>
-               <td><?php echo $row[4];?></td>
-               <td class="unicorn-space"><?php echo $row[5];?></td>
-               <td><?php echo $row[6];?></td>
+               <td><?php echo $row['id'];?></td>
+               <td class="unicorn-space"><?php echo $row['company'];?></td>
+               <td class="unicorn-space" style= "width: 20%;"><?php echo $row['sector'];?></td>
+               <td class="valuation"><?php echo $row['entryvaluation'];?></td>
+               <td class="valuation "><?php echo $row['valuation'];?></td>
+               <td ><?php 
+               $newphrase = str_replace('/', '-', $row['entry']);
+               echo $newphrase;
+               ?></td>
+               <td class="unicorn-space"><?php echo $row['location'];?></td>
+               <td style= "line-height:1.2"><?php echo $row['selectInvestor'];?></td>
 
              </tr>
            <?php } ?>
@@ -424,8 +438,8 @@ padding: 0 0px !important;
              <td></td>
              <td></td>
              <td></td>
-             <td style="text-align: right;
-    padding-top: 20px;">* Former Unicorns</td>
+             <td></td>
+             <!-- <td style="text-align: right;padding-top: 20px;">* Former Unicorns</td> -->
            </tr>
            </table> 
           </div>
@@ -433,6 +447,21 @@ padding: 0 0px !important;
 
         </div>
       </div>
+
+      <div class="unicorn-content-2">
+        <p>
+          <b>Unicorn:</b> A unicorn company is any private company that is valued at $1-Billion or more and is Venture Capital funded.<br />
+
+          <b>^ Graduated Unicorn:</b> A startup that has now become Publicly Listed (or) has been acquired by a Publicly Listed company.<br />
+
+          <b>* Former Unicorn:</b>  A startup that lost its Unicorn status due to a valuation degrading event.<br />
+
+          ^^ The company valuation at the time it first became an Unicorn.
+        </p>
+       
+      </div>
+
+
       <div class="unicorn-content-2">
         <p>
           Interested in more information of Unicorns - including investment and valuation details, financials, return multiples, etc?
@@ -449,19 +478,203 @@ padding: 0 0px !important;
     <div class="footer-sec"> <span class="fl">© 2018 TSJ Media Pvt Ltd. All rights reserved. </span> <!--<a href="http://kutung.com/" class="fr">it's a kutung</a>--> </div>
   </footer>
 </div>
+
+
 <div id="maskscreen" style="opacity: 0.7; width: 1920px; height: 100% !important; display: none;"></div>
- <div class="lb" id="popup-box-copyrights-filter" style="width:100%;">
-  <div style="width: 50%;
-    margin: 0px auto;
-    background-color: #fff;">
-   <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-right: 10px; margin-top: 3px;">x</a>
-    <div class="copyright-body">Interested in more information about Unicorns - including investment and valuation details, financials, return multiples, etc?
-    <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;">Click Here</a> to request a trial to our Databases.</p>
-    </div>
+ <div class="lb" id="popup-box-copyrights-filter" style="width:100%;    position: relative;
+    top: -550px;">
+  <div style="width: 750px;margin: 0px auto;background-color: #fff;">
+
+      <div class="container">
+        <div class="row">
+
+            <!-- <div class="column1 " >
+              <a href = "india_unicorn_report_form.php" target = '_blank'>
+                <img class="tooltipLink unicornimage" data-tooltip="Click here to download report" src="unicorn-images/horse.jpg" alt="" >
+              </a>
+            </div>
+
+
+          <div class="column2" >
+            <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-top: 3px;">x</a> <br /><br/> <br />
+
+
+            <p style="text-align: right;font-size: 20px;margin-right: 15px;" > <b> Get your copy of the latest <br /> Venture intelligence - India Unicorn Report </b> </p>
+
+            <br /><br /><br/> <br />
+
+            <div class="copyright-body">Interested in more information - including investment and valuation details, financials, return multiples, etc?
+            <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
+            </div>
+          </div> -->
+
+
+          <table style = "border: 1px solid; padding:10px">
+            <thead>
+              <th></th>
+              <th></th>
+            </thead>
+            <tbody>
+            <tr>
+              <td style = "padding:10px;width: 40%;">
+                <a href = "india_unicorn_report_form.php" target = '_blank'>
+                  <img class="tooltipLink unicornimage" data-tooltip="Click here to download report" src="unicorn-images/horse.jpg" alt="" >
+                </a>
+              </td>
+              <td style = "padding:10px;vertical-align:top;">
+                <a id="expcancelbtn-filter" class="expcancelbtn" style="cursor: pointer;float:right;font-size: 22px;font-weight: 700; margin-top: 3px;">X</a> <br /><br/> <br />
+
+                <p  class = "getyou"> <b> Get your copy of the latest <br /> Venture intelligence - India Unicorn Report </b> </p> 
+
+                <div class="copyright-body">Interested in more information - including investment and valuation details, financials, return multiples, etc?
+                  <!-- <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p> -->
+                </div>
+                <p ><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
+              </td>
+              
+            </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+     
+
   </div>   
 </div>
 
+<style>
 
+  .unicornimage{
+    width: 100%;
+    object-fit: cover;
+    border:4px solid #4d4a4a;
+
+  }
+
+  .getyou{
+    text-align: right;
+    font-size: 20px;
+    /* margin-right: 15px; */
+  }
+
+
+  @media screen and (max-width: 1280px) {
+
+   .getyou{
+     font-size: 20px;
+   }
+
+   .copyright-body {
+    /* padding: 4rem 4rem 2rem 0; */
+  }
+    
+  }
+
+  /* @media screen and (max-width: 1440px) {
+
+    .unicornimage{
+      width: 73%;
+      object-fit: cover;
+      border:5px solid #4d4a4a;
+
+    }
+
+  } */
+
+  .tooltip {
+    transform: translate(-50%, -200%);
+    display: none;
+    position: absolute;
+    color: #F0B015;
+    background-color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 15px 10px;
+    z-index: 9999;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    top: 0;
+    left: 50%;
+    text-align: center;
+}
+
+.tooltip:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 15px 15px 0;
+    bottom: -13px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 0;
+}
+
+
+
+</style>
+
+<script>
+   
+$('.tooltipLink').hover(function () {
+     var title = $(this).attr('data-tooltip');
+     $(this).data('tipText', title);
+     if(title == ''){}
+     else{
+        $('<p class="tooltip"></p>').fadeIn(200).text(title).appendTo('body');
+     }
+ }, function () {
+     $(this).attr('data-tooltip', $(this).data('tipText'));
+     $('.tooltip').fadeOut(200);
+ }).mousemove(function (e) {
+     var mousex = e.pageX;
+     var mousey = e.pageY;
+     $('.tooltip').css({
+         top: mousey,
+         left: mousex
+     })
+ });
+</script>
+
+<!-- 
+ //This is the image where I want to display a text.
+<td><img border="0" src="images/img1.jpg"
+alt="iphone 5s" width="304" height="228"></td> -->
+
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column1 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 400px; /* Should be removed. Only for demonstration */
+  /* margin-left: 15px; */
+
+}
+
+.column2 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 400px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
 
 <script>
 $(document).ready(function(){
@@ -569,6 +782,8 @@ $(document).ready(function(){
 //     $hrefval=$(this).attr("data-href");
 //     $('#expcancelbtn-filter').attr('href',$hrefval);
 // });
+
+
 function openPopUp() {
   setTimeout(function(){
     popup();
@@ -585,5 +800,9 @@ $('#expcancelbtn-filter').click(function(){
 });
 
     </script>
+
+
+
+
 </body>
 </html>
