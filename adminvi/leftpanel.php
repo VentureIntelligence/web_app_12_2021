@@ -152,26 +152,61 @@
         </div>
         <?php } ?>
 
+
+        <?php
+
+        if( $fullPrevilege || in_array( 'newsletter', $modulesArray ) ) { ?>
         <div id="vertMenu">
          <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;News letter</span></div>
       </div>
       <div id="linksnone"><a href="../adminvi/newsletter.php">Manage News letter</a><br /></div>
       <div id="linksnone"><a href="../adminvi/generatenewsletter.php">Generate News letter</a><br /></div>
+
+      <?php
+        }
+        ?>
+
+
+
         <!-- <div id="vertMenu"> -->
             <!-- <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/adminFilter.php">AddFilter</a><br /></div>
         <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">EditFilter</a><br /></div>
          -->
+
+
+         <?php
+
+            if( $fullPrevilege || in_array( 'manda', $modulesArray ) ) { ?>
+
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;M&A</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/uploadCinno.php">Upload CIN Number</a><br /></div>
+        <?php
+        }
+        ?>
+
+
+
+            <?php
+
+            if( $fullPrevilege || in_array( 'cfs', $modulesArray ) ) { ?>
+
+       
 
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;CFS</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/uploadCompanyName.php">Upload Company Name</a><br /></div>
+            <?php
+            }?>
+
+
+<?php
+
+if( $fullPrevilege || in_array( 'vifilter', $modulesArray ) ) { ?>
 
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
@@ -183,6 +218,10 @@
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;vifilter log</span></div>
         </div> -->
         <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
+
+        <?php
+}
+?>
 
 
         <div id="vertMenu">
