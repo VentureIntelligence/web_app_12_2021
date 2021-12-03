@@ -2,6 +2,7 @@
 <html>
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168374697-1"></script>
  <script>
    window.dataLayer = window.dataLayer || [];
@@ -42,6 +43,21 @@
     #download h3{
           /* font-weight: bold;*/
     }
+
+
+    .sub-btn-capcha {
+    padding: 7px 30px;
+    color: #a26f35;
+    text-align: center;
+    margin: 100px 0 0px;
+    border: 1px solid #dcb487;
+    border-radius: 3px;
+    font-size: 18px;
+    clear: both;
+    text-transform: uppercase;
+    background: #FFF;
+    cursor: pointer;
+}
 </style>  
 
 </head>
@@ -134,15 +150,75 @@
                                 <input type="text" name="phone" id="phone" /> <span class="err-msg"></span>
                             </p>
                         </div>
+                        <br />
+
+
                         <div>
-                           <p>
+                          
+                           <!-- <p> -->
                                 <label for="ref">How did you learn about our service? * </label> <br />
-                                <textarea name="ref" id="ref" ></textarea><span class="err-msg"></span>
-                            </p>
+                                <textarea name="ref" id="ref" ></textarea><span class="err-msg errorMsg2"></span>
+                            <!-- </p> -->
+
+                         
+
                         </div>
+
+
+                        <div class="input-col">
+
+
+                          <!-- <p> -->
+                            <div class="g-recaptcha" name = "scaptcha" id = "scaptcha"  data-sitekey="6LemV3UdAAAAAKM-GsnwSZVVG3f8uNivTMF6npUg" 
+                           data-callback="correctCaptcha"></div>
+                          
+                           <span class="err-msg "></span> 
+
+                          
+                           
+                           <!-- </p> -->
+
+                        </div>
+
+                        <!-- <div class="input-col"> -->
+                          <!-- <p>
+                            <label for="email">Captcha * </label> 
+                            <canvas id="captcha">captcha text</canvas>
+                            <input type="text" name="textBox" id="textBox" /> <span class="err-msg"></span>
+                            <span id="output"></span>
+                            <button id="refreshButton" type="submit">Refresh</button>
+                          </p> -->
+
+
+                          <!-- <div class="input-col">
+                            <p>
+                              <label for="captcha">Captcha * </label> 
+                              <canvas id="captcha">captcha text</canvas>
+                              <input type="text" name="textBox" id="textBox" />  
+                              <span class="err-msg"></span> 
+                              </p>
+                              <p>
+                               
+                            
+                              <label for="captcha" style = "visibility:hidden">Captcha * </label> 
+                              <canvas id="captcha" style = "visibility:hidden">captcha text</canvas>
+                              <input type="button" id = "refreshButton" value="Refresh" type="submit" class = "sub-btn-refresh"/>
+                              
+                              <span id="output"></span>
+                            
+                            </p>
+                          </div> -->
+
+                         
+
+                        <!-- </div> -->
+
+
+
+
                         <div>
                             <p>
-                                <input type="button" name="next" value="Next" class="sub-btn" id="nextbtn" />
+                                <input type="button" name="next" id = "nextbtn" value="Next" class="sub-btn-capcha" />
                             </p>
                         </div>
                         
@@ -152,6 +228,8 @@
                              <!-- Newsletter Content -->
                <section class="news-sign-up">
               
+
+                
                		 <div class="news-radio-group">
                              <input type="radio" id="public-url" class="css-checkbox valcheckbox" name="firmtype" value="1" checked="">
                         <label for="public-url" class="remeber-passwoerd css-label" >Just Enter your Linked Public Profile URL here</label>
@@ -242,7 +320,95 @@
     </footer>
   </div>
 </div>
+
+
+
+<style>
+
+
+.errorMsg2{
+
+
+  /* margin: 0px; */
+    /* position: absolute; */
+    /* bottom: 14px; */
+    /* top: 555px; */
+
+    margin: 0px 0px 0px 377px;
+}
+
+  .incorrectCaptcha {
+ color: red;
+ font-size: 12px;
+}
+.correctCaptcha {
+ color: green;
+ font-size: 12px;
+}
+#captcha {
+ /* height: 80%; */
+ width: 50%;
+ /* font-size: 30px;
+ letter-spacing: 3px;
+ margin: auto; */
+ display: block;
+ /* top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0; */
+}
+
+
+.sub-btn-refresh {
+    padding: 7px 30px;
+    color: #a26f35;
+    text-align: center;
+    /* margin: 15px 0 25px; */
+    border: 1px solid #dcb487;
+    border-radius: 3px;
+    font-size: 18px;
+    clear: both;
+    text-transform: uppercase;
+    background: #FFF;
+    cursor: pointer;
+}
+</style>
+
+
+
 <script>
+
+
+function correctCaptcha() 
+     {
+          
+
+      // var v = grecaptcha.getResponse();
+
+
+      //   alert(v);
+
+        
+
+      // if(v.length == 0)
+      // {
+      //     alert('if');
+
+      //     document.getElementById('scaptcha').innerHTML="You can't leave Captcha Code empty";
+      //     return false;
+      // }
+      // else
+      // {
+      //   alert('else');
+
+      //     document.getElementById('scaptcha').innerHTML="Captcha completed";
+      //     return true; 
+      // }
+    }
+
+
+
+
  
     $(document).ready(function() {
         
@@ -255,6 +421,13 @@
              var phone=$("#phone").val();
              var nvalue=$.isNumeric(phone); 
              var ref = $("#ref").val();
+            //  var captcha = $("#scaptcha").val();
+
+            //  alert(captcha);
+
+            var v = grecaptcha.getResponse();
+
+            // alert(v);
              
              var val=0;
              
@@ -267,6 +440,13 @@
                  $("#organization").next().text('Organization is Required');
                  var val=1;
              }
+
+              if(v == '')
+              {
+                  $("#scaptcha").next().text('Captcha is Required');
+                  var val=1;
+              }
+
              
              if(email==''){
                  $("#email").next().text('Email is Required');
@@ -293,20 +473,20 @@
               
              
              if(val==1){
+
+
                   $("#submitbtn").val('Submit');
                  return false;
+
              }else{
-                 $("#form1, .contenthide1").toggle('slow');
-                 $("#form2, .contenthide2").show();
+         
+                  $("#form1, .contenthide1").toggle('slow');
+                   $("#form2, .contenthide2").show();
+
+               
              }
       });
 	  
-	  
-	  
-	  
-	  
-      
-      
       
        $('.valcheckbox').click(function () {
            if(this.checked){
@@ -417,7 +597,7 @@
                 url: 'mail_function.php?weeklynewsletter',
                 type: 'POST',
                 data: formData,
-                timeout: 30000, // in milliseconds
+                // timeout: 30000, // in milliseconds
                 success: function (data) {
                     status = data;
                     //1 - success
@@ -425,6 +605,15 @@
                     //3 - validation error
                     switch (status)
                     {
+
+                        case '2':
+                        
+                        alert('Invalid Captcha');
+                        return false;
+                        break;
+
+
+
                         case '1':
                            //alert("Login Success..");
                             $( "#newslettercon, .contenthide2" ).slideToggle( "slow" );
@@ -432,8 +621,9 @@
                           
                             
                             break;
+
                         case '0':
-                            alert("Check Network Connectivity and Try Again");
+                            alert("Check Network Connectivity and Try Again Success");
                             return false;
                             break;
                       
@@ -441,8 +631,11 @@
                     }
                 },
                 error: function (request, statusCode, err) {
-                    alert("Check Network Connectivity and Try Again");
+                    alert("Check Network Connectivity and Try Again Error");
                      $("#submitbtn").val('Submit');
+
+                    //  alert(err);
+                     
                 }
                 
             });
