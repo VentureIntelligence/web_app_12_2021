@@ -21,7 +21,7 @@ $Db = new dbInvestments();
     $responseKeys = json_decode($response,true);
     // should return JSON with success as true
 
-   echo '<pre>'; print_r( $responseKeys); echo '</pre>';
+//    echo '<pre>'; print_r( $responseKeys); echo '</pre>';
 
     // echo 0;
     // exit;

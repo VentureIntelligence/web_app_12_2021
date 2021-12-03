@@ -623,7 +623,7 @@ function correctCaptcha()
                             break;
 
                         case '0':
-                            alert("Check Network Connectivity and Try Again Success");
+                            alert("Check Network Connectivity and Try Again ");
                             return false;
                             break;
                       
@@ -631,7 +631,7 @@ function correctCaptcha()
                     }
                 },
                 error: function (request, statusCode, err) {
-                    alert("Check Network Connectivity and Try Again Error");
+                    alert("Check Network Connectivity and Try Again ");
                      $("#submitbtn").val('Submit');
 
                     //  alert(err);
