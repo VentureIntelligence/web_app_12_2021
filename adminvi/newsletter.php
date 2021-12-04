@@ -152,6 +152,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                 });
             }
         });
+
+        
         $(document).ready(function() {
          $('#myTable').DataTable();
          } );
