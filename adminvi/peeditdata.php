@@ -189,7 +189,7 @@ $companyIdtoEdit=$stringtoExplode[1];
     $countrysql="select countryid,country from country where countryid NOT IN('','--','10','11') order by country asc";
 
 
-	//echo "<br>-------------".$getDatasql;
+	// echo "<br>-------------".$getDatasql;
 
 
 
@@ -855,13 +855,19 @@ if($pe_re=="PE")
 									<td >Region</td>
 									 <Td> <SELECT NAME=txtregion id="region">
 
+                                     
+
 									<?php
+
+                                    echo '<pre>'; print_r($mycomprow["RegionId"]); echo '</pre>';
 
 									$regionSql = "select RegionId,Region from region";
 									if ($regionrs = mysql_query($regionSql))
 									{
-										While($myrow=mysql_fetch_array($regionrs, MYSQL_BOTH))
+										While($myrow=mysql_fetch_assoc($regionrs, MYSQL_BOTH))
 										{
+                                            
+
 											$id = $myrow[0];
 											$name = $myrow[1];
 											if ($id==$mycomprow["RegionId"])
