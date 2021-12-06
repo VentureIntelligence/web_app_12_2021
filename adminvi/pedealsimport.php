@@ -387,7 +387,8 @@
                                     {
                                         $companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$txtregion,$regionId);
                                     }
-                                    // echo $companyId; echo $sectorname;
+                                    // echo $companyId.'<br />';
+                                    //  echo $sectorId;
                                     $sectorId = insert_sector($sectorname,$indid);
 
                                     if($sectorId==0)
@@ -398,8 +399,8 @@
                                     insert_subsector($sectorId,$companyId,$subsectorname,$addsubsectorname);
                                    
 
-                                    //$companyId=0;
-                                    //echo "<br>Company id--" .$companyId;
+                                    // $companyId=0;
+                                    // echo "<br>Company id--" .$companyId; exit;
                                     if ($companyId >0)
                                     {
                                         /*echo $pegetInvestmentsql = "select c.PECompanyId,ma.PECompanyId,dates from pecompanies as c,
@@ -670,21 +671,12 @@
                         // exit;
   
 
-                        if($city == "" && $sector == "" && ($exist_industry == $industryId || $industryId == "") && $regionId == 1 )
+                        if($city == "" && $sector == "" && $industryId == "" && $regionId == 1 )
                         {
                             // echo 'Empty<br />';
                             // exit;
                             
-
-                            if($industryId != "")
-                            {
-
-                                $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
-
-                            }else {
-                                echo 'Error..<br /> Industry is Mandetory<br />';
-                                die(mysql_error());
-                            }
+                            $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
 
                             if($rsInsPECompany = mysql_query($updateCityCountrySql))
                             {
@@ -692,7 +684,7 @@
                                 return $companyId;
                                 // exit;
                             }else{
-                                echo 'Error..<br /> Industry is Mandetory<br />';
+                                // echo 'Error..<br /> Industry is Mandetory<br />';
                                 die(mysql_error());
                             }
                         }
@@ -710,7 +702,7 @@
                                 return $companyId;
                                 // exit;
                             }else{
-                                echo 'Error..<br /> Industry is Mandetory<br />';
+                                // echo 'Error..<br /> Industry is Mandetory<br />';
                                 die(mysql_error());
                             }
                          
@@ -873,7 +865,12 @@
                         return $sectorId;
                     }
                 }
+            }else{
+
+                $sectorId=0;
+                return $sectorId;
             }
+            
             $dbslinkss.close();
         
         }
