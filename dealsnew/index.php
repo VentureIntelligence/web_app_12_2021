@@ -228,6 +228,8 @@ include 'checklogin.php';
     
 <?php
 
+// echo '<pre>'; print_r('ListAllComppanies___'.$listallcompany); echo '</pre>';
+
 
 if ($listallcompany != 1) {
     $isAggregate = 'AND pe.SPV=0 and pe.AggHide=0';
@@ -235,6 +237,7 @@ if ($listallcompany != 1) {
     $isAggregate = '';
 }
 
+// $isAggregate = 'AND pe.SPV=0 and pe.AggHide=0';
 
 //include("../survey/survey.php");
 
@@ -1976,7 +1979,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     //     $ordertype = "desc";
 
     // }
-    //echo "<br>all dashboard" .$companysql;
+    // echo "<br>all dashboard" .$companysql; exit;
 } else if (!$_POST) {
 
     $yourquery = 0;
@@ -1985,7 +1988,9 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
 
     $dt1 = $year1 . "-" . $month1 . "-01";
     $dt2 = $year2 . "-" . $month2 . "-31";
-    //echo "<br>Query for all records";
+
+    // echo "<br>Query for all records"; exit;
+
     if ($listallcompany != 1) {
         $isAggregate = 'AND pe.SPV=0 and pe.AggHide=0';
     } else {
@@ -2054,7 +2059,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
         $orderby = "dates";
         $ordertype = "desc";
     
-                            // echo "<br>all records" .$companysql;
+                            // echo "<br>all records" .$companysql; exit;
 } elseif ($tagsearch != "") {
     $yourquery = 1;
     $industry = array();
@@ -2171,7 +2176,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     //     $popup_search = 1;
     // }
     //mysql_query("insert in to search_operations (user_id,user_name,keyword_search,PE,CFS) values(".$_SESSION['UserEmail'].",".$_SESSION['UserNames'].",".$searchallfield.",1,0");
-    //echo "<bR>---" .$companysql;
+    // echo "<bR>---" .$companysql; exit;
 } elseif ($searchallfield != "") {
     $yourquery = 1;
     $industry = array();
@@ -2308,7 +2313,10 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     $popup_search = 1;
 
     //mysql_query("insert in to search_operations (user_id,user_name,keyword_search,PE,CFS) values(".$_SESSION['UserEmail'].",".$_SESSION['UserNames'].",".$searchallfield.",1,0");
-    //echo "<bR>---" .$companysql;
+
+    // echo "<bR>---" .$companysql; exit;
+
+
 } elseif ($companysearchadas != "") {
     $yourquery = 1;
     $industry = array();
@@ -2358,7 +2366,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     $popup_search = 1;
 
     //    echo "<br>Query for company search";
-             //echo $companysql;
+            //  echo $companysql;
 } elseif ($sectorsearch != "") {
 
     $sectorsearchArray = explode(",", str_replace("'", "", $sectorsearch));
@@ -2439,7 +2447,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     $popup_search = 1;
 
     //    echo "<br>Query for company search";
-    //         echo "<br> sector search--" .$companysql;
+            // echo "<br> sector search--" .$companysql;
 } elseif ($keywordsasf != "") {
     $yourquery = 1;
     $industry = array();
@@ -3023,7 +3031,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
 
     // }
     //echo "<br>TRANS-".$vcflagValue;
-    //echo $companysql;
+    // echo $companysql; exit;
 } elseif (gettype($industry)=="string" || count($industry) > 0 || count($sector) > 0 || count($subsector) > 0 || $keyword != "" || $companysearch != "" || count($round) > 0 || ($city != "") || ($companyType != "--") || ($debt_equity != "--") || ($syndication != "--") || ($yearafter != "") || ($yearbefore != "") || ($investorType != "--") || ($investor_head != "--")|| (count($regionId) > 0) || ($startRangeValue == "--") || ($endRangeValue == "--") || (count($exitstatusValue) > 0) || (count($dealsinvolvingvalue) > 0)  || (($month1 != "--") && ($year1 != "--") && ($month2 != "--") && ($year2 != "--")) . $checkForStageValue || count($state)>0 || (count($city)>0 )) {
 
 
@@ -3437,7 +3445,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                                 AND hide_pevc_flag =1
                                                 ) $comp_industry_id_where $invregsubquery";
         $exportSplitGroup = " GROUP BY pe.PEId";
-        $companysql = $companysql . " pe.Deleted=0 " . $addVCFlagqry . " " . $addDelind . "
+        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " " . $addVCFlagqry . " " . $addDelind . "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId
@@ -3460,7 +3468,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                                 AND hide_pevc_flag =1
                                                 ) $comp_industry_id_where $invregsubquery";
         $exportSplitGroup = " GROUP BY pe.PEId";
-        $companysql = $companysql . " pe.Deleted=0 " . $addVCFlagqry . " " . $addDelind . "
+        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " " . $addVCFlagqry . " " . $addDelind . "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId
@@ -3477,6 +3485,12 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
         $companysql = $companysql . $wheresyndication;
     }
     $popup_search = 1;
+
+// echo '<pre>'; print_r($isAggregate); echo '</pre>';
+
+// echo '<pre>'; print_r($addVCFlagqry); echo '</pre>';
+
+// echo '<pre>'; print_r($addDelind); echo '</pre>';
 
 
 
