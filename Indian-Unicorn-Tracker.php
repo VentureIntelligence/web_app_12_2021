@@ -787,7 +787,7 @@ $(document).ready(function(){
 function openPopUp() {
   setTimeout(function(){
     popup();
-  }, 20000);
+  }, 20);
 }
 function popup() {
     jQuery('#maskscreen').fadeIn();

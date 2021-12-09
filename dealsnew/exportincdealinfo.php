@@ -136,7 +136,7 @@
 					echo "Website"."\t";
 					echo "Incubator"."\t";
 					echo "Status"."\t";
-					echo "Angel/VC Funded"."\t";
+					echo "Angel/VC Funded"."\t";    
 					echo "More Details"."\t";
 
 					print("\n");

@@ -1,11 +1,17 @@
 <?php
     if( $_SESSION[ 'is_admin' ] == 0 ) {
         $fullPrevilege = false;
-        $modulesArray = explode( ',', $_SESSION[ 'modules_permission' ] );
+        $modulesArray = explode( ',', $_SESSION[ 'modules_permission'] );
     } else {
         $fullPrevilege = true;
         $modulesArray = array();
     }
+
+    // echo '<pre>'; print_r($_SESSION); echo '</pre>';
+
+    // echo '<pre>'; print_r($_SESSION[ 'is_admin']); echo '</pre>';
+    // echo '<pre>'; print_r($_SESSION[ 'modules_permission']); echo '</pre>';
+
 ?>
 <style>
 #vertbgproproducts{
@@ -84,7 +90,12 @@
             <a href="addlist.php">Add Report</a><br />
         </div>
         <?php }
-       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray ) ) { ?>
+       if( $fullPrevilege || in_array( 'upload_deals', $modulesArray ) || in_array( 'upload_league', $modulesArray ) || in_array( 'upload_weeklyNL', $modulesArray )  || in_array( 'upload_unicornTrack', $modulesArray ) ) {
+
+        // echo 'Uploads';
+
+
+            ?>
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;Upload</span></div>
         </div>
@@ -141,26 +152,61 @@
         </div>
         <?php } ?>
 
+
+        <?php
+
+        if( $fullPrevilege || in_array( 'newsletter', $modulesArray ) ) { ?>
         <div id="vertMenu">
          <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;News letter</span></div>
       </div>
       <div id="linksnone"><a href="../adminvi/newsletter.php">Manage News letter</a><br /></div>
       <div id="linksnone"><a href="../adminvi/generatenewsletter.php">Generate News letter</a><br /></div>
+
+      <?php
+        }
+        ?>
+
+
+
         <!-- <div id="vertMenu"> -->
             <!-- <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/adminFilter.php">AddFilter</a><br /></div>
         <div id="linksnone"><a href="../adminvi/EditAdminFilter.php">EditFilter</a><br /></div>
          -->
+
+
+         <?php
+
+            if( $fullPrevilege || in_array( 'manda', $modulesArray ) ) { ?>
+
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;M&A</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/uploadCinno.php">Upload CIN Number</a><br /></div>
+        <?php
+        }
+        ?>
+
+
+
+            <?php
+
+            if( $fullPrevilege || in_array( 'cfs', $modulesArray ) ) { ?>
+
+       
 
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;CFS</span></div>
         </div>
         <div id="linksnone"><a href="../adminvi/uploadCompanyName.php">Upload Company Name</a><br /></div>
+            <?php
+            }?>
+
+
+<?php
+
+if( $fullPrevilege || in_array( 'vifilter', $modulesArray ) ) { ?>
 
         <div id="vertMenu">
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;VI Filter</span></div>
@@ -172,6 +218,10 @@
             <div><img src="../images/dot1.gif" />&nbsp;<span class="linkhover">&nbsp;vifilter log</span></div>
         </div> -->
         <div id="linksnone"><a href="../adminvi/advFilterlogtable.php">Log Table</a><br /></div>
+
+        <?php
+}
+?>
 
 
         <div id="vertMenu">

@@ -50,6 +50,18 @@ else
 
 </style>
 <script>
+
+
+
+function submitfilter() {
+localStorage.removeItem("pageno");
+
+document.pesearch.action = 'ipoindex.php?value=<?php echo $VCFlagValue ?>';
+document.pesearch.submit();
+
+return true;
+}
+
 $(document).ready(function(){ 
         $("#firstrefineipo select, #firstrefineipo input").on('change',function(){
             localStorage.removeItem("pageno");
@@ -367,14 +379,6 @@ $(document).ready(function(){
                  
     });
 
-    function submitfilter() {
-localStorage.removeItem("pageno");
-
-document.pesearch.action = 'ipoindex.php?value=<?php echo $VCFlagValue ?>';
-document.pesearch.submit();
-
-return true;
-}
     
     ////////////// company search end //////////////////////  
 
