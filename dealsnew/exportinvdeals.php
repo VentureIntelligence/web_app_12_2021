@@ -1526,24 +1526,30 @@ if ($industry != '' && (count($industry) > 0)) {
     $industryvalueid = trim($industryvalueid, ',');
     $industry_hide = implode($industry, ',');
 }
-$sector=explode(",",$sector);
-if ($sector != '' && (count($sector) > 0)) {
-    $sectorvalue = '';
-    $sectorstr = implode(',',$sector); 
-    $sectorssql = "select sector_name,sector_id from pe_sectors where sector_id IN ($sectorstr)";
-   
-    if ($sectors = mysql_query($sectorssql)) {
-        while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
-            $sectorvalue .= $myrow["sector_name"] . ',';
-            $sectorvalueid .= $myrow["sector_id"] . ',';
+if ($sector != '' && (count($sector) > 0)) 
+{
+    $sector=explode(",",$sector);
+    if ($sector != '' && (count($sector) > 0)) {
+        $sectorvalue = '';
+        $sectorstr = implode(',',$sector); 
+        $sectorssql = "select sector_name,sector_id from pe_sectors where sector_id IN ($sectorstr)";
+       
+        if ($sectors = mysql_query($sectorssql)) {
+            while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
+                $sectorvalue .= $myrow["sector_name"] . ',';
+                $sectorvalueid .= $myrow["sector_id"] . ',';
+            }
         }
+       
+        $sectorvalue = trim($sectorvalue, ',');
+        $sectorvalueid = trim($sectorvalueid, ',');
+        $sector_hide = implode($sector, ',');
+        // $industry_hide = implode($industry, ',');
     }
-   
-    $sectorvalue = trim($sectorvalue, ',');
-    $sectorvalueid = trim($sectorvalueid, ',');
-    $sector_hide = implode($sector, ',');
-    // $industry_hide = implode($industry, ',');
+}else{
+    $sector = array();
 }
+
 
 if ($subsector != '' && (count($subsector) > 0)) {
     $subsectorvalue = '';
@@ -2119,6 +2125,8 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
            }
            //$wheresectorsql = " pe_sub.sector_id IN($sectorval)";
         }
+
+
     if ($subsectorval != '') {
                      $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
     }
@@ -2322,6 +2330,9 @@ $valuationsql  $sectorcondition
     if (count($regionId) > 0) {
         $increg = "JOIN region AS r ON r.RegionId=pec.RegionId";
     }
+    
+    // echo '<pre>'; print_r(count($sector)); echo '</pre>';
+//    echo '<pre>'; print_r($subsector); echo '</pre>';
      
     //  if(count($sector) > 0 || count($subsector) > 0){
     //     /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
@@ -2757,7 +2768,7 @@ $valuationsql  $sectorcondition
     if ($whererange != "") {
         
      
-        $companysql = $companysql . " pe.Deleted=0 " . $addVCFlagqry . " " . $addDelind .$hideWhere. "
+        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " ". $addVCFlagqry . " " . $addDelind .$hideWhere. "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId
@@ -2772,7 +2783,7 @@ $valuationsql  $sectorcondition
     } elseif ($whererange == "--" || $whererange == "") {
        
        
-        $companysql = $companysql . " pe.Deleted=0 " . $addVCFlagqry . " " . $addDelind .$hideWhere. "
+        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " " . $addVCFlagqry . " " . $addDelind .$hideWhere. "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId

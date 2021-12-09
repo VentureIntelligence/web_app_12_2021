@@ -86,8 +86,9 @@
 .copyright-body {
 
   /* padding: 6rem 4rem 3rem 0; */
-    padding:65px 4rem 30px 0;
-  line-height: 2;
+    /* padding:65px 4rem 30px 0; */
+    padding: 130px 4rem 30px 0;
+    line-height: 1.6;
     /* padding: 25px 10px 10px 20px; */
     /* padding: 20px 0px 7px 15px;
     line-height: 24px;
@@ -528,7 +529,7 @@ padding: 0 0px !important;
                 <div class="copyright-body">Interested in more information - including investment and valuation details, financials, return multiples, etc?
                   <!-- <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p> -->
                 </div>
-                <p style="margin: 10px 0px;"><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
+                <p ><a href="trial.htm" style="text-decoration: underline;" target = '_blank'>Click Here</a> to request a trial to our Databases.</p>
               </td>
               
             </tr>
@@ -562,7 +563,7 @@ padding: 0 0px !important;
   @media screen and (max-width: 1280px) {
 
    .getyou{
-     font-size: 16px;
+     font-size: 20px;
    }
 
    .copyright-body {

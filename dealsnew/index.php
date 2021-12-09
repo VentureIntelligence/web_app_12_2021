@@ -3043,10 +3043,14 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
     if (count($regionId) > 0) {
         $increg = "JOIN region AS r ON r.RegionId=pec.RegionId";
     }
+
+    echo '<pre>'; print_r(count($sector)); echo '</pre>';
+   echo '<pre>'; print_r($subsector); echo '</pre>';
      
      if(count($sector) > 0 || count($subsector) > 0){
         /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
         $joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID JOIN pe_sectors as pe_sec on pe_sec.sector_id = pe_sub.sector_id';
+        
     } else {
         $joinsectortable = '';
     } 
@@ -3445,7 +3449,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                                 AND hide_pevc_flag =1
                                                 ) $comp_industry_id_where $invregsubquery";
         $exportSplitGroup = " GROUP BY pe.PEId";
-        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " " . $addVCFlagqry . " " . $addDelind . "
+        $companysql = $companysql . " pe.Deleted=0 "  .$isAggregate . " " . $addVCFlagqry . " " . $addDelind . "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId
@@ -3468,7 +3472,7 @@ $valuationsql  $sectorcondition adac.PEId = pe.PEId " . $isAggregate . " " . $ad
                                                 AND hide_pevc_flag =1
                                                 ) $comp_industry_id_where $invregsubquery";
         $exportSplitGroup = " GROUP BY pe.PEId";
-        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " " . $addVCFlagqry . " " . $addDelind . "
+        $companysql = $companysql . " pe.Deleted=0 " .$isAggregate . " " . $addVCFlagqry . " " . $addDelind . "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId
@@ -3616,7 +3620,8 @@ if (trim($buttonClicked == "")) {
     $exportsql = $companysql;
     if ($companyrsall = mysql_query($companysql)) {
         $company_cntall = mysql_num_rows($companyrsall);
-        //echo "totrow count".$company_cntall = mysql_num_rows($companyrsall);
+
+        // echo "totrow count".$company_cntall = mysql_num_rows($companyrsall);
     }
     if ($company_cntall > 0) {
         if ($searchallfield != '') {
@@ -4220,7 +4225,14 @@ $cos_array = $cos_array_Agg = $cos_array_Agg1 = $cos_withdebt_array = array();
             $hideinrcount = 0;
             $inrnote = "";
             $isflased = false;
+
+
+            // echo "totrow count".$company_cntall = mysql_num_rows($companyrsall);
+
+
             while ($myrow = mysql_fetch_array($companyrsall, MYSQL_BOTH)) {
+
+
                 //SPV changed to AggHide
                 $amtTobeDeductedforAggHide = 0;
                 $inramtTobeDeductedforAggHide = 0;
@@ -4412,6 +4424,10 @@ if ($isflased == true && $listallcompany != 1) {?>
                             </a>
                           </div> -->
                 <?php
+
+// echo "totrow count 123 : ".$company_cntall = count($company_cnt);
+
+
 if ($company_cnt > 0) {
             $hidecount = 0;
             $hideBracketRow = false;
