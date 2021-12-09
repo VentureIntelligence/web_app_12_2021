@@ -628,9 +628,12 @@
     $totalDisplay="";
     $resetfield=$_POST['resetfield'];
 
+    // echo 'Hello_H'. $resetfield; 
+
     if($resetfield=="searchallfield")
     { 
         $_POST['searchallfield']="";
+        // $_POST['searchallfield']="";
         $searchallfield="";
     }
     else 
@@ -977,6 +980,9 @@
     }
     $sectorsearchhidden=preg_replace('/\s+/', '_', $sectorsearch);
 
+    // echo $resetfield; 
+    // exit;
+
     if($resetfield=="investorsearch")
     { 
         // $_POST['investorauto_sug']="";
@@ -992,6 +998,8 @@
         $investorauto=$keyword;
 
         $sql_investorauto_sug = "select  InvestorId as id,Investor as name from peinvestors where InvestorId IN($investorsearch) order by InvestorId";
+
+        // echo $sql_investorauto_sug; exit;
 
         $sql_investorauto_sug_Exe=mysql_query($sql_investorauto_sug);
         // print_r($getInvestorSql_Exe);
@@ -1761,15 +1769,17 @@
             $dt1 = $year1."-".$month1."-01";
             $dt2 = $year2."-".$month2."-31";
 
-            $companysql="(select pe.MandAId,pe.PECompanyId,c.companyname,i.industry,c.sector_business as sector_business,pe.DealAmount,
-            cia.CIAId,cia.Cianame,adac.CIAId AS AcqCIAId,pe.AcquirerId, ac.Acquirer,hideamount,ExitStatus,DATE_FORMAT(DealDate,'%b-%Y') as period,DealDate as DealDate,
+            $companysql="(SELECT pe.MandAId, pe.PECompanyId, c.companyname, i.industry, c.sector_business, pe.DealAmount, cia.CIAId,
+            cia.cianame, adcomp.CIAId AS CompCIAId, pe.AcquirerId, ac.Acquirer,hideamount,ExitStatus,DATE_FORMAT(DealDate,'%b-%Y') as period,DealDate as DealDate,
             (SELECT GROUP_CONCAT( inv.Investor   ORDER BY Investor='others' separator ', ') FROM manda_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.MandAId=pe.MandAId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor 
-            from manda AS pe, pecompanies AS c, industry AS i,advisor_cias AS cia,peinvestments_advisoracquirer AS adac,acquirers as ac,
-            dealtypes as dt
-            where DealDate between '" . $dt1. "' and '" . $dt2 . "' and
-            Deleted=0 and c.industry=i.industryid and ac.AcquirerId=pe.AcquirerId  " .$addedflagQry  .$addedhide_pms_qry. $addDelind.
-            " and c.PECompanyId=pe.PECompanyId and adac.CIAId=cia.CIAID and  AdvisorType='T' and
-            adac.PEId=pe.MandAId and cia.cianame LIKE '%$advisorsearchstring_trans%' $comp_industry_id_where GROUP BY pe.MandAId )
+            FROM manda AS pe, pecompanies AS c, industry AS i, advisor_cias AS cia,
+            peinvestments_advisorcompanies AS adcomp, acquirers AS ac,dealtypes as dt
+            WHERE DealDate between '" . $dt1. "' and '" . $dt2 . "' and   Deleted=0 and c.industry = i.industryid
+            AND ac.AcquirerId = pe.AcquirerId " .$addedflagQry . $addedhide_pms_qry. $addDelind.
+            " AND c.PECompanyId = pe.PECompanyId
+            AND adcomp.CIAId = cia.CIAID  and AdvisorType='T'
+            AND adcomp.PEId = pe.MandAId
+            AND cianame LIKE '%$advisorsearchstring_trans%' $comp_industry_id_where GROUP BY pe.MandAId ) 
             UNION
             (SELECT pe.MandAId, pe.PECompanyId, c.companyname, i.industry, c.sector_business, pe.DealAmount, cia.CIAId,
             cia.cianame, adcomp.CIAId AS CompCIAId, pe.AcquirerId, ac.Acquirer,hideamount,ExitStatus,DATE_FORMAT(DealDate,'%b-%Y') as period,DealDate as DealDate,
@@ -1788,7 +1798,8 @@
             $fetchRecords=true;
             $fetchAggregate==false;
             $popup_search=1;
-        //echo "<br> Advisor Acquirer search- ".$companysql;
+        // echo "<br> Advisor Acquirer search- ".$companysql; 
+        // exit;
         }
        elseif (trim($investorsearch)!="" || trim($companysearch)!="" || count($industry) > 0 || count($sector) > 0 || count($subsector) > 0  || count($dealtype) > 0 || ($invtypevalue != "") || ($InType != "") || ($exitstatusvalue!="--") || ($range != "--") || (($month1 != "--") && ($year1 != "--")  && ($month2 !="--") && ($year2 != "--")) ||(($txtfrm>=0) && ($txtto>0)) || ($yearafter != "") || ($yearbefore != "") || ($investor_head != "--"))
         {    
@@ -3454,7 +3465,7 @@ div.token-input-dropdown{
           <div class="showhide-link"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i><span>Trend View</span></a></div>
           <div  id="slidingTable" style="display: none;overflow:hidden;">
             <?php
-                     include_once("mandatrendview.php");
+                    //  include_once("mandatrendview.php");
                ?>
             <table width="100%">
               <?php
