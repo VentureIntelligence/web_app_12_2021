@@ -3059,6 +3059,7 @@ $tsjtitle1 = "&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and
 
 $tsjtitle = str_replace(chr(194)," ",$tsjtitle1);
 
+
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
 
