@@ -714,8 +714,11 @@ $companyIdtoEdit=$stringtoExplode[1];
 									  /*$getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo from peinvestments_investors as peinv,
 									  peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY Investor='others',InvestorId desc";*/
                                      $getInvestorsSql="select peinv.PEId,peinv.InvestorId,inv.Investor,peinv.Amount_M,peinv.Amount_INR,peinv.InvMoreInfo,peinv.investorOrder,peinv.leadinvestor,peinv.newinvestor,peinv.existinvestor from peinvestments_investors as peinv,peinvestors as inv where inv.InvestorId=peinv.InvestorId and peinv.PEId=$SelCompRef ORDER BY peinv.investorOrder ASC";
-                                                                         //echo "<bR>--" .$getInvestorsSql;
+
+                                                                        //  echo "<bR>--" .$getInvestorsSql;
+
 									  if ($rsinvestors = mysql_query($getInvestorsSql))
+
 									  {
 										While($myInvrow=mysql_fetch_array($rsinvestors, MYSQL_BOTH))
 										{

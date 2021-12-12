@@ -5938,14 +5938,21 @@ try {
 
                         $investor_cnt=0;
                         
-                        $investorGroupSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
-                    GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from
-                            peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
-                            peinvestors as inv where pe.PECompanyId='$PECompanyId' and
-                            peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
-                            and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by DealId order by dates desc";
+                    //     $investorGroupSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
+                    // GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from
+                    //         peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
+                    //         peinvestors as inv where pe.PECompanyId='$PECompanyId' and
+                    //         peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
+                    //         and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by DealId order by dates desc";
+
+                    // $investorGroupSql="select peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation from stage as s,peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec, peinvestors as inv where pe.PECompanyId='9882588' and peinv.PEId = pe.PEId  and inv.InvestorId = peinv.InvestorId and pe.Deleted=0 and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and s.StageId = pe.StageId order by dates desc";
+
+                    $investorGroupSql="  select peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation, GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from stage as s,peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec, peinvestors as inv where pe.PECompanyId='9882588' and peinv.PEId = pe.PEId  and inv.InvestorId = peinv.InvestorId and pe.Deleted=0 and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and s.StageId = pe.StageId order by dates desc";
+
+
+                  
                             
-                                //echo $investorGroupSql;
+                                // echo $investorGroupSql;
                       
                          $maexitsql="SELECT pe.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business, inv.Investor,
                                         DealAmount, DATE_FORMAT( DealDate, '%b-%Y' ) as dt, pe.MandAId ,pe.ExitStatus, pe.DealTypeId, dt.DealType,GROUP_CONCAT( inv.Investor ORDER BY inv.InvestorId) as Investors
@@ -5979,6 +5986,10 @@ try {
                             `incubatordeals` as pe, incubators as inc WHERE IncubateeId =$PECompanyId
                             and pe.IncubatorId= inc.IncubatorId ";
 
+
+                                    //    echo "<br> ".$incubatorSql;
+
+
                         if($investorGroupSql!="")
                         {
                           if($getcompanyrs= mysql_query($investorGroupSql))
@@ -5986,6 +5997,8 @@ try {
                               $investor_cnt = mysql_num_rows($getcompanyrs);
                           }
                         }
+
+                    
 
                        ?>
                             <div  class="work-masonry-thumb1 accordian-group" href="http://erikjohanssonphoto.com/work/aizone-ss13/">
@@ -6155,7 +6168,13 @@ try {
                                             </div>
 
                                             <div id="investments" class="tab-items activetab">
-                                                <?php if($investor_cnt > 0){ ?>
+
+                                            
+
+                                                <?php
+                                                    // echo 'Inverstor Count : '.$investor_cnt;
+                                                 if($investor_cnt > 0){ 
+                                                     ?>
                                                     <div class="col-md-6">
                                                     <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest">
                                                         <thead>
@@ -6180,12 +6199,19 @@ try {
                                                                 $addTrancheWord ="";
                                                                 $addDebtWord="";
                                                                 $addTrancheWordtxt = "";
+
+                                                                
                                                                 While($myInvestorrow=mysql_fetch_array($getcompanyrs, MYSQL_BOTH))
                                                                         {
+
+                                                                            // echo '<pre>'; print_r($myInvestorrow); echo '</pre>';
                                                                           
                                                                                 $Investorname=trim($myInvestorrow["Investor"]);
 
                                                                                 $InvestorsName = explode(",",$myInvestorrow["Investors"]);
+
+                                                                                // echo '<pre>'; print_r($InvestorsName); echo '</pre>';
+
                                                                                 $InvestorIds = explode(",",$myInvestorrow["InvestorIds"]);
                                                                                 if($valInfo !=1) {
                                                                                 if($myInvestorrow["stakepercentage"]>0) {
@@ -6221,7 +6247,12 @@ try {
                                                                                 $invResult1=substr_count($Investorname,$searchString1);
                                                                                 $invResult2=substr_count($Investorname,$searchString2);
 
-                                                                                if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
+                                                                                // echo '<pre>'; print_r($invResult); echo '</pre>';
+                                                                                // echo '<pre>'; print_r($invResult1); echo '</pre>';
+                                                                                // echo '<pre>'; print_r($invResult2); echo '</pre>';
+
+
+                                                                                if(($invResult==0) && ($invResult1==0) && ($invResult2==1))
                                                                                 {
                                                                                    $addTrancheWord="";
                                                                                    $addDebtWord="";
@@ -6275,7 +6306,10 @@ try {
                                                 ?>  
                                                 <div  class="col-md-6">
                                                 <table width="100%" cellspacing="0" cellpadding="0" class="tableview tableInvest" >
-                                                <thead><tr><th>Deal Type</th><th style="width: 28%;">Investor(s)</th> <th>Deal Period</th> <th>Status</th></tr></thead>
+                                                <thead><tr><th>Deal Type</th>
+                                                <th style="width: 28%;">Investor(s)</th> ]
+                                                <th>Deal Period</th> 
+                                                <th>Status</th></tr></thead>
                                                 <tbody>
                                                         <?php
                                                         //if($rsipoexit= mysql_query($ipoexitsql))
