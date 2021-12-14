@@ -62,6 +62,10 @@ $sectorsearch_other = $_POST['sectorsearch_other'];
 $advisorsearch_legal_other = $_POST['advisorsearch_legal_other'];
 $advisorsearch_trans_other = $_POST['advisorsearch_trans_other'];
 $tagandor = $_POST['tagandor'];
+
+
+// echo '<pre>'; print_r($tagandor); echo '</pre>'; 
+
 $tagradio = $_POST['tagradio'];
 $invandor = $_POST['invandor'];
 $invradio = $_POST['invradio'];
