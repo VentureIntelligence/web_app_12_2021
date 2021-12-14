@@ -191,6 +191,7 @@ $whereexitstatus = "";
 $tsjtitle = "� TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE.";
 $exportstatusdisplay = "Pls Note : Excel Export is available for transactions from Jan.2004 only, as part of search results. You can export transactions prior  to 2004 on a deal by deal basis from the deal details popup.";
+
 //echo "<bR>&&&&".$searchtitle;
 
 if ($searchtitle == 0) {
@@ -1474,13 +1475,6 @@ $valInfo=$_POST['valInfo'];
                 $tagsearch=$_POST['tagsearch'];
                 $searchallfield = $_POST['txthidesearchallfield'];
 
-                $tagandor = $_POST['tagandor'];
-
-                // echo '<pre>'; print_r($tagsearch); echo '</pre>';
-
-                // echo '<pre>'; print_r($tagandor); echo '</pre>';
-
-
 
     $searchtitle = $_POST['txttitle'];
 
@@ -1532,24 +1526,30 @@ if ($industry != '' && (count($industry) > 0)) {
     $industryvalueid = trim($industryvalueid, ',');
     $industry_hide = implode($industry, ',');
 }
-$sector=explode(",",$sector);
-if ($sector != '' && (count($sector) > 0)) {
-    $sectorvalue = '';
-    $sectorstr = implode(',',$sector); 
-    $sectorssql = "select sector_name,sector_id from pe_sectors where sector_id IN ($sectorstr)";
-   
-    if ($sectors = mysql_query($sectorssql)) {
-        while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
-            $sectorvalue .= $myrow["sector_name"] . ',';
-            $sectorvalueid .= $myrow["sector_id"] . ',';
+if ($sector != '' && (count($sector) > 0)) 
+{
+    $sector=explode(",",$sector);
+    if ($sector != '' && (count($sector) > 0)) {
+        $sectorvalue = '';
+        $sectorstr = implode(',',$sector); 
+        $sectorssql = "select sector_name,sector_id from pe_sectors where sector_id IN ($sectorstr)";
+       
+        if ($sectors = mysql_query($sectorssql)) {
+            while ($myrow = mysql_fetch_array($sectors, MYSQL_BOTH)) {
+                $sectorvalue .= $myrow["sector_name"] . ',';
+                $sectorvalueid .= $myrow["sector_id"] . ',';
+            }
         }
+       
+        $sectorvalue = trim($sectorvalue, ',');
+        $sectorvalueid = trim($sectorvalueid, ',');
+        $sector_hide = implode($sector, ',');
+        // $industry_hide = implode($industry, ',');
     }
-   
-    $sectorvalue = trim($sectorvalue, ',');
-    $sectorvalueid = trim($sectorvalueid, ',');
-    $sector_hide = implode($sector, ',');
-    // $industry_hide = implode($industry, ',');
+}else{
+    $sector = array();
 }
+
 
 if ($subsector != '' && (count($subsector) > 0)) {
     $subsectorvalue = '';
@@ -1820,18 +1820,13 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
 
     $tags = '';
     $ex_tags = explode(',', $tagsearch);
-
-    // echo '<pre>'; print_r($ex_tags); echo '</pre>';
-
     if (count($ex_tags) > 0) {
         for ($l = 0; $l < count($ex_tags); $l++) {
             if ($ex_tags[$l] != '') {
                 $value = trim(str_replace('tag:', '', $ex_tags[$l]));
                 $value = str_replace(" ", "", $value);
-
                 //$tags .= "pec.tags like '%:$value%' or ";
                 //$tags .= " pec.tags REGEXP '[[.colon.]]$value$' or pec.tags REGEXP '[[.colon.]]$value,'"; //or pec.tags REGEXP '[[.colon.]]".$value."[[:space:]]'
-
                 if ($tagandor == 0) {
                     $tags .= " REPLACE(trim(pec.tags), ' ','') REGEXP '[[:<:]]" . $value . "[[:>:]]'" . " and";
                 } else {
@@ -1846,8 +1841,6 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     } else {
         $tagsval = trim($tags, ' or ');
     }
-
-
     if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
         $hideWhere = "and  pe.PEId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
@@ -2132,6 +2125,8 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
            }
            //$wheresectorsql = " pe_sub.sector_id IN($sectorval)";
         }
+
+
     if ($subsectorval != '') {
                      $wheresubsectorsql = " pe_sub.subsector_name IN($subsectorval)";
     }
@@ -2260,7 +2255,7 @@ $exitstatusValue_hide = implode($exitstatusValue, ',');
     $dt2 = $year2 . "-" . $month2 . "-31";
     
     $companysql = "(
-                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe.amount,pe.Amount_INR,
+                                    SELECT pe.PEId,pe.PECompanyId as PECompanyId, pec.companyname, i.industry, pec.sector_business as sector_business, pe_sectors as pec, pe.amount,pe.Amount_INR,
                                                      cia.CIAId, cia.Cianame, adac.CIAId AS AcqCIAId,hideamount,SPV,AggHide,DATE_FORMAT( pe.dates, '%M-%Y' )as dealperiod,pe.dates as dates,pe.Exit_Status,
                                                     (SELECT GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investor,
                                                     (SELECT count(inv.Investor) FROM peinvestments_investors as peinv_inv,peinvestors as inv WHERE   peinv_inv.PEId=pe.PEId and inv.InvestorId=peinv_inv.InvestorId ) AS Investorcount
@@ -2335,6 +2330,9 @@ $valuationsql  $sectorcondition
     if (count($regionId) > 0) {
         $increg = "JOIN region AS r ON r.RegionId=pec.RegionId";
     }
+    
+    // echo '<pre>'; print_r(count($sector)); echo '</pre>';
+//    echo '<pre>'; print_r($subsector); echo '</pre>';
      
     //  if(count($sector) > 0 || count($subsector) > 0){
     //     /*$joinsectortable = 'JOIN pe_subsectors AS pe_sub ON pec.PEcompanyID=pe_sub.PECompanyID';*/
@@ -2770,7 +2768,7 @@ $valuationsql  $sectorcondition
     if ($whererange != "") {
         
      
-        $companysql = $companysql . " pe.Deleted=0 " . $addVCFlagqry . " " . $addDelind .$hideWhere. "
+        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " ". $addVCFlagqry . " " . $addDelind .$hideWhere. "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId
@@ -2785,7 +2783,7 @@ $valuationsql  $sectorcondition
     } elseif ($whererange == "--" || $whererange == "") {
        
        
-        $companysql = $companysql . " pe.Deleted=0 " . $addVCFlagqry . " " . $addDelind .$hideWhere. "
+        $companysql = $companysql . " pe.Deleted=0 " . $isAggregate . " " . $addVCFlagqry . " " . $addDelind .$hideWhere. "
                                                 AND pe.PEId NOT
                                                 IN (
                                                 SELECT PEId
@@ -2821,6 +2819,8 @@ if ($companysql != "" && $orderby != "" && $ordertype != "") {
 
 //  echo $companysql;
 //  exit();
+
+
 
 //execute query
 $result = mysql_query($companysql) or die(mysql_error());
@@ -3081,21 +3081,12 @@ $searchString2 = strtolower($searchString2);
 
 $dbTypeSV='PE';
 
-// $tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
-// $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
-
-// str_replace(chr(194)," ",$dirty);
-
-$tsjtitle1 = "&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
-
-$tsjtitle = str_replace(chr(194)," ",$tsjtitle1);
-
+$tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
 
 // echo $tsjtitle;
 
-$tranchedisplay = "Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
 $replace_array = array('\t','\n','<br>','<br/>','<br />','\r','\v');
 /** Error reporting */
@@ -3207,9 +3198,10 @@ $col = 0;
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
 
 
+
             
 
-            // echo $companiessql; exit;
+            // echo $companiessql.'<br />'; 
 
 
     
@@ -3556,8 +3548,6 @@ $col = 0;
 
 
     // T960
-
-    
     if(in_array("Company", $rowArray))
     {
         $schema_insert .= $companyName.$sep;
@@ -3602,6 +3592,14 @@ $col = 0;
     {
         $schema_insert .= $row[13].$sep;
     }
+
+    // if($valInfo == 0){
+        // if(in_array("Stake (%)", $rowArray))
+        // {
+        //     $schema_insert .= $hidestake.$sep;
+        // }
+    // }
+
     if(in_array("Stake (%)", $rowArray))
     {
         if($valInfo == 0){
@@ -3611,6 +3609,8 @@ $col = 0;
             $schema_insert .= ''.$sep;
         }
     }
+
+    // Date
     if(in_array("Date", $rowArray))
     {
         // date_format($exd, 'Y-m-d');
@@ -3851,24 +3851,32 @@ $col = 0;
     $schema_insert .= "\t";
     print(trim($schema_insert));
     print "\n";
-
-
 }
 
-
+print("\n");
+print( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
 print("\n");
 print("\n");
-print("\n");
-print("\n");
-echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
-print("\n");
-print("\n");
-echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
-print("\n");
-print("\n");
-
+print("Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.");
 exit();
 
+// exit();
+
+
+print("\n");
+    print("\n");
+    print("\n");
+    print("\n");
+    echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
+    print("\n");
+    print("\n"); 
+    echo ( html_entity_decode( $tranchedisplay, ENT_COMPAT, 'ISO-8859-1' ) );
+
+    // echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
+    print("\n");
+
+
+    exit();
 
 // // T960
 // $objPHPExcel->getActiveSheet()
