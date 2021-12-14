@@ -456,8 +456,14 @@
             <div class="card navCard">
                <div class="container">
                   <div class="nav nav-pills myfilters mt-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                     <a class="nav-link col-6 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
-                     <a class="nav-link col-6" id="v-pills-profiletab" data-toggle="pill" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
+                     
+
+                           
+
+                     <a class="nav-link col-6 <?php if ($_GET['val'] == '1') { echo 'active'; }?>" id="v-pills-home-tab" data-toggle="pill"  class = "Inv_Tab"  href="#v-pills-investmentsfilter" role="tab" aria-controls="v-pills-home" aria-selected="true" value=Investments >Investments Filters</a>
+
+                     <a class="nav-link col-6  <?php if ($_GET['val'] == '2') { echo 'active'; }?>" id="v-pills-profiletab" data-toggle="pill" class = "Exi_Tab" href="#v-pills-exitfilters" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Exit >Exit Filters</a>
+
                   </div>
                </div>
                <div class="tab-content" id="v-pills-tabContent">
@@ -466,14 +472,16 @@
                      $keyword=$_POST['repDBtype'];
                      
                      $nanoSql="SELECT * FROM `saved_filter` where vi_filter=0 and filter_type='Investments' and  created_by='".$dlogUserEmail."' order by id desc";
-                     //echo $nanoSql;
+
+                     // echo $nanoSql; exit;
+
                      if ($reportrs = mysql_query($nanoSql))
                      {
                      $report_cnt = mysql_num_rows($reportrs);
                      }
                      
                      ?> 
-                  <div class="tab-pane fade show active" id="v-pills-investmentsfilter" role="tabpanel" aria-labelledby="v-pills-home-tab" >
+                  <div class="tab-pane fade show <?php if ($_GET['val'] == '1') { echo 'active'; }?>" id="v-pills-investmentsfilter" role="tabpanel" aria-labelledby="v-pills-home-tab" >
                      <?php
                         if ($report_cnt>0)
                         {
@@ -499,6 +507,10 @@
                         <div class="btn-group editexpbutton" role="group" aria-label="Basic example">
                              <div class='col-md-6'><button type="button" class="btn edit text-center" onclick="EditFilter('<?php echo $myrow['id'] ?>')">EDIT</button>
                          </div>
+
+
+
+
                          <div class='col-md-6'><button type="button" class="btn exportFilt text-center" onclick="exportfiltr(1,'<?php echo $myrow['filter_type'] ?>','<?php echo $myrow['id'] ?>','<?php echo $myrow['filter_name'] ?>','<?php echo $myrow['column_name']?>')">EXPORT</button>
                         </div>
                         </div>
@@ -523,7 +535,7 @@
                      $report_cnt = mysql_num_rows($reportrs);
                      }
                      ?> 
-                  <div class="tab-pane fade show " id="v-pills-exitfilters" role="tabpanel" aria-labelledby="v-pills-profile-tab" >
+                  <div class="tab-pane fade show <?php if ($_GET['val'] == '2') { echo 'active'; }?>" id="v-pills-exitfilters" role="tabpanel" aria-labelledby="v-pills-profile-tab" >
                      <?php
                         if ($report_cnt>0)
                         {
@@ -575,9 +587,15 @@
             <?php //}else{ ?>
             <div class="col-md-8 mb-2" style="    padding-left: 0px;">
                <div class="nav rightpanel nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="height:45px">
-                  <a class="filter ml-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
-                  <a class="filter ml-1" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
-                  <a class="filter ml-1" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"   value=Exit>Exits</a>
+
+              
+               
+                  <a class="filter ml-3 <?php if ($_GET['val'] == '') { echo 'active'; }?>" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-vifilters" role="tab" aria-controls="v-pills-home" aria-selected="true" value=ViFilter>VI Filters</a>
+
+                  <a class="filter ml-1  <?php if ($_GET['val'] == '1') { echo 'active'; }?>" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-profile" aria-selected="false" value=Investments>Investments</a>
+
+                  <a class="filter ml-1  <?php if ($_GET['val'] == '2') { echo 'active'; }?>" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-exits" role="tab" aria-controls="v-pills-messages" aria-selected="false"   value=Exit>Exits</a>
+                  
                   <!-- <a class="btn btn-primary  ml-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
                </div>
                <?php //} ?>
@@ -594,7 +612,7 @@
                      ?> 
                   <?php //if($companyId != 1946568266)
                      //{?>
-                  <div class="tab-pane ml-3 fade show active" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                  <div class="tab-pane ml-3 fade show <?php if ($_GET['val'] == '') { echo 'active'; }?>" id="v-pills-vifilters" role="tabpanel" aria-labelledby="v-pills-home-tab">
                      <div class="card">
                         <div class="row vifilter">
                            <?php
@@ -641,7 +659,7 @@
                   <?php //} ?>
                   <?php if($companyId != 1946568266)
                      {?>
-                  <div class="tab-pane ml-3 fade" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  <div class="tab-pane ml-3 fade show <?php if ($_GET['val'] == '1') { echo 'active'; }?>" id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                      <input type="hidden" name="companyName" id="companyName" value="<?php echo $companyName;?>">
                      <?php } else {?>
                      <div class="tab-pane ml-3 show " id="v-pills-investment" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -1178,7 +1196,7 @@
                            </div>
                          
                         </div>
-                        <div class="tab-pane ml-3 fade" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                  <div class="tab-pane ml-3 fade show <?php if ($_GET['val'] == '2') { echo 'active'; }?>" id="v-pills-exits" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                            <div class="card">
                               <div class="ml-3 mt-3">
                                  <h6 class="invHeading">Input Investor`s Name</h6>
@@ -1747,6 +1765,8 @@
          var dataValue=JSON.parse(dataset);
          navbarTrigger=1;
          $('#mode').val('E');
+
+         
          
          if(dataValue[0].filter_type == "Exit")
          {
@@ -2042,6 +2062,9 @@
          var dataval=data.replace(/[\u0000-\u0019]+/g,"")
          var dataset=JSON.parse(JSON.stringify(dataval))
          var dataValue=JSON.parse(dataset);
+
+            console.log(dataValue);
+
          if(dataValue.length != 0)
          {
          var Type=dataValue[0].filter_type
@@ -2094,19 +2117,42 @@
          $('#year1').val(dataValue[0].start_year);
          $('#year2').val(dataValue[0].end_year)   
          }
+        
+
          if(dataValue.length != 0)
          {
+            // alert('hi');
          var div='';
-         if(dataValue[0].Investor != "")
+         if(dataValue[0].Investor != "" && dataValue[0].Investor != undefined)
          {
-         for(i=0;i<dataValue.length;i++)
-         {
-         div +=dataValue[i].InvestorId
-         if(i<(dataValue.length-1))
-         {
-         div +=',' 
-         } 
-         }
+            // alert('test');
+
+            for(i=0;i<dataValue.length;i++)
+            {
+            div +=dataValue[i].InvestorId
+            if(i<(dataValue.length-1))
+            {
+            div +=',' 
+            } 
+            }
+         }else{
+
+            if(dataValue[0].filter_type =="Exit")
+            {
+               div=$('#expinvestorauto_sug').val();
+               $('#txthideinvestor').val(div);
+
+            }else{
+
+               div=$('#investorauto_sug').val();
+               $('#investorvalue').val(div);
+
+            }
+
+            
+
+            // alert(investorval);
+
          }
          
          
@@ -2304,13 +2350,18 @@
          }
          
          }
+
+
+
          var investornameArray=[];
-         function saveFilterName()
+         function saveFilterName(val)
          {
-         mode=$('#mode').val();
          investornameArray=[];
          
          var filterType=$(".rightpanel").find(".active").attr('value')
+
+         // alert(filterType);
+         
          
          var filtername=$('#filter_name').val().trim();
          var filterDesc=$('#filter_desc').val().trim();
@@ -2436,7 +2487,43 @@
          icon: "success",
          //button: "Aww yiss!",
          }).then(function() {
-         location.reload();
+
+               //  location.reload();
+
+
+            if(filterType == "Exit")
+            {
+               window.location.href = 'advance_export.php?val=2';
+            }else{
+               window.location.href = 'advance_export.php?val=1';
+            }
+
+
+            // var filterType=$(".rightpanel").find(".active").attr('value')
+
+            // if(filterType == "Exit")
+            // {
+               
+
+            //    location.reload();
+
+            //    $('.Exi_Tab').addClass('active');
+            //    $('.Inv_Tab').removeClass('active');
+
+              
+
+            // }else{
+            //    location.reload();
+
+               
+            //    $('.Inv_Tab').addClass('active');
+            //    $('.Exi_Tab').removeClass('active');
+
+            // }
+
+
+
+         
          
          });
          $('#investorauto_sug').tokenInput("clear");
@@ -2453,6 +2540,9 @@
          
          }
          $(document).on('click','.exportimpshowdealsbt',function(){
+
+               // alert();
+
             $('#investorauto_sug').tokenInput("clear");
          $('#expinvestorauto_sug').tokenInput("clear");
             $('#file').val('')
@@ -2851,6 +2941,9 @@
          $('#filter_desc').val(' ')
          var investorval=$('#investorauto_sug').val();
          $('#investorvalue').val(investorval);
+
+         // alert(investorval);
+
          var Industry=$('#sltindustry').val();
          $('#industry').val(Industry);
          var city=$('#citysearch').val();

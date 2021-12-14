@@ -429,7 +429,8 @@ img.fixed-logo{display:none}
             	<div class="league-tab">
 
                   <br>
-                  <h3>League Tables - Updated Now For Jan-Jun 2021</h3>  <!--Changes done by client on 13-08-2020-->
+                  <h3>League Tables - Updated Now For Jan-Sep 2021 </h3>  <!--Changes done by client on 13-08-2020-->  
+                  
                   <p class="">
                     The Venture Intelligence League Tables, the first such initiative exclusively tracking transactions involving India-based companies, are based on value of PE and M&A transactions advised by Transaction and Legal Advisory firms during the calendar year. The League Tables are compiled based on transactions submitted by the advisory firms and filtered using Venture Intelligence definitions
                   </p>
