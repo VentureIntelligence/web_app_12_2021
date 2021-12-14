@@ -770,6 +770,7 @@
                             $error_msg .=  'Sector : '.$sector;
                         }
 
+                        
 
                         // Industry
                         elseif($industryId == "" && $seperate_field['sector_business'] == $sector && $seperate_field['city'] == $city && $seperate_field['website'] == $web )

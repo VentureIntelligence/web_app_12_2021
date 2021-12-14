@@ -986,6 +986,7 @@
                                 }
 
 
+                                
                                 // Sector & Region
                                 elseif($sector == "" && $regionId == 1 && $seperate_field['city'] == $city && $seperate_field['industry'] == $industryId)
                                 {
