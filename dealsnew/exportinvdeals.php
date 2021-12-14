@@ -1475,6 +1475,13 @@ $valInfo=$_POST['valInfo'];
                 $tagsearch=$_POST['tagsearch'];
                 $searchallfield = $_POST['txthidesearchallfield'];
 
+                $tagandor = $_POST['tagandor'];
+
+                // echo '<pre>'; print_r($tagsearch); echo '</pre>';
+
+                // echo '<pre>'; print_r($tagandor); echo '</pre>';
+
+
 
     $searchtitle = $_POST['txttitle'];
 
@@ -1814,13 +1821,18 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
 
     $tags = '';
     $ex_tags = explode(',', $tagsearch);
+
+    // echo '<pre>'; print_r($ex_tags); echo '</pre>';
+
     if (count($ex_tags) > 0) {
         for ($l = 0; $l < count($ex_tags); $l++) {
             if ($ex_tags[$l] != '') {
                 $value = trim(str_replace('tag:', '', $ex_tags[$l]));
                 $value = str_replace(" ", "", $value);
+
                 //$tags .= "pec.tags like '%:$value%' or ";
                 //$tags .= " pec.tags REGEXP '[[.colon.]]$value$' or pec.tags REGEXP '[[.colon.]]$value,'"; //or pec.tags REGEXP '[[.colon.]]".$value."[[:space:]]'
+
                 if ($tagandor == 0) {
                     $tags .= " REPLACE(trim(pec.tags), ' ','') REGEXP '[[:<:]]" . $value . "[[:>:]]'" . " and";
                 } else {
@@ -1829,12 +1841,15 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
             }
         }
     }
+    
 
     if ($tagandor == 0) {
         $tagsval = trim($tags, ' and ');
     } else {
         $tagsval = trim($tags, ' or ');
     }
+
+
     if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
         $hideWhere = "and  pe.PEId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
@@ -3055,7 +3070,15 @@ $searchString2 = strtolower($searchString2);
 
 $dbTypeSV='PE';
 
-$tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
+// $tsjtitle = "© TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
+// $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
+
+// str_replace(chr(194)," ",$dirty);
+
+$tsjtitle1 = "&copy; TSJ Media Pvt. Ltd. This data is meant for the internal and non-commercial use of the purchaser and cannot be resold, rented, licensed or otherwise transmitted without the prior permission of TSJ Media. Any unauthorized redistribution will constitute a violation of copyright law.";
+
+$tsjtitle = str_replace(chr(194)," ",$tsjtitle1);
+
 $tranchedisplay = "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
 
 
@@ -3170,7 +3193,6 @@ $col = 0;
             ON r.RegionId=pec.RegionId OR (pec.RegionId=0 and r.RegionId=1)
             LEFT JOIN investortype as it ON it.InvestorType = pe.InvestorType 
             where pe.Deleted=0 and pec.industry !=15 and pe.PEId=".$PEId." AND pe.PEId NOT IN ( SELECT PEId FROM peinvestments_dbtypes AS db WHERE DBTypeId = '$dbTypeSV' AND hide_pevc_flag =1 ) order by companyname";
-
 
 
             
@@ -3567,10 +3589,10 @@ $col = 0;
         $schema_insert .= $row[13].$sep;
     }
     if($valInfo == 0){
-        if(in_array("Stake (%)", $rowArray))
-        {
-            $schema_insert .= $hidestake.$sep;
-        }
+    if(in_array("Stake (%)", $rowArray))
+    {
+        $schema_insert .= $hidestake.$sep;
+    }
     }
     // Date
     if(in_array("Date", $rowArray))
@@ -3819,19 +3841,15 @@ $col = 0;
 
 
 print("\n");
-print("\n");
-print("\n");
-print("\n");
-echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
-print("\n");
-print("\n");
-echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
-print("\n");
-print("\n");
-
-exit();
-
-
+    print("\n");
+    print("\n");
+    print("\n");
+    echo ( html_entity_decode( $tsjtitle, ENT_COMPAT, 'ISO-8859-1' ) );
+    print("\n");
+    print("\n");
+    echo "Note: Target/Company in () indicates the deal is not to be used for calculating aggregate data owing to the it being a tranche / not meeting Venture Intelligence definitions for PE. Target Company in [] indicated a debt investment. Not included in aggregate data.";
+    print("\n");
+    print("\n");
 // // T960
 // $objPHPExcel->getActiveSheet()
 //             ->fromArray(
