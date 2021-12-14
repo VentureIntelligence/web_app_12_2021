@@ -1474,6 +1474,13 @@ $valInfo=$_POST['valInfo'];
                 $tagsearch=$_POST['tagsearch'];
                 $searchallfield = $_POST['txthidesearchallfield'];
 
+                $tagandor = $_POST['tagandor'];
+
+                // echo '<pre>'; print_r($tagsearch); echo '</pre>';
+
+                // echo '<pre>'; print_r($tagandor); echo '</pre>';
+
+
 
     $searchtitle = $_POST['txttitle'];
 
@@ -1813,13 +1820,18 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
 
     $tags = '';
     $ex_tags = explode(',', $tagsearch);
+
+    // echo '<pre>'; print_r($ex_tags); echo '</pre>';
+
     if (count($ex_tags) > 0) {
         for ($l = 0; $l < count($ex_tags); $l++) {
             if ($ex_tags[$l] != '') {
                 $value = trim(str_replace('tag:', '', $ex_tags[$l]));
                 $value = str_replace(" ", "", $value);
+
                 //$tags .= "pec.tags like '%:$value%' or ";
                 //$tags .= " pec.tags REGEXP '[[.colon.]]$value$' or pec.tags REGEXP '[[.colon.]]$value,'"; //or pec.tags REGEXP '[[.colon.]]".$value."[[:space:]]'
+
                 if ($tagandor == 0) {
                     $tags .= " REPLACE(trim(pec.tags), ' ','') REGEXP '[[:<:]]" . $value . "[[:>:]]'" . " and";
                 } else {
@@ -1834,6 +1846,8 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
     } else {
         $tagsval = trim($tags, ' or ');
     }
+
+
     if(isset($_POST['txthidepe']) && $_POST['txthidepe'] != '' && isset($_POST['export_checkbox_enable']) && $_POST['export_checkbox_enable'] != '' && $_POST['export_full_uncheck_flag']==1){
 
         $hideWhere = "and  pe.PEId IN ( " . $_POST[ 'export_checkbox_enable' ] . " ) ";
