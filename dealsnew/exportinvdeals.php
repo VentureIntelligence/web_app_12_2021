@@ -1840,6 +1840,7 @@ if ($getyear != '' || $getindus != '' || $getstage != '' || $getinv != '' || $ge
             }
         }
     }
+    
 
     if ($tagandor == 0) {
         $tagsval = trim($tags, ' and ');
@@ -3771,6 +3772,8 @@ $col = 0;
     print(trim($schema_insert));
     print "\n";
 }
+
+
 
 // exit();
 
