@@ -29,7 +29,10 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 			$user=$_SESSION['UserNames'];
 
 	 				$portfoliocompany = $_POST['txtcompanyname'];
+					 $companygroup = $_POST['txtcompanygroup'];
+
 				//echo "<br>company. ".$portfoliocompany;
+
 				$target_listingstatusvalue=$_POST['target_listingstatus'];
 				$indid= $_POST['txtindustry'];  //industry id directly
 				$sector=$_POST['txtsector'];
@@ -259,9 +262,11 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 								$createddate=date("Y-m-d")." ".date("H:i:s");
 								$modifieddate=$createddate;
 
-								$insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT,price_to_book,book_value_per_share,price_per_share)
-								VALUES ($MAMAId,$companyId,$amount,$stake,'$fullDateAfter',$dealTypeId,$AcquirerId,'$comment','$moreinfor', '$validation',$assetFlag,$flagdeletion,'$createddate','$modifieddate',$hideamountFlag,'$link','$filename','$sourcename','$valuation','$finlink',$company_valuation,$revenue_multiple,$ebitda_multiple,$pat_multiple,'$target_listingstatusvalue','$acquirer_listingstatusvalue',$hideAggregatetoUpdate,$revenue,$ebitda,$pat,$price_to_book,$book_value_per_share,$price_per_share)";
-								//echo "<br>@@@@ :".$insertcompanysql;
+								$insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT,price_to_book,book_value_per_share,price_per_share,company_group)
+								VALUES ('$MAMAId','$companyId','$amount','$stake','$fullDateAfter','$dealTypeId','$AcquirerId','$comment','$moreinfor','$validation','$assetFlag','$flagdeletion','$createddate','$modifieddate','$hideamountFlag','$link','$filename','$sourcename','$valuation','$finlink','$company_valuation','$revenue_multiple','$ebitda_multiple','$pat_multiple','$target_listingstatusvalue','$acquirer_listingstatusvalue','$hideAggregatetoUpdate','$revenue','$ebitda','$pat','$price_to_book','$book_value_per_share','$price_per_share','$companygroup')";
+
+								// echo "<br>@@@@ :".$insertcompanysql; exit;
+
 								if ($rsinsert = mysql_query($insertcompanysql))
 								{
 									//echo "<br>Advisor String-" .$TargetAdvisorString;
@@ -396,7 +401,9 @@ function returnAcquirerId($acquirername,$cityid,$countryid,$industryid,$group)
 					//insert pecompanies
                         $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,countryid,city,RegionId,region,created_by)
                             values('$companyname','$industryId','$sector','$web','$countryid','$cityid',$regionId,'$region','$user')";
-					echo "<br>Ins company sql=" .$insPECompanySql;
+
+					// echo "<br>Ins company sql=" .$insPECompanySql;
+
 					if($rsInsPECompany = mysql_query($insPECompanySql))
 					{
 						$companyId=0;
