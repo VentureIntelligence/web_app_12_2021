@@ -9,6 +9,7 @@ $orderby=$_POST['orderby'];
 $ordertype=$_POST['ordertype'];
 
 ?>
+  <?php $unicornmediapath=BASE_URL.'adminvi/importfiles/Unicorntable.xlsx';?>
  <table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;width:100%;" id="myTable">
              <thead>
                <tr class="unicornhead">
