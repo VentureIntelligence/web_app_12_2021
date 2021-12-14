@@ -188,8 +188,12 @@
                             $city = $rowData[0][16];
 
                             $txtregion = $rowData[0][17];
+
+                            // echo 'text_region____:'.$txtregion.'<br />';
+
                             $regionId= '';
                             $regionSql = "select RegionId,Region from region where Region='".$txtregion."'";
+                            
                             if ($regionrs = mysql_query($regionSql))
                             {
                               $region_cnt = mysql_num_rows($regionrs);
@@ -201,6 +205,8 @@
                                     $regionId = $myregionrow[0];
                                 }
                             }
+
+                            // echo 'regionId:'.$regionId.'<br />';
 
                             $Advisor_company = $rowData[0][18];
                             $advisor_companyString = str_replace('"','',$Advisor_company);
@@ -381,7 +387,8 @@
                                     {
                                         $companyId=insert_company($portfoliocompany,$indid,$sector,$website,$city,$txtregion,$regionId);
                                     }
-                                    // echo $companyId; echo $sectorname;
+                                    // echo $companyId.'<br />';
+                                    //  echo $sectorId;
                                     $sectorId = insert_sector($sectorname,$indid);
 
                                     if($sectorId==0)
@@ -392,8 +399,8 @@
                                     insert_subsector($sectorId,$companyId,$subsectorname,$addsubsectorname);
                                    
 
-                                    //$companyId=0;
-                                    //echo "<br>Company id--" .$companyId;
+                                    // $companyId=0;
+                                    // echo "<br>Company id--" .$companyId; exit;
                                     if ($companyId >0)
                                     {
                                         /*echo $pegetInvestmentsql = "select c.PECompanyId,ma.PECompanyId,dates from pecompanies as c,
@@ -594,24 +601,43 @@
         function insert_company($companyname,$industryId,$sector,$web,$city,$region,$regionId)
         {
             $dbpecomp = new dbInvestments();
-            $getPECompanySql = "select PECompanyId,industry,sector_business,RegionId,city from pecompanies where companyname= '$companyname'";
-            //echo "<br>select--" .$getPECompanySql;
+
+            // $getPECompanySql123 = "select pec.PECompanyId,pec.industry,pec.sector_business,pec.RegionId,pec.city from pecompanies as pec JOIN peinvestments as pein where pec.companyname= '$companyname' and pein.PECompanyId = pec.PECompanyId and pein.Deleted = 0";
+
+            $getPECompanySql = "select PECompanyId,industry,city,sector_business,RegionId from pecompanies where companyname= '$companyname'";
+
+
+            // echo "<br>select--" .$getPECompanySql;  exit;
 
             
             if ($rsgetPECompanyId = mysql_query($getPECompanySql))
             {
                 $pecomp_cnt=mysql_num_rows($rsgetPECompanyId);
-                //echo "<br>%%%%%".$pecomp_cnt;
+
+                // echo "<br>%%%%%".$pecomp_cnt; 
+                // exit;
+                // echo $industryId.'<br />';
+
+
                 if ($pecomp_cnt==0)
                 {
                     //insert pecompanies
                     $insPECompanySql="insert into pecompanies(companyname,industry,sector_business,website,city,AdCity,region,RegionId)
-                    values('$companyname',$industryId,'$sector','$web','$city','$city','$region',$regionId)";
-                   // echo "<br>Ins company sql=" .$insPECompanySql;
+                    values('$companyname','$industryId','$sector','$web','$city','$city','$region','$regionId')";
+
+                    //    echo "<br>Ins company sql=" .$insPECompanySql; 
+
                     if($rsInsPECompany = mysql_query($insPECompanySql))
                     {
+                        echo 'Insterted<br />';
                         $companyId=0;
                         return $companyId;
+                        // exit;
+                    }else{
+                        echo 'Error..<br /> Industry is Mandetory<br />';
+                        // echo("Error description");
+                        die(mysql_error());
+                        // return $companyId;
                     }
                 }
                 elseif($pecomp_cnt>=1)
@@ -624,33 +650,486 @@
                         $seperate_field = mysql_fetch_assoc($rsgetPECompanyId);
 
 
+                        $exist_industry = $seperate_field['industry'];
+                        $exist_city = $seperate_field['city'];
+                        $exist_sector_business = $seperate_field['sector_business'];
+                        $exist_RegionId = $seperate_field['RegionId'];
 
-                    // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
-                    // echo 'Industry__'.$industryId.'<br />';
-                    // echo 'City__'.$city.'<br />';
-                    // echo 'Sector__'.$sector.'<br />';
-                    // echo 'Region__'.$regionId.'<br />';
-                    //  exit;
+                        
+                        // echo '<pre>'; print_r($seperate_field); echo '</pre>'; 
 
+                        // echo 'Industry__First : '.$seperate_field['industry'].'<br />';
+                        // echo 'City__First : '.$seperate_field['city'].'<br />';
+                        // echo 'Sector__First : '.$seperate_field['sector_business'].'<br />';
+                        // echo 'Region__First : '.$seperate_field['RegionId'].'<br /><br /><br />';
 
-                        if($seperate_field['city'] == $city && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId)
+                        // echo 'Industry__Second : '.$industryId.'<br />';
+                        // echo 'City__Second : '.$city.'<br />';
+                        // echo 'Sector__Second : '.$sector.'<br />';
+                        // echo 'Region__Second : '.$regionId.'<br /><br />';
+                        
+                        // exit;
+  
+
+                        if($city == "" && $sector == "" && $industryId == "" && $regionId == 1 )
                         {
+                            // echo 'Empty<br />';
+                            // exit;
                             
-                            $updateCityCountrySql="Update pecompanies set industry='$industryId',sector_business='$sector',website='$web',city='$city',AdCity='$city',RegionId=$regionId,region='$region' where PECompanyId=$companyId";
+                            $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
 
-                            echo 'Successfully Added';
-                                
-                            if($rscityCountrySql=mysql_query($updateCityCountrySql))
+                            if($rsInsPECompany = mysql_query($updateCityCountrySql))
                             {
-                                //		echo "<br>Update Company- " .$updateCityCountrySql;
+                                echo 'Successfully Added<br />';
+                                return $companyId;
+                                // exit;
+                            }else{
+                                // echo 'Error..<br /> Industry is Mandetory<br />';
+                                die(mysql_error());
                             }
-                                //echo "<br>Insert return industry id--" .$companyId;
-                            return $companyId;
-
-                        }else{
-                            return $companyId;
                         }
+                        
+                        elseif(($seperate_field['city'] == $city ) && ($seperate_field['sector_business'] == $sector ) && ($seperate_field['industry'] == $industryId) && ($seperate_field['RegionId'] == $regionId))
+                        {
+                            //    echo 'Same uh Iruku<br />';
+                            //    exit;
 
+                            $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                            if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                            {
+                                echo 'Successfully Updated<br />';
+                                return $companyId;
+                                // exit;
+                            }else{
+                                // echo 'Error..<br /> Industry is Mandetory<br />';
+                                die(mysql_error());
+                            }
+                         
+                        }else{
+
+                                // echo 'Vera uh Iruku<br />';
+                                // exit;
+
+
+                                // Existing Industry Name
+                                    $industry = $seperate_field['industry'];
+                                    $getIndName = "select industry from industry where industryid = $industry";
+                                    $getIndustryName = mysql_query($getIndName);
+                                    $reg = mysql_fetch_assoc($getIndustryName);
+                                    $IndustryName = $reg['industry'];
+
+                                // Existing Region Name
+                                    $region_id = $seperate_field['RegionId'];
+                                    $getRegionName = "select Region from region where RegionId = $region_id";
+                                    $getRegName = mysql_query($getRegionName);
+                                    $reg = mysql_fetch_assoc($getRegName);
+                                    $RegionName = $reg['Region'];
+
+                                // GIven Industry Name
+                                    $industryGiven = $industryId;
+                                    $getIndNameGiven = "select industry from industry where industryid = $industryGiven";
+                                    $getIndustryNameGiven = mysql_query($getIndNameGiven);
+                                    $regGiven = mysql_fetch_assoc($getIndustryNameGiven);
+                                    $IndustryNameGiven = $regGiven['industry'];
+
+                                // GIven Region Name
+                                    $regionGiven = $regionId;
+                                    $getRegNameGiven = "select Region from region where RegionId = $regionGiven";
+                                    $getRegionNameGiven = mysql_query($getRegNameGiven);
+                                    $regGiven = mysql_fetch_assoc($getRegionNameGiven);
+                                    $RegionNameGiven = $regGiven['Region'];
+
+
+                                    
+                                    echo 'Industry__'.$IndustryName.'<br />';
+                                    echo 'City__'.$seperate_field['city'].'<br />';
+                                    echo 'Sector__'.$seperate_field['sector_business'].'<br />';
+                                    echo 'Region__'.$RegionName.'<br />';
+
+
+                                // Error Message For Seperate Fields
+
+                                // Industry
+                                if($industryId == "" && $seperate_field['sector_business'] == $sector && $seperate_field['city'] == $city && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '1<br />';
+                                }
+                                elseif($seperate_field['industry'] != $industryId && $seperate_field['sector_business'] == $sector && $seperate_field['city'] == $city && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $error_msg .=  'Industry : '.$IndustryNameGiven;
+                                    // echo '2<br />';
+                                }
+                                elseif($seperate_field['industry'] != $industryId && $sector == "" && $city == "" && $regionId == 1)
+                                {
+                                    $error_msg .=  'Industry : '.$IndustryNameGiven;
+                                    // echo '3<br />';
+                                }
+
+                                // City
+                                elseif($city == "" && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '4<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId){
+                                    
+                                    $error_msg .=  'City : '.$city;
+                                    // echo '5<br />';
+
+                                }
+                                elseif($seperate_field['city'] != $city && $sector == "" && $industryId == "" && $regionId == 1){
+                                    
+                                    $error_msg .=  'City : '.$city;
+                                    // echo '6<br />';
+
+                                }
+                                
+                                // Sector
+                                elseif($sector == "" && $seperate_field['city'] == $city && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '7<br />';
+                                }
+                                elseif($seperate_field['sector_business'] != $sector && $seperate_field['city'] == $city && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $error_msg .=  'Sector : '.$sector;
+                                    // echo '8<br />';
+                                }
+                                elseif($seperate_field['sector_business'] != $sector && $city == "" && $industryId == "" && $regionId == 1)
+                                {
+                                    $error_msg .=  'Sector : '.$sector;
+                                    // echo '9<br />';
+                                }
+
+                                // Region
+                                elseif($regionId == 1 && $seperate_field['industry'] == $industryId && $seperate_field['sector_business'] == $sector && $seperate_field['city'] == $city)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '10<br />';
+                                }
+                                elseif($seperate_field['RegionId'] != $regionId && $seperate_field['industry'] == $industryId && $seperate_field['sector_business'] == $sector && $seperate_field['city'] == $city)
+                                {
+
+                                    // echo '11<br />';
+                                    $error_msg .=  'Region : '.$RegionNameGiven;
+                                   
+                                }
+                                elseif($seperate_field['RegionId'] != $regionId && $industryId == "" && $sector == "" && $city == "")
+                                {
+                                    // echo '12<br />';
+                                    $error_msg .=  'Region : '.$RegionNameGiven;
+                                    
+                                }
+
+
+                                //   City and Sector
+                                elseif($city == "" && $sector == "" && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '13<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] != $sector && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Sector : $sector";
+                                    // echo '14<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] != $sector && $industryId == "" && $regionId == 1)
+                                {
+                                    $error_msg .=  "City : $city & Sector : $sector";
+                                    // echo '15<br />';
+                                }
+
+
+                                //  City and Industry
+                                elseif($city == "" && $industryId == "" && $seperate_field['sector_business'] == $sector && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '16<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['industry'] != $industryId && $seperate_field['sector_business'] == $sector && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Industry : $IndustryNameGiven";
+                                    // echo '17<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['industry'] != $industryId && $seperate_field['sector_business'] == "" && $seperate_field['RegionId'] == 1)
+                                {
+                                    $error_msg .=  "City : $city & Industry : $IndustryNameGiven";
+                                    // echo '18<br />';
+                                }
+
+
+                                //  City and Region
+                                elseif($city == "" && $regionId == 1 && $seperate_field['industry'] == $industryId && $seperate_field['sector_business'] == $sector)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '19<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['RegionId'] != $regionId && $seperate_field['industry'] == $industryId && $seperate_field['sector_business'] == $sector)
+                                {
+                                    $error_msg .=  "City : $city & Region : $RegionNameGiven";
+                                    // echo '20<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['RegionId'] != $regionId && $industryId == "" && $sector == "")
+                                {
+                                    $error_msg .=  "City : $city & Region : $RegionNameGiven";
+                                    // echo '21<br />';
+                                }
+
+
+                                // Sector & Industry
+                                elseif($sector == "" && $industryId == "" && $seperate_field['city'] == $city && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '22<br />';
+                                }
+                                elseif($seperate_field['sector_business'] != $sector && $seperate_field['industry'] != $industryId && $seperate_field['city'] == $city && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $error_msg .=  "Industry : $IndustryNameGiven & Sector : $sector";
+                                    // echo '23<br />';
+                                }
+                                elseif($seperate_field['sector_business'] != $sector && $seperate_field['industry'] != $industryId && $city == "" && $regionId == 1)
+                                {
+                                    $error_msg .=  "Industry : $IndustryNameGiven & Sector : $sector";
+                                    // echo '24<br />';
+                                }
+
+
+                                // Industry & Region
+                                elseif($seperate_field['sector_business'] == $sector && $industryI == "" && $seperate_field['city'] == $city && $regionId == 1)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '25<br />';
+                                }
+                                elseif($seperate_field['sector_business'] == $sector && $seperate_field['industry'] != $industryId && $seperate_field['city'] == $city && $seperate_field['RegionId'] != $regionId)
+                                {
+                                    $error_msg .=  "Industry : $IndustryNameGiven & Region : $RegionNameGiven";
+                                    // echo '26<br />';
+                                }
+                                elseif($sector == "" && $seperate_field['industry'] != $industryId && $city == "" && $seperate_field['RegionId'] != $regionId)
+                                {
+                                    $error_msg .=  "Industry : $IndustryNameGiven & Region : $RegionNameGiven";
+                                    // echo '27<br />';
+                                }
+
+
+                                // Sector & Region
+                                elseif($sector == "" && $regionId == 1 && $seperate_field['city'] == $city && $seperate_field['industry'] == $industryId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '28<br />';
+                                }
+                                elseif($seperate_field['sector_business'] != $sector && $seperate_field['RegionId'] != $regionId && $seperate_field['city'] == $city && $seperate_field['industry'] == $industryId)
+                                {
+                                     $error_msg .=  "Region : $RegionNameGiven & Sector : $sector";
+                                    //  echo '29<br />';
+                                }
+                                elseif($seperate_field['sector_business'] != $sector && $seperate_field['RegionId'] != $regionId && $city == "" && $industryId == "")
+                                {
+                                     $error_msg .=  "Region : $RegionNameGiven & Sector : $sector";
+                                    //  echo '30<br />';
+                                }
+
+
+                                
+
+                                //  City & Sector & Industry
+                                elseif($city == "" && $sector == "" && $industryId == "" && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '31<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] != $sector && $seperate_field['industry'] != $industryId && $seperate_field['RegionId'] == $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Sector : $sector & Industry : $IndustryNameGiven";
+                                    // echo '32<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] != $sector && $seperate_field['industry'] != $industryId && $regionId == 1)
+                                {
+                                    $error_msg .=  "City : $city & Sector : $sector & Industry : $IndustryNameGiven";
+                                    // echo '33<br />';
+                                }
+
+                                //  City & Sector & Region
+                                elseif($city == "" && $sector == "" && $seperate_field['industry'] == $industryId && $regionId == 1)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '34<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] != $sector && $seperate_field['industry'] == $industryId && $seperate_field['RegionId'] != $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Sector : $sector & Region : $RegionNameGiven";
+                                    // echo '35<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] != $sector && $industryId == "" && $seperate_field['RegionId'] != $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Sector : $sector & Region : $RegionNameGiven";
+                                    // echo '36<br />';
+                                }
+
+                                //  City & Industry & Region
+                                elseif($city == "" && $seperate_field['sector_business'] == $sector && $industryId == "" && $regionId == 1)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '37<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] == $sector && $seperate_field['industry'] != $industryId && $seperate_field['RegionId'] != $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Industry : $IndustryNameGiven & Region : $RegionNameGiven";
+                                    // echo '38<br />';
+                                }
+                                elseif($seperate_field['city'] != $city && $sector == "" && $seperate_field['industry'] != $industryId && $seperate_field['RegionId'] != $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Industry : $IndustryNameGiven & Region : $RegionNameGiven";
+                                    // echo '39<br />';
+                                }
+
+
+                                //  Sector & Industry & Region
+                                elseif($seperate_field['city'] == $city && $sector == "" && $industryId == "" && $regionId == 1)
+                                {
+                                    $updateCityCountrySql="Update pecompanies set industry='$exist_industry',sector_business='$exist_sector_business',website='$web',city='$exist_city',AdCity='$exist_city',RegionId=$exist_RegionId,region='$exist_RegionId' where PECompanyId=$companyId";
+
+                                    if($rsInsPECompany = mysql_query($updateCityCountrySql))
+                                    {
+                                        echo 'Successfully Added<br />';
+                                        return $companyId;
+                                    }else{
+                                        die(mysql_error());
+                                    }
+                                    // echo '40<br />';
+                                }
+                                elseif($seperate_field['city'] == $city && $seperate_field['sector_business'] != $sector && $seperate_field['industry'] != $industryId && $seperate_field['RegionId'] != $regionId)
+                                {
+                                     $error_msg .=  "Sector : $sector & Industry : $IndustryNameGiven & Region : $RegionNameGiven";
+                                    //  echo '41<br />';
+                                }
+                                elseif($city == "" && $seperate_field['sector_business'] != $sector && $seperate_field['industry'] != $industryId && $seperate_field['RegionId'] != $regionId)
+                                {
+                                     $error_msg .=  "Sector : $sector & Industry : $IndustryNameGiven & Region : $RegionNameGiven";
+                                    //  echo '42<br />';
+                                }
+                                // if($city != "" && $sector != "" && $industryId != "" && $regionId != 1)
+                                // {
+                                    //  City & Sector & Industry & Region
+                                elseif($seperate_field['city'] != $city && $seperate_field['sector_business'] != $sector && $seperate_field['industry'] != $industryId && $seperate_field['RegionId'] != $regionId)
+                                {
+                                    $error_msg .=  "City : $city & Sector : $sector & Industry : $IndustryNameGiven & Region : $RegionNameGiven";
+                                    // echo '43<br />';
+                                }
+                                // }else{
+
+                                // }
+
+                                echo '<br />The given '.$error_msg.' is Mismatch with the Existing Comapny Details....';
+                        }
+                   
+                        // return $companyId;
                         exit;
                         
                     }
@@ -691,7 +1170,12 @@
                         return $sectorId;
                     }
                 }
+            }else{
+
+                $sectorId=0;
+                return $sectorId;
             }
+            
             $dbslinkss.close();
         
         }
