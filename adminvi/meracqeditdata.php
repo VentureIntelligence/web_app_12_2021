@@ -51,7 +51,7 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 		pec.website,c.country as TargetCountry,
 		 pe.MAMAId,pe.Comment,MoreInfor,Validation,pe.MADealTypeId,pe.Asset,dt.MADealType,pe.AcquirerId,ac.Acquirer,ac.IndustryId as AcquirerIndustryId,ac.countryId as AcquirerCountryId,
 		 ac.CityId as AcquirerCityId,ac.Acqgroup as AcquirerGroup,pe.hideamount,Link,pec.RegionId,pe.uploadfilename,pe.source,pe.Valuation,pe.FinLink,
-		 Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status ,AggHide,Revenue,EBITDA,PAT,pe.price_to_book,pe.book_value_per_share,pe.price_per_share
+		 Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,Company_Valuation_Pre,Revenue_Multiple_Pre,EBITDA_Multiple_Pre,PAT_Multiple_Pre,Company_Valuation_Post,Revenue_Multiple_Post,EBITDA_Multiple_Post,PAT_Multiple_Post,target_listing_status,acquirer_listing_status ,AggHide,Revenue,EBITDA,PAT,Total_Debt,Cash_Equ,pe.price_to_book,pe.book_value_per_share,pe.price_per_share,	financial_year
 		 FROM mama AS pe, industry AS i, pecompanies AS pec,
 		 madealtypes as dt,acquirers as ac,country as c
 		 WHERE  i.industryid=pec.industry and c.countryid=pec.countryid
@@ -756,7 +756,7 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 								</td>
 								</tr>
 
-								 <tr>
+								 <!-- <tr>
 								<td >Company Valuation (INR Cr)</td>
 								<td >
 								<input name="txtcompanyvaluation" id="txtcompanyvaluation" type="text" size="10" value=<?php echo $mycomprow["Company_Valuation"]; ?> > </td>
@@ -772,7 +772,47 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 								<tr>
 									<td >PAT Multiple</td>
 									<td ><input name="txtpatmultiple" id="txtpatmultiple" type="text" size="10" value=<?php echo $mycomprow["PAT_Multiple"];?> ></td>
+								</tr> -->
+
+
+								<tr>
+									<td >Company Valuation (INR Cr)</td>
+									<td >
+										<ul class="add_ul"><li>Pre-Money</li><li> Post-Money</li><li> EV</li></ul><br />
+										<input name="txtcompanyvaluation" id="txtcompanyvaluation" type="text" size="10" value='<?php echo $mycomprow["Company_Valuation"]; ?>' >  
+										<input name="txtcompanyvaluation1" id="txtcompanyvaluation1" type="text" size="10" value='<?php echo $mycomprow["Company_Valuation_Pre"]; ?>' > 
+										<input name="txtcompanyvaluation2" id="txtcompanyvaluation2" type="text" size="10" value='<?php echo $mycomprow["Company_Valuation_Post"]; ?>' > 
+										                                                               
+									</td>
+									</tr>
+									<tr>
+									<td >Revenue Multiple</td>
+									<td >
+										<input name="txtrevenuemultiple" id="txtrevenuemultiple" type="text" size="10" value='<?php echo $mycomprow["Revenue_Multiple"];?>' >
+										<input name="txtrevenuemultiple1" id="txtrevenuemultiple1" type="text" size="10" value='<?php echo $mycomprow["Revenue_Multiple_Pre"];?>' >
+										<input name="txtrevenuemultiple2" id="txtrevenuemultiple2" type="text" size="10" value='<?php echo $mycomprow["Revenue_Multiple_Post"];?>' >
+										
+									</td>
+										</tr>
+									<tr>
+									<td >EBITDA Multiple</td>
+									<td >
+										<input name="txtEBITDAmultiple" id="txtEBITDAmultiple" type="text" size="10" value='<?php echo $mycomprow["EBITDA_Multiple"];?>' >
+										<input name="txtEBITDAmultiple1" id="txtEBITDAmultiple1" type="text" size="10" value='<?php echo $mycomprow["EBITDA_Multiple_Pre"];?>' >
+										<input name="txtEBITDAmultiple2" id="txtEBITDAmultiple2" type="text" size="10" value='<?php echo $mycomprow["EBITDA_Multiple_Post"];?>' >
+									
+									</td>
+									</tr>
+									<tr>
+										<td >PAT Multiple</td>
+									<td >
+									<input name="txtpatmultiple" id="txtpatmultiple" type="text" size="10" value='<?php echo $mycomprow["PAT_Multiple"];?>' >
+										<input name="txtpatmultiple1" id="txtpatmultiple1" type="text" size="10" value='<?php echo $mycomprow["PAT_Multiple_Pre"];?>'>
+										<input name="txtpatmultiple2" id="txtpatmultiple2" type="text" size="10" value='<?php echo $mycomprow["PAT_Multiple_Post"];?>'>
+										
+									</td>
 								</tr>
+
 								
 								
 								<!-- New feature 08-08-2016 start 
@@ -809,6 +849,12 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
                                                                     <td ><b>Autofill Revenues (INR Cr), EBITDA (INR Cr), PAT (INR Cr) Values</b></td>
                                                                 <td ><label> <input name="getrevenue_value" id="getrevenue_value" type="checkbox" <?php echo $checked; ?>></label> </td>
 							        </tr>
+
+									<tr>
+									<td>Financial/Calendar Year</td>
+									<td><input name="txtyear" id="txtyear" type="text" size="15" value="<?php echo $mycomprow["financial_year"];?>"> </td>
+								</tr>
+
                                                                  <tr>
 								<td >Revenues (INR Cr)</td>
 								<td ><input name="txtrevenue" id="txtrevenue" type="text" size="10" value=<?php echo $mycomprow["Revenue"];?> ></td>
@@ -821,6 +867,20 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
 								<td >PAT (INR Cr)</td>
 								<td ><input name="txtpat" id="txtpat" type="text" size="10" value=<?php echo $mycomprow["PAT"];?> ></td>
 								</tr>
+
+
+								<tr>
+									<td >Total Debt (INR Cr)</td>
+									<td ><input name="txttot_debt" id="txttot_debt" type="text" size="10" value='<?php echo $mycomprow["Total_Debt"];?>' ></td>
+								</tr>
+								
+								<tr>
+									<td >Cash & Cash Equ. (INR Cr)</td>
+									<td ><input name="txtcashequ" id="txtcashequ" type="text" size="10" value='<?php echo $mycomprow["Cash_Equ"];?>' ></td>
+								</tr>
+
+
+
 								<tr>
 								<td >Link for Financials (LISTED FIRM ONLY)</td>
 								<td><textarea name="txtfinlink" rows="3" cols="40"><?php echo $mycomprow["FinLink"]; ?></textarea> </td>
@@ -1037,3 +1097,18 @@ $value = isset($_REQUEST['value']) ? $_REQUEST['value'] : '';
  else
  	header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
+
+
+<style>
+    .add_ul{
+        padding-left: 0px;
+    }
+    .add_ul li{
+        list-style: none;
+        float: left;
+        width:103px;
+        text-align: left;
+        padding-left: 2px;
+        font-weight: bold;
+    }
+   </style>

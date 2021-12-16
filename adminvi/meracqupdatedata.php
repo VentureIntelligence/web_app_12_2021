@@ -30,6 +30,27 @@
 
 		$hideamouttoUpdate=0;
 
+
+		// echo '<pre>'; print_r($_POST['txtcompanyvaluation']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtcompanyvaluation1']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtcompanyvaluation2']); echo '</pre>';
+
+		// echo '<pre>'; print_r($_POST['txtrevenuemultiple']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtrevenuemultiple1']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtrevenuemultiple2']); echo '</pre>';
+
+		// echo '<pre>'; print_r($_POST['txtEBITDAmultiple']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtEBITDAmultiple1']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtEBITDAmultiple2']); echo '</pre>';
+
+		// echo '<pre>'; print_r($_POST['txtpatmultiple']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtpatmultiple1']); echo '</pre>';
+		// echo '<pre>'; print_r($_POST['txtpatmultiple2']); echo '</pre>';
+
+		// exit;
+
+
+
          $MandAIdtoUpdate = $_POST['txtMAMAId'];
 		 $editcompanygroup = $_POST['editcompanygroup'];
 
@@ -140,7 +161,9 @@
                 if($pat==""){
                     $pat=0;
                 }
-		$company_valuation=$_POST['txtcompanyvaluation'];
+
+
+				$company_valuation=$_POST['txtcompanyvaluation'];
                 if($company_valuation=="")
                   $company_valuation=0;
 
@@ -157,6 +180,49 @@
                 $pat_mutliple=$_POST['txtpatmultiple'];
                 if($pat_multiple=="")
                   $pat_multiple=0;
+
+
+				  $company_valuation1=$_POST['txtcompanyvaluation1'];
+				  if($company_valuation1=="")
+					$company_valuation1=0;
+  
+				  $revenue_multiple1=$_POST['txtrevenuemultiple1'];
+				  if($revenue_multiple1=="")
+				  {
+					 $revenue_multiple1=0;
+				  }
+  
+				  $ebitda_mutliple1=$_POST['txtEBITDAmultiple1'];
+				  if($ebitda_mutliple1=="")
+					 $ebitda_mutliple1=0;
+  
+				  $pat_mutliple1=$_POST['txtpatmultiple1'];
+				  if($pat_multiple1=="")
+					$pat_multiple1=0;
+
+
+					$company_valuation2=$_POST['txtcompanyvaluation2'];
+					if($company_valuation2=="")
+					  $company_valuation2=0;
+	
+					$revenue_multiple2=$_POST['txtrevenuemultiple2'];
+					if($revenue_multiple2=="")
+					{
+					   $revenue_multiple2=0;
+					}
+	
+					$ebitda_mutliple2=$_POST['txtEBITDAmultiple2'];
+					if($ebitda_mutliple2=="")
+					   $ebitda_mutliple2=0;
+	
+					$pat_mutliple2=$_POST['txtpatmultiple2'];
+					if($pat_multiple2=="")
+					  $pat_multiple2=0;
+
+					  $txttot_debt=$_POST['txttot_debt'];
+					  $txtcashequ=$_POST['txtcashequ'];
+
+					  $financial_year=$_POST['txtyear'];
 				  
 				
 				// New feature 08-08-2016 start
@@ -275,8 +341,15 @@
 				$UpdateInvestmentSql="update mama set DealDate='$fulldate', company_group='$editcompanygroup', Amount=$dealSizetoUpadte,Stake=$staketoUpdate,AcquirerId=$NewacquirerIdtoUpdate,MADealTypeID=$dealtypetoUpdate,
 				Comment='$commenttoUpdate',MoreInfor='$moreInfortoUpdate',Asset=$assetflag,ModifiedDate='$modifieddate',
 				Validation='$validationtoUpdate',hideamount=$hideamountflag,Link='$linktoUpdate',Valuation='$valuation',FinLink='$finlink',
-				Company_Valuation=$company_valuation,Revenue_Multiple=$revenue_multiple,
-                                        EBITDA_Multiple=$ebitda_mutliple,PAT_Multiple=$pat_mutliple , price_to_book=$price_to_book, book_value_per_share=$book_value_per_share, price_per_share=$price_per_share, target_listing_status='$target_listingstatusvalue',acquirer_listing_status='$acquirer_listingstatusvalue',AggHide=$hideAggregatetoUpdate,Revenue=$revenue,EBITDA=$ebitda,PAT=$pat
+
+				Company_Valuation=$company_valuation,Revenue_Multiple=$revenue_multiple,EBITDA_Multiple=$ebitda_mutliple,PAT_Multiple=$pat_mutliple , 
+
+				Company_Valuation_Post=$company_valuation2,Revenue_Multiple_Post=$revenue_multiple2,EBITDA_Multiple_Post=$ebitda_mutliple2,PAT_Multiple_Post=$pat_mutliple2 , 
+				
+				Company_Valuation_Pre=$company_valuation1,Revenue_Multiple_Pre=$revenue_multiple1,EBITDA_Multiple_Pre=$ebitda_mutliple1,PAT_Multiple_Pre=$pat_mutliple1 , financial_year=$financial_year,
+				
+
+										price_to_book=$price_to_book, book_value_per_share=$book_value_per_share, price_per_share=$price_per_share, target_listing_status='$target_listingstatusvalue',acquirer_listing_status='$acquirer_listingstatusvalue',AggHide=$hideAggregatetoUpdate,Revenue=$revenue,EBITDA=$ebitda,PAT=$pat,Total_Debt=$txttot_debt,Cash_Equ=$txtcashequ
 				where MAMAId=$MandAIdtoUpdate";
 			    }
 			    else
@@ -285,8 +358,14 @@
 				Comment='$commenttoUpdate',MoreInfor='$moreInfortoUpdate',Asset=$assetflag,ModifiedDate='$modifieddate',
 				Validation='$validationtoUpdate',hideamount=$hideamountflag,Link='$linktoUpdate',uploadfilename='$filename',source='$sourcename',
 				Valuation='$valuation',FinLink='$finlink',
-				Company_Valuation=$company_valuation,Revenue_Multiple=$revenue_multiple,
-                                        EBITDA_Multiple=$ebitda_mutliple,PAT_Multiple=$pat_mutliple, price_to_book=$price_to_book, book_value_per_share=$book_value_per_share, price_per_share=$price_per_share, target_listing_status='$target_listingstatusvalue',acquirer_listing_status='$acquirer_listingstatusvalue',AggHide=$hideAggregatetoUpdate,Revenue=$revenue,EBITDA=$ebitda,PAT=$pat
+
+				Company_Valuation=$company_valuation,Revenue_Multiple=$revenue_multiple,EBITDA_Multiple=$ebitda_mutliple,PAT_Multiple=$pat_mutliple, 
+
+				Company_Valuation_Post=$company_valuation2,Revenue_Multiple_Post=$revenue_multiple2,EBITDA_Multiple_Post=$ebitda_mutliple2,PAT_Multiple_Post=$pat_mutliple2 , 
+				
+				Company_Valuation_Pre=$company_valuation1,Revenue_Multiple_Pre=$revenue_multiple1,EBITDA_Multiple_Pre=$ebitda_mutliple1,PAT_Multiple_Pre=$pat_mutliple1 , financial_year=$financial_year,
+
+				price_to_book=$price_to_book, book_value_per_share=$book_value_per_share, price_per_share=$price_per_share, target_listing_status='$target_listingstatusvalue',acquirer_listing_status='$acquirer_listingstatusvalue',AggHide=$hideAggregatetoUpdate,Revenue=$revenue,EBITDA=$ebitda,PAT=$pat,Total_Debt=$txttot_debt,Cash_Equ=$txtcashequ
                                  where MAMAId=$MandAIdtoUpdate";
 			    }
 

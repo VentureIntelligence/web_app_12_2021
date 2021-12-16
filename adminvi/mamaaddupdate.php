@@ -26,6 +26,14 @@
 
 if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLoggedIpAdd"))
 	 	{
+
+
+					// echo '<pre>'; print_r($_POST); echo '</pre>';
+
+
+					// exit;
+
+
 			$user=$_SESSION['UserNames'];
 
 	 				$portfoliocompany = $_POST['txtcompanyname'];
@@ -133,7 +141,8 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 				$fullDateAfter=$MandADate;
 				$valuation=$_POST['txtvaluation'];
 				
-				$company_valuation=$_POST['txtcompanyvaluation'];
+
+								$company_valuation=$_POST['txtcompanyvaluation'];
                                 if($company_valuation=="")
                                   $company_valuation=0;
 
@@ -148,6 +157,49 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
                                 $pat_multiple=$_POST['txtpatmultiple'];
                                 if($pat_multiple=="")
                                    $pat_mutliple=0;
+
+
+								$company_valuation1=$_POST['txtcompanyvaluation1'];
+                                if($company_valuation1=="")
+                                  $company_valuation1=0;
+
+                                $revenue_multiple1=$_POST['txtrevenuemultiple1'];
+                                if($revenue_multiple1=="")
+                                   $revenue_multiple1=0;
+
+                                $ebitda_multiple1=$_POST['txtEBITDAmultiple1'];
+                                if($ebitda_multiple1=="")
+                                   $ebitda_multiple1=0;
+
+                                $pat_multiple1=$_POST['txtpatmultiple1'];
+                                if($pat_multiple1=="")
+                                   $pat_multiple1=0;
+
+
+								$company_valuation2=$_POST['txtcompanyvaluation2'];
+                                if($company_valuation2=="")
+                                  $company_valuation2=0;
+
+                                $revenue_multiple2=$_POST['txtrevenuemultiple2'];
+                                if($revenue_multiple2=="")
+                                   $revenue_multiple2=0;
+
+                                $ebitda_multiple2=$_POST['txtEBITDAmultiple2'];
+                                if($ebitda_multiple2=="")
+                                   $ebitda_multiple2=0;
+
+                                $pat_multiple2=$_POST['txtpatmultiple2'];
+                                if($pat_multiple2=="")
+                                   $pat_multiple2=0;
+
+
+								   $txtyear  = $_POST['txtyear'];
+
+
+								   $txttot_debt=$_POST['txttot_debt'];
+								   $txtcashequ=$_POST['txtcashequ'];
+
+
 								   
                                 // New feature 08-08-2016 start
 							
@@ -262,8 +314,14 @@ if (session_is_registered("SessLoggedAdminPwd") && session_is_registered("SessLo
 								$createddate=date("Y-m-d")." ".date("H:i:s");
 								$modifieddate=$createddate;
 
-								$insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT,price_to_book,book_value_per_share,price_per_share,company_group)
-								VALUES ('$MAMAId','$companyId','$amount','$stake','$fullDateAfter','$dealTypeId','$AcquirerId','$comment','$moreinfor','$validation','$assetFlag','$flagdeletion','$createddate','$modifieddate','$hideamountFlag','$link','$filename','$sourcename','$valuation','$finlink','$company_valuation','$revenue_multiple','$ebitda_multiple','$pat_multiple','$target_listingstatusvalue','$acquirer_listingstatusvalue','$hideAggregatetoUpdate','$revenue','$ebitda','$pat','$price_to_book','$book_value_per_share','$price_per_share','$companygroup')";
+								$insertcompanysql= "INSERT INTO mama (MAMAId,PECompanyId,Amount,Stake,DealDate,MADealTypeId,AcquirerId,Comment,MoreInfor,Validation,Asset,Deleted,CreatedDate,ModifiedDate,hideamount,Link,uploadfilename,source,Valuation,FinLink,Company_Valuation,Revenue_Multiple,EBITDA_Multiple,PAT_Multiple,
+								Company_Valuation_Pre,Revenue_Multiple_Pre,EBITDA_Multiple_Pre,PAT_Multiple_Pre,
+								Company_Valuation_Post,Revenue_Multiple_Post,EBITDA_Multiple_Post,PAT_Multiple_Post,
+								target_listing_status,acquirer_listing_status,AggHide,Revenue,EBITDA,PAT,Total_Debt,Cash_Equ,price_to_book,book_value_per_share,price_per_share,company_group,financial_year)
+								VALUES ('$MAMAId','$companyId','$amount','$stake','$fullDateAfter','$dealTypeId','$AcquirerId','$comment','$moreinfor','$validation','$assetFlag','$flagdeletion','$createddate','$modifieddate','$hideamountFlag','$link','$filename','$sourcename','$valuation','$finlink','$company_valuation','$revenue_multiple','$ebitda_multiple','$pat_multiple',
+								'$company_valuation1','$revenue_multiple1','$ebitda_multiple1','$pat_multiple1',
+								'$company_valuation2','$revenue_multiple2','$ebitda_multiple2','$pat_multiple2',
+								'$target_listingstatusvalue','$acquirer_listingstatusvalue','$hideAggregatetoUpdate','$revenue','$ebitda','$pat','$txttot_debt','$txtcashequ','$price_to_book','$book_value_per_share','$price_per_share','$companygroup','$txtyear')";
 
 								// echo "<br>@@@@ :".$insertcompanysql; exit;
 
