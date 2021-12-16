@@ -326,7 +326,7 @@
 								</td></tr>
 
 
-                                                                <tr>
+								<!-- <tr>
 								<td >Company Valuation (INR Cr)</td>
 								<td >
 								<input name="txtcompanyvaluation" id="txtcompanyvaluation" type="text" size="10" value="0.00"> </td>
@@ -342,7 +342,45 @@
 								<tr>
 									<td >PAT Multiple</td>
 									<td ><input name="txtpatmultiple" id="txtpatmultiple" type="text" size="10" value="0.00"> </td>
+								</tr> -->
+
+
+								<tr>
+									<td >Company Valuation (INR Cr)</td>
+									<td >
+										<ul class="add_ul"><li>Pre-Money</li><li> Post-Money</li><li> EV</li></ul><br />
+										<input name="txtcompanyvaluation" id="txtcompanyvaluation" type="text" size="10" value='' > 
+										<input name="txtcompanyvaluation1" id="txtcompanyvaluation1" type="text" size="10" value='' > 
+										<input name="txtcompanyvaluation2" id="txtcompanyvaluation2" type="text" size="10" value='' >                                                                 
+									</td>
+									</tr>
+									<tr>
+									<td >Revenue Multiple</td>
+									<td >
+										<input name="txtrevenuemultiple" id="txtrevenuemultiple" type="text" size="10" value='' >
+										<input name="txtrevenuemultiple1" id="txtrevenuemultiple1" type="text" size="10" value='' >
+										<input name="txtrevenuemultiple2" id="txtrevenuemultiple2" type="text" size="10" value='' >
+									</td>
+										</tr>
+									<tr>
+									<td >EBITDA Multiple</td>
+									<td >
+										<input name="txtEBITDAmultiple" id="txtEBITDAmultiple" type="text" size="10" value='' >
+										<input name="txtEBITDAmultiple1" id="txtEBITDAmultiple1" type="text" size="10" value='' >
+										<input name="txtEBITDAmultiple2" id="txtEBITDAmultiple2" type="text" size="10" value='' >
+									</td>
+									</tr>
+									<tr>
+										<td >PAT Multiple</td>
+									<td >
+										<input name="txtpatmultiple" id="txtpatmultiple" type="text" size="10" value=''>
+										<input name="txtpatmultiple1" id="txtpatmultiple1" type="text" size="10" value=''>
+										<input name="txtpatmultiple2" id="txtpatmultiple2" type="text" size="10" value='' >
+									</td>
 								</tr>
+
+
+
 								
 								<!-- New feature 08-08-2016 start 
 								
@@ -372,6 +410,10 @@
                                                                 <td ><label> <input name="getrevenue_value" id="getrevenue_value" type="checkbox"  ></label> </td>
 							        </tr>
                                                                 <tr>
+								<tr>
+									<td>Financial/Calendar Year</td>
+									<td><input name="txtyear" id="txtyear" type="text" size="15" value=""> </td>
+								</tr>
 								<td >Revenues (INR Cr)</td>
 								<td ><input name="txtrevenue" id="txtrevenue" type="text" size="10" value="0.00"> </td>
 							        </tr>
@@ -383,6 +425,21 @@
 								<td >PAT (INR Cr)</td>
 								<td ><input name="txtpat" id="txtpat" type="text" size="10" value="0.00"> </td>
 								</tr>
+								
+
+
+								<tr>
+									<td >Total Debt (INR Cr)</td>
+									<td ><input name="txttot_debt" id="txttot_debt" type="text" size="10" value='' ></td>
+								</tr>
+								
+								<tr>
+									<td >Cash & Cash Equ. (INR Cr)</td>
+									<td ><input name="txtcashequ" id="txtcashequ" type="text" size="10" value='' ></td>
+								</tr>
+
+
+
 								<tr>
 								<td >Link for Financials (LISTED FIRM ONLY)</td>
 								<td><textarea name="txtfinlink" rows="3" cols="40"></textarea> </td>
@@ -641,3 +698,21 @@
  else
  	header( 'Location: ' . BASE_URL . 'admin.php' ) ;
 ?>
+
+
+
+
+
+<style>
+    .add_ul{
+        padding-left: 0px;
+    }
+    .add_ul li{
+        list-style: none;
+        float: left;
+        width:103px;
+        text-align: left;
+        padding-left: 2px;
+        font-weight: bold;
+    }
+   </style>
