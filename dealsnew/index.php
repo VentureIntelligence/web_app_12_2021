@@ -378,6 +378,7 @@ if (isset($_POST['popup_select'])) {
             // echo $period_flag.'<br />';
             
             if($period_flag == 2 ){
+                
 
                 // echo 'flag_1_2';
 
