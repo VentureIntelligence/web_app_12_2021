@@ -395,12 +395,12 @@ if (isset($_POST['popup_select'])) {
 
             // echo $period_flag.'<br />';
             
-            if($period_flag == 2 || $period_flag == 1 ){
+            if($period_flag == 2 ){
 
                 // echo 'flag_1_2';
 
-                // $month1 = $_POST['month1'];
-                // $year1 = $_POST['year1'];
+                $month1 = $_POST['month1'];
+                $year1 = $_POST['year1'];
 
                 $month1=01;
                 $year1 = 1998;
