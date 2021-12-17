@@ -5938,16 +5938,14 @@ try {
 
                         $investor_cnt=0;
                         
-                    //     $investorGroupSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
-                    // GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from
-                    //         peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec,
-                    //         peinvestors as inv where pe.PECompanyId='$PECompanyId' and
-                    //         peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
-                    //         and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by DealId order by dates desc";
+                        $investorGroupSql="select pe.PEId as DealId,peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation,
+                    GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from
+                            peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec, stage as s,
+                            peinvestors as inv where pe.PECompanyId='$PECompanyId' and s.StageId=pe.StageId and
+                            peinv.PEId=pe.PEId and inv.InvestorId=peinv.InvestorId and pe.Deleted=0
+                            and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and peinv.InvestorId!=9 group by DealId order by dates desc";
 
-                    // $investorGroupSql="select peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation from stage as s,peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec, peinvestors as inv where pe.PECompanyId='9882588' and peinv.PEId = pe.PEId  and inv.InvestorId = peinv.InvestorId and pe.Deleted=0 and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and s.StageId = pe.StageId order by dates desc";
-
-                    $investorGroupSql="  select peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation, GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from stage as s,peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec, peinvestors as inv where pe.PECompanyId='9882588' and peinv.PEId = pe.PEId  and inv.InvestorId = peinv.InvestorId and pe.Deleted=0 and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and s.StageId = pe.StageId order by dates desc";
+                    // $investorGroupSql="  select peinv.PEId,peinv.InvestorId,inv.Investor,DATE_FORMAT( dates, '%b-%Y' ) as dt,AggHide,SPV,pe.stakepercentage,pe.hidestake,pe.Amount_INR,pe.hideamount,pe.Company_Valuation, GROUP_CONCAT( inv.Investor,CASE WHEN peinv.leadinvestor = 1 THEN ' (L)' ELSE '' END,CASE WHEN peinv.newinvestor = 1 THEN ' (N)' ELSE '' END ORDER BY inv.InvestorId) as Investors,GROUP_CONCAT( inv.InvestorId ORDER BY inv.InvestorId) as InvestorIds from stage as s,peinvestments as pe, peinvestments_investors as peinv,pecompanies as pec, peinvestors as inv where pe.PECompanyId='$PECompanyId' and peinv.PEId = pe.PEId  and inv.InvestorId = peinv.InvestorId and pe.Deleted=0 and pec.PEcompanyId=pe.PECompanyId and pec.industry!=15 and s.StageId = pe.StageId order by dates desc";
 
 
                   
@@ -6252,7 +6250,7 @@ try {
                                                                                 // echo '<pre>'; print_r($invResult2); echo '</pre>';
 
 
-                                                                                if(($invResult==0) && ($invResult1==0) && ($invResult2==1))
+                                                                                if(($invResult==0) && ($invResult1==0) && ($invResult2==0))
                                                                                 {
                                                                                    $addTrancheWord="";
                                                                                    $addDebtWord="";
