@@ -920,7 +920,7 @@
                 where IPODate between '" . $getdt1. "' and '" . $getdt2 . "' AND i.industryid=pec.industry and
                 pec.PEcompanyID = pei.PECompanyID  and  ipoinv.IPOId=pei.IPOId  and
                 pei.Deleted=0 " .$addVCFlagqry. " ".$addDelind.$comp_industry_id_where." GROUP BY pei.IPOId ";
-                $orderby="IPODate";
+                $orderby="dates";
                 $ordertype="desc";
 //                         echo "<br>all dashboard" .$companysql;
          }
@@ -951,7 +951,7 @@
                         $companysql = $companysql . "  i.industryid=pec.industry and
                                 pec.PEcompanyID = pei.PECompanyID  and  ipoinv.IPOId=pei.IPOId  and
                                 pei.Deleted=0 " .$addVCFlagqry. " ".$addDelind.$comp_industry_id_where." GROUP BY pei.IPOId ";
-                        $orderby="IPODate";
+                        $orderby="dates";
                         $ordertype="desc";
                        // echo $companysql;
 
@@ -998,7 +998,7 @@
                     pecompanies AS pec,ipo_investors AS peinv_invs, peinvestors AS invs
                     WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID " .$wheredates1.
                     " AND pe.Deleted =0 " .$addVCFlagqry. " ".$addDelind." AND ( $tagsval ) and peinv_invs.IPOId=pe.IPOId and invs.InvestorId=peinv_invs.InvestorId $comp_industry_id_where GROUP BY pe.IPOId";
-                    $orderby="IPODate";
+                    $orderby="dates";
                     $ordertype="desc";
                     //  echo "<br>Query for company search";
                     //  echo "<br> Company search--" .$companysql;
@@ -1049,7 +1049,7 @@
                         pecompanies AS pec,ipo_investors AS peinv_invs, peinvestors AS invs
                         WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID " .$wheredates1.
                         " AND pe.Deleted =0 " .$addVCFlagqry. " ".$addDelind." AND ( $tagsval ) and peinv_invs.IPOId=pe.IPOId and invs.InvestorId=peinv_invs.InvestorId $comp_industry_id_where GROUP BY pe.IPOId";
-                        $orderby="IPODate";
+                        $orderby="dates";
                         $ordertype="desc";
                 //  echo "<br>Query for company search";
 //           echo "<br> Company search--" .$companysql;
@@ -1069,7 +1069,7 @@
                         pecompanies AS pec
                         WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID " .$wheredates1.
                         " AND pe.Deleted =0 " .$addVCFlagqry. " ".$addDelind." AND ( pec.PECompanyId IN ($companysearch)) $comp_industry_id_where  GROUP BY pe.IPOId ";
-                        $orderby="IPODate";
+                        $orderby="dates";
                         $ordertype="desc";
                 //  echo "<br>Query for company search";
          //  echo "<br> Company search--" .$companysql;
@@ -1094,7 +1094,7 @@
                     where c.industry = i.industryid " .$wheredates1.
                     " and peinv.IPOId=peinv_invs.IPOId and c.PECompanyId=peinv.PECompanyId  and peinv.Deleted=0
                     " .$addVCFlagqry." ".$addDelind." and invs.InvestorId IN($keyword) and peinv_invs.IPOId =peinv.IPOId and invs.InvestorId=peinv_invs.InvestorId $comp_industry_id_where GROUP BY peinv.IPOId ";
-                    $orderby="IPODate";
+                    $orderby="dates";
                     $ordertype="desc";
 //              echo "<br> Investor search- ".$companysql;
                 }
@@ -1261,7 +1261,7 @@
                     $companysql = $companysql . "  i.industryid=pec.industry and
                     pec.PEcompanyID = pei.PECompanyID  and  ipoinv.IPOId=pei.IPOId  and
                     pei.Deleted=0 " .$addVCFlagqry. " ".$addDelind.$comp_industry_id_where." GROUP BY pei.IPOId ";
-                                        $orderby="IPODate";
+                                        $orderby="dates";
                                         $ordertype="desc";
 //                  echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
                 }

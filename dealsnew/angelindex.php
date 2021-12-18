@@ -770,7 +770,7 @@ if (!$_POST) {
     $dt2 = $year2 . "-" . $month2 . "-31";
     if ($listallcompany == 1) {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId,pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-                     DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
+                     DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
                      FROM angelinvdeals AS pe, industry AS i, pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
         WHERE  DealDate between '" . $dt1 . "' and '" . $dt2 . "' and i.industryid  = pec.industry AND pec.PEcompanyID = pe.InvesteeId  and pe.Deleted=0
         and peinv_inv.AngelDealId=pe.AngelDealId and inv.InvestorId=peinv_inv.InvestorId " . $addVCFlagqry . " " . $addDelind . "
@@ -779,7 +779,7 @@ if (!$_POST) {
         $ordertype = "desc";
     } else {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId,pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-                     DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
+                     DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
                      FROM angelinvdeals AS pe, industry AS i, pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
         WHERE  DealDate between '" . $dt1 . "' and '" . $dt2 . "' and i.industryid  = pec.industry AND pec.PEcompanyID = pe.InvesteeId  and pe.Deleted=0 and pe.AggHide=0
         and peinv_inv.AngelDealId=pe.AngelDealId and inv.InvestorId=peinv_inv.InvestorId " . $addVCFlagqry . " " . $addDelind . "
@@ -823,7 +823,7 @@ if (!$_POST) {
 
     if ($listallcompany == 1) {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-            DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,
+            DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,
              pe.Comment,pe.MoreInfor,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
             FROM angelinvdeals AS pe, industry AS i,    pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
             WHERE DealDate between '" . $dt1 . "' and '" . $dt2 . "' and pec.industry = i.industryid AND pec.PEcompanyID = pe.InvesteeId
@@ -833,7 +833,7 @@ if (!$_POST) {
         $ordertype = "desc";
     } else {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-            DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,
+            DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,
              pe.Comment,pe.MoreInfor,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
             FROM angelinvdeals AS pe, industry AS i,    pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
             WHERE DealDate between '" . $dt1 . "' and '" . $dt2 . "' and pec.industry = i.industryid AND pec.PEcompanyID = pe.InvesteeId
@@ -893,7 +893,7 @@ if (!$_POST) {
 
     if ($listallcompany == 1) {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-                        DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,
+                        DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,
                          pe.Comment,pe.MoreInfor,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
                          FROM angelinvdeals AS pe, industry AS i,    pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
                         WHERE DealDate between '" . $dt1 . "' and '" . $dt2 . "' and pec.industry = i.industryid AND pec.PEcompanyID = pe.InvesteeId
@@ -903,7 +903,7 @@ if (!$_POST) {
         $ordertype = "desc";
     } else {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-                        DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,
+                        DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,
                          pe.Comment,pe.MoreInfor,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
                          FROM angelinvdeals AS pe, industry AS i,    pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
                         WHERE DealDate between '" . $dt1 . "' and '" . $dt2 . "' and pec.industry = i.industryid AND pec.PEcompanyID = pe.InvesteeId
@@ -923,7 +923,7 @@ if (!$_POST) {
     $combineSearchFlag = true;
     if ($listallcompany == 1) {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-        DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
+        DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
                     FROM angelinvdeals AS pe, industry AS i,  pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
                     WHERE DealDate between '" . $dt1 . "' and '" . $dt2 . "' and  pec.industry = i.industryid AND pec.PEcompanyID = pe.InvesteeId
         AND pe.Deleted =0 " . $addVCFlagqry . " " . $addDelind . " and peinv_inv.AngelDealId=pe.AngelDealId and inv.InvestorId=peinv_inv.InvestorId AND
@@ -932,7 +932,7 @@ if (!$_POST) {
         $ordertype = "desc";
     } else {
         $companysql = "SELECT pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId, pec.companyname, pec.industry, i.industry, pec.sector_business as sector_business,
-        DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
+        DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,pe.Dealdate as Dealdate, GROUP_CONCAT( inv.Investor ORDER BY Investor='others' separator ', ') AS Investor
                     FROM angelinvdeals AS pe, industry AS i,  pecompanies AS pec,angel_investors as peinv_inv,peinvestors as inv
                     WHERE DealDate between '" . $dt1 . "' and '" . $dt2 . "' and  pec.industry = i.industryid AND pec.PEcompanyID = pe.InvesteeId
         AND pe.Deleted =0 and pe.AggHide=0" . $addVCFlagqry . " " . $addDelind . " and peinv_inv.AngelDealId=pe.AngelDealId and inv.InvestorId=peinv_inv.InvestorId AND
@@ -992,7 +992,7 @@ if (!$_POST) {
     if ($listallcompany == 1) {
         $companysql = "select pe.AngelDealId,pec.PECompanyId,pe.AggHide,pec.companyname,pec.industry,i.industry,sector_business as sector_business,
                     peinv_inv.InvestorId,inv.Investor,pe.InvesteeId,pec.industry,
-                    pec.companyname,DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,i.industry,pe.Dealdate as Dealdate,
+                    pec.companyname,DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,i.industry,pe.Dealdate as Dealdate,
                     ( SELECT GROUP_CONCAT(p.Investor  ORDER BY Investor='others' separator ', ') from peinvestors p JOIN  angel_investors a ON  a.InvestorId=p.InvestorId where  a.AngelDealId =pe.AngelDealId  ) AS  Investor
                     from angel_investors as peinv_inv,peinvestors as inv,
                     angelinvdeals as pe,pecompanies as pec,industry as i
@@ -1005,7 +1005,7 @@ if (!$_POST) {
     } else {
         $companysql = "select pe.AngelDealId,pec.PECompanyId,pe.AggHide,pec.companyname,pec.industry,i.industry,sector_business as sector_business,
                     peinv_inv.InvestorId,inv.Investor,pe.InvesteeId,pec.industry,
-                    pec.companyname,DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,i.industry,pe.Dealdate as Dealdate,
+                    pec.companyname,DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,i.industry,pe.Dealdate as Dealdate,
                     ( SELECT GROUP_CONCAT(p.Investor  ORDER BY Investor='others' separator ', ') from peinvestors p JOIN  angel_investors a ON  a.InvestorId=p.InvestorId where  a.AngelDealId =pe.AngelDealId  ) AS  Investor
                     from angel_investors as peinv_inv,peinvestors as inv,
                     angelinvdeals as pe,pecompanies as pec,industry as i
@@ -1024,7 +1024,7 @@ if (!$_POST) {
     $dt2 = $year2 . "-" . $month2 . "-01";
 
     $companysql = "select r.Region,pe.AngelDealId,pe.InvesteeId,pe.AggHide,pec.PECompanyId,pec.companyname,pec.industry,i.industry,
-        pec.sector_business as sector_business,DATE_FORMAT( pe.DealDate, '%M-%Y' ) as dealperiod,pe.Dealdate as Dealdate,
+        pec.sector_business as sector_business,DATE_FORMAT( pe.DealDate, '%b-%Y' ) as dealperiod,pe.Dealdate as Dealdate,
         GROUP_CONCAT( inv.Investor  ORDER BY Investor='others' separator ', ') AS Investor
                             from angelinvdeals as pe, industry as i,pecompanies as pec,angel_investors as peinv_inv,peinvestors as inv,region as r where";
     //    echo "<br> individual where clauses have to be merged ";

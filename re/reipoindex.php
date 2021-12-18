@@ -633,7 +633,7 @@
 					}
 					$companysql = $companysql . " ".$whereexitstatus.  "  i.industryid=pec.industry and
 					pec.PEcompanyID = pe.PECompanyID  and
-					pe.Deleted=0 " .$addVCFlagqry. " ";
+					pe.Deleted=0 " .$addVCFlagqry. " order";
 		       		//echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
 				}
 				else
@@ -641,7 +641,8 @@
 					echo "<br> INVALID DATES GIVEN ";
 					$fetchRecords=false;
 				}
-                                $companysql .= " order by IPODate desc, companyname";
+                $companysql .= " order by IPODate desc, companyname";
+                //$companysql .= " order by IPODate desc, companyname";
 	 
 	$topNav = 'Deals';
 	include_once('reipoindex_search.php');
@@ -918,11 +919,7 @@
                                         }
 				} 
 			?>
-            
-             <div class="holder"></div>
-             <!-- <span> <input name="paginationinput" type="text" class="inputpagination" id="paginationinput" value = "" placeholder = "Enter Page No"> </span>  <input name="pagination" type="button" value="Go" class="particularpage" id="pagination" onclick = "paginationfunc()">     -->
-
-
+             <div class="holder"></div>	                 
            <?php
 			$exportToExcel=0;
 			 $TrialSql="select dm.DCompId,dc.DCompId,TrialLogin,Student from dealcompanies as dc,RElogin_members as dm
@@ -1033,7 +1030,7 @@
                        <div class="showhide-link" id="trendnav" style="z-index: 100000"><a href="#" class="show_hide <?php echo ($_GET['type']!='') ? '' : ''; ?>" rel="#slidingTable" id='ldtrend'><i></i>Trend View</a></div>
                             <div  id="slidingTable" style="display: none;overflow:hidden;">
                                <?php
-                                   // include_once("reipotrendview.php");
+                                    include_once("reipotrendview.php");
                                ?>   
                                <table width="100%">
 									<?php
@@ -2024,18 +2021,3 @@ function writeSql_for_no_records($sqlqry,$mailid)
     });                               
     </script>  
  <?php  mysql_close(); ?>
-
-
-<script>
-
-function paginationfunc()
-{
-    var pagination = $("#paginationinput").val();
-    if(pagination=='')
-    {
-        pagination = 1;
-    }
-    window.location.href = "reipoindex.php?value="+pagination;
-
-}
-</script>

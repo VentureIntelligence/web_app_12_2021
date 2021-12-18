@@ -987,8 +987,8 @@
                         and pec.PEcompanyID = pe.PECompanyID and c.countryid=pec.countryid and ac.AcquirerId = pe.AcquirerId and pec.industry != 15 
                         ".$getind." ".$getst." ".$getinvest." ".$getregion." ".$getrange." " .$addVCFlagqry.$comp_industry_id_where. "  and pe.Deleted=0";
                         
-                         $orderby="companyname";
-                       $ordertype="asc";
+                        $orderby="DealDate";
+                        $ordertype="desc";
                         }
                     else if(!$_POST){
                       
@@ -1005,8 +1005,8 @@
                         and pec.PEcompanyID = pe.PECompanyID and c.countryid=pec.countryid and ac.AcquirerId = pe.AcquirerId and pec.industry != 15 
                         and pe.Deleted=0 ".$comp_industry_id_where;
                         
-                       $orderby="companyname";
-                       $ordertype="asc";
+                       $orderby="DealDate";
+                       $ordertype="desc";
                     //echo "<br>all records" .$companysqlFinal;
             }
             elseif($searchallfield != "")
@@ -1040,8 +1040,8 @@
                                 mama AS pe, industry AS i, pecompanies AS pec,acquirers as ac
                                 WHERE DealDate between '" . $dt1. "' and '" . $dt2 . "' and pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and ac.AcquirerId=pe.AcquirerId
                         AND pe.Deleted =0 and pec.industry != 15 " .$addVCFlagqry." AND ( $tagsval) $comp_industry_id_where ";
-                                $orderby="companyname";
-                                $ordertype="asc";
+                                $orderby="DealDate";
+                                $ordertype="desc";
                                 $popup_search=1;
                 
             //echo "<bR>---searchallfield" .$companysqlFinal;
@@ -1069,8 +1069,8 @@
                                 WHERE pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and ac.AcquirerId=pe.AcquirerId
                                 AND pe.Deleted =0 and pec.industry != 15 " .$addVCFlagqry.
                                 " AND  (pec.companyname LIKE '%$targetcompanysearch%') "; */
-                                 $orderby="companyname";
-                                 $ordertype="asc";
+                                 $orderby="DealDate";
+                                 $ordertype="desc";
                                  $popup_search=1;
             
                             //echo "<br> Company search--" .$companysqlFinal;
@@ -1129,8 +1129,8 @@
                                 WHERE DealDate between '" . $dt1. "' and '" . $dt2 . "' and   pec.industry = i.industryid AND pec.PEcompanyID = pe.PECompanyID and ac.AcquirerId=pe.AcquirerId
                         AND pe.Deleted =0 and pec.industry != 15 " .$addVCFlagqry.$comp_industry_id_where.
                                 " AND  ($sector_filter) $wheredealtype";
-                                $orderby="companyname";
-                                $ordertype="asc";
+                                $orderby="DealDate";
+                                $ordertype="desc";
                                 $popup_search=1;
             
                             //echo "<br> Company search--" .$companysqlFinal;
@@ -1183,8 +1183,8 @@
                             AND c.industry = i.industryid
                             AND c.PECompanyId = peinv.PECompanyId and peinv.Deleted=0
                             AND c.industry !=15  AND ac.Acquirer LIKE '$like' "; */
-                            $orderby="companyname";
-                            $ordertype="asc";
+                            $orderby="DealDate";
+                            $ordertype="desc";
                             $popup_search=1;
             
                            // echo "<br> acquire search--" .$companysqlFinal;
@@ -1216,8 +1216,8 @@
                             from mama AS peinv, pecompanies AS c, industry AS i,advisor_cias AS cia,mama_advisorcompanies AS adcomp,acquirers as ac
                             where DealDate between '" . $dt1. "' and '" . $dt2 . "' and c.industry=i.industryid and ac.AcquirerId=peinv.AcquirerId and c.PECompanyId=peinv.PECompanyId
                             and adcomp.CIAId=cia.CIAID and adcomp.MAMAId=peinv.MAMAId and AdvisorType='L' and (" . $legalWhereCond . ")  $comp_industry_id_where )";
-                            $orderby="companyname";
-                            $ordertype="asc";
+                            $orderby="DealDate";
+                            $ordertype="desc";
                             $popup_search=1;
                                 
             /*echo "<br>LEGAL -".$companysqlFinal;
@@ -1249,8 +1249,8 @@
                             from mama AS peinv, pecompanies AS c, industry AS i,advisor_cias AS cia,mama_advisorcompanies AS adcomp,acquirers as ac
                             where DealDate between '" . $dt1. "' and '" . $dt2 . "' and c.industry=i.industryid and ac.AcquirerId=peinv.AcquirerId and c.PECompanyId=peinv.PECompanyId
                             and adcomp.CIAId=cia.CIAID and adcomp.MAMAId=peinv.MAMAId and AdvisorType='T' and (". $transWhereCond .") $comp_industry_id_where )";
-                            $orderby="companyname";
-                            $ordertype="asc";
+                            $orderby="DealDate";
+                            $ordertype="desc";
                             $popup_search=1;
                         //echo "trans".$companysqlFinal;
             }
@@ -1424,8 +1424,8 @@
                                         $companysqlFinal = $companysql . "  i.industryid=pec.industry and  pec.PEcompanyID = pe.PECompanyID
                             and  c.countryid=pec.countryid and ac.AcquirerId = pe.AcquirerId
                             and pec.industry != 15 and pe.Deleted=0 $comp_industry_id_where ";
-                                        $orderby="companyname";
-                                        $ordertype="asc";
+                                        $orderby="DealDate";
+                                        $ordertype="desc";
                                         if($whereacquirerCountry != "")
                                         {
 
@@ -1433,8 +1433,8 @@
                                                 $companysqlFinal = $companysql . "  i.industryid=pec.industry and  pec.PEcompanyID = pe.PECompanyID
                                                 and  ac.AcquirerId = pe.AcquirerId
                                                 and pec.industry != 15 and pe.Deleted=0 $comp_industry_id_where ";
-                                                $orderby="companyname";
-                                                $ordertype="asc";
+                                                $orderby="DealDate";
+                                                $ordertype="desc";
                                         }
                                         $popup_search=1;
                     
