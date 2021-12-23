@@ -633,7 +633,7 @@
 					}
 					$companysql = $companysql . " ".$whereexitstatus.  "  i.industryid=pec.industry and
 					pec.PEcompanyID = pe.PECompanyID  and
-					pe.Deleted=0 " .$addVCFlagqry. " ";
+					pe.Deleted=0 " .$addVCFlagqry. " order";
 		       		//echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
 				}
 				else
@@ -641,7 +641,8 @@
 					echo "<br> INVALID DATES GIVEN ";
 					$fetchRecords=false;
 				}
-                                $companysql .= " order by IPODate desc, companyname";
+                $companysql .= " order by IPODate desc, companyname";
+                //$companysql .= " order by IPODate desc, companyname";
 	 
 	$topNav = 'Deals';
 	include_once('reipoindex_search.php');

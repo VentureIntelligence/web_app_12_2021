@@ -728,8 +728,8 @@
                                         WHERE $datefilter pec.industry = i.industryid   and inc.IncubatorId=pe.IncubatorId 
                                         AND pec.PEcompanyID = pe.IncubateeId  and pe.Deleted=0 ". $comp_industry_id_where .$addVCFlagqry.$addDefunctqry." ".$addDelind;
                     $dateorder="date_month_year desc";
-                    $orderby="companyname";
-                    $ordertype="asc";
+                    $orderby="date_month_year";
+                    $ordertype="desc";
                      //echo "<br>all records" .$companysql;
                 }elseif(count($_POST)==0)    
         {
@@ -756,8 +756,8 @@
                         }
                         $companysql = $companysql . $comp_industry_id_where .$addVCFlagqry.$addDefunctqry." ".$addDelind;
                         $dateorder="date_month_year desc";
-                        $orderby="companyname";
-                        $ordertype="asc";
+                        $orderby="date_month_year";
+                        $ordertype="desc";
                        // echo $companysql;
 
                 }
@@ -795,8 +795,8 @@
                     WHERE $datefilter  pec.industry = i.industryid AND pec.PEcompanyID = pe.IncubateeId and  inc.IncubatorId=pe.IncubatorId
                     AND pe.Deleted =0 ". $comp_industry_id_where .$addVCFlagqry .$addDefunctqry.  " ".$addDelind."  AND ( $tagsval ) "; 
                     $dateorder="date_month_year desc";
-                    $orderby="companyname";
-                    $ordertype="asc";
+                    $orderby="date_month_year";
+                    $ordertype="desc";
                     //echo "<bR>---" .$companysql;
                 }
                 elseif($searchallfield!="")
@@ -841,8 +841,8 @@
                                         WHERE $datefilter pec.industry = i.industryid AND pec.PEcompanyID = pe.IncubateeId and  inc.IncubatorId=pe.IncubatorId
                                         AND pe.Deleted =0 ". $comp_industry_id_where .$addVCFlagqry .$addDefunctqry.  " ".$addDelind."  AND ( $tagsval ) "; 
                         $dateorder="date_month_year desc";
-                        $orderby="companyname";
-                        $ordertype="asc";
+                        $orderby="date_month_year";
+                        $ordertype="desc";
                         //echo "<bR>---" .$companysql;
                 }
                 elseif ($companysearch!="")
@@ -856,8 +856,8 @@
                                         WHERE $datefilter pec.industry = i.industryid AND pec.PEcompanyID = pe.IncubateeId and inc.IncubatorId=pe.IncubatorId
                                         AND pe.Deleted =0 ". $comp_industry_id_where .$addVCFlagqry.$addDefunctqry. " ".$addDelind." AND    pec.PECompanyId IN ($companysearch)   ";
                         $dateorder="date_month_year desc";
-                        $orderby="companyname";
-                        $ordertype="asc";
+                        $orderby="date_month_year";
+                        $ordertype="desc";
                         //  echo "<br>Query for company search";
                        // echo "<br> Company search--" .$companysql;
                 }
@@ -880,8 +880,8 @@
                                         where $datefilter pec.industry = i.industryid and  inc.IncubatorId=pe.IncubatorId and pe.Deleted=0 
                                         and pec.PECompanyId=pe.IncubateeId ". $comp_industry_id_where .$addVCFlagqry.$addDefunctqry. " ".$addDelind." AND ( $investSql ) ";
                     $dateorder="date_month_year desc";
-                    $orderby="companyname";
-                    $ordertype="asc";
+                    $orderby="date_month_year";
+                    $ordertype="desc";
                         //echo "<br> Investor search- ".$companysql;
                 }
                 elseif (($industry!="") || ($status !="")|| ($followonFund !="")|| ($regionId!="") || ($incfirmtype>0) || ($yearafter != "") || ($yearbefore != ""))
@@ -967,8 +967,8 @@
                                     pec.PEcompanyID = pe.IncubateeId and inc.IncubatorId=pe.IncubatorId and  r.RegionId=pec.RegionId
                                     and pe.Deleted=0 ". $comp_industry_id_where .$addVCFlagqry .$addDefunctqry." ".$addDelind ;
                     $dateorder="date_month_year desc";
-                    $orderby="companyname";
-                    $ordertype="asc";
+                    $orderby="date_month_year";
+                    $ordertype="desc";
                     //echo "<br><br>WHERE CLAUSE SQL---" .$companysql;
                 }
                 else
@@ -995,8 +995,8 @@
                         }
                         $companysql = $companysql . $comp_industry_id_where .$addVCFlagqry.$addDefunctqry." ".$addDelind;
                         $dateorder="date_month_year desc";
-                        $orderby="companyname";
-                        $ordertype="asc";
+                        $orderby="date_month_year";
+                        $ordertype="desc";
                         //echo "<br> Invalid input selection ";
                         $fetchRecords=false;
                 }
