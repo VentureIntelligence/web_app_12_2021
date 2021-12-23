@@ -1144,8 +1144,8 @@
 				AND adac.CIAId = cia.CIAID AND adac.PEId = peinv.PEId   and AdvisorType='L'
 				AND ( " . $legalWhereCond . " ) GROUP BY peinv.PEId
 				)";
-                         $orderby="companyname";
-                         $ordertype="asc";
+                         $orderby="dates";
+                         $ordertype="desc";
                          $popup_search = 1;
 			//echo "<Br>ADvisor search--" . $companysql;
 			}
@@ -1172,8 +1172,8 @@
 				AND adac.CIAId = cia.CIAID AND adac.PEId = peinv.PEId   and AdvisorType='T'
 				AND (". $transWhereCond .") GROUP BY peinv.PEId
 				)";
-                         $orderby="companyname";
-                         $ordertype="asc";
+                         $orderby="dates";
+                         $ordertype="desc";
                          $popup_search = 1;
 				//echo "<Br>Trans search--" . $companysql;
 		       }
@@ -1448,8 +1448,8 @@
 					echo "<br> INVALID DATES GIVEN ";
 					$fetchRecords=false;
 				}
-        $orderby="companyname";
-        $ordertype="asc";                        
+        $orderby="dates";
+        $ordertype="desc";                        
         $ajaxcompanysql=  urlencode($companysql);
        if($companysql!="" && $orderby!="" && $ordertype!="")
            $companysql = $companysql . " order by  dates desc,companyname asc "; 
