@@ -223,8 +223,8 @@ class cprofile extends database {
 		if(strlen($order))   $sql.= " ORDER BY ".$order;
 		$sql.= " LIMIT ".(($pageID-1)*$rows).",".($rows);
 		
-	//print $sql;
-		if($type=="name")
+	//print $sql; 
+	if($type=="name")
 			$this->setFetchMode('ASSOC');
 		
 		$this->execute($sql);

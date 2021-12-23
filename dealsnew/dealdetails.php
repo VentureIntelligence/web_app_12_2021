@@ -3049,6 +3049,8 @@ td.angelinvestname span:last-child {
     margin-right: 15px;    height: 252px;
 }
 
+
+
 .linkpecfs{
     float: right;
     font-size: 10pt !important;
@@ -3450,6 +3452,103 @@ color: #000 !important;
 text-decoration: underline;
 }
 
+.finance-cnt table td:last-child, .finance-cnt table thead th:last-child {
+    border-right: 0 !important;
+}
+ 
+.work-masonry-thumb h2 {
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px solid #d4d4d4;
+    color: #c09f74;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.finance-cnt table {
+    border-top: 1px solid #b3b3b3;
+    border-bottom: 1px solid #b3b3b3;
+}
+
+.finance-cnt table td {
+    padding: 5px 10px;
+    text-align: left;
+    font-size: 15px;
+    border-right: 1px solid #b3b3b3;
+}
+
+.company-profile-table td{ vertical-align: top; padding:15px 10px;}
+.company-profile-table td span{ font-weight:bold; display:block; clear:both;}
+
+
+#resultTab1{width:100%} /*#chargesRegistered div,*/ #signatories div{padding: 0px 10px 10px 10px;
+                                margin: 0;
+                                border-bottom: 1px solid #d4d4d4;
+                                color: #c09f74 !important;
+                                font-weight: bold;
+                                font-size: 18px;} .table-header th{ border-bottom:2px solid #d4d4d4; border-right:1px solid #d4d4d4; padding: 10px; }
+
+
+                            /* The Modal (background) */
+                            .modal {
+                                display: none; /* Hidden by default */
+                                position: fixed; /* Stay in place */
+                                z-index: 1; /* Sit on top */
+                                padding-top: 100px; /* Location of the box */
+                                left: 0;
+                                top: 0;
+                                width: 100%; /* Full width */
+                                height: 100%; /* Full height */
+                                overflow: auto; /* Enable scroll if needed */
+                                background-color: rgb(0,0,0); /* Fallback color */
+                                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                            }
+
+                            /* Modal Content */
+                            .modal-content {
+                                background-color: #fefefe;
+                                margin: auto;
+                                padding: 20px;
+                                border: 1px solid #888;
+                                width: 80%;
+                                min-height: 500px;
+                            }
+
+                            /* The Close Button */
+                            .close {
+                                color: #aaaaaa;
+                                float: right;
+                                font-size: 28px;
+                                font-weight: bold;
+                            }
+
+                            .close:hover,
+                            .close:focus {
+                                color: #000;
+                                text-decoration: none;
+                                cursor: pointer;
+                            }
+                            .modal-content #resultsTab2, .modal-content #resultsTab3{ width : 100%;}
+                            .modal-content table tr th{ border-bottom:2px solid #d4d4d4; border-right:1px solid #d4d4d4; }
+                            .modal-content table{ border:1px solid #d4d4d4; }
+                            .modal-content #dirMasterData span{ color: #c09f74 !important; font-weight: bold;}
+                            table{
+                                    border-spacing: 0px;
+                            }
+                            .finance-cnt .imgButton{
+                                    margin: 0;
+                                font-size: 14px;
+                                border: 1px solid #000;
+                                float: left;
+                                background: #a37635;
+                                padding: 3px 5px;
+                                text-transform: uppercase;
+                                color: #fff;
+                                font-weight: bold;
+                            }
+                            #charges b{color:#c0a172;font-size:18px;}
+                            #resultTab1{ border-bottom: none;}
+                             
 </style>
 <div id="container" >
 <table cellpadding="0" cellspacing="0" width="100%">  
@@ -8652,7 +8751,7 @@ td.investname {
 
 
 </style>
-<div class="popup_main" id="popup_main" style="display:none;">
+<div class="popup_main" id="popup_main" style="display:none1;">
 
 <div class="popup_box">
 <!--  <h1 class="popup_header">Financial Details</h1>-->
