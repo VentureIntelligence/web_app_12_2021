@@ -36,7 +36,7 @@
             // $financial_data .='<h2> dewjkrhe </h2> </div>';
             $financial_data .='  <div class="finance-cnt">    
 <div class="work-masonry-thumb" style="margin:5px">
-   <h2 style="background:none !important"> COMPANY PROFILE - '.$_POST['cin'].$CompanyProfile['CIN'].' - </h2>';
+   <h2 style="background:none !important"> COMPANY PROFILE </h2>';
 
    
 
