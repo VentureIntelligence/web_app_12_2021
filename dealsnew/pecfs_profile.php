@@ -1,7 +1,6 @@
 <?php 
-        $queryCompanyProfile ="SELECT *  FROM  cprofile INNER JOIN industries b on(Industry = b.Industry_Id) INNER JOIN countries c on(Country = c.Country_Id) INNER JOIN city d on(City = d.city_id)
-         INNER JOIN state e on(	State = e.state_id) 
-         INNER JOIN sectors f on(Sector  = f.Sector_Id)  WHERE  CIN ='U65999PN2016PTC166384'"; 
+        $queryCompanyProfile ='SELECT *  FROM  cprofile INNER JOIN industries b on(Industry = b.Industry_Id) INNER JOIN countries c on(Country = c.Country_Id) INNER JOIN city d on(City = d.city_id)
+         INNER JOIN state e on(	State = e.state_id) INNER JOIN sectors f on(Sector  = f.Sector_Id)  WHERE  CIN ="'.$_POST['cin'].'"'; 
                                  
         $queryCompanyProfile = mysql_query($queryCompanyProfile);   
         $CompanyProfile=mysql_fetch_array($queryCompanyProfile);
@@ -56,62 +55,113 @@
                    } else { 
                      $financial_data .=' <td></td>';
                    } 
-                   $financial_data .='</tr>
-                     <tr>
-                        <td>Sector<span>Specialty Textiles</span></td>
-                     </tr>
+                   $financial_data .='</tr>';
+                   $financial_data .='<tr>';
+                   if($CompanyProfile[84] != ''){  
+                     $financial_data .='<td>Sector<span>'.$CompanyProfile[84].'</span></td></tr> ';
+                    }  
+                    $financial_data .='<tr>  <td></td>  </tr>  <tr>';
+                   if($CompanyProfile[11] != ''){ 
+                     $financial_data .='<td>Business Description<span>'.$CompanyProfile[11].'</span></td>'; 
+                      } 
+                      $financial_data .='</tr> <tr>  <td></td> </tr>'; 
+
+                      $financial_data .='<tr id="viewlinkedin_loginbtn">';
+                      if($CompanyProfile[35] != ''){  
+                        $financial_data .='<td><a href="'.$CompanyProfile[35].'" target="_blank">View LinkedIn Profile</a></td>';
+                        } 
+                        $financial_data .='</tr>';
+                      $financial_data .=' 
+                  </tbody>
+               </table>
+            </td>
+            <td>
+               <table style="border: 0;">
+                  <tbody>';
+                  if($CompanyProfile[50] != ''){ 
+                     $financial_data .=' <td>CIN Number<span>'.$CompanyProfile[50].'</span></td>';
+                     }
+                    $financial_data .=' </tr>';
+                   
+                    
+                    $financial_data .='<tr>';
+                     if($CompanyProfile[15] != ''){ 
+                        $financial_data .='<td>Year Founded<span>'.$CompanyProfile[15].'</span></td>';
+                     } 
+                    $financial_data .='</tr>';
+                  
+                    $financial_data .='<tr>';
+                          if($CompanyProfile[16] != ''){ 
+                             if($CompanyProfile[16] == 0){  
+                              $financial_data .='<td>Status<span>Both</span></td>';
+                              } else if($CompanyProfile[16] == 1){  
+                                 $financial_data .='<td>Status<span>Listed</span></td>';
+                              } else if($CompanyProfile[16] == 2){  
+                                 $financial_data .='<td>Status<span>Privately held(Ltd)</span></td>';
+                              } else if($CompanyProfile[16] == 3){  
+                                 $financial_data .='<td>Status<span>Partnership</span></td>';
+                              } else if($CompanyProfile[16] == 4){  
+                                 $financial_data .='<td>Status<span>Proprietorship</span></td>';
+                              }  
+                         }  
+                    $financial_data .='</tr>';
+                    $financial_data .='<tr>';
+                   if($CompanyProfile[6] != ''){
+                       if($CompanyProfile[6] == 0){
+                        $financial_data .='<td>Transaction Status<span>PE Backed</span></td>';
+                       } else if($CompanyProfile[6] == 1){
+                        $financial_data .='<td>Transaction Status<span>Non-PE Backed</span></td>';
+                        } else if($CompanyProfile[6] == 2){
+                        //  <!--   <td>Transaction Status<span>Non-Transacted  and Fund Raising</span></td> -->
+                       }
+                   }
+                   $financial_data .='</tr>';
+
+
+
+
+                   $financial_data .='<tr>';
+                   if($CompanyProfile[17] != ''){ 
+                     $financial_data .='<td>Company Status<span>'.$CompanyProfile[17].'</span></td>';
+                     } 
+                     $financial_data .='</tr>';
+                     $financial_data .='<tr>';
+                     $financial_data .='<td></td>';
+                     $financial_data .='</tr><tr>';
+                   if($CompanyProfile[5] != ''){
+                     $financial_data .='<td>Former Name<span>'.$CompanyProfile[5].'</span></td>';
+                    }
+               $financial_data .='</tr>';
+                
+                $financial_data .=' 
                      <tr>
                         <td></td>
                      </tr>
                      <tr>
-                        <td>Business Description<span>A B Cotspin India Limited operates as a manufacturer of textiles</span></td>
-                     </tr>
-                     <tr>
-                        <td></td>
-                     </tr>
-                     <tr id="viewlinkedin_loginbtn">
                      </tr>
                   </tbody>
                </table>
             </td>
             <td>
                <table style="border: 0;">
-                  <tbody>
-                     <tr>
-                        <td>CIN Number<span>U17111PB1997PLC020118</span></td>
-                     </tr>
-                     <tr>
-                        <td>Year Founded<span>1997</span></td>
-                     </tr>
-                     <tr>
-                        <td>Status<span>Privately held(Ltd)</span></td>
-                     </tr>
-                     <tr>
-                        <td>Transaction Status<span>Non-PE Backed</span></td>
-                     </tr>
-                     <tr>
-                        <td>Company Status<span>Active</span></td>
-                     </tr>
-                     <tr>
-                        <td></td>
-                     </tr>
-                     <tr>
-                     </tr>
-                  </tbody>
-               </table>
-            </td>
-            <td>
-               <table style="border: 0;">
-                  <tbody>
-                     <tr>
-                        <td>Contact Name<span>DEEPAK GARG</span></td>
-                     </tr>
-                     <tr>
-                        <td>Designation<span>Managing Director</span></td>
-                     </tr>
-                     <tr>
-                        <td>Auditor Name<span>SHIV JINDAL &amp; CO</span></td>
-                     </tr>
+                  <tbody>';
+
+                  $financial_data .='<tr>';
+                  if($CompanyProfile[37] != ''){
+                  $financial_data .='<td>Contact Name<span>'.$CompanyProfile[37].'</span></td>';
+                  }
+                  $financial_data .='</tr> <tr>';
+                  if($CompanyProfile[38] != ''){
+                     $financial_data .='<td>Designation<span>'.$CompanyProfile[38].'</span></td>'; 
+                     }
+                     $financial_data .='</tr>';
+                     $financial_data .='<tr>';
+                   if($CompanyProfile[56] != ''){
+                     $financial_data .='<td>Auditor Name<span>'.$CompanyProfile[56].'</span></td>';
+                      }
+                      $financial_data .='</tr>';
+
+                      $financial_data .=' 
                      <tr>
                         <td></td>
                      </tr>
@@ -126,26 +176,45 @@
             </td>
             <td>
                <table style="border: 0;">
-                  <tbody>
-                     <tr>
-                        <td>Address<span>176 Homeland Enclave, Bathinda, Bathinda Bathinda PB 151001 IN</span></td>
-                     </tr>
-                     <tr>
-                        <td>City<span>Bathinda</span></td>
-                     </tr>
-                     <tr>
-                        <td>Country<span>India</span></td>
-                     </tr>
-                     <tr>
-                     </tr>
-                     <tr>
-                        <td>Email<span>cs@abcotspin.in</span></td>
-                     </tr>
-                     <tr>
-                        <td> Website
-                           <span><a href="https://www.google.com/search?btnI=1&amp;q=A B Cotspin " target="_blank">Click Here</a></span>
-                        </td>
-                     </tr>
+                  <tbody>';
+
+
+
+                  $financial_data .=' <tr>';
+                  if($CompanyProfile[25] != ''){  
+                     $financial_data .=' <td>Address<span>'.$CompanyProfile[25].'</span></td>';
+                       } 
+                       $financial_data .=' </tr>';
+                       $financial_data .=' <tr>';
+                  if($CompanyProfile[72] != ''){
+                     $financial_data .=' <td>City<span>'.$CompanyProfile[72].'</span></td>'; 
+                      }
+                      $financial_data .=' </tr>';
+                      $financial_data .=' <tr>';
+                  if($CompanyProfile[62] != ''){
+                     $financial_data .=' <td>Country<span>'.$CompanyProfile[62].'</span></td>';
+                      }
+                      $financial_data .=' </tr> <tr>';
+                  if($CompanyProfile[31] != ''){
+                     $financial_data .=' <td>Telephone<span>'.$CompanyProfile[31].'</span></td>';
+                      }
+                      $financial_data .=' </tr><tr>';
+                     
+                     if($CompanyProfile[33] != ''){
+                        $financial_data .=' <td>Email<span>'.$CompanyProfile[33].'</span></td>';
+                          } 
+                          $financial_data .=' </tr>';
+                          $financial_data .=' <tr>';
+                  if($CompanyProfile[34] != ''){
+                     $financial_data .=' <td>Website<span><a href="'.$CompanyProfile['Website_url'].'" target="_blank">'.$CompanyProfile[34].'</a></span></td>';
+                   } else {  
+                     $financial_data .=' <td> Website';
+                     $financial_data .=' <span><a href="https://www.google.com/search?btnI=1&q='.$CompanyProfile[1].'" target="_blank">Click Here</a></span>';
+                     $financial_data .=' </td>'; 
+                   }
+                   $financial_data .=' </tr>';
+
+              $financial_data .=' 
                   </tbody>
                </table>
             </td>
