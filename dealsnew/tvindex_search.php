@@ -1198,8 +1198,16 @@ else
 <div id="header">
 <table cellpadding="0" cellspacing="0">
 <tr>
-<td class="left-box"> <div class="logo-img"> <a href="index.php"><img src="images/logo.gif" width="167" height="45" alt="Venture Intelligence" title="Venture Intelligence" border="0" /></a></div></td>
+<td class="left-box"> <div class="logo-img">
+   <?php if($_SESSION['vconly']==1) { ?> 
+   <a href="index.php?value=1">
+    <?php } else {  ?> 
+      <a href="index.php">
+    <?php } ?>  
 
+     <img src="images/logo.gif" width="167" height="45" 
+   alt="<?php echo $_SESSION['vconly'] ?>"  title="Venture Intelligence" border="0" /></a></div></td>
+    
 
 <td class="right-box">
     <?php include('top_menu.php'); ?>
