@@ -1206,7 +1206,7 @@ else
     <?php } ?>  
 
      <img src="images/logo.gif" width="167" height="45" 
-   alt="<?php echo $_SESSION['vconly'] ?>"  title="Venture Intelligence" border="0" /></a></div></td>
+   alt="Venture Intelligence"  title="Venture Intelligence" border="0" /></a></div></td>
     
 
 <td class="right-box">
