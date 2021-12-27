@@ -225,9 +225,13 @@ include 'checklogin.php';
         
             <?php if($accesserror ==1 && $VCFlagValue !=1 && ($_SESSION['VCcheckflag']==0 || $_SESSION['VCcheckflag']=="") ){
                 header("Location:".BASE_URL."dealsnew/index.php?value=1/");
-              
-                 $_SESSION['VCcheckflag'] = 1;
-            }?>
+                $_SESSION['VCcheckflag'] = 1;
+            }
+            if($_SESSION['vconly']==1 && !isset($_GET['value'])) {
+                header("Location:".BASE_URL."dealsnew/index.php?value=1/");
+            }
+            
+            ?>
         
     
 <?php
