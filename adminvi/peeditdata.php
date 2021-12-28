@@ -135,7 +135,7 @@ function UpdateREDeals()
 
 <body>
  <form name=adddeal enctype="multipart/form-data" onSubmit="return checkFields();"  method=post >
- <input type="text" name="hiddenfile" value="">
+ <input type="hidden" name="hiddenfile" value="">
  <table border=1 align=center cellpadding=0 cellspacing=0 width=50%
 	        style="font-family: Arial; font-size: 8pt; border-collapse: collapse" bordercolor="#111111" cellspacing="0" bgcolor="#F5F0E4">
 <?php
